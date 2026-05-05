@@ -1,0 +1,661 @@
+<div class="section-eyebrow">Domain 2 · 20% of Exam</div>
+<h1 class="section-title">Network Implementation</h1>
+<p class="section-sub">Routing technologies, switching and VLANs, wireless standards, and physical installation. This domain heavily tests STP, VLAN configuration, and 802.11 standards — all frequent PBQ and MCQ topics.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 2.1 — Routing Technologies
+     ═══════════════════════════════════════════ -->
+<div class="obj-section" id="obj-2-1">
+  <div class="section-eyebrow">Objective 2.1</div>
+  <h2>Routing Technologies</h2>
+
+  <h3>Routing Table Components</h3>
+  <p>A router uses its routing table to decide where to send packets. Each route entry contains:</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Description</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Destination Network</strong></td><td>The target network/host</td><td>192.168.10.0/24</td></tr>
+        <tr><td><strong>Subnet Mask / Prefix</strong></td><td>Defines network boundary</td><td>/24 = 255.255.255.0</td></tr>
+        <tr><td><strong>Next Hop</strong></td><td>IP of the next router to send traffic to</td><td>10.0.0.1</td></tr>
+        <tr><td><strong>Exit Interface</strong></td><td>Which interface to use</td><td>GigabitEthernet0/1</td></tr>
+        <tr><td><strong>Metric</strong></td><td>Cost of the route (lower = preferred within same protocol)</td><td>OSPF cost=100, RIP hops=2</td></tr>
+        <tr><td><strong>Administrative Distance (AD)</strong></td><td>Trustworthiness of route source (lower = preferred between protocols)</td><td>OSPF=110, RIP=120</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">AD vs Metric — Critical Distinction</div>
+    <strong>Administrative Distance</strong> selects between routes from different routing protocols (inter-protocol). <strong>Metric</strong> selects the best path within the same routing protocol (intra-protocol). AD is checked first; if tied, metric decides.
+  </div>
+
+  <h3>Administrative Distance Table</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Route Source</th><th>AD Value</th><th>Memory Aid</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Directly Connected</td><td><strong>0</strong></td><td>Can't be more trusted than a cable you're plugged into</td></tr>
+        <tr><td>Static Route</td><td><strong>1</strong></td><td>Admin-configured = very trusted</td></tr>
+        <tr><td>eBGP (external BGP)</td><td><strong>20</strong></td><td>Internet's backbone routing protocol</td></tr>
+        <tr><td>EIGRP (internal)</td><td><strong>90</strong></td><td>Cisco's advanced hybrid protocol</td></tr>
+        <tr><td>OSPF</td><td><strong>110</strong></td><td>"One-Ten for OSPF"</td></tr>
+        <tr><td>IS-IS</td><td><strong>115</strong></td><td>Service provider IGP</td></tr>
+        <tr><td>RIP</td><td><strong>120</strong></td><td>"RIP = 120 = risky old protocol"</td></tr>
+        <tr><td>EIGRP External</td><td><strong>170</strong></td><td>Redistributed routes — less trusted</td></tr>
+        <tr><td>iBGP (internal BGP)</td><td><strong>200</strong></td><td>iBGP = least trusted dynamic route</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Routing Protocol Comparison</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Protocol</th><th>Type</th><th>Algorithm</th><th>Metric</th><th>AD</th><th>Scope</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>RIP v2</strong></td>
+          <td>Distance Vector</td>
+          <td>Bellman-Ford</td>
+          <td>Hop count (max 15)</td>
+          <td>120</td>
+          <td>IGP — small/legacy networks</td>
+        </tr>
+        <tr>
+          <td><strong>OSPF</strong></td>
+          <td>Link State</td>
+          <td>Dijkstra (SPF)</td>
+          <td>Cost (based on bandwidth)</td>
+          <td>110</td>
+          <td>IGP — enterprise standard</td>
+        </tr>
+        <tr>
+          <td><strong>EIGRP</strong></td>
+          <td>Hybrid (Advanced DV)</td>
+          <td>DUAL</td>
+          <td>Bandwidth + delay (+ load, reliability)</td>
+          <td>90</td>
+          <td>IGP — Cisco proprietary</td>
+        </tr>
+        <tr>
+          <td><strong>BGP</strong></td>
+          <td>Path Vector</td>
+          <td>Best Path Selection</td>
+          <td>AS Path + attributes</td>
+          <td>20 (eBGP) / 200 (iBGP)</td>
+          <td>EGP — internet routing</td>
+        </tr>
+        <tr>
+          <td><strong>IS-IS</strong></td>
+          <td>Link State</td>
+          <td>Dijkstra</td>
+          <td>Cost</td>
+          <td>115</td>
+          <td>IGP — service provider</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Static vs Dynamic Routing</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>Static Routes</th><th>Dynamic Routes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Configuration</td><td>Manually configured by admin</td><td>Learned via routing protocol</td></tr>
+        <tr><td>AD</td><td>1 (very trusted)</td><td>Varies by protocol (90–200)</td></tr>
+        <tr><td>Scalability</td><td>Poor (grows with network)</td><td>Good — protocols adapt automatically</td></tr>
+        <tr><td>Failover</td><td>None — if next hop fails, traffic is dropped</td><td>Automatic — protocol finds alternate path</td></tr>
+        <tr><td>Overhead</td><td>None on router CPU</td><td>CPU/bandwidth used for protocol messages</td></tr>
+        <tr><td>Use Cases</td><td>Default routes, small networks, stub networks</td><td>Large networks, redundant topologies</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>OSPF Key Concepts</h3>
+  <ul>
+    <li><strong>Areas:</strong> OSPF uses areas to limit LSA flooding. Area 0 = backbone area. All non-zero areas must connect to Area 0.</li>
+    <li><strong>DR/BDR Election:</strong> On multi-access segments (broadcast networks like Ethernet), routers elect a Designated Router (DR) and Backup DR (BDR) to reduce adjacency count. Highest Router-ID wins (or highest priority).</li>
+    <li><strong>Hello Packets:</strong> Routers send hellos to discover and maintain neighbor relationships. Default: 10s on broadcast, 30s on NBMA.</li>
+    <li><strong>LSA Types:</strong> Type 1 (Router), Type 2 (Network), Type 3 (Summary), Type 5 (External AS), Type 7 (NSSA External).</li>
+    <li><strong>Metric:</strong> OSPF cost = 100 Mbps / link bandwidth. Lower cost = preferred path.</li>
+  </ul>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>Lower AD wins between protocols. Lower metric wins within a protocol. Don't confuse them.</li>
+      <li>eBGP AD = 20. iBGP AD = 200. eBGP is much more trusted. This is commonly tested.</li>
+      <li>RIP max hop count is 15. A route with 16 hops = unreachable. This limits RIP to small networks.</li>
+      <li>OSPF is classless; RIPv1 is classful (doesn't carry subnet masks). RIPv2 is classless.</li>
+      <li>BGP is the internet's core routing protocol — it connects Autonomous Systems (AS).</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 2.1</div>
+    <ul>
+      <li>AD: Connected=0, Static=1, eBGP=20, EIGRP=90, OSPF=110, RIP=120, iBGP=200</li>
+      <li>Lower AD = more trusted = preferred between protocols</li>
+      <li>OSPF = link-state, SPF algorithm, area-based | RIP = distance-vector, hop count max 15</li>
+      <li>BGP = path vector, connects autonomous systems, runs internet routing</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="routing protocols administrative distance and how routers choose paths">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 2.2 — Switching & VLANs
+     ═══════════════════════════════════════════ -->
+<div class="obj-section" id="obj-2-2">
+  <div class="section-eyebrow">Objective 2.2</div>
+  <h2>Switching &amp; VLANs</h2>
+  <p>VLANs and STP are among the most-tested topics in Domain 2. Expect both MCQ and PBQ coverage.</p>
+
+  <h3>Switch MAC Address Table Operation</h3>
+  <ol>
+    <li>Switch receives a frame — records source MAC + incoming port in the MAC address table.</li>
+    <li>Looks up destination MAC in the table.</li>
+    <li>If found: forwards frame out only that port (unicast).</li>
+    <li>If not found: floods frame out all ports except incoming (unknown unicast flood).</li>
+    <li>MAC entries age out after 300 seconds (default) if not refreshed.</li>
+  </ol>
+
+  <h3>VLAN Concepts</h3>
+  <p>VLANs create separate broadcast domains on a single physical switch. Benefits: security isolation, traffic management, reduced broadcast domains.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Port Type</th><th>Description</th><th>Configuration</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Access Port</strong></td>
+          <td>Belongs to one VLAN; carries untagged traffic. Connects to end devices.</td>
+          <td><code>switchport mode access</code><br><code>switchport access vlan 10</code></td>
+        </tr>
+        <tr>
+          <td><strong>Trunk Port</strong></td>
+          <td>Carries traffic for multiple VLANs; uses 802.1Q tags. Connects switches or routers.</td>
+          <td><code>switchport mode trunk</code><br><code>switchport trunk allowed vlan 10,20,30</code></td>
+        </tr>
+        <tr>
+          <td><strong>Native VLAN</strong></td>
+          <td>Traffic sent untagged on a trunk port. Default VLAN 1 on Cisco. Must match on both ends!</td>
+          <td><code>switchport trunk native vlan 99</code></td>
+        </tr>
+        <tr>
+          <td><strong>Voice VLAN</strong></td>
+          <td>Dedicated VLAN for VoIP traffic. QoS and segmentation for phones.</td>
+          <td><code>switchport voice vlan 100</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>802.1Q Trunk Tagging</h3>
+  <p>802.1Q adds a 4-byte tag inside the Ethernet frame after the source MAC address:</p>
+  <ul>
+    <li><strong>TPID:</strong> 0x8100 — identifies this as an 802.1Q frame</li>
+    <li><strong>Priority (PCP):</strong> 3-bit QoS markings (0–7)</li>
+    <li><strong>VLAN ID (VID):</strong> 12-bit VLAN identifier (1–4094)</li>
+  </ul>
+
+  <h3>Inter-VLAN Routing</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Method</th><th>Description</th><th>Pros/Cons</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Router-on-a-Stick</strong></td>
+          <td>Single router connected to switch via trunk link. Subinterfaces per VLAN on router.</td>
+          <td>Simple, cheap. Router becomes bottleneck for inter-VLAN traffic.</td>
+        </tr>
+        <tr>
+          <td><strong>Layer 3 Switch (SVI)</strong></td>
+          <td>Switch does inter-VLAN routing via Switched Virtual Interfaces (SVIs). No separate router needed.</td>
+          <td>Higher performance, less latency. Switch must support L3 routing.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Spanning Tree Protocol (STP / 802.1D)</h3>
+  <p>STP prevents Layer 2 loops in redundant switched networks. Without STP, broadcast storms and MAC table instability result.</p>
+
+  <h4>STP Port States (802.1D)</h4>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>State</th><th>Duration</th><th>Sends BPDUs</th><th>Learns MACs</th><th>Forwards Data</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Blocking</strong></td><td>20 seconds (Max Age)</td><td>No (listens)</td><td>No</td><td>No</td></tr>
+        <tr><td><strong>Listening</strong></td><td>15 seconds (Forward Delay)</td><td>Yes</td><td>No</td><td>No</td></tr>
+        <tr><td><strong>Learning</strong></td><td>15 seconds (Forward Delay)</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+        <tr><td><strong>Forwarding</strong></td><td>Ongoing</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td><strong>Disabled</strong></td><td>Until admin enables</td><td>No</td><td>No</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">STP Convergence Time</div>
+    802.1D STP takes <strong>30–50 seconds</strong> to converge after a topology change (20s Max Age + 15s Listening + 15s Learning). This is why RSTP was developed.
+  </div>
+
+  <h4>STP Port Roles</h4>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Role</th><th>Description</th><th>State</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Root Bridge</strong></td><td>The switch with the lowest Bridge ID (priority + MAC). All other switches calculate paths to root.</td><td>All ports forwarding</td></tr>
+        <tr><td><strong>Root Port</strong></td><td>Each non-root switch has exactly one root port — the port with the lowest cost path to the root bridge.</td><td>Forwarding</td></tr>
+        <tr><td><strong>Designated Port</strong></td><td>On each segment, the port closest to root that forwards traffic for that segment.</td><td>Forwarding</td></tr>
+        <tr><td><strong>Non-Designated Port</strong></td><td>All other ports — put into blocking state to prevent loops.</td><td>Blocking</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>RSTP (802.1w) — Rapid Spanning Tree</h4>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>STP (802.1D)</th><th>RSTP (802.1w)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Convergence</td><td>30–50 seconds</td><td>&lt;1 second (typical)</td></tr>
+        <tr><td>Port States</td><td>5 states (Blocking, Listening, Learning, Forwarding, Disabled)</td><td>3 states (Discarding, Learning, Forwarding)</td></tr>
+        <tr><td>Port Roles</td><td>Root, Designated, Non-Designated</td><td>Root, Designated, Alternate, Backup</td></tr>
+        <tr><td>BPDU</td><td>Sent every 2 seconds; relies on timers</td><td>Active negotiation; faster convergence mechanism</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>STP Security Features</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>Purpose</th><th>Applied Where</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>PortFast</strong></td><td>Skips Listening/Learning states — port goes directly to Forwarding. Only for access ports (no switches connected).</td><td>Access ports to end devices</td></tr>
+        <tr><td><strong>BPDU Guard</strong></td><td>Shuts down port if a BPDU is received — prevents rogue switches from altering STP topology.</td><td>PortFast-enabled ports</td></tr>
+        <tr><td><strong>Root Guard</strong></td><td>Prevents a connected switch from becoming root bridge — port goes to root-inconsistent state if it receives a superior BPDU.</td><td>Ports facing non-root switches</td></tr>
+        <tr><td><strong>Loop Guard</strong></td><td>Prevents a port from transitioning to forwarding if BPDUs stop arriving — catches unidirectional link failures.</td><td>Non-designated ports</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>EtherChannel / LACP</h3>
+  <p>EtherChannel bundles multiple physical links into one logical link — more bandwidth and redundancy without STP blocking the redundant links (STP treats the bundle as one link).</p>
+  <ul>
+    <li><strong>LACP (802.3ad)</strong> — Open standard; preferred. Dynamically negotiates EtherChannel.</li>
+    <li><strong>PAgP</strong> — Cisco proprietary EtherChannel negotiation.</li>
+    <li><strong>Static (mode on)</strong> — Forces EtherChannel without negotiation.</li>
+  </ul>
+
+  <div class="pbq-prep">
+    <div class="pbq-prep-title">🎯 PBQ Prep — VLAN &amp; Network Discovery</div>
+    <p>Common PBQ: "A user in VLAN 20 can't reach the server in VLAN 30. Using the switch CLI, diagnose the problem."</p>
+    <p><strong>Key show commands to know:</strong></p>
+    <ul>
+      <li><code>show mac address-table</code> — Maps MAC addresses to switch ports</li>
+      <li><code>show arp</code> — Maps IP addresses to MAC addresses</li>
+      <li><code>show vlan brief</code> — Shows VLAN assignments per port</li>
+      <li><code>show interfaces trunk</code> — Shows trunk ports and allowed VLANs</li>
+      <li><code>show ip interface brief</code> — Shows L3 interface status and IPs</li>
+      <li><code>show spanning-tree</code> — Shows STP topology, root bridge, port states/roles</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>STP <em>states</em> ≠ STP <em>roles</em>. States = what the port is doing (Forwarding/Blocking). Roles = why it was chosen (Root/Designated).</li>
+      <li>Native VLAN <strong>must match</strong> on both ends of a trunk link. Mismatch = frames go to wrong VLAN (and this is a VLAN hopping attack vector).</li>
+      <li>PortFast should ONLY be on access ports. Enabling on a trunk port = potential STP loop.</li>
+      <li>RSTP replaces Blocking + Listening + Disabled with a single "Discarding" state — question might test which RSTP states exist.</li>
+      <li>Root bridge = switch with <strong>lowest</strong> Bridge ID (bridge priority + MAC). Default priority = 32768; lower wins.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 2.2</div>
+    <ul>
+      <li>Access port = one VLAN, untagged | Trunk port = multiple VLANs, 802.1Q tagged</li>
+      <li>Native VLAN = untagged traffic on trunk; must match both ends</li>
+      <li>STP: Blocking → Listening → Learning → Forwarding (30–50s total)</li>
+      <li>RSTP: Discarding → Learning → Forwarding (&lt;1s)</li>
+      <li>Root bridge = lowest Bridge ID | Root port = lowest cost path to root</li>
+      <li>PortFast + BPDU Guard = safe access port config; BPDU Guard shuts port if switch connects</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="Spanning Tree Protocol port states and roles">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 2.3 — Wireless Standards
+     ═══════════════════════════════════════════ -->
+<div class="obj-section" id="obj-2-3">
+  <div class="section-eyebrow">Objective 2.3</div>
+  <h2>Wireless Standards</h2>
+
+  <h3>802.11 Standards</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Standard</th><th>Frequency</th><th>Max Speed</th><th>Technology</th><th>Key Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>802.11a</strong></td><td>5 GHz only</td><td>54 Mbps</td><td>OFDM</td>
+          <td>1999. 5 GHz means less interference but shorter range. Not compatible with b/g.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11b</strong></td><td>2.4 GHz only</td><td>11 Mbps</td><td>DSSS</td>
+          <td>1999. Slow, very susceptible to interference (microwaves, Bluetooth). Long range.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11g</strong></td><td>2.4 GHz only</td><td>54 Mbps</td><td>OFDM</td>
+          <td>2003. Faster than b, compatible with b, but still 2.4 GHz interference problems.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11n</strong> (Wi-Fi 4)</td><td>2.4 GHz <em>and</em> 5 GHz</td><td>600 Mbps</td><td>MIMO, OFDM</td>
+          <td>2009. First dual-band standard. MIMO (multiple antennas). 40 MHz channels.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11ac</strong> (Wi-Fi 5)</td><td>5 GHz only</td><td>6.9 Gbps</td><td>MU-MIMO, OFDM, wider channels</td>
+          <td>2013. 5 GHz only. MU-MIMO (multi-user). Up to 160 MHz channels. Beamforming.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11ax</strong> (Wi-Fi 6/6E)</td><td>2.4, 5, and 6 GHz</td><td>9.6 Gbps</td><td>MU-MIMO, OFDMA, BSS Coloring</td>
+          <td>2019/2021. OFDMA for efficiency. BSS coloring reduces interference. Wi-Fi 6E adds 6 GHz band.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11be</strong> (Wi-Fi 7)</td><td>2.4, 5, 6 GHz</td><td>~46 Gbps</td><td>MLO, 320 MHz channels</td>
+          <td>2024. Multi-Link Operation. Latest standard.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Wireless Security Standards</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Standard</th><th>Encryption</th><th>Auth</th><th>Vulnerability</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>WEP</strong> (1999)</td><td>RC4, 40/104-bit</td><td>Open/Shared</td>
+          <td>Broken — crackable in minutes. Never use.</td>
+        </tr>
+        <tr>
+          <td><strong>WPA</strong> (2003)</td><td>TKIP (RC4-based)</td><td>PSK or Enterprise (802.1X)</td>
+          <td>TKIP vulnerable. Improved over WEP but still weak.</td>
+        </tr>
+        <tr>
+          <td><strong>WPA2</strong> (2004)</td><td>CCMP / AES-128</td><td>PSK or Enterprise (802.1X)</td>
+          <td>KRACK attack (2017) against 4-way handshake. Still widely deployed.</td>
+        </tr>
+        <tr>
+          <td><strong>WPA3</strong> (2018)</td><td>CCMP-256 / AES, SAE</td><td>SAE (replaces PSK), Enterprise (192-bit)</td>
+          <td>SAE prevents offline dictionary attacks. Dragonfly handshake. No more KRACK vulnerability.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">WPA3 Key Improvement</div>
+    WPA3 uses <strong>SAE (Simultaneous Authentication of Equals)</strong> instead of the WPA2 PSK 4-way handshake. SAE prevents offline dictionary attacks — even if someone captures the handshake, they can't crack the password offline.
+  </div>
+
+  <h3>Wireless Channels</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Band</th><th>Total Channels</th><th>Non-Overlapping</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2.4 GHz</td><td>11 (US) / 13 (EU)</td><td>3 (channels 1, 6, 11)</td>
+          <td>Each channel is 22 MHz wide; channels 1, 6, 11 don't overlap. Use these in high-density deployments.</td>
+        </tr>
+        <tr>
+          <td>5 GHz</td><td>25+ (US varies)</td><td>Many (each 20 MHz wide)</td>
+          <td>More non-overlapping channels. Short range vs 2.4 GHz. DFS channels avoid radar interference.</td>
+        </tr>
+        <tr>
+          <td>6 GHz</td><td>59 (Wi-Fi 6E)</td><td>Many</td>
+          <td>Wi-Fi 6E only. Clean spectrum — no legacy devices. Shortest range.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Wireless Architecture Types</h3>
+  <ul>
+    <li><strong>Standalone AP (Fat AP):</strong> Self-contained — manages its own SSID, security, and radio. Simple deployment, no controller needed. Difficult to manage at scale.</li>
+    <li><strong>Controller-Based (Thin AP):</strong> APs are "thin" — just radios. All management, SSID config, and roaming handled by a central Wireless LAN Controller (WLC). Best for enterprise.</li>
+    <li><strong>Cloud-Managed:</strong> APs managed from cloud portal (e.g., Cisco Meraki, Ubiquiti UniFi). Zero-touch provisioning, centralized visibility.</li>
+  </ul>
+
+  <h3>Key Wireless Terms</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Term</th><th>Definition</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>SSID</strong></td><td>Service Set Identifier — the name of the wireless network. Can be broadcast (visible) or hidden (not broadcast in beacon frames, but still discoverable).</td></tr>
+        <tr><td><strong>BSSID</strong></td><td>Basic SSID — MAC address of a single AP. Identifies a specific radio/AP.</td></tr>
+        <tr><td><strong>BSS</strong></td><td>Basic Service Set — single AP with associated clients.</td></tr>
+        <tr><td><strong>ESS</strong></td><td>Extended Service Set — multiple APs sharing same SSID for seamless roaming.</td></tr>
+        <tr><td><strong>MIMO</strong></td><td>Multiple Input Multiple Output — multiple antennas for simultaneous streams. 802.11n introduced it.</td></tr>
+        <tr><td><strong>MU-MIMO</strong></td><td>Multi-User MIMO — AP transmits to multiple clients simultaneously. 802.11ac (downlink), 802.11ax (uplink + downlink).</td></tr>
+        <tr><td><strong>OFDMA</strong></td><td>Orthogonal Frequency Division Multiple Access — divides channel into subcarriers for multiple clients simultaneously. Wi-Fi 6/6E.</td></tr>
+        <tr><td><strong>Hidden Node</strong></td><td>Two clients that can't hear each other but both try to transmit to same AP — causes collisions. RTS/CTS solves this.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Flashcard Deck for 802.11 -->
+  <h3>Flashcard Drill: 802.11 Standards</h3>
+  <div class="flashcard-deck">
+    <div class="deck-nav">
+      <button class="prev-btn">← Prev</button>
+      <span class="card-counter">1 / 6</span>
+      <button class="next-btn">Next →</button>
+    </div>
+    <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">802.11n (Wi-Fi 4)<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>2.4 GHz AND 5 GHz</strong> — dual-band<br>Up to 600 Mbps | MIMO | OFDM<br>First dual-band standard (2009)</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">802.11ac (Wi-Fi 5)<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>5 GHz ONLY</strong><br>Up to 6.9 Gbps | MU-MIMO | 160 MHz channels<br>Beamforming | 2013</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">802.11ax (Wi-Fi 6)<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>2.4 + 5 GHz</strong> (6E adds 6 GHz)<br>Up to 9.6 Gbps | OFDMA | BSS Coloring<br>Targets dense environments</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">802.11a<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>5 GHz ONLY</strong> — 54 Mbps<br>OFDM | 1999 | Short range<br>Not compatible with 802.11b/g</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">WPA3<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>SAE (Simultaneous Authentication of Equals)</strong><br>Prevents offline dictionary attacks<br>CCMP-256 encryption | 2018</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">2.4 GHz Non-Overlapping Channels<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Channels 1, 6, and 11</strong><br>Only 3 non-overlapping channels in 2.4 GHz band (US)<br>5 GHz has many more non-overlapping channels</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>802.11a AND 802.11ac are BOTH 5 GHz only. 802.11a is ancient (1999); 802.11ac is modern (2013).</li>
+      <li>802.11n was the FIRST dual-band standard (2.4 + 5 GHz). Don't confuse with 802.11a (5G only, 1999).</li>
+      <li>2.4 GHz has only 3 non-overlapping channels (1, 6, 11). This causes interference issues in dense areas.</li>
+      <li>WEP is completely broken. Even WPA (TKIP) is weak. WPA2 (AES/CCMP) minimum for modern networks.</li>
+      <li>SAE is a WPA3 feature that prevents offline dictionary attacks against captured handshakes.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 2.3</div>
+    <ul>
+      <li>802.11a = 5GHz/54Mbps (1999) | 802.11b = 2.4GHz/11Mbps | 802.11g = 2.4GHz/54Mbps</li>
+      <li>802.11n = first dual-band (2.4+5), MIMO | 802.11ac = 5GHz only, MU-MIMO</li>
+      <li>802.11ax (Wi-Fi 6) = OFDMA, dual-band; Wi-Fi 6E adds 6 GHz</li>
+      <li>2.4GHz non-overlapping: 1, 6, 11 (only 3)</li>
+      <li>WPA3 SAE = no offline dictionary attacks | WPA2 AES/CCMP = current minimum standard</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="802.11 wireless standards and Wi-Fi frequencies">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 2.4 — Physical Network Installation
+     ═══════════════════════════════════════════ -->
+<div class="obj-section" id="obj-2-4">
+  <div class="section-eyebrow">Objective 2.4</div>
+  <h2>Physical Network Installation</h2>
+
+  <h3>Structured Cabling Components</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Component</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>MDF</strong> (Main Distribution Frame)</td><td>Central point of a structured cabling system. Where ISP connection enters and connects to core switches.</td></tr>
+        <tr><td><strong>IDF</strong> (Intermediate Distribution Frame)</td><td>Connects floor-level access switches to the MDF via backbone cabling. One per floor or area.</td></tr>
+        <tr><td><strong>Patch Panel</strong></td><td>Passive device that organizes and routes cable connections. Front = patch cords to switches; back = runs to wall jacks.</td></tr>
+        <tr><td><strong>66 Block</strong></td><td>Older punchdown block — used for analog voice (telephone). Not recommended for Cat 5e+ data.</td></tr>
+        <tr><td><strong>110 Block</strong></td><td>Modern punchdown block — supports Cat 5e and above for data. Preferred for structured cabling.</td></tr>
+        <tr><td><strong>Cable Tray</strong></td><td>Support structure that runs cable horizontally (horizontal cabling) in ceilings or under raised floors.</td></tr>
+        <tr><td><strong>Conduit</strong></td><td>Protective tube for cables — EMI shielding, physical protection, and NEC compliance in exposed areas.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Power over Ethernet (PoE) Standards</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Standard</th><th>Power Delivered</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>802.3af</strong> (PoE)</td><td>15.4 W (12.95 W at device)</td><td>IP phones, basic WAPs, cameras</td></tr>
+        <tr><td><strong>802.3at</strong> (PoE+)</td><td>30 W (25.5 W at device)</td><td>Higher-powered WAPs, PTZ cameras, thin clients</td></tr>
+        <tr><td><strong>802.3bt</strong> (PoE++ / 4PPoE)</td><td>60–90 W (Type 3: 60W, Type 4: 90W)</td><td>Video conferencing equipment, laptops, small UPS</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">PoE Budget</div>
+    Switches have a <strong>total PoE budget</strong> (e.g., 370W for a 24-port switch). If you add too many high-wattage devices, you exhaust the budget and ports stop powering. Always check the PSE (Power Sourcing Equipment) budget before deploying.
+  </div>
+
+  <h3>Cable Testing Tools</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Tool</th><th>What It Tests</th><th>OSI Layer</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Cable Tester (Continuity)</strong></td><td>Verifies each wire is connected correctly end-to-end. Detects opens, shorts, reversed pairs, crossed pairs.</td><td>L1</td></tr>
+        <tr><td><strong>TDR</strong> (Time-Domain Reflectometer)</td><td>Sends pulse and measures reflection — finds location of breaks or faults in copper cable.</td><td>L1</td></tr>
+        <tr><td><strong>OTDR</strong> (Optical TDR)</td><td>Same as TDR but for fiber optic — identifies breaks, splices, connectors and their distance.</td><td>L1</td></tr>
+        <tr><td><strong>Optical Power Meter / Light Meter</strong></td><td>Measures optical signal power (dBm) — determines if fiber has sufficient signal level.</td><td>L1</td></tr>
+        <tr><td><strong>Multimeter</strong></td><td>Measures voltage, current, resistance — tests power at outlets, checks for shorts.</td><td>L1</td></tr>
+        <tr><td><strong>Toner Probe / Fox &amp; Hound</strong></td><td>Injects tone on one end; probe detects it to trace cable path through walls or patch panels.</td><td>L1</td></tr>
+        <tr><td><strong>Punchdown Tool</strong></td><td>Terminates wires into a 110 or 66 block or keystone jack.</td><td>L1 (installation)</td></tr>
+        <tr><td><strong>Wire Crimper</strong></td><td>Attaches RJ45 connectors to cable ends.</td><td>L1 (installation)</td></tr>
+        <tr><td><strong>Visual Fault Locator (VFL)</strong></td><td>Injects visible red laser into fiber — visible glow at breaks, bad connectors, or bends.</td><td>L1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common Interface Error Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Error</th><th>Symptom</th><th>Cause</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Late Collisions</strong></td><td>Counted on a port; degrade performance</td><td><strong>Duplex mismatch</strong> — one side full-duplex, other half-duplex</td></tr>
+        <tr><td><strong>Runts</strong></td><td>Frames shorter than 64 bytes</td><td>Collisions (half-duplex), speed mismatch, corrupted frames</td></tr>
+        <tr><td><strong>Giants</strong></td><td>Frames longer than 1518 bytes (without jumbo frames)</td><td>Misconfigured MTU, jumbo frames on non-jumbo switch, jabber condition</td></tr>
+        <tr><td><strong>CRC Errors</strong></td><td>Frame has a bad checksum</td><td>Physical layer issues: bad cable, interference, connector issue, duplex mismatch</td></tr>
+        <tr><td><strong>Input/Output Errors</strong></td><td>General frame errors</td><td>Physical medium issues</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li><strong>Late collisions = duplex mismatch</strong>. If you see late collisions, check duplex settings on both sides of the link.</li>
+      <li>OTDR is for <strong>fiber</strong>. TDR is for <strong>copper</strong>. Don't mix them up.</li>
+      <li>66 blocks are for <strong>voice/analog</strong>. 110 blocks support data (Cat 5e+).</li>
+      <li>802.3af = 15.4W (older PoE). 802.3at = 30W (PoE+). 802.3bt = 90W (PoE++). Know all three.</li>
+      <li>PoE power budget must be calculated for the entire switch — not just per-port.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 2.4</div>
+    <ul>
+      <li>MDF = main distribution point | IDF = per-floor access point</li>
+      <li>66 block = voice | 110 block = data (Cat 5e+)</li>
+      <li>PoE: 802.3af=15.4W | 802.3at=30W | 802.3bt=90W</li>
+      <li>TDR = copper fault location | OTDR = fiber fault location</li>
+      <li>Late collisions = duplex mismatch | Runts = collision/speed issue | Giants = MTU misconfiguration</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="PoE standards and structured cabling components">✦ Explain Differently</button>
+  </div>
+</div>
