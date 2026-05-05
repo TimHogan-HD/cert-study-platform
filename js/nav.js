@@ -51,6 +51,16 @@ function initFragmentComponents() {
     header.addEventListener('click', header._toggleFn);
   });
 
+  /* Inline nav links (inside content fragments, e.g. study plans) */
+  document.querySelectorAll('.inline-nav[data-path]').forEach(el => {
+    el.removeEventListener('click', el._navFn);
+    el._navFn = e => {
+      e.preventDefault();
+      loadFragment(el.dataset.path, el.dataset.anchor || null);
+    };
+    el.addEventListener('click', el._navFn);
+  });
+
   /* Toggle groups */
   document.querySelectorAll('.toggle-group').forEach(group => {
     group.querySelectorAll('.toggle-btn').forEach(btn => {

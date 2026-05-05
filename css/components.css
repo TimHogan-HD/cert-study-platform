@@ -691,6 +691,119 @@ td code { font-size: 0.8rem; }
   color: #4ade80;
 }
 
+/* ---------- Steps List (5.1 Troubleshooting) ------------- */
+.steps-list { display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0; }
+.step-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  transition: border-color 0.15s;
+}
+.step-item:hover { border-color: var(--blue-border); }
+.step-item .step-num {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  background: var(--blue-bg);
+  border: 1px solid var(--blue-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+.step-body { flex: 1; font-size: 0.88rem; line-height: 1.55; }
+
+/* ---------- Study Plan Pages ------------------------------ */
+.plan-header { margin-bottom: 1rem; }
+.plan-header h2 { margin-top: 0.5rem; }
+.plan-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
+.plan-weeks { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+.plan-week {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 1rem 1.1rem;
+  font-size: 0.875rem;
+}
+.plan-week ul { margin: 0.5rem 0 0 1rem; padding: 0; }
+.plan-week li { margin-bottom: 0.3rem; }
+.plan-week-header {
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Domain color coding for study plans */
+.domain1-color { background: color-mix(in srgb, var(--blue-bg) 50%, var(--surface2)); border-color: var(--blue-border); }
+.domain1-color .plan-week-header { color: var(--blue); }
+.domain2-color { background: color-mix(in srgb, var(--teal-bg) 50%, var(--surface2)); border-color: var(--teal-border); }
+.domain2-color .plan-week-header { color: var(--teal); }
+.domain3-color { background: color-mix(in srgb, var(--green-bg) 50%, var(--surface2)); border-color: var(--green-border); }
+.domain3-color .plan-week-header { color: var(--green); }
+.domain4-color { background: color-mix(in srgb, var(--amber-bg) 50%, var(--surface2)); border-color: var(--amber-border); }
+.domain4-color .plan-week-header { color: var(--amber); }
+.domain5-color { background: color-mix(in srgb, var(--red-bg) 60%, var(--surface2)); border-color: var(--red-border); }
+.domain5-color .plan-week-header { color: var(--red); }
+.exam-prep-color { background: color-mix(in srgb, var(--purple-bg) 50%, var(--surface2)); border-color: var(--purple-border); }
+.exam-prep-color .plan-week-header { color: var(--purple); }
+
+/* Inline nav links inside plan items */
+.inline-nav {
+  color: var(--blue);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.inline-nav:hover { text-decoration: underline; }
+
+/* Toggle container for study plans tab switcher */
+.toggle-container { margin-top: 1rem; }
+
+/* ---------- Coming Soon Pages ----------------------------- */
+.coming-soon-page { padding: 2rem 0; }
+.coming-soon-header { margin-bottom: 2rem; }
+.coming-soon-banner {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--surface2);
+  border: 1px dashed var(--border2);
+  border-radius: var(--radius-lg);
+  margin: 1.5rem 0 2rem;
+}
+.coming-soon-lock { font-size: 3rem; margin-bottom: 0.75rem; }
+.coming-soon-banner h2 { margin: 0 0 0.5rem; font-size: 1.4rem; }
+.coming-soon-banner p { color: var(--muted); margin: 0; }
+
+/* Domain bars for stub pages */
+.domain-bars { margin: 1rem 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.domain-bar-row { display: flex; align-items: center; gap: 0.75rem; }
+.domain-bar-label { width: 200px; flex-shrink: 0; font-size: 0.83rem; color: var(--muted); }
+.domain-bar-track { flex: 1; background: var(--surface3); border-radius: 4px; height: 24px; overflow: hidden; }
+.domain-bar-fill {
+  height: 100%;
+  background: var(--blue-bg2);
+  border-right: 2px solid var(--blue);
+  display: flex;
+  align-items: center;
+  padding-left: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--blue);
+  min-width: 40px;
+  transition: width 0.6s ease;
+}
+.domain-bar-high { background: color-mix(in srgb, var(--amber-bg) 60%, var(--surface3)); border-color: var(--amber); color: var(--amber); }
+.domain-bar-highest { background: color-mix(in srgb, var(--red-bg) 80%, var(--surface3)); border-color: var(--red); color: var(--red); }
+
 /* ---------- Responsive adjustments ----------------------- */
 @media (max-width: 600px) {
   .match-columns { grid-template-columns: 1fr; }
