@@ -108,8 +108,7 @@ function calculateSubnet(ip, prefix) {
 
 function minPrefixForHosts(hosts) {
   for (let prefix = 30; prefix >= 1; prefix--) {
-    if (Math.pow(2, 32 - prefix) - 2 >= hosts) continue;
-    return prefix + 1;
+    if (Math.pow(2, 32 - prefix) - 2 >= hosts) return prefix;
   }
   return 1;
 }
