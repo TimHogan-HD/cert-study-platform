@@ -34,6 +34,10 @@
   --teal-border: rgba(20,184,166,0.25);
   --radius: 8px;
   --radius-lg: 12px;
+
+  /* Content width control: keep readable measure on wide screens,
+     but still allow components to be fully responsive within it. */
+  --content-max: 1120px;
 }
 
 [data-theme="light"] {
@@ -218,10 +222,18 @@ p { margin-bottom: 0.85rem; }
 .sidebar::-webkit-scrollbar { width: 5px; }
 .sidebar::-webkit-scrollbar-track { background: transparent; }
 .sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* Main content should not "stretch-left" on wide screens.
+   Keep a readable max width, centered, while still filling small screens. */
 .main {
   flex: 1;
   padding: 2rem 2.5rem;
   min-width: 0;
+}
+.main > #content-area {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
 }
 
 /* ---------- Sidebar nav ------------------------------------ */
