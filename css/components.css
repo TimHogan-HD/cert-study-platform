@@ -1381,3 +1381,141 @@ td code { font-size: 0.8rem; }
 .ip-anatomy-legend span::before { content:''; width:10px; height:10px; border-radius:2px; display:inline-block; }
 .ip-anatomy-legend .net-legend::before  { background: rgba(13,110,253,0.5); }
 .ip-anatomy-legend .host-legend::before { background: rgba(255,166,87,0.5); }
+
+/* ── AZ-900 Cram Day Tabs ────────────────────────────────────── */
+.cram-day-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 1rem 0 0; }
+.cram-day-btn {
+  padding: 0.45rem 1rem;
+  font-size: 0.82rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cram-day-btn:hover { background: var(--surface2); color: var(--text); }
+.cram-day-btn.active { background: var(--blue-bg); border-color: var(--blue-border); color: var(--blue); font-weight: 600; }
+.cram-day-panel { display: none; padding-top: 1.5rem; }
+.cram-day-panel.active { display: block; }
+.cram-day-group { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem 1.5rem; margin-bottom: 2rem; }
+
+/* ── Comparison Table (AZ-900 style) ─────────────────────────── */
+.cmp-wrap { overflow-x: auto; margin-bottom: 0.75rem; }
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.cmp-table th {
+  background: var(--surface2);
+  padding: 0.55rem 0.875rem;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border2);
+}
+.cmp-table td {
+  padding: 0.6rem 0.875rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table tr:hover td { background: var(--surface2); }
+.cmp-table .row-label { font-weight: 600; color: var(--text); white-space: nowrap; }
+.cmp-table .yes  { color: var(--green); font-weight: 600; }
+.cmp-table .no   { color: var(--red); font-weight: 600; }
+.cmp-table .partial { color: var(--amber); font-weight: 600; }
+
+/* ── Exam Trap ───────────────────────────────────────────────── */
+.trap { background: var(--red-bg); border: 1px solid var(--red-border); border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 0.5rem; }
+.trap-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); margin-bottom: 0.2rem; display: block; }
+.trap-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.15rem; }
+.trap-body  { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+/* ── Fact Rows ───────────────────────────────────────────────── */
+.fact-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0.55rem 0.875rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 4px; font-size: 0.82rem; }
+.fact-key { color: var(--muted); flex: 1; }
+.fact-val { font-weight: 600; white-space: nowrap; }
+
+/* ── Resource Hierarchy Visual ───────────────────────────────── */
+.hierarchy { display: flex; flex-direction: column; gap: 6px; }
+.hier-level { display: flex; align-items: center; gap: 12px; }
+.hier-indent { width: 20px; height: 2px; background: var(--border2); flex-shrink: 0; }
+.hier-box { flex: 1; padding: 0.55rem 0.875rem; border-radius: var(--radius); border: 1px solid var(--border); font-size: 0.82rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.hb-name { font-weight: 600; }
+.hb-desc { font-size: 0.75rem; color: var(--muted); }
+.hier-l0 { background: var(--purple-bg); border-color: var(--purple-border); }
+.hier-l1 { background: var(--blue-bg); border-color: var(--blue-border); }
+.hier-l2 { background: var(--teal-bg); border-color: var(--teal-border); }
+.hier-l3 { background: var(--surface2); border-color: var(--border2); }
+
+/* ── Defense-in-Depth Layers ─────────────────────────────────── */
+.did-layers { display: flex; flex-direction: column; gap: 4px; }
+.did-layer { padding: 0.5rem 1rem; border-radius: var(--radius); font-size: 0.82rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.did-layer .dl-name { font-weight: 600; }
+.did-layer .dl-note { font-size: 0.75rem; color: var(--muted); }
+.did-phys  { background: rgba(239, 68,  68,  0.12); border: 1px solid rgba(239, 68,  68,  0.25); }
+.did-id    { background: rgba(168, 85,  247, 0.10); border: 1px solid rgba(168, 85,  247, 0.25); }
+.did-perim { background: rgba(59,  130, 246, 0.10); border: 1px solid rgba(59,  130, 246, 0.25); }
+.did-net   { background: rgba(20,  184, 166, 0.10); border: 1px solid rgba(20,  184, 166, 0.25); }
+.did-comp  { background: rgba(34,  197, 94,  0.08); border: 1px solid rgba(34,  197, 94,  0.20); }
+.did-app   { background: rgba(245, 158, 11,  0.08); border: 1px solid rgba(245, 158, 11,  0.20); }
+.did-data  { background: rgba(136, 136, 136, 0.08); border: 1px solid rgba(136, 136, 136, 0.20); }
+
+/* ── Blob Tier Bar Chart ─────────────────────────────────────── */
+.tier-chart { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.tier-row { display: flex; align-items: center; gap: 10px; }
+.tier-label { font-size: 0.75rem; font-weight: 600; width: 52px; text-align: right; flex-shrink: 0; }
+.tier-label-hot  { color: var(--blue); }
+.tier-label-cool { color: var(--teal); }
+.tier-label-cold { color: var(--amber); }
+.tier-label-arch { color: var(--muted); }
+.tier-bar-wrap { flex: 1; background: var(--surface2); border-radius: 4px; height: 22px; overflow: hidden; }
+.tier-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 0.7rem; font-weight: 500; color: rgba(255,255,255,0.85); }
+.tier-bar-hot  { background: rgba(59,  130, 246, 0.50); }
+.tier-bar-cool { background: rgba(20,  184, 166, 0.50); }
+.tier-bar-cold { background: rgba(245, 158, 11,  0.45); }
+.tier-bar-arch { background: rgba(136, 136, 136, 0.35); }
+.tier-note { font-size: 0.7rem; color: var(--muted); width: 130px; flex-shrink: 0; }
+
+/* ── Day panel utility text ──────────────────────────────────── */
+.day-intro      { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.25rem; }
+.day-note       { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+.day-note strong { color: var(--text); }
+.day-tip        { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; }
+.day-list-intro { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.75rem; }
+
+/* ── Decision Cards ──────────────────────────────────────────── */
+.decision-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+.d-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 0.875rem; }
+.d-card-trigger { font-size: 0.75rem; color: var(--muted); margin-bottom: 6px; font-style: italic; }
+.d-card-answer { font-size: 0.88rem; font-weight: 600; }
+.d-card-note { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+/* ── Pre-exam Checklist ──────────────────────────────────────── */
+.checklist { list-style: none; }
+.check-item { display: flex; align-items: flex-start; gap: 12px; padding: 0.55rem 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; line-height: 1.5; cursor: pointer; transition: color 0.15s; user-select: none; }
+.check-item:last-child { border-bottom: none; }
+.check-item.checked { color: var(--muted); text-decoration: line-through; }
+.check-box { width: 18px; height: 18px; min-width: 18px; border-radius: 4px; border: 1.5px solid var(--border2); display: flex; align-items: center; justify-content: center; margin-top: 1px; transition: all 0.15s; flex-shrink: 0; }
+.check-item.checked .check-box { background: var(--green); border-color: var(--green); }
+.check-item.checked .check-box::after { content: ''; width: 10px; height: 6px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translateY(-1px); display: block; }
+
+/* ── Pills ───────────────────────────────────────────────────── */
+.pill { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 0.7rem; font-weight: 600; }
+.pill-blue   { background: var(--blue-bg);   color: var(--blue);   border: 1px solid var(--blue-border); }
+.pill-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
+.pill-amber  { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-border); }
+.pill-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+.pill-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
+.pill-teal   { background: var(--teal-bg);   color: var(--teal);   border: 1px solid var(--teal-border); }

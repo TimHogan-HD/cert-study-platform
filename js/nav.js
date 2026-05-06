@@ -349,7 +349,43 @@ function initFragmentComponents(path) {
   initFlashcards(path);
   initMatching();
   initAIExplain();
+  initDayTabs();
+  initChecklist();
   injectDomainSubNav(path);
+}
+
+/* ── AZ-900 day tabs ─────────────────────────────────────────── */
+function initDayTabs() {
+  document.querySelectorAll('.cram-day-tabs').forEach(tabBar => {
+    tabBar.querySelectorAll('.cram-day-btn').forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        tabBar.querySelectorAll('.cram-day-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const group = tabBar.closest('.cram-day-group');
+        if (!group) return;
+        group.querySelectorAll(':scope > .cram-day-panel').forEach(p => p.classList.remove('active'));
+        const panels = group.querySelectorAll(':scope > .cram-day-panel');
+        if (panels[i]) panels[i].classList.add('active');
+      });
+    });
+  });
+}
+
+/* ── Pre-exam checklist with localStorage persistence ────────── */
+function initChecklist() {
+  document.querySelectorAll('.checklist[data-store]').forEach(list => {
+    const key = list.dataset.store;
+    let state = {};
+    try { state = JSON.parse(localStorage.getItem(key) || '{}'); } catch {}
+    list.querySelectorAll('.check-item').forEach((item, i) => {
+      if (state['c' + i]) item.classList.add('checked');
+      item.addEventListener('click', () => {
+        item.classList.toggle('checked');
+        state['c' + i] = item.classList.contains('checked');
+        try { localStorage.setItem(key, JSON.stringify(state)); } catch {}
+      });
+    });
+  });
 }
 
 /* ── Cert switching (called from home screen cards) ─────────── */
