@@ -384,6 +384,14 @@ p { margin-bottom: 0.85rem; }
 @media (max-width: 768px) {
   .hamburger { display: flex; }
   .sidebar-desktop-toggle { display: none; }
+  /* Never apply the desktop collapsed state on mobile — sidebar is driven by transform */
+  .sidebar.sidebar-collapsed {
+    width: 220px;
+    min-width: 220px;
+    padding: 1rem 0.75rem 2rem;
+    border-right-color: var(--border);
+    overflow-y: auto;
+  }
   .sidebar {
     position: fixed;
     top: 52px;
