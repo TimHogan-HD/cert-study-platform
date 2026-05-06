@@ -52,9 +52,14 @@ function showAIOutput(btn, text, type) {
     btn.insertAdjacentElement('afterend', out);
   }
   out.className = `ai-explain-output callout ${type === 'error' ? 'callout-red' : 'callout-purple'}`;
-  out.innerHTML = type === 'error'
-    ? `<div class="callout-title">⚠ Error</div><p>${text}</p>`
-    : `<div class="callout-title">✦ AI Explanation</div><p>${text}</p>`;
+  out.textContent = '';
+  const title = document.createElement('div');
+  title.className = 'callout-title';
+  title.textContent = type === 'error' ? '⚠ Error' : '✦ AI Explanation';
+  const body = document.createElement('p');
+  body.textContent = text;
+  out.appendChild(title);
+  out.appendChild(body);
   out.style.display = 'block';
   out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }

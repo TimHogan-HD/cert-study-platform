@@ -26,8 +26,20 @@ async function loadFragment(path, anchor) {
 }
 
 function showError(path) {
-  document.getElementById('content-area').innerHTML =
-    `<div class="callout callout-red"><div class="callout-title">Error</div>Could not load content: <code>${path}</code></div>`;
+  const area = document.getElementById('content-area');
+  area.textContent = '';
+  const callout = document.createElement('div');
+  callout.className = 'callout callout-red';
+  const title = document.createElement('div');
+  title.className = 'callout-title';
+  title.textContent = 'Error';
+  const msg = document.createTextNode('Could not load content: ');
+  const code = document.createElement('code');
+  code.textContent = path;
+  callout.appendChild(title);
+  callout.appendChild(msg);
+  callout.appendChild(code);
+  area.appendChild(callout);
 }
 
 function updateActiveNav(path, anchor) {
@@ -126,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (sub && sub.classList.contains('domain-subnav')) {
         sub.classList.toggle('open');
         toggle.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', toggle.classList.contains('open') ? 'true' : 'false');
       }
     });
   });

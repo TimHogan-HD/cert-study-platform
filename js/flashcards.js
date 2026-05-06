@@ -65,7 +65,6 @@ function initMatching() {
     const items = Array.from(game.querySelectorAll('.match-item'));
     const targets = Array.from(game.querySelectorAll('.match-target'));
     let selected = null;
-    let score = 0;
     const scoreEl = game.querySelector('.match-score');
 
     function updateScore() {
@@ -92,7 +91,6 @@ function initMatching() {
           selected.classList.add('matched');
           selected.classList.remove('selected');
           selected = null;
-          score++;
           updateScore();
         } else {
           target.classList.add('incorrect');
@@ -109,7 +107,6 @@ function initMatching() {
       items.forEach(i => i.classList.remove('selected', 'matched', 'wrong'));
       targets.forEach(t => t.classList.remove('correct', 'incorrect'));
       selected = null;
-      score = 0;
       updateScore();
     });
 
