@@ -78,12 +78,12 @@ export function initFlashcards(path) {
       show(0);
     });
 
-    /* Keyboard hint badges in the deck-nav bar */
+    /* Keyboard hint label in the deck-nav bar (desktop only — hidden on mobile via CSS) */
     const deckNav = deck.querySelector('.deck-nav');
     if (deckNav && !deckNav.querySelector('.deck-kbd-hints')) {
       const hints = document.createElement('span');
       hints.className = 'deck-kbd-hints';
-      hints.innerHTML = '<kbd>←</kbd> <kbd>→</kbd> navigate &nbsp; <kbd>Space</kbd> flip';
+      hints.innerHTML = 'Keyboard: <kbd>←</kbd><kbd>→</kbd> navigate · <kbd>Space</kbd> flip';
       deckNav.appendChild(hints);
     }
 
