@@ -212,18 +212,18 @@ Active Connections
     <p><strong>The 4 commands you get:</strong></p>
     <div class="terminal">
       <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS</span></div>
-      <pre class="terminal-body"><span class="tpc">Switch1#</span> show mac address-table
-<span class="tpc">Switch1#</span> show arp
-<span class="tpc">Switch1#</span> show vlan
-<span class="tpc">Switch1#</span> show ip interface brief</pre>
+      <pre class="terminal-body"><span class="tpc">Switch1#</span> show mac address-table   <span class="tn">← step 1: find MAC → port</span>
+<span class="tpc">Switch1#</span> show vlan                 <span class="tn">← step 2: confirm port → VLAN</span>
+<span class="tpc">Switch1#</span> show arp                  <span class="tn">← step 3: resolve MAC → IP</span>
+<span class="tpc">Switch1#</span> show ip interface brief   <span class="tn">← step 4: verify SVI/L3 interfaces</span></pre>
     </div>
 
     <p><strong>Step-by-step process:</strong></p>
     <ol>
-      <li>Run <code>show ip interface brief</code> — confirms which interfaces are up/down and which IPs belong to this switch (SVIs)</li>
-      <li>Run <code>show vlan</code> — shows which ports are in which VLANs (access ports only; trunk ports are not listed here)</li>
-      <li>Run <code>show mac address-table</code> — maps MAC addresses to ports. If target MAC appears on a trunk port, the device is on a downstream switch</li>
-      <li>Run <code>show arp</code> — maps IP addresses to MAC addresses (only populated if this is a Layer 3 switch or router)</li>
+      <li>Run <code>show mac address-table</code> — find which port the target MAC address appears on. If it's on a trunk port, the device is one switch further downstream.</li>
+      <li>Run <code>show vlan</code> — confirm which VLAN that port belongs to (shows access ports only; trunk ports are not listed).</li>
+      <li>Run <code>show arp</code> — resolve the MAC address to an IP address (only populated if this is a Layer 3 switch or router with SVIs).</li>
+      <li>Run <code>show ip interface brief</code> — verify which SVIs (Layer 3 interfaces) are up and what IPs are assigned to each VLAN.</li>
     </ol>
 
     <p><strong>Sample output cross-reference scenario:</strong></p>

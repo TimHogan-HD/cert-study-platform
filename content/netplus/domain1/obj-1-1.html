@@ -12,21 +12,108 @@
   <p>The OSI (Open Systems Interconnection) model is the universal framework for understanding how data moves across a network. Every protocol, device, and troubleshooting scenario on the exam maps back to it.</p>
 
   <h3>The 7 OSI Layers</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>#</th><th>Layer</th><th>PDU</th><th>Key Protocols/Technologies</th><th>Devices</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>7</td><td><strong>Application</strong></td><td>Data</td><td>HTTP, HTTPS, FTP, SMTP, DNS, DHCP, SNMP, SSH, Telnet</td><td>Gateways, Proxies, L7 Firewalls</td></tr>
-        <tr><td>6</td><td><strong>Presentation</strong></td><td>Data</td><td>TLS/SSL, JPEG, MPEG, ASCII, Encryption/Compression</td><td>—</td></tr>
-        <tr><td>5</td><td><strong>Session</strong></td><td>Data</td><td>NetBIOS, RPC, PPTP, L2TP, SQL sessions</td><td>—</td></tr>
-        <tr><td>4</td><td><strong>Transport</strong></td><td>Segment (TCP) / Datagram (UDP)</td><td>TCP, UDP, TLS handshake</td><td>Firewalls (stateful), Load Balancers</td></tr>
-        <tr><td>3</td><td><strong>Network</strong></td><td>Packet</td><td>IP (v4/v6), ICMP, OSPF, BGP, RIP, ARP (debated)</td><td>Routers, L3 Switches, Firewalls</td></tr>
-        <tr><td>2</td><td><strong>Data Link</strong></td><td>Frame</td><td>Ethernet, 802.11 Wi-Fi, 802.1Q VLAN, PPP, ARP, STP</td><td>Switches, Bridges, WAPs (L2)</td></tr>
-        <tr><td>1</td><td><strong>Physical</strong></td><td>Bit</td><td>Electrical signals, light pulses, radio waves; RS-232</td><td>Hubs, Repeaters, NICs, Cables, Connectors</td></tr>
-      </tbody>
-    </table>
+
+  <div class="osi-stack">
+    <div class="osi-stack-header">
+      <span>#</span><span>Layer</span><span>PDU</span><span>Key Protocols / Technologies</span><span>Devices</span>
+    </div>
+
+    <div class="osi-layer" data-layer="7">
+      <div class="osi-layer-num">7</div>
+      <div class="osi-layer-name">Application</div>
+      <div class="osi-layer-pdu">Data</div>
+      <div class="osi-layer-proto">
+        <abbr title="HyperText Transfer Protocol">HTTP</abbr>,
+        <abbr title="HTTP Secure (HTTP over TLS)">HTTPS</abbr>,
+        <abbr title="File Transfer Protocol">FTP</abbr>,
+        <abbr title="Simple Mail Transfer Protocol">SMTP</abbr>,
+        <abbr title="Domain Name System">DNS</abbr>,
+        <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr>,
+        <abbr title="Simple Network Management Protocol">SNMP</abbr>,
+        <abbr title="Secure Shell">SSH</abbr>, Telnet
+      </div>
+      <div class="osi-layer-devices">Gateways, Proxies, L7 Firewalls</div>
+    </div>
+
+    <div class="osi-layer" data-layer="6">
+      <div class="osi-layer-num">6</div>
+      <div class="osi-layer-name">Presentation</div>
+      <div class="osi-layer-pdu">Data</div>
+      <div class="osi-layer-proto">
+        <abbr title="Transport Layer Security / Secure Sockets Layer">TLS/SSL</abbr>,
+        JPEG, MPEG,
+        <abbr title="American Standard Code for Information Interchange">ASCII</abbr>,
+        Encryption/Compression
+      </div>
+      <div class="osi-layer-devices">—</div>
+    </div>
+
+    <div class="osi-layer" data-layer="5">
+      <div class="osi-layer-num">5</div>
+      <div class="osi-layer-name">Session</div>
+      <div class="osi-layer-pdu">Data</div>
+      <div class="osi-layer-proto">
+        <abbr title="Network Basic Input/Output System">NetBIOS</abbr>,
+        <abbr title="Remote Procedure Call">RPC</abbr>,
+        <abbr title="Point-to-Point Tunneling Protocol">PPTP</abbr>,
+        <abbr title="Layer 2 Tunneling Protocol">L2TP</abbr>,
+        SQL sessions
+      </div>
+      <div class="osi-layer-devices">—</div>
+    </div>
+
+    <div class="osi-layer" data-layer="4">
+      <div class="osi-layer-num">4</div>
+      <div class="osi-layer-name">Transport</div>
+      <div class="osi-layer-pdu">Segment (<abbr title="Transmission Control Protocol">TCP</abbr>) / Datagram (<abbr title="User Datagram Protocol">UDP</abbr>)</div>
+      <div class="osi-layer-proto">
+        <abbr title="Transmission Control Protocol — reliable, connection-oriented">TCP</abbr>,
+        <abbr title="User Datagram Protocol — fast, connectionless">UDP</abbr>,
+        <abbr title="Transport Layer Security">TLS</abbr> handshake
+      </div>
+      <div class="osi-layer-devices">Firewalls (stateful), Load Balancers</div>
+    </div>
+
+    <div class="osi-layer" data-layer="3">
+      <div class="osi-layer-num">3</div>
+      <div class="osi-layer-name">Network</div>
+      <div class="osi-layer-pdu">Packet</div>
+      <div class="osi-layer-proto">
+        <abbr title="Internet Protocol version 4/6">IP (v4/v6)</abbr>,
+        <abbr title="Internet Control Message Protocol — used by ping/traceroute">ICMP</abbr>,
+        <abbr title="Open Shortest Path First — link-state routing protocol">OSPF</abbr>,
+        <abbr title="Border Gateway Protocol — internet routing between autonomous systems">BGP</abbr>,
+        <abbr title="Routing Information Protocol — legacy distance-vector protocol">RIP</abbr>,
+        <abbr title="Address Resolution Protocol — maps IP to MAC">ARP</abbr> (debated)
+      </div>
+      <div class="osi-layer-devices">Routers, L3 Switches, Firewalls</div>
+    </div>
+
+    <div class="osi-layer" data-layer="2">
+      <div class="osi-layer-num">2</div>
+      <div class="osi-layer-name">Data Link</div>
+      <div class="osi-layer-pdu">Frame</div>
+      <div class="osi-layer-proto">
+        Ethernet,
+        802.11 Wi-Fi,
+        <abbr title="802.1Q — VLAN (Virtual LAN) tagging standard">802.1Q VLAN</abbr>,
+        <abbr title="Point-to-Point Protocol">PPP</abbr>,
+        <abbr title="Address Resolution Protocol — maps IP to MAC">ARP</abbr>,
+        <abbr title="Spanning Tree Protocol — prevents Layer 2 loops">STP</abbr>
+      </div>
+      <div class="osi-layer-devices">Switches, Bridges, <abbr title="Wireless Access Points">WAPs</abbr> (L2)</div>
+    </div>
+
+    <div class="osi-layer" data-layer="1">
+      <div class="osi-layer-num">1</div>
+      <div class="osi-layer-name">Physical</div>
+      <div class="osi-layer-pdu">Bit</div>
+      <div class="osi-layer-proto">
+        Electrical signals, light pulses, radio waves;
+        <abbr title="RS-232 — legacy serial communication standard">RS-232</abbr>
+      </div>
+      <div class="osi-layer-devices">Hubs, Repeaters, <abbr title="Network Interface Cards">NICs</abbr>, Cables, Connectors</div>
+    </div>
   </div>
 
   <div class="callout callout-blue">

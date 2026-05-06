@@ -3,6 +3,47 @@
   <h2>IPv4 Addressing &amp; Subnetting</h2>
   <p>Subnetting is guaranteed to appear on the exam — as a standard question AND as a PBQ. Master it.</p>
 
+  <h3>What Is an IP Address?</h3>
+  <p>An <strong>IPv4 address</strong> is a 32-bit number that uniquely identifies a device on a network. It is written as four <strong>octets</strong> (8-bit groups) in dotted-decimal notation — for example, <code>192.168.1.50</code>. Each octet ranges from 0 to 255.</p>
+
+  <div class="ip-explainer">
+    <p style="margin:0 0 0.5rem; font-size:0.85rem; color:var(--text-muted)">Example: <strong>192.168.1.50 / 24</strong> — the first 24 bits are the network portion, the last 8 bits are the host portion.</p>
+    <div class="ip-anatomy">
+      <div class="ip-octet net-octet">
+        <div class="ip-octet-value">192</div>
+        <div class="ip-octet-bin">1100 0000</div>
+      </div>
+      <div class="ip-octet net-octet">
+        <div class="ip-octet-value">168</div>
+        <div class="ip-octet-bin">1010 1000</div>
+      </div>
+      <div class="ip-octet net-octet">
+        <div class="ip-octet-value">1</div>
+        <div class="ip-octet-bin">0000 0001</div>
+      </div>
+      <div class="ip-octet host-octet">
+        <div class="ip-octet-value">50</div>
+        <div class="ip-octet-bin">0011 0010</div>
+      </div>
+    </div>
+    <div class="ip-anatomy-legend">
+      <span class="net-legend">Network portion (fixed — identifies the subnet)</span>
+      <span class="host-legend">Host portion (variable — identifies the device)</span>
+    </div>
+  </div>
+
+  <h4>The Subnet Mask</h4>
+  <p>The <strong>subnet mask</strong> tells a device which bits are the network portion and which are the host portion. It's always a block of consecutive 1s followed by 0s. Two common notations:</p>
+  <ul>
+    <li><strong>Dotted-decimal:</strong> <code>255.255.255.0</code> — the 1s cover the first three octets (network), 0s cover the last (host).</li>
+    <li><strong><abbr title="Classless Inter-Domain Routing — uses a /prefix to denote the subnet mask length">CIDR</abbr> prefix notation:</strong> <code>/24</code> — means the first 24 bits are the network mask. Same as 255.255.255.0.</li>
+  </ul>
+  <p>A host determines whether a destination IP is on the <em>same subnet</em> by <strong>ANDing</strong> both IPs with the subnet mask. If the network portions match, the destination is local (no router needed). If they differ, the packet goes to the default gateway.</p>
+
+  <h4>Public vs. Private Addresses</h4>
+  <p><strong>Private addresses</strong> (<abbr title="RFC 1918 — the IETF standard that defines non-routable private IP ranges">RFC 1918</abbr>) are reserved for use inside private networks. They are <em>not routable on the internet</em>. Routers at the network edge use <strong><abbr title="Network Address Translation — maps private IPs to a public IP for internet access">NAT</abbr></strong> (Network Address Translation) to convert private source addresses to a public IP before forwarding traffic to the internet.</p>
+  <p>The three RFC 1918 private ranges are: <code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, and <code>192.168.0.0/16</code>.</p>
+
   <h3>IP Address Classes</h3>
   <div class="table-wrap">
     <table>
