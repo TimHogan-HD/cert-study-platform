@@ -1,0 +1,128 @@
+<div class="obj-section" id="obj-3-4">
+  <div class="section-eyebrow">Objective 3.4</div>
+  <h2>Remote Access &amp; AAA</h2>
+
+  <h3>VPN Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Description</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Site-to-Site VPN</strong></td>
+          <td>Permanent tunnel between two network sites (typically router-to-router). All traffic between sites traverses encrypted tunnel.</td>
+          <td>Branch office to HQ connectivity; replaces dedicated WAN circuits.</td>
+        </tr>
+        <tr>
+          <td><strong>Client-to-Site (Remote Access VPN)</strong></td>
+          <td>Individual user connects VPN client to corporate network over internet. Full tunnel = all traffic goes through VPN. Split tunnel = only corporate traffic goes through VPN.</td>
+          <td>Remote workers, WFH employees.</td>
+        </tr>
+        <tr>
+          <td><strong>SSL/TLS VPN</strong></td>
+          <td>Uses HTTPS (port 443) — traverses firewalls easily. Browser-based or thin client. (Also called SSTP, OpenVPN).</td>
+          <td>Clientless access to web apps, easy deployment through NAT/firewalls.</td>
+        </tr>
+        <tr>
+          <td><strong>IPsec VPN</strong></td>
+          <td>IP Security — encrypts/authenticates at Layer 3. Uses IKE for key exchange.</td>
+          <td>Site-to-site and client-to-site. Most common enterprise VPN protocol.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>IPsec Components</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Component</th><th>Function</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>AH</strong> (Authentication Header)</td><td>Provides authentication and integrity only. NO encryption. Protocol number 51. Not widely used alone.</td></tr>
+        <tr><td><strong>ESP</strong> (Encapsulating Security Payload)</td><td>Provides authentication, integrity, AND encryption. Protocol number 50. Most common IPsec component.</td></tr>
+        <tr><td><strong>IKE</strong> (Internet Key Exchange)</td><td>Negotiates security associations (SAs) and establishes shared keys. IKEv1 (older) and IKEv2 (current, more efficient). Uses UDP port 500 (phase 1) and UDP 4500 (NAT traversal).</td></tr>
+        <tr><td><strong>Tunnel Mode</strong></td><td>Entire IP packet is encrypted and encapsulated in new IP packet. Used for site-to-site VPNs.</td></tr>
+        <tr><td><strong>Transport Mode</strong></td><td>Only the payload is encrypted; original IP header preserved. Used for host-to-host encryption (e.g., L2TP over IPsec).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>RADIUS vs TACACS+</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>RADIUS</th><th>TACACS+</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Transport</strong></td><td>UDP</td><td>TCP</td></tr>
+        <tr><td><strong>Port</strong></td><td>1812 (auth), 1813 (accounting)</td><td>49</td></tr>
+        <tr><td><strong>Encryption</strong></td><td>Encrypts only the password field</td><td>Encrypts the entire packet payload</td></tr>
+        <tr><td><strong>AAA Separation</strong></td><td>Combines Authentication + Authorization</td><td>Separates Authentication, Authorization, Accounting independently</td></tr>
+        <tr><td><strong>Origin</strong></td><td>Open standard (RFC 2865/2866)</td><td>Cisco proprietary (+ extensions)</td></tr>
+        <tr><td><strong>Best For</strong></td><td>Network access (Wi-Fi, VPN, 802.1X)</td><td>Network device administration (router/switch management)</td></tr>
+        <tr><td><strong>Accountability</strong></td><td>Limited — combined auth/authz</td><td>Granular per-command authorization and accounting</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>802.1X Network Access Control</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Role</th><th>Component</th><th>Examples</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Supplicant</strong></td><td>The client device requesting access</td><td>Laptop, phone, workstation — runs 802.1X client software</td></tr>
+        <tr><td><strong>Authenticator</strong></td><td>The network device that enforces access control</td><td>Switch port or WAP — forwards EAP messages, enforces allow/deny</td></tr>
+        <tr><td><strong>Authentication Server</strong></td><td>Validates credentials and sends accept/reject</td><td>RADIUS server (FreeRADIUS, Cisco ISE, Microsoft NPS)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Remote Access Protocols</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Protocol</th><th>Port</th><th>Use</th><th>Security</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>SSH</strong></td><td>22 TCP</td><td>Encrypted CLI remote access to routers, switches, Linux</td><td>Encrypted, key-based or password auth</td></tr>
+        <tr><td><strong>Telnet</strong></td><td>23 TCP</td><td>Legacy CLI remote access</td><td>Cleartext — never use in production</td></tr>
+        <tr><td><strong>RDP</strong></td><td>3389 TCP</td><td>Windows remote desktop GUI</td><td>Encrypted, but often targeted by attackers (BlueKeep)</td></tr>
+        <tr><td><strong>VNC</strong></td><td>5900 TCP</td><td>Cross-platform remote desktop</td><td>Security varies — use with SSH tunnel</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>RADIUS = UDP | TACACS+ = TCP. This is the #1 most-tested RADIUS/TACACS+ fact.</li>
+      <li>TACACS+ encrypts the <em>entire</em> packet. RADIUS encrypts only the <em>password</em>.</li>
+      <li>TACACS+ is for device (router/switch) management. RADIUS is for network access (Wi-Fi, VPN).</li>
+      <li>IPsec ESP provides encryption. IPsec AH does NOT encrypt — it only authenticates.</li>
+      <li>802.1X supplicant = client. Authenticator = switch/WAP. Authentication server = RADIUS.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 3.4</div>
+    <ul>
+      <li>RADIUS: UDP 1812/1813, encrypts only password, combines Auth+Authz</li>
+      <li>TACACS+: TCP 49, full packet encryption, separates AAA functions</li>
+      <li>IPsec: AH=auth only | ESP=auth+encryption | IKE=key exchange</li>
+      <li>802.1X: Supplicant (client) → Authenticator (switch/WAP) → Authentication Server (RADIUS)</li>
+      <li>Site-to-site VPN = router-to-router | Remote access VPN = client-to-site</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="RADIUS vs TACACS+ AAA protocols">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 3.5 — Policies & Disaster Recovery
+     ═══════════════════════════════════════════ -->

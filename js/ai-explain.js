@@ -2,7 +2,7 @@
 const AI_CALL_KEY = 'csp-ai-calls';
 const AI_CALL_LIMIT = 20;
 
-function initAIExplain() {
+export function initAIExplain() {
   document.querySelectorAll('.ai-explain-btn').forEach(btn => {
     btn.removeEventListener('click', btn._explainFn);
     btn._explainFn = async () => {

@@ -1,0 +1,190 @@
+<div class="obj-section" id="obj-4-2">
+  <div class="section-eyebrow">Objective 4.2</div>
+  <h2>Network Attack Types</h2>
+
+  <h3>Layer 2 Attacks</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Attack</th><th>Method</th><th>Impact</th><th>Mitigation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ARP Spoofing / Poisoning</strong></td>
+          <td>Attacker sends fake ARP replies, associating their MAC with a legitimate IP (e.g., default gateway). Poisons ARP cache of victims.</td>
+          <td>On-path (MITM) attack — attacker intercepts all traffic meant for gateway. Can eavesdrop, modify, or drop packets.</td>
+          <td>Dynamic ARP Inspection (DAI), static ARP entries, encrypted protocols (HTTPS, SSH)</td>
+        </tr>
+        <tr>
+          <td><strong>MAC Flooding</strong></td>
+          <td>Attacker sends thousands of frames with random source MACs, overflowing the switch's MAC address table.</td>
+          <td>Switch enters "fail-open" mode and floods all frames to all ports — effectively acts like a hub. Attacker can capture all traffic.</td>
+          <td>Port Security (MAC address limits per port), DHCP snooping</td>
+        </tr>
+        <tr>
+          <td><strong>VLAN Hopping (Switch Spoofing)</strong></td>
+          <td>Attacker's device acts as a switch and negotiates a trunk link (using DTP), gaining access to all VLANs.</td>
+          <td>Attacker can send/receive traffic on any VLAN.</td>
+          <td>Disable DTP on all access ports (<code>switchport nonegotiate</code>), disable unused ports, put access ports in manual mode</td>
+        </tr>
+        <tr>
+          <td><strong>VLAN Hopping (Double Tagging)</strong></td>
+          <td>Attacker sends frame with two 802.1Q tags. Outer tag = native VLAN (stripped at first switch), inner tag = target VLAN (forwarded by second switch).</td>
+          <td>One-way traffic to target VLAN — useful for DoS, difficult to intercept data back.</td>
+          <td>Change native VLAN to unused VLAN (not VLAN 1), tag the native VLAN explicitly</td>
+        </tr>
+        <tr>
+          <td><strong>STP Attack</strong></td>
+          <td>Attacker sends superior BPDUs to become root bridge — all traffic rerouted through attacker's device.</td>
+          <td>On-path attack. Traffic disruption during STP convergence.</td>
+          <td>BPDU Guard on access ports, Root Guard on non-core-facing ports</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Network Layer Attacks</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Attack</th><th>Method</th><th>Mitigation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>DoS (Denial of Service)</strong></td>
+          <td>Single attacker sends massive traffic or exploits vulnerability to exhaust resources (bandwidth, CPU, connections).</td>
+          <td>Rate limiting, firewall rules, upstream ISP filtering, traffic scrubbing</td>
+        </tr>
+        <tr>
+          <td><strong>DDoS (Distributed DoS)</strong></td>
+          <td>Attack launched from thousands of compromised hosts (botnet) simultaneously. Much harder to block by source IP.</td>
+          <td>Cloud DDoS mitigation (Cloudflare, Akamai), ISP black-holing, anycast routing</td>
+        </tr>
+        <tr>
+          <td><strong>Reflection/Amplification</strong></td>
+          <td>Attacker sends small request with spoofed source IP (victim's IP) to servers (DNS, NTP, SSDP). Servers send large responses to victim.</td>
+          <td>BCP38 (source IP validation), disable amplification services, rate limiting on DNS/NTP</td>
+        </tr>
+        <tr>
+          <td><strong>DNS Poisoning / Spoofing</strong></td>
+          <td>Injects false DNS records into resolver cache. Clients resolve legitimate names to attacker's IP — fake website, credential theft.</td>
+          <td>DNSSEC (signed DNS records), secure recursive resolvers, short TTL</td>
+        </tr>
+        <tr>
+          <td><strong>On-Path (MITM)</strong></td>
+          <td>Attacker positions between two communicating parties (via ARP spoofing, rogue WAP, etc.) — reads and/or modifies traffic.</td>
+          <td>Encryption (TLS/HTTPS), certificate validation, VPN, MFA, HTTPS Strict Transport Security (HSTS)</td>
+        </tr>
+        <tr>
+          <td><strong>IP Spoofing</strong></td>
+          <td>Attacker sends packets with a forged source IP address. Used in amplification attacks and to evade detection.</td>
+          <td>BCP38 egress filtering, uRPF (Unicast Reverse Path Forwarding)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Wireless Attacks</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Attack</th><th>Method</th><th>Mitigation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Evil Twin (Rogue AP)</strong></td>
+          <td>Attacker creates a fake AP with the same SSID as legitimate network. Higher signal strength causes clients to connect to attacker's AP instead.</td>
+          <td>WIDS (Wireless IDS), 802.1X authentication (not just PSK), user education</td>
+        </tr>
+        <tr>
+          <td><strong>Deauthentication Attack</strong></td>
+          <td>Attacker sends spoofed deauth frames (management frames are unauthenticated in WPA2), disconnecting clients. Forces reconnect — can capture handshake for offline cracking.</td>
+          <td>WPA3 (management frame protection - PMF/802.11w), WIDS</td>
+        </tr>
+        <tr>
+          <td><strong>WPS Attack (Pixie Dust)</strong></td>
+          <td>WPS PIN brute force or Pixie Dust attack — exploits WPS protocol weakness to recover WPA2 passphrase in seconds.</td>
+          <td>Disable WPS on all APs</td>
+        </tr>
+        <tr>
+          <td><strong>Wardriving</strong></td>
+          <td>Driving around with a laptop/antenna to discover and map wireless networks. Used to find open or weak networks.</td>
+          <td>Strong encryption (WPA3), minimal signal broadcast outside facility</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Social Engineering Attacks</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Attack</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Phishing</strong></td><td>Mass fraudulent email appearing legitimate — tricks recipients into clicking links or providing credentials.</td></tr>
+        <tr><td><strong>Spear Phishing</strong></td><td>Targeted phishing at specific individuals using personalized information. Higher success rate than generic phishing.</td></tr>
+        <tr><td><strong>Vishing</strong></td><td>Voice phishing — phone call from attacker pretending to be IT support, bank, etc.</td></tr>
+        <tr><td><strong>Smishing</strong></td><td>SMS/text phishing — malicious links or fake requests via text message.</td></tr>
+        <tr><td><strong>Tailgating / Piggybacking</strong></td><td>Attacker physically follows authorized person through a secured door without badging in.</td></tr>
+        <tr><td><strong>Shoulder Surfing</strong></td><td>Observing someone's screen or keyboard to steal passwords or information.</td></tr>
+        <tr><td><strong>Pretexting</strong></td><td>Creating a fabricated scenario (pretext) to manipulate victims into revealing information or taking actions.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Attack/Mitigation Matching Game -->
+  <h3>Practice: Attack → Mitigation</h3>
+  <div class="matching-game">
+    <div class="match-instructions">Click an attack, then click its primary mitigation.</div>
+    <div class="match-columns">
+      <div class="match-col">
+        <div class="match-item" data-match="atk-arp">ARP Spoofing</div>
+        <div class="match-item" data-match="atk-mac">MAC Flooding</div>
+        <div class="match-item" data-match="atk-dns">DNS Poisoning</div>
+        <div class="match-item" data-match="atk-evil">Evil Twin AP</div>
+        <div class="match-item" data-match="atk-wps">WPS Attack</div>
+      </div>
+      <div class="match-col">
+        <div class="match-target" data-id="atk-arp">Dynamic ARP Inspection (DAI)</div>
+        <div class="match-target" data-id="atk-mac">Port Security (MAC limits)</div>
+        <div class="match-target" data-id="atk-dns">DNSSEC</div>
+        <div class="match-target" data-id="atk-evil">802.1X + WIDS</div>
+        <div class="match-target" data-id="atk-wps">Disable WPS</div>
+      </div>
+    </div>
+    <div class="match-footer">
+      <span class="match-score">0 / 5 matched</span>
+      <button class="reset-btn">Reset</button>
+    </div>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>DAI (Dynamic ARP Inspection) prevents ARP spoofing — requires DHCP snooping to be configured first.</li>
+      <li>Port Security limits MAC addresses per port — mitigates MAC flooding. Default action = shutdown port.</li>
+      <li>VLAN hopping via native VLAN (double-tagging) only works in ONE direction — attacker can send traffic to target VLAN but cannot receive responses directly.</li>
+      <li>Evil twin = fake AP with same SSID. Deauth attack = forces disconnect. These are different attacks but often combined.</li>
+      <li>DNSSEC = signs DNS records with cryptographic signatures. Prevents cache poisoning.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 4.2</div>
+    <ul>
+      <li>ARP spoofing → DAI | MAC flooding → Port Security | VLAN hopping → disable DTP, change native VLAN</li>
+      <li>DNS poisoning → DNSSEC | Evil twin → 802.1X + WIDS | WPS → disable WPS</li>
+      <li>DoS = single source | DDoS = botnet (distributed) | Amplification = spoofed source + large responses</li>
+      <li>On-path (MITM) = attacker between two parties | ARP spoofing is a common on-path technique</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="ARP spoofing and Layer 2 network attacks">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 4.3 — Network Hardening & Defense
+     ═══════════════════════════════════════════ -->

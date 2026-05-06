@@ -1,0 +1,115 @@
+<div class="section-eyebrow">Domain 1 · 23% of Exam</div>
+<h1 class="section-title">Networking Concepts</h1>
+<p class="section-sub">OSI model, devices, topologies, ports, cables, services, IPv4 subnetting, and IPv6. This domain is 23% of your exam — strong foundational knowledge here pays dividends in every other domain.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.1 — OSI Model
+     ═══════════════════════════════════════════ -->
+
+<div class="obj-section" id="obj-1-1">
+  <div class="section-eyebrow">Objective 1.1</div>
+  <h2>OSI Model &amp; Network Models</h2>
+  <p>The OSI (Open Systems Interconnection) model is the universal framework for understanding how data moves across a network. Every protocol, device, and troubleshooting scenario on the exam maps back to it.</p>
+
+  <h3>The 7 OSI Layers</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Layer</th><th>PDU</th><th>Key Protocols/Technologies</th><th>Devices</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>7</td><td><strong>Application</strong></td><td>Data</td><td>HTTP, HTTPS, FTP, SMTP, DNS, DHCP, SNMP, SSH, Telnet</td><td>Gateways, Proxies, L7 Firewalls</td></tr>
+        <tr><td>6</td><td><strong>Presentation</strong></td><td>Data</td><td>TLS/SSL, JPEG, MPEG, ASCII, Encryption/Compression</td><td>—</td></tr>
+        <tr><td>5</td><td><strong>Session</strong></td><td>Data</td><td>NetBIOS, RPC, PPTP, L2TP, SQL sessions</td><td>—</td></tr>
+        <tr><td>4</td><td><strong>Transport</strong></td><td>Segment (TCP) / Datagram (UDP)</td><td>TCP, UDP, TLS handshake</td><td>Firewalls (stateful), Load Balancers</td></tr>
+        <tr><td>3</td><td><strong>Network</strong></td><td>Packet</td><td>IP (v4/v6), ICMP, OSPF, BGP, RIP, ARP (debated)</td><td>Routers, L3 Switches, Firewalls</td></tr>
+        <tr><td>2</td><td><strong>Data Link</strong></td><td>Frame</td><td>Ethernet, 802.11 Wi-Fi, 802.1Q VLAN, PPP, ARP, STP</td><td>Switches, Bridges, WAPs (L2)</td></tr>
+        <tr><td>1</td><td><strong>Physical</strong></td><td>Bit</td><td>Electrical signals, light pulses, radio waves; RS-232</td><td>Hubs, Repeaters, NICs, Cables, Connectors</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Mnemonic</div>
+    <strong>All People Seem To Need Data Processing</strong> (layers 7→1: Application, Presentation, Session, Transport, Network, Data Link, Physical). Going up: <strong>Please Do Not Throw Sausage Pizza Away</strong>.
+  </div>
+
+  <h3>TCP/IP Model vs OSI Model</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>TCP/IP Layer</th><th>OSI Equivalent</th><th>Key Protocols</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Application</strong></td><td>Layers 5, 6, 7</td><td>HTTP, FTP, DNS, SMTP, SSH, SNMP</td></tr>
+        <tr><td><strong>Transport</strong></td><td>Layer 4</td><td>TCP, UDP</td></tr>
+        <tr><td><strong>Internet</strong></td><td>Layer 3</td><td>IP, ICMP, ARP</td></tr>
+        <tr><td><strong>Network Access</strong></td><td>Layers 1, 2</td><td>Ethernet, Wi-Fi, Frame Relay</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Encapsulation &amp; Decapsulation</h3>
+  <p>When data travels down the OSI stack (sender side), each layer <strong>adds a header</strong> (encapsulation). When data travels up the stack (receiver side), each layer <strong>strips the header</strong> (decapsulation).</p>
+  <div class="callout callout-teal">
+    <div class="callout-title">Encapsulation Flow</div>
+    Application data → Transport adds TCP/UDP header → Network adds IP header → Data Link adds Ethernet header/trailer → Physical transmits bits
+  </div>
+
+  <!-- Matching Game 1.1 -->
+  <h3>Practice: OSI Layer → Protocol/Device</h3>
+  <div class="matching-game">
+    <div class="match-instructions">Click an item on the left, then click its match on the right.</div>
+    <div class="match-columns">
+      <div class="match-col">
+        <div class="match-item" data-match="l7">Application (L7)</div>
+        <div class="match-item" data-match="l4">Transport (L4)</div>
+        <div class="match-item" data-match="l3">Network (L3)</div>
+        <div class="match-item" data-match="l2">Data Link (L2)</div>
+        <div class="match-item" data-match="l1">Physical (L1)</div>
+        <div class="match-item" data-match="l6">Presentation (L6)</div>
+      </div>
+      <div class="match-col">
+        <div class="match-target" data-id="l7">HTTP, SMTP, DNS, FTP</div>
+        <div class="match-target" data-id="l4">TCP segments, UDP datagrams</div>
+        <div class="match-target" data-id="l3">IP packets, Routers</div>
+        <div class="match-target" data-id="l2">Ethernet frames, Switches</div>
+        <div class="match-target" data-id="l1">Cables, Hubs, Bits</div>
+        <div class="match-target" data-id="l6">TLS/SSL, JPEG, Encryption</div>
+      </div>
+    </div>
+    <div class="match-footer">
+      <span class="match-score">0 / 6 matched</span>
+      <button class="reset-btn">Reset</button>
+    </div>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>Multilayer (L3) switches operate at Layer 3 AND 2 — but the question may say "a device that routes between VLANs" → it's a Layer 3 switch.</li>
+      <li>ARP is debated: it bridges L2 and L3. CompTIA typically places it at Layer 2 or 3 (both are accepted contexts).</li>
+      <li>Routers operate at Layer 3. Switches at Layer 2. Hubs at Layer 1. Know which device = which layer cold.</li>
+      <li>PDU names: Data (L7-5), Segment (L4-TCP), Datagram (L4-UDP), Packet (L3), Frame (L2), Bit (L1).</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 1.1</div>
+    <ul>
+      <li>7 OSI layers: Application → Presentation → Session → Transport → Network → Data Link → Physical</li>
+      <li>TCP/IP has 4 layers (collapses OSI 5-6-7 into Application)</li>
+      <li>Router = L3 | Switch = L2 | Hub = L1</li>
+      <li>Segment (TCP L4) → Packet (IP L3) → Frame (Ethernet L2) → Bit (L1)</li>
+      <li>Encapsulation: sender adds headers going down; decapsulation: receiver strips going up</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="OSI model layers and encapsulation">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.2 — Networking Devices
+     ═══════════════════════════════════════════ -->

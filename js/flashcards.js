@@ -1,6 +1,6 @@
 /* flashcards.js — Flashcard flip + deck navigation + matching game */
 
-function initFlashcards() {
+export function initFlashcards() {
   /* Individual card flip */
   document.querySelectorAll('.flashcard').forEach(card => {
     card.removeEventListener('click', card._flipFn);
@@ -60,7 +60,7 @@ function initFlashcards() {
   });
 }
 
-function initMatching() {
+export function initMatching() {
   document.querySelectorAll('.matching-game').forEach(game => {
     const items = Array.from(game.querySelectorAll('.match-item'));
     const targets = Array.from(game.querySelectorAll('.match-target'));

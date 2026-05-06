@@ -1,0 +1,145 @@
+<div class="obj-section" id="obj-1-8">
+  <div class="section-eyebrow">Objective 1.8</div>
+  <h2>IPv6 Addressing</h2>
+  <p>IPv6 is no longer a "bonus" topic — it's a full part of the N10-009 exam. Know address types, shortening rules, and transition mechanisms.</p>
+
+  <h3>IPv4 vs IPv6 Comparison</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>IPv4</th><th>IPv6</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Address length</td><td>32 bits (4 octets)</td><td>128 bits (8 groups of 16 bits)</td></tr>
+        <tr><td>Address format</td><td>Dotted decimal: 192.168.1.1</td><td>Hex colon notation: 2001:0db8:85a3::8a2e:0370:7334</td></tr>
+        <tr><td>Total addresses</td><td>~4.3 billion</td><td>~3.4 × 10^38 (340 undecillion)</td></tr>
+        <tr><td>Broadcast</td><td>Yes</td><td>No broadcast — uses multicast instead</td></tr>
+        <tr><td>Fragmentation</td><td>Routers can fragment</td><td>Only source endpoint fragments (Path MTU Discovery)</td></tr>
+        <tr><td>Header</td><td>Variable length (20–60 bytes)</td><td>Fixed 40-byte header (simpler, faster)</td></tr>
+        <tr><td>NAT</td><td>Common (private → public)</td><td>Not needed (huge address space; end-to-end)</td></tr>
+        <tr><td>Configuration</td><td>Manual or DHCP</td><td>SLAAC (auto), DHCPv6, or manual</td></tr>
+        <tr><td>Security</td><td>IPsec optional</td><td>IPsec designed-in (mandatory in original spec)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>IPv6 Address Format &amp; Shortening Rules</h3>
+  <p>Full IPv6: <code>2001:0db8:0000:0000:0000:0000:0000:0001</code></p>
+  <ol>
+    <li><strong>Rule 1:</strong> Drop leading zeros in each group → <code>2001:db8:0:0:0:0:0:1</code></li>
+    <li><strong>Rule 2:</strong> Replace one or more consecutive all-zero groups with <code>::</code> (only ONCE per address) → <code>2001:db8::1</code></li>
+  </ol>
+  <div class="callout callout-blue">
+    <div class="callout-title">:: Rule</div>
+    The double colon (<code>::</code>) can only appear ONCE in an IPv6 address. It replaces one or more consecutive groups of all zeros. Pick the longest run of zeros to compress.
+  </div>
+
+  <h3>IPv6 Address Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Prefix</th><th>Description</th><th>IPv4 Equivalent</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Global Unicast</strong></td><td>2000::/3</td><td>Publicly routable — the IPv6 equivalent of public IPv4</td><td>Public IP</td></tr>
+        <tr><td><strong>Link-Local</strong></td><td>fe80::/10</td><td>Auto-configured on every interface; not routable beyond the link</td><td>APIPA 169.254.x.x</td></tr>
+        <tr><td><strong>Unique Local (ULA)</strong></td><td>fc00::/7 (fd prefix most common)</td><td>Private use; not globally routable</td><td>RFC 1918 (10.x, 172.16–31.x, 192.168.x)</td></tr>
+        <tr><td><strong>Loopback</strong></td><td>::1/128</td><td>Local loopback — tests IPv6 stack</td><td>127.0.0.1</td></tr>
+        <tr><td><strong>Unspecified</strong></td><td>::/128</td><td>No address assigned — used as source during DAD</td><td>0.0.0.0</td></tr>
+        <tr><td><strong>Multicast</strong></td><td>ff00::/8</td><td>One-to-many; no broadcast in IPv6 — multicast replaces it</td><td>224.0.0.0/4</td></tr>
+        <tr><td><strong>Anycast</strong></td><td>From unicast space</td><td>Same address assigned to multiple nodes; routed to nearest</td><td>No direct equivalent</td></tr>
+        <tr><td><strong>Solicited-Node Multicast</strong></td><td>ff02::1:ff00:0/104</td><td>Used by NDP (replaces ARP); built from interface's low-order bits</td><td>ARP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common IPv6 Multicast Addresses</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Address</th><th>Scope</th><th>Used By</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>ff02::1</code></td><td>Link-local</td><td>All IPv6 nodes on segment</td></tr>
+        <tr><td><code>ff02::2</code></td><td>Link-local</td><td>All IPv6 routers</td></tr>
+        <tr><td><code>ff02::5</code></td><td>Link-local</td><td>OSPFv3 all routers</td></tr>
+        <tr><td><code>ff02::6</code></td><td>Link-local</td><td>OSPFv3 DR/BDR routers</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>IPv6 Address Configuration Methods</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Method</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SLAAC</strong> (Stateless Address Autoconfiguration)</td>
+          <td>Host uses router advertisement (RA) to learn network prefix + generates its own host ID from EUI-64 or random. No DHCP server needed. Stateless.</td>
+        </tr>
+        <tr>
+          <td><strong>DHCPv6 Stateful</strong></td>
+          <td>DHCPv6 server assigns full IPv6 address. Server keeps state (like IPv4 DHCP).</td>
+        </tr>
+        <tr>
+          <td><strong>DHCPv6 Stateless</strong></td>
+          <td>SLAAC provides address; DHCPv6 provides only DNS/options (not the IP itself).</td>
+        </tr>
+        <tr>
+          <td><strong>Manual</strong></td>
+          <td>Administrator statically assigns IPv6 address. Used for servers, routers.</td>
+        </tr>
+        <tr>
+          <td><strong>EUI-64</strong></td>
+          <td>Host ID generated from 48-bit MAC address (insert <code>fffe</code> in middle, flip 7th bit). Creates globally unique host ID portion.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>IPv6 Transition Mechanisms</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Mechanism</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Dual Stack</strong></td><td>Device runs IPv4 AND IPv6 simultaneously. Both protocols active on same interface. Most common transition method.</td></tr>
+        <tr><td><strong>Tunneling (6in4, 6to4, ISATAP, Teredo)</strong></td><td>IPv6 packets encapsulated inside IPv4 packets to traverse IPv4-only infrastructure.</td></tr>
+        <tr><td><strong>NAT64</strong></td><td>IPv6-only clients communicate with IPv4-only servers. Router translates between v4 and v6.</td></tr>
+        <tr><td><strong>DNS64</strong></td><td>Works with NAT64 — synthesizes AAAA records for IPv4-only servers so IPv6 clients can resolve them.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>IPv6 has <strong>NO BROADCAST</strong>. Multicast replaces broadcast completely.</li>
+      <li>fe80::/10 = link-local (auto-configured, NOT routable). Every IPv6 interface gets one automatically.</li>
+      <li>:: can only appear ONCE in an address. <code>2001::1::1</code> is invalid.</li>
+      <li>SLAAC doesn't use DHCP — it uses Router Advertisements (NDP). No DHCP server needed.</li>
+      <li>NDP (Neighbor Discovery Protocol) replaces both ARP and some ICMP functions in IPv6.</li>
+      <li>::1 = IPv6 loopback (equivalent to 127.0.0.1 in IPv4).</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 1.8</div>
+    <ul>
+      <li>IPv6 = 128 bits, 8 groups of 4 hex digits separated by colons</li>
+      <li>:: = one or more consecutive zero groups (only once per address)</li>
+      <li>Global unicast = 2000::/3 (public) | Link-local = fe80::/10 | ULA = fc00::/7</li>
+      <li>::1 = loopback | :: = unspecified | ff00::/8 = multicast</li>
+      <li>No broadcast in IPv6 — multicast replaces it</li>
+      <li>SLAAC = auto-config from Router Advertisement, no DHCP needed</li>
+      <li>Dual stack = running IPv4 and IPv6 simultaneously on same interface</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="IPv6 addressing types and SLAAC autoconfiguration">✦ Explain Differently</button>
+  </div>
+</div>

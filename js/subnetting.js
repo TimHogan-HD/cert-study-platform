@@ -1,6 +1,6 @@
 /* subnetting.js — IPv4 subnetting calculator */
 
-function initSubnetting() {
+export function initSubnetting() {
   const form = document.getElementById('subnet-form');
   if (!form) return;
 

@@ -1,0 +1,143 @@
+<div class="obj-section" id="obj-1-5">
+  <div class="section-eyebrow">Objective 1.5</div>
+  <h2>Cables &amp; Media Types</h2>
+
+  <h3>Copper Twisted Pair (UTP/STP)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Category</th><th>Max Speed</th><th>Max Distance</th><th>Use Case</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cat 5</td><td>100 Mbps</td><td>100m</td><td>Legacy FastEthernet</td><td>Obsolete. 4 pairs, no longer sold.</td></tr>
+        <tr><td>Cat 5e</td><td>1 Gbps</td><td>100m</td><td>GbE for older installs</td><td>"e" = enhanced, reduced crosstalk vs Cat5.</td></tr>
+        <tr><td>Cat 6</td><td>1 Gbps (100m) / 10 Gbps (55m)</td><td>55m @ 10G</td><td>GbE &amp; short 10GbE runs</td><td>Thicker, spline separator, strict spec.</td></tr>
+        <tr><td>Cat 6A</td><td>10 Gbps</td><td>100m</td><td>10GbE full runs</td><td>"A" = augmented. Larger diameter, often STP. <strong>Recommended for new installs.</strong></td></tr>
+        <tr><td>Cat 7</td><td>10 Gbps</td><td>100m</td><td>Data center, proprietary</td><td>Not TIA/EIA standard; uses GG45 or TERA connectors (not RJ45).</td></tr>
+        <tr><td>Cat 8</td><td>25–40 Gbps</td><td>30m</td><td>Data center top-of-rack</td><td>Very short runs between servers and switches. Uses RJ45 or TERA.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Fiber Optic</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Core Diameter</th><th>Light Source</th><th>Distance</th><th>Cost</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SMF</strong> (Single-Mode Fiber)</td>
+          <td>8–10µm</td>
+          <td>Laser (coherent)</td>
+          <td>Up to 100km+</td>
+          <td>High</td>
+          <td>Long-haul WAN, ISP backbone, inter-building campus links</td>
+        </tr>
+        <tr>
+          <td><strong>MMF</strong> (Multi-Mode Fiber)</td>
+          <td>50 or 62.5µm</td>
+          <td>LED or VCSEL</td>
+          <td>Up to ~550m (OM4)</td>
+          <td>Lower</td>
+          <td>Data center, campus backbone, within-building runs</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">SMF vs MMF Memory Aid</div>
+    <strong>Single-mode = Single long path</strong> (laser, long distance, yellow jacket). <strong>Multi-mode = Multiple light paths</strong> (LED, short distance, orange/aqua jacket).
+  </div>
+
+  <h3>Fiber Connector Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Connector</th><th>Type</th><th>Coupling</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>LC</strong> (Lucent Connector)</td><td>Small form-factor</td><td>Push-pull latch</td><td>Most common in data centers; SFP transceivers. Duplex LC = two fibers side-by-side.</td></tr>
+        <tr><td><strong>SC</strong> (Subscriber Connector)</td><td>Square</td><td>Push-pull snap</td><td>"Snap and Click." Older installations, campus fiber.</td></tr>
+        <tr><td><strong>ST</strong> (Straight Tip)</td><td>Round</td><td>Bayonet twist-lock</td><td>Older campus/enterprise. "Stick and Twist."</td></tr>
+        <tr><td><strong>FC</strong> (Ferrule Connector)</td><td>Round, threaded</td><td>Screw-on</td><td>Telecom and test equipment. Vibration-resistant.</td></tr>
+        <tr><td><strong>MPO/MTP</strong></td><td>Multi-fiber</td><td>Push-pull</td><td>12 or 24 fibers in one connector. Data center high-density. Used with QSFP.</td></tr>
+        <tr><td><strong>RJ45</strong></td><td>Copper (not fiber)</td><td>Tab-and-click</td><td>Standard Ethernet connector for UTP/STP cables. 8 pins.</td></tr>
+        <tr><td><strong>RJ11</strong></td><td>Copper (telephone)</td><td>Tab-and-click</td><td>6-position, 2-4 conductors. Phone lines, DSL modems.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Transceiver Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Transceiver</th><th>Speed</th><th>Use</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>SFP</strong> (Small Form-factor Pluggable)</td><td>Up to 1 Gbps</td><td>GbE fiber or copper; plugs into SFP port on switch/router</td></tr>
+        <tr><td><strong>SFP+</strong></td><td>Up to 10 Gbps</td><td>10GbE; same form factor as SFP but faster</td></tr>
+        <tr><td><strong>QSFP</strong> (Quad SFP)</td><td>40 Gbps (4×10G)</td><td>Data center switches; can be broken out to 4×SFP+</td></tr>
+        <tr><td><strong>QSFP28</strong></td><td>100 Gbps (4×25G)</td><td>Spine-leaf data center fabric; high-density 100GbE</td></tr>
+        <tr><td><strong>GBIC</strong> (older)</td><td>Up to 1 Gbps</td><td>Legacy — replaced by SFP. Larger form factor.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Cable Jacket Ratings</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Rating</th><th>Where Used</th><th>Key Property</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Plenum</strong></td><td>Air-handling spaces (above drop ceilings, under raised floors)</td><td>Low-smoke, fire-retardant jacket. Required by fire code in HVAC spaces. More expensive.</td></tr>
+        <tr><td><strong>Riser</strong></td><td>Vertical runs between floors (riser conduits)</td><td>Fire-retardant but not as strict as plenum. Cannot use in plenum spaces.</td></tr>
+        <tr><td><strong>PVC</strong></td><td>General use areas with conduit</td><td>Standard jacket. Toxic smoke when burned — only use where enclosed in conduit.</td></tr>
+        <tr><td><strong>Direct Burial</strong></td><td>Underground, exterior</td><td>Weatherproof, moisture-resistant. Gel-filled or armored.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pbq-prep">
+    <div class="pbq-prep-title">🎯 PBQ Prep — Cable Identification</div>
+    <p>Expect a drag-and-drop PBQ where you match cable/connector types to scenarios:</p>
+    <ul>
+      <li><strong>Scenario:</strong> "Run 10GbE for 80 meters within a building" → <strong>Cat 6A</strong> (UTP or STP)</li>
+      <li><strong>Scenario:</strong> "Connect two data centers 15km apart" → <strong>SMF fiber</strong> with LC connectors</li>
+      <li><strong>Scenario:</strong> "Cable through HVAC plenum space" → <strong>Plenum-rated Cat 6A</strong></li>
+      <li><strong>Scenario:</strong> "SFP+ port on switch, 300m to another building" → <strong>MMF fiber, SFP+ transceiver, LC connectors</strong></li>
+    </ul>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>Cat 6 is only 10 Gbps for <strong>55 meters</strong> — not 100m. Cat 6A goes 10 Gbps for the full 100m.</li>
+      <li>Plenum cable is required in air-handling spaces — not just "expensive cable." Fire codes mandate it.</li>
+      <li>SMF = yellow jacket (usually). MMF = orange (OM2/OM3) or aqua (OM4). But cable color can vary — know the specs.</li>
+      <li>RJ45 ≠ RJ11. RJ45 = 8 pins (Ethernet). RJ11 = 6 pins (telephone).</li>
+      <li>LC connector is small (pushed by SFP ports). SC is square/larger. ST is round with a bayonet twist.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 1.5</div>
+    <ul>
+      <li>Cat 5e = 1G/100m | Cat 6 = 10G/55m | Cat 6A = 10G/100m | Cat 8 = 40G/30m</li>
+      <li>SMF = laser, long distance, single path | MMF = LED, short distance, multi-path</li>
+      <li>LC = small, data center favorite | SC = square | ST = twist lock (bayonet)</li>
+      <li>Plenum = air-handling spaces | Riser = between floors | PVC = conduit only</li>
+      <li>SFP = 1G | SFP+ = 10G | QSFP = 40G | QSFP28 = 100G</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="fiber optic cable types and connectors">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.6 — Network Services
+     ═══════════════════════════════════════════ -->

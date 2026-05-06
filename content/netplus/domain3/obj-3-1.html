@@ -1,0 +1,73 @@
+<div class="section-eyebrow">Domain 3 · 19% of Exam</div>
+<h1 class="section-title">Network Operations</h1>
+<p class="section-sub">Documentation, monitoring, DHCP, DNS, NTP, remote access, AAA, and disaster recovery. DHCP DORA, DNS record types, SNMP, RADIUS vs TACACS+, and RPO/RTO are all exam staples.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 3.1 — Documentation & Monitoring
+     ═══════════════════════════════════════════ -->
+
+<div class="obj-section" id="obj-3-1">
+  <div class="section-eyebrow">Objective 3.1</div>
+  <h2>Network Documentation &amp; Monitoring</h2>
+
+  <h3>Network Documentation Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Document Type</th><th>Purpose</th><th>Contains</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Logical Diagram</strong></td><td>Shows how data flows between devices — IP addresses, VLANs, routing protocols</td><td>IP subnets, VLANs, router/switch connectivity with protocol labels</td></tr>
+        <tr><td><strong>Physical Diagram</strong></td><td>Shows physical location of devices — rack layout, building floor plans</td><td>Room locations, cable runs, rack unit positions, serial numbers</td></tr>
+        <tr><td><strong>Network Baseline</strong></td><td>Documents normal performance metrics — used to identify anomalies</td><td>Average bandwidth, CPU/memory utilization, error rates, latency under normal load</td></tr>
+        <tr><td><strong>Change Management</strong></td><td>Tracks all changes to network configuration</td><td>Change request, approval, implementation steps, rollback plan, post-change verification</td></tr>
+        <tr><td><strong>Asset Inventory</strong></td><td>Tracks all hardware and software in the network</td><td>Device model, serial, MAC, IP, location, firmware version, warranty</td></tr>
+        <tr><td><strong>Configuration Backups</strong></td><td>Archives device configurations for recovery</td><td>Router/switch running-config, firewall rules, AP configs</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Performance Metrics to Monitor</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Definition</th><th>Issue When…</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Bandwidth</strong></td><td>Maximum data rate of a link (bps)</td><td>Utilization consistently &gt;80% — risk of congestion</td></tr>
+        <tr><td><strong>Throughput</strong></td><td>Actual data transfer rate achieved</td><td>Far below bandwidth — indicates loss, errors, or protocol overhead</td></tr>
+        <tr><td><strong>Latency</strong></td><td>Time for data to travel from source to destination (ms)</td><td>&gt;150ms one-way — VoIP quality degrades; &gt;100ms round-trip may affect interactive apps</td></tr>
+        <tr><td><strong>Jitter</strong></td><td>Variation in packet delay (ms)</td><td>&gt;30ms — VoIP and streaming audio/video suffer</td></tr>
+        <tr><td><strong>Packet Loss</strong></td><td>Percentage of packets that don't arrive</td><td>&gt;1% — noticeable performance issues; &gt;5% VoIP is unusable</td></tr>
+        <tr><td><strong>Error Rate</strong></td><td>Ratio of errored frames to total frames</td><td>Any significant errors — indicates physical layer issues</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>Bandwidth ≠ throughput. Bandwidth is the link capacity; throughput is what you actually get.</li>
+      <li>A baseline is taken <em>before</em> a problem occurs — it represents "normal." You compare current metrics against it.</li>
+      <li>Change management includes a <strong>rollback plan</strong> — what to do if the change causes issues.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 3.1</div>
+    <ul>
+      <li>Logical diagram = IP/VLAN/routing info | Physical diagram = locations/racks/cables</li>
+      <li>Baseline = normal performance snapshot for comparison</li>
+      <li>Jitter = packet delay variation — bad for VoIP | Latency = total one-way delay</li>
+      <li>Change management: request → approval → implementation → verification → documentation</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="network documentation types and performance monitoring">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 3.2 — Network Monitoring Tools
+     ═══════════════════════════════════════════ -->

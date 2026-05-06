@@ -1,12 +1,23 @@
 /* nav.js — Hash router, sidebar nav, cert tab switching, fragment init */
+import { initFlashcards, initMatching } from './flashcards.js';
+import { initSubnetting } from './subnetting.js';
+import { initAIExplain } from './ai-explain.js';
+
 const CONTENT_ROOT = './content';
+const fragmentCache = new Map();
 
 async function loadFragment(path, anchor) {
   const url = `${CONTENT_ROOT}/${path}.html`;
   try {
-    const res = await fetch(url);
-    if (!res.ok) { showError(path); return; }
-    const html = await res.text();
+    let html;
+    if (fragmentCache.has(path)) {
+      html = fragmentCache.get(path);
+    } else {
+      const res = await fetch(url);
+      if (!res.ok) { showError(path); return; }
+      html = await res.text();
+      fragmentCache.set(path, html);
+    }
     document.getElementById('content-area').innerHTML = html;
     const hashStr = anchor ? `#/${path}#${anchor}` : `#/${path}`;
     history.pushState({ path, anchor }, '', hashStr);
@@ -88,10 +99,10 @@ function initFragmentComponents() {
     });
   });
 
-  if (typeof initSubnetting === 'function') initSubnetting();
-  if (typeof initFlashcards === 'function') initFlashcards();
-  if (typeof initMatching === 'function') initMatching();
-  if (typeof initAIExplain === 'function') initAIExplain();
+  initSubnetting();
+  initFlashcards();
+  initMatching();
+  initAIExplain();
 }
 
 /* Cert tab switching */
