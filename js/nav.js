@@ -37,7 +37,7 @@ function closeSidebar() {
   backdrop?.classList.remove('visible');
 }
 
-async function loadFragment(path, anchor) {
+async function loadFragment(path, anchor, { push = true } = {}) {
   /* Tear down scroll-spy from previous page */
   if (scrollSpyObserver) { scrollSpyObserver.disconnect(); scrollSpyObserver = null; }
   /* Remove domain sub-nav bar from previous page */
@@ -57,7 +57,7 @@ async function loadFragment(path, anchor) {
     }
     document.getElementById('content-area').innerHTML = html;
     const hashStr = anchor ? `#/${path}#${anchor}` : `#/${path}`;
-    history.pushState({ path, anchor }, '', hashStr);
+    if (push) history.pushState({ path, anchor }, '', hashStr);
     if (anchor) {
       setTimeout(() => {
         const el = document.getElementById(anchor);
@@ -463,7 +463,14 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Popstate for back/forward navigation */
   window.addEventListener('popstate', e => {
     if (e.state && e.state.path) {
-      loadFragment(e.state.path, e.state.anchor || null);
+      loadFragment(e.state.path, e.state.anchor || null, { push: false });
+    } else {
+      /* Fallback: derive path/anchor from location.hash */
+      const hash = location.hash.replace('#/', '');
+      if (hash) {
+        const parts = hash.split('#');
+        loadFragment(parts[0], parts[1] || null, { push: false });
+      }
     }
   });
 });

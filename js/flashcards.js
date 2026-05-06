@@ -83,7 +83,7 @@ export function initFlashcards(path) {
     if (deckNav && !deckNav.querySelector('.deck-kbd-hints')) {
       const hints = document.createElement('span');
       hints.className = 'deck-kbd-hints';
-      hints.innerHTML = 'Keyboard: <kbd>←</kbd><kbd>→</kbd> navigate · <kbd>Space</kbd> flip';
+      hints.innerHTML = 'Keyboard: <kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>Space</kbd> flip';
       deckNav.appendChild(hints);
     }
 
