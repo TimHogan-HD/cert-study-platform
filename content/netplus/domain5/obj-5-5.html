@@ -22,8 +22,8 @@
   </div>
 
   <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">cmd.exe — unexpected open ports (IoC)</span></div>
-    <pre class="terminal-body"><span class="tpw">C:\&gt;</span> netstat -an | findstr LISTENING
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — unexpected open ports (IoC)</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> netstat -an | findstr LISTENING
 TCP    0.0.0.0:22      0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← SSH (expected on this server)</span>
 TCP    0.0.0.0:80      0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← HTTP (expected)</span>
 TCP    0.0.0.0:443     0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← HTTPS (expected)</span>
@@ -59,7 +59,7 @@ TCP    0.0.0.0:3389    0.0.0.0:0    <span class="ts">LISTENING</span>   <span cl
 
   <div class="terminal">
     <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Rogue DHCP — victim ipconfig &amp; switch snooping</span></div>
-    <pre class="terminal-body"><span class="tpw">C:\&gt;</span> ipconfig /all
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> ipconfig /all
 Ethernet adapter Ethernet:
    IPv4 Address. . . : 192.168.1.105
    Subnet Mask . . . : 255.255.255.0
@@ -88,7 +88,7 @@ cc:dd:ee:44:55:66  192.168.1.106   86400     dhcp  10    Fa0/4
 
   <div class="terminal">
     <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">ARP Poisoning — detecting spoofed gateway MAC</span></div>
-    <pre class="terminal-body"><span class="tpw">C:\&gt;</span> arp -a
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> arp -a
 Interface: 192.168.1.50 --- 0x3
   Internet Address      Physical Address        Type
   <span class="th">192.168.1.1</span>           <span class="te">aa:bb:cc:11:22:33</span>      dynamic   <span class="tn">← gateway</span>
