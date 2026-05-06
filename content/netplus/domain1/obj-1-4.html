@@ -19,50 +19,134 @@
     </table>
   </div>
 
-  <h3>Complete Port &amp; Protocol Reference</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes / Exam Tips</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>20</td><td>FTP Data</td><td>TCP</td><td>Active mode data channel. Port 21 = control.</td></tr>
-        <tr><td>21</td><td>FTP Control</td><td>TCP</td><td>Command channel. Passive mode data uses ephemeral port negotiated over 21.</td></tr>
-        <tr><td>22</td><td>SSH</td><td>TCP</td><td>Secure Shell — encrypted remote access. Replaces Telnet.</td></tr>
-        <tr><td>23</td><td>Telnet</td><td>TCP</td><td>Cleartext remote access — insecure, legacy.</td></tr>
-        <tr><td>25</td><td>SMTP</td><td>TCP</td><td>Simple Mail Transfer Protocol — sending email (server-to-server or client-to-server).</td></tr>
-        <tr><td>53</td><td>DNS</td><td>UDP (and TCP)</td><td>UDP for queries (≤512 bytes). TCP for zone transfers and responses &gt;512 bytes. <strong>Both matter!</strong></td></tr>
-        <tr><td>67</td><td>DHCP Server</td><td>UDP</td><td>Server listens on 67. Client sends from port 68.</td></tr>
-        <tr><td>68</td><td>DHCP Client</td><td>UDP</td><td>Client source port during DORA process.</td></tr>
-        <tr><td>69</td><td>TFTP</td><td>UDP</td><td>Trivial FTP — no authentication, used for bootstrapping, IOS firmware updates.</td></tr>
-        <tr><td>80</td><td>HTTP</td><td>TCP</td><td>Cleartext web traffic.</td></tr>
-        <tr><td>110</td><td>POP3</td><td>TCP</td><td>Post Office Protocol v3 — downloads email and deletes from server.</td></tr>
-        <tr><td>119</td><td>NNTP</td><td>TCP</td><td>Network News Transfer Protocol — legacy newsgroups.</td></tr>
-        <tr><td>123</td><td>NTP</td><td>UDP</td><td>Network Time Protocol — time synchronization. Critical for Kerberos authentication.</td></tr>
-        <tr><td>143</td><td>IMAP</td><td>TCP</td><td>Internet Message Access Protocol — keeps email on server; syncs across devices.</td></tr>
-        <tr><td>161</td><td>SNMP</td><td>UDP</td><td>SNMP polling — manager polls agent (port 161). Agents send traps to manager on 162.</td></tr>
-        <tr><td>162</td><td>SNMP Trap</td><td>UDP</td><td>Agents send unsolicited alerts (traps) to SNMP manager on port 162.</td></tr>
-        <tr><td>389</td><td>LDAP</td><td>TCP</td><td>Lightweight Directory Access Protocol — used for directory services (Active Directory queries).</td></tr>
-        <tr><td>443</td><td>HTTPS</td><td>TCP</td><td>HTTP over TLS/SSL — encrypted web traffic.</td></tr>
-        <tr><td>445</td><td>SMB</td><td>TCP</td><td>Server Message Block — Windows file sharing, print sharing.</td></tr>
-        <tr><td>514</td><td>Syslog</td><td>UDP</td><td>System logging. Sends log messages to central syslog server.</td></tr>
-        <tr><td>587</td><td>SMTP (Submission)</td><td>TCP</td><td>Email submission from client to mail server (authenticated, preferred over 25).</td></tr>
-        <tr><td>636</td><td>LDAPS</td><td>TCP</td><td>LDAP over TLS/SSL — encrypted directory queries.</td></tr>
-        <tr><td>993</td><td>IMAPS</td><td>TCP</td><td>IMAP over TLS — encrypted IMAP.</td></tr>
-        <tr><td>995</td><td>POP3S</td><td>TCP</td><td>POP3 over TLS — encrypted POP3.</td></tr>
-        <tr><td>1433</td><td>MS SQL</td><td>TCP</td><td>Microsoft SQL Server database connections.</td></tr>
-        <tr><td>1720</td><td>H.323</td><td>TCP</td><td>VoIP signaling protocol (legacy).</td></tr>
-        <tr><td>1812</td><td>RADIUS Auth</td><td>UDP</td><td>RADIUS authentication. Port 1813 = RADIUS accounting.</td></tr>
-        <tr><td>1813</td><td>RADIUS Accounting</td><td>UDP</td><td>Tracks session usage, duration, data transferred.</td></tr>
-        <tr><td>3389</td><td>RDP</td><td>TCP</td><td>Remote Desktop Protocol — Windows remote desktop. UDP also used for newer versions.</td></tr>
-        <tr><td>5060</td><td>SIP</td><td>TCP/UDP</td><td>Session Initiation Protocol — VoIP call setup and teardown.</td></tr>
-        <tr><td>5061</td><td>SIPS</td><td>TCP</td><td>SIP over TLS — encrypted VoIP signaling.</td></tr>
-        <tr><td>49</td><td>TACACS+</td><td>TCP</td><td>Terminal Access Controller AC System+ — AAA for network devices. Full packet encryption.</td></tr>
-        <tr><td>88</td><td>Kerberos</td><td>TCP/UDP</td><td>Authentication protocol used in Active Directory. Requires synchronized clocks (NTP).</td></tr>
-        <tr><td>179</td><td>BGP</td><td>TCP</td><td>Border Gateway Protocol — internet routing protocol. Uses TCP for reliability.</td></tr>
-        <tr><td>520</td><td>RIP</td><td>UDP</td><td>Routing Information Protocol — legacy distance-vector routing.</td></tr>
-      </tbody>
-    </table>
+  <h3>Port &amp; Protocol Reference — By Category</h3>
+  <div class="port-groups">
+
+    <div class="port-group" data-group="web">
+      <div class="port-group-title">Web Traffic</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>80</td><td><abbr title="HyperText Transfer Protocol">HTTP</abbr></td><td>TCP</td><td>Cleartext web traffic. Replaced by HTTPS for secure sites.</td></tr>
+          <tr><td>443</td><td><abbr title="HTTP Secure — HTTP over TLS/SSL">HTTPS</abbr></td><td>TCP</td><td>Encrypted web traffic. Standard for all modern websites.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="port-group" data-group="file">
+      <div class="port-group-title">File Transfer</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>20</td><td><abbr title="File Transfer Protocol — data channel">FTP</abbr> Data</td><td>TCP</td><td>Active mode data channel. Port 21 = control. ⚠ Two ports!</td></tr>
+          <tr><td>21</td><td>FTP Control</td><td>TCP</td><td>Command/control channel. Passive mode negotiates ephemeral port over 21.</td></tr>
+          <tr><td>69</td><td><abbr title="Trivial File Transfer Protocol — no authentication">TFTP</abbr></td><td>UDP</td><td>No authentication, no directory listing. Used for network device firmware updates and PXE boot.</td></tr>
+          <tr><td>445</td><td><abbr title="Server Message Block — Windows file/print sharing">SMB</abbr></td><td>TCP</td><td>Windows file sharing and print sharing. Also used by ransomware (WannaCry/EternalBlue).</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="port-group" data-group="email">
+      <div class="port-group-title">Email</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>25</td><td><abbr title="Simple Mail Transfer Protocol">SMTP</abbr></td><td>TCP</td><td>Server-to-server email relay. Not for authenticated client submission.</td></tr>
+          <tr><td>587</td><td>SMTP Submission</td><td>TCP</td><td>Authenticated client-to-server submission. Preferred over port 25 for sending.</td></tr>
+          <tr><td>110</td><td><abbr title="Post Office Protocol v3 — downloads and deletes email">POP3</abbr></td><td>TCP</td><td>Downloads email from server and deletes it. Single-device model.</td></tr>
+          <tr><td>995</td><td>POP3S</td><td>TCP</td><td>POP3 over <abbr title="Transport Layer Security">TLS</abbr> — encrypted POP3.</td></tr>
+          <tr><td>143</td><td><abbr title="Internet Message Access Protocol — syncs email across devices">IMAP</abbr></td><td>TCP</td><td>Keeps email on server and syncs across devices. Multi-device model. Contrast: POP3 deletes.</td></tr>
+          <tr><td>993</td><td>IMAPS</td><td>TCP</td><td>IMAP over TLS — encrypted IMAP.</td></tr>
+          <tr><td>119</td><td><abbr title="Network News Transfer Protocol — legacy newsgroups">NNTP</abbr></td><td>TCP</td><td>Legacy newsgroup protocol. Rarely seen today.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="port-group" data-group="remote">
+      <div class="port-group-title">Remote Access</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>22</td><td><abbr title="Secure Shell — encrypted remote access">SSH</abbr></td><td>TCP</td><td>Encrypted remote shell access. Replaces Telnet (port 23).</td></tr>
+          <tr><td>23</td><td>Telnet</td><td>TCP</td><td>Cleartext remote access — insecure, legacy. Replaced by SSH.</td></tr>
+          <tr><td>3389</td><td><abbr title="Remote Desktop Protocol — Windows GUI remote access">RDP</abbr></td><td>TCP (+UDP)</td><td>Windows remote desktop. High-value attack target — should be VPN-gated.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="port-group" data-group="infra">
+      <div class="port-group-title">Infrastructure Services</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>53</td><td><abbr title="Domain Name System — resolves hostnames to IP addresses">DNS</abbr></td><td>UDP + TCP</td><td>UDP for queries (≤512 bytes). TCP for zone transfers and large responses. <strong>Both matter!</strong></td></tr>
+          <tr><td>67</td><td><abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> Server</td><td>UDP</td><td>Server listens on 67. Client sends Discover from port 68.</td></tr>
+          <tr><td>68</td><td>DHCP Client</td><td>UDP</td><td>Client source port during <abbr title="Discover-Offer-Request-Acknowledge">DORA</abbr> process.</td></tr>
+          <tr><td>123</td><td><abbr title="Network Time Protocol — time synchronization">NTP</abbr></td><td>UDP</td><td>Time synchronization. Critical for Kerberos auth — max 5-minute clock skew.</td></tr>
+          <tr><td>514</td><td>Syslog</td><td>UDP</td><td>System event logging to a central server. UDP = no delivery guarantee; logs can be lost.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="port-group" data-group="auth">
+      <div class="port-group-title">Directory Services &amp; Authentication</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>88</td><td>Kerberos</td><td>TCP/UDP</td><td>Authentication protocol in Active Directory. Requires NTP sync — 5-minute clock skew max.</td></tr>
+          <tr><td>389</td><td><abbr title="Lightweight Directory Access Protocol — directory queries (e.g. Active Directory)">LDAP</abbr></td><td>TCP</td><td>Directory service queries (Active Directory). Cleartext.</td></tr>
+          <tr><td>636</td><td>LDAPS</td><td>TCP</td><td>LDAP over TLS — encrypted directory queries.</td></tr>
+          <tr><td>49</td><td><abbr title="Terminal Access Controller Access-Control System Plus — AAA for network devices">TACACS+</abbr></td><td>TCP</td><td>Full packet encryption. Separates authentication, authorization, accounting. Used for network device admin.</td></tr>
+          <tr><td>1812</td><td><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> Auth</td><td>UDP</td><td>AAA for network access (Wi-Fi, VPN). Encrypts password only. ⚠ Uses UDP, unlike TACACS+.</td></tr>
+          <tr><td>1813</td><td>RADIUS Accounting</td><td>UDP</td><td>Tracks session duration, data transferred, usage.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="port-group" data-group="mgmt">
+      <div class="port-group-title">Network Management &amp; Monitoring</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>161</td><td><abbr title="Simple Network Management Protocol — manager polls agents">SNMP</abbr> Poll</td><td>UDP</td><td>Manager queries agents for device stats (CPU, interfaces, errors).</td></tr>
+          <tr><td>162</td><td>SNMP Trap</td><td>UDP</td><td>Agents send unsolicited alerts (traps) to the manager. Direction: agent → manager.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="port-group" data-group="voip">
+      <div class="port-group-title">VoIP &amp; Conferencing</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>5060</td><td><abbr title="Session Initiation Protocol — VoIP call setup and teardown">SIP</abbr></td><td>TCP/UDP</td><td>VoIP call setup and teardown. Media (voice) travels on separate <abbr title="Real-time Transport Protocol">RTP</abbr> ports.</td></tr>
+          <tr><td>5061</td><td>SIPS</td><td>TCP</td><td>SIP over TLS — encrypted VoIP signaling.</td></tr>
+          <tr><td>1720</td><td>H.323</td><td>TCP</td><td>Legacy VoIP signaling. Uses 1720 for call setup; media uses dynamic ports.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="port-group" data-group="routing">
+      <div class="port-group-title">Routing Protocols</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>179</td><td><abbr title="Border Gateway Protocol — internet routing between autonomous systems">BGP</abbr></td><td>TCP</td><td>Internet routing between <abbr title="Autonomous Systems — independently managed routing domains">ASes</abbr>. Uses TCP for reliability.</td></tr>
+          <tr><td>520</td><td><abbr title="Routing Information Protocol — legacy distance-vector IGP, max 15 hops">RIP</abbr></td><td>UDP</td><td>Legacy distance-vector routing. Max 15 hops. Mostly replaced by OSPF.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="port-group" data-group="db">
+      <div class="port-group-title">Database</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>1433</td><td>MS SQL</td><td>TCP</td><td>Microsoft SQL Server. Commonly targeted — often blocked at perimeter firewall.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
   </div>
 
   <!-- Flashcard Deck -->

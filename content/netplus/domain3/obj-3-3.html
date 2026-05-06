@@ -128,18 +128,18 @@
   </div>
 
   <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">cmd.exe — nslookup</span></div>
-    <pre class="terminal-body"><span class="tpw">C:\&gt;</span> nslookup example.com
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — nslookup</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> nslookup example.com
 Server:  corp-dns.corp.local
-Address: 192.168.1.53#53
+Address: 192.168.1.53
 
 <span class="tn">Non-authoritative answer:</span>    <span class="tn">← from cache, not the zone's own server</span>
 Name:    <span class="th">example.com</span>
 Address: <span class="th">93.184.216.34</span>
 
-<span class="tpw">C:\&gt;</span> nslookup -type=MX example.com
+<span class="tpw">PS C:\&gt;</span> nslookup -type=MX example.com
 Server:  corp-dns.corp.local
-Address: 192.168.1.53#53
+Address: 192.168.1.53
 
 example.com  mail exchanger = <span class="th">10</span>  mail1.example.com.  <span class="tn">← priority 10 (primary)</span>
 example.com  mail exchanger = <span class="th">20</span>  mail2.example.com.  <span class="tn">← priority 20 (backup)</span>
@@ -148,24 +148,24 @@ example.com  mail exchanger = <span class="th">20</span>  mail2.example.com.  <s
   </div>
 
   <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">bash — dig</span></div>
-    <pre class="terminal-body"><span class="tp">$</span> dig example.com
-; &lt;&lt;&gt;&gt; DiG 9.18.1 &lt;&lt;&gt;&gt; example.com
-;; Got answer:
-;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: <span class="ts">NOERROR</span>, id: 31415
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — Resolve-DnsName</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com
 
-;; ANSWER SECTION:
-example.com.  <span class="th">3599</span>  IN  <span class="th">A</span>  <span class="th">93.184.216.34</span>   <span class="tn">← TTL=3599s, A record, IPv4 address</span>
+Name                            Type  TTL   Section  IPAddress
+----                            ----  ---   -------  ---------
+example.com                     A     <span class="th">3599</span>  Answer   <span class="th">93.184.216.34</span>
+<span class="tn"># TTL=3599s — how long this record is cached before re-querying</span>
 
-;; AUTHORITY SECTION:
-example.com.  86400  IN  NS  ns1.example.com.  <span class="tn">← authoritative name server</span>
+<span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com -Type MX
 
-;; Query time: 12 msec
-;; SERVER: <span class="th">192.168.1.53</span>#53  <span class="tn">← which resolver answered</span>
-<span class="tn"># status: NOERROR = resolved. NXDOMAIN = name doesn't exist. SERVFAIL = DNS error</span>
+Name         Type  TTL   Section  NameExchange        Preference
+----         ----  ---   -------  ------------        ----------
+example.com  MX    3600  Answer   mail1.example.com   <span class="th">10</span>
+example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
+<span class="tn"># Lower Preference = higher priority. 10 is tried before 20</span>
 
-<span class="tp">$</span> dig @8.8.8.8 example.com   <span class="tn">← query Google DNS directly, bypass local resolver</span>
-<span class="tn"># If local DNS fails but @8.8.8.8 works → problem is your internal DNS server</span>
+<span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com -Server 8.8.8.8  <span class="tn">← bypass local resolver</span>
+<span class="tn"># If local fails but -Server 8.8.8.8 works → internal DNS server is the problem</span>
 <span class="tn"># If both fail → domain doesn't exist, or DNS traffic is being blocked</span></pre>
   </div>
 

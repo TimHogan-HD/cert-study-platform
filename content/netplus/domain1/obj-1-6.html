@@ -41,11 +41,78 @@
         <tr><th>Model</th><th>What Customer Manages</th><th>Examples</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>IaaS</strong> (Infrastructure as a Service)</td><td>OS, middleware, apps, data</td><td>AWS EC2, Azure VMs, Google Compute Engine</td></tr>
-        <tr><td><strong>PaaS</strong> (Platform as a Service)</td><td>Apps and data only</td><td>Azure App Service, Google App Engine, Heroku</td></tr>
-        <tr><td><strong>SaaS</strong> (Software as a Service)</td><td>Nothing — just uses the app</td><td>Microsoft 365, Salesforce, Google Workspace</td></tr>
+        <tr><td><strong>IaaS</strong> (<abbr title="Infrastructure as a Service — provider manages physical hardware and virtualization; customer manages OS and above">Infrastructure as a Service</abbr>)</td><td>OS, middleware, runtime, apps, data</td><td>AWS EC2, Azure VMs, Google Compute Engine</td></tr>
+        <tr><td><strong>PaaS</strong> (<abbr title="Platform as a Service — provider manages everything up through the runtime; customer manages apps and data">Platform as a Service</abbr>)</td><td>Apps and data only</td><td>Azure App Service, Google App Engine, Heroku</td></tr>
+        <tr><td><strong>SaaS</strong> (<abbr title="Software as a Service — provider manages everything; customer just uses the application">Software as a Service</abbr>)</td><td>Nothing — just uses the app</td><td>Microsoft 365, Salesforce, Google Workspace</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <h4>Shared Responsibility Model</h4>
+  <p>In every cloud model, responsibility for security and management is <strong>split between the customer and the cloud provider</strong>. As you move from IaaS → PaaS → SaaS, the provider takes on more layers.</p>
+
+  <div class="sr-diagram">
+    <div class="sr-grid">
+      <!-- Header row -->
+      <div class="sr-cell sr-header">Layer</div>
+      <div class="sr-cell sr-header">IaaS</div>
+      <div class="sr-cell sr-header">PaaS</div>
+      <div class="sr-cell sr-header">SaaS</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Applications</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Data</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Runtime</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Middleware</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Operating System</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Virtualization</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Servers</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Storage</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Networking</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Data Center</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+    </div>
+    <div class="sr-legend">
+      <div class="sr-legend-item"><div class="sr-swatch sr-swatch-customer"></div>Customer responsibility</div>
+      <div class="sr-legend-item"><div class="sr-swatch sr-swatch-provider"></div>Provider responsibility</div>
+    </div>
   </div>
 
   <h3>Cloud Deployment Models</h3>
