@@ -145,15 +145,13 @@ Address: <span class="th">93.184.216.34</span>
   </div>
 
   <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">bash — arp -a</span></div>
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Linux/macOS — arp -a</span></div>
     <pre class="terminal-body"><span class="tp">$</span> arp -a
-Interface: 192.168.1.50 --- 0x3
-  Internet Address      Physical Address        Type
-  <span class="th">192.168.1.1</span>           <span class="th">00-1a-2b-3c-4d-5e</span>      dynamic
-  192.168.1.53          00-1a-2b-3c-4d-60      dynamic
-  192.168.1.255         ff-ff-ff-ff-ff-ff      static
+<span class="th">_gateway</span> (<span class="th">192.168.1.1</span>) at <span class="th">00:1a:2b:3c:4d:5e</span> [ether] on eth0
+? (192.168.1.53) at 00:1a:2b:3c:4d:60 [ether] on eth0
+? (192.168.1.255) at ff:ff:ff:ff:ff:ff [ether] on eth0
 <span class="tn"># Maps IP → MAC (Layer 3 → Layer 2).  Use to spot IP conflicts: same IP, two MACs</span>
-<span class="tn"># arp -d 192.168.1.1  — delete a specific entry</span></pre>
+<span class="tn"># sudo arp -d 192.168.1.1 — delete a specific entry</span></pre>
   </div>
 
   <div class="terminal">

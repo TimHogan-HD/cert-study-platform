@@ -77,6 +77,27 @@
     </ol>
   </div>
 
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">cmd.exe — Scenario 1: DNS vs routing</span></div>
+    <pre class="terminal-body"><span class="tpw">C:\&gt;</span> ping server01
+<span class="te">Ping request could not find host server01.</span>    <span class="tn">← DNS resolution failed</span>
+<span class="te">Please check the name and try again.</span>
+
+<span class="tpw">C:\&gt;</span> ping 10.1.1.50
+Pinging 10.1.1.50 with 32 bytes of data:
+<span class="ts">Reply from 10.1.1.50: bytes=32 time=2ms TTL=128</span>   <span class="tn">← IP works! Layer 3 is fine</span>
+<span class="ts">Reply from 10.1.1.50: bytes=32 time=1ms TTL=128</span>
+<span class="tn"># Name fails + IP works = DNS problem, not a routing or connectivity issue</span>
+
+<span class="tpw">C:\&gt;</span> ipconfig /flushdns
+Windows IP Configuration
+<span class="ts">Successfully flushed the DNS Resolver Cache.</span>
+
+<span class="tn"># After DHCP option 6 corrected to 10.1.1.10:</span>
+<span class="tpw">C:\&gt;</span> ping server01
+<span class="ts">Reply from 10.1.1.50: bytes=32 time=2ms TTL=128</span>   <span class="tn">← name resolves now ✓</span></pre>
+  </div>
+
   <h3>Scenario Walkthrough 2: Intermittent Connectivity</h3>
   <div class="callout callout-blue">
     <div class="callout-title">7-Step Applied</div>
@@ -91,6 +112,22 @@
     </ol>
   </div>
 
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — Scenario 2: duplex mismatch</span></div>
+    <pre class="terminal-body"><span class="tpc">Switch#</span> show interface GigabitEthernet0/1
+GigabitEthernet0/1 is up, line protocol is up
+  Hardware is Gigabit Ethernet
+  MTU 1500 bytes, BW 100000 Kbit/sec
+  <span class="te">Half-duplex</span>, 100Mb/s   <span class="tn">← mismatch: core switch is full-duplex</span>
+
+  5 minute input rate 1200000 bits/sec, 890 packets/sec
+  <span class="th">127 CRC</span>, <span class="th">45 runts</span>, 0 giants   <span class="tn">← CRC + runts together = duplex mismatch signature</span>
+  0 input errors, 0 output errors
+<span class="tn"># CRC errors = frame corruption from collisions caused by half/full mismatch</span>
+<span class="tn"># Runts = frames &lt;64 bytes, caused by collisions truncating packets</span>
+<span class="tn"># Fix: set both ends to "duplex full" or both to "duplex auto"</span></pre>
+  </div>
+
   <h3>Scenario Walkthrough 3: No Internet Access</h3>
   <div class="callout callout-blue">
     <div class="callout-title">7-Step Applied</div>
@@ -103,6 +140,26 @@
       <li><strong>Verify:</strong> <code>ping 8.8.8.8</code> succeeds. HTTP/HTTPS confirmed working from end stations.</li>
       <li><strong>Document:</strong> Default route was removed during an ACL cleanup script that ran automatically. Added exception and updated automation script.</li>
     </ol>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — Scenario 3: missing default route</span></div>
+    <pre class="terminal-body"><span class="tpc">Router#</span> ping 8.8.8.8
+Sending 5, 100-byte ICMP Echos to 8.8.8.8, timeout is 2 seconds:
+<span class="te">.....</span>                    <span class="tn">← 5 dots = 100% packet loss (. = timeout, ! = success)</span>
+<span class="te">Success rate is 0 percent (0/5)</span>
+
+<span class="tpc">Router#</span> show ip route
+C    10.0.0.0/30    is directly connected, GigabitEthernet0/0
+C    192.168.1.0/24 is directly connected, GigabitEthernet0/1
+<span class="tn"># No 0.0.0.0/0 entry — default route is missing. Router has no path to internet.</span>
+
+<span class="tpc">Router(config)#</span> ip route 0.0.0.0 0.0.0.0 203.0.113.1   <span class="tn">← restore static default route</span>
+
+<span class="tpc">Router#</span> ping 8.8.8.8
+Sending 5, 100-byte ICMP Echos to 8.8.8.8, timeout is 2 seconds:
+<span class="ts">!!!!!</span>                    <span class="tn">← 5 bangs = 100% success</span>
+<span class="ts">Success rate is 100 percent (5/5)</span>, round-trip min/avg/max = 11/12/14 ms</pre>
   </div>
 
   <div class="callout callout-amber pbq-prep">

@@ -444,10 +444,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sidebar) {
       if (collapsed) {
         sidebar.setAttribute('aria-hidden', 'true');
-        sidebar.setAttribute('inert', '');
+        sidebar.inert = true;
       } else {
         sidebar.removeAttribute('aria-hidden');
-        sidebar.removeAttribute('inert');
+        sidebar.inert = false;
       }
     }
     if (sidebarDesktopToggle) {

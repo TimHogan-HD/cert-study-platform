@@ -164,6 +164,50 @@
     </ul>
   </div>
 
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — show vlan brief &amp; show interfaces trunk</span></div>
+    <pre class="terminal-body"><span class="tpc">Switch1#</span> show vlan brief
+VLAN  Name        Status    Ports
+----  ----------  --------  -----------------------------------
+1     default     active    Gi0/3, Gi0/4
+<span class="th">10</span>    CORP        active    <span class="th">Gi0/1</span>, Gi0/2, Fa0/1, Fa0/2
+<span class="th">20</span>    GUEST       active    <span class="th">Gi0/5</span>, Fa0/3
+99    NATIVE      active
+<span class="tn"># Trunk ports (Gi0/0) don't appear here — show vlan only lists ACCESS ports</span>
+<span class="tn"># If a port is missing from the list, check if it's a trunk port</span>
+
+<span class="tpc">Switch1#</span> show interfaces trunk
+Port    Mode  Encapsulation  Status    <span class="th">Native vlan</span>
+Gi0/0   on    802.1q         trunking  <span class="th">99</span>        <span class="tn">← native VLAN 99, not default VLAN 1</span>
+
+Port    Vlans allowed on trunk
+Gi0/0   1-4094
+
+Port    Vlans allowed and active in management domain
+Gi0/0   <span class="th">1,10,20,99</span>
+<span class="tn"># Native VLAN must match on BOTH ends of the trunk — mismatch = VLAN hopping risk</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — show spanning-tree</span></div>
+    <pre class="terminal-body"><span class="tpc">Switch1#</span> show spanning-tree vlan 10
+VLAN0010
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    <span class="th">4106</span>       <span class="tn">← 4096 + VLAN 10 (extended system ID)</span>
+             Address     <span class="th">aa:bb:cc:00:00:01</span>
+             <span class="ts">This bridge is the root</span>
+             Hello Time 2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+Interface    Role   Sts   Cost  Prio.Nbr  Type
+-----------  -----  ----  ----  --------  --------
+Gi0/0        <span class="th">Desg</span>   <span class="ts">FWD</span>   4     128.1     P2p
+Gi0/1        <span class="th">Desg</span>   <span class="ts">FWD</span>   4     128.2     P2p
+Gi0/2        <span class="th">Altn</span>   <span class="te">BLK</span>   4     128.3     P2p  <span class="tn">← STP blocking this port to prevent loop</span>
+<span class="tn"># Role: Desg=Designated  Root=Root Port  Altn=Alternate (blocking)</span>
+<span class="tn"># Sts:  FWD=Forwarding   LRN=Learning    BLK=Blocking (RSTP: Discarding)</span>
+<span class="tn"># Root bridge = lowest Bridge ID wins. Default priority 32768; lower = preferred</span></pre>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
