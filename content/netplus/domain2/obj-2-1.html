@@ -1,0 +1,161 @@
+<div class="section-eyebrow">Domain 2 · 20% of Exam</div>
+<h1 class="section-title">Network Implementation</h1>
+<p class="section-sub">Routing technologies, switching and VLANs, wireless standards, and physical installation. This domain heavily tests STP, VLAN configuration, and 802.11 standards — all frequent PBQ and MCQ topics.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 2.1 — Routing Technologies
+     ═══════════════════════════════════════════ -->
+
+<div class="obj-section" id="obj-2-1">
+  <div class="section-eyebrow">Objective 2.1</div>
+  <h2>Routing Technologies</h2>
+
+  <h3>Routing Table Components</h3>
+  <p>A router uses its routing table to decide where to send packets. Each route entry contains:</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Description</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Destination Network</strong></td><td>The target network/host</td><td>192.168.10.0/24</td></tr>
+        <tr><td><strong>Subnet Mask / Prefix</strong></td><td>Defines network boundary</td><td>/24 = 255.255.255.0</td></tr>
+        <tr><td><strong>Next Hop</strong></td><td>IP of the next router to send traffic to</td><td>10.0.0.1</td></tr>
+        <tr><td><strong>Exit Interface</strong></td><td>Which interface to use</td><td>GigabitEthernet0/1</td></tr>
+        <tr><td><strong>Metric</strong></td><td>Cost of the route (lower = preferred within same protocol)</td><td>OSPF cost=100, RIP hops=2</td></tr>
+        <tr><td><strong>Administrative Distance (AD)</strong></td><td>Trustworthiness of route source (lower = preferred between protocols)</td><td>OSPF=110, RIP=120</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">AD vs Metric — Critical Distinction</div>
+    <strong>Administrative Distance</strong> selects between routes from different routing protocols (inter-protocol). <strong>Metric</strong> selects the best path within the same routing protocol (intra-protocol). AD is checked first; if tied, metric decides.
+  </div>
+
+  <h3>Administrative Distance Table</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Route Source</th><th>AD Value</th><th>Memory Aid</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Directly Connected</td><td><strong>0</strong></td><td>Can't be more trusted than a cable you're plugged into</td></tr>
+        <tr><td>Static Route</td><td><strong>1</strong></td><td>Admin-configured = very trusted</td></tr>
+        <tr><td>eBGP (external BGP)</td><td><strong>20</strong></td><td>Internet's backbone routing protocol</td></tr>
+        <tr><td>EIGRP (internal)</td><td><strong>90</strong></td><td>Cisco's advanced hybrid protocol</td></tr>
+        <tr><td>OSPF</td><td><strong>110</strong></td><td>"One-Ten for OSPF"</td></tr>
+        <tr><td>IS-IS</td><td><strong>115</strong></td><td>Service provider IGP</td></tr>
+        <tr><td>RIP</td><td><strong>120</strong></td><td>"RIP = 120 = risky old protocol"</td></tr>
+        <tr><td>EIGRP External</td><td><strong>170</strong></td><td>Redistributed routes — less trusted</td></tr>
+        <tr><td>iBGP (internal BGP)</td><td><strong>200</strong></td><td>iBGP = least trusted dynamic route</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Routing Protocol Comparison</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Protocol</th><th>Type</th><th>Algorithm</th><th>Metric</th><th>AD</th><th>Scope</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>RIP v2</strong></td>
+          <td>Distance Vector</td>
+          <td>Bellman-Ford</td>
+          <td>Hop count (max 15)</td>
+          <td>120</td>
+          <td>IGP — small/legacy networks</td>
+        </tr>
+        <tr>
+          <td><strong>OSPF</strong></td>
+          <td>Link State</td>
+          <td>Dijkstra (SPF)</td>
+          <td>Cost (based on bandwidth)</td>
+          <td>110</td>
+          <td>IGP — enterprise standard</td>
+        </tr>
+        <tr>
+          <td><strong>EIGRP</strong></td>
+          <td>Hybrid (Advanced DV)</td>
+          <td>DUAL</td>
+          <td>Bandwidth + delay (+ load, reliability)</td>
+          <td>90</td>
+          <td>IGP — Cisco proprietary</td>
+        </tr>
+        <tr>
+          <td><strong>BGP</strong></td>
+          <td>Path Vector</td>
+          <td>Best Path Selection</td>
+          <td>AS Path + attributes</td>
+          <td>20 (eBGP) / 200 (iBGP)</td>
+          <td>EGP — internet routing</td>
+        </tr>
+        <tr>
+          <td><strong>IS-IS</strong></td>
+          <td>Link State</td>
+          <td>Dijkstra</td>
+          <td>Cost</td>
+          <td>115</td>
+          <td>IGP — service provider</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Static vs Dynamic Routing</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>Static Routes</th><th>Dynamic Routes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Configuration</td><td>Manually configured by admin</td><td>Learned via routing protocol</td></tr>
+        <tr><td>AD</td><td>1 (very trusted)</td><td>Varies by protocol (90–200)</td></tr>
+        <tr><td>Scalability</td><td>Poor (grows with network)</td><td>Good — protocols adapt automatically</td></tr>
+        <tr><td>Failover</td><td>None — if next hop fails, traffic is dropped</td><td>Automatic — protocol finds alternate path</td></tr>
+        <tr><td>Overhead</td><td>None on router CPU</td><td>CPU/bandwidth used for protocol messages</td></tr>
+        <tr><td>Use Cases</td><td>Default routes, small networks, stub networks</td><td>Large networks, redundant topologies</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>OSPF Key Concepts</h3>
+  <ul>
+    <li><strong>Areas:</strong> OSPF uses areas to limit LSA flooding. Area 0 = backbone area. All non-zero areas must connect to Area 0.</li>
+    <li><strong>DR/BDR Election:</strong> On multi-access segments (broadcast networks like Ethernet), routers elect a Designated Router (DR) and Backup DR (BDR) to reduce adjacency count. Highest Router-ID wins (or highest priority).</li>
+    <li><strong>Hello Packets:</strong> Routers send hellos to discover and maintain neighbor relationships. Default: 10s on broadcast, 30s on NBMA.</li>
+    <li><strong>LSA Types:</strong> Type 1 (Router), Type 2 (Network), Type 3 (Summary), Type 5 (External AS), Type 7 (NSSA External).</li>
+    <li><strong>Metric:</strong> OSPF cost = 100 Mbps / link bandwidth. Lower cost = preferred path.</li>
+  </ul>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>Lower AD wins between protocols. Lower metric wins within a protocol. Don't confuse them.</li>
+      <li>eBGP AD = 20. iBGP AD = 200. eBGP is much more trusted. This is commonly tested.</li>
+      <li>RIP max hop count is 15. A route with 16 hops = unreachable. This limits RIP to small networks.</li>
+      <li>OSPF is classless; RIPv1 is classful (doesn't carry subnet masks). RIPv2 is classless.</li>
+      <li>BGP is the internet's core routing protocol — it connects Autonomous Systems (AS).</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 2.1</div>
+    <ul>
+      <li>AD: Connected=0, Static=1, eBGP=20, EIGRP=90, OSPF=110, RIP=120, iBGP=200</li>
+      <li>Lower AD = more trusted = preferred between protocols</li>
+      <li>OSPF = link-state, SPF algorithm, area-based | RIP = distance-vector, hop count max 15</li>
+      <li>BGP = path vector, connects autonomous systems, runs internet routing</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="routing protocols administrative distance and how routers choose paths">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 2.2 — Switching & VLANs
+     ═══════════════════════════════════════════ -->

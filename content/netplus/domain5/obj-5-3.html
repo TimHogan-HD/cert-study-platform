@@ -1,0 +1,180 @@
+<div class="obj-section" id="obj-5-3">
+  <div class="section-eyebrow">Objective 5.3</div>
+  <h2>Network Issues &amp; CLI Troubleshooting</h2>
+  <p>You must know every CLI tool, what it does, and how to read its output. The network discovery PBQ specifically tests your ability to cross-reference show command outputs to locate a device.</p>
+
+  <h3>CLI Troubleshooting Tools</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tool</th><th>OS</th><th>Purpose</th><th>Key Usage / Output</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>ping</code></td><td>All</td>
+          <td>Test Layer 3 reachability (ICMP echo)</td>
+          <td>RTT in ms, packet loss %. <code>ping -t</code> (Windows continuous); <code>ping -c 4</code> (Linux count)</td>
+        </tr>
+        <tr>
+          <td><code>traceroute</code> / <code>tracert</code></td><td>Linux / Windows</td>
+          <td>Show path packets take, hop by hop</td>
+          <td>Each hop = one router; RTT per hop; <code>* * *</code> = ICMP blocked (not necessarily down)</td>
+        </tr>
+        <tr>
+          <td><code>ipconfig</code> / <code>ifconfig</code></td><td>Windows / Linux</td>
+          <td>Show IP configuration</td>
+          <td><code>ipconfig /all</code>: IP, mask, gateway, DNS, MAC, DHCP server. <code>ipconfig /flushdns</code>: clear DNS cache. <code>ipconfig /renew</code>: force DHCP renew</td>
+        </tr>
+        <tr>
+          <td><code>ip</code></td><td>Linux</td>
+          <td>Modern replacement for ifconfig/route</td>
+          <td><code>ip addr show</code>, <code>ip route show</code>, <code>ip neigh show</code> (ARP table)</td>
+        </tr>
+        <tr>
+          <td><code>nslookup</code></td><td>All</td>
+          <td>DNS query tool</td>
+          <td><code>nslookup example.com</code>: A record. <code>nslookup -type=mx example.com</code>: MX records. Test specific server: <code>nslookup example.com 8.8.8.8</code></td>
+        </tr>
+        <tr>
+          <td><code>dig</code></td><td>Linux/Mac</td>
+          <td>Advanced DNS query tool</td>
+          <td><code>dig example.com</code>; shows full DNS response including TTL, authority section. <code>dig +short</code> for brief output</td>
+        </tr>
+        <tr>
+          <td><code>netstat</code></td><td>All</td>
+          <td>Show active connections, listening ports, routing table</td>
+          <td><code>netstat -an</code>: all connections. <code>netstat -r</code>: routing table. <code>netstat -s</code>: per-protocol statistics</td>
+        </tr>
+        <tr>
+          <td><code>arp</code></td><td>All</td>
+          <td>View/manage ARP cache (IP ↔ MAC mappings)</td>
+          <td><code>arp -a</code>: display ARP table. Static vs dynamic entries. <code>arp -d</code>: delete entry</td>
+        </tr>
+        <tr>
+          <td><code>route</code></td><td>All</td>
+          <td>View/modify routing table</td>
+          <td><code>route print</code> (Windows) / <code>route -n</code> (Linux). Add/delete static routes</td>
+        </tr>
+        <tr>
+          <td><code>nmap</code></td><td>All</td>
+          <td>Network discovery and port scanning</td>
+          <td><code>nmap -sV 192.168.1.0/24</code>: scan subnet. Shows open ports, services, OS fingerprint. Use only on networks you own/have permission to test</td>
+        </tr>
+        <tr>
+          <td><code>pathping</code></td><td>Windows</td>
+          <td>Combines ping + traceroute with packet loss stats per hop</td>
+          <td>Shows latency AND loss at each hop; better than traceroute for identifying congested links</td>
+        </tr>
+        <tr>
+          <td><code>tcpdump</code></td><td>Linux</td>
+          <td>Capture packets from command line</td>
+          <td><code>tcpdump -i eth0 port 80</code>: capture HTTP on eth0. Write to file: <code>-w capture.pcap</code></td>
+        </tr>
+        <tr>
+          <td><code>Wireshark</code></td><td>GUI/All</td>
+          <td>Graphical packet analyzer</td>
+          <td>Filter: <code>ip.addr == 10.1.1.1</code>; follow TCP stream; decode protocols</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>APIPA — Diagnostic Indicator</h3>
+  <div class="callout callout-blue">
+    <div class="callout-title">169.254.x.x — What It Means</div>
+    <p>If a Windows device self-assigns an address in <strong>169.254.0.0/16</strong> (APIPA — Automatic Private IP Addressing), it means DHCP failed. The device sent DHCP Discover broadcasts but received no Offer within timeout.</p>
+    <p><strong>Diagnose:</strong> Is the DHCP server down? Is there a DHCP relay (ip helper-address) misconfigured? Is the client on the wrong VLAN where no DHCP server exists?</p>
+    <p><strong>APIPA devices can communicate only with other APIPA devices on the same link</strong> — no internet, no cross-subnet access.</p>
+  </div>
+
+  <h3>Common Network Issues</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Issue</th><th>Symptom</th><th>Likely Cause</th><th>Diagnostic Command</th></tr></thead>
+      <tbody>
+        <tr><td>IP conflict</td><td>Both devices lose connectivity intermittently</td><td>Two devices share same IP (static conflict or rogue DHCP)</td><td><code>arp -a</code>; check DHCP lease table</td></tr>
+        <tr><td>VLAN mismatch</td><td>Two devices can't communicate even on same switch</td><td>Devices assigned to different VLANs without routing</td><td><code>show vlan</code>; check port assignments</td></tr>
+        <tr><td>Routing loop</td><td>Packets loop; TTL exceeded errors; high CPU on routers</td><td>Misconfigured static routes, redistributed routes forming loop</td><td><code>traceroute</code>; <code>show ip route</code></td></tr>
+        <tr><td>Asymmetric routing</td><td>TCP sessions fail; one-way audio in VoIP</td><td>Traffic takes different path in each direction</td><td><code>traceroute</code> from both ends; compare paths</td></tr>
+        <tr><td>MTU mismatch</td><td>Large packets fail; small packets work; "black hole" routing</td><td>PMTUD blocked by firewall; VPN adds overhead</td><td><code>ping -f -l 1472</code> (Windows DF-bit test)</td></tr>
+        <tr><td>Missing route</td><td>Can't reach specific network; others work fine</td><td>Route not redistributed, summarized away, or filtered</td><td><code>show ip route [destination]</code></td></tr>
+        <tr><td>DNS failure</td><td>Names don't resolve; IPs work</td><td>DNS server down, wrong DNS configured, poisoned cache</td><td><code>nslookup</code>; <code>ipconfig /flushdns</code></td></tr>
+        <tr><td>Broadcast storm</td><td>Extreme network slowness; switch CPU maxed</td><td>STP failure causing a loop; broadcast traffic floods</td><td>Check STP topology; <code>show spanning-tree</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Network Discovery PBQ — Full Walkthrough</h3>
+  <div class="callout callout-amber pbq-prep">
+    <div class="callout-title">🎯 PBQ Prep — Network Discovery Simulation (Most Time-Consuming PBQ)</div>
+    <p><strong>What it looks like:</strong> You are given a terminal connected to a switch. You have 4 available commands. You must find: the MAC address of a target device, its IP address, which VLAN it's on, and which port it connects to — possibly across multiple switches.</p>
+
+    <p><strong>The 4 commands you get:</strong></p>
+    <pre><code>show mac address-table
+show arp
+show vlan
+show ip interface brief</code></pre>
+
+    <p><strong>Step-by-step process:</strong></p>
+    <ol>
+      <li>Run <code>show ip interface brief</code> — confirms which interfaces are up/down and which IPs belong to this switch (SVIs)</li>
+      <li>Run <code>show vlan</code> — shows which ports are in which VLANs (access ports only; trunk ports are not listed here)</li>
+      <li>Run <code>show mac address-table</code> — maps MAC addresses to ports. If target MAC appears on a trunk port, the device is on a downstream switch</li>
+      <li>Run <code>show arp</code> — maps IP addresses to MAC addresses (only populated if this is a Layer 3 switch or router)</li>
+    </ol>
+
+    <p><strong>Sample output cross-reference scenario:</strong></p>
+    <pre><code>Switch1# show mac address-table
+Vlan  Mac Address        Type    Ports
+----  -----------------  ------  -----
+10    0050.7966.6800     DYNAMIC Gi0/1    ← target device MAC on port Gi0/1
+10    0050.7966.6801     DYNAMIC Gi0/2
+20    0050.7966.6802     DYNAMIC Gi0/3
+
+Switch1# show vlan
+VLAN  Name      Status    Ports
+----  --------  --------  ------
+10    CORP      active    Gi0/1, Gi0/2
+20    GUEST     active    Gi0/3
+
+Switch1# show arp
+Protocol  Address      Age  Hardware Addr    Interface
+Internet  10.10.10.50  12   0050.7966.6800   Vlan10   ← MAC maps to IP 10.10.10.50</code></pre>
+
+    <p><strong>Conclusion:</strong> Target device MAC <code>0050.7966.6800</code> is on port <code>Gi0/1</code>, VLAN <code>10</code>, IP address <code>10.10.10.50</code>.</p>
+    <p><strong>Multi-switch:</strong> If the MAC appears on a trunk port (e.g., Gi0/0), run the same commands on the downstream switch connected to that trunk port — the device is one hop further.</p>
+
+    <p><strong>Time management:</strong> Candidates report spending 8–10 minutes on this PBQ unprepared. Practice in Packet Tracer until running these 4 commands and cross-referencing output takes under 3 minutes.</p>
+    <p><strong>Exam strategy:</strong> Flag it, skip to MCQs, return with remaining time.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li><code>show vlan</code> only shows access ports — trunk ports don't appear in VLAN output</li>
+      <li><code>tracert</code> * * * means ICMP is blocked at that hop, not necessarily that the hop is down</li>
+      <li><code>netstat -r</code> shows routing table on a host (same as <code>route print</code> on Windows)</li>
+      <li>APIPA (169.254.x.x) = DHCP failure — not a bad IP address, a diagnostic signal</li>
+      <li><code>pathping</code> is Windows only; combines ping + traceroute; shows per-hop loss statistics</li>
+      <li><code>show arp</code> on a switch is only populated if the switch has SVIs (Layer 3 switch) or is a router</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-title">✓ Quick Recall</div>
+    <ul>
+      <li>4 discovery commands: <code>show mac address-table</code>, <code>show arp</code>, <code>show vlan</code>, <code>show ip interface brief</code></li>
+      <li>MAC→Port: <code>show mac address-table</code></li>
+      <li>IP→MAC: <code>show arp</code></li>
+      <li>Port→VLAN: <code>show vlan</code></li>
+      <li>APIPA 169.254.x.x = DHCP server unreachable</li>
+      <li>DNS name fails but IP works → DNS issue, not routing</li>
+      <li><code>ipconfig /flushdns</code> clears DNS resolver cache</li>
+      <li>Routing loop → <code>traceroute</code> shows packets cycling between same hops</li>
+    </ul>
+  </div>
+
+  <button class="ai-explain-btn" data-topic="network discovery using show commands on Cisco switches">✦ Explain Differently</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 5.4 — Wireless Issues
+     ═══════════════════════════════════════════ -->

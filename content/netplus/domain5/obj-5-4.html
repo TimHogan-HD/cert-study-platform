@@ -1,0 +1,124 @@
+<div class="obj-section" id="obj-5-4">
+  <div class="section-eyebrow">Objective 5.4</div>
+  <h2>Wireless Troubleshooting</h2>
+  <p>Wireless troubleshooting combines RF physics, authentication, and channel management. Symptoms often appear intermittent because RF conditions change over time.</p>
+
+  <h3>Wireless Signal Metrics</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th>Definition</th><th>Good Value</th><th>Problem Threshold</th></tr></thead>
+      <tbody>
+        <tr><td><strong>RSSI</strong> (Received Signal Strength Indicator)</td><td>Received signal power, in negative dBm</td><td>-50 to -67 dBm</td><td>Below -80 dBm: poor connectivity; below -90: unusable</td></tr>
+        <tr><td><strong>SNR</strong> (Signal-to-Noise Ratio)</td><td>Signal power relative to noise floor, in dB</td><td>&gt;20 dB</td><td>Below 10 dB: high error rates, poor throughput</td></tr>
+        <tr><td><strong>Noise floor</strong></td><td>Background RF interference level</td><td>-90 dBm or lower</td><td>Rising noise floor shrinks effective range</td></tr>
+        <tr><td><strong>Channel utilization</strong></td><td>Percentage of airtime in use</td><td>&lt;50%</td><td>Above 75%: contention causes performance issues</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common Wireless Issues</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Issue</th><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Channel overlap / interference</strong></td>
+          <td>Slow speeds, high retransmits, inconsistent throughput</td>
+          <td>Adjacent APs using overlapping channels (e.g., channels 2, 3, 4 in 2.4GHz)</td>
+          <td>Use only channels 1, 6, 11 in 2.4GHz; use non-overlapping 5GHz channels</td>
+        </tr>
+        <tr>
+          <td><strong>RF interference</strong></td>
+          <td>Intermittent drops, poor performance in specific areas</td>
+          <td>Microwaves (2.4GHz), Bluetooth, baby monitors, neighboring Wi-Fi, cordless phones</td>
+          <td>Spectrum analyzer to identify source; move to 5GHz; change channels</td>
+        </tr>
+        <tr>
+          <td><strong>Hidden node problem</strong></td>
+          <td>Excessive collisions; two clients can't "hear" each other but both reach the AP</td>
+          <td>Physical obstacles block direct client-to-client signal</td>
+          <td>Enable RTS/CTS (Request to Send / Clear to Send) — forces coordination through AP</td>
+        </tr>
+        <tr>
+          <td><strong>Sticky client</strong></td>
+          <td>Device stays connected to distant/weak AP even when closer AP is available</td>
+          <td>Client controls roaming decision; older clients hold connections too long</td>
+          <td>Band steering, 802.11r fast roaming, RSSI thresholds on controller, deauth to force reconnect</td>
+        </tr>
+        <tr>
+          <td><strong>AP coverage gap</strong></td>
+          <td>Dead zones; signal drops to zero in specific areas</td>
+          <td>Insufficient AP density, walls/obstacles attenuating signal</td>
+          <td>Wireless site survey; add APs; adjust transmit power</td>
+        </tr>
+        <tr>
+          <td><strong>Wrong PSK / passphrase</strong></td>
+          <td>Authentication failure; "incorrect password" error</td>
+          <td>Client configured with wrong pre-shared key</td>
+          <td>Re-enter passphrase; verify PSK on AP side</td>
+        </tr>
+        <tr>
+          <td><strong>RADIUS auth failure</strong></td>
+          <td>Authentication fails in 802.1X environment</td>
+          <td>Expired certificate, wrong RADIUS secret, NPS misconfiguration</td>
+          <td>Check RADIUS logs; verify certificate validity; confirm shared secret matches AP config</td>
+        </tr>
+        <tr>
+          <td><strong>Evil twin / rogue AP</strong></td>
+          <td>Users associate to attacker's AP; credentials stolen</td>
+          <td>Attacker broadcasts same SSID with stronger signal</td>
+          <td>802.1X (certificate-based auth); rogue AP detection on wireless controller</td>
+        </tr>
+        <tr>
+          <td><strong>Captive portal issues</strong></td>
+          <td>Browser doesn't redirect to login page; HTTPS sites block redirect</td>
+          <td>HTTPS enforcement prevents captive portal redirect; DNS-based redirect blocked</td>
+          <td>Modern devices use captive portal detection (HTTP probe to known URL); configure correctly</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Wireless Diagnostic Tools</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tool</th><th>Purpose</th><th>Key Output</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Wireless analyzer</strong> (e.g., inSSIDer, NetSpot)</td><td>Survey Wi-Fi networks, measure RSSI and channel utilization</td><td>SSID list, channels in use, signal strength per AP, security type</td></tr>
+        <tr><td><strong>Spectrum analyzer</strong></td><td>View all RF energy across frequency band, not just Wi-Fi</td><td>Frequency vs. amplitude; identify non-802.11 interference (microwave, Bluetooth)</td></tr>
+        <tr><td><strong>Wireless controller dashboard</strong></td><td>View client associations, RSSI, roaming history, auth logs</td><td>Per-client SNR, association time, auth failures</td></tr>
+        <tr><td><strong>Protocol analyzer (Wireshark)</strong></td><td>Capture and decode 802.11 management frames</td><td>Beacon frames, probe requests, authentication frames, deauth reasons</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>2.4GHz has only 3 non-overlapping channels: <strong>1, 6, 11</strong> — using any other combination causes overlap</li>
+      <li>Spectrum analyzer ≠ wireless analyzer — spectrum analyzer sees all RF (non-Wi-Fi too); wireless analyzer sees 802.11 only</li>
+      <li>Hidden node solution is RTS/CTS — not changing channels</li>
+      <li>Sticky client is a client-side decision — the AP can't force roaming without sending a deauth or using BSS transition management (802.11v)</li>
+      <li>RSSI is negative dBm — closer to zero = stronger signal (−40 is better than −80)</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-title">✓ Quick Recall</div>
+    <ul>
+      <li>2.4GHz non-overlapping channels: 1, 6, 11 only</li>
+      <li>RSSI closer to 0 = stronger (−40 > −80)</li>
+      <li>SNR &gt;20 dB = good; &lt;10 dB = poor</li>
+      <li>Hidden node fix: RTS/CTS</li>
+      <li>Sticky client: device stays on far AP; fix with band steering or deauth</li>
+      <li>Evil twin prevention: 802.1X certificate-based authentication</li>
+      <li>Spectrum analyzer identifies non-Wi-Fi interference; wireless analyzer shows 802.11 networks only</li>
+    </ul>
+  </div>
+
+  <button class="ai-explain-btn" data-topic="wireless troubleshooting: RSSI, SNR, channel interference, and hidden node problem">✦ Explain Differently</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 5.5 — Security Issues
+     ═══════════════════════════════════════════ -->

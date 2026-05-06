@@ -1,0 +1,149 @@
+<div class="obj-section" id="obj-4-3">
+  <div class="section-eyebrow">Objective 4.3</div>
+  <h2>Network Hardening &amp; Defense</h2>
+
+  <h3>Defense-in-Depth</h3>
+  <p>Multiple overlapping security layers — if one fails, others prevent breach. No single control is sufficient.</p>
+  <ul>
+    <li>Physical security → Network perimeter → Host-based → Application → Data → Monitoring</li>
+  </ul>
+
+  <h3>Firewall Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Layer</th><th>Capability</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Packet-Filtering</strong></td><td>L3/4</td><td>Stateless. Checks src/dst IP, port, protocol. Simple ACL rules. Fast but limited.</td></tr>
+        <tr><td><strong>Stateful Inspection</strong></td><td>L4</td><td>Tracks connection state. Automatically allows return traffic. More secure than stateless.</td></tr>
+        <tr><td><strong>NGFW (Next-Generation)</strong></td><td>L7</td><td>DPI, application awareness, integrated IPS, SSL inspection, user identity, URL filtering. Gold standard.</td></tr>
+        <tr><td><strong>WAF (Web Application Firewall)</strong></td><td>L7</td><td>Protects web apps specifically. Blocks OWASP Top 10: SQLi, XSS, CSRF, etc.</td></tr>
+        <tr><td><strong>Host-based Firewall</strong></td><td>L4/7</td><td>Software firewall on individual host (Windows Firewall, iptables). First and last line of defense per host.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>IDS vs IPS Placement (Critical)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>IDS</th><th>IPS</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Placement</td><td>Out-of-band / passive (SPAN/mirror port)</td><td>Inline — traffic flows through it</td></tr>
+        <tr><td>Can Block?</td><td>No — alert only</td><td>Yes — can drop/block malicious packets</td></tr>
+        <tr><td>Failure Mode</td><td>Fails safely — no impact on traffic</td><td>If fails, can cause outage (fail-open vs fail-closed)</td></tr>
+        <tr><td>Latency Impact</td><td>None — out of band</td><td>Adds latency — traffic must be inspected before forwarding</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>DMZ Architecture</h3>
+  <p>The DMZ (Demilitarized Zone) is a network segment between the internet and the internal network. Public-facing servers (web, email, DNS) sit in the DMZ — isolated from internal systems.</p>
+  <ul>
+    <li>Traffic from internet can reach DMZ (with firewall rules).</li>
+    <li>Traffic from internet to internal network = blocked.</li>
+    <li>DMZ servers can connect to internal resources with strict rules (only specific ports/IPs).</li>
+    <li>Often implemented with two firewalls or a three-legged firewall (three interfaces).</li>
+  </ul>
+
+  <h3>Switch Security Features</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>Purpose</th><th>What It Prevents</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Port Security</strong></td>
+          <td>Limits number of MAC addresses allowed per port. Can sticky-learn or statically define allowed MACs.</td>
+          <td>MAC flooding, unauthorized devices connecting to switch ports</td>
+        </tr>
+        <tr>
+          <td><strong>DHCP Snooping</strong></td>
+          <td>Marks ports as trusted (uplinks) or untrusted (access). Only trusted ports can send DHCP offers/ACKs. Also builds binding table for DAI.</td>
+          <td>Rogue DHCP servers, DHCP starvation attacks</td>
+        </tr>
+        <tr>
+          <td><strong>DAI (Dynamic ARP Inspection)</strong></td>
+          <td>Validates ARP packets against DHCP snooping binding table. Drops ARP packets that don't match.</td>
+          <td>ARP spoofing/poisoning (requires DHCP snooping first)</td>
+        </tr>
+        <tr>
+          <td><strong>IP Source Guard</strong></td>
+          <td>Filters IP packets based on DHCP snooping binding table — only allows traffic from IPs/MACs that were legitimately assigned.</td>
+          <td>IP spoofing at the access layer</td>
+        </tr>
+        <tr>
+          <td><strong>802.1X NAC</strong></td>
+          <td>Requires authentication before granting network access at the port level. Port blocked until credentials verified by RADIUS.</td>
+          <td>Unauthorized device access to the network</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>ACLs (Access Control Lists)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Match Criteria</th><th>Number Range (Cisco)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Standard ACL</strong></td>
+          <td>Source IP address only</td>
+          <td>1–99, 1300–1999</td>
+        </tr>
+        <tr>
+          <td><strong>Extended ACL</strong></td>
+          <td>Source + destination IP, protocol, port number</td>
+          <td>100–199, 2000–2699</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>ACL placement: Standard ACLs = place close to destination. Extended ACLs = place close to source (filter early, reduce unnecessary traffic).</p>
+
+  <h3>Other Security Tools</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Tool</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Honeypot</strong></td><td>Decoy system designed to attract and detect attackers. Provides early warning and intelligence on attack techniques.</td></tr>
+        <tr><td><strong>Honeynet</strong></td><td>Network of honeypots simulating a complete environment. More realistic and provides more intelligence than single honeypot.</td></tr>
+        <tr><td><strong>Vulnerability Scanner</strong></td><td>Automated tool that scans systems for known vulnerabilities without exploiting them. (e.g., Nessus, Qualys, OpenVAS).</td></tr>
+        <tr><td><strong>Penetration Testing</strong></td><td>Authorized simulated attack to identify vulnerabilities that can actually be exploited. More comprehensive than scanning.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>IDS = out-of-band (SPAN port), alerts only. IPS = inline, can block. This is the most important distinction.</li>
+      <li>DHCP snooping must be configured BEFORE DAI — DAI uses the DHCP snooping binding table.</li>
+      <li>Standard ACL = source IP only. Extended ACL = src + dst + port. Place standard ACLs near destination.</li>
+      <li>Honeypots are designed to attract attackers — they are NOT production systems. They intentionally have fake vulnerabilities.</li>
+      <li>Vulnerability scanning ≠ penetration testing. Scanning finds potential vulnerabilities. Pen testing exploits them.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 4.3</div>
+    <ul>
+      <li>IDS = passive, SPAN port, alert only | IPS = inline, blocks traffic</li>
+      <li>NGFW = DPI + IPS + app awareness + SSL inspection</li>
+      <li>Port security = MAC limits | DHCP snooping = rogue DHCP prevention | DAI = ARP protection (needs snooping)</li>
+      <li>Standard ACL = source IP only | Extended ACL = src+dst+port</li>
+      <li>DMZ = public-facing servers isolated between internet and internal network</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="DMZ architecture and network defense strategies">✦ Explain Differently</button>
+  </div>
+</div>

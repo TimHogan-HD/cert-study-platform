@@ -1,0 +1,101 @@
+<div class="obj-section" id="obj-1-6">
+  <div class="section-eyebrow">Objective 1.6</div>
+  <h2>Network Services</h2>
+  <p>Core infrastructure services that every network depends on: DHCP, DNS, NTP, and network architectures. (Deep coverage of DHCP/DNS operational details is in Domain 3.)</p>
+
+  <h3>Corporate &amp; Data Center Network Architecture</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Architecture</th><th>Tiers</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Three-Tier</strong> (traditional)</td>
+          <td>Core, Distribution, Access</td>
+          <td>Core = high-speed backbone. Distribution = routing, policy, inter-VLAN. Access = connects end devices.</td>
+        </tr>
+        <tr>
+          <td><strong>Collapsed Core</strong></td>
+          <td>Core/Distribution (merged), Access</td>
+          <td>Small/medium networks. Core and distribution in one layer to reduce cost.</td>
+        </tr>
+        <tr>
+          <td><strong>Spine-Leaf</strong> (data center)</td>
+          <td>Spine, Leaf</td>
+          <td>Every leaf connects to every spine (partial mesh). Equal latency. East-west traffic optimized. Scales horizontally.</td>
+        </tr>
+        <tr>
+          <td><strong>SOHO</strong></td>
+          <td>Single router/AP</td>
+          <td>Combined router + switch + WAP. Single device, flat network, NAT to ISP.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Cloud Concepts &amp; Connectivity</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>What Customer Manages</th><th>Examples</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>IaaS</strong> (Infrastructure as a Service)</td><td>OS, middleware, apps, data</td><td>AWS EC2, Azure VMs, Google Compute Engine</td></tr>
+        <tr><td><strong>PaaS</strong> (Platform as a Service)</td><td>Apps and data only</td><td>Azure App Service, Google App Engine, Heroku</td></tr>
+        <tr><td><strong>SaaS</strong> (Software as a Service)</td><td>Nothing — just uses the app</td><td>Microsoft 365, Salesforce, Google Workspace</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Cloud Deployment Models</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Public Cloud</strong></td><td>Shared infrastructure owned by CSP (AWS, Azure, GCP). Resources shared among many customers.</td></tr>
+        <tr><td><strong>Private Cloud</strong></td><td>Cloud infrastructure dedicated to one organization. On-premises or hosted privately.</td></tr>
+        <tr><td><strong>Hybrid Cloud</strong></td><td>Combination of public and private. Data/workloads move between environments.</td></tr>
+        <tr><td><strong>Community Cloud</strong></td><td>Shared by several organizations with common concerns (e.g., government, healthcare).</td></tr>
+        <tr><td><strong>Multi-Cloud</strong></td><td>Using multiple public CSPs simultaneously (AWS + Azure + GCP).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Network Virtualization</h3>
+  <ul>
+    <li><strong>NFV (Network Functions Virtualization)</strong> — Replace physical appliances (routers, firewalls) with software running on commodity hardware.</li>
+    <li><strong>SDN (Software-Defined Networking)</strong> — Separates control plane (decisions) from data plane (forwarding). Centralized controller manages all devices.</li>
+    <li><strong>Virtual NIC / VNIC</strong> — Software network interface for VMs; connects to virtual switch.</li>
+    <li><strong>vSwitch (Virtual Switch)</strong> — Software switch within a hypervisor (VMware vSwitch, Hyper-V vSwitch). Connects VMs to each other and to physical NICs.</li>
+  </ul>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>Spine-Leaf = data center design for east-west traffic. Three-tier = traditional enterprise (north-south traffic).</li>
+      <li>IaaS = you manage OS and up. PaaS = you manage apps and data only. SaaS = nothing to manage.</li>
+      <li>SDN separates <strong>control plane</strong> from <strong>data plane</strong> — know both terms.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 1.6</div>
+    <ul>
+      <li>Three-tier: Core (speed) → Distribution (policy) → Access (endpoints)</li>
+      <li>Spine-leaf: data center, every leaf connects to every spine, equal latency</li>
+      <li>IaaS = VMs | PaaS = platforms | SaaS = apps (decreasing customer control)</li>
+      <li>SDN = control plane separated from data plane via centralized controller</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="cloud computing models IaaS PaaS SaaS and network architecture">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.7 — IPv4 Addressing & Subnetting
+     ═══════════════════════════════════════════ -->

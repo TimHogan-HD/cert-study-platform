@@ -1,0 +1,116 @@
+<div class="obj-section" id="obj-1-3">
+  <div class="section-eyebrow">Objective 1.3</div>
+  <h2>Network Topologies &amp; Types</h2>
+  <p>Topology describes how devices are physically and logically connected. Physical topology is how cables are run; logical topology is how data flows.</p>
+
+  <h3>LAN Topologies</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Topology</th><th>Description</th><th>Advantages</th><th>Disadvantages</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Star</strong></td>
+          <td>All devices connect to a central switch/hub</td>
+          <td>Easy troubleshoot; one device failure doesn't affect others</td>
+          <td>Central switch = single point of failure</td>
+        </tr>
+        <tr>
+          <td><strong>Bus</strong></td>
+          <td>All devices on one shared cable (terminated at both ends)</td>
+          <td>Simple, cheap, minimal cabling</td>
+          <td>Collision-prone; cable break kills entire network. Legacy (10BASE-2 coax).</td>
+        </tr>
+        <tr>
+          <td><strong>Ring</strong></td>
+          <td>Devices connected in a circle; data travels in one direction</td>
+          <td>Predictable performance; no collisions with token passing</td>
+          <td>Single break disrupts entire ring (unless dual-ring / FDDI)</td>
+        </tr>
+        <tr>
+          <td><strong>Mesh (Full)</strong></td>
+          <td>Every device connects to every other device</td>
+          <td>Maximum redundancy; no single point of failure</td>
+          <td>Expensive; # connections = n(n-1)/2; complex management</td>
+        </tr>
+        <tr>
+          <td><strong>Mesh (Partial)</strong></td>
+          <td>Some but not all devices have redundant paths</td>
+          <td>Balance of cost and redundancy</td>
+          <td>Some paths remain single points of failure</td>
+        </tr>
+        <tr>
+          <td><strong>Hybrid</strong></td>
+          <td>Combination of topologies (star-bus, star-ring)</td>
+          <td>Flexible; most modern networks are hybrid</td>
+          <td>Complex design and troubleshooting</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>WAN Topology Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>WAN Type</th><th>Description</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Point-to-Point</strong></td><td>Dedicated link between two sites</td><td>Branch to HQ connection, T1/E1 leased lines, fiber</td></tr>
+        <tr><td><strong>Hub-and-Spoke</strong></td><td>Central hub site connects to multiple spoke sites</td><td>Cost-effective for many branches; spokes can't communicate without going through hub</td></tr>
+        <tr><td><strong>Full Mesh WAN</strong></td><td>Every site connects to every other site</td><td>Maximum redundancy; very expensive for many sites</td></tr>
+        <tr><td><strong>MPLS</strong></td><td>Multi-Protocol Label Switching — traffic-engineered WAN</td><td>Enterprise WAN; supports QoS; provider-managed</td></tr>
+        <tr><td><strong>SD-WAN</strong></td><td>Software-defined WAN abstraction over multiple transports</td><td>Modern replacement for MPLS; uses broadband + LTE + MPLS intelligently</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Network Types by Scope</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Scope</th><th>Examples</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>PAN</strong> (Personal Area Network)</td><td>~10m</td><td>Bluetooth headset to phone, USB to laptop</td></tr>
+        <tr><td><strong>LAN</strong> (Local Area Network)</td><td>Building / floor</td><td>Office Ethernet network, home Wi-Fi</td></tr>
+        <tr><td><strong>WLAN</strong> (Wireless LAN)</td><td>Building / campus</td><td>Wi-Fi network, 802.11</td></tr>
+        <tr><td><strong>CAN</strong> (Campus Area Network)</td><td>Multiple buildings</td><td>University campus, corporate campus</td></tr>
+        <tr><td><strong>MAN</strong> (Metropolitan Area Network)</td><td>City / metro area</td><td>City fiber ring, cable TV infrastructure</td></tr>
+        <tr><td><strong>WAN</strong> (Wide Area Network)</td><td>Country / global</td><td>Internet, MPLS across states, T1 between cities</td></tr>
+        <tr><td><strong>SAN</strong> (Storage Area Network)</td><td>Data center</td><td>iSCSI, Fibre Channel — high-speed storage access</td></tr>
+        <tr><td><strong>SOHO</strong> (Small Office / Home Office)</td><td>Small local network</td><td>Home router with switch+WAP, small business</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>Star topology = most common physical LAN topology today. The "hub" in the center of a star is now a <em>switch</em>.</li>
+      <li>Bus topology is obsolete but still tested. Know it uses terminators at both cable ends.</li>
+      <li>Full mesh connections: a network of 6 devices needs 6×5/2 = 15 connections.</li>
+      <li>SOHO routers combine router + switch + WAP — they span multiple OSI layers.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 1.3</div>
+    <ul>
+      <li>Star = most common LAN; central device failure = total outage</li>
+      <li>Bus = legacy coax, terminators at ends; cable break = full outage</li>
+      <li>Full mesh connections = n(n-1)/2</li>
+      <li>WAN types: point-to-point, hub-and-spoke, full mesh, MPLS, SD-WAN</li>
+      <li>SAN = storage network (Fibre Channel / iSCSI), not a LAN</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="network topology types and WAN architectures">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.4 — Ports & Protocols
+     ═══════════════════════════════════════════ -->

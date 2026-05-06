@@ -1,0 +1,154 @@
+<div class="obj-section" id="obj-3-5">
+  <div class="section-eyebrow">Objective 3.5</div>
+  <h2>Network Policies &amp; Disaster Recovery</h2>
+
+  <h3>RPO vs RTO — Most Tested DR Terms</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Term</th><th>Definition</th><th>Simple Question</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>RPO</strong><br>(Recovery Point Objective)</td>
+          <td>Maximum acceptable data loss, measured in time. How old can the restored data be?</td>
+          <td>"How much data can we afford to lose?" → If RPO = 4 hours, backups must run every 4 hours.</td>
+        </tr>
+        <tr>
+          <td><strong>RTO</strong><br>(Recovery Time Objective)</td>
+          <td>Maximum acceptable downtime. How quickly must systems be restored?</td>
+          <td>"How long can we be down?" → If RTO = 1 hour, systems must be back up within 1 hour of failure.</td>
+        </tr>
+        <tr>
+          <td><strong>MTTR</strong><br>(Mean Time to Repair)</td>
+          <td>Average time to restore a failed system/component.</td>
+          <td>Lower MTTR = faster recovery capability.</td>
+        </tr>
+        <tr>
+          <td><strong>MTBF</strong><br>(Mean Time Between Failures)</td>
+          <td>Average time between system failures.</td>
+          <td>Higher MTBF = more reliable system. Used in hardware specs.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Backup Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>What's Backed Up</th><th>Archive Bit After</th><th>Restore Time</th><th>Storage</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Full</strong></td>
+          <td>All data, regardless of change</td>
+          <td>Cleared</td>
+          <td>Fastest (1 backup set)</td>
+          <td>Most space</td>
+        </tr>
+        <tr>
+          <td><strong>Incremental</strong></td>
+          <td>Only data changed since last backup (full or incremental)</td>
+          <td>Cleared</td>
+          <td>Slowest (need full + all incrementals)</td>
+          <td>Least space</td>
+        </tr>
+        <tr>
+          <td><strong>Differential</strong></td>
+          <td>All data changed since last full backup</td>
+          <td>NOT cleared</td>
+          <td>Medium (need full + latest differential)</td>
+          <td>Grows over time until next full</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Disaster Recovery Site Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Site Type</th><th>Description</th><th>RTO</th><th>Cost</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hot Site</strong></td>
+          <td>Fully operational duplicate — live systems, real-time data replication. Just redirect traffic.</td>
+          <td>Minutes to hours</td>
+          <td>Very high</td>
+        </tr>
+        <tr>
+          <td><strong>Warm Site</strong></td>
+          <td>Partially equipped — hardware present, data restored from backups. Some configuration needed.</td>
+          <td>Hours to days</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td><strong>Cold Site</strong></td>
+          <td>Just a space with power/connectivity — no hardware or data. Must provision everything.</td>
+          <td>Days to weeks</td>
+          <td>Lowest</td>
+        </tr>
+        <tr>
+          <td><strong>Cloud DR</strong></td>
+          <td>Cloud-based failover — spin up cloud resources in another region on-demand.</td>
+          <td>Minutes to hours (with automation)</td>
+          <td>Pay-as-you-go</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>High Availability Concepts</h3>
+  <ul>
+    <li><strong>Redundancy:</strong> Duplicate critical components — dual power supplies, redundant network links, multiple ISPs.</li>
+    <li><strong>Failover:</strong> Automatic switch to backup system when primary fails (active-passive). Or both active simultaneously (active-active).</li>
+    <li><strong>Load Balancing:</strong> Distributes traffic across multiple servers — improves performance AND provides failover if one server dies.</li>
+    <li><strong>NIC Teaming / Bonding:</strong> Multiple NICs combined for bandwidth and redundancy. If one NIC fails, traffic continues on others.</li>
+    <li><strong>UPS:</strong> Uninterruptible Power Supply — provides battery backup to bridge power outages and allow graceful shutdown.</li>
+    <li><strong>Generator:</strong> Long-term power backup for extended outages (hours to days).</li>
+  </ul>
+
+  <h3>Network Policies</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Policy</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>AUP</strong> (Acceptable Use Policy)</td><td>Defines what users can and cannot do with company network/devices. Legal protection for the organization.</td></tr>
+        <tr><td><strong>BYOD</strong> (Bring Your Own Device)</td><td>Policy governing personal devices on the corporate network — MDM, containerization, security requirements.</td></tr>
+        <tr><td><strong>Onboarding/Offboarding</strong></td><td>Procedures for granting (onboarding) and revoking (offboarding) access when employees join/leave.</td></tr>
+        <tr><td><strong>NDA</strong> (Non-Disclosure Agreement)</td><td>Legal agreement protecting sensitive network/company information.</td></tr>
+        <tr><td><strong>Password Policy</strong></td><td>Minimum length, complexity, rotation, history requirements for user credentials.</td></tr>
+        <tr><td><strong>Remote Access Policy</strong></td><td>Rules governing VPN use, MFA requirements, approved devices for remote work.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li><strong>RPO = data loss tolerance.</strong> "We can't lose more than 2 hours of data" → RPO = 2 hours. Backup frequency must match.</li>
+      <li><strong>RTO = downtime tolerance.</strong> "Systems must be back up within 4 hours" → RTO = 4 hours.</li>
+      <li>Differential grows larger each day (until next full). Incremental stays small (only daily changes).</li>
+      <li>Restore from incremental = full + EVERY incremental. Differential = full + LATEST differential only.</li>
+      <li>Hot site costs the most. Cold site costs the least. RTO inversely correlates with cost.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 3.5</div>
+    <ul>
+      <li>RPO = how much data can be lost (backup frequency) | RTO = how fast to recover (downtime tolerance)</li>
+      <li>Full = all data | Incremental = changes since last backup (fast backup) | Differential = changes since last full</li>
+      <li>Hot site = live systems, minutes to recover | Warm = hours | Cold = days</li>
+      <li>MTBF = reliability (time between failures) | MTTR = recovery speed</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="RPO vs RTO disaster recovery planning">✦ Explain Differently</button>
+  </div>
+</div>

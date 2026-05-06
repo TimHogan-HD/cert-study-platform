@@ -1,0 +1,126 @@
+<div class="obj-section" id="obj-1-2">
+  <div class="section-eyebrow">Objective 1.2</div>
+  <h2>Networking Devices</h2>
+  <p>Know which device does what — and critically, which OSI layer it operates at.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Device</th><th>OSI Layer</th><th>What It Does</th><th>Key Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hub</strong></td><td>L1</td>
+          <td>Repeats signal to ALL ports (one collision domain)</td>
+          <td>Legacy — causes collisions. Replaced by switches.</td>
+        </tr>
+        <tr>
+          <td><strong>Switch</strong></td><td>L2</td>
+          <td>Forwards frames based on MAC address table</td>
+          <td>Each port = separate collision domain. All in same broadcast domain unless VLANs.</td>
+        </tr>
+        <tr>
+          <td><strong>Router</strong></td><td>L3</td>
+          <td>Routes packets between networks using IP addresses</td>
+          <td>Separates broadcast domains. Maintains routing table. Gateway between networks.</td>
+        </tr>
+        <tr>
+          <td><strong>Bridge</strong></td><td>L2</td>
+          <td>Connects two network segments, filters by MAC</td>
+          <td>Software-based; largely replaced by switches.</td>
+        </tr>
+        <tr>
+          <td><strong>WAP (Wireless Access Point)</strong></td><td>L2</td>
+          <td>Converts wired Ethernet to wireless (802.11)</td>
+          <td>Not a router. Just an access point unless it's a SOHO router-AP combo.</td>
+        </tr>
+        <tr>
+          <td><strong>Firewall</strong></td><td>L3–L7</td>
+          <td>Filters traffic based on rules (ACLs)</td>
+          <td>Packet filter (L3/4), Stateful (L4), NGFW (L7). Know all three types.</td>
+        </tr>
+        <tr>
+          <td><strong>Load Balancer</strong></td><td>L4–L7</td>
+          <td>Distributes traffic across multiple servers</td>
+          <td>L4 = TCP/UDP port based. L7 = URL/content-aware. Improves availability.</td>
+        </tr>
+        <tr>
+          <td><strong>Proxy Server</strong></td><td>L7</td>
+          <td>Acts as intermediary; caches content, filters requests</td>
+          <td>Forward proxy = client-facing. Reverse proxy = server-facing (also a load balancer).</td>
+        </tr>
+        <tr>
+          <td><strong>IDS</strong></td><td>L3–L7</td>
+          <td>Monitors traffic for threats — alerts only</td>
+          <td><strong>Passive / out-of-band</strong>. Connects to SPAN/mirror port. Cannot block traffic.</td>
+        </tr>
+        <tr>
+          <td><strong>IPS</strong></td><td>L3–L7</td>
+          <td>Monitors AND blocks malicious traffic</td>
+          <td><strong>Active / inline</strong>. Traffic flows through IPS. Can drop packets. Single point of failure if it fails.</td>
+        </tr>
+        <tr>
+          <td><strong>Content Filter</strong></td><td>L7</td>
+          <td>Blocks or allows content based on URL, category</td>
+          <td>Web filtering. Often integrated into NGFW or proxy.</td>
+        </tr>
+        <tr>
+          <td><strong>VPN Concentrator</strong></td><td>L3–L4</td>
+          <td>Terminates many VPN tunnels efficiently</td>
+          <td>Used in enterprise for many remote users. Handles IPsec/SSL VPN.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>IDS vs IPS — Critical Distinction</h3>
+  <div class="callout callout-blue">
+    <div class="callout-title">IDS = Passive (SPAN Port) | IPS = Active (Inline)</div>
+    <p><strong>IDS:</strong> Connected to a mirror/SPAN port. It sees a <em>copy</em> of traffic. Can detect and alert but <em>cannot block</em> traffic since it's not in the traffic path.</p>
+    <p><strong>IPS:</strong> Placed <em>inline</em> — all traffic physically passes through it. Can detect, alert, <em>and block</em> threats in real time. If it fails open, traffic passes unsecured. If it fails closed, it becomes a network outage.</p>
+  </div>
+
+  <h3>Firewall Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>OSI Layer</th><th>Capability</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Packet-filtering firewall</td><td>L3/L4</td><td>Checks source/dest IP, port, protocol. Stateless — each packet evaluated independently.</td></tr>
+        <tr><td>Stateful firewall</td><td>L4</td><td>Tracks active connections (connection state table). Allows return traffic automatically.</td></tr>
+        <tr><td>NGFW (Next-Generation Firewall)</td><td>L7</td><td>Deep packet inspection, application awareness, IPS built-in, SSL inspection, user identity-based rules.</td></tr>
+        <tr><td>WAF (Web Application Firewall)</td><td>L7</td><td>Protects web apps specifically — blocks SQLi, XSS, OWASP Top 10.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>IDS = out-of-band/SPAN port (passive). IPS = inline (active). This distinction is heavily tested.</li>
+      <li>A WAP is NOT a router — it's only a Layer 2 device unless it's a combined router/WAP.</li>
+      <li>Bridges are software-based; switches are hardware-based and faster.</li>
+      <li>A proxy server caches and filters at L7. A NAT device changes IP addresses at L3.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 1.2</div>
+    <ul>
+      <li>Hub = L1 (all ports one collision domain) → Switch = L2 (each port separate collision domain)</li>
+      <li>Switch = L2 (MAC addresses) → Router = L3 (IP addresses)</li>
+      <li>IDS = passive, SPAN port, alerts only | IPS = inline, can block</li>
+      <li>NGFW includes IPS + app awareness + deep packet inspection</li>
+      <li>Load balancer: L4 (port-based) or L7 (content-aware)</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="IDS vs IPS placement and function">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.3 — Network Topologies
+     ═══════════════════════════════════════════ -->

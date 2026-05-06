@@ -1,0 +1,201 @@
+<div class="obj-section" id="obj-2-3">
+  <div class="section-eyebrow">Objective 2.3</div>
+  <h2>Wireless Standards</h2>
+
+  <h3>802.11 Standards</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Standard</th><th>Frequency</th><th>Max Speed</th><th>Technology</th><th>Key Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>802.11a</strong></td><td>5 GHz only</td><td>54 Mbps</td><td>OFDM</td>
+          <td>1999. 5 GHz means less interference but shorter range. Not compatible with b/g.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11b</strong></td><td>2.4 GHz only</td><td>11 Mbps</td><td>DSSS</td>
+          <td>1999. Slow, very susceptible to interference (microwaves, Bluetooth). Long range.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11g</strong></td><td>2.4 GHz only</td><td>54 Mbps</td><td>OFDM</td>
+          <td>2003. Faster than b, compatible with b, but still 2.4 GHz interference problems.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11n</strong> (Wi-Fi 4)</td><td>2.4 GHz <em>and</em> 5 GHz</td><td>600 Mbps</td><td>MIMO, OFDM</td>
+          <td>2009. First dual-band standard. MIMO (multiple antennas). 40 MHz channels.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11ac</strong> (Wi-Fi 5)</td><td>5 GHz only</td><td>6.9 Gbps</td><td>MU-MIMO, OFDM, wider channels</td>
+          <td>2013. 5 GHz only. MU-MIMO (multi-user). Up to 160 MHz channels. Beamforming.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11ax</strong> (Wi-Fi 6/6E)</td><td>2.4, 5, and 6 GHz</td><td>9.6 Gbps</td><td>MU-MIMO, OFDMA, BSS Coloring</td>
+          <td>2019/2021. OFDMA for efficiency. BSS coloring reduces interference. Wi-Fi 6E adds 6 GHz band.</td>
+        </tr>
+        <tr>
+          <td><strong>802.11be</strong> (Wi-Fi 7)</td><td>2.4, 5, 6 GHz</td><td>~46 Gbps</td><td>MLO, 320 MHz channels</td>
+          <td>2024. Multi-Link Operation. Latest standard.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Wireless Security Standards</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Standard</th><th>Encryption</th><th>Auth</th><th>Vulnerability</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>WEP</strong> (1999)</td><td>RC4, 40/104-bit</td><td>Open/Shared</td>
+          <td>Broken — crackable in minutes. Never use.</td>
+        </tr>
+        <tr>
+          <td><strong>WPA</strong> (2003)</td><td>TKIP (RC4-based)</td><td>PSK or Enterprise (802.1X)</td>
+          <td>TKIP vulnerable. Improved over WEP but still weak.</td>
+        </tr>
+        <tr>
+          <td><strong>WPA2</strong> (2004)</td><td>CCMP / AES-128</td><td>PSK or Enterprise (802.1X)</td>
+          <td>KRACK attack (2017) against 4-way handshake. Still widely deployed.</td>
+        </tr>
+        <tr>
+          <td><strong>WPA3</strong> (2018)</td><td>CCMP-256 / AES, SAE</td><td>SAE (replaces PSK), Enterprise (192-bit)</td>
+          <td>SAE prevents offline dictionary attacks. Dragonfly handshake. No more KRACK vulnerability.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">WPA3 Key Improvement</div>
+    WPA3 uses <strong>SAE (Simultaneous Authentication of Equals)</strong> instead of the WPA2 PSK 4-way handshake. SAE prevents offline dictionary attacks — even if someone captures the handshake, they can't crack the password offline.
+  </div>
+
+  <h3>Wireless Channels</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Band</th><th>Total Channels</th><th>Non-Overlapping</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2.4 GHz</td><td>11 (US) / 13 (EU)</td><td>3 (channels 1, 6, 11)</td>
+          <td>Each channel is 22 MHz wide; channels 1, 6, 11 don't overlap. Use these in high-density deployments.</td>
+        </tr>
+        <tr>
+          <td>5 GHz</td><td>25+ (US varies)</td><td>Many (each 20 MHz wide)</td>
+          <td>More non-overlapping channels. Short range vs 2.4 GHz. DFS channels avoid radar interference.</td>
+        </tr>
+        <tr>
+          <td>6 GHz</td><td>59 (Wi-Fi 6E)</td><td>Many</td>
+          <td>Wi-Fi 6E only. Clean spectrum — no legacy devices. Shortest range.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Wireless Architecture Types</h3>
+  <ul>
+    <li><strong>Standalone AP (Fat AP):</strong> Self-contained — manages its own SSID, security, and radio. Simple deployment, no controller needed. Difficult to manage at scale.</li>
+    <li><strong>Controller-Based (Thin AP):</strong> APs are "thin" — just radios. All management, SSID config, and roaming handled by a central Wireless LAN Controller (WLC). Best for enterprise.</li>
+    <li><strong>Cloud-Managed:</strong> APs managed from cloud portal (e.g., Cisco Meraki, Ubiquiti UniFi). Zero-touch provisioning, centralized visibility.</li>
+  </ul>
+
+  <h3>Key Wireless Terms</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Term</th><th>Definition</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>SSID</strong></td><td>Service Set Identifier — the name of the wireless network. Can be broadcast (visible) or hidden (not broadcast in beacon frames, but still discoverable).</td></tr>
+        <tr><td><strong>BSSID</strong></td><td>Basic SSID — MAC address of a single AP. Identifies a specific radio/AP.</td></tr>
+        <tr><td><strong>BSS</strong></td><td>Basic Service Set — single AP with associated clients.</td></tr>
+        <tr><td><strong>ESS</strong></td><td>Extended Service Set — multiple APs sharing same SSID for seamless roaming.</td></tr>
+        <tr><td><strong>MIMO</strong></td><td>Multiple Input Multiple Output — multiple antennas for simultaneous streams. 802.11n introduced it.</td></tr>
+        <tr><td><strong>MU-MIMO</strong></td><td>Multi-User MIMO — AP transmits to multiple clients simultaneously. 802.11ac (downlink), 802.11ax (uplink + downlink).</td></tr>
+        <tr><td><strong>OFDMA</strong></td><td>Orthogonal Frequency Division Multiple Access — divides channel into subcarriers for multiple clients simultaneously. Wi-Fi 6/6E.</td></tr>
+        <tr><td><strong>Hidden Node</strong></td><td>Two clients that can't hear each other but both try to transmit to same AP — causes collisions. RTS/CTS solves this.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Flashcard Deck for 802.11 -->
+  <h3>Flashcard Drill: 802.11 Standards</h3>
+  <div class="flashcard-deck">
+    <div class="deck-nav">
+      <button class="prev-btn">← Prev</button>
+      <span class="card-counter">1 / 6</span>
+      <button class="next-btn">Next →</button>
+    </div>
+    <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">802.11n (Wi-Fi 4)<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>2.4 GHz AND 5 GHz</strong> — dual-band<br>Up to 600 Mbps | MIMO | OFDM<br>First dual-band standard (2009)</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">802.11ac (Wi-Fi 5)<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>5 GHz ONLY</strong><br>Up to 6.9 Gbps | MU-MIMO | 160 MHz channels<br>Beamforming | 2013</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">802.11ax (Wi-Fi 6)<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>2.4 + 5 GHz</strong> (6E adds 6 GHz)<br>Up to 9.6 Gbps | OFDMA | BSS Coloring<br>Targets dense environments</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">802.11a<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>5 GHz ONLY</strong> — 54 Mbps<br>OFDM | 1999 | Short range<br>Not compatible with 802.11b/g</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">WPA3<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>SAE (Simultaneous Authentication of Equals)</strong><br>Prevents offline dictionary attacks<br>CCMP-256 encryption | 2018</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">2.4 GHz Non-Overlapping Channels<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Channels 1, 6, and 11</strong><br>Only 3 non-overlapping channels in 2.4 GHz band (US)<br>5 GHz has many more non-overlapping channels</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>802.11a AND 802.11ac are BOTH 5 GHz only. 802.11a is ancient (1999); 802.11ac is modern (2013).</li>
+      <li>802.11n was the FIRST dual-band standard (2.4 + 5 GHz). Don't confuse with 802.11a (5G only, 1999).</li>
+      <li>2.4 GHz has only 3 non-overlapping channels (1, 6, 11). This causes interference issues in dense areas.</li>
+      <li>WEP is completely broken. Even WPA (TKIP) is weak. WPA2 (AES/CCMP) minimum for modern networks.</li>
+      <li>SAE is a WPA3 feature that prevents offline dictionary attacks against captured handshakes.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 2.3</div>
+    <ul>
+      <li>802.11a = 5GHz/54Mbps (1999) | 802.11b = 2.4GHz/11Mbps | 802.11g = 2.4GHz/54Mbps</li>
+      <li>802.11n = first dual-band (2.4+5), MIMO | 802.11ac = 5GHz only, MU-MIMO</li>
+      <li>802.11ax (Wi-Fi 6) = OFDMA, dual-band; Wi-Fi 6E adds 6 GHz</li>
+      <li>2.4GHz non-overlapping: 1, 6, 11 (only 3)</li>
+      <li>WPA3 SAE = no offline dictionary attacks | WPA2 AES/CCMP = current minimum standard</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="802.11 wireless standards and Wi-Fi frequencies">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 2.4 — Physical Network Installation
+     ═══════════════════════════════════════════ -->

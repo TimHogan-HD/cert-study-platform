@@ -1,0 +1,181 @@
+<div class="obj-section" id="obj-3-3">
+  <div class="section-eyebrow">Objective 3.3</div>
+  <h2>DHCP, DNS &amp; NTP</h2>
+
+  <h3>DHCP — DORA Process</h3>
+  <p>DHCP automates IP address assignment. The DORA process is the four-step handshake:</p>
+
+  <div class="steps">
+    <div class="step-box">
+      <div class="step-num">D</div>
+      <div class="step-content">
+        <div class="step-title">Discover (Client → Broadcast)</div>
+        <div class="step-desc">Client has no IP. Sends broadcast (255.255.255.255) from 0.0.0.0. Asks "Is there a DHCP server?" Src port: 68, Dst port: 67.</div>
+      </div>
+    </div>
+    <div class="step-box">
+      <div class="step-num">O</div>
+      <div class="step-content">
+        <div class="step-title">Offer (Server → Broadcast/Unicast)</div>
+        <div class="step-desc">DHCP server responds with an IP address offer — IP, mask, gateway, DNS, lease time. Can be broadcast (client has no IP yet) or unicast.</div>
+      </div>
+    </div>
+    <div class="step-box">
+      <div class="step-num">R</div>
+      <div class="step-content">
+        <div class="step-title">Request (Client → Broadcast)</div>
+        <div class="step-desc">Client accepts the offer. Sends broadcast request so all servers know which offer was accepted (multiple servers may have offered).</div>
+      </div>
+    </div>
+    <div class="step-box">
+      <div class="step-num">A</div>
+      <div class="step-content">
+        <div class="step-title">Acknowledge (Server → Client)</div>
+        <div class="step-desc">Server confirms the lease. Client can now use the assigned IP address. Lease timer starts.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>DHCP Options</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Option Code</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>3</strong></td><td>Default Gateway (router)</td></tr>
+        <tr><td><strong>6</strong></td><td>DNS Server address(es)</td></tr>
+        <tr><td><strong>15</strong></td><td>Domain Name (e.g., company.local)</td></tr>
+        <tr><td><strong>51</strong></td><td>Lease Time (seconds)</td></tr>
+        <tr><td><strong>66</strong></td><td>TFTP Server Name (for booting PXE clients)</td></tr>
+        <tr><td><strong>67</strong></td><td>Bootfile Name (used with TFTP for PXE)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>DHCP Relay (IP Helper)</h3>
+  <p>DHCP uses broadcasts — routers don't forward broadcasts between subnets. A <strong>DHCP Relay Agent</strong> (configured with <code>ip helper-address</code> on the router) forwards DHCP broadcasts from clients to the DHCP server as unicast, enabling one DHCP server to serve multiple subnets.</p>
+
+  <h3>DNS Record Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Record Type</th><th>Purpose</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>A</strong></td><td>Maps hostname to IPv4 address</td><td>www.example.com → 93.184.216.34</td></tr>
+        <tr><td><strong>AAAA</strong></td><td>Maps hostname to IPv6 address</td><td>www.example.com → 2606:2800:220:1:248:1893:25c8:1946</td></tr>
+        <tr><td><strong>CNAME</strong></td><td>Canonical Name — alias for another hostname</td><td>mail.example.com → example.com (CNAME = pointer)</td></tr>
+        <tr><td><strong>MX</strong></td><td>Mail Exchange — specifies mail servers for a domain, with priority</td><td>example.com MX 10 mail1.example.com</td></tr>
+        <tr><td><strong>PTR</strong></td><td>Pointer — maps IP address to hostname (reverse DNS)</td><td>34.216.184.93.in-addr.arpa → www.example.com</td></tr>
+        <tr><td><strong>TXT</strong></td><td>Text record — SPF, DKIM, DMARC, domain verification</td><td>v=spf1 include:example.com ~all</td></tr>
+        <tr><td><strong>NS</strong></td><td>Name Server — identifies authoritative DNS servers for a zone</td><td>example.com NS ns1.example.com</td></tr>
+        <tr><td><strong>SOA</strong></td><td>Start of Authority — primary NS, admin email, serial, timers for the zone</td><td>Zone housekeeping information</td></tr>
+        <tr><td><strong>SRV</strong></td><td>Service record — location of specific services (VoIP, LDAP, etc.)</td><td>_sip._tcp.example.com SRV 10 5 5060 sip.example.com</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Matching game for DNS -->
+  <h3>Practice: DNS Record → Purpose</h3>
+  <div class="matching-game">
+    <div class="match-instructions">Click a record type, then click its purpose.</div>
+    <div class="match-columns">
+      <div class="match-col">
+        <div class="match-item" data-match="dns-a">A Record</div>
+        <div class="match-item" data-match="dns-aaaa">AAAA Record</div>
+        <div class="match-item" data-match="dns-mx">MX Record</div>
+        <div class="match-item" data-match="dns-ptr">PTR Record</div>
+        <div class="match-item" data-match="dns-cname">CNAME Record</div>
+        <div class="match-item" data-match="dns-txt">TXT Record</div>
+      </div>
+      <div class="match-col">
+        <div class="match-target" data-id="dns-a">Hostname → IPv4 address</div>
+        <div class="match-target" data-id="dns-aaaa">Hostname → IPv6 address</div>
+        <div class="match-target" data-id="dns-mx">Specifies mail servers for domain</div>
+        <div class="match-target" data-id="dns-ptr">IP address → Hostname (reverse lookup)</div>
+        <div class="match-target" data-id="dns-cname">Alias — points to another hostname</div>
+        <div class="match-target" data-id="dns-txt">SPF, DKIM, domain verification</div>
+      </div>
+    </div>
+    <div class="match-footer">
+      <span class="match-score">0 / 6 matched</span>
+      <button class="reset-btn">Reset</button>
+    </div>
+  </div>
+
+  <h3>DNS Hierarchy</h3>
+  <ol>
+    <li><strong>Root DNS Servers:</strong> 13 logical root server sets (a.root-servers.net through m.root-servers.net). Know where top-level domains (TLDs) are.</li>
+    <li><strong>TLD Name Servers:</strong> Manage .com, .org, .net, country codes (.uk, .de).</li>
+    <li><strong>Authoritative Name Servers:</strong> Hold actual DNS records for a domain. Final authority.</li>
+    <li><strong>Recursive Resolver:</strong> Your ISP or internal DNS server. Queries on behalf of clients, caches results (TTL-based).</li>
+  </ol>
+
+  <h3>DNS Troubleshooting Commands</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Command</th><th>Platform</th><th>Use</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>nslookup hostname</code></td><td>Windows/Linux</td><td>Query DNS for a hostname or IP. Basic resolution test.</td></tr>
+        <tr><td><code>nslookup -type=MX domain.com</code></td><td>Windows/Linux</td><td>Query specific record type.</td></tr>
+        <tr><td><code>dig hostname</code></td><td>Linux/macOS</td><td>More detailed DNS query output including TTL, authority.</td></tr>
+        <tr><td><code>dig @8.8.8.8 hostname</code></td><td>Linux</td><td>Query specific DNS server (bypass local resolver).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>NTP (Network Time Protocol)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Stratum</th><th>Source</th><th>Examples</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Stratum 0</strong></td><td>Reference clock (not on network)</td><td>Atomic clocks, GPS receivers, CDMA</td></tr>
+        <tr><td><strong>Stratum 1</strong></td><td>Directly connected to Stratum 0</td><td>time.nist.gov — authoritative NTP servers</td></tr>
+        <tr><td><strong>Stratum 2</strong></td><td>Synced from Stratum 1</td><td>pool.ntp.org servers, enterprise NTP servers</td></tr>
+        <tr><td><strong>Stratum 3+</strong></td><td>Cascaded from higher stratum</td><td>Local network NTP servers, endpoint clients</td></tr>
+        <tr><td><strong>Stratum 16</strong></td><td>Unsynchronized</td><td>Device has lost sync — clock is unreliable</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">NTP and Kerberos</div>
+    Kerberos authentication (used in Active Directory) requires all devices to be within <strong>5 minutes</strong> of each other in clock time. If NTP fails and clocks drift more than 5 minutes, Kerberos tickets will be rejected and users can't authenticate. NTP is security-critical.
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>DHCP uses <strong>broadcasts</strong> — routers don't forward broadcasts. You need a DHCP relay (ip helper-address) for multi-subnet DHCP.</li>
+      <li>PTR record = reverse DNS. A record = forward (name → IP). These are commonly confused.</li>
+      <li>CNAME cannot point to an IP address directly — it points to another hostname (which then resolves via an A record).</li>
+      <li>MX records have <strong>priority</strong> values — lower number = higher priority. Multiple MX records for redundancy.</li>
+      <li>DNS uses UDP for queries ≤512 bytes and TCP for zone transfers or larger responses.</li>
+      <li>NTP stratum 0 = hardware clock (not on network). Stratum 1 = first server on the network.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 3.3</div>
+    <ul>
+      <li>DHCP DORA: Discover (broadcast) → Offer → Request (broadcast) → Acknowledge</li>
+      <li>DHCP options: 3=gateway, 6=DNS, 15=domain, 51=lease time, 66=TFTP, 67=bootfile</li>
+      <li>ip helper-address = DHCP relay for cross-subnet DHCP</li>
+      <li>A=IPv4 | AAAA=IPv6 | MX=mail | PTR=reverse | CNAME=alias | TXT=SPF/DKIM</li>
+      <li>NTP: Stratum 0=atomic clock → 1=primary server → 2=secondary → 16=unsynchronized</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="DHCP DORA process and DNS record types">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 3.4 — Remote Access & AAA
+     ═══════════════════════════════════════════ -->

@@ -1,0 +1,92 @@
+<div class="obj-section" id="obj-5-5">
+  <div class="section-eyebrow">Objective 5.5</div>
+  <h2>Security Troubleshooting</h2>
+  <p>Security issues often masquerade as network problems. Recognizing the indicators of compromise and knowing the correct response sequence are both exam-tested.</p>
+
+  <h3>Indicators of Compromise (IoC)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Symptom</th><th>Possible Cause</th><th>Investigative Step</th></tr></thead>
+      <tbody>
+        <tr><td>Unusual outbound traffic spikes</td><td>Malware C2, data exfiltration, botnet participation</td><td>NetFlow analysis; check destination IPs against threat feeds; inspect DNS queries</td></tr>
+        <tr><td>Unexpected open ports on a server</td><td>Backdoor, malware listener, misconfiguration</td><td><code>netstat -an</code>; compare against baseline; port scan with nmap</td></tr>
+        <tr><td>Unknown devices on network</td><td>Rogue devices, unauthorized BYOD, network intrusion</td><td>ARP scan / nmap discovery; compare against DHCP lease table and asset inventory</td></tr>
+        <tr><td>Users locked out of accounts</td><td>Brute force attack, credential stuffing, attacker locking accounts</td><td>Check auth logs / SIEM; review failed login events; verify source IPs</td></tr>
+        <tr><td>Duplicate IP addresses</td><td>Rogue DHCP server, static IP conflict, IP spoofing</td><td><code>arp -a</code>; DHCP server logs; enable DHCP snooping</td></tr>
+        <tr><td>SSL/TLS certificate errors</td><td>Expired certificate, MITM attack, certificate mismatch</td><td>Inspect certificate details; check validity dates; verify CA chain</td></tr>
+        <tr><td>ARP table poisoning indicators</td><td>ARP spoofing attack — MAC for gateway changed</td><td><code>arp -a</code>; compare gateway MAC to known-good; enable Dynamic ARP Inspection</td></tr>
+        <tr><td>Unexpected DNS responses</td><td>DNS poisoning, rogue DNS server, DHCP option 6 hijacked</td><td><code>nslookup</code> against multiple servers; compare results; verify DHCP option 6</td></tr>
+        <tr><td>Performance degradation without explanation</td><td>DoS attack, crypto-mining malware, scanning activity</td><td>NetFlow; top talkers; check CPU/memory on devices; look for scanning patterns</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Incident Response Steps (Network Context)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Step</th><th>Action</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>1. <strong>Identify</strong></td><td>Confirm the incident is real; gather evidence</td><td>Confirm traffic anomaly is not a false positive; capture packets</td></tr>
+        <tr><td>2. <strong>Contain</strong></td><td>Limit the blast radius; isolate affected systems</td><td>Shut down switch port; quarantine VLAN; block firewall rule</td></tr>
+        <tr><td>3. <strong>Eradicate</strong></td><td>Remove the threat</td><td>Delete malware, revoke credentials, patch vulnerability</td></tr>
+        <tr><td>4. <strong>Recover</strong></td><td>Restore normal operations safely</td><td>Reimage machine, restore from clean backup, re-enable port</td></tr>
+        <tr><td>5. <strong>Document / Lessons Learned</strong></td><td>Record everything; prevent recurrence</td><td>Update runbook, patch policy, firewall rules</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Rogue DHCP Server Scenario</h3>
+  <div class="callout callout-blue">
+    <div class="callout-title">Symptoms &amp; Response</div>
+    <p><strong>Symptom:</strong> Some clients receive wrong default gateway or wrong DNS server; internet stops working for affected machines; <code>ipconfig /all</code> shows unexpected gateway IP.</p>
+    <p><strong>Cause:</strong> A rogue DHCP server (unauthorized device, misconfigured VM, or attacker device) is responding to DHCP Discover before the legitimate server.</p>
+    <p><strong>Fix:</strong> Enable <strong>DHCP snooping</strong> on the switch — marks only specific trusted ports as allowed to send DHCP Offers/Acks. Untrusted ports that send DHCP Offers are shut down.</p>
+    <p><strong>Locate rogue server:</strong> Check DHCP lease logs; use <code>show ip dhcp snooping binding</code> on the switch; trace MAC of rogue server to physical port.</p>
+  </div>
+
+  <h3>ARP Poisoning Scenario</h3>
+  <div class="callout callout-blue">
+    <div class="callout-title">Symptoms &amp; Response</div>
+    <p><strong>Symptom:</strong> Legitimate users experience intermittent connectivity or certificate errors; attacker is intercepting traffic between victim and gateway.</p>
+    <p><strong>Detect:</strong> <code>arp -a</code> on victim shows gateway IP mapped to an unexpected MAC address. Two hosts claim the same IP in ARP table.</p>
+    <p><strong>Fix:</strong> Enable <strong>Dynamic ARP Inspection (DAI)</strong> — validates ARP packets against DHCP snooping binding table. Forged ARP replies are dropped.</p>
+  </div>
+
+  <h3>Social Engineering Indicators</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Type</th><th>Indicator</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td>Phishing</td><td>Unexpected email with urgent request, mismatched sender domain, suspicious link</td><td>Email filtering, user training, MFA</td></tr>
+        <tr><td>Vishing</td><td>Unsolicited call requesting credentials, impersonating IT support</td><td>Verification procedures, callback policy, user training</td></tr>
+        <tr><td>Tailgating</td><td>Unauthorized person follows authorized user through secure door</td><td>Mantraps, security awareness, badge-only access with enforcement</td></tr>
+        <tr><td>Shoulder surfing</td><td>Attacker observes screen/keyboard in public or open office</td><td>Privacy screens, lock-screen policy, awareness training</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>DHCP snooping prevents rogue DHCP; DAI prevents ARP poisoning — these are different mitigations for different attacks</li>
+      <li>Certificate errors can indicate MITM — don't just click "proceed anyway" in a troubleshooting context</li>
+      <li>An ARP table with two entries sharing the same IP is a strong indicator of ARP spoofing — not always a misconfiguration</li>
+      <li>Containment (isolate the host) comes before eradication — never skip directly to reimaging without containing first</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-title">✓ Quick Recall</div>
+    <ul>
+      <li>Rogue DHCP → DHCP snooping</li>
+      <li>ARP poisoning → Dynamic ARP Inspection (DAI)</li>
+      <li>Certificate error + traffic misdirection → suspect MITM</li>
+      <li>Unknown open port → check with <code>netstat -an</code></li>
+      <li>APIPA + DHCP failure → check DHCP snooping isn't blocking legitimate server</li>
+      <li>Incident response order: Identify → Contain → Eradicate → Recover → Document</li>
+      <li>Duplicate IP in ARP table = ARP poisoning suspect, not just config error</li>
+    </ul>
+  </div>
+
+  <button class="ai-explain-btn" data-topic="network security troubleshooting: ARP poisoning, rogue DHCP, and indicators of compromise">✦ Explain Differently</button>
+</div>

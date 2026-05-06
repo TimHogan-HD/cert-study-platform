@@ -1,6 +1,6 @@
 /* subnetting.js — IPv4 subnetting calculator */
 
-function initSubnetting() {
+export function initSubnetting() {
   const form = document.getElementById('subnet-form');
   if (!form) return;
 
@@ -114,6 +114,9 @@ function minPrefixForHosts(hosts) {
 }
 
 function displaySubnetResult(r) {
+  // All interpolated values (r.network, r.mask, etc.) are outputs of numToIp()
+  // and integer/boolean calculations — never raw user input. validateIP() and
+  // the 0–32 prefix range check in calculateSubnet() guard the entry point.
   const out = document.getElementById('subnet-output');
   if (!r) {
     out.innerHTML = '<div class="callout callout-red"><div class="callout-title">Error</div>Invalid IP address or prefix length (0–32).</div>';

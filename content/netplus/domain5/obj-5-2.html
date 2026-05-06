@@ -1,0 +1,107 @@
+<div class="obj-section" id="obj-5-2">
+  <div class="section-eyebrow">Objective 5.2</div>
+  <h2>Cable &amp; Physical Troubleshooting</h2>
+  <p>Physical layer issues are the most common real-world network problems and a reliable source of exam questions. Know the tools, the error types, and what each symptom indicates.</p>
+
+  <h3>Hardware Troubleshooting Tools</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tool</th><th>Purpose</th><th>Media</th><th>Key Output</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cable tester</strong></td><td>Verify wiring continuity and pinout</td><td>Copper</td><td>Pass/fail per wire pair, identify crossed pairs, opens, shorts</td></tr>
+        <tr><td><strong>TDR (Time-Domain Reflectometer)</strong></td><td>Locate cable faults; measure cable length</td><td>Copper</td><td>Distance to fault in meters/feet</td></tr>
+        <tr><td><strong>OTDR (Optical TDR)</strong></td><td>Locate faults and measure loss in fiber</td><td>Fiber only</td><td>Loss profile, distance to break/splice, reflections</td></tr>
+        <tr><td><strong>Multimeter</strong></td><td>Measure voltage, current, resistance, continuity</td><td>Copper, power</td><td>Voltage level, continuity beep, resistance (Ω)</td></tr>
+        <tr><td><strong>Toner probe / tone generator</strong></td><td>Identify and trace cables</td><td>Copper</td><td>Audible tone on target cable end</td></tr>
+        <tr><td><strong>Loopback plug</strong></td><td>Test NIC or switch port transmit/receive</td><td>Copper or fiber</td><td>Port shows link-up if port is functional</td></tr>
+        <tr><td><strong>Punchdown tool</strong></td><td>Terminate wires into 110/66 block or keystone jack</td><td>Copper</td><td>Physical termination</td></tr>
+        <tr><td><strong>Wire crimper</strong></td><td>Attach RJ45 connector to cable end</td><td>Copper</td><td>Physical connector</td></tr>
+        <tr><td><strong>Light meter / optical power meter</strong></td><td>Measure fiber optic signal strength</td><td>Fiber only</td><td>dBm reading; compare to spec to determine loss</td></tr>
+        <tr><td><strong>Visual fault locator (VFL)</strong></td><td>Inject visible red laser to find fiber breaks</td><td>Fiber only</td><td>Light visible at break point</td></tr>
+        <tr><td><strong>Spectrum analyzer</strong></td><td>Map RF signal strength across frequency range</td><td>Wireless</td><td>Frequency vs. amplitude plot; identifies interference sources</td></tr>
+        <tr><td><strong>Wireless analyzer</strong></td><td>Survey Wi-Fi networks, channels, signal strength</td><td>Wireless</td><td>SSID list, channel usage, RSSI, security type</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Interface Error Types &amp; Causes</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Error Type</th><th>Likely Cause</th><th>Diagnostic Tip</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Late collisions</strong></td><td>Duplex mismatch (most common), cable too long</td><td>Normal collisions occur in first 64 bytes; late collisions occur after — sure sign of duplex problem</td></tr>
+        <tr><td><strong>Runts</strong></td><td>Collision fragments (&lt;64 bytes), duplex mismatch</td><td>Paired with late collisions strongly indicates duplex mismatch</td></tr>
+        <tr><td><strong>Giants</strong></td><td>Frames &gt;1518 bytes; jumbo frames not configured</td><td>Check MTU settings; may be normal if jumbo frames intentional</td></tr>
+        <tr><td><strong>CRC errors</strong></td><td>Electromagnetic interference, bad cable, duplex mismatch</td><td>Incrementing CRC + late collisions = duplex mismatch</td></tr>
+        <tr><td><strong>Input errors</strong></td><td>Catch-all: CRC, runts, giants, frame errors</td><td>High input errors without output errors suggests incoming signal problem</td></tr>
+        <tr><td><strong>Output drops</strong></td><td>Queue overflow; congestion on egress interface</td><td>Check bandwidth, QoS configuration, upgrade link if persistent</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Duplex Mismatch — The Exam Favorite</h3>
+  <div class="callout callout-blue">
+    <div class="callout-title">Duplex Mismatch Pattern</div>
+    <p><strong>Situation:</strong> One side of link is full-duplex, other side is half-duplex (or auto-negotiate mismatch).</p>
+    <p><strong>Symptoms:</strong> Late collisions, runts, CRC errors on the half-duplex side; intermittent slowness; performance degrades under load.</p>
+    <p><strong>Fix:</strong> Hard-code both ends to matching duplex and speed, or let both auto-negotiate (both sides must be set to auto).</p>
+    <p><strong>Key rule:</strong> If one side is hardcoded and the other is auto, the auto side will negotiate speed correctly but default to <em>half-duplex</em> — causing a mismatch even though the link is up.</p>
+  </div>
+
+  <h3>Cable-Related Issues</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Issue</th><th>Symptom</th><th>Test</th></tr></thead>
+      <tbody>
+        <tr><td>Open circuit</td><td>No link light; no connectivity</td><td>Cable tester shows open on affected pair(s)</td></tr>
+        <tr><td>Short circuit</td><td>No link light or intermittent</td><td>Cable tester shows short between pairs</td></tr>
+        <tr><td>Crossed pairs</td><td>No link (if wrong pairs); intermittent</td><td>Cable tester shows incorrect pin mapping</td></tr>
+        <tr><td>Attenuation</td><td>High error rates, poor performance over long runs</td><td>TDR measures signal loss; OTDR for fiber</td></tr>
+        <tr><td>NEXT (Near-End Crosstalk)</td><td>High error rates, especially at high speeds</td><td>Cable tester with NEXT measurement</td></tr>
+        <tr><td>EMI interference</td><td>Intermittent errors near electrical equipment</td><td>Move cable; use STP or fiber in high-EMI areas</td></tr>
+        <tr><td>Bent/kinked fiber</td><td>High optical loss; OTDR shows loss spike at bend</td><td>OTDR; visual inspection; VFL shows red glow at bend</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber pbq-prep">
+    <div class="callout-title">🎯 PBQ Prep — Cable Identification</div>
+    <p><strong>What it looks like:</strong> Given a scenario description (e.g., "connecting two switches 80m apart requiring 10 Gbps") select the correct cable type and connector.</p>
+    <p><strong>Key mappings to know cold:</strong></p>
+    <ul>
+      <li>10G at 100m → Cat6A or fiber (Cat6 only supports 10G to 55m)</li>
+      <li>Long distance (&gt;100m) → fiber (SMF for km-scale, MMF up to 550m)</li>
+      <li>Air-handling space → plenum-rated cable</li>
+      <li>Outdoor buried → direct-burial rated cable</li>
+      <li>Between buildings (electrical isolation) → fiber (no ground loop risk)</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>OTDR is for fiber only — use TDR for copper</li>
+      <li>Late collisions are not the same as normal collisions — late = duplex mismatch</li>
+      <li>Toner probe finds a cable; loopback plug tests a port — different tools, different purposes</li>
+      <li>Light meter measures power (dBm); OTDR measures loss profile along the length — both are fiber tools</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-title">✓ Quick Recall</div>
+    <ul>
+      <li>Late collisions + runts + CRC = duplex mismatch</li>
+      <li>TDR = copper, OTDR = fiber, spectrum analyzer = wireless RF</li>
+      <li>Loopback plug tests a port (NIC/switch); toner probe traces/identifies a cable</li>
+      <li>Plenum cable required in air-handling spaces (FEP/Teflon jacket)</li>
+      <li>Cat6 = 10G at 55m; Cat6A = 10G at 100m</li>
+      <li>Fiber between buildings = electrical isolation (no ground loop)</li>
+    </ul>
+  </div>
+
+  <button class="ai-explain-btn" data-topic="duplex mismatch and network interface error types">✦ Explain Differently</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 5.3 — Network Issues
+     ═══════════════════════════════════════════ -->

@@ -1,0 +1,132 @@
+<div class="obj-section" id="obj-1-7">
+  <div class="section-eyebrow">Objective 1.7</div>
+  <h2>IPv4 Addressing &amp; Subnetting</h2>
+  <p>Subnetting is guaranteed to appear on the exam — as a standard question AND as a PBQ. Master it.</p>
+
+  <h3>IP Address Classes</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Class</th><th>First Octet Range</th><th>Default Mask</th><th>Private Ranges (RFC 1918)</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>A</strong></td><td>1–126</td><td>/8 (255.0.0.0)</td><td>10.0.0.0 – 10.255.255.255</td><td>Large networks; 16M hosts per network. 127.x.x.x = loopback (reserved).</td></tr>
+        <tr><td><strong>B</strong></td><td>128–191</td><td>/16 (255.255.0.0)</td><td>172.16.0.0 – 172.31.255.255</td><td>Medium networks; 65,534 hosts per network.</td></tr>
+        <tr><td><strong>C</strong></td><td>192–223</td><td>/24 (255.255.255.0)</td><td>192.168.0.0 – 192.168.255.255</td><td>Small networks; 254 hosts per network. Most common in SOHO.</td></tr>
+        <tr><td><strong>D</strong></td><td>224–239</td><td>N/A</td><td>N/A</td><td>Multicast (OSPF=224.0.0.5/6, RIP=224.0.0.9, PIM=224.0.0.13).</td></tr>
+        <tr><td><strong>E</strong></td><td>240–255</td><td>N/A</td><td>N/A</td><td>Reserved/experimental. Not used in production.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Special IPv4 Addresses</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Address / Range</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>127.0.0.1</code> (127.0.0.0/8)</td><td>Loopback — tests the local IP stack. Never routed.</td></tr>
+        <tr><td><code>169.254.0.0/16</code></td><td>APIPA (Automatic Private IP Addressing) — assigned when DHCP fails. Indicates a problem!</td></tr>
+        <tr><td><code>0.0.0.0</code></td><td>Default route (all traffic not in routing table). Also "all interfaces" when binding a service.</td></tr>
+        <tr><td><code>255.255.255.255</code></td><td>Limited broadcast — sent to all hosts in local subnet. Not routed.</td></tr>
+        <tr><td><code>x.x.x.255</code> (network-specific)</td><td>Directed broadcast to a specific subnet. Mostly blocked by routers.</td></tr>
+        <tr><td><code>224.0.0.0/4</code></td><td>Multicast range — one-to-many communication.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>CIDR Subnet Reference</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Prefix</th><th>Subnet Mask</th><th>Total Addresses</th><th>Usable Hosts</th><th>Common Use</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>/8</td><td>255.0.0.0</td><td>16,777,216</td><td>16,777,214</td><td>Class A default</td></tr>
+        <tr><td>/16</td><td>255.255.0.0</td><td>65,536</td><td>65,534</td><td>Class B default</td></tr>
+        <tr><td>/24</td><td>255.255.255.0</td><td>256</td><td>254</td><td>Most common LAN subnet</td></tr>
+        <tr><td>/25</td><td>255.255.255.128</td><td>128</td><td>126</td><td>Split /24 in half</td></tr>
+        <tr><td>/26</td><td>255.255.255.192</td><td>64</td><td>62</td><td>Small department</td></tr>
+        <tr><td>/27</td><td>255.255.255.224</td><td>32</td><td>30</td><td>Small team</td></tr>
+        <tr><td>/28</td><td>255.255.255.240</td><td>16</td><td>14</td><td>Small workgroup</td></tr>
+        <tr><td>/29</td><td>255.255.255.248</td><td>8</td><td>6</td><td>Small segment</td></tr>
+        <tr><td>/30</td><td>255.255.255.252</td><td>4</td><td>2</td><td>Point-to-point WAN links</td></tr>
+        <tr><td>/31</td><td>255.255.255.254</td><td>2</td><td>2 (P2P RFC 3021)</td><td>Point-to-point (no broadcast)</td></tr>
+        <tr><td>/32</td><td>255.255.255.255</td><td>1</td><td>1 (host route)</td><td>Single host, loopback</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Interactive Subnetting Calculator</h3>
+  <div class="subnet-calc" id="subnet-calc">
+    <form id="subnet-form">
+      <div class="subnet-inputs">
+        <input id="subnet-ip" type="text" placeholder="e.g. 192.168.1.0" value="192.168.1.0" />
+        <span>/</span>
+        <input id="subnet-prefix" type="number" min="0" max="32" placeholder="24" value="24" />
+        <button type="submit">Calculate</button>
+      </div>
+    </form>
+    <div id="subnet-output"></div>
+    <div class="subnet-hosts-mode">
+      <h4>How many hosts do I need?</h4>
+      <form id="hosts-form">
+        <input id="host-count" type="number" min="1" max="16777214" placeholder="Number of hosts needed" />
+        <button type="submit">Find Smallest Prefix</button>
+      </form>
+      <div id="hosts-result"></div>
+    </div>
+  </div>
+
+  <h3>Step-by-Step Binary Subnetting</h3>
+  <div class="accordion-header">Example: Find the network address of 172.16.45.14 /20</div>
+  <div class="accordion-body">
+    <ol>
+      <li>Write out the IP in binary for the relevant octet(s):<br>
+        172.16.<strong>45</strong>.14 → 45 = <code>0010 1101</code></li>
+      <li>A /20 mask means first 20 bits are network bits. In the third octet, 20–16 = 4 bits are network bits.<br>
+        Mask for 3rd octet: <code>1111 0000</code> = 240</li>
+      <li>ANDing the third octet with the mask:<br>
+        <code>0010 1101</code> AND <code>1111 0000</code> = <code>0010 0000</code> = 32</li>
+      <li>Network address: <strong>172.16.32.0/20</strong><br>
+        Broadcast: 172.16.47.255 (next network - 1)<br>
+        Usable hosts: 172.16.32.1 – 172.16.47.254 (4094 hosts)</li>
+    </ol>
+  </div>
+
+  <div class="pbq-prep">
+    <div class="pbq-prep-title">🎯 PBQ Prep — Subnetting</div>
+    <p><strong>Common PBQ scenario:</strong> "You have the network 10.0.0.0/8 and need to create subnets for 5 departments: 200 hosts, 100 hosts, 50 hosts, 25 hosts, 10 hosts. Assign the most efficient subnet to each."</p>
+    <p><strong>Approach:</strong> Always solve the largest subnet first. Work from largest requirement to smallest. Use the calculator above to verify.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>Always subtract 2 for usable hosts (network address + broadcast address). Exception: /31 and /32.</li>
+      <li>169.254.x.x = APIPA — the device couldn't reach a DHCP server. Check DHCP service and connectivity.</li>
+      <li>/30 = 4 addresses, 2 usable — most efficient for point-to-point links between routers.</li>
+      <li>The question might give an IP like 192.168.10.77/28 and ask "what network is this host on?" — must find the network address by ANDing with the mask.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green quick-recall">
+    <div class="callout-title">Quick Recall — 1.7</div>
+    <ul>
+      <li>Class A: 1–126, /8 | Class B: 128–191, /16 | Class C: 192–223, /24</li>
+      <li>Private: 10.x.x.x, 172.16–31.x.x, 192.168.x.x</li>
+      <li>APIPA = 169.254.x.x = DHCP failed</li>
+      <li>/24 = 254 hosts | /25 = 126 | /26 = 62 | /27 = 30 | /28 = 14 | /29 = 6 | /30 = 2</li>
+      <li>Usable hosts = 2^(32-prefix) - 2</li>
+    </ul>
+  </div>
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="IPv4 subnetting and CIDR notation">✦ Explain Differently</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.8 — IPv6 Addressing
+     ═══════════════════════════════════════════ -->
