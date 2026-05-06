@@ -136,10 +136,18 @@ export function initMatching() {
           const results = getOrCreateResults();
           const row = document.createElement('div');
           row.className = 'match-result-row match-result-entering';
-          row.innerHTML =
-            `<span class="match-result-term">${selected.textContent.trim()}</span>
-             <span class="match-result-arrow">→</span>
-             <span class="match-result-def">${target.textContent.trim()}</span>`;
+          const term = document.createElement('span');
+          term.className = 'match-result-term';
+          term.textContent = selected.textContent.trim();
+          const arrowSpan = document.createElement('span');
+          arrowSpan.className = 'match-result-arrow';
+          arrowSpan.textContent = '→';
+          const def = document.createElement('span');
+          def.className = 'match-result-def';
+          def.textContent = target.textContent.trim();
+          row.appendChild(term);
+          row.appendChild(arrowSpan);
+          row.appendChild(def);
           results.appendChild(row);
           /* Trigger CSS transition on next frame */
           requestAnimationFrame(() => row.classList.remove('match-result-entering'));

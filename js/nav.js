@@ -137,9 +137,13 @@ function injectBreadcrumb(path) {
 }
 
 /* ── Prev / Next objective footer ──────────────────────────── */
-function getNavOrder() {
-  /* Derive ordered path list from sidebar DOM so it's always in sync */
-  return Array.from(document.querySelectorAll('#sidebar-netplus [data-path]'))
+function getNavOrder(path) {
+  /* Derive sidebar root from the current path's cert prefix so this works
+     for any cert, not just Net+. Falls back to netplus if unknown. */
+  const certKey = path ? path.split('/')[0] : 'netplus';
+  const sidebarId = `sidebar-${certKey}`;
+  const sidebar = document.getElementById(sidebarId) || document.getElementById('sidebar-netplus');
+  return Array.from(sidebar.querySelectorAll('[data-path]'))
     .map(el => el.dataset.path);
 }
 
@@ -147,7 +151,7 @@ function injectPrevNext(path) {
   /* Remove any existing footer from a previous page */
   document.getElementById('obj-nav-footer')?.remove();
 
-  const order = getNavOrder();
+  const order = getNavOrder(path);
   const idx = order.indexOf(path);
   if (idx === -1) return;
 
@@ -164,17 +168,30 @@ function injectPrevNext(path) {
     const label = navEl?.textContent?.trim() || navPath;
     const btn = document.createElement('button');
     btn.className = `obj-nav-btn obj-nav-${direction}`;
-    btn.innerHTML = direction === 'prev'
-      ? `<span class="obj-nav-arrow">←</span>
-         <span class="obj-nav-label">
-           <span class="obj-nav-dir">Previous</span>
-           <span class="obj-nav-title">${label}</span>
-         </span>`
-      : `<span class="obj-nav-label">
-           <span class="obj-nav-dir">Next</span>
-           <span class="obj-nav-title">${label}</span>
-         </span>
-         <span class="obj-nav-arrow">→</span>`;
+
+    const arrow = document.createElement('span');
+    arrow.className = 'obj-nav-arrow';
+    arrow.textContent = direction === 'prev' ? '←' : '→';
+
+    const labelWrap = document.createElement('span');
+    labelWrap.className = 'obj-nav-label';
+    const dir = document.createElement('span');
+    dir.className = 'obj-nav-dir';
+    dir.textContent = direction === 'prev' ? 'Previous' : 'Next';
+    const title = document.createElement('span');
+    title.className = 'obj-nav-title';
+    title.textContent = label;
+    labelWrap.appendChild(dir);
+    labelWrap.appendChild(title);
+
+    if (direction === 'prev') {
+      btn.appendChild(arrow);
+      btn.appendChild(labelWrap);
+    } else {
+      btn.appendChild(labelWrap);
+      btn.appendChild(arrow);
+    }
+
     btn.addEventListener('click', () => loadFragment(navPath));
     return btn;
   };
