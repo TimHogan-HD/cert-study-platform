@@ -77,6 +77,99 @@
     </table>
   </div>
 
+  <h3>Command Output Examples</h3>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">bash — ping</span></div>
+    <pre class="terminal-body"><span class="tp">$</span> ping 8.8.8.8 -c 4
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=57 <span class="th">time=11.8 ms</span>
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=57 <span class="th">time=12.1 ms</span>
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=57 <span class="th">time=11.9 ms</span>
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=57 <span class="th">time=12.3 ms</span>
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, <span class="ts">0% packet loss</span>, time 3004ms
+rtt min/avg/max/mdev = 11.8/12.0/12.3/0.2 ms
+<span class="tn"># RTT in ms + 0% loss = Layer 3 reachability confirmed</span>
+<span class="tn"># Use:  ping -t (Windows continuous)  |  ping -c 4 (Linux, 4 packets)</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">bash — traceroute</span></div>
+    <pre class="terminal-body"><span class="tp">$</span> traceroute 8.8.8.8
+traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+ 1  <span class="th">192.168.1.1</span>    1.2 ms  1.1 ms  1.0 ms  <span class="tn">← default gateway (hop 1)</span>
+ 2  10.0.0.1       5.4 ms  5.2 ms  5.3 ms
+ 3  72.14.232.1    8.7 ms  8.5 ms  8.6 ms
+ 4  <span class="te">* * *</span>                            <span class="tn">← ICMP blocked — NOT necessarily down</span>
+ 5  8.8.8.8       12.4 ms 12.2 ms 12.1 ms
+<span class="tn"># Windows equivalent:  tracert 8.8.8.8</span>
+<span class="tn"># Each hop = one router; RTT per hop shown three times</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">cmd.exe — ipconfig /all</span></div>
+    <pre class="terminal-body"><span class="tpw">C:\&gt;</span> ipconfig /all
+
+Windows IP Configuration
+   Host Name . . . . . . : DESKTOP-AB123
+   DNS Suffix  . . . . . : corp.local
+
+Ethernet adapter Ethernet0:
+   IPv4 Address. . . . . : <span class="th">192.168.1.50</span>
+   Subnet Mask . . . . . : <span class="th">255.255.255.0</span>
+   Default Gateway . . . : <span class="th">192.168.1.1</span>
+   DHCP Server . . . . . : <span class="th">192.168.1.10</span>
+   DNS Servers . . . . . : 192.168.1.53
+                            8.8.8.8
+   Lease Obtained. . . . : Mon May 06 08:00:00 2026
+   Lease Expires . . . . : Tue May 07 08:00:00 2026
+<span class="tn"># /flushdns — clears DNS cache  |  /renew — forces new DHCP lease</span>
+<span class="tn"># Linux equivalent: ip addr show  (or legacy: ifconfig)</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">bash — nslookup</span></div>
+    <pre class="terminal-body"><span class="tp">$</span> nslookup example.com
+Server:  192.168.1.53
+Address: 192.168.1.53#53
+
+Non-authoritative answer:
+Name:    <span class="th">example.com</span>
+Address: <span class="th">93.184.216.34</span>
+<span class="tn"># "Non-authoritative" = answer came from cache, not the zone's own DNS server</span>
+
+<span class="tp">$</span> nslookup -type=mx example.com  <span class="tn"># query MX records</span>
+<span class="tp">$</span> nslookup example.com 8.8.8.8   <span class="tn"># query a specific DNS server</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">bash — arp -a</span></div>
+    <pre class="terminal-body"><span class="tp">$</span> arp -a
+Interface: 192.168.1.50 --- 0x3
+  Internet Address      Physical Address        Type
+  <span class="th">192.168.1.1</span>           <span class="th">00-1a-2b-3c-4d-5e</span>      dynamic
+  192.168.1.53          00-1a-2b-3c-4d-60      dynamic
+  192.168.1.255         ff-ff-ff-ff-ff-ff      static
+<span class="tn"># Maps IP → MAC (Layer 3 → Layer 2).  Use to spot IP conflicts: same IP, two MACs</span>
+<span class="tn"># arp -d 192.168.1.1  — delete a specific entry</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">bash — netstat</span></div>
+    <pre class="terminal-body"><span class="tp">$</span> netstat -an
+Active Internet connections (servers and established)
+Proto  Local Address          Foreign Address        State
+tcp    0.0.0.0:22             0.0.0.0:*              <span class="ts">LISTEN</span>
+tcp    0.0.0.0:80             0.0.0.0:*              <span class="ts">LISTEN</span>
+tcp    192.168.1.50:49234     93.184.216.34:443      <span class="th">ESTABLISHED</span>
+tcp    192.168.1.50:49235     172.217.14.68:443      <span class="th">ESTABLISHED</span>
+udp    0.0.0.0:68             0.0.0.0:*
+<span class="tn"># -an = all connections + numeric (no DNS lookup).  Port 68 = DHCP client</span>
+<span class="tn"># netstat -r = routing table  |  netstat -s = per-protocol statistics</span></pre>
+  </div>
+
   <h3>APIPA — Diagnostic Indicator</h3>
   <div class="callout callout-blue">
     <div class="callout-title">169.254.x.x — What It Means</div>
@@ -108,10 +201,13 @@
     <p><strong>What it looks like:</strong> You are given a terminal connected to a switch. You have 4 available commands. You must find: the MAC address of a target device, its IP address, which VLAN it's on, and which port it connects to — possibly across multiple switches.</p>
 
     <p><strong>The 4 commands you get:</strong></p>
-    <pre><code>show mac address-table
-show arp
-show vlan
-show ip interface brief</code></pre>
+    <div class="terminal">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS</span></div>
+      <pre class="terminal-body"><span class="tpc">Switch1#</span> show mac address-table
+<span class="tpc">Switch1#</span> show arp
+<span class="tpc">Switch1#</span> show vlan
+<span class="tpc">Switch1#</span> show ip interface brief</pre>
+    </div>
 
     <p><strong>Step-by-step process:</strong></p>
     <ol>
@@ -122,22 +218,25 @@ show ip interface brief</code></pre>
     </ol>
 
     <p><strong>Sample output cross-reference scenario:</strong></p>
-    <pre><code>Switch1# show mac address-table
-Vlan  Mac Address        Type    Ports
-----  -----------------  ------  -----
-10    0050.7966.6800     DYNAMIC Gi0/1    ← target device MAC on port Gi0/1
-10    0050.7966.6801     DYNAMIC Gi0/2
-20    0050.7966.6802     DYNAMIC Gi0/3
+    <div class="terminal">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — Network Discovery PBQ</span></div>
+      <pre class="terminal-body"><span class="tpc">Switch1#</span> show mac address-table
+Vlan  Mac Address        Type     Ports
+----  -----------------  -------  -----
+10    <span class="th">0050.7966.6800</span>     DYNAMIC  <span class="th">Gi0/1</span>   <span class="tn">← target device on port Gi0/1</span>
+10    0050.7966.6801     DYNAMIC  Gi0/2
+20    0050.7966.6802     DYNAMIC  Gi0/3
 
-Switch1# show vlan
+<span class="tpc">Switch1#</span> show vlan
 VLAN  Name      Status    Ports
-----  --------  --------  ------
-10    CORP      active    Gi0/1, Gi0/2
+----  --------  --------  ---------------
+<span class="th">10</span>    CORP      active    <span class="th">Gi0/1</span>, Gi0/2   <span class="tn">← port Gi0/1 is in VLAN 10</span>
 20    GUEST     active    Gi0/3
 
-Switch1# show arp
-Protocol  Address      Age  Hardware Addr    Interface
-Internet  10.10.10.50  12   0050.7966.6800   Vlan10   ← MAC maps to IP 10.10.10.50</code></pre>
+<span class="tpc">Switch1#</span> show arp
+Protocol  Address        Age  Hardware Addr       Interface
+Internet  <span class="th">10.10.10.50</span>   12   <span class="th">0050.7966.6800</span>     Vlan10  <span class="tn">← MAC → IP resolved</span></pre>
+    </div>
 
     <p><strong>Conclusion:</strong> Target device MAC <code>0050.7966.6800</code> is on port <code>Gi0/1</code>, VLAN <code>10</code>, IP address <code>10.10.10.50</code>.</p>
     <p><strong>Multi-switch:</strong> If the MAC appears on a trunk port (e.g., Gi0/0), run the same commands on the downstream switch connected to that trunk port — the device is one hop further.</p>
