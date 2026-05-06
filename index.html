@@ -15,20 +15,16 @@
 <!-- ══════════ APP HEADER ══════════ -->
 <header class="app-header">
   <button id="hamburger" class="hamburger" aria-label="Toggle navigation">☰</button>
-  <div class="header-logo">
+  <button id="home-logo" class="header-logo" aria-label="Go to home screen">
     <span class="logo-badge">CSP</span>
     Cert Study
-  </div>
-  <nav class="cert-tabs" aria-label="Certification tabs">
-    <button class="cert-tab active" data-cert="netplus">Net+ N10-009</button>
-    <button class="cert-tab disabled" data-cert="secplus" title="Coming soon">Sec+ SY0-701 — Soon</button>
-    <button class="cert-tab disabled" data-cert="az104" title="Coming soon">AZ-104 — Soon</button>
-  </nav>
+  </button>
   <div class="header-actions">
     <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">☀️</button>
   </div>
 </header>
 <div id="reading-progress" aria-hidden="true"></div>
+<div id="sidebar-backdrop" aria-hidden="true"></div>
 
 <!-- ══════════ LAYOUT ══════════ -->
 <div class="layout">
