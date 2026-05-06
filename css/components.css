@@ -684,7 +684,7 @@ td code { font-size: 0.8rem; }
   line-height: 1.35;
 }
 .obj-nav-btn:hover { background: var(--surface3); border-color: var(--blue-border); }
-.obj-nav-next { margin-left: auto; flex-direction: row-reverse; text-align: right; }
+.obj-nav-next { margin-left: auto; text-align: right; }
 .obj-nav-arrow { color: var(--blue); flex-shrink: 0; font-weight: 700; font-size: 1rem; }
 .obj-nav-label { display: flex; flex-direction: column; gap: 0.1rem; }
 .obj-nav-dir { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }

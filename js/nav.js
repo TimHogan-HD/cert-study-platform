@@ -188,8 +188,8 @@ function injectPrevNext(path) {
       btn.appendChild(arrow);
       btn.appendChild(labelWrap);
     } else {
-      btn.appendChild(labelWrap);
       btn.appendChild(arrow);
+      btn.appendChild(labelWrap);
     }
 
     btn.addEventListener('click', () => loadFragment(navPath));
