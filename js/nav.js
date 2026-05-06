@@ -59,6 +59,19 @@ function updateActiveNav(path, anchor) {
     const matchAnchor = !el.dataset.anchor || el.dataset.anchor === anchor;
     el.classList.toggle('active', matchPath && matchAnchor);
   });
+  /* Auto-open the parent domain subnav for the newly active obj-link */
+  const activeObj = document.querySelector('.obj-link.active');
+  if (activeObj) {
+    const subnav = activeObj.closest('.domain-subnav');
+    if (subnav && !subnav.classList.contains('open')) {
+      subnav.classList.add('open');
+      const toggle = subnav.previousElementSibling;
+      if (toggle && toggle.classList.contains('domain-toggle')) {
+        toggle.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    }
+  }
 }
 
 function initFragmentComponents() {
@@ -74,8 +87,8 @@ function initFragmentComponents() {
     header.addEventListener('click', header._toggleFn);
   });
 
-  /* Inline nav links (inside content fragments, e.g. study plans) */
-  document.querySelectorAll('.inline-nav[data-path]').forEach(el => {
+  /* Inline nav links (inside content fragments, e.g. study plans, overview quicknav) */
+  document.querySelectorAll('.inline-nav[data-path], .quicknav-card[data-path]').forEach(el => {
     el.removeEventListener('click', el._navFn);
     el._navFn = e => {
       e.preventDefault();

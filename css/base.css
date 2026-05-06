@@ -44,9 +44,14 @@
   --border: rgba(0,0,0,0.1);
   --border2: rgba(0,0,0,0.16);
   --text: #1a1a2e;
-  --muted: #6c757d;
-  --hint: #adb5bd;
+  --muted: #495057;
+  --hint: #6c757d;
   --blue: #2563eb;
+  --green: #15803d;
+  --amber: #b45309;
+  --red: #b91c1c;
+  --purple: #7c3aed;
+  --teal: #0f766e;
 }
 
 /* ---------- Reset ------------------------------------------ */
