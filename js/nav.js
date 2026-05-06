@@ -434,6 +434,24 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFragment('home');
   });
 
+  /* Sidebar collapse toggle (desktop) */
+  const sidebarDesktopToggle = document.getElementById('sidebar-desktop-toggle');
+  const SIDEBAR_COLLAPSED_KEY = 'csp-sidebar-collapsed';
+  function applySidebarCollapsed(collapsed) {
+    sidebar?.classList.toggle('sidebar-collapsed', collapsed);
+    if (sidebarDesktopToggle) {
+      sidebarDesktopToggle.textContent = collapsed ? '›' : '‹';
+      sidebarDesktopToggle.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+      sidebarDesktopToggle.title = collapsed ? 'Expand sidebar' : 'Collapse sidebar';
+    }
+  }
+  applySidebarCollapsed(localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === '1');
+  sidebarDesktopToggle?.addEventListener('click', () => {
+    const collapsed = !sidebar?.classList.contains('sidebar-collapsed');
+    applySidebarCollapsed(collapsed);
+    localStorage.setItem(SIDEBAR_COLLAPSED_KEY, collapsed ? '1' : '0');
+  });
+
   /* Reading-progress bar + back-to-top visibility */
   const progressBar = document.getElementById('reading-progress');
   const backToTop = document.getElementById('back-to-top');
