@@ -6,6 +6,19 @@ import { initAIExplain } from './ai-explain.js';
 const CONTENT_ROOT = './content';
 const fragmentCache = new Map();
 
+/* ── Skeleton loading state ─────────────────────────────────── */
+function showSkeleton() {
+  document.getElementById('content-area').innerHTML =
+    `<div class="skeleton-loading">
+      <div class="skeleton-line lg skeleton-pulse"></div>
+      <div class="skeleton-line skeleton-pulse"></div>
+      <div class="skeleton-line sm skeleton-pulse"></div>
+      <div class="skeleton-block skeleton-pulse"></div>
+      <div class="skeleton-line skeleton-pulse"></div>
+      <div class="skeleton-line sm skeleton-pulse"></div>
+    </div>`;
+}
+
 async function loadFragment(path, anchor) {
   const url = `${CONTENT_ROOT}/${path}.html`;
   try {
@@ -13,6 +26,7 @@ async function loadFragment(path, anchor) {
     if (fragmentCache.has(path)) {
       html = fragmentCache.get(path);
     } else {
+      showSkeleton();
       const res = await fetch(url);
       if (!res.ok) { showError(path); return; }
       html = await res.text();
@@ -30,7 +44,9 @@ async function loadFragment(path, anchor) {
       window.scrollTo(0, 0);
     }
     updateActiveNav(path, anchor);
-    initFragmentComponents();
+    injectBreadcrumb(path);
+    injectPrevNext(path);
+    initFragmentComponents(path);
   } catch (e) {
     showError(path);
   }
@@ -74,15 +90,121 @@ function updateActiveNav(path, anchor) {
   }
 }
 
-function initFragmentComponents() {
-  /* Accordions */
-  document.querySelectorAll('.accordion-header').forEach(header => {
+/* ── Breadcrumb ─────────────────────────────────────────────── */
+function injectBreadcrumb(path) {
+  const certMap = { netplus: 'Net+ N10-009', secplus: 'Sec+ SY0-701', az104: 'AZ-104' };
+  const parts = path.split('/');
+  const certKey = parts[0];
+  const crumbs = [];
+
+  crumbs.push(certMap[certKey] || certKey);
+
+  const navEl = document.querySelector(`[data-path="${path}"]`);
+  if (navEl) {
+    const subnav = navEl.closest('.domain-subnav');
+    if (subnav) {
+      const toggle = subnav.previousElementSibling;
+      if (toggle && toggle.classList.contains('domain-toggle')) {
+        const domainText = toggle.querySelector('span')?.textContent?.trim();
+        if (domainText) crumbs.push(domainText);
+      }
+    }
+    crumbs.push(navEl.textContent.trim());
+  }
+
+  /* Only show breadcrumb when there's meaningful depth */
+  if (crumbs.length < 2) return;
+
+  const bc = document.createElement('nav');
+  bc.id = 'breadcrumb';
+  bc.className = 'breadcrumb';
+  bc.setAttribute('aria-label', 'Breadcrumb');
+  crumbs.forEach((label, i) => {
+    if (i > 0) {
+      const sep = document.createElement('span');
+      sep.className = 'breadcrumb-sep';
+      sep.textContent = '›';
+      bc.appendChild(sep);
+    }
+    const item = document.createElement('span');
+    item.className = 'breadcrumb-item' + (i === crumbs.length - 1 ? ' breadcrumb-current' : '');
+    item.textContent = label;
+    bc.appendChild(item);
+  });
+
+  const contentArea = document.getElementById('content-area');
+  contentArea.insertBefore(bc, contentArea.firstChild);
+}
+
+/* ── Prev / Next objective footer ──────────────────────────── */
+function getNavOrder() {
+  /* Derive ordered path list from sidebar DOM so it's always in sync */
+  return Array.from(document.querySelectorAll('#sidebar-netplus [data-path]'))
+    .map(el => el.dataset.path);
+}
+
+function injectPrevNext(path) {
+  /* Remove any existing footer from a previous page */
+  document.getElementById('obj-nav-footer')?.remove();
+
+  const order = getNavOrder();
+  const idx = order.indexOf(path);
+  if (idx === -1) return;
+
+  const prevPath = idx > 0 ? order[idx - 1] : null;
+  const nextPath = idx < order.length - 1 ? order[idx + 1] : null;
+  if (!prevPath && !nextPath) return;
+
+  const footer = document.createElement('div');
+  footer.id = 'obj-nav-footer';
+  footer.className = 'obj-nav-footer';
+
+  const makeBtn = (navPath, direction) => {
+    const navEl = document.querySelector(`[data-path="${navPath}"]`);
+    const label = navEl?.textContent?.trim() || navPath;
+    const btn = document.createElement('button');
+    btn.className = `obj-nav-btn obj-nav-${direction}`;
+    btn.innerHTML = direction === 'prev'
+      ? `<span class="obj-nav-arrow">←</span>
+         <span class="obj-nav-label">
+           <span class="obj-nav-dir">Previous</span>
+           <span class="obj-nav-title">${label}</span>
+         </span>`
+      : `<span class="obj-nav-label">
+           <span class="obj-nav-dir">Next</span>
+           <span class="obj-nav-title">${label}</span>
+         </span>
+         <span class="obj-nav-arrow">→</span>`;
+    btn.addEventListener('click', () => loadFragment(navPath));
+    return btn;
+  };
+
+  if (prevPath) footer.appendChild(makeBtn(prevPath, 'prev'));
+  if (nextPath) footer.appendChild(makeBtn(nextPath, 'next'));
+
+  document.getElementById('content-area').appendChild(footer);
+}
+
+/* ── Fragment component init ────────────────────────────────── */
+function initFragmentComponents(path) {
+  /* Accordions — with sessionStorage state persistence */
+  document.querySelectorAll('.accordion-header').forEach((header, idx) => {
+    const storageKey = path ? `csp-accordion-${path}-${idx}` : null;
+
+    /* Restore saved state */
+    if (storageKey && sessionStorage.getItem(storageKey) === '1') {
+      const body = header.nextElementSibling;
+      if (body) body.classList.add('open');
+      header.classList.add('open');
+    }
+
     header.removeEventListener('click', header._toggleFn);
     header._toggleFn = () => {
       const body = header.nextElementSibling;
       const isOpen = body && body.classList.contains('open');
       if (body) body.classList.toggle('open', !isOpen);
       header.classList.toggle('open', !isOpen);
+      if (storageKey) sessionStorage.setItem(storageKey, isOpen ? '0' : '1');
     };
     header.addEventListener('click', header._toggleFn);
   });
@@ -113,12 +235,12 @@ function initFragmentComponents() {
   });
 
   initSubnetting();
-  initFlashcards();
+  initFlashcards(path);
   initMatching();
   initAIExplain();
 }
 
-/* Cert tab switching */
+/* ── Cert tab switching ─────────────────────────────────────── */
 function switchCert(cert) {
   document.querySelectorAll('.cert-tab').forEach(t =>
     t.classList.toggle('active', t.dataset.cert === cert)
@@ -167,6 +289,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* Collapse/expand all sidebar button */
+  const collapseAll = document.getElementById('sidebar-collapse-all');
+  if (collapseAll) {
+    collapseAll.addEventListener('click', () => {
+      const anyOpen = document.querySelectorAll('.domain-subnav.open').length > 0;
+      document.querySelectorAll('.domain-subnav').forEach(s =>
+        s.classList.toggle('open', !anyOpen)
+      );
+      document.querySelectorAll('.domain-toggle').forEach(t => {
+        t.classList.toggle('open', !anyOpen);
+        t.setAttribute('aria-expanded', String(!anyOpen));
+      });
+      collapseAll.textContent = anyOpen ? 'Expand all' : 'Collapse all';
+    });
+  }
+
   /* Hamburger */
   const hamburger = document.getElementById('hamburger');
   const sidebar = document.querySelector('.sidebar');
@@ -181,7 +319,36 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.classList.remove('open');
       }
     });
+
+    /* Mobile: swipe-left to close sidebar */
+    let touchStartX = 0;
+    document.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    document.addEventListener('touchend', e => {
+      const delta = touchStartX - e.changedTouches[0].clientX;
+      if (delta > 50 && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    }, { passive: true });
   }
+
+  /* Reading-progress bar + back-to-top visibility */
+  const progressBar = document.getElementById('reading-progress');
+  const backToTop = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (progressBar) {
+      progressBar.style.width = docHeight > 0 ? `${(scrollTop / docHeight) * 100}%` : '0%';
+    }
+    if (backToTop) {
+      backToTop.classList.toggle('visible', scrollTop > 400);
+    }
+  }, { passive: true });
+
+  /* Back-to-top click */
+  backToTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
   /* Initial load from hash */
   const hash = location.hash.replace('#/', '');
@@ -199,3 +366,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+

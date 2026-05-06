@@ -49,11 +49,11 @@ thead { background: var(--surface3); }
 th {
   padding: 0.6rem 0.85rem;
   text-align: left;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--muted);
+  color: var(--text);
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
 }
@@ -597,6 +597,149 @@ td code { font-size: 0.8rem; }
   transition: all 0.15s;
 }
 .notify-btn:hover { background: var(--blue-bg2); }
+
+/* ---------- Reading Progress Bar -------------------------- */
+#reading-progress {
+  position: fixed;
+  top: 52px;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--blue);
+  z-index: 99;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
+/* ---------- Back-to-top button ----------------------------- */
+#back-to-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, background 0.15s;
+  z-index: 50;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+#back-to-top.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+#back-to-top:hover { background: var(--surface2); }
+
+/* ---------- Breadcrumb ------------------------------------- */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  font-size: 0.76rem;
+  color: var(--muted);
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+.breadcrumb-sep { color: var(--hint); user-select: none; }
+.breadcrumb-item { color: var(--muted); }
+.breadcrumb-current { color: var(--text); font-weight: 500; }
+
+/* ---------- Prev / Next objective footer ------------------- */
+.obj-nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  padding: 1.25rem 0 0.5rem;
+  border-top: 1px solid var(--border);
+  gap: 1rem;
+}
+.obj-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  max-width: 46%;
+  width: auto;
+  text-align: left;
+  line-height: 1.35;
+}
+.obj-nav-btn:hover { background: var(--surface3); border-color: var(--blue-border); }
+.obj-nav-next { margin-left: auto; flex-direction: row-reverse; text-align: right; }
+.obj-nav-arrow { color: var(--blue); flex-shrink: 0; font-weight: 700; font-size: 1rem; }
+.obj-nav-label { display: flex; flex-direction: column; gap: 0.1rem; }
+.obj-nav-dir { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.obj-nav-title { font-size: 0.82rem; color: var(--text); }
+
+/* ---------- Matching game results section ------------------ */
+.match-results {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+.match-results-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--green);
+  margin-bottom: 0.5rem;
+}
+.match-result-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  margin: 0.3rem 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.match-result-entering {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.match-result-term  { font-weight: 600; color: var(--text); flex: 1; }
+.match-result-arrow { color: var(--green); flex-shrink: 0; }
+.match-result-def   { color: var(--muted); flex: 1; font-size: 0.8rem; }
+
+/* ---------- Flashcard keyboard hints ----------------------- */
+.deck-kbd-hints {
+  font-size: 0.72rem;
+  color: var(--hint);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+.deck-kbd-hints kbd {
+  font-size: 0.68rem;
+  padding: 0.1em 0.35em;
+}
 
 /* ---------- Exam Overview Quick Nav ----------------------- */
 .domain-quicknav {

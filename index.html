@@ -28,6 +28,7 @@
     <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">☀️</button>
   </div>
 </header>
+<div id="reading-progress" aria-hidden="true"></div>
 
 <!-- ══════════ LAYOUT ══════════ -->
 <div class="layout">
@@ -38,13 +39,16 @@
     <!-- Net+ sidebar -->
     <div id="sidebar-netplus">
       <div class="sidebar-cert-label">CompTIA Network+</div>
+      <div class="sidebar-controls">
+        <button id="sidebar-collapse-all" class="sidebar-ctrl-btn">Collapse all</button>
+      </div>
 
       <button class="sidebar-link nav-overview" data-path="netplus/overview">📊 Exam Overview</button>
 
       <!-- Domain 1 -->
       <button class="domain-toggle open" aria-expanded="true">
         <span>Domain 1: Networking Concepts</span>
-        <span class="domain-pct">23%</span>
+        <span class="domain-pct domain-pct-1">23%</span>
         <span class="toggle-arrow">▶</span>
       </button>
       <div class="domain-subnav open">
@@ -61,7 +65,7 @@
       <!-- Domain 2 -->
       <button class="domain-toggle" aria-expanded="false">
         <span>Domain 2: Network Implementation</span>
-        <span class="domain-pct">20%</span>
+        <span class="domain-pct domain-pct-2">20%</span>
         <span class="toggle-arrow">▶</span>
       </button>
       <div class="domain-subnav">
@@ -74,7 +78,7 @@
       <!-- Domain 3 -->
       <button class="domain-toggle" aria-expanded="false">
         <span>Domain 3: Network Operations</span>
-        <span class="domain-pct">19%</span>
+        <span class="domain-pct domain-pct-3">19%</span>
         <span class="toggle-arrow">▶</span>
       </button>
       <div class="domain-subnav">
@@ -88,7 +92,7 @@
       <!-- Domain 4 -->
       <button class="domain-toggle" aria-expanded="false">
         <span>Domain 4: Network Security</span>
-        <span class="domain-pct">14%</span>
+        <span class="domain-pct domain-pct-4">14%</span>
         <span class="toggle-arrow">▶</span>
       </button>
       <div class="domain-subnav">
@@ -100,7 +104,7 @@
       <!-- Domain 5 -->
       <button class="domain-toggle" aria-expanded="false">
         <span>Domain 5: Network Troubleshooting</span>
-        <span class="domain-pct">24%</span>
+        <span class="domain-pct domain-pct-5">24%</span>
         <span class="toggle-arrow">▶</span>
       </button>
       <div class="domain-subnav">
@@ -132,13 +136,20 @@
   <!-- ══ MAIN CONTENT ══ -->
   <main class="main" id="main-content">
     <div id="content-area">
-      <div style="display:flex;align-items:center;justify-content:center;height:50vh;color:var(--muted);">
-        Loading…
+      <div class="skeleton-loading">
+        <div class="skeleton-line lg skeleton-pulse"></div>
+        <div class="skeleton-line skeleton-pulse"></div>
+        <div class="skeleton-line sm skeleton-pulse"></div>
+        <div class="skeleton-block skeleton-pulse"></div>
+        <div class="skeleton-line skeleton-pulse"></div>
+        <div class="skeleton-line sm skeleton-pulse"></div>
       </div>
     </div>
   </main>
 
 </div><!-- /.layout -->
+
+<button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 
 <script type="module" src="js/theme.js"></script>
 <script type="module" src="js/nav.js"></script>
