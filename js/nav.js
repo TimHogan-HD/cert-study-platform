@@ -437,15 +437,40 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Sidebar collapse toggle (desktop) */
   const sidebarDesktopToggle = document.getElementById('sidebar-desktop-toggle');
   const SIDEBAR_COLLAPSED_KEY = 'csp-sidebar-collapsed';
+  const desktopMQ = window.matchMedia('(min-width: 769px)');
+
   function applySidebarCollapsed(collapsed) {
     sidebar?.classList.toggle('sidebar-collapsed', collapsed);
+    if (sidebar) {
+      if (collapsed) {
+        sidebar.setAttribute('aria-hidden', 'true');
+        sidebar.setAttribute('inert', '');
+      } else {
+        sidebar.removeAttribute('aria-hidden');
+        sidebar.removeAttribute('inert');
+      }
+    }
     if (sidebarDesktopToggle) {
       sidebarDesktopToggle.textContent = collapsed ? '›' : '‹';
       sidebarDesktopToggle.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
       sidebarDesktopToggle.title = collapsed ? 'Expand sidebar' : 'Collapse sidebar';
     }
   }
-  applySidebarCollapsed(localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === '1');
+
+  /* Restore collapsed state on desktop; ensure clean state on mobile */
+  if (desktopMQ.matches) {
+    applySidebarCollapsed(localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === '1');
+  } else {
+    applySidebarCollapsed(false);
+  }
+
+  /* When the viewport shrinks to mobile, clear any desktop-collapsed state */
+  desktopMQ.addEventListener('change', (e) => {
+    if (!e.matches) {
+      applySidebarCollapsed(false);
+    }
+  });
+
   sidebarDesktopToggle?.addEventListener('click', () => {
     const collapsed = !sidebar?.classList.contains('sidebar-collapsed');
     applySidebarCollapsed(collapsed);
