@@ -17,14 +17,14 @@
 
     <!-- ── Day 1: Cloud Concepts ── -->
     <div class="cram-day-panel active">
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem">Domain 1 — foundation for all other domains. 25–30% of exam.</p>
+      <p class="day-intro">Domain 1 — foundation for all other domains. 25–30% of exam.</p>
 
       <h3>Cloud Computing Fundamentals</h3>
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Model</th><th>Payment</th><th>Flexibility</th><th>Example</th></tr></thead>
         <tbody>
-          <tr><td class="row-label">CapEx</td><td>Upfront investment</td><td>Fixed — hard to scale</td><td>Physical servers on-prem</td></tr>
-          <tr><td class="row-label">OpEx</td><td>Pay-as-you-go</td><td>Variable / elastic</td><td>Azure subscriptions</td></tr>
+          <tr><td class="row-label"><abbr title="Capital Expenditure">CapEx</abbr></td><td>Upfront investment</td><td>Fixed — hard to scale</td><td>Physical servers on-prem</td></tr>
+          <tr><td class="row-label"><abbr title="Operational Expenditure">OpEx</abbr></td><td>Pay-as-you-go</td><td>Variable / elastic</td><td>Azure subscriptions</td></tr>
         </tbody>
       </table></div>
 
@@ -40,7 +40,7 @@
 
       <h3>Shared Responsibility Model</h3>
       <div class="cmp-wrap"><table class="cmp-table">
-        <thead><tr><th>Layer</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr></thead>
+        <thead><tr><th>Layer</th><th><abbr title="Infrastructure as a Service">IaaS</abbr></th><th><abbr title="Platform as a Service">PaaS</abbr></th><th><abbr title="Software as a Service">SaaS</abbr></th></tr></thead>
         <tbody>
           <tr><td class="row-label">Physical infra</td><td>Microsoft</td><td>Microsoft</td><td>Microsoft</td></tr>
           <tr><td class="row-label">OS &amp; runtime</td><td>Customer</td><td>Microsoft</td><td>Microsoft</td></tr>
@@ -58,7 +58,7 @@
           <tr><td class="row-label">Scalability</td><td>Ability to increase/decrease resources (vertical = resize; horizontal = add instances)</td><td>Can scale up/out</td></tr>
           <tr><td class="row-label">Elasticity</td><td>Automatic scaling in response to real-time demand</td><td>Automatically adjusts</td></tr>
           <tr><td class="row-label">Agility</td><td>Speed to provision/deprovision — minutes vs weeks on-prem</td><td>Quickly deploy / fast response</td></tr>
-          <tr><td class="row-label">High Availability</td><td>Continuous uptime backed by SLA guarantees</td><td>Always available / uptime SLA</td></tr>
+          <tr><td class="row-label">High Availability</td><td>Continuous uptime backed by <abbr title="Service Level Agreement">SLA</abbr> guarantees</td><td>Always available / uptime SLA</td></tr>
           <tr><td class="row-label">Reliability</td><td>Geographic distribution + auto-failover</td><td>Survives regional failure</td></tr>
           <tr><td class="row-label">Predictability</td><td>Performance and cost consistency</td><td>Consistent performance / cost</td></tr>
         </tbody>
@@ -76,7 +76,7 @@
           <tbody>
             <tr><td class="row-label">You manage</td><td>OS, runtime, apps, data, network config</td></tr>
             <tr><td class="row-label">Microsoft manages</td><td>Physical infra, hardware</td></tr>
-            <tr><td class="row-label">Azure examples</td><td>VMs, VNets, Storage Accounts</td></tr>
+            <tr><td class="row-label">Azure examples</td><td><abbr title="Virtual Machines">VMs</abbr>, <abbr title="Virtual Networks">VNets</abbr>, Storage Accounts</td></tr>
             <tr><td class="row-label">Decision trigger</td><td>Need full OS control; lift-and-shift</td></tr>
           </tbody>
         </table></div>
@@ -118,11 +118,11 @@
 
     <!-- ── Day 2: Azure Architecture ── -->
     <div class="cram-day-panel">
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem">Domain 2 part 1 — resource hierarchy, global infra, compute. 35–40% of exam.</p>
+      <p class="day-intro">Domain 2 part 1 — resource hierarchy, global infra, compute. 35–40% of exam.</p>
 
       <h3>Resource Organization Hierarchy</h3>
       <div class="hierarchy">
-        <div class="hier-level"><div class="hier-box hier-l0"><span class="hb-name">Management Groups</span><span class="hb-desc">Apply policies/RBAC at scale — max 6 levels deep, 10,000/directory</span></div></div>
+        <div class="hier-level"><div class="hier-box hier-l0"><span class="hb-name">Management Groups</span><span class="hb-desc">Apply policies/<abbr title="Role-Based Access Control">RBAC</abbr> at scale — max 6 levels deep, 10,000/directory</span></div></div>
         <div class="hier-level"><div class="hier-indent"></div><div class="hier-box hier-l1"><span class="hb-name">Subscriptions</span><span class="hb-desc">Billing boundary + access boundary</span></div></div>
         <div class="hier-level"><div class="hier-indent"></div><div class="hier-indent"></div><div class="hier-box hier-l2"><span class="hb-name">Resource Groups</span><span class="hb-desc">Logical container — deleting it deletes all resources inside</span></div></div>
         <div class="hier-level"><div class="hier-indent"></div><div class="hier-indent"></div><div class="hier-indent"></div><div class="hier-box hier-l3"><span class="hb-name">Resources</span><span class="hb-desc">Individual VMs, storage accounts, databases, etc.</span></div></div>
@@ -136,7 +136,7 @@
         <tbody>
           <tr><td class="row-label">Single VM + Premium SSD</td><td>Nothing (no redundancy)</td><td>1</td><td>99.9%</td></tr>
           <tr><td class="row-label">Availability Set</td><td>Rack/hardware failure within one datacenter</td><td>2 VMs</td><td>99.95%</td></tr>
-          <tr><td class="row-label">Availability Zones</td><td>Entire datacenter failure (physically separate DCs)</td><td>2 VMs across 2 AZs</td><td>99.99%</td></tr>
+          <tr><td class="row-label">Availability Zones</td><td>Entire datacenter failure (physically separate DCs)</td><td>2 VMs across 2 <abbr title="Availability Zones">AZs</abbr></td><td>99.99%</td></tr>
           <tr><td class="row-label">Free tier</td><td>—</td><td>—</td><td>No SLA</td></tr>
         </tbody>
       </table></div>
@@ -154,7 +154,7 @@
           <tbody>
             <tr><td class="row-label">Virtual Machines</td><td>IaaS</td><td>Lift-and-shift, full OS control</td><td>Pay even when stopped (must deallocate)</td></tr>
             <tr><td class="row-label">VM Scale Sets</td><td>IaaS</td><td>Auto-scaling identical VMs</td><td>Up to 1,000 instances</td></tr>
-            <tr><td class="row-label">Azure Virtual Desktop</td><td>PaaS</td><td>Remote desktop, multi-session Windows</td><td>Replaces physical VDI</td></tr>
+            <tr><td class="row-label">Azure Virtual Desktop</td><td>PaaS</td><td>Remote desktop, multi-session Windows</td><td>Replaces physical <abbr title="Virtual Desktop Infrastructure">VDI</abbr></td></tr>
           </tbody>
         </table></div>
         <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Stopped ≠ Deallocated</div><div class="trap-body">VM must be stopped (deallocated) to avoid compute charges. "Stopped" still runs the meter. Storage is always charged.</div></div>
@@ -163,8 +163,8 @@
         <div class="cmp-wrap"><table class="cmp-table">
           <thead><tr><th>Service</th><th>Use case</th><th>Speed</th><th>Orchestration</th></tr></thead>
           <tbody>
-            <tr><td class="row-label">ACI</td><td>Dev/test, simple burst, fastest startup</td><td>Fastest to start</td><td>None — single containers</td></tr>
-            <tr><td class="row-label">AKS</td><td>Production microservices, complex apps</td><td>Slower setup</td><td>Full Kubernetes orchestration</td></tr>
+            <tr><td class="row-label"><abbr title="Azure Container Instances">ACI</abbr></td><td>Dev/test, simple burst, fastest startup</td><td>Fastest to start</td><td>None — single containers</td></tr>
+            <tr><td class="row-label"><abbr title="Azure Kubernetes Service">AKS</abbr></td><td>Production microservices, complex apps</td><td>Slower setup</td><td>Full Kubernetes orchestration</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -179,7 +179,7 @@
         </table></div>
       </div>
 
-      <h3>Azure Resource Manager (ARM)</h3>
+      <h3>Azure Resource Manager (<abbr title="Azure Resource Manager">ARM</abbr>)</h3>
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Tool</th><th>Type</th><th>Sends requests to</th></tr></thead>
         <tbody>
@@ -198,9 +198,9 @@
 
     <!-- ── Day 3: Networking & Storage ── -->
     <div class="cram-day-panel">
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem">Domain 2 part 2 — VNet peering, redundancy decision tree, endpoints. 35–40% of exam.</p>
+      <p class="day-intro">Domain 2 part 2 — VNet peering, redundancy decision tree, endpoints. 35–40% of exam.</p>
 
-      <h3>VPN Gateway vs ExpressRoute</h3>
+      <h3><abbr title="Virtual Private Network">VPN</abbr> Gateway vs ExpressRoute</h3>
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Attribute</th><th>VPN Gateway</th><th>ExpressRoute</th></tr></thead>
         <tbody>
@@ -218,8 +218,8 @@
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Concept</th><th>What it connects</th><th>Key detail</th></tr></thead>
         <tbody>
-          <tr><td class="row-label">VNet</td><td>Azure network boundary</td><td>Doesn't span regions; free service</td></tr>
-          <tr><td class="row-label">Subnet</td><td>Divides a VNet</td><td>Different NSG rules per tier/subnet</td></tr>
+          <tr><td class="row-label"><abbr title="Virtual Network">VNet</abbr></td><td>Azure network boundary</td><td>Doesn't span regions; free service</td></tr>
+          <tr><td class="row-label">Subnet</td><td>Divides a VNet</td><td>Different <abbr title="Network Security Group">NSG</abbr> rules per tier/subnet</td></tr>
           <tr><td class="row-label">VNet Peering</td><td>VNet ↔ VNet</td><td>Non-transitive — A↔B + B↔C ≠ A↔C; data transfer charges apply</td></tr>
           <tr><td class="row-label">Service Endpoint</td><td>VNet resources → Azure PaaS</td><td>Traffic over backbone; PaaS public endpoint still exists</td></tr>
           <tr><td class="row-label">Private Endpoint</td><td>PaaS service → private IP in VNet</td><td>Public endpoint can be fully disabled; strictest compliance</td></tr>
@@ -233,7 +233,7 @@
         <thead><tr><th>Type</th><th>Data format</th><th>Use case</th><th>Key trigger phrase</th></tr></thead>
         <tbody>
           <tr><td class="row-label">Blob</td><td>Unstructured objects</td><td>Images, video, backups, logs</td><td>"Unstructured" / "objects" / "media"</td></tr>
-          <tr><td class="row-label">Azure Files</td><td>File shares (SMB / NFS)</td><td>Lift-and-shift file servers</td><td>"File share" / "SMB" / "replace file server"</td></tr>
+          <tr><td class="row-label">Azure Files</td><td>File shares (<abbr title="Server Message Block">SMB</abbr> / <abbr title="Network File System">NFS</abbr>)</td><td>Lift-and-shift file servers</td><td>"File share" / "SMB" / "replace file server"</td></tr>
           <tr><td class="row-label">Queue</td><td>Messages (async)</td><td>Decouple application components</td><td>"Async processing" / "decouple"</td></tr>
           <tr><td class="row-label">Table</td><td>NoSQL key-value</td><td>Semi-structured, flexible schema</td><td>"NoSQL" / "key-value" / "no fixed schema"</td></tr>
           <tr><td class="row-label">Disk</td><td>Block storage</td><td>Persistent storage for VMs</td><td>"VM disk" / "persistent" / "block storage"</td></tr>
@@ -242,12 +242,12 @@
 
       <h3>Blob Access Tiers</h3>
       <div class="tier-chart">
-        <div class="tier-row"><span class="tier-label" style="color:var(--blue)">Hot</span><div class="tier-bar-wrap"><div class="tier-bar" style="width:90%;background:rgba(59,130,246,0.5)">Highest storage cost</div></div><span class="tier-note">No min · Frequent access</span></div>
-        <div class="tier-row"><span class="tier-label" style="color:var(--teal)">Cool</span><div class="tier-bar-wrap"><div class="tier-bar" style="width:60%;background:rgba(20,184,166,0.5)">Medium storage cost</div></div><span class="tier-note">30-day min · Infrequent</span></div>
-        <div class="tier-row"><span class="tier-label" style="color:var(--amber)">Cold</span><div class="tier-bar-wrap"><div class="tier-bar" style="width:35%;background:rgba(245,158,11,0.5)">Lower storage cost</div></div><span class="tier-note">90-day min · Rarely accessed</span></div>
-        <div class="tier-row"><span class="tier-label" style="color:var(--muted)">Archive</span><div class="tier-bar-wrap"><div class="tier-bar" style="width:15%;background:rgba(136,136,136,0.4)">Lowest storage cost</div></div><span class="tier-note">180-day min · Rehydration req.</span></div>
+        <div class="tier-row"><span class="tier-label tier-label-hot">Hot</span><div class="tier-bar-wrap"><div class="tier-bar tier-bar-hot" style="width:90%">Highest storage cost</div></div><span class="tier-note">No min · Frequent access</span></div>
+        <div class="tier-row"><span class="tier-label tier-label-cool">Cool</span><div class="tier-bar-wrap"><div class="tier-bar tier-bar-cool" style="width:60%">Medium storage cost</div></div><span class="tier-note">30-day min · Infrequent</span></div>
+        <div class="tier-row"><span class="tier-label tier-label-cold">Cold</span><div class="tier-bar-wrap"><div class="tier-bar tier-bar-cold" style="width:35%">Lower storage cost</div></div><span class="tier-note">90-day min · Rarely accessed</span></div>
+        <div class="tier-row"><span class="tier-label tier-label-arch">Archive</span><div class="tier-bar-wrap"><div class="tier-bar tier-bar-arch" style="width:15%">Lowest storage cost</div></div><span class="tier-note">180-day min · Rehydration req.</span></div>
       </div>
-      <p style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem">Bar length ≈ relative storage cost. Access cost is inverse — Archive is cheapest to store but most expensive to read.</p>
+      <p class="day-tip">Bar length ≈ relative storage cost. Access cost is inverse — Archive is cheapest to store but most expensive to read.</p>
       <br>
       <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Archive requires rehydration</div><div class="trap-body">Archive blobs cannot be read directly. They must be rehydrated first — this takes hours. Do not use Archive for anything that might need to be accessed quickly.</div></div>
 
@@ -258,10 +258,10 @@
       </div>
       <div id="d3-redun-guide" class="toggle-panel active">
         <div class="decision-grid">
-          <div class="d-card"><div class="d-card-trigger">Cost-sensitive, non-critical data</div><div class="d-card-answer">LRS</div><div class="d-card-note">3 copies, 1 datacenter</div></div>
-          <div class="d-card"><div class="d-card-trigger">HA within region, zone-failure protection</div><div class="d-card-answer">ZRS</div><div class="d-card-note">3 copies across 3 AZs</div></div>
-          <div class="d-card"><div class="d-card-trigger">Regional DR, don't need to read secondary</div><div class="d-card-answer">GRS or GZRS</div><div class="d-card-note">6 copies, requires failover to read secondary</div></div>
-          <div class="d-card"><div class="d-card-trigger">Regional DR + read from secondary without failover</div><div class="d-card-answer">RA-GRS or RA-GZRS</div><div class="d-card-note">Same as GRS/GZRS but read access to secondary anytime</div></div>
+          <div class="d-card"><div class="d-card-trigger">Cost-sensitive, non-critical data</div><div class="d-card-answer"><abbr title="Locally Redundant Storage">LRS</abbr></div><div class="d-card-note">3 copies, 1 datacenter</div></div>
+          <div class="d-card"><div class="d-card-trigger"><abbr title="High Availability">HA</abbr> within region, zone-failure protection</div><div class="d-card-answer"><abbr title="Zone-Redundant Storage">ZRS</abbr></div><div class="d-card-note">3 copies across 3 AZs</div></div>
+          <div class="d-card"><div class="d-card-trigger">Regional <abbr title="Disaster Recovery">DR</abbr>, don't need to read secondary</div><div class="d-card-answer"><abbr title="Geo-Redundant Storage">GRS</abbr> or <abbr title="Geo-Zone-Redundant Storage">GZRS</abbr></div><div class="d-card-note">6 copies, requires failover to read secondary</div></div>
+          <div class="d-card"><div class="d-card-trigger">Regional DR + read from secondary without failover</div><div class="d-card-answer"><abbr title="Read-Access Geo-Redundant Storage">RA-GRS</abbr> or <abbr title="Read-Access Geo-Zone-Redundant Storage">RA-GZRS</abbr></div><div class="d-card-note">Same as GRS/GZRS but read access to secondary anytime</div></div>
           <div class="d-card"><div class="d-card-trigger">Maximum HA + DR + secondary reads</div><div class="d-card-answer">RA-GZRS</div><div class="d-card-note">Best of everything — 3 AZs + remote region + read access</div></div>
         </div>
       </div>
@@ -285,29 +285,29 @@
         <thead><tr><th>Service</th><th>Type</th><th>Trigger phrase</th><th>Key trait</th></tr></thead>
         <tbody>
           <tr><td class="row-label">Event Grid</td><td>Pub/sub event routing</td><td>"React to Azure service events" / "blob created"</td><td>Near real-time, lightweight</td></tr>
-          <tr><td class="row-label">Service Bus</td><td>Enterprise message queue</td><td>"Guaranteed delivery" / "ordering" / "dead-letter"</td><td>Durable, FIFO, transactions</td></tr>
+          <tr><td class="row-label">Service Bus</td><td>Enterprise message queue</td><td>"Guaranteed delivery" / "ordering" / "dead-letter"</td><td>Durable, <abbr title="First In, First Out">FIFO</abbr>, transactions</td></tr>
           <tr><td class="row-label">Queue Storage</td><td>Simple message queue</td><td>"Simple HTTP-accessible queue" / "cheap"</td><td>FIFO, no advanced features, very low cost</td></tr>
-          <tr><td class="row-label">Event Hubs</td><td>Big data streaming</td><td>"IoT" / "telemetry" / "high volume" / "Kafka"</td><td>Millions of events/sec, Kafka-compatible</td></tr>
+          <tr><td class="row-label">Event Hubs</td><td>Big data streaming</td><td>"<abbr title="Internet of Things">IoT</abbr>" / "telemetry" / "high volume" / "Kafka"</td><td>Millions of events/sec, Kafka-compatible</td></tr>
         </tbody>
       </table></div>
     </div><!-- /Day 3 -->
 
     <!-- ── Day 4: Identity, Security & Governance ── -->
     <div class="cram-day-panel">
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem">Domain 2 part 3 + Domain 3 — RBAC, Policy, Locks, Cost, Monitoring. 30–35% of exam.</p>
+      <p class="day-intro">Domain 2 part 3 + Domain 3 — RBAC, Policy, Locks, Cost, Monitoring. 30–35% of exam.</p>
 
-      <h3>Entra ID vs AD DS</h3>
+      <h3>Entra ID vs <abbr title="Active Directory Domain Services">AD DS</abbr></h3>
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Attribute</th><th>Entra ID (Cloud)</th><th>AD DS (On-Premises)</th></tr></thead>
         <tbody>
-          <tr><td class="row-label">Protocol</td><td>HTTP/HTTPS, OAuth, OIDC</td><td>Kerberos, LDAP</td></tr>
+          <tr><td class="row-label">Protocol</td><td><abbr title="Hypertext Transfer Protocol">HTTP</abbr>/<abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr>, <abbr title="Open Authorization">OAuth</abbr>, <abbr title="OpenID Connect">OIDC</abbr></td><td><abbr title="Kerberos Network Authentication Protocol">Kerberos</abbr>, <abbr title="Lightweight Directory Access Protocol">LDAP</abbr></td></tr>
           <tr><td class="row-label">Structure</td><td>Flat (no OUs or domains)</td><td>Hierarchical (OUs, domains, forests)</td></tr>
           <tr><td class="row-label">Management</td><td>Microsoft-managed</td><td>Self-managed (you run DCs)</td></tr>
           <tr><td class="row-label">Use case</td><td>Cloud and SaaS apps</td><td>On-prem Windows environments</td></tr>
           <tr><td class="row-label">Domain join</td><td>Azure AD Join / Entra Join</td><td>Traditional domain join</td></tr>
         </tbody>
       </table></div>
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem"><strong style="color:var(--text)">Entra Domain Services</strong> — managed Kerberos/LDAP in Azure without running your own domain controllers. Bridge for legacy apps that need AD but without managing DCs.</p>
+      <p class="day-note"><strong>Entra Domain Services</strong> — managed Kerberos/LDAP in Azure without running your own domain controllers. Bridge for legacy apps that need AD but without managing DCs.</p>
 
       <h3>Authentication Methods</h3>
       <div class="toggle-group">
@@ -318,9 +318,9 @@
         <div class="cmp-wrap"><table class="cmp-table">
           <thead><tr><th>Method</th><th>What it does</th><th>When to use</th></tr></thead>
           <tbody>
-            <tr><td class="row-label">SSO</td><td>Authenticate once → access multiple apps</td><td>Users needing access to multiple services</td></tr>
-            <tr><td class="row-label">MFA</td><td>Something you know + have + are</td><td>High-security scenarios, admin accounts</td></tr>
-            <tr><td class="row-label">Passwordless</td><td>Windows Hello, Authenticator app, FIDO2 keys</td><td>Strongest auth — eliminates password risk</td></tr>
+            <tr><td class="row-label"><abbr title="Single Sign-On">SSO</abbr></td><td>Authenticate once → access multiple apps</td><td>Users needing access to multiple services</td></tr>
+            <tr><td class="row-label"><abbr title="Multi-Factor Authentication">MFA</abbr></td><td>Something you know + have + are</td><td>High-security scenarios, admin accounts</td></tr>
+            <tr><td class="row-label">Passwordless</td><td>Windows Hello, Authenticator app, <abbr title="Fast Identity Online 2">FIDO2</abbr> keys</td><td>Strongest auth — eliminates password risk</td></tr>
             <tr><td class="row-label">Conditional Access</td><td>Policy-based access using signals (location, device, risk)</td><td>Require MFA for admins; block untrusted locations</td></tr>
           </tbody>
         </table></div>
@@ -329,8 +329,8 @@
         <div class="cmp-wrap"><table class="cmp-table">
           <thead><tr><th>Type</th><th>User type</th><th>Identity source</th><th>Example scenario</th></tr></thead>
           <tbody>
-            <tr><td class="row-label">B2B</td><td>External business partners</td><td>Partner's own identity provider</td><td>Contractor accessing your Azure resources as a guest</td></tr>
-            <tr><td class="row-label">B2C</td><td>End consumers</td><td>Social providers (Google, Facebook) or local accounts</td><td>Customer-facing app with social login</td></tr>
+            <tr><td class="row-label"><abbr title="Business-to-Business">B2B</abbr></td><td>External business partners</td><td>Partner's own identity provider</td><td>Contractor accessing your Azure resources as a guest</td></tr>
+            <tr><td class="row-label"><abbr title="Business-to-Consumer">B2C</abbr></td><td>End consumers</td><td>Social providers (Google, Facebook) or local accounts</td><td>Customer-facing app with social login</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -345,7 +345,7 @@
           <tr><td class="row-label">User Access Administrator</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓ (access only)</td></tr>
         </tbody>
       </table></div>
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem">Scope flows downward: Management Group → Subscription → Resource Group → Resource. Deny assignments override Allow at any level.</p>
+      <p class="day-note">Scope flows downward: Management Group → Subscription → Resource Group → Resource. Deny assignments override Allow at any level.</p>
 
       <h3>Governance — RBAC vs Policy vs Locks</h3>
       <div class="cmp-wrap"><table class="cmp-table">
@@ -364,7 +364,7 @@
         </tbody>
       </table></div>
       <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Owner role does NOT bypass locks</div><div class="trap-body">Resource locks override ALL RBAC roles including Owner. Owner must explicitly remove the lock before making changes.</div></div>
-      <p style="font-size:0.82rem;color:var(--muted);margin-top:0.75rem"><strong style="color:var(--text)">Azure Policy effects:</strong> <span class="pill pill-amber">Audit</span> log only &nbsp; <span class="pill pill-red">Deny</span> block action &nbsp; <span class="pill pill-blue">DeployIfNotExists</span> auto-deploy &nbsp; <span class="pill pill-teal">Modify</span> update properties</p>
+      <p class="day-note"><strong>Azure Policy effects:</strong> <span class="pill pill-amber">Audit</span> log only &nbsp; <span class="pill pill-red">Deny</span> block action &nbsp; <span class="pill pill-blue">DeployIfNotExists</span> auto-deploy &nbsp; <span class="pill pill-teal">Modify</span> update properties</p>
 
       <h3>Security Models</h3>
       <div class="toggle-group">
@@ -373,15 +373,15 @@
       </div>
       <div id="d4-sec-did" class="toggle-panel active">
         <div class="did-layers">
-          <div class="did-layer" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.2)"><span class="dl-name">Physical</span><span class="dl-note">Datacenters, hardware — Microsoft's responsibility</span></div>
-          <div class="did-layer" style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2)"><span class="dl-name">Identity &amp; Access</span><span class="dl-note">Entra ID, MFA, Conditional Access, RBAC</span></div>
-          <div class="did-layer" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2)"><span class="dl-name">Perimeter</span><span class="dl-note">DDoS protection, Azure Firewall</span></div>
-          <div class="did-layer" style="background:rgba(20,184,166,0.1);border:1px solid rgba(20,184,166,0.2)"><span class="dl-name">Network</span><span class="dl-note">NSGs, VNet segmentation, VPN</span></div>
-          <div class="did-layer" style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.15)"><span class="dl-name">Compute</span><span class="dl-note">Endpoint protection, OS patching, VM access control</span></div>
-          <div class="did-layer" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15)"><span class="dl-name">Application</span><span class="dl-note">Secure coding, no secrets in code, WAF</span></div>
-          <div class="did-layer" style="background:rgba(136,136,136,0.08);border:1px solid rgba(136,136,136,0.15)"><span class="dl-name">Data</span><span class="dl-note">Encryption at rest/in transit, classification — innermost, most valuable</span></div>
+          <div class="did-layer did-phys"><span class="dl-name">Physical</span><span class="dl-note">Datacenters, hardware — Microsoft's responsibility</span></div>
+          <div class="did-layer did-id"><span class="dl-name">Identity &amp; Access</span><span class="dl-note">Entra ID, MFA, Conditional Access, RBAC</span></div>
+          <div class="did-layer did-perim"><span class="dl-name">Perimeter</span><span class="dl-note">DDoS protection, Azure Firewall</span></div>
+          <div class="did-layer did-net"><span class="dl-name">Network</span><span class="dl-note">NSGs, VNet segmentation, VPN</span></div>
+          <div class="did-layer did-comp"><span class="dl-name">Compute</span><span class="dl-note">Endpoint protection, OS patching, VM access control</span></div>
+          <div class="did-layer did-app"><span class="dl-name">Application</span><span class="dl-note">Secure coding, no secrets in code, <abbr title="Web Application Firewall">WAF</abbr></span></div>
+          <div class="did-layer did-data"><span class="dl-name">Data</span><span class="dl-note">Encryption at rest/in transit, classification — innermost, most valuable</span></div>
         </div>
-        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.6rem">Outside → in. Each layer slows down an attacker. Compromise of one layer doesn't mean full breach.</p>
+        <p class="day-tip">Outside → in. Each layer slows down an attacker. Compromise of one layer doesn't mean full breach.</p>
       </div>
       <div id="d4-sec-zt" class="toggle-panel">
         <div class="cmp-wrap"><table class="cmp-table">
@@ -399,7 +399,7 @@
         <thead><tr><th>Tool</th><th>Purpose</th><th>When to use</th></tr></thead>
         <tbody>
           <tr><td class="row-label">Pricing Calculator</td><td>Estimate cost of NEW deployments before building</td><td>Planning a new Azure deployment</td></tr>
-          <tr><td class="row-label">TCO Calculator</td><td>Compare on-prem vs Azure total cost over time</td><td>Justifying cloud migration to management</td></tr>
+          <tr><td class="row-label"><abbr title="Total Cost of Ownership">TCO</abbr> Calculator</td><td>Compare on-prem vs Azure total cost over time</td><td>Justifying cloud migration to management</td></tr>
           <tr><td class="row-label">Cost Management + Billing</td><td>Analyze and optimize EXISTING Azure spend</td><td>Day-to-day cost monitoring and budgeting</td></tr>
           <tr><td class="row-label">Azure Advisor</td><td>Best-practice recommendations across 5 categories</td><td>Finding cost-saving and optimization opportunities</td></tr>
         </tbody>
@@ -407,7 +407,7 @@
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Cost reduction strategy</th><th>Max savings</th><th>Trade-off</th></tr></thead>
         <tbody>
-          <tr><td class="row-label">Reserved Instances (1 or 3yr)</td><td>Up to 72% vs PAYG</td><td>Commitment — can't change instance type freely</td></tr>
+          <tr><td class="row-label">Reserved Instances (1 or 3yr)</td><td>Up to 72% vs <abbr title="Pay-As-You-Go">PAYG</abbr></td><td>Commitment — can't change instance type freely</td></tr>
           <tr><td class="row-label">Azure Hybrid Benefit (Windows)</td><td>Up to 40%</td><td>Must have existing Windows Server licenses</td></tr>
           <tr><td class="row-label">Azure Hybrid Benefit (SQL)</td><td>Up to 55%</td><td>Must have existing SQL Server licenses</td></tr>
           <tr><td class="row-label">Spot VMs</td><td>Steep discount</td><td>Evicted with 30-sec notice — only batch/dev/test workloads</td></tr>
@@ -420,12 +420,12 @@
         <thead><tr><th>Tool</th><th>Scope</th><th>Purpose</th><th>Key detail</th></tr></thead>
         <tbody>
           <tr><td class="row-label">Azure Status</td><td>All Azure globally</td><td>Global Azure service health</td><td>Public page, no login required</td></tr>
-          <tr><td class="row-label">Service Health</td><td>Your subscriptions/regions</td><td>Personalized incidents + planned maintenance</td><td>RCA reports after outages live here</td></tr>
+          <tr><td class="row-label">Service Health</td><td>Your subscriptions/regions</td><td>Personalized incidents + planned maintenance</td><td><abbr title="Root Cause Analysis">RCA</abbr> reports after outages live here</td></tr>
           <tr><td class="row-label">Resource Health</td><td>One specific resource</td><td>Health of your VM, DB, etc.</td><td>Tells you if YOUR resource is affected</td></tr>
           <tr><td class="row-label">Azure Advisor</td><td>Your subscription</td><td>Best-practice recommendations</td><td>5 categories: Reliability, Security, Performance, Cost, Operational Excellence</td></tr>
           <tr><td class="row-label">Azure Monitor</td><td>Your resources</td><td>Collect, analyze, alert on metrics + logs</td><td>Parent service for Log Analytics, App Insights, Alerts</td></tr>
-          <tr><td class="row-label">Log Analytics</td><td>Your logs</td><td>Query logs with KQL</td><td>Correlate data across multiple sources</td></tr>
-          <tr><td class="row-label">Application Insights</td><td>Your app</td><td>APM — request rates, response times, failures</td><td>Extension of Azure Monitor for app code</td></tr>
+          <tr><td class="row-label">Log Analytics</td><td>Your logs</td><td>Query logs with <abbr title="Kusto Query Language">KQL</abbr></td><td>Correlate data across multiple sources</td></tr>
+          <tr><td class="row-label">Application Insights</td><td>Your app</td><td><abbr title="Application Performance Management">APM</abbr> — request rates, response times, failures</td><td>Extension of Azure Monitor for app code</td></tr>
         </tbody>
       </table></div>
       <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">RCA reports → Service Health, not Azure Monitor</div><div class="trap-body">Post-outage root cause analysis reports are found in Azure Service Health. Not Azure Monitor. Not Log Analytics.</div></div>
@@ -433,7 +433,7 @@
 
     <!-- ── Day 5: Crash Course ── -->
     <div class="cram-day-panel">
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem">All domains — SLA values, decision rules, all traps, pre-exam checklist.</p>
+      <p class="day-intro">All domains — SLA values, decision rules, all traps, pre-exam checklist.</p>
 
       <h3>Must-Memorize SLA Values</h3>
       <div class="fact-row"><span class="fact-key">Single VM + Premium SSD</span><span class="fact-val">99.9%</span></div>
@@ -548,7 +548,7 @@
       <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">ARM is the control plane, not a tool</div><div class="trap-body">Portal/CLI/PowerShell are clients that send requests TO ARM. ARM is the layer behind all of them.</div></div>
 
       <h3>Pre-Exam Checklist</h3>
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem">Click each item to mark it complete. Progress is saved in your browser.</p>
+      <p class="day-list-intro">Click each item to mark it complete. Progress is saved in your browser.</p>
       <ul class="checklist" data-store="az900v2">
         <li class="check-item"><div class="check-box"></div><span>CapEx vs OpEx with real examples</span></li>
         <li class="check-item"><div class="check-box"></div><span>Elasticity vs Scalability vs Agility — all 3 distinct</span></li>
@@ -584,6 +584,8 @@
     </div><!-- /Day 5 -->
 
   </div><!-- /cram-day-group -->
+
+  <button class="ai-explain-btn" data-topic="AZ-900 Azure Fundamentals: cloud concepts (CapEx/OpEx, service models, shared responsibility), Azure architecture (resource hierarchy, availability zones, compute services), networking and storage (VPN Gateway, VNet peering, blob tiers, redundancy options), identity and governance (Entra ID, RBAC, Azure Policy, locks), and cost and monitoring tools">✦ Explain Differently</button>
 </div><!-- /az900-cram -->
 
 <!-- ═══════════════════════════════════════════════════════════

@@ -1463,15 +1463,37 @@ td code { font-size: 0.8rem; }
 .did-layers { display: flex; flex-direction: column; gap: 4px; }
 .did-layer { padding: 0.5rem 1rem; border-radius: var(--radius); font-size: 0.82rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .did-layer .dl-name { font-weight: 600; }
-.did-layer .dl-note { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
+.did-layer .dl-note { font-size: 0.75rem; color: var(--muted); }
+.did-phys  { background: rgba(239, 68,  68,  0.12); border: 1px solid rgba(239, 68,  68,  0.25); }
+.did-id    { background: rgba(168, 85,  247, 0.10); border: 1px solid rgba(168, 85,  247, 0.25); }
+.did-perim { background: rgba(59,  130, 246, 0.10); border: 1px solid rgba(59,  130, 246, 0.25); }
+.did-net   { background: rgba(20,  184, 166, 0.10); border: 1px solid rgba(20,  184, 166, 0.25); }
+.did-comp  { background: rgba(34,  197, 94,  0.08); border: 1px solid rgba(34,  197, 94,  0.20); }
+.did-app   { background: rgba(245, 158, 11,  0.08); border: 1px solid rgba(245, 158, 11,  0.20); }
+.did-data  { background: rgba(136, 136, 136, 0.08); border: 1px solid rgba(136, 136, 136, 0.20); }
 
 /* ── Blob Tier Bar Chart ─────────────────────────────────────── */
 .tier-chart { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
 .tier-row { display: flex; align-items: center; gap: 10px; }
 .tier-label { font-size: 0.75rem; font-weight: 600; width: 52px; text-align: right; flex-shrink: 0; }
+.tier-label-hot  { color: var(--blue); }
+.tier-label-cool { color: var(--teal); }
+.tier-label-cold { color: var(--amber); }
+.tier-label-arch { color: var(--muted); }
 .tier-bar-wrap { flex: 1; background: var(--surface2); border-radius: 4px; height: 22px; overflow: hidden; }
 .tier-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 0.7rem; font-weight: 500; color: rgba(255,255,255,0.85); }
+.tier-bar-hot  { background: rgba(59,  130, 246, 0.50); }
+.tier-bar-cool { background: rgba(20,  184, 166, 0.50); }
+.tier-bar-cold { background: rgba(245, 158, 11,  0.45); }
+.tier-bar-arch { background: rgba(136, 136, 136, 0.35); }
 .tier-note { font-size: 0.7rem; color: var(--muted); width: 130px; flex-shrink: 0; }
+
+/* ── Day panel utility text ──────────────────────────────────── */
+.day-intro      { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.25rem; }
+.day-note       { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+.day-note strong { color: var(--text); }
+.day-tip        { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; }
+.day-list-intro { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.75rem; }
 
 /* ── Decision Cards ──────────────────────────────────────────── */
 .decision-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
