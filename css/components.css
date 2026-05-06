@@ -1170,3 +1170,58 @@ td code { font-size: 0.8rem; }
   color: var(--muted);
   margin-top: 0.1rem;
 }
+
+/* ---------- Terminal component ----------------------------- */
+.terminal {
+  background: #0d1117;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+  margin: 1rem 0;
+}
+.terminal-bar {
+  background: #21262d;
+  padding: 0.45rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.terminal-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.terminal-dot:nth-child(1) { background: #ff5f57; }
+.terminal-dot:nth-child(2) { background: #febc2e; }
+.terminal-dot:nth-child(3) { background: #28c840; }
+.terminal-title {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  margin: 0 auto;
+  letter-spacing: 0.02em;
+}
+.terminal-body {
+  padding: 0.9rem 1.1rem;
+  color: #adbac7;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+/* prompt colours */
+.tp  { color: #7ee787; }  /* unix $ / # prompt */
+.tpw { color: #79c0ff; }  /* windows C:\> prompt */
+.tpc { color: #ffa657; }  /* cisco Router# prompt */
+/* output colours */
+.th  { color: #ffa657; }  /* highlight — value to note */
+.ts  { color: #7ee787; }  /* success / good */
+.te  { color: #f47067; }  /* error / bad */
+.tn  { color: #6e7681; }  /* annotation comment */
