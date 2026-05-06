@@ -122,29 +122,28 @@ p { margin-bottom: 0.85rem; }
   font-size: 1.1rem;
   letter-spacing: -0.02em;
   color: var(--blue);
-  flex-shrink: 0;
-}
-.cert-tabs {
-  display: flex;
-  gap: 2px;
   flex: 1;
-}
-.cert-tab {
-  background: none;
-  border: none;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--muted);
-  cursor: pointer;
+  /* button reset overrides — restore non-button appearance */
+  width: auto;
+  text-align: left;
   border-radius: var(--radius);
-  transition: background 0.15s, color 0.15s;
-  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+  margin-left: -0.5rem;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
-.cert-tab:hover { background: var(--surface2); color: var(--text); }
-.cert-tab.active { background: var(--blue-bg); color: var(--blue); font-weight: 600; }
-.cert-tab.disabled { opacity: 0.45; cursor: default; }
-.cert-tab.disabled:hover { background: none; color: var(--muted); }
+.header-logo:hover { background: var(--surface2); }
+.logo-badge {
+  background: var(--blue-bg);
+  color: var(--blue);
+  border-radius: var(--radius);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.1rem 0.4rem;
+}
 .theme-toggle {
   background: none;
   border: 1px solid var(--border2);
@@ -350,6 +349,16 @@ p { margin-bottom: 0.85rem; }
 .skeleton-line.sm { height: 12px; width: 75%; }
 .skeleton-block   { height: 110px; margin: 1.25rem 0; }
 
+/* ---------- Sidebar backdrop (mobile overlay) -------------- */
+#sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: rgba(0,0,0,0.5);
+}
+#sidebar-backdrop.visible { display: block; }
+
 /* ---------- Responsive / Mobile ---------------------------- */
 @media (max-width: 768px) {
   .hamburger { display: flex; }
@@ -364,12 +373,18 @@ p { margin-bottom: 0.85rem; }
     box-shadow: 4px 0 20px rgba(0,0,0,0.4);
   }
   .sidebar.open { transform: translateX(0); }
-  .main { padding: 1.25rem 1rem; }
+  .main {
+    padding: 1.25rem 1rem;
+    /* clip (not hidden) — prevents overflow without breaking position:sticky children */
+    overflow-x: clip;
+  }
   h1 { font-size: 1.5rem; }
   h2 { font-size: 1.25rem; }
+  /* Larger touch targets in sidebar */
+  .obj-link { padding: 0.5rem 0.5rem; font-size: 0.82rem; }
+  .domain-toggle { padding: 0.55rem 0.6rem; }
 }
 
 @media (max-width: 480px) {
   .main { padding: 1rem 0.75rem; }
-  .cert-tab { padding: 0.3rem 0.5rem; font-size: 0.78rem; }
 }

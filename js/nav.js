@@ -1,10 +1,13 @@
-/* nav.js — Hash router, sidebar nav, cert tab switching, fragment init */
+/* nav.js — Hash router, sidebar nav, home screen, domain sub-nav, fragment init */
 import { initFlashcards, initMatching } from './flashcards.js';
 import { initSubnetting } from './subnetting.js';
 import { initAIExplain } from './ai-explain.js';
 
 const CONTENT_ROOT = './content';
 const fragmentCache = new Map();
+
+/* IntersectionObserver instance for scroll-spy — replaced each load */
+let scrollSpyObserver = null;
 
 /* ── Skeleton loading state ─────────────────────────────────── */
 function showSkeleton() {
@@ -19,7 +22,27 @@ function showSkeleton() {
     </div>`;
 }
 
+/* ── Sidebar open/close with backdrop ───────────────────────── */
+function openSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const backdrop = document.getElementById('sidebar-backdrop');
+  sidebar?.classList.add('open');
+  backdrop?.classList.add('visible');
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const backdrop = document.getElementById('sidebar-backdrop');
+  sidebar?.classList.remove('open');
+  backdrop?.classList.remove('visible');
+}
+
 async function loadFragment(path, anchor) {
+  /* Tear down scroll-spy from previous page */
+  if (scrollSpyObserver) { scrollSpyObserver.disconnect(); scrollSpyObserver = null; }
+  /* Remove domain sub-nav bar from previous page */
+  document.getElementById('domain-subnav-bar')?.remove();
+
   const url = `${CONTENT_ROOT}/${path}.html`;
   try {
     let html;
@@ -92,6 +115,7 @@ function updateActiveNav(path, anchor) {
 
 /* ── Breadcrumb ─────────────────────────────────────────────── */
 function injectBreadcrumb(path) {
+  if (!path || path === 'home') return;
   const certMap = { netplus: 'Net+ N10-009', secplus: 'Sec+ SY0-701', az104: 'AZ-104' };
   const parts = path.split('/');
   const certKey = parts[0];
@@ -184,13 +208,8 @@ function injectPrevNext(path) {
     labelWrap.appendChild(dir);
     labelWrap.appendChild(title);
 
-    if (direction === 'prev') {
-      btn.appendChild(arrow);
-      btn.appendChild(labelWrap);
-    } else {
-      btn.appendChild(arrow);
-      btn.appendChild(labelWrap);
-    }
+    btn.appendChild(arrow);
+    btn.appendChild(labelWrap);
 
     btn.addEventListener('click', () => loadFragment(navPath));
     return btn;
@@ -200,6 +219,73 @@ function injectPrevNext(path) {
   if (nextPath) footer.appendChild(makeBtn(nextPath, 'next'));
 
   document.getElementById('content-area').appendChild(footer);
+}
+
+/* ── Domain sticky sub-nav bar + scroll-spy ─────────────────── */
+function injectDomainSubNav(path) {
+  /* Only show for domain objective pages, e.g. netplus/domain1/obj-1-1 */
+  const parts = path ? path.split('/') : [];
+  if (parts.length < 3 || !parts[1].startsWith('domain') || !parts[2].startsWith('obj-')) return;
+
+  /* Collect sibling obj-links from the matching domain-subnav in the sidebar */
+  const activeLink = document.querySelector(`.obj-link[data-path="${path}"]`);
+  if (!activeLink) return;
+  const domainSubnav = activeLink.closest('.domain-subnav');
+  if (!domainSubnav) return;
+  const siblings = Array.from(domainSubnav.querySelectorAll('.obj-link[data-path]'));
+  if (siblings.length === 0) return;
+
+  /* Build the bar */
+  const bar = document.createElement('nav');
+  bar.id = 'domain-subnav-bar';
+  bar.setAttribute('aria-label', 'Domain objectives');
+
+  const linkMap = new Map(); /* data-path → bar button element */
+
+  siblings.forEach(sib => {
+    const sibPath = sib.dataset.path;
+    const btn = document.createElement('button');
+    btn.className = 'domain-subnav-link';
+    if (sibPath === path) btn.classList.add('active');
+    btn.textContent = sib.textContent.trim();
+    btn.addEventListener('click', () => loadFragment(sibPath));
+    bar.appendChild(btn);
+    linkMap.set(sibPath, btn);
+  });
+
+  /* Insert at the top of #content-area (before breadcrumb/content) */
+  const contentArea = document.getElementById('content-area');
+  contentArea.insertBefore(bar, contentArea.firstChild);
+
+  /* Scroll-spy: observe all anchored sections in the loaded fragment */
+  const sections = Array.from(contentArea.querySelectorAll('[id^="obj-"]'));
+  if (sections.length === 0) return;
+
+  /* Build a mapping from section id → obj path */
+  const idToPath = new Map();
+  siblings.forEach(sib => {
+    /* The path's last segment (e.g. "obj-1-3") is the section id */
+    const objId = sib.dataset.path.split('/').pop();
+    idToPath.set(objId, sib.dataset.path);
+  });
+
+  scrollSpyObserver = new IntersectionObserver(entries => {
+    /* Find the topmost entry that is intersecting */
+    let topEntry = null;
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
+          topEntry = entry;
+        }
+      }
+    });
+    if (!topEntry) return;
+    const activeObjPath = idToPath.get(topEntry.target.id);
+    if (!activeObjPath) return;
+    linkMap.forEach((btn, p) => btn.classList.toggle('active', p === activeObjPath));
+  }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+
+  sections.forEach(el => scrollSpyObserver.observe(el));
 }
 
 /* ── Fragment component init ────────────────────────────────── */
@@ -236,6 +322,14 @@ function initFragmentComponents(path) {
     el.addEventListener('click', el._navFn);
   });
 
+  /* Home screen cert cards */
+  document.querySelectorAll('.cert-home-card[data-cert]').forEach(card => {
+    if (card.classList.contains('disabled')) return;
+    card.removeEventListener('click', card._certFn);
+    card._certFn = () => switchCert(card.dataset.cert);
+    card.addEventListener('click', card._certFn);
+  });
+
   /* Toggle groups */
   document.querySelectorAll('.toggle-group').forEach(group => {
     group.querySelectorAll('.toggle-btn').forEach(btn => {
@@ -255,13 +349,11 @@ function initFragmentComponents(path) {
   initFlashcards(path);
   initMatching();
   initAIExplain();
+  injectDomainSubNav(path);
 }
 
-/* ── Cert tab switching ─────────────────────────────────────── */
+/* ── Cert switching (called from home screen cards) ─────────── */
 function switchCert(cert) {
-  document.querySelectorAll('.cert-tab').forEach(t =>
-    t.classList.toggle('active', t.dataset.cert === cert)
-  );
   const sidebars = {
     netplus: document.getElementById('sidebar-netplus'),
     secplus: document.getElementById('sidebar-secplus'),
@@ -281,17 +373,8 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('click', e => {
       e.preventDefault();
       loadFragment(el.dataset.path, el.dataset.anchor || null);
-      /* Close mobile sidebar */
-      const sidebar = document.querySelector('.sidebar');
-      if (sidebar) sidebar.classList.remove('open');
+      closeSidebar();
     });
-  });
-
-  /* Cert tabs */
-  document.querySelectorAll('.cert-tab').forEach(tab => {
-    if (!tab.classList.contains('disabled')) {
-      tab.addEventListener('click', () => switchCert(tab.dataset.cert));
-    }
   });
 
   /* Domain collapsible toggles */
@@ -322,20 +405,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* Hamburger */
+  /* Hamburger + sidebar backdrop */
   const hamburger = document.getElementById('hamburger');
+  const backdrop = document.getElementById('sidebar-backdrop');
   const sidebar = document.querySelector('.sidebar');
   if (hamburger && sidebar) {
     hamburger.addEventListener('click', e => {
       e.stopPropagation();
-      sidebar.classList.toggle('open');
+      sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
     });
-    document.addEventListener('click', e => {
-      if (sidebar.classList.contains('open') &&
-          !sidebar.contains(e.target) && e.target !== hamburger) {
-        sidebar.classList.remove('open');
-      }
-    });
+    backdrop?.addEventListener('click', closeSidebar);
 
     /* Mobile: swipe-left to close sidebar */
     let touchStartX = 0;
@@ -345,10 +424,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('touchend', e => {
       const delta = touchStartX - e.changedTouches[0].clientX;
       if (delta > 50 && sidebar.classList.contains('open')) {
-        sidebar.classList.remove('open');
+        closeSidebar();
       }
     }, { passive: true });
   }
+
+  /* Logo → home */
+  document.getElementById('home-logo')?.addEventListener('click', () => {
+    loadFragment('home');
+  });
 
   /* Reading-progress bar + back-to-top visibility */
   const progressBar = document.getElementById('reading-progress');
@@ -373,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const parts = hash.split('#');
     loadFragment(parts[0], parts[1] || null);
   } else {
-    loadFragment('netplus/overview');
+    loadFragment('home');
   }
 
   /* Popstate for back/forward navigation */
@@ -383,4 +467,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-
