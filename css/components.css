@@ -1268,7 +1268,6 @@ td code { font-size: 0.8rem; }
 @media (max-width: 700px) {
   .osi-layer, .osi-stack-header {
     grid-template-columns: 1.8rem 1fr;
-    grid-template-rows: auto auto auto;
   }
   .osi-layer-pdu, .osi-layer-devices, .osi-stack-header span:nth-child(n+3) { display: none; }
   .osi-layer-proto { grid-column: 2; }
@@ -1276,7 +1275,6 @@ td code { font-size: 0.8rem; }
 
 /* ── Port Group Tables ───────────────────────────────────── */
 .port-groups { display: flex; flex-direction: column; gap: 1.25rem; margin: 1rem 0; }
-.port-group {}
 .port-group-title {
   font-size: 0.7rem;
   font-weight: 700;
@@ -1340,6 +1338,7 @@ td code { font-size: 0.8rem; }
 
 /* ── IP Addressing Explainer ────────────────────────────── */
 .ip-explainer { margin: 1.25rem 0; }
+.ip-explainer-caption { margin: 0 0 0.5rem; font-size: 0.85rem; color: var(--text-muted); }
 .ip-anatomy {
   display: flex;
   align-items: stretch;
