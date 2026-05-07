@@ -1,9 +1,9 @@
 <!-- ═══════════════════════════════════════════════════════════
-     AZ-900 PREREQUISITE CRAM — 5-Day study guide
+     AZ-900 PREREQUISITE CRAM — 6-Day study guide
      ═══════════════════════════════════════════════════════════ -->
 <div class="obj-section" id="az900-cram">
   <div class="section-eyebrow">Prerequisite Study</div>
-  <h2>AZ-900: Azure Fundamentals — 5-Day Cram</h2>
+  <h2>AZ-900: Azure Fundamentals — 6-Day Cram</h2>
   <p>AZ-900 is strongly recommended before AZ-104. Work through each day, then move to the AZ-104 exam overview below.</p>
 
   <div class="cram-day-group">
@@ -13,6 +13,7 @@
       <button class="cram-day-btn">🌐 Day 3 — Networking &amp; Storage</button>
       <button class="cram-day-btn">🔐 Day 4 — Identity &amp; Governance</button>
       <button class="cram-day-btn">📋 Day 5 — Crash Course</button>
+      <button class="cram-day-btn">📝 Day 6 — Last-Minute Cram</button>
     </div>
 
     <!-- ── Day 1: Cloud Concepts ── -->
@@ -37,6 +38,7 @@
         </tbody>
       </table></div>
       <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Hybrid ≠ multi-cloud</div><div class="trap-body">Hybrid = public + private. Multi-cloud = multiple public providers (Azure + AWS). The exam distinguishes these.</div></div>
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">On-prem Hyper-V = Private Cloud, not Hybrid</div><div class="trap-body">If an org runs its own virtualized infrastructure (even with Hyper-V), that is Private Cloud. Hybrid requires a live connection between on-premises infrastructure AND a public cloud. "On-prem only" = Private, no matter how modern the virtualization.</div></div>
 
       <h3>Shared Responsibility Model</h3>
       <div class="cmp-wrap"><table class="cmp-table">
@@ -55,8 +57,8 @@
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Benefit</th><th>What it means</th><th>Exam trigger phrase</th></tr></thead>
         <tbody>
-          <tr><td class="row-label">Scalability</td><td>Ability to increase/decrease resources (vertical = resize; horizontal = add instances)</td><td>Can scale up/out</td></tr>
-          <tr><td class="row-label">Elasticity</td><td>Automatic scaling in response to real-time demand</td><td>Automatically adjusts</td></tr>
+          <tr><td class="row-label">Scalability</td><td>Ability to increase/decrease resources (vertical = resize; horizontal = add instances) — does not imply automatic adjustment</td><td>"Can scale up/out" / "has capacity to scale"</td></tr>
+          <tr><td class="row-label">Elasticity</td><td>Automatic scaling in response to real-time demand; pay only for what you use</td><td>"Automatically adjusts" / "pay only when needed" / "demand spikes"</td></tr>
           <tr><td class="row-label">Agility</td><td>Speed to provision/deprovision — minutes vs weeks on-prem</td><td>Quickly deploy / fast response</td></tr>
           <tr><td class="row-label">High Availability</td><td>Continuous uptime backed by <abbr title="Service Level Agreement">SLA</abbr> guarantees</td><td>Always available / uptime SLA</td></tr>
           <tr><td class="row-label">Reliability</td><td>Geographic distribution + auto-failover</td><td>Survives regional failure</td></tr>
@@ -87,8 +89,8 @@
           <tbody>
             <tr><td class="row-label">You manage</td><td>Applications and data</td></tr>
             <tr><td class="row-label">Microsoft manages</td><td>OS, runtime, middleware, infra</td></tr>
-            <tr><td class="row-label">Azure examples</td><td>App Service, Azure SQL, Azure Functions</td></tr>
-            <tr><td class="row-label">Decision trigger</td><td>Deploy code without managing servers</td></tr>
+            <tr><td class="row-label">Azure examples</td><td>App Service, Azure SQL, Azure Functions, Cosmos DB, Azure MySQL</td></tr>
+            <tr><td class="row-label">Decision trigger</td><td>Deploy code without managing servers; managed database; developer-focused platform</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -104,6 +106,45 @@
         </table></div>
       </div>
 
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">PaaS ≠ SaaS — know the examples</div><div class="trap-body">SaaS = complete end-user application (Office 365, Dynamics 365 — you just use it). PaaS = managed platform where you deploy your own code or data (App Service, Azure SQL, Cosmos DB, Azure MySQL, Event Grid). If the scenario involves a developer building on top of it, it's PaaS.</div></div>
+
+      <h3>Complete Azure Service Taxonomy</h3>
+      <p>When a question gives you a service name and asks "what type is this?", you need to know the full list. Bookmark this table.</p>
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Service</th><th>Type</th><th>Category</th><th>Why — who manages the OS/runtime</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Virtual Machines</td><td>IaaS</td><td>Compute</td><td>You manage OS, patching, runtime — Microsoft provides the hardware</td></tr>
+          <tr><td class="row-label">VM Scale Sets</td><td>IaaS</td><td>Compute</td><td>Auto-scaling group of identical VMs; you still manage the OS image</td></tr>
+          <tr><td class="row-label">Azure Virtual Desktop</td><td>PaaS</td><td>Compute</td><td>Microsoft manages the session host infrastructure; you manage the desktop image and apps</td></tr>
+          <tr><td class="row-label">App Service</td><td>PaaS</td><td>Compute</td><td>Microsoft manages OS and runtime; you deploy web/API/mobile app code</td></tr>
+          <tr><td class="row-label">Azure Functions</td><td>PaaS / Serverless</td><td>Compute</td><td>Microsoft manages everything; you write function code; billed per execution</td></tr>
+          <tr><td class="row-label">Azure Container Instances (ACI)</td><td>PaaS</td><td>Containers</td><td>Single containers on demand; Microsoft manages host OS; fastest startup</td></tr>
+          <tr><td class="row-label">Azure Kubernetes Service (AKS)</td><td>PaaS</td><td>Containers</td><td>Microsoft manages control plane; you manage node pools and workloads</td></tr>
+          <tr><td class="row-label">Azure SQL Database</td><td>PaaS</td><td>Data</td><td>Managed SQL engine; you manage schemas, queries, and data</td></tr>
+          <tr><td class="row-label">Azure Database for MySQL</td><td>PaaS</td><td>Data</td><td>Managed MySQL; you manage databases and data only</td></tr>
+          <tr><td class="row-label">Azure Database for PostgreSQL</td><td>PaaS</td><td>Data</td><td>Managed PostgreSQL; same model as MySQL</td></tr>
+          <tr><td class="row-label">Azure Cosmos DB</td><td>PaaS</td><td>Data</td><td>Fully managed globally distributed NoSQL; you define containers and queries</td></tr>
+          <tr><td class="row-label">Azure Synapse Analytics</td><td>PaaS</td><td>Analytics</td><td>Managed data warehouse + Spark + Pipelines; you write queries and pipelines</td></tr>
+          <tr><td class="row-label">Azure Data Lake Storage Gen2</td><td>PaaS</td><td>Storage</td><td>Managed hierarchical storage; you manage files and permissions; built on Blob</td></tr>
+          <tr><td class="row-label">Azure Blob Storage</td><td>PaaS</td><td>Storage</td><td>Object storage; you manage containers and blobs; Microsoft manages servers</td></tr>
+          <tr><td class="row-label">Azure Files</td><td>PaaS</td><td>Storage</td><td>Managed file share; you manage share contents</td></tr>
+          <tr><td class="row-label">Azure Virtual Network (VNet)</td><td>IaaS</td><td>Networking</td><td>Software-defined network you configure; Microsoft runs the physical fabric</td></tr>
+          <tr><td class="row-label">Azure Load Balancer</td><td>PaaS</td><td>Networking</td><td>Layer 4 load balancer; you configure rules; Microsoft manages the service</td></tr>
+          <tr><td class="row-label">Application Gateway</td><td>PaaS</td><td>Networking</td><td>Layer 7 load balancer + WAF; you configure routing rules</td></tr>
+          <tr><td class="row-label">Azure Firewall</td><td>PaaS</td><td>Networking</td><td>Managed firewall service; you configure policies; Microsoft runs the engine</td></tr>
+          <tr><td class="row-label">Azure DNS</td><td>PaaS</td><td>Networking</td><td>100% SLA managed DNS; you manage zones and records</td></tr>
+          <tr><td class="row-label">Azure Event Grid</td><td>PaaS</td><td>Messaging</td><td>Managed pub/sub event routing; you define topics and subscriptions</td></tr>
+          <tr><td class="row-label">Azure Service Bus</td><td>PaaS</td><td>Messaging</td><td>Managed enterprise message broker; you manage queues and topics</td></tr>
+          <tr><td class="row-label">Azure Event Hubs</td><td>PaaS</td><td>Messaging</td><td>Managed big data streaming; you configure partitions and consumer groups</td></tr>
+          <tr><td class="row-label">Azure Logic Apps</td><td>PaaS / Serverless</td><td>Integration</td><td>Managed workflow engine; you design flows visually</td></tr>
+          <tr><td class="row-label">Azure Monitor</td><td>PaaS</td><td>Monitoring</td><td>Managed observability platform; you configure alerts and dashboards</td></tr>
+          <tr><td class="row-label">Entra ID (Azure AD)</td><td>SaaS</td><td>Identity</td><td>Microsoft manages the identity directory; you manage users, groups, and policies</td></tr>
+          <tr><td class="row-label">Microsoft 365 (Office 365)</td><td>SaaS</td><td>Productivity</td><td>Microsoft manages the entire application stack; you configure users and policies</td></tr>
+          <tr><td class="row-label">Dynamics 365</td><td>SaaS</td><td>Business apps</td><td>Microsoft manages CRM/ERP application; you configure and use it</td></tr>
+          <tr><td class="row-label">Microsoft Intune</td><td>SaaS</td><td>Device management</td><td>Cloud MDM/MAM; you configure policies; Microsoft manages the service</td></tr>
+        </tbody>
+      </table></div>
+
       <h3>Serverless and Automation Tools</h3>
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Tool</th><th>Audience</th><th>Trigger phrase</th><th>Key trait</th></tr></thead>
@@ -111,9 +152,10 @@
           <tr><td class="row-label">Azure Functions</td><td>Developers</td><td>"Custom code" + "event-driven"</td><td>Code-first, no infra management</td></tr>
           <tr><td class="row-label">Logic Apps</td><td>IT pros / devs</td><td>"Enterprise integration" + "workflow"</td><td>Designer-first, visual connectors</td></tr>
           <tr><td class="row-label">Power Automate</td><td>Non-technical</td><td>"Low-code / no-code" + "citizen developers" + "Salesforce/SAP connectors"</td><td>400+ pre-built connectors, GUI-only</td></tr>
-          <tr><td class="row-label">Azure Automation</td><td>IT Ops</td><td>"Runbooks" + "patching" + "repetitive infra tasks"</td><td>Not a workflow builder</td></tr>
+          <tr><td class="row-label">Azure Automation</td><td>IT Ops</td><td>"Runbooks" + "patching" + "repetitive infra tasks" + "respond to Monitor alerts"</td><td>Not a workflow builder — use for IT scripts and alert-driven automation</td></tr>
         </tbody>
       </table></div>
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Automate Monitor alert responses → Azure Automation, not Power Automate</div><div class="trap-body">Power Automate is for business workflows and Office 365 integrations. Azure Automation handles IT operations: PowerShell/Python runbooks, scheduled tasks, and automated responses to Azure Monitor alerts. "Monitor alert → trigger remediation script" = Azure Automation.</div></div>
     </div><!-- /Day 1 -->
 
     <!-- ── Day 2: Azure Architecture ── -->
@@ -214,6 +256,21 @@
         </tbody>
       </table></div>
 
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Application Gateway ≠ hybrid connectivity</div><div class="trap-body">Application Gateway is a web traffic load balancer with WAF for HTTP/HTTPS apps. It does NOT connect on-premises networks to Azure. For private, low-latency hybrid connectivity → ExpressRoute. For encrypted internet-based connectivity → VPN Gateway.</div></div>
+
+      <h3>NSG vs. Azure Firewall</h3>
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Attribute</th><th><abbr title="Network Security Group">NSG</abbr></th><th>Azure Firewall</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Scope</td><td>Single subnet or NIC</td><td>Centralized — spans multiple VNets</td></tr>
+          <tr><td class="row-label">Rules</td><td>Inbound/outbound allow/deny by port, IP, protocol</td><td>Application &amp; network rules + FQDN filtering + threat intelligence</td></tr>
+          <tr><td class="row-label">Management</td><td>Per-resource</td><td>Central hub (Azure Firewall Manager)</td></tr>
+          <tr><td class="row-label">Use case</td><td>Expose one VM on HTTP/S; isolate a subnet</td><td>Inspect/control traffic across 15+ VNets centrally</td></tr>
+          <tr><td class="row-label">Cost</td><td>Free</td><td>Paid per deployment hour + data processed</td></tr>
+        </tbody>
+      </table></div>
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">NSG is sufficient for a single VM — Firewall is for multi-VNet scope</div><div class="trap-body">Adding an NSG inbound rule for ports 80/443 is the correct and complete solution for exposing a single Azure VM web app. Azure Firewall is overkill for one VM — its value is centralized policy enforcement across many VNets simultaneously.</div></div>
+
       <h3>VNet Peering and Endpoints</h3>
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Concept</th><th>What it connects</th><th>Key detail</th></tr></thead>
@@ -225,8 +282,26 @@
           <tr><td class="row-label">Private Endpoint</td><td>PaaS service → private IP in VNet</td><td>Public endpoint can be fully disabled; strictest compliance</td></tr>
         </tbody>
       </table></div>
+      <div class="callout callout-blue">
+        <div class="callout-title">How VNet Peering Works — and Why It Is Non-Transitive</div>
+        VNet Peering creates a direct, low-latency link between two VNets using Microsoft's backbone network (not the public internet). Traffic between peered VNets is encrypted and does not traverse the internet. Peering is non-transitive because each peering is an independent configuration object — Azure does not automatically chain them. If VNet-A peers with VNet-B, and VNet-B peers with VNet-C, the routing table in VNet-A only knows about VNet-B's address space. VNet-C is unknown to VNet-A. To enable A↔C communication, you must create a third peering explicitly between A and C. The alternative is to deploy a hub-spoke topology with Azure Firewall or a Network Virtual Appliance in the hub, which can route between spokes.
+      </div>
       <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">VNet Peering ≠ connecting to PaaS</div><div class="trap-body">"Connect Azure SQL to a VNet" = Service Endpoint or Private Endpoint. VNet Peering only connects VNet to VNet.</div></div>
       <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">VNet Peering is non-transitive</div><div class="trap-body">A↔B and B↔C does NOT give A↔C. Each pair needs an explicit peering created.</div></div>
+
+      <h3>Service Endpoint vs. Private Endpoint — When to Use Each</h3>
+      <p>Both give your VNet resources private access to Azure PaaS services (SQL, Storage, etc.), but they differ in how the endpoint is exposed and what remains publicly accessible.</p>
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Dimension</th><th>Service Endpoint</th><th>Private Endpoint</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">What it does</td><td>Routes traffic from your subnet to the PaaS service over the Azure backbone, bypassing the public internet</td><td>Creates a private IP address in your VNet that maps to the PaaS service — the service gets a NIC inside your VNet</td></tr>
+          <tr><td class="row-label">Public endpoint</td><td>Still exists — the PaaS service still has a public IP that anyone can potentially reach</td><td>Can be fully disabled — PaaS service becomes reachable only from inside the VNet</td></tr>
+          <tr><td class="row-label">Data exfiltration risk</td><td>Higher — the endpoint changes routing only; each target resource still requires its own VNet firewall rule. However, a VM in the subnet can reach any publicly accessible resource of that service type (e.g., a competitor's storage account), not just your own — there's no automatic restriction to your organization's resources</td><td>Lower — maps to one specific resource instance by private IP; other instances of the same service are not reachable through this endpoint</td></tr>
+          <tr><td class="row-label">On-prem access</td><td>Does not extend to on-prem clients via VPN/ExpressRoute by default</td><td>Yes — on-prem clients reaching the VNet via VPN or ExpressRoute can access the PaaS service through the private IP</td></tr>
+          <tr><td class="row-label">Cost</td><td>Free</td><td>Per-hour cost for the private endpoint resource + data processing fee</td></tr>
+          <tr><td class="row-label">Use case</td><td>Simple, low-cost isolation when the public endpoint being theoretically accessible is acceptable</td><td>Maximum security — regulatory compliance requiring no public exposure; on-prem access to PaaS; zero-trust architectures</td></tr>
+        </tbody>
+      </table></div>
 
       <h3>Storage Types</h3>
       <div class="cmp-wrap"><table class="cmp-table">
@@ -239,6 +314,31 @@
           <tr><td class="row-label">Disk</td><td>Block storage</td><td>Persistent storage for VMs</td><td>"VM disk" / "persistent" / "block storage"</td></tr>
         </tbody>
       </table></div>
+
+      <h3>Azure Data Lake Storage — What It Is and How It Relates to Blob</h3>
+      <p><strong>Azure Data Lake Storage Gen2</strong> is not a separate, standalone service — it is <strong>Azure Blob Storage with the hierarchical namespace (HNS) feature enabled</strong>. When you create a storage account and turn on hierarchical namespace, you get all Blob Storage capabilities plus true directory semantics, POSIX permissions, and compatibility with big data frameworks like Apache Spark and Hadoop.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Capability</th><th>Standard Blob Storage</th><th>Data Lake Gen2 (Blob + HNS)</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Underlying service</td><td>Azure Blob</td><td>Azure Blob (same infrastructure, same storage account)</td></tr>
+          <tr><td class="row-label">Directory structure</td><td>Flat — "folders" are just naming prefixes in object keys</td><td>True hierarchical filesystem — directories are real objects with atomic operations</td></tr>
+          <tr><td class="row-label">Rename a directory</td><td>Must copy every object with a new prefix and delete originals — O(n), slow and expensive at scale</td><td>Atomic metadata update — O(1), milliseconds regardless of how many files are inside</td></tr>
+          <tr><td class="row-label">File-level permissions</td><td>RBAC at container or account level only</td><td>POSIX ACLs — set different permissions per file and per directory for different users and service principals</td></tr>
+          <tr><td class="row-label">Big data framework support</td><td>Requires workarounds; not natively HDFS-compatible</td><td>Native HDFS compatibility via ABFS (Azure Blob File System) driver — Spark, Hive, Databricks, HDInsight work natively</td></tr>
+          <tr><td class="row-label">Integration with analytics</td><td>Functional but not optimized</td><td>Recommended and fully optimized for Synapse Analytics, Azure Databricks, HDInsight</td></tr>
+          <tr><td class="row-label">Access tiers (Hot/Cool/Archive)</td><td>Yes — all four tiers available</td><td>Yes — same tier mechanism, since it is built on Blob infrastructure</td></tr>
+          <tr><td class="row-label">When to choose standard Blob</td><td colspan="2">Use standard Blob when you need simple object storage without big data analytics — static website hosting, CDN origin files, backup archives, media files, application logs at small/medium scale. No need to pay for HNS namespace operation costs.</td></tr>
+          <tr><td class="row-label">When to choose Data Lake Gen2</td><td colspan="2">Use Data Lake Gen2 when you have petabyte-scale datasets, need Spark/Databricks/Synapse integration, have data engineering pipelines that rename/move directories frequently, or need POSIX-level permissions for data governance.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">The Analytics Pipeline: Where Data Lake Fits</div>
+        A typical Azure analytics architecture: (1) <strong>Ingest</strong> — raw data lands in Data Lake Gen2 from databases, IoT devices, event streams, and file exports. This is the "bronze" raw layer. (2) <strong>Transform</strong> — Azure Databricks or Synapse Spark pools read raw data, clean and join it, and write curated "silver" and "gold" layers back to Data Lake. (3) <strong>Serve</strong> — clean aggregated data is loaded into Azure Synapse dedicated SQL pools or Azure SQL Database for reporting, or served directly from Data Lake via Synapse Serverless SQL. This is why Data Lake appears in "big data" and "analytics pipeline" questions — it is the central raw data repository, not a monitoring or logging tool.
+      </div>
+
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Azure Data Lake = big data storage, not monitoring</div><div class="trap-body">Data Lake is frequently offered as a wrong answer for monitoring and logging questions because it stores large volumes of data. But it has no real-time alerting, no dashboards, and no KQL. To correlate events from multiple Azure resources → Log Analytics. To aggregate resource metrics and trigger alerts → Azure Monitor. Data Lake is for data scientists and analytics engineers, not operations teams.</div></div>
 
       <h3>Blob Access Tiers</h3>
       <div class="tier-chart">
@@ -290,6 +390,7 @@
           <tr><td class="row-label">Event Hubs</td><td>Big data streaming</td><td>"<abbr title="Internet of Things">IoT</abbr>" / "telemetry" / "high volume" / "Kafka"</td><td>Millions of events/sec, Kafka-compatible</td></tr>
         </tbody>
       </table></div>
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Same VNet = communicate by default; different VNets = need peering</div><div class="trap-body">VMs in different subnets of the SAME VNet can communicate with each other by default — no extra configuration needed. VMs in DIFFERENT VNets cannot communicate by default; they require VNet Peering (or a VPN/ExpressRoute). NSGs can be used to restrict same-VNet traffic, but absence of an NSG does not block it.</div></div>
     </div><!-- /Day 3 -->
 
     <!-- ── Day 4: Identity, Security & Governance ── -->
@@ -335,6 +436,11 @@
         </table></div>
       </div>
 
+      <div class="callout callout-blue">
+        <div class="callout-title">Conditional Access — How It Actually Works</div>
+        Conditional Access is a policy engine that runs at sign-in time. It evaluates signals — <strong>who</strong> is signing in (user identity, group membership), <strong>what</strong> they are signing into (which app), <strong>where</strong> they are (IP address, named location, country), <strong>how risky</strong> the sign-in is (Identity Protection risk score), and <strong>what device</strong> they are using (compliant, managed, or unmanaged). Based on these signals, it applies access controls: allow, block, require MFA, require compliant device, or require agreed terms of use. Conditional Access does NOT protect documents after access is granted — it only enforces access at the moment of authentication.
+      </div>
+
       <h3>RBAC — Built-in Roles and Scope</h3>
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Role</th><th>Create/manage resources</th><th>Delete resources</th><th>Delegate access</th></tr></thead>
@@ -353,9 +459,11 @@
         <tbody>
           <tr><td class="row-label">RBAC</td><td>WHO can do WHAT</td><td>Applied to users/groups/service principals</td><td>Only admins can start/stop VMs</td></tr>
           <tr><td class="row-label">Azure Policy</td><td>WHAT can be deployed and HOW</td><td>Applied to resources at deployment/config time</td><td>Only allow VMs in West US region</td></tr>
-          <tr><td class="row-label">Resource Locks</td><td>Prevent deletion or modification</td><td>Applied to any resource, RG, or subscription</td><td>Production DB cannot be deleted</td></tr>
+          <tr><td class="row-label">Resource Locks</td><td>Prevent deletion or modification</td><td>Applied to any resource, RG, or subscription</td><td>Production DB cannot be deleted by anyone — overrides Owner role</td></tr>
+          <tr><td class="row-label">Azure Blueprints</td><td>WHAT environment template to deploy</td><td>Applied at subscription setup time; bundles ARM + Policy + RBAC</td><td>Deploy a compliant subscription with approved VNets, policies, and roles pre-configured</td></tr>
         </tbody>
       </table></div>
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Policy vs. Locks vs. Blueprints — three-way decision rule</div><div class="trap-body">"Enforce standards on new AND existing resources" → Azure Policy. "Prevent anyone (even admins) from deleting/modifying" → Resource Lock. "Repeatable compliant environment deployment for new subscriptions" → Azure Blueprints. Blueprints are for initial setup, not ongoing enforcement.</div></div>
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Lock type</th><th>Read</th><th>Modify</th><th>Delete</th></tr></thead>
         <tbody>
@@ -416,6 +524,13 @@
       </table></div>
 
       <h3>Monitoring Tools</h3>
+      <p>Azure's monitoring stack is layered. Azure Monitor is the foundation that everything else sits on top of or feeds into. Understanding the relationships between services prevents confusing them on scenario questions.</p>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">How the Monitoring Services Relate to Each Other</div>
+        <strong>Azure Monitor</strong> is the collection platform — it ingests metrics (numerical time-series data) and logs (structured event data) from all Azure resources automatically. <strong>Log Analytics workspaces</strong> are where those logs are stored and queried with KQL. <strong>Application Insights</strong> is a sub-resource that adds application-level instrumentation on top of Log Analytics — its data flows into a Log Analytics workspace. <strong>Azure Alerts</strong> are configured rules inside Monitor that watch metrics or log query results and fire when thresholds are crossed, triggering Action Groups. <strong>Azure Advisor</strong> is separate from Monitor — it analyzes resource configuration and billing data to make recommendations, but does not ingest real-time metrics. <strong>Defender for Cloud</strong> is also separate — it reads resource configurations against security policy benchmarks, not real-time operational data. <strong>Microsoft Sentinel</strong> ingests from Monitor, Defender for Cloud, and external sources to provide security analytics.
+      </div>
+
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Tool</th><th>Scope</th><th>Purpose</th><th>Key detail</th></tr></thead>
         <tbody>
@@ -429,6 +544,32 @@
         </tbody>
       </table></div>
       <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">RCA reports → Service Health, not Azure Monitor</div><div class="trap-body">Post-outage root cause analysis reports are found in Azure Service Health. Not Azure Monitor. Not Log Analytics.</div></div>
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Azure Data Lake ≠ monitoring tool</div><div class="trap-body">Azure Data Lake is big data storage for analytics pipelines and data science workloads — not a monitoring or logging service. To correlate events from multiple Azure resources → Log Analytics. To aggregate resource metrics and trigger alerts → Azure Monitor.</div></div>
+
+      <h3>Security Services — Know the Distinctions</h3>
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Service</th><th>Purpose</th><th>Trigger phrase</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Azure Identity Protection</td><td>Detects risky sign-ins and compromised <abbr title="Entra ID">cloud identities</abbr></td><td>"risky sign-ins," "compromised cloud (Entra ID) identities"</td></tr>
+          <tr><td class="row-label">Microsoft Defender for Endpoint</td><td>Protects devices/endpoints; covers on-prem <abbr title="Active Directory">AD</abbr> threat detection</td><td>"on-prem AD identities," "endpoint protection," "device threats"</td></tr>
+          <tr><td class="row-label">Entra ID Conditional Access</td><td>Controls access based on conditions (location, device health, MFA) — not document protection</td><td>"require MFA based on location," "block untrusted devices"</td></tr>
+          <tr><td class="row-label">Microsoft Purview</td><td>Data governance and protection — safeguards documents wherever they travel</td><td>"protect sensitive documents," "data governance," "information protection"</td></tr>
+          <tr><td class="row-label">Microsoft Sentinel</td><td><abbr title="Security Information and Event Management">SIEM</abbr>/<abbr title="Security Orchestration Automated Response">SOAR</abbr> — collects security events, detects threats, automates responses</td><td>"SIEM," "detect threats across org," "security event correlation"</td></tr>
+          <tr><td class="row-label">Microsoft Defender for Cloud</td><td>Security posture management + regulatory compliance baselines (HIPAA, PCI DSS) + recommendations</td><td>"compliance baselines," "security posture," "AKS recommendations," "verify regulatory compliance"</td></tr>
+        </tbody>
+      </table></div>
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Identity Protection (cloud) vs. Defender for Endpoint (on-prem AD)</div><div class="trap-body">Azure Identity Protection protects Entra ID (cloud) identities from risky sign-ins and external threats. Microsoft Defender for Endpoint protects devices AND detects threats to on-premises Active Directory identities. These two are mirror opposites — know which environment each covers.</div></div>
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Defender for Cloud ≠ Azure Advisor</div><div class="trap-body">Defender for Cloud = security posture + compliance baselines (HIPAA, PCI DSS) + security recommendations. Azure Advisor = cost, performance, reliability, and operational recommendations (not compliance). "Regulatory compliance monitoring" → Defender for Cloud. "Optimization recommendations" → Azure Advisor.</div></div>
+
+      <h3>Azure DDoS Protection Tiers</h3>
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Tier</th><th>Cost</th><th>Features</th><th>Key detail</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Basic</td><td>Free</td><td>Always-on monitoring, automatic mitigation</td><td>Automatically enabled for all Azure resources — no action needed</td></tr>
+          <tr><td class="row-label">Standard</td><td>Paid (per protected public IP)</td><td>Advanced adaptive mitigation, detailed metrics, SLA guarantee, attack analytics, rapid response team</td><td>Required for HIPAA/PCI compliance scenarios needing DDoS SLA</td></tr>
+        </tbody>
+      </table></div>
+      <div class="trap"><span class="trap-badge">Key fact</span><div class="trap-title">Azure DDoS has TWO tiers — both exist</div><div class="trap-body">The exam tests whether you know both tiers exist. Basic is free and automatic. Standard adds paid advanced features. Answer is YES when asked "Does Azure DDoS Protection have Basic and Standard tiers?"</div></div>
     </div><!-- /Day 4 -->
 
     <!-- ── Day 5: Crash Course ── -->
@@ -598,6 +739,8 @@
           <div class="d-card"><div class="d-card-trigger">Connect two Azure VNets</div><div class="d-card-answer">VNet Peering</div><div class="d-card-note">Non-transitive — each pair needs explicit peering</div></div>
           <div class="d-card"><div class="d-card-trigger">VNet → Azure PaaS; keep traffic on backbone</div><div class="d-card-answer">Service Endpoint</div><div class="d-card-note">Public endpoint still exists</div></div>
           <div class="d-card"><div class="d-card-trigger">PaaS with private IP; disable public endpoint</div><div class="d-card-answer">Private Endpoint</div><div class="d-card-note">Strictest compliance option</div></div>
+          <div class="d-card"><div class="d-card-trigger">Inbound web traffic load balancer with WAF</div><div class="d-card-answer">Application Gateway</div><div class="d-card-note">HTTP/HTTPS only — not for hybrid connectivity</div></div>
+          <div class="d-card"><div class="d-card-trigger">Multi-VNet centralized traffic inspection</div><div class="d-card-answer">Azure Firewall</div><div class="d-card-note">Use when scope spans many VNets; NSG covers only one VM/subnet</div></div>
         </div>
       </div>
       <div id="d5-dec-stor" class="toggle-panel">
@@ -623,6 +766,7 @@
           <div class="d-card"><div class="d-card-trigger">WHAT can be deployed and HOW it must be configured</div><div class="d-card-answer">Azure Policy</div><div class="d-card-note">Audit · Deny · DeployIfNotExists · Modify</div></div>
           <div class="d-card"><div class="d-card-trigger">Prevent accidental deletion or modification</div><div class="d-card-answer">Resource Locks</div><div class="d-card-note">Overrides Owner role — must remove lock first</div></div>
           <div class="d-card"><div class="d-card-trigger">Apply policies and RBAC across subscriptions</div><div class="d-card-answer">Management Groups</div><div class="d-card-note">Inherits down to all child resources</div></div>
+          <div class="d-card"><div class="d-card-trigger">Repeatable compliant environment for new subscriptions</div><div class="d-card-answer">Azure Blueprints</div><div class="d-card-note">Bundles ARM templates + Policy + RBAC; best for initial setup</div></div>
         </div>
       </div>
       <div id="d5-dec-msg" class="toggle-panel">
@@ -667,8 +811,20 @@
       <div class="trap-group">
         <div class="trap-group-header">☁️ Cloud Models &amp; Monitoring</div>
         <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Hybrid ≠ multi-cloud</div><div class="trap-body">Hybrid = public cloud + private cloud (or on-prem). Multi-cloud = multiple public cloud providers (Azure + AWS + GCP). These are distinct architectures with different exam answers.</div></div>
+        <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">On-prem Hyper-V = Private Cloud, not Hybrid</div><div class="trap-body">Virtualized on-prem infrastructure that the org owns and operates = Private Cloud. Hybrid requires a live connection between on-prem and a public cloud. Shared Hyper-V in your own datacenter = Private.</div></div>
+        <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Cosmos DB / Azure MySQL / App Service = PaaS, not SaaS</div><div class="trap-body">SaaS = end-user apps (Office 365, Dynamics 365). PaaS = developer platforms (App Service, Azure SQL, Cosmos DB, Azure MySQL, Event Grid). If a developer deploys code or data to it, it's PaaS.</div></div>
         <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Functions vs Logic Apps — both serverless, different style</div><div class="trap-body">Functions = code-first (write code). Logic Apps = designer/workflow-first (visual, no-code). Both are serverless. "Serverless" alone does not imply App Service — App Service is always-on PaaS.</div></div>
         <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">RCA reports → Service Health, not Azure Monitor</div><div class="trap-body">Post-outage root cause analysis reports live in Azure Service Health. Not Azure Monitor. Not Log Analytics. Service Health is also where planned maintenance notifications appear.</div></div>
+        <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Azure Data Lake ≠ monitoring</div><div class="trap-body">Azure Data Lake is big data storage for analytics pipelines. To correlate events from multiple Azure resources → Log Analytics. To alert on resource metrics → Azure Monitor. Never choose Data Lake for a monitoring or alerting question.</div></div>
+      </div>
+
+      <div class="trap-group">
+        <div class="trap-group-header">🔒 Identity &amp; Security Services</div>
+        <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Identity Protection (cloud) vs. Defender for Endpoint (on-prem AD)</div><div class="trap-body">Azure Identity Protection = detects risky sign-ins and compromised Entra ID (cloud) identities. Microsoft Defender for Endpoint = protects devices AND on-premises Active Directory identities. They are mirror opposites — match to the environment in the question.</div></div>
+        <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Defender for Cloud = compliance; Advisor = optimization</div><div class="trap-body">Microsoft Defender for Cloud handles security posture and regulatory compliance baselines (HIPAA, PCI DSS). Azure Advisor gives cost, performance, reliability, and operational recommendations. "Verify regulatory compliance" → Defender for Cloud. "Reduce costs / improve performance" → Advisor.</div></div>
+        <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Purview vs. Conditional Access for document protection</div><div class="trap-body">Microsoft Purview protects sensitive documents wherever they travel — outside the org, on personal devices, downloaded. Conditional Access controls access based on conditions (location, device) but doesn't travel with the document itself.</div></div>
+        <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">NSG is sufficient for a single VM; Firewall for multi-VNet</div><div class="trap-body">Adding an NSG inbound rule for ports 80/443 fully satisfies "expose a VM web app to the internet." Azure Firewall is the answer only when centralized inspection across multiple VNets is needed. Don't over-engineer single-VM questions.</div></div>
+        <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Same-VNet subnets communicate by default</div><div class="trap-body">VMs in different subnets of the SAME VNet can talk by default. VMs in DIFFERENT VNets cannot — they need VNet Peering. NSGs can restrict intra-VNet traffic, but without an explicit deny rule, it flows freely.</div></div>
       </div>
 
       <!-- ── Pre-Exam Checklist ── -->
@@ -683,6 +839,10 @@
           <li class="check-item"><div class="check-box"></div><span>Public vs Private vs Hybrid cloud — use cases and differences</span></li>
           <li class="check-item"><div class="check-box"></div><span>IaaS vs PaaS vs SaaS — what you manage vs Microsoft manages in each</span></li>
           <li class="check-item"><div class="check-box"></div><span>Shared responsibility model — how responsibility shifts across IaaS/PaaS/SaaS</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Private Cloud = org-owned infra (even on-prem Hyper-V) — Hybrid requires connecting to a public cloud</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Elasticity = auto-scale on demand, pay only for usage; Scalability = general capacity to scale (not automatic)</span></li>
+          <li class="check-item"><div class="check-box"></div><span>PaaS examples: App Service, Azure SQL, Cosmos DB, Azure MySQL, Event Grid — NOT SaaS</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Azure Automation = IT runbooks + respond to Monitor alerts; Power Automate = business workflows</span></li>
         </ul>
       </div>
 
@@ -695,6 +855,7 @@
           <li class="check-item"><div class="check-box"></div><span>VM vs App Service vs Azure Functions — use cases and trigger phrases</span></li>
           <li class="check-item"><div class="check-box"></div><span>ACI vs AKS — when to use each (simple/burst/dev-test vs production/orchestration)</span></li>
           <li class="check-item"><div class="check-box"></div><span>VM Scale Sets — auto-scaling identical VMs, up to 1,000 instances</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Availability Set = rack-level (99.95%); Availability Zone = full datacenter (99.99%)</span></li>
         </ul>
       </div>
 
@@ -707,6 +868,9 @@
           <li class="check-item"><div class="check-box"></div><span>Blob vs Files vs Queue vs Table vs Disk — use case for each</span></li>
           <li class="check-item"><div class="check-box"></div><span>LRS → ZRS → GRS → RA-GRS → GZRS → RA-GZRS — what changes at each step</span></li>
           <li class="check-item"><div class="check-box"></div><span>Hot vs Cool vs Cold vs Archive — selection criteria and minimum retention</span></li>
+          <li class="check-item"><div class="check-box"></div><span>NSG = single VM/subnet; Azure Firewall = multi-VNet centralized policy enforcement</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Application Gateway = web load balancer with WAF — not a hybrid connectivity tool</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Same-VNet subnets communicate by default; different VNets need peering</span></li>
         </ul>
       </div>
 
@@ -722,6 +886,9 @@
           <li class="check-item"><div class="check-box"></div><span>RBAC vs Azure Policy vs Resource Locks — clear distinction between the three</span></li>
           <li class="check-item"><div class="check-box"></div><span>Lock types: CanNotDelete (read + modify OK) vs ReadOnly (read only)</span></li>
           <li class="check-item"><div class="check-box"></div><span>Azure Policy effects: Audit · Deny · DeployIfNotExists · Modify</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Blueprints vs Policy vs Locks — enforce on existing → Policy; prevent delete → Lock; repeatable env → Blueprints</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Identity Protection (cloud/Entra ID) vs Defender for Endpoint (on-prem AD) — match to environment</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Microsoft Purview = document protection; Sentinel = SIEM/SOAR; Defender for Cloud = compliance baselines</span></li>
         </ul>
       </div>
 
@@ -732,10 +899,370 @@
           <li class="check-item"><div class="check-box"></div><span>Azure Status vs Service Health vs Resource Health — scope of each</span></li>
           <li class="check-item"><div class="check-box"></div><span>Azure Advisor 5 categories — Reliability, Security, Performance, Cost, Operational Excellence</span></li>
           <li class="check-item"><div class="check-box"></div><span>Composite SLA: series = multiply SLAs (gets worse); parallel = redundancy improves it</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Log Analytics = central log store, query with KQL; Azure Data Lake = big data storage, not a monitoring tool</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Azure DDoS: Basic (free, always-on, automatic) vs Standard (paid, advanced mitigation, SLA-backed)</span></li>
+          <li class="check-item"><div class="check-box"></div><span>Defender for Cloud = security posture + compliance baselines; Advisor = optimization recommendations</span></li>
         </ul>
       </div>
 
     </div><!-- /Day 5 -->
+
+    <!-- ── Day 6: Last-Minute Cram ── -->
+    <div class="cram-day-panel">
+      <p class="day-intro">Deep dives into every topic cluster that trips people up — cloud models, PaaS taxonomy, monitoring ecosystem, storage spectrum, governance triad, identity &amp; security services, network security layers, automation services, and DDoS protection. Read each section until you can explain it out loud.</p>
+
+      <!-- ══ TOPIC 1: Cloud Models & Service Types ══ -->
+      <h3>Cloud Models — What They Actually Mean</h3>
+      <p>The three cloud deployment models describe <strong>who owns and operates the infrastructure</strong>, not what software runs on it.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Model</th><th>Who owns infra?</th><th>Who manages it?</th><th>What connects?</th><th>Real examples</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Public</td><td>Microsoft</td><td>Microsoft</td><td>Internet</td><td>Standard Azure subscriptions, multi-tenant services</td></tr>
+          <tr><td class="row-label">Private</td><td>Your org</td><td>Your org's IT team</td><td>Internal network only</td><td>On-prem datacenter, Hyper-V cluster, Azure Stack Hub in your own building</td></tr>
+          <tr><td class="row-label">Hybrid</td><td>Both</td><td>Both, depending on workload</td><td>ExpressRoute or Site-to-Site VPN bridges them</td><td>On-prem payroll system + Azure burst compute + cloud DR</td></tr>
+        </tbody>
+      </table></div>
+
+      <p><strong>Why Hyper-V = Private, not Hybrid:</strong> Hyper-V is just a hypervisor — a tool for running virtual machines on physical servers your org owns. Running Hyper-V in your own datacenter means you still own all the hardware and manage all the infrastructure. That is the definition of private cloud. It only becomes Hybrid when you add a live network connection to a public cloud (Azure) and actively use both together for workloads.</p>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">How Hybrid Actually Works</div>
+        A hybrid deployment requires: (1) on-premises infrastructure, (2) an Azure subscription with resources deployed, and (3) a network link between them — either an <abbr title="Site-to-Site">S2S</abbr> VPN over the internet or ExpressRoute as a private circuit. Common hybrid patterns: burst workloads (overflow to Azure when on-prem capacity is full), split compliance (sensitive data on-prem, everything else in Azure), and disaster recovery (on-prem primary, Azure as cold standby).
+      </div>
+
+      <h3>IaaS / PaaS / SaaS — The Full Service Taxonomy</h3>
+      <p>These describe <strong>how much of the stack Microsoft manages for you</strong>. The more management you hand off, the higher the abstraction level.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Layer</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Physical infra</td><td>Microsoft</td><td>Microsoft</td><td>Microsoft</td></tr>
+          <tr><td class="row-label">Virtualization</td><td>Microsoft</td><td>Microsoft</td><td>Microsoft</td></tr>
+          <tr><td class="row-label">Operating system</td><td><strong>You</strong></td><td>Microsoft</td><td>Microsoft</td></tr>
+          <tr><td class="row-label">Runtime / middleware</td><td><strong>You</strong></td><td>Microsoft</td><td>Microsoft</td></tr>
+          <tr><td class="row-label">Application code</td><td><strong>You</strong></td><td><strong>You</strong></td><td>Microsoft</td></tr>
+          <tr><td class="row-label">Data</td><td><strong>You</strong></td><td><strong>You</strong></td><td><strong>You</strong></td></tr>
+        </tbody>
+      </table></div>
+
+      <p><strong>The key insight:</strong> With PaaS you are still building and deploying your own application or storing your own data — you just do not touch the OS, runtime, or servers underneath. With SaaS, someone else built the app and you just configure and use it.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Azure Service</th><th>Type</th><th>Why — what you do not manage</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Azure Virtual Machines</td><td>IaaS</td><td>You manage the OS, patching, runtime, app</td></tr>
+          <tr><td class="row-label">Azure App Service</td><td>PaaS</td><td>Microsoft manages OS and runtime; you deploy your web app code</td></tr>
+          <tr><td class="row-label">Azure SQL Database</td><td>PaaS</td><td>Microsoft manages OS, SQL engine, patches; you manage schemas and data</td></tr>
+          <tr><td class="row-label">Azure Cosmos DB</td><td>PaaS</td><td>Fully managed NoSQL — you define containers and queries; no server to touch</td></tr>
+          <tr><td class="row-label">Azure Database for MySQL</td><td>PaaS</td><td>Managed MySQL engine; you manage databases and data only</td></tr>
+          <tr><td class="row-label">Azure Functions</td><td>PaaS / Serverless</td><td>You write functions; Microsoft manages everything below the function runtime</td></tr>
+          <tr><td class="row-label">Azure Event Grid</td><td>PaaS</td><td>Fully managed pub/sub routing — you define topics and subscriptions, not servers</td></tr>
+          <tr><td class="row-label"><abbr title="Azure Kubernetes Service">AKS</abbr></td><td>PaaS</td><td>Microsoft manages the Kubernetes control plane; you manage node pools and workloads</td></tr>
+          <tr><td class="row-label">Microsoft 365 (Office 365)</td><td>SaaS</td><td>Microsoft built and runs the entire application — you configure users and policies</td></tr>
+          <tr><td class="row-label">Dynamics 365</td><td>SaaS</td><td>Microsoft CRM/ERP — you configure business processes, not infrastructure</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">The PaaS Test</div>
+        If the scenario says a developer writes code and deploys it to a managed platform, or stores data in a managed database — it is PaaS. If the scenario says a user just opens an app and uses it with no development involved — it is SaaS. "Who built the application logic?" separates PaaS (you did) from SaaS (Microsoft did).
+      </div>
+
+      <!-- ══ TOPIC 2: Elasticity, Scalability & Cloud Benefits ══ -->
+      <h3>Elasticity vs. Scalability — The Precise Distinction</h3>
+      <p>These two terms are used loosely in everyday speech but the exam treats them as technically distinct concepts with different trigger phrases.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Term</th><th>Definition</th><th>Automatic?</th><th>Azure example</th><th>Exam trigger phrase</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Scalability</td><td>The <em>capability</em> to increase or decrease resources to handle varying loads</td><td>No — it is a property, not a behavior</td><td>A VM that <em>can</em> be resized from 2 cores to 16 cores when needed</td><td>"can handle more load," "designed to scale," "supports growth"</td></tr>
+          <tr><td class="row-label">Elasticity</td><td>The <em>automatic</em> adjustment of resources in real time as demand changes, releasing them when demand drops</td><td>Yes — responds dynamically to actual demand without manual action</td><td>VM Scale Sets adding instances during a traffic spike, then removing them when traffic drops, billing only for active time</td><td>"automatically scales," "pay only when needed," "adjusts to demand spikes," "no idle capacity"</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">How Azure Implements Elasticity</div>
+        <ul>
+          <li><strong>VM Scale Sets:</strong> Define auto-scale rules (add an instance when CPU &gt; 80% for 5 minutes; remove when CPU &lt; 20%). Azure automatically provisions and deprovisions VMs.</li>
+          <li><strong>Azure Functions (Consumption plan):</strong> Scale from 0 to hundreds of instances based on incoming events. You pay per execution, not per server.</li>
+          <li><strong>App Service Auto-scale:</strong> Web apps scale out (add instances) or in (remove instances) based on metrics like HTTP queue length or CPU.</li>
+          <li><strong>Azure Kubernetes Service:</strong> Cluster autoscaler adds and removes nodes; Horizontal Pod Autoscaler adjusts pod count per deployment.</li>
+        </ul>
+      </div>
+
+      <!-- ══ TOPIC 3: Azure Monitor Ecosystem ══ -->
+      <h3>The Azure Monitor Ecosystem — Full Map</h3>
+      <p>Azure Monitor is the <strong>umbrella service</strong> — everything else is either a sub-component of it or a related service that feeds into it. Understanding the hierarchy prevents choosing the wrong service on scenario questions.</p>
+
+      <pre style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;font-size:0.82rem;overflow-x:auto;line-height:1.7;">Azure Monitor  &lt;-- umbrella; collects ALL metrics and logs from Azure resources
+├── Metrics store  -- time-series numerical data (CPU %, request count, latency ms)
+│    └── Visualized in dashboards, charts, Metrics Explorer
+├── Alerts  -- fire when a metric or log query crosses a threshold
+│    └── Action Groups -- email, SMS, webhook, Logic App, Automation runbook
+├── Log Analytics Workspace  -- centralized log repository, query with KQL
+│    ├── All Azure resource diagnostic logs flow here
+│    ├── Application Insights data flows here (it is a sub-resource)
+│    └── On-prem and non-Azure logs via monitoring agents
+└── Application Insights  -- SDK-based APM for your application code
+     ├── Request rates, response times, failure rates, exceptions
+     ├── User behavior, page views, custom events
+     └── Dependency tracking (calls to databases, external APIs)
+
+Azure Advisor        -- RECOMMENDATIONS (not monitoring): cost, reliability, security, perf, ops
+Microsoft Sentinel   -- SIEM: ingests logs from Monitor + external sources; threat detection
+Defender for Cloud   -- SECURITY POSTURE + COMPLIANCE: reads resource configs, not real-time metrics
+Azure Data Lake      -- BIG DATA STORAGE: not a monitoring tool at all</pre>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Service</th><th>What it does</th><th>What it does NOT do</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Azure Monitor</td><td>Collects metrics and logs from all Azure resources; powers alerts and dashboards</td><td>Does not give compliance reports or security recommendations</td></tr>
+          <tr><td class="row-label">Log Analytics</td><td>Stores and queries logs with KQL; correlates data from multiple sources (VMs, databases, networking)</td><td>Does not monitor application code performance — that is App Insights</td></tr>
+          <tr><td class="row-label">Application Insights</td><td>Instruments application code for APM: response times, exceptions, user flows, dependency calls</td><td>Does not monitor infrastructure-level metrics like VM CPU</td></tr>
+          <tr><td class="row-label">Azure Advisor</td><td>Analyzes your Azure usage and gives recommendations in 5 categories: Cost, Security, Reliability, Performance, Operational Excellence</td><td>Does not alert on real-time metrics; does not enforce anything</td></tr>
+          <tr><td class="row-label">Defender for Cloud</td><td>Evaluates resource configurations against security baselines and regulatory frameworks (HIPAA, PCI DSS, CIS); gives security score</td><td>Does not collect real-time performance metrics; does not replace Azure Monitor</td></tr>
+          <tr><td class="row-label">Microsoft Sentinel</td><td>Ingests security events and logs from Monitor, firewalls, identity providers; applies threat detection rules and AI to find attacks; automates incident response</td><td>Not a performance monitor; operates at the security event level, not resource metric level</td></tr>
+          <tr><td class="row-label">Azure Data Lake</td><td>Stores massive volumes of raw data in a hierarchical filesystem for batch analytics and data science pipelines</td><td>Does not monitor anything in real time; no alerting; no dashboards; no KQL</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">Why Log Analytics vs. Azure Data Lake Confuses People</div>
+        Both store large volumes of data. The difference is purpose and audience. Log Analytics is an operational monitoring store — it receives structured telemetry from Azure resources, retains it for querying (30-day default), and exposes it via KQL for operations teams answering "what is happening right now?" Azure Data Lake is a data engineering platform — it stores raw, unprocessed data in any format (CSV, JSON, Parquet, images, video) for data scientists running batch jobs, ML training, or analytics pipelines with Synapse Analytics or Databricks. Different audiences, different latency, different tooling.
+      </div>
+
+      <!-- ══ TOPIC 4: Storage Spectrum — Blob to Data Lake ══ -->
+      <h3>Storage Services — The Full Spectrum</h3>
+      <p>Azure has six distinct storage services that overlap in what they can store but differ in how data is organized, accessed, and used downstream. Knowing which to use requires matching the data model to the workload.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Service</th><th>Data model</th><th>Best for</th><th>How accessed</th><th>Key distinguishing trait</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Blob Storage</td><td>Flat namespace — objects in containers</td><td>Images, videos, backups, logs, web assets, arbitrary files up to 4.75 TB each</td><td>REST API, SDK, CDN, Azure Portal</td><td>Cheapest general-purpose object storage; three access tiers (Hot/Cool/Cold/Archive)</td></tr>
+          <tr><td class="row-label">Data Lake Storage Gen2</td><td>Hierarchical namespace — true directories and files</td><td>Big data analytics, data science pipelines, ML training data, petabyte-scale raw data</td><td>HDFS-compatible (<abbr title="Azure Blob File System">ABFS</abbr> driver), Spark, REST API</td><td>Built ON TOP of Blob with hierarchical namespace enabled; atomic directory rename; integrated with Synapse, Databricks, HDInsight</td></tr>
+          <tr><td class="row-label">Azure Files</td><td>SMB/NFS file shares</td><td>Lift-and-shift file servers, shared config files, Azure Virtual Desktop profile shares</td><td>SMB 3.0, NFS 4.1 — mountable as a network drive on Windows, Linux, macOS</td><td>Only Azure storage mountable as a network drive across operating systems</td></tr>
+          <tr><td class="row-label">Azure Queue Storage</td><td>Message queue (best-effort ordering — not guaranteed FIFO)</td><td>Decoupling application components, deferred async processing</td><td>REST API, HTTP polling</td><td>Simple, cheap; max message 64 KB; messages are generally retrieved in insertion order but can arrive out of order under load</td></tr>
+          <tr><td class="row-label">Azure Table Storage</td><td>NoSQL key-value store</td><td>Semi-structured data, device telemetry, user preferences, cheap lookups at scale</td><td>REST API, OData; Cosmos DB Table API is the premium upgrade path</td><td>Schema-free; very low cost; Cosmos DB Table API provides geo-redundancy upgrade</td></tr>
+          <tr><td class="row-label">Azure Disk Storage</td><td>Block storage — virtual hard disk</td><td>OS disks and data disks for Azure VMs</td><td>Block device attached to VM — not accessible via REST</td><td>Premium SSD required for 99.9% single-VM SLA; Ultra Disk for sub-millisecond latency</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Blob vs. Azure Data Lake Gen2 — The Deep Relationship</h3>
+      <p>Data Lake Storage Gen2 is <strong>not a separate service</strong> — it is Blob Storage with the <strong>hierarchical namespace feature enabled</strong> on the storage account. When you create a storage account and enable hierarchical namespace, you get Data Lake Gen2 capabilities layered on the same blob infrastructure with the same pricing model.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Capability</th><th>Standard Blob Storage</th><th>Data Lake Gen2 (Blob + HNS)</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Underlying storage</td><td>Azure Blob</td><td>Azure Blob (identical infrastructure)</td></tr>
+          <tr><td class="row-label">Directory model</td><td>Flat — "folders" are just naming prefixes, not real objects</td><td>True hierarchical filesystem — directories are first-class objects</td></tr>
+          <tr><td class="row-label">Rename/move a directory</td><td>O(n): must copy every object with new prefix, delete originals — slow and expensive</td><td>O(1): atomic metadata operation, milliseconds regardless of file count</td></tr>
+          <tr><td class="row-label">File-level permissions</td><td>RBAC only at container or account level</td><td>POSIX ACLs per individual file and directory — fine-grained access control for data teams</td></tr>
+          <tr><td class="row-label">Big data framework support</td><td>Requires shim adapter; limited native support</td><td>Native HDFS compatibility via ABFS driver; Spark, Hive, Presto read/write natively</td></tr>
+          <tr><td class="row-label">Integration with analytics</td><td>Functional but not optimal</td><td>Optimized and recommended for Synapse Analytics, Azure Databricks, HDInsight</td></tr>
+          <tr><td class="row-label">Access tiers</td><td>Hot / Cool / Cold / Archive</td><td>Same — identical tier mechanism since it is built on Blob</td></tr>
+          <tr><td class="row-label">When to use Blob instead</td><td colspan="2">When you need simple object storage without big data analytics — static website hosting, CDN origin, backup archives, media storage. No need to pay for HNS complexity.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">The Typical Analytics Pipeline Pattern</div>
+        Raw data from databases, event streams, IoT devices, or log exports lands in <strong>Data Lake Gen2</strong> as the raw data store ("bronze layer"). <strong>Azure Synapse Analytics</strong> or <strong>Azure Databricks</strong> reads and transforms it into cleaned datasets ("silver layer") and aggregated business metrics ("gold layer"). Results may be written to <strong>Azure SQL</strong> or <strong>Cosmos DB</strong> for application consumption. This is why Data Lake appears in "big data" and "analytics" questions — it is the landing zone for raw data, not a monitoring or operational tool.
+      </div>
+
+      <!-- ══ TOPIC 5: Governance — Policy, Locks, Blueprints ══ -->
+      <h3>Governance at Scale — Policy, Locks &amp; Blueprints In Depth</h3>
+      <p>These three tools all "control" resources but operate on completely different dimensions: <strong>what</strong> can be deployed (Policy), <strong>whether</strong> it can be changed (Locks), and <strong>how an environment is assembled</strong> in the first place (Blueprints).</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Tool</th><th>Controls</th><th>Operates when</th><th>Owner can override?</th><th>Works on existing resources?</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Azure Policy</td><td>What kinds of resources can exist and what their configuration must be (region, SKU, tags, settings)</td><td>At deployment time (Deny) and continuously on existing resources (Audit / remediate)</td><td>No — Policy is enforced by the platform regardless of RBAC role</td><td>Yes — Audit scans existing resources; DeployIfNotExists and Modify remediate them</td></tr>
+          <tr><td class="row-label">Resource Locks</td><td>Whether a resource can be modified or deleted at all</td><td>At the point of any modification or deletion attempt — blocks the action</td><td>No — Owner role cannot override; must remove the lock first (which is itself audited)</td><td>Yes — applied to resources that already exist, at any time</td></tr>
+          <tr><td class="row-label">Azure Blueprints</td><td>The initial composition of an environment — what resources, policies, and role assignments are deployed together</td><td>At initial deployment / subscription setup time</td><td>N/A — Blueprints set up initial state; they do not enforce ongoing compliance</td><td>No — designed for new environments; not retroactively applied to existing resources</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Azure Policy Effects — What Each One Does</h3>
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Effect</th><th>What happens</th><th>Use case</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Audit</td><td>Non-compliant resources are flagged in the compliance dashboard but NOT blocked</td><td>Initial rollout — understand scope of non-compliance before enforcing; reporting only</td></tr>
+          <tr><td class="row-label">Deny</td><td>The deployment or modification is rejected with an error at API time</td><td>Hard requirements: "VMs must use Premium SSD," "resources only in West US," "no public IPs"</td></tr>
+          <tr><td class="row-label">DeployIfNotExists</td><td>If a compliant sub-resource or config does not exist, automatically deploy it via remediation task</td><td>Auto-attach a monitoring agent to every new VM; auto-enable diagnostics; auto-install extensions</td></tr>
+          <tr><td class="row-label">Modify</td><td>Add, update, or remove resource properties during creation or via remediation task on existing resources</td><td>Auto-tag resources with environment/cost-center; force TLS version settings on storage accounts</td></tr>
+          <tr><td class="row-label">Append</td><td>Add additional fields to a resource request during creation (does not modify existing)</td><td>Add allowed IP restrictions to App Service apps automatically on creation</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Azure Blueprints — What a Blueprint Contains</h3>
+      <p>A Blueprint is a versioned package containing: <strong>ARM templates</strong> (resource definitions), <strong>Policy assignments</strong> (compliance controls applied at deployment), <strong>RBAC role assignments</strong> (who gets what access from day one), and <strong>Resource Group definitions</strong>. When assigned to a subscription, all artifacts are deployed together in the correct dependency order.</p>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">Blueprint Lock vs. Resource Lock</div>
+        Blueprints can apply their own locking to deployed resources that is even stronger than a standard Resource Lock. Blueprint-locked resources cannot be modified by Owner — only by removing the Blueprint assignment itself (which requires Blueprint Operator or Contributor at the management group). This makes Blueprints useful for regulated environments where the infrastructure must remain exactly as provisioned.
+      </div>
+
+      <!-- ══ TOPIC 6: Identity & Security Services ══ -->
+      <h3>Identity &amp; Security Services — The Full Map</h3>
+      <p>The organizing principle for this topic is: <strong>what is the protected asset?</strong> Each service defends a different layer of the organization.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Service</th><th>Protected asset</th><th>Primary capability</th><th>Does NOT cover</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Azure Identity Protection</td><td>Entra ID (cloud) user accounts and sign-ins</td><td>Detects anomalous sign-in behavior: impossible travel, unfamiliar location, leaked credentials, anonymous IP. Assigns risk scores (low/medium/high) to sign-ins and users. Integrates with Conditional Access to auto-block high-risk logins.</td><td>On-prem Active Directory; device security; document protection</td></tr>
+          <tr><td class="row-label">Microsoft Defender for Endpoint</td><td>Devices (Windows, macOS, Linux, Android, iOS) and on-prem Active Directory</td><td>Endpoint detection and response (EDR): behavioral analysis, process monitoring, vulnerability management, lateral movement detection. Detects threats to on-prem AD from compromised devices — pass-the-hash, credential dumping, Kerberoasting.</td><td>Cloud-only Entra ID identities; document or data-level protection</td></tr>
+          <tr><td class="row-label">Entra ID Conditional Access</td><td>Access to apps and resources at sign-in time</td><td>Policy engine that grants / blocks / limits access based on signals: user identity, device compliance state, network location (IP range), user risk level, app sensitivity. Example: require MFA when signing in from outside the corporate network.</td><td>Does not travel with documents after access is granted; only enforces at authentication time</td></tr>
+          <tr><td class="row-label">Microsoft Purview</td><td>Data and documents — wherever they are</td><td>Data governance: classify sensitive content (PII, financial, health records), apply sensitivity labels, enforce protection policies that travel with the document regardless of where it goes — email attachments, USB drives, personal devices, third-party cloud storage.</td><td>Identity sign-in protection; device security</td></tr>
+          <tr><td class="row-label">Microsoft Sentinel</td><td>The entire security environment (SIEM/SOAR)</td><td>Ingests logs and signals from all sources: Azure Monitor, firewalls, identity providers, Office 365, third-party systems. Applies analytics rules and AI/ML to detect attack patterns, correlate alerts into incidents, and automate response via Logic App playbooks.</td><td>Not a posture or compliance tool; does not give configuration recommendations; does not monitor performance</td></tr>
+          <tr><td class="row-label">Microsoft Defender for Cloud</td><td>Azure resource configurations and regulatory compliance posture</td><td>Security posture management: continuously assesses resource configurations against security best practices (including AKS, VMs, storage, networking) and regulatory frameworks (HIPAA, PCI DSS, CIS, NIST). Gives a Secure Score and prioritized remediation list. Also provides threat protection for specific workloads.</td><td>Does not monitor identity sign-ins; does not protect endpoints or documents directly</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Identity Protection vs. Defender for Endpoint — The Mirror Pair</h3>
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Dimension</th><th>Azure Identity Protection</th><th>Microsoft Defender for Endpoint</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Identity system</td><td>Entra ID (Azure AD) — cloud identities, federated users, B2B guests</td><td>On-premises Active Directory (AD DS) — domain accounts, Kerberos, LDAP</td></tr>
+          <tr><td class="row-label">Threat signals</td><td>Sign-in anomalies: impossible travel, anonymous IP, leaked password databases, unfamiliar location</td><td>Suspicious process behavior on endpoints, lateral movement between devices, pass-the-hash, credential dumping from domain controllers</td></tr>
+          <tr><td class="row-label">Response action</td><td>Block sign-in, force password reset, require MFA — enforced via Conditional Access policy</td><td>Isolate device from network, alert SOC team, run automated investigation, quarantine malicious files</td></tr>
+          <tr><td class="row-label">Exam trigger</td><td>"cloud identity," "Entra ID users," "risky sign-ins," "compromised Azure accounts"</td><td>"on-prem AD," "domain accounts," "device threats," "endpoint security," "Active Directory compromise"</td></tr>
+        </tbody>
+      </table></div>
+
+      <!-- ══ TOPIC 7: Network Security Layers ══ -->
+      <h3>Network Security — NSG, App Gateway &amp; Azure Firewall</h3>
+      <p>These three services all filter network traffic but at completely different scopes and OSI layers. Choosing the wrong one on an exam question usually comes down to confusing their scope.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Service</th><th>OSI Layer</th><th>Scope</th><th>Traffic type</th><th>Key capabilities</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label"><abbr title="Network Security Group">NSG</abbr></td><td>Layer 3–4 (IP + port)</td><td>Single subnet or individual NIC — one resource at a time</td><td>Any TCP/UDP traffic inbound or outbound</td><td>Allow/deny rules by source IP, destination IP, port, protocol. Free. Stateful. Applied per resource.</td></tr>
+          <tr><td class="row-label">Azure Application Gateway</td><td>Layer 7 (HTTP/HTTPS)</td><td>Backend pool of web servers (VMs, App Service, IPs)</td><td>HTTP and HTTPS only</td><td>URL-based routing (route /api/* to one farm, /static/* to another), SSL offload, <abbr title="Web Application Firewall">WAF</abbr> (blocks SQLi/XSS), cookie-based session affinity. Not a connectivity tool.</td></tr>
+          <tr><td class="row-label">Azure Firewall</td><td>Layer 3–7</td><td>Centralized hub — one firewall instance can protect many VNets via hub-spoke topology</td><td>Any TCP/UDP/ICMP; HTTPS with TLS inspection</td><td>FQDN filtering (allow/deny by domain name), threat intelligence feeds, network and application rules, forced tunneling, central logging via Monitor, Azure Firewall Manager for multi-policy management.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>NSG Default Rules — Why Same-VNet Traffic Flows Freely</h3>
+      <p>Every NSG ships with built-in rules at priority 65000–65500 that cannot be deleted. These defaults explain the exam question about same-VNet communication.</p>
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Priority</th><th>Rule name</th><th>Direction</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>65000</td><td>AllowVnetInBound</td><td>Inbound</td><td>Allow — all traffic from the VNet address space (any subnet in the same VNet) is permitted</td></tr>
+          <tr><td>65001</td><td>AllowAzureLoadBalancerInBound</td><td>Inbound</td><td>Allow — Azure load balancer health probe traffic</td></tr>
+          <tr><td>65500</td><td>DenyAllInBound</td><td>Inbound</td><td>Deny — everything else inbound is blocked unless a custom rule at lower priority number allows it</td></tr>
+          <tr><td>65000</td><td>AllowVnetOutBound</td><td>Outbound</td><td>Allow — VMs can reach other resources in the same VNet by default</td></tr>
+          <tr><td>65001</td><td>AllowInternetOutBound</td><td>Outbound</td><td>Allow — VMs can reach the internet outbound by default</td></tr>
+          <tr><td>65500</td><td>DenyAllOutBound</td><td>Outbound</td><td>Deny — everything else outbound is blocked unless a custom rule permits it</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">Why VMs in Different Subnets of the Same VNet Can Communicate</div>
+        The AllowVnetInBound default rule (priority 65000) matches the VirtualNetwork service tag — which represents the entire address space of the VNet, including all of its subnets. So VM in Subnet-A can reach VM in Subnet-B by default because Subnet-B falls within the VNet address space that AllowVnetInBound permits. To block this, you would add a custom Deny rule at a priority number lower than 65000 (e.g., 500) targeting the specific subnet CIDR. VMs in a different VNet are NOT covered by this default rule because they are outside the VNet address space — hence they require explicit VNet Peering.
+      </div>
+
+      <!-- ══ TOPIC 8: Automation Services ══ -->
+      <h3>Automation Services — Full Comparison</h3>
+      <p>Five services automate things in Azure. The discriminators are: <strong>who is the user</strong>, <strong>what gets automated</strong>, and <strong>what triggers it</strong>.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Service</th><th>Who uses it</th><th>What gets automated</th><th>How it is built</th><th>Billing model</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Azure Functions</td><td>Developers</td><td>Custom application code — any logic expressible in C#, JavaScript, Python, Java, PowerShell, etc.</td><td>Write code; deploy as function app; triggered by HTTP, timer, queue message, blob creation, Event Grid event, etc.</td><td>Consumption: per execution + per GB-second. Premium: warm instances, no cold start, VNet integration.</td></tr>
+          <tr><td class="row-label">Azure Logic Apps</td><td>Developers and IT professionals</td><td>Multi-step workflows connecting systems via connectors — ERP integrations, data transformations, approval flows</td><td>Visual designer + 400+ connectors (SAP, Salesforce, SharePoint, SQL, Twitter). Also supports code view for complex expressions.</td><td>Per action execution and per connector call.</td></tr>
+          <tr><td class="row-label">Power Automate</td><td>Business users, citizen developers</td><td>Business process automation — approvals, notifications, data entry between Office 365 apps, Dynamics, SharePoint</td><td>No-code GUI; 400+ templates for common flows; Office 365 ecosystem integration; SharePoint, Teams, Outlook native</td><td>Microsoft 365 license or standalone Power Automate license per user.</td></tr>
+          <tr><td class="row-label">Azure Automation</td><td>IT operations teams</td><td>Infrastructure management — VM start/stop, OS patching, config management, <strong>responding to Azure Monitor alerts with remediation scripts</strong></td><td>PowerShell or Python runbooks; Desired State Configuration (DSC) for server config; Update Management for OS patch orchestration across Azure and on-prem VMs</td><td>Per runbook job runtime minute; free tier for basic usage.</td></tr>
+          <tr><td class="row-label">Azure WebJobs</td><td>Developers already using App Service</td><td>Background tasks that run alongside an App Service web app — file processing, queue polling, cleanup, report generation</td><td>Script or executable uploaded to an App Service app; runs continuously or triggered; shares App Service plan resources</td><td>No separate cost — runs on the App Service plan already purchased.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">The Monitor Alert to Azure Automation Connection</div>
+        Azure Monitor Alerts trigger Action Groups, which can: send email/SMS, call a webhook, post to a Teams channel, trigger a Logic App, or <strong>invoke an Azure Automation runbook</strong>. When a question says "when a CPU threshold is breached, automatically scale down unused VMs" or "when a security alert fires, automatically isolate the affected resource" — the answer is Azure Automation via runbook. Power Automate does not have native Azure Monitor alert integration and is not designed for IT infrastructure remediation tasks.
+      </div>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Scenario</th><th>Service</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Automate nightly VM shutdown across 200 VMs on a schedule</td><td>Azure Automation</td><td>IT operations runbook; scheduled; manages Azure infrastructure</td></tr>
+          <tr><td>When a Monitor alert fires for high CPU, restart the affected service automatically</td><td>Azure Automation</td><td>Alert action group can invoke a runbook; infrastructure remediation</td></tr>
+          <tr><td>When a Salesforce opportunity closes, create a SharePoint record and notify Teams</td><td>Power Automate</td><td>Business workflow between SaaS apps; no-code; citizen developer scenario</td></tr>
+          <tr><td>Process each uploaded image in a storage container, generate a thumbnail, store result</td><td>Azure Functions</td><td>Event-driven (blob created trigger); developer writes transformation code; per-execution billing</td></tr>
+          <tr><td>Orchestrate an order fulfillment workflow: validate payment, charge card, ship, notify customer, archive</td><td>Logic Apps</td><td>Multi-step workflow with multiple external system connectors; visual designer for complex integration</td></tr>
+          <tr><td>Run a CPU-intensive batch task in the background on the same server as your web app</td><td>WebJobs</td><td>Tied to App Service; shares existing compute; zero additional cost</td></tr>
+        </tbody>
+      </table></div>
+
+      <!-- ══ TOPIC 9: DDoS Protection ══ -->
+      <h3>Azure DDoS Protection — Both Tiers Explained</h3>
+      <p>A <abbr title="Distributed Denial of Service">DDoS</abbr> attack overwhelms a service with traffic from thousands of compromised systems, exhausting bandwidth or connection capacity and making the service unavailable to legitimate users. Azure defends against this at two levels.</p>
+
+      <div class="cmp-wrap"><table class="cmp-table">
+        <thead><tr><th>Dimension</th><th>DDoS Basic (Infrastructure Protection)</th><th>DDoS Standard (Network Protection)</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Cost</td><td>Free — included automatically for all Azure customers</td><td>Paid — monthly fee per protected public IP address + data overage</td></tr>
+          <tr><td class="row-label">Enablement</td><td>Automatic — no configuration needed, always on for Azure infrastructure</td><td>Must be explicitly created and associated with a Virtual Network</td></tr>
+          <tr><td class="row-label">Mitigation approach</td><td>Generic volumetric attack mitigation at the Azure network edge; designed to protect the Azure platform overall</td><td>Adaptive tuning — learns your application's normal traffic pattern using machine learning, then reacts precisely to deviations specific to your public IPs</td></tr>
+          <tr><td class="row-label">Attack telemetry</td><td>No per-customer attack metrics — you cannot see if an attack was mitigated</td><td>Real-time attack metrics in Azure Monitor, per-public-IP mitigation logs, post-attack summaries and reports</td></tr>
+          <tr><td class="row-label">Financial SLA</td><td>None — best-effort only</td><td>Financially backed SLA for mitigation; Azure credits for scale-out costs during an attack</td></tr>
+          <tr><td class="row-label">DDoS Rapid Response</td><td>No dedicated support team</td><td>Access to Microsoft DDoS Rapid Response (DRR) team during active attacks</td></tr>
+          <tr><td class="row-label">Compliance suitability</td><td>Insufficient for regulatory requirements that mandate documented DDoS SLA</td><td>Meets compliance requirements for HIPAA, PCI DSS, and other frameworks requiring DDoS protection documentation</td></tr>
+        </tbody>
+      </table></div>
+
+      <!-- ══ SCENARIO KEYWORD CHEAT SHEET ══ -->
+      <h3>Scenario Keyword Cheat Sheet</h3>
+      <p class="day-tip">If you see these keywords in a question stem, they strongly signal the answer shown. Scan this as a final pass before your exam.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Scenario Keyword</th><th>Answer</th></tr></thead>
+          <tbody>
+            <tr><td>"Serverless," "per execution," "on-demand code"</td><td>Azure Functions</td></tr>
+            <tr><td>"Low-code," "citizen developer," "Salesforce/SAP connectors"</td><td>Power Automate</td></tr>
+            <tr><td>"Visual workflow," "developer automation with connectors"</td><td>Logic Apps</td></tr>
+            <tr><td>"IT runbook," "scheduled script," "respond to Monitor alert"</td><td>Azure Automation</td></tr>
+            <tr><td>"Background task tied to App Service"</td><td>WebJobs</td></tr>
+            <tr><td>"Host web/mobile/API app," "managed platform"</td><td>App Service (PaaS)</td></tr>
+            <tr><td>"App performance," "response times," "exceptions," "microservices perf"</td><td>App Insights</td></tr>
+            <tr><td>"Infrastructure health," "VM alerts," "service availability"</td><td>Azure Monitor</td></tr>
+            <tr><td>"Query logs," "central log store," "KQL," "correlate events across resources"</td><td>Log Analytics</td></tr>
+            <tr><td>"Compliance baselines," "HIPAA/PCI," "security posture," "AKS recommendations"</td><td>Defender for Cloud</td></tr>
+            <tr><td>"Big data," "analytics pipelines," "data science storage," "Spark," "Synapse"</td><td>Azure Data Lake Gen2</td></tr>
+            <tr><td>"Cost/optimization recommendations"</td><td>Azure Advisor</td></tr>
+            <tr><td>"Protect documents wherever they travel," "sensitivity labels," "data classification"</td><td>Microsoft Purview</td></tr>
+            <tr><td>"Risky sign-ins," "compromised cloud identities," "Entra ID threats"</td><td>Azure Identity Protection</td></tr>
+            <tr><td>"Detect threats," "SIEM," "security events," "attack patterns across org"</td><td>Microsoft Sentinel</td></tr>
+            <tr><td>"Private dedicated connection to Azure, low latency, compliance"</td><td>ExpressRoute</td></tr>
+            <tr><td>"Cheap hybrid connection over internet"</td><td>Site-to-Site VPN</td></tr>
+            <tr><td>"Enforce rules on existing resources," "ongoing compliance enforcement"</td><td>Azure Policy</td></tr>
+            <tr><td>"Nobody can delete or modify this," "prevent even admins from deleting"</td><td>Resource Locks</td></tr>
+            <tr><td>"Repeatable full environment deployment," "new subscription setup"</td><td>Azure Blueprints</td></tr>
+            <tr><td>"Protect against datacenter failure," "99.99%"</td><td>Availability Zone</td></tr>
+            <tr><td>"Protect against rack/update-domain failure," "99.95%"</td><td>Availability Set</td></tr>
+            <tr><td>"Automatically scales," "pay only when needed," "demand spikes"</td><td>Elasticity (VM Scale Sets / Azure Functions)</td></tr>
+            <tr><td>"Can scale up/out," "designed to handle growth"</td><td>Scalability</td></tr>
+            <tr><td>"On-prem Hyper-V, org-owned," "own datacenter"</td><td>Private Cloud</td></tr>
+            <tr><td>"Mix of on-prem and public cloud," "ExpressRoute + Azure"</td><td>Hybrid Cloud</td></tr>
+            <tr><td>"Office 365, complete end-user app," "just use the application"</td><td>SaaS</td></tr>
+            <tr><td>"Managed platform, developer deploys code or data to it"</td><td>PaaS</td></tr>
+            <tr><td>"VMs in same VNet, different subnets — can they talk?"</td><td>YES — AllowVnetInBound default rule permits it</td></tr>
+            <tr><td>"VMs in different VNets — can they talk?"</td><td>NO — require VNet Peering</td></tr>
+            <tr><td>"DDoS Basic tier"</td><td>Free, always-on, automatic, no config required</td></tr>
+            <tr><td>"DDoS Standard tier"</td><td>Paid, adaptive tuning, SLA-backed, attack analytics, DRR team</td></tr>
+            <tr><td>"Inbound web traffic load balancer with WAF"</td><td>Application Gateway</td></tr>
+            <tr><td>"Multi-VNet centralized traffic inspection," "15 VNets"</td><td>Azure Firewall</td></tr>
+            <tr><td>"NSG for single VM HTTP/S exposure"</td><td>NSG inbound rule — correct and sufficient answer</td></tr>
+            <tr><td>"Protect on-prem AD identities"</td><td>Microsoft Defender for Endpoint</td></tr>
+            <tr><td>"Protect cloud (Entra ID) identities," "risky sign-ins"</td><td>Azure Identity Protection</td></tr>
+            <tr><td>"Verify regulatory compliance," "HIPAA/PCI posture"</td><td>Microsoft Defender for Cloud</td></tr>
+            <tr><td>"Hierarchical namespace," "rename petabytes instantly," "HDFS-compatible," "Spark"</td><td>Azure Data Lake Storage Gen2</td></tr>
+            <tr><td>"File share," "SMB," "replace file server," "mountable drive"</td><td>Azure Files</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /Day 6 -->
 
   </div><!-- /cram-day-group -->
 
