@@ -5,7 +5,7 @@
 
   <h3>LAN Topologies</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--comparison">
       <thead>
         <tr><th>Topology</th><th>Description</th><th>Advantages</th><th>Disadvantages</th></tr>
       </thead>
@@ -206,7 +206,7 @@
 
   <h3>WAN Topology Types</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--comparison">
       <thead>
         <tr><th>WAN Type</th><th>Description</th><th>Use Case</th></tr>
       </thead>
@@ -222,7 +222,7 @@
 
   <h3>Network Types by Scope</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Type</th><th>Scope</th><th>Examples</th></tr>
       </thead>
@@ -237,6 +237,11 @@
         <tr><td><strong>SOHO</strong> (Small Office / Home Office)</td><td>Small local network</td><td>Home router with switch+WAP, small business</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">KEY DISTINCTION</div>
+    <strong>What breaks when one device fails?</strong> <strong>Bus:</strong> a single break splits the network in two. <strong>Ring:</strong> one failed node breaks the whole loop (unless dual-ring). <strong>Star:</strong> only the failed node loses connectivity — the rest keep working. This is why star is the dominant LAN topology.
   </div>
 
   <div class="callout callout-amber">

@@ -1,10 +1,10 @@
 <div class="obj-section" id="obj-1-2">
   <div class="section-eyebrow">Objective 1.2</div>
   <h2>Networking Devices</h2>
-  <p>Know which device does what — and critically, which OSI layer it operates at.</p>
+  <p>Know which device does what — and critically, which OSI layer it operates at. <span class="exam-star-note"><span class="exam-star">★</span> = highest exam priority.</span></p>
 
   <div class="table-wrap">
-    <table>
+    <table class="table--comparison">
       <thead>
         <tr><th>Device</th><th>OSI Layer</th><th>What It Does</th><th>Key Detail</th></tr>
       </thead>
@@ -14,12 +14,12 @@
           <td>Repeats signal to ALL ports (one collision domain)</td>
           <td>Legacy — causes collisions. Replaced by switches.</td>
         </tr>
-        <tr>
+        <tr data-exam-weight="high">
           <td><strong>Switch</strong></td><td>L2</td>
           <td>Forwards frames based on MAC address table</td>
           <td>Each port = separate collision domain. All in same broadcast domain unless VLANs.</td>
         </tr>
-        <tr>
+        <tr data-exam-weight="high">
           <td><strong>Router</strong></td><td>L3</td>
           <td>Routes packets between networks using IP addresses</td>
           <td>Separates broadcast domains. Maintains routing table. Gateway between networks.</td>
@@ -34,7 +34,7 @@
           <td>Converts wired Ethernet to wireless (802.11)</td>
           <td>Not a router. Just an access point unless it's a SOHO router-AP combo.</td>
         </tr>
-        <tr>
+        <tr data-exam-weight="high">
           <td><strong>Firewall</strong></td><td>L3–L7</td>
           <td>Filters traffic based on rules (ACLs)</td>
           <td>Packet filter (L3/4), Stateful (L4), NGFW (L7). Know all three types.</td>
@@ -82,7 +82,7 @@
 
   <h3>Firewall Types</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--comparison">
       <thead>
         <tr><th>Type</th><th>OSI Layer</th><th>Capability</th></tr>
       </thead>

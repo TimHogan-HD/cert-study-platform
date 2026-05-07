@@ -1,11 +1,48 @@
 <div class="obj-section" id="obj-1-4">
   <div class="section-eyebrow">Objective 1.4</div>
   <h2>Ports &amp; Protocols</h2>
-  <p>Memorize the port table. You <em>will</em> see port number questions on the exam. Focus especially on the ones with non-obvious transports or common confusions.</p>
+  <p>Memorize the port table. You <em>will</em> see port number questions on the exam. Focus especially on the ones with non-obvious transports or common confusions. <span class="exam-star-note"><span class="exam-star">★</span> = highest exam priority.</span></p>
+
+  <div class="concept-visual">
+    <div class="concept-visual-title">TCP 3-Way Handshake</div>
+    <svg viewBox="0 0 520 200" width="520" height="200" font-family="'SF Mono','Fira Code',monospace" font-size="13" xmlns="http://www.w3.org/2000/svg">
+      <style>text { fill: var(--text); }</style>
+      <!-- Column headers -->
+      <text x="90" y="22" text-anchor="middle" font-weight="700" style="fill: var(--blue)">CLIENT</text>
+      <text x="430" y="22" text-anchor="middle" font-weight="700" style="fill: var(--green)">SERVER</text>
+      <!-- Vertical lifelines -->
+      <line x1="90" y1="30" x2="90" y2="190" style="stroke: var(--hint)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <line x1="430" y1="30" x2="430" y2="190" style="stroke: var(--hint)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <!-- Step 1: SYN -->
+      <line x1="100" y1="65" x2="420" y2="65" style="stroke: var(--blue)" stroke-width="2" marker-end="url(#arr-blue)"/>
+      <text x="255" y="58" text-anchor="middle" style="fill: var(--blue)" font-size="12">SYN</text>
+      <text x="130" y="80" style="fill: var(--muted)" font-size="10">seq=0</text>
+      <!-- Step 2: SYN-ACK -->
+      <line x1="420" y1="110" x2="100" y2="110" style="stroke: var(--green)" stroke-width="2" marker-end="url(#arr-green)"/>
+      <text x="255" y="103" text-anchor="middle" style="fill: var(--green)" font-size="12">SYN-ACK</text>
+      <text x="340" y="125" style="fill: var(--muted)" font-size="10">seq=0, ack=1</text>
+      <!-- Step 3: ACK -->
+      <line x1="100" y1="155" x2="420" y2="155" style="stroke: var(--amber)" stroke-width="2" marker-end="url(#arr-amber)"/>
+      <text x="255" y="148" text-anchor="middle" style="fill: var(--amber)" font-size="12">ACK</text>
+      <text x="130" y="170" style="fill: var(--muted)" font-size="10">ack=1</text>
+      <!-- Arrowhead markers -->
+      <defs>
+        <marker id="arr-blue" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" style="fill: var(--blue)"/>
+        </marker>
+        <marker id="arr-green" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" style="fill: var(--green)"/>
+        </marker>
+        <marker id="arr-amber" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" style="fill: var(--amber)"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
 
   <h3>TCP vs UDP</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--comparison">
       <thead>
         <tr><th>Feature</th><th>TCP</th><th>UDP</th></tr>
       </thead>
@@ -24,18 +61,18 @@
 
     <div class="port-group" data-group="web">
       <div class="port-group-title">Web Traffic</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>80</td><td><abbr title="HyperText Transfer Protocol">HTTP</abbr></td><td>TCP</td><td>Cleartext web traffic. Replaced by HTTPS for secure sites.</td></tr>
-          <tr><td>443</td><td><abbr title="HTTP Secure — HTTP over TLS/SSL">HTTPS</abbr></td><td>TCP</td><td>Encrypted web traffic. Standard for all modern websites.</td></tr>
+          <tr data-exam-weight="high"><td>443</td><td><abbr title="HTTP Secure — HTTP over TLS/SSL">HTTPS</abbr></td><td>TCP</td><td>Encrypted web traffic. Standard for all modern websites.</td></tr>
         </tbody>
       </table></div>
     </div>
 
     <div class="port-group" data-group="file">
       <div class="port-group-title">File Transfer</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>20</td><td><abbr title="File Transfer Protocol — data channel">FTP</abbr> Data</td><td>TCP</td><td>Active mode data channel. Port 21 = control. ⚠ Two ports!</td></tr>
@@ -48,7 +85,7 @@
 
     <div class="port-group" data-group="email">
       <div class="port-group-title">Email</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>25</td><td><abbr title="Simple Mail Transfer Protocol">SMTP</abbr></td><td>TCP</td><td>Server-to-server email relay. Not for authenticated client submission.</td></tr>
@@ -64,22 +101,22 @@
 
     <div class="port-group" data-group="remote">
       <div class="port-group-title">Remote Access</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>22</td><td><abbr title="Secure Shell — encrypted remote access">SSH</abbr></td><td>TCP</td><td>Encrypted remote shell access. Replaces Telnet (port 23).</td></tr>
+          <tr data-exam-weight="high"><td>22</td><td><abbr title="Secure Shell — encrypted remote access">SSH</abbr></td><td>TCP</td><td>Encrypted remote shell access. Replaces Telnet (port 23).</td></tr>
           <tr><td>23</td><td>Telnet</td><td>TCP</td><td>Cleartext remote access — insecure, legacy. Replaced by SSH.</td></tr>
-          <tr><td>3389</td><td><abbr title="Remote Desktop Protocol — Windows GUI remote access">RDP</abbr></td><td>TCP (+UDP)</td><td>Windows remote desktop. High-value attack target — should be VPN-gated.</td></tr>
+          <tr data-exam-weight="high"><td>3389</td><td><abbr title="Remote Desktop Protocol — Windows GUI remote access">RDP</abbr></td><td>TCP (+UDP)</td><td>Windows remote desktop. High-value attack target — should be VPN-gated.</td></tr>
         </tbody>
       </table></div>
     </div>
 
     <div class="port-group" data-group="infra">
       <div class="port-group-title">Infrastructure Services</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>53</td><td><abbr title="Domain Name System — resolves hostnames to IP addresses">DNS</abbr></td><td>UDP + TCP</td><td>UDP for queries (≤512 bytes). TCP for zone transfers and large responses. <strong>Both matter!</strong></td></tr>
+          <tr data-exam-weight="high"><td>53</td><td><abbr title="Domain Name System — resolves hostnames to IP addresses">DNS</abbr></td><td>UDP + TCP</td><td>UDP for queries (≤512 bytes). TCP for zone transfers and large responses. <strong>Both matter!</strong></td></tr>
           <tr><td>67</td><td><abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> Server</td><td>UDP</td><td>Server listens on 67. Client sends Discover from port 68.</td></tr>
           <tr><td>68</td><td>DHCP Client</td><td>UDP</td><td>Client source port during <abbr title="Discover-Offer-Request-Acknowledge">DORA</abbr> process.</td></tr>
           <tr><td>123</td><td><abbr title="Network Time Protocol — time synchronization">NTP</abbr></td><td>UDP</td><td>Time synchronization. Critical for Kerberos auth — max 5-minute clock skew.</td></tr>
@@ -90,7 +127,7 @@
 
     <div class="port-group" data-group="auth">
       <div class="port-group-title">Directory Services &amp; Authentication</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>88</td><td>Kerberos</td><td>TCP/UDP</td><td>Authentication protocol in Active Directory. Requires NTP sync — 5-minute clock skew max.</td></tr>
@@ -105,7 +142,7 @@
 
     <div class="port-group" data-group="mgmt">
       <div class="port-group-title">Network Management &amp; Monitoring</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>161</td><td><abbr title="Simple Network Management Protocol — manager polls agents">SNMP</abbr> Poll</td><td>UDP</td><td>Manager queries agents for device stats (CPU, interfaces, errors).</td></tr>
@@ -116,7 +153,7 @@
 
     <div class="port-group" data-group="voip">
       <div class="port-group-title">VoIP &amp; Conferencing</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>5060</td><td><abbr title="Session Initiation Protocol — VoIP call setup and teardown">SIP</abbr></td><td>TCP/UDP</td><td>VoIP call setup and teardown. Media (voice) travels on separate <abbr title="Real-time Transport Protocol">RTP</abbr> ports.</td></tr>
@@ -128,7 +165,7 @@
 
     <div class="port-group" data-group="routing">
       <div class="port-group-title">Routing Protocols</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>179</td><td><abbr title="Border Gateway Protocol — internet routing between autonomous systems">BGP</abbr></td><td>TCP</td><td>Internet routing between <abbr title="Autonomous Systems — independently managed routing domains">ASes</abbr>. Uses TCP for reliability.</td></tr>
@@ -139,7 +176,7 @@
 
     <div class="port-group" data-group="db">
       <div class="port-group-title">Database</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>1433</td><td>MS SQL</td><td>TCP</td><td>Microsoft SQL Server. Commonly targeted — often blocked at perimeter firewall.</td></tr>

@@ -3,6 +3,35 @@
   <h2>Switching &amp; VLANs</h2>
   <p>VLANs and STP are among the most-tested topics in Domain 2. Expect both MCQ and PBQ coverage.</p>
 
+  <div class="concept-visual">
+    <div class="concept-visual-title">VLAN Segmentation</div>
+    <svg viewBox="0 0 520 220" width="520" height="220" font-family="system-ui,sans-serif" font-size="13" xmlns="http://www.w3.org/2000/svg">
+      <style>text { fill: var(--text); }</style>
+      <!-- Router box -->
+      <rect x="185" y="8" width="150" height="38" rx="6" style="fill: var(--blue-bg); stroke: var(--blue)" stroke-width="1.5"/>
+      <text x="260" y="31" text-anchor="middle" font-weight="700" style="fill: var(--blue)">Router</text>
+      <!-- Trunk link -->
+      <line x1="260" y1="46" x2="260" y2="78" style="stroke: var(--muted)" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="275" y="67" style="fill: var(--muted)" font-size="10">Trunk (802.1Q)</text>
+      <!-- Switch box -->
+      <rect x="185" y="78" width="150" height="38" rx="6" style="fill: var(--green-bg); stroke: var(--green)" stroke-width="1.5"/>
+      <text x="260" y="101" text-anchor="middle" font-weight="700" style="fill: var(--green)">Switch</text>
+      <!-- VLAN 10 box -->
+      <rect x="20" y="155" width="175" height="56" rx="8" style="fill: var(--blue-bg); stroke: var(--blue)" stroke-width="1.5"/>
+      <text x="108" y="178" text-anchor="middle" font-weight="700" style="fill: var(--blue)">VLAN 10 — Sales</text>
+      <text x="108" y="198" text-anchor="middle" style="fill: var(--muted)" font-size="11">PC1, PC2, PC3</text>
+      <!-- VLAN 20 box -->
+      <rect x="325" y="155" width="175" height="56" rx="8" style="fill: var(--purple-bg); stroke: var(--purple)" stroke-width="1.5"/>
+      <text x="413" y="178" text-anchor="middle" font-weight="700" style="fill: var(--purple)">VLAN 20 — Engineering</text>
+      <text x="413" y="198" text-anchor="middle" style="fill: var(--muted)" font-size="11">PC4, PC5, PC6</text>
+      <!-- Lines from switch to VLANs -->
+      <line x1="220" y1="116" x2="150" y2="155" style="stroke: var(--blue)" stroke-width="1.5"/>
+      <line x1="300" y1="116" x2="375" y2="155" style="stroke: var(--purple)" stroke-width="1.5"/>
+      <text x="155" y="142" style="fill: var(--blue)" font-size="10">Access</text>
+      <text x="315" y="142" style="fill: var(--purple)" font-size="10">Access</text>
+    </svg>
+  </div>
+
   <h3>Switch MAC Address Table Operation</h3>
   <ol>
     <li>Switch receives a frame — records source MAC + incoming port in the MAC address table.</li>
@@ -15,7 +44,7 @@
   <h3>VLAN Concepts</h3>
   <p>VLANs create separate broadcast domains on a single physical switch. Benefits: security isolation, traffic management, reduced broadcast domains.</p>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Port Type</th><th>Description</th><th>Configuration</th></tr>
       </thead>
@@ -44,6 +73,11 @@
     </table>
   </div>
 
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>Default VLAN = VLAN 1</strong> (cannot be deleted on Cisco IOS). <strong>Native VLAN</strong> on a trunk carries untagged frames — must match on both ends or you get VLAN hopping risk. <strong>Voice VLAN</strong> rides alongside data on access ports for IP phones (typically tagged with 802.1p priority).
+  </div>
+
   <h3>802.1Q Trunk Tagging</h3>
   <p>802.1Q adds a 4-byte tag inside the Ethernet frame after the source MAC address:</p>
   <ul>
@@ -54,7 +88,7 @@
 
   <h3>Inter-VLAN Routing</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--comparison">
       <thead>
         <tr><th>Method</th><th>Description</th><th>Pros/Cons</th></tr>
       </thead>
@@ -78,7 +112,7 @@
 
   <h4>STP Port States (802.1D)</h4>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>State</th><th>Duration</th><th>Sends BPDUs</th><th>Learns MACs</th><th>Forwards Data</th></tr>
       </thead>
@@ -99,7 +133,7 @@
 
   <h4>STP Port Roles</h4>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Role</th><th>Description</th><th>State</th></tr>
       </thead>
@@ -114,7 +148,7 @@
 
   <h4>RSTP (802.1w) — Rapid Spanning Tree</h4>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Feature</th><th>STP (802.1D)</th><th>RSTP (802.1w)</th></tr>
       </thead>
@@ -129,7 +163,7 @@
 
   <h3>STP Security Features</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Feature</th><th>Purpose</th><th>Applied Where</th></tr>
       </thead>

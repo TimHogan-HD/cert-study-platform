@@ -1,11 +1,11 @@
 <div class="obj-section" id="obj-1-6">
   <div class="section-eyebrow">Objective 1.6</div>
   <h2>Network Services</h2>
-  <p>Core infrastructure services that every network depends on: DHCP, DNS, NTP, and network architectures. (Deep coverage of DHCP/DNS operational details is in Domain 3.)</p>
+  <p>Core infrastructure services that every network depends on: <code>DHCP</code>, <code>DNS</code>, <code>NTP</code>, and network architectures. (Deep coverage of DHCP/DNS operational details is in Domain 3.)</p>
 
   <h3>Corporate &amp; Data Center Network Architecture</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--comparison">
       <thead>
         <tr><th>Architecture</th><th>Tiers</th><th>Description</th></tr>
       </thead>
@@ -34,9 +34,14 @@
     </table>
   </div>
 
+
+  <div class="callout callout-blue">
+    <div class="callout-title">KEY DISTINCTION</div>
+    <strong>DHCP lease</strong> = address assigned automatically for a finite duration; the client can end up with a different address next time. <strong>Static (reservation)</strong> = a specific MAC always gets the same IP from the DHCP pool. <strong>Manual static</strong> = configured directly on the host, no DHCP involvement at all. Reservations are the right answer for printers and servers that need DNS-stable addresses.
+  </div>
   <h3>Cloud Concepts &amp; Connectivity</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Model</th><th>What Customer Manages</th><th>Examples</th></tr>
       </thead>
@@ -117,7 +122,7 @@
 
   <h3>Cloud Deployment Models</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Model</th><th>Description</th></tr>
       </thead>

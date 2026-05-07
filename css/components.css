@@ -67,6 +67,30 @@ tr:last-child td { border-bottom: none; }
 tbody tr:hover { background: var(--surface2); }
 td code { font-size: 0.8rem; }
 
+/* Reference table — ports, cable specs, standards: compact + monospace values */
+.table--reference td { font-size: 0.82rem; padding-top: 0.45rem; padding-bottom: 0.45rem; }
+.table--reference td:first-child { font-family: 'SF Mono','Fira Code','Cascadia Code',monospace; }
+
+/* Comparison table — conceptual contrast: accented headers, bold first col */
+.table--comparison thead th { color: var(--blue); border-bottom-color: var(--blue-border); }
+.table--comparison tbody td:first-child { font-weight: 600; min-width: 130px; }
+
+/* High-exam-weight row marker — subtle left amber accent + star on first cell */
+tr[data-exam-weight="high"] td:first-child {
+  border-left: 3px solid var(--amber);
+  padding-left: calc(1rem - 3px);
+}
+tr[data-exam-weight="high"] td:first-child::before {
+  content: "★";
+  color: var(--amber);
+  font-size: 0.6rem;
+  margin-right: 0.3rem;
+  vertical-align: middle;
+  line-height: 1;
+}
+.exam-star { color: var(--amber); font-size: 0.75rem; vertical-align: middle; }
+.exam-star-note { font-size: 0.82rem; color: var(--muted); }
+
 /* ---------- Section Headers --------------------------------- */
 .section-eyebrow {
   font-size: 0.72rem;
@@ -174,10 +198,10 @@ td code { font-size: 0.8rem; }
 .domain-bar-track {
   flex: 1;
   height: 24px;
-  background: var(--surface2);
+  background: var(--surface3);
   border-radius: 4px;
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border2);
 }
 .domain-bar-fill {
   height: 100%;
@@ -1095,6 +1119,29 @@ td code { font-size: 0.8rem; }
 }
 .cert-home-card.disabled .cert-home-cta { color: var(--hint); }
 
+/* ---------- Concept visuals -------------------------------- */
+.concept-visual {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  margin: 0.75rem 0 1.25rem;
+  overflow-x: auto;
+}
+.concept-visual-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+.concept-visual svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 /* ---------- Domain sticky sub-nav bar ---------------------- */
 #domain-subnav-bar {
   position: sticky;
@@ -1114,6 +1161,8 @@ td code { font-size: 0.8rem; }
   margin-inline: -2.5rem;
   margin-bottom: 1rem;
   scroll-snap-type: x mandatory;
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
 }
 @media (max-width: 768px) {
   #domain-subnav-bar { margin-inline: -1rem; }

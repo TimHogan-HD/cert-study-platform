@@ -7,7 +7,7 @@
   <p>An <strong>IPv4 address</strong> is a 32-bit number that uniquely identifies a device on a network. It is written as four <strong>octets</strong> (8-bit groups) in dotted-decimal notation — for example, <code>192.168.1.50</code>. Each octet ranges from 0 to 255.</p>
 
   <div class="ip-explainer">
-    <p class="ip-explainer-caption">Example: <strong>192.168.1.50 / 24</strong> — the first 24 bits are the network portion, the last 8 bits are the host portion.</p>
+    <p class="ip-explainer-caption">Example: <code>192.168.1.50/24</code> — the first 24 bits are the network portion, the last 8 bits are the host portion.</p>
     <div class="ip-anatomy">
       <div class="ip-octet net-octet">
         <div class="ip-octet-value">192</div>
@@ -46,7 +46,7 @@
 
   <h3>IP Address Classes</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Class</th><th>First Octet Range</th><th>Default Mask</th><th>Private Ranges (RFC 1918)</th><th>Notes</th></tr>
       </thead>
@@ -62,7 +62,7 @@
 
   <h3>Special IPv4 Addresses</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Address / Range</th><th>Purpose</th></tr>
       </thead>
@@ -79,7 +79,7 @@
 
   <h3>CIDR Subnet Reference</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Prefix</th><th>Subnet Mask</th><th>Total Addresses</th><th>Usable Hosts</th><th>Common Use</th></tr>
       </thead>
@@ -99,6 +99,11 @@
     </table>
   </div>
 
+
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>/24</strong> = 256 addresses, 254 usable hosts (subtract network + broadcast). <strong>/30</strong> = 4 addresses, 2 usable hosts — the standard choice for point-to-point WAN links. <strong>/31</strong> = 2 addresses, both usable on point-to-point links per RFC 3021. <strong>/32</strong> = a single host route.
+  </div>
   <h3>Interactive Subnetting Calculator</h3>
   <div class="subnet-calc" id="subnet-calc">
     <form id="subnet-form">

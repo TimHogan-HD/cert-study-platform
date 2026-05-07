@@ -1,10 +1,11 @@
 <div class="obj-section" id="obj-1-5">
   <div class="section-eyebrow">Objective 1.5</div>
   <h2>Cables &amp; Media Types</h2>
+  <p class="section-sub exam-star-note"><span class="exam-star">★</span> = highest exam priority row.</p>
 
   <h3>Copper Twisted Pair (UTP/STP)</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Category</th><th>Max Speed</th><th>Max Distance</th><th>Use Case</th><th>Notes</th></tr>
       </thead>
@@ -12,16 +13,21 @@
         <tr><td>Cat 5</td><td>100 Mbps</td><td>100m</td><td>Legacy FastEthernet</td><td>Obsolete. 4 pairs, no longer sold.</td></tr>
         <tr><td>Cat 5e</td><td>1 Gbps</td><td>100m</td><td>GbE for older installs</td><td>"e" = enhanced, reduced crosstalk vs Cat5.</td></tr>
         <tr><td>Cat 6</td><td>1 Gbps (100m) / 10 Gbps (55m)</td><td>55m @ 10G</td><td>GbE &amp; short 10GbE runs</td><td>Thicker, spline separator, strict spec.</td></tr>
-        <tr><td>Cat 6A</td><td>10 Gbps</td><td>100m</td><td>10GbE full runs</td><td>"A" = augmented. Larger diameter, often STP. <strong>Recommended for new installs.</strong></td></tr>
+        <tr data-exam-weight="high"><td>Cat 6A</td><td>10 Gbps</td><td>100m</td><td>10GbE full runs</td><td>"A" = augmented. Larger diameter, often STP. <strong>Recommended for new installs.</strong></td></tr>
         <tr><td>Cat 7</td><td>10 Gbps</td><td>100m</td><td>Data center, proprietary</td><td>Not TIA/EIA standard; uses GG45 or TERA connectors (not RJ45).</td></tr>
         <tr><td>Cat 8</td><td>25–40 Gbps</td><td>30m</td><td>Data center top-of-rack</td><td>Very short runs between servers and switches. Uses RJ45 or TERA.</td></tr>
       </tbody>
     </table>
   </div>
 
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>Cat 6A</strong> = 10 GbE up to the full 100m run. <strong>Cat 6</strong> = 10 GbE only to 55m. <strong>Cat 5e</strong> = 1 GbE max. If a question pairs "10 Gbps" with "100 meters", the answer is Cat 6A.
+  </div>
+
   <h3>Fiber Optic</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Type</th><th>Core Diameter</th><th>Light Source</th><th>Distance</th><th>Cost</th><th>Use Case</th></tr>
       </thead>
@@ -53,7 +59,7 @@
 
   <h3>Fiber Connector Types</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Connector</th><th>Type</th><th>Coupling</th><th>Notes</th></tr>
       </thead>
@@ -71,7 +77,7 @@
 
   <h3>Transceiver Types</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Transceiver</th><th>Speed</th><th>Use</th></tr>
       </thead>
@@ -87,7 +93,7 @@
 
   <h3>Cable Jacket Ratings</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Rating</th><th>Where Used</th><th>Key Property</th></tr>
       </thead>
