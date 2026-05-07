@@ -1119,6 +1119,29 @@ tr[data-exam-weight="high"] td:first-child::before {
 }
 .cert-home-card.disabled .cert-home-cta { color: var(--hint); }
 
+/* ---------- Concept visuals -------------------------------- */
+.concept-visual {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  margin: 0.75rem 0 1.25rem;
+  overflow-x: auto;
+}
+.concept-visual-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+.concept-visual svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 /* ---------- Domain sticky sub-nav bar ---------------------- */
 #domain-subnav-bar {
   position: sticky;
