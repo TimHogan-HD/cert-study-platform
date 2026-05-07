@@ -284,7 +284,7 @@
       </table></div>
       <div class="callout callout-blue">
         <div class="callout-title">How VNet Peering Works — and Why It Is Non-Transitive</div>
-        VNet Peering creates a direct, low-latency link between two VNets using Microsoft&#x27;s backbone network (not the public internet). Traffic between peered VNets is encrypted and does not traverse the internet. Peering is non-transitive because each peering is an independent configuration object — Azure does not automatically chain them. If VNet-A peers with VNet-B, and VNet-B peers with VNet-C, the routing table in VNet-A only knows about VNet-B&#x27;s address space. VNet-C is unknown to VNet-A. To enable A↔C communication, you must create a third peering explicitly between A and C. The alternative is to deploy a hub-spoke topology with Azure Firewall or a Network Virtual Appliance in the hub, which can route between spokes.
+        VNet Peering creates a direct, low-latency link between two VNets using Microsoft's backbone network (not the public internet). Traffic between peered VNets is encrypted and does not traverse the internet. Peering is non-transitive because each peering is an independent configuration object — Azure does not automatically chain them. If VNet-A peers with VNet-B, and VNet-B peers with VNet-C, the routing table in VNet-A only knows about VNet-B's address space. VNet-C is unknown to VNet-A. To enable A↔C communication, you must create a third peering explicitly between A and C. The alternative is to deploy a hub-spoke topology with Azure Firewall or a Network Virtual Appliance in the hub, which can route between spokes.
       </div>
       <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">VNet Peering ≠ connecting to PaaS</div><div class="trap-body">"Connect Azure SQL to a VNet" = Service Endpoint or Private Endpoint. VNet Peering only connects VNet to VNet.</div></div>
       <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">VNet Peering is non-transitive</div><div class="trap-body">A↔B and B↔C does NOT give A↔C. Each pair needs an explicit peering created.</div></div>
@@ -524,7 +524,7 @@
       </table></div>
 
       <h3>Monitoring Tools</h3>
-      <p>Azure&#x27;s monitoring stack is layered. Azure Monitor is the foundation that everything else sits on top of or feeds into. Understanding the relationships between services prevents confusing them on scenario questions.</p>
+      <p>Azure's monitoring stack is layered. Azure Monitor is the foundation that everything else sits on top of or feeds into. Understanding the relationships between services prevents confusing them on scenario questions.</p>
 
       <div class="callout callout-blue">
         <div class="callout-title">How the Monitoring Services Relate to Each Other</div>
@@ -1203,7 +1203,7 @@ Azure Data Lake      -- BIG DATA STORAGE: not a monitoring tool at all</pre>
         <tbody>
           <tr><td class="row-label">Cost</td><td>Free — included automatically for all Azure customers</td><td>Paid — monthly fee per protected public IP address + data overage</td></tr>
           <tr><td class="row-label">Enablement</td><td>Automatic — no configuration needed, always on for Azure infrastructure</td><td>Must be explicitly created and associated with a Virtual Network</td></tr>
-          <tr><td class="row-label">Mitigation approach</td><td>Generic volumetric attack mitigation at the Azure network edge; designed to protect the Azure platform overall</td><td>Adaptive tuning — learns your application&#x27;s normal traffic pattern using machine learning, then reacts precisely to deviations specific to your public IPs</td></tr>
+          <tr><td class="row-label">Mitigation approach</td><td>Generic volumetric attack mitigation at the Azure network edge; designed to protect the Azure platform overall</td><td>Adaptive tuning — learns your application's normal traffic pattern using machine learning, then reacts precisely to deviations specific to your public IPs</td></tr>
           <tr><td class="row-label">Attack telemetry</td><td>No per-customer attack metrics — you cannot see if an attack was mitigated</td><td>Real-time attack metrics in Azure Monitor, per-public-IP mitigation logs, post-attack summaries and reports</td></tr>
           <tr><td class="row-label">Financial SLA</td><td>None — best-effort only</td><td>Financially backed SLA for mitigation; Azure credits for scale-out costs during an attack</td></tr>
           <tr><td class="row-label">DDoS Rapid Response</td><td>No dedicated support team</td><td>Access to Microsoft DDoS Rapid Response (DRR) team during active attacks</td></tr>
