@@ -1,9 +1,9 @@
 <!-- ═══════════════════════════════════════════════════════════
-     AZ-900 PREREQUISITE CRAM — 5-Day study guide
+     AZ-900 PREREQUISITE CRAM — 6-Day study guide
      ═══════════════════════════════════════════════════════════ -->
 <div class="obj-section" id="az900-cram">
   <div class="section-eyebrow">Prerequisite Study</div>
-  <h2>AZ-900: Azure Fundamentals — 5-Day Cram</h2>
+  <h2>AZ-900: Azure Fundamentals — 6-Day Cram</h2>
   <p>AZ-900 is strongly recommended before AZ-104. Work through each day, then move to the AZ-104 exam overview below.</p>
 
   <div class="cram-day-group">
@@ -296,7 +296,7 @@
         <tbody>
           <tr><td class="row-label">What it does</td><td>Routes traffic from your subnet to the PaaS service over the Azure backbone, bypassing the public internet</td><td>Creates a private IP address in your VNet that maps to the PaaS service — the service gets a NIC inside your VNet</td></tr>
           <tr><td class="row-label">Public endpoint</td><td>Still exists — the PaaS service still has a public IP that anyone can potentially reach</td><td>Can be fully disabled — PaaS service becomes reachable only from inside the VNet</td></tr>
-          <tr><td class="row-label">Data exfiltration risk</td><td>Higher — service endpoint allows access to ANY instance of that service type (e.g., all Azure Storage accounts)</td><td>Lower — maps to a specific resource instance only</td></tr>
+          <tr><td class="row-label">Data exfiltration risk</td><td>Higher — the endpoint changes routing only; each target resource still requires its own VNet firewall rule. However, a VM in the subnet can reach any publicly accessible resource of that service type (e.g., a competitor's storage account), not just your own — there's no automatic restriction to your organization's resources</td><td>Lower — maps to one specific resource instance by private IP; other instances of the same service are not reachable through this endpoint</td></tr>
           <tr><td class="row-label">On-prem access</td><td>Does not extend to on-prem clients via VPN/ExpressRoute by default</td><td>Yes — on-prem clients reaching the VNet via VPN or ExpressRoute can access the PaaS service through the private IP</td></tr>
           <tr><td class="row-label">Cost</td><td>Free</td><td>Per-hour cost for the private endpoint resource + data processing fee</td></tr>
           <tr><td class="row-label">Use case</td><td>Simple, low-cost isolation when the public endpoint being theoretically accessible is acceptable</td><td>Maximum security — regulatory compliance requiring no public exposure; on-prem access to PaaS; zero-trust architectures</td></tr>
@@ -1042,7 +1042,7 @@ Azure Data Lake      -- BIG DATA STORAGE: not a monitoring tool at all</pre>
           <tr><td class="row-label">Blob Storage</td><td>Flat namespace — objects in containers</td><td>Images, videos, backups, logs, web assets, arbitrary files up to 4.75 TB each</td><td>REST API, SDK, CDN, Azure Portal</td><td>Cheapest general-purpose object storage; three access tiers (Hot/Cool/Cold/Archive)</td></tr>
           <tr><td class="row-label">Data Lake Storage Gen2</td><td>Hierarchical namespace — true directories and files</td><td>Big data analytics, data science pipelines, ML training data, petabyte-scale raw data</td><td>HDFS-compatible (<abbr title="Azure Blob File System">ABFS</abbr> driver), Spark, REST API</td><td>Built ON TOP of Blob with hierarchical namespace enabled; atomic directory rename; integrated with Synapse, Databricks, HDInsight</td></tr>
           <tr><td class="row-label">Azure Files</td><td>SMB/NFS file shares</td><td>Lift-and-shift file servers, shared config files, Azure Virtual Desktop profile shares</td><td>SMB 3.0, NFS 4.1 — mountable as a network drive on Windows, Linux, macOS</td><td>Only Azure storage mountable as a network drive across operating systems</td></tr>
-          <tr><td class="row-label">Azure Queue Storage</td><td>FIFO message queue</td><td>Decoupling application components, deferred async processing</td><td>REST API, HTTP polling</td><td>Simple, cheap; max message 64 KB; no ordering guarantees beyond basic FIFO</td></tr>
+          <tr><td class="row-label">Azure Queue Storage</td><td>Message queue (best-effort ordering — not guaranteed FIFO)</td><td>Decoupling application components, deferred async processing</td><td>REST API, HTTP polling</td><td>Simple, cheap; max message 64 KB; messages are generally retrieved in insertion order but can arrive out of order under load</td></tr>
           <tr><td class="row-label">Azure Table Storage</td><td>NoSQL key-value store</td><td>Semi-structured data, device telemetry, user preferences, cheap lookups at scale</td><td>REST API, OData; Cosmos DB Table API is the premium upgrade path</td><td>Schema-free; very low cost; Cosmos DB Table API provides geo-redundancy upgrade</td></tr>
           <tr><td class="row-label">Azure Disk Storage</td><td>Block storage — virtual hard disk</td><td>OS disks and data disks for Azure VMs</td><td>Block device attached to VM — not accessible via REST</td><td>Premium SSD required for 99.9% single-VM SLA; Ultra Disk for sub-millisecond latency</td></tr>
         </tbody>
@@ -1219,7 +1219,7 @@ Azure Data Lake      -- BIG DATA STORAGE: not a monitoring tool at all</pre>
           <thead><tr><th>Scenario Keyword</th><th>Answer</th></tr></thead>
           <tbody>
             <tr><td>"Serverless," "per execution," "on-demand code"</td><td>Azure Functions</td></tr>
-            <tr><td>"Low-code," "citizen developer," "SalesForce/SAP connectors"</td><td>Power Automate</td></tr>
+            <tr><td>"Low-code," "citizen developer," "Salesforce/SAP connectors"</td><td>Power Automate</td></tr>
             <tr><td>"Visual workflow," "developer automation with connectors"</td><td>Logic Apps</td></tr>
             <tr><td>"IT runbook," "scheduled script," "respond to Monitor alert"</td><td>Azure Automation</td></tr>
             <tr><td>"Background task tied to App Service"</td><td>WebJobs</td></tr>
@@ -1262,7 +1262,6 @@ Azure Data Lake      -- BIG DATA STORAGE: not a monitoring tool at all</pre>
         </table>
       </div>
 
-      <p class="day-tip">Source: insidethemicrosoftcloud.com/az900quiz — Score: 78/100</p>
     </div><!-- /Day 6 -->
 
   </div><!-- /cram-day-group -->
