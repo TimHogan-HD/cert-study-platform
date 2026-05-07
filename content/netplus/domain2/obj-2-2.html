@@ -44,6 +44,11 @@
     </table>
   </div>
 
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>Default VLAN = VLAN 1</strong> (cannot be deleted on Cisco IOS). <strong>Native VLAN</strong> on a trunk carries untagged frames — must match on both ends or you get VLAN hopping risk. <strong>Voice VLAN</strong> rides alongside data on access ports for IP phones (typically tagged with 802.1p priority).
+  </div>
+
   <h3>802.1Q Trunk Tagging</h3>
   <p>802.1Q adds a 4-byte tag inside the Ethernet frame after the source MAC address:</p>
   <ul>
