@@ -47,7 +47,7 @@ table {
 }
 thead { background: var(--surface3); }
 th {
-  padding: 0.6rem 0.85rem;
+  padding: 0.75rem 1rem;
   text-align: left;
   font-size: 0.8rem;
   font-weight: 700;
@@ -58,7 +58,7 @@ th {
   white-space: nowrap;
 }
 td {
-  padding: 0.55rem 0.85rem;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--border);
   vertical-align: top;
   line-height: 1.5;
