@@ -1528,7 +1528,8 @@ td code { font-size: 0.8rem; }
 .sla-tier-svcs { display: flex; flex-wrap: wrap; gap: 4px; }
 .sla-svc { font-size: 0.72rem; padding: 2px 8px; border-radius: 99px; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); }
 .sla-tier-down { font-size: 0.68rem; color: var(--muted); }
-.sla-tier-100  { background: rgba(34,197,94,0.10);  border-color: rgba(34,197,94,0.30); }
+.sla-tier-100  { background: var(--green-bg);  border-color: var(--green-border); }
+.sla-ladder + .trap { margin-top: 0.75rem; }
 .sla-tier-100  .sla-tier-pct { color: var(--green); }
 .sla-tier-9999 { background: var(--blue-bg);   border-color: var(--blue-border); }
 .sla-tier-9999 .sla-tier-pct { color: var(--blue); }
@@ -1546,7 +1547,6 @@ td code { font-size: 0.8rem; }
 .stat-unit { font-size: 0.85rem; font-weight: 600; }
 .stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 5px; line-height: 1.4; }
 .stat-card-green .stat-val { color: var(--green); }
-.stat-card-purple .stat-val { color: var(--purple); }
 
 /* ── Composite SLA Diagram ───────────────────────────────────── */
 .composite-diagram { display: flex; flex-direction: column; gap: 10px; }
@@ -1565,8 +1565,8 @@ td code { font-size: 0.8rem; }
 .comp-result { padding: 0.4rem 0.75rem; border-radius: var(--radius); text-align: center; min-width: 96px; }
 .comp-result-val   { font-size: 0.88rem; font-weight: 700; }
 .comp-result-form  { font-size: 0.65rem; margin-top: 2px; opacity: 0.75; }
-.comp-result-bad   { background: rgba(239,68,68,0.12);  border: 1px solid rgba(239,68,68,0.3);  color: var(--red); }
-.comp-result-good  { background: rgba(34,197,94,0.10);  border: 1px solid rgba(34,197,94,0.3);  color: var(--green); }
+.comp-result-bad   { background: var(--red-bg);   border: 1px solid var(--red-border);   color: var(--red); }
+.comp-result-good  { background: var(--green-bg); border: 1px solid var(--green-border); color: var(--green); }
 .comp-note { font-size: 0.73rem; color: var(--muted); margin: 0; line-height: 1.5; }
 
 /* ── Grouped Exam Traps ──────────────────────────────────────── */
