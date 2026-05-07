@@ -75,11 +75,21 @@ td code { font-size: 0.8rem; }
 .table--comparison thead th { color: var(--blue); border-bottom-color: var(--blue-border); }
 .table--comparison tbody td:first-child { font-weight: 600; min-width: 130px; }
 
-/* High-exam-weight row marker — subtle left amber accent on first cell */
+/* High-exam-weight row marker — subtle left amber accent + star on first cell */
 tr[data-exam-weight="high"] td:first-child {
   border-left: 3px solid var(--amber);
   padding-left: calc(1rem - 3px);
 }
+tr[data-exam-weight="high"] td:first-child::before {
+  content: "★";
+  color: var(--amber);
+  font-size: 0.6rem;
+  margin-right: 0.3rem;
+  vertical-align: middle;
+  line-height: 1;
+}
+.exam-star { color: var(--amber); font-size: 0.75rem; vertical-align: middle; }
+.exam-star-note { font-size: 0.82rem; color: var(--muted); }
 
 /* ---------- Section Headers --------------------------------- */
 .section-eyebrow {
