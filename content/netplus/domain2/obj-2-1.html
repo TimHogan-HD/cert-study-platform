@@ -144,11 +144,11 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
 
   <h3>OSPF Key Concepts</h3>
   <ul>
-    <li><strong>Areas:</strong> OSPF uses areas to limit LSA flooding. Area 0 = backbone area. All non-zero areas must connect to Area 0.</li>
+    <li><strong>Areas:</strong> OSPF uses areas to limit LSA flooding. <code>Area 0</code> = backbone area. All non-zero areas must connect to <code>Area 0</code>.</li>
     <li><strong>DR/BDR Election:</strong> On multi-access segments (broadcast networks like Ethernet), routers elect a Designated Router (DR) and Backup DR (BDR) to reduce adjacency count. Highest Router-ID wins (or highest priority).</li>
     <li><strong>Hello Packets:</strong> Routers send hellos to discover and maintain neighbor relationships. Default: 10s on broadcast, 30s on NBMA.</li>
     <li><strong>LSA Types:</strong> Type 1 (Router), Type 2 (Network), Type 3 (Summary), Type 5 (External AS), Type 7 (NSSA External).</li>
-    <li><strong>Metric:</strong> OSPF cost = 100 Mbps / link bandwidth. Lower cost = preferred path.</li>
+    <li><strong>Metric:</strong> OSPF cost = <code>100 Mbps / link bandwidth</code>. Lower cost = preferred path.</li>
   </ul>
 
   <div class="callout callout-amber">
