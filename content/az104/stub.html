@@ -909,599 +909,367 @@
 
     <!-- ── Day 6: Last-Minute Cram ── -->
     <div class="cram-day-panel">
-      <p class="day-intro">Nine topic clusters that most often trip people up — each opens as a toggle. Work through the ones where you feel shakiest, then finish with the categorised keyword cheat sheet for a final pass before exam day.</p>
+      <p class="day-intro">Nine topic clusters that commonly appear in AZ-900 stems. Each panel follows decisions → comparison → traps/recall callouts → cards.</p>
 
       <div>
 
-        <!-- ─ TOPIC 1 ─ -->
         <div class="accordion-header">☁️ Cloud Models &amp; Service Types</div>
         <div class="accordion-body">
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Model</th><th>Who owns infra?</th><th>Connection</th><th>Exam examples</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Public</td><td>Microsoft</td><td>Internet</td><td>Standard Azure subscriptions, multi-tenant services</td></tr>
-              <tr><td class="row-label">Private</td><td>Your org</td><td>Internal network only</td><td>On-prem datacenter, Hyper-V cluster, Azure Stack Hub in your building</td></tr>
-              <tr><td class="row-label">Hybrid</td><td>Both</td><td>ExpressRoute or Site-to-Site VPN bridges them</td><td>On-prem payroll + Azure burst compute + cloud DR</td></tr>
-            </tbody>
-          </table></div>
-
-          <div class="trap-group">
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">Hyper-V = Private, not Hybrid</span>
-              <div class="trap-body">Hyper-V is a hypervisor that runs VMs on hardware <em>your org owns</em> — that is Private Cloud. It only becomes Hybrid when you add a live network link (S2S VPN or ExpressRoute) to an Azure subscription and actively use both together.</div>
-            </div>
+          <p class="day-list-intro">Classify cloud model and service model separately, then combine for the final answer.</p>
+          <div class="decision-grid">
+            <div class="d-card"><div class="d-card-trigger">Org-owned infra only (no Azure workload)</div><div class="d-card-answer">Private cloud</div><div class="d-card-note">Single-organization environment</div></div>
+            <div class="d-card"><div class="d-card-trigger">On-prem + Azure linked via VPN/ExpressRoute</div><div class="d-card-answer">Hybrid cloud</div><div class="d-card-note">Private + public working together</div></div>
+            <div class="d-card"><div class="d-card-trigger">Shared provider tenant for many customers</div><div class="d-card-answer">Public cloud</div><div class="d-card-note">Provider-owned multi-tenant platform</div></div>
+            <div class="d-card"><div class="d-card-trigger">Need OS control, patching, runtime ownership</div><div class="d-card-answer">IaaS</div><div class="d-card-note">Customer manages guest environment</div></div>
+            <div class="d-card"><div class="d-card-trigger">Deploy code to managed runtime and OS</div><div class="d-card-answer">PaaS</div><div class="d-card-note">Provider manages platform layers</div></div>
+            <div class="d-card"><div class="d-card-trigger">Use complete application only</div><div class="d-card-answer">SaaS</div><div class="d-card-note">Provider operates full app stack</div></div>
           </div>
-
-          <h4 style="margin-top:1.2rem;">IaaS / PaaS / SaaS — How Much Does Microsoft Manage?</h4>
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Layer</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Physical infra</td><td>Microsoft</td><td>Microsoft</td><td>Microsoft</td></tr>
-              <tr><td class="row-label">Operating system</td><td><strong>You</strong></td><td>Microsoft</td><td>Microsoft</td></tr>
-              <tr><td class="row-label">Runtime / middleware</td><td><strong>You</strong></td><td>Microsoft</td><td>Microsoft</td></tr>
-              <tr><td class="row-label">Application code</td><td><strong>You</strong></td><td><strong>You</strong></td><td>Microsoft</td></tr>
-              <tr><td class="row-label">Data</td><td><strong>You</strong></td><td><strong>You</strong></td><td><strong>You</strong></td></tr>
-            </tbody>
-          </table></div>
-
-          <div class="cmp-wrap" style="margin-top:0.8rem;"><table class="cmp-table">
-            <thead><tr><th>Azure Service</th><th>Type</th><th>Why</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Azure Virtual Machines</td><td><span class="pill pill-red">IaaS</span></td><td>You manage OS, patching, runtime, app</td></tr>
-              <tr><td class="row-label">Azure App Service</td><td><span class="pill pill-blue">PaaS</span></td><td>Microsoft manages OS and runtime; you deploy web app code</td></tr>
-              <tr><td class="row-label">Azure SQL Database</td><td><span class="pill pill-blue">PaaS</span></td><td>Microsoft manages SQL engine and patches; you manage schemas and data</td></tr>
-              <tr><td class="row-label">Azure Cosmos DB</td><td><span class="pill pill-blue">PaaS</span></td><td>Fully managed NoSQL — you define containers and queries</td></tr>
-              <tr><td class="row-label">Azure Database for MySQL</td><td><span class="pill pill-blue">PaaS</span></td><td>Managed MySQL engine; you manage databases and data only</td></tr>
-              <tr><td class="row-label">Azure Functions</td><td><span class="pill pill-blue">PaaS</span></td><td>You write functions; Microsoft manages everything below the runtime</td></tr>
-              <tr><td class="row-label">Azure Kubernetes Service</td><td><span class="pill pill-blue">PaaS</span></td><td>Microsoft manages the control plane; you manage node pools and workloads</td></tr>
-              <tr><td class="row-label">Microsoft 365 / Office 365</td><td><span class="pill pill-teal">SaaS</span></td><td>Microsoft built and runs the entire app — you configure users and policies</td></tr>
-              <tr><td class="row-label">Dynamics 365</td><td><span class="pill pill-teal">SaaS</span></td><td>Microsoft CRM/ERP — you configure business processes, not infrastructure</td></tr>
-            </tbody>
-          </table></div>
-
-          <div class="callout callout-blue">
-            <div class="callout-title">The PaaS vs. SaaS Test</div>
-            <strong>PaaS:</strong> a developer writes code or stores data on a managed platform (Cosmos DB, App Service, Azure SQL, Functions). <strong>SaaS:</strong> someone else built the entire application and you just open and use it (Office 365, Dynamics 365). Ask: "Did your team write the application logic?" Yes → PaaS. No → SaaS.
+          <div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Cloud model</th><th>Ownership pattern</th><th>Typical clue</th></tr></thead><tbody><tr><td class="row-label">Private</td><td>Single organization controls environment</td><td>"Our datacenter only"</td></tr><tr><td class="row-label">Hybrid</td><td>Private + public connected</td><td>"On-prem to Azure integration"</td></tr><tr><td class="row-label">Public</td><td>Provider-operated shared cloud</td><td>"Multi-tenant subscription"</td></tr></tbody></table></div>
+          <div class="accordion-header">IaaS / PaaS / SaaS layer breakdown</div>
+          <div class="accordion-body"><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Layer</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr></thead><tbody><tr><td class="row-label">Physical infra</td><td>Microsoft</td><td>Microsoft</td><td>Microsoft</td></tr><tr><td class="row-label">OS &amp; runtime</td><td>Customer</td><td>Microsoft</td><td>Microsoft</td></tr><tr><td class="row-label">Application</td><td>Customer</td><td>Customer</td><td>Microsoft</td></tr><tr><td class="row-label">Data &amp; identity</td><td>Customer</td><td>Customer</td><td>Customer</td></tr></tbody></table></div></div>
+          <div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Service</th><th>Model</th><th>Why</th></tr></thead><tbody><tr><td class="row-label">Azure Virtual Machines</td><td>IaaS</td><td>You own OS/runtime operations</td></tr><tr><td class="row-label">Azure App Service</td><td>PaaS</td><td>Microsoft runs OS and runtime</td></tr><tr><td class="row-label">Microsoft 365</td><td>SaaS</td><td>Complete managed business app</td></tr></tbody></table></div>
+          <div class="callout callout-amber"><div class="callout-title">Exam trap(s)</div><ul><li>Hyper-V only is private cloud, not hybrid.</li><li>Managed databases are PaaS even when fully hosted.</li></ul></div>
+          <div class="callout callout-green quick-recall"><div class="callout-title">Quick Recall</div><ul><li>Cloud model answers "where it runs."</li><li>Service model answers "who manages what."</li></ul></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 9</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure Virtual Machines<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">IaaS | You manage OS, patching, runtime, app</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure App Service<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">PaaS | Microsoft manages OS + runtime; you deploy code</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure SQL Database<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">PaaS | Microsoft manages SQL engine; you manage schemas</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure Cosmos DB<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">PaaS | Fully managed NoSQL; you define containers and queries</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure Database for MySQL<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">PaaS | Managed MySQL engine; you manage data only</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure Functions<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">PaaS/Serverless | You write functions; all infra managed</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure Kubernetes Service<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">PaaS | Microsoft manages control plane; you manage workloads</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Microsoft 365 / Office 365<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">SaaS | Microsoft built and runs the entire app</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Dynamics 365<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">SaaS | Microsoft CRM/ERP; you configure business processes only</div></div></div>
           </div>
+        </div>
 
-          <div class="trap-group">
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">Cosmos DB and Azure MySQL = PaaS, not SaaS</span>
-              <div class="trap-body">A managed database is PaaS — you store your own data in it. SaaS means Microsoft built the entire end-user application. Cosmos DB is not an end-user app; it is a platform your developers build on.</div>
-            </div>
-          </div>
-        </div><!-- /Cloud Models -->
-
-        <!-- ─ TOPIC 2 ─ -->
         <div class="accordion-header">📈 Elasticity vs. Scalability</div>
         <div class="accordion-body">
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Term</th><th>Definition</th><th>Automatic?</th><th>Exam trigger phrase</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Scalability</td><td>The <em>capability</em> to handle more load by adding resources — does not imply it happens automatically</td><td>No — a property of system design, not a runtime behavior</td><td>"can handle more load," "designed to scale," "supports growth"</td></tr>
-              <tr><td class="row-label">Elasticity</td><td>Resources <em>automatically</em> adjust up and down in real time as demand changes; unused capacity is released and billing stops</td><td>Yes — responds dynamically without manual action</td><td>"automatically scales," "pay only when needed," "adjusts to demand spikes," "no idle capacity"</td></tr>
-            </tbody>
-          </table></div>
-
+          <p class="day-list-intro">Automatic right-sizing equals elasticity; capability to grow equals scalability.</p>
           <div class="decision-grid">
-            <div class="d-card">
-              <div>System <em>can</em> be resized when needed — no automatic trigger</div>
-              <span class="d-arrow">→</span>
-              <strong>Scalability</strong>
-            </div>
-            <div class="d-card">
-              <div>Automatically adds instances during spikes, removes and stops billing when idle</div>
-              <span class="d-arrow">→</span>
-              <strong>Elasticity</strong>
-            </div>
+            <div class="d-card"><div class="d-card-trigger">"Can scale up/out" wording</div><div class="d-card-answer">Scalability</div><div class="d-card-note">Design capability</div></div>
+            <div class="d-card"><div class="d-card-trigger">"Automatically scales with demand" wording</div><div class="d-card-answer">Elasticity</div><div class="d-card-note">Runtime behavior</div></div>
           </div>
-
-          <div class="callout callout-blue">
-            <div class="callout-title">How Azure Implements Elasticity</div>
-            <ul>
-              <li><strong>VM Scale Sets:</strong> Auto-scale rules add/remove VMs based on CPU or custom metrics.</li>
-              <li><strong>Azure Functions (Consumption plan):</strong> Scales from 0 to hundreds of instances per event — pay per execution only.</li>
-              <li><strong>App Service Auto-scale:</strong> Adds or removes web app instances based on HTTP queue length or CPU.</li>
-              <li><strong>AKS Cluster Autoscaler:</strong> Adds and removes nodes; Horizontal Pod Autoscaler adjusts pod count per deployment.</li>
-            </ul>
+          <div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Term</th><th>Definition</th><th>Automatic?</th><th>Exam phrase</th></tr></thead><tbody><tr><td class="row-label">Scalability</td><td>Ability to add resources for load</td><td>No</td><td>"Supports growth"</td></tr><tr><td class="row-label">Elasticity</td><td>Auto add/remove resources in real time</td><td>Yes</td><td>"Pay only when needed"</td></tr></tbody></table></div>
+          <div class="accordion-header">Azure Elasticity Examples</div>
+          <div class="accordion-body"><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Service</th><th>Behavior</th></tr></thead><tbody><tr><td class="row-label">VM Scale Sets</td><td>Auto-scale rules</td></tr><tr><td class="row-label">Functions (Consumption)</td><td>Scales from zero</td></tr><tr><td class="row-label">App Service</td><td>Instance auto-scale</td></tr></tbody></table></div></div>
+          <div class="callout callout-blue"><div class="callout-title">Implementation cues</div><ul><li>Set autoscale rules with metrics thresholds.</li><li>Plan baseline capacity first, then apply autoscale for spikes.</li><li>Use cost alerts to confirm elasticity is reducing idle spend.</li></ul></div>
+          <div class="callout callout-amber"><div class="callout-title">Exam trap(s)</div><ul><li>"Scalable" does not mean "auto-scales" unless explicitly stated.</li></ul></div>
+          <div class="callout callout-green quick-recall"><div class="callout-title">Quick Recall</div><ul><li>Elasticity = automatic + cost-efficient.</li><li>Scalability = capacity to grow.</li></ul></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 4</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Automatic scale up/down by demand<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Elasticity</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Can scale when resized<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Scalability</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Pay only when needed<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Elasticity clue</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Designed for growth<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Scalability clue</div></div></div>
           </div>
-        </div><!-- /Elasticity -->
+        </div>
 
-        <!-- ─ TOPIC 3 ─ -->
         <div class="accordion-header">📊 Azure Monitor Ecosystem</div>
         <div class="accordion-body">
-          <p class="day-list-intro">Azure Monitor is the umbrella — everything else is either a sub-component or an adjacent service. Knowing the hierarchy is what separates correct from close-but-wrong answers.</p>
-
+          <p class="day-list-intro">Know the monitor hierarchy and keep adjacent services separate from the Azure Monitor umbrella.</p>
+          <div class="decision-grid">
+            <div class="d-card"><div class="d-card-trigger">Need central logs with KQL</div><div class="d-card-answer">Log Analytics</div><div class="d-card-note">Operational log analytics store</div></div>
+            <div class="d-card"><div class="d-card-trigger">Need code-level perf/exception telemetry</div><div class="d-card-answer">Application Insights</div><div class="d-card-note">APM for apps</div></div>
+            <div class="d-card"><div class="d-card-trigger">Need cost/performance/security recommendations</div><div class="d-card-answer">Azure Advisor</div><div class="d-card-note">Recommendation engine</div></div>
+          </div>
           <pre style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;font-size:0.82rem;overflow-x:auto;line-height:1.7;">Azure Monitor  ← umbrella; collects ALL metrics and logs from Azure resources
 ├── Metrics store     time-series numbers (CPU %, latency ms, request count)
-│    └── Visualized in dashboards, Metrics Explorer
-├── Alerts            fire when a metric or log query crosses a threshold
-│    └── Action Groups → email, SMS, webhook, Logic App, Automation runbook
-├── Log Analytics     centralized log repository — query with KQL
-│    ├── Azure resource diagnostic logs flow here
-│    ├── Application Insights data flows here (sub-resource)
-│    └── On-prem logs via monitoring agents
-└── Application Insights  SDK-based APM for your application code
-     ├── Request rates, response times, failure rates, exceptions
-     └── Dependency tracking (calls to databases, external APIs)
+├── Alerts            threshold-based notifications and actions
+├── Log Analytics     centralized logs queried with KQL
+└── Application Insights  application performance telemetry
 
-─── Adjacent services (not sub-components of Monitor) ─────────────────
-Azure Advisor        RECOMMENDATIONS: cost, reliability, security, performance
-Microsoft Sentinel   SIEM: ingests logs + external sources; threat detection
-Defender for Cloud   SECURITY POSTURE + COMPLIANCE: config assessment, not metrics
-Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
-
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Service</th><th>What it does</th><th>What it does NOT do</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Azure Monitor</td><td>Collects metrics and logs from all Azure resources; powers alerts and dashboards</td><td>Does not give compliance reports or optimization recommendations</td></tr>
-              <tr><td class="row-label">Log Analytics</td><td>Stores and queries logs with KQL; correlates events across resources and time</td><td>Does not monitor application code performance — that is App Insights</td></tr>
-              <tr><td class="row-label">Application Insights</td><td>Instruments app code: response times, exceptions, user flows, dependency calls</td><td>Does not monitor infrastructure metrics like VM CPU or disk I/O</td></tr>
-              <tr><td class="row-label">Azure Advisor</td><td>Analyzes usage and gives recommendations: Cost, Security, Reliability, Performance, Operational Excellence</td><td>Does not alert on real-time metrics; does not enforce anything</td></tr>
-              <tr><td class="row-label">Defender for Cloud</td><td>Evaluates resource configs against security baselines and compliance frameworks (HIPAA, PCI DSS, CIS); gives Secure Score</td><td>Does not collect real-time performance metrics; does not replace Monitor</td></tr>
-              <tr><td class="row-label">Microsoft Sentinel</td><td>Ingests security events from Monitor, firewalls, identity providers, Office 365, third-party systems; detects attack patterns; automates incident response</td><td>Not a performance monitor; no resource config recommendations</td></tr>
-              <tr><td class="row-label">Azure Data Lake</td><td>Stores massive raw data volumes in a hierarchical filesystem for batch analytics and data science</td><td>No real-time monitoring, no alerts, no dashboards, no KQL</td></tr>
-            </tbody>
-          </table></div>
-
-          <div class="callout callout-blue">
-            <div class="callout-title">Log Analytics vs. Azure Data Lake — Why They Get Confused</div>
-            Both store large volumes of data. <strong>Log Analytics</strong> is an operational monitoring store — structured Azure telemetry, 30-day default retention, KQL queries, used by operations teams asking "what is happening right now?" <strong>Azure Data Lake</strong> is a data engineering platform — raw data in any format (CSV, Parquet, images), petabyte scale, used by data scientists running batch jobs and ML training pipelines. Different audiences, different latency, completely different tooling.
+─── Adjacent services (not sub-components of Monitor) ───
+Azure Advisor        recommendations
+Microsoft Sentinel   SIEM/SOAR
+Defender for Cloud   posture + compliance
+Azure Data Lake      big-data storage</pre>
+          <div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Service</th><th>What it does</th><th>What it does not do</th></tr></thead><tbody><tr><td class="row-label">Azure Monitor</td><td>Collects metrics/logs and alerts</td><td>No compliance baseline reports</td></tr><tr><td class="row-label">Log Analytics</td><td>KQL over centralized logs</td><td>No app code instrumentation</td></tr><tr><td class="row-label">Application Insights</td><td>APM for app requests/dependencies</td><td>No broad infra recommendation engine</td></tr><tr><td class="row-label">Defender for Cloud</td><td>Security posture/compliance</td><td>No general performance monitoring</td></tr></tbody></table></div>
+          <div class="accordion-header">Service Signal Map</div>
+          <div class="accordion-body"><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Signal in stem</th><th>Likely answer</th></tr></thead><tbody><tr><td>"KQL query for ops logs"</td><td>Log Analytics</td></tr><tr><td>"App response-time exceptions"</td><td>Application Insights</td></tr><tr><td>"Secure Score / HIPAA baseline"</td><td>Defender for Cloud</td></tr></tbody></table></div></div>
+          <div class="matching-game"><div class="match-instructions">Match monitor service to its purpose.</div><div class="match-columns"><div class="match-col"><div class="match-item" data-match="m1">Azure Monitor</div><div class="match-item" data-match="m2">Log Analytics</div><div class="match-item" data-match="m3">Application Insights</div><div class="match-item" data-match="m4">Azure Advisor</div><div class="match-item" data-match="m5">Defender for Cloud</div><div class="match-item" data-match="m6">Microsoft Sentinel</div></div><div class="match-col"><div class="match-target" data-id="m1">Collects metrics/logs and drives alerts</div><div class="match-target" data-id="m2">Central log query platform (KQL)</div><div class="match-target" data-id="m3">Application performance telemetry</div><div class="match-target" data-id="m4">Best-practice recommendations</div><div class="match-target" data-id="m5">Security posture and compliance</div><div class="match-target" data-id="m6">SIEM/SOAR analytics and response</div></div></div><div class="match-footer"><span class="match-score">0 / 6 matched</span><button class="reset-btn">Reset</button></div></div>
+          <div class="callout callout-amber"><div class="callout-title">Exam trap(s)</div><ul><li>Azure Data Lake is never the monitoring answer.</li><li>Advisor and Defender for Cloud are different scopes.</li></ul></div>
+          <div class="callout callout-green quick-recall"><div class="callout-title">Quick Recall</div><ul><li>Monitor umbrella; Logs=Log Analytics; APM=App Insights.</li></ul></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 7</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure Monitor<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Umbrella metrics/logs + alerts</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Log Analytics<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Central log store + KQL</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Application Insights<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">APM for app code</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure Advisor<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Optimization recommendations</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Defender for Cloud<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Security posture/compliance</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Sentinel<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">SIEM/SOAR</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure Data Lake<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Big-data store, not monitoring</div></div></div>
           </div>
+        </div>
 
-          <div class="trap-group">
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">Azure Data Lake ≠ monitoring</span>
-              <div class="trap-body">Data Lake has no alerting, no dashboards, no real-time ingestion from Azure resources, and no KQL. If a question mentions monitoring, alerting, or log correlation — Data Lake is never the answer.</div>
-            </div>
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">Defender for Cloud ≠ Azure Advisor</span>
-              <div class="trap-body">Advisor gives optimization recommendations (cost, reliability, performance). Defender for Cloud gives security posture scores and regulatory compliance baselines. "Reduce costs" → Advisor. "HIPAA compliance baseline" → Defender for Cloud.</div>
-            </div>
-          </div>
-        </div><!-- /Monitor -->
-
-        <!-- ─ TOPIC 4 ─ -->
         <div class="accordion-header">💾 Storage Services Spectrum</div>
         <div class="accordion-body">
-          <p class="day-list-intro">Six storage services — they overlap in what they can hold but differ in data model, access pattern, and downstream use. Match the service to the workload.</p>
-
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Service</th><th>Data model</th><th>Best for</th><th>Key distinguishing trait</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Blob Storage</td><td>Flat namespace — objects in containers</td><td>Images, videos, backups, logs, web assets, files up to 4.75 TB</td><td>Cheapest object storage; Hot / Cool / Cold / Archive access tiers</td></tr>
-              <tr><td class="row-label">Data Lake Gen2</td><td>Hierarchical namespace — true directories</td><td>Big data analytics, data science pipelines, ML training data, Spark/Synapse workloads</td><td>Built ON TOP of Blob with HNS enabled; atomic directory rename; POSIX ACLs; HDFS-compatible via ABFS driver</td></tr>
-              <tr><td class="row-label">Azure Files</td><td>SMB / NFS file shares</td><td>Lift-and-shift file servers, AVD profile shares, shared config files</td><td>Only Azure storage mountable as a network drive on Windows, Linux, and macOS</td></tr>
-              <tr><td class="row-label">Azure Queue Storage</td><td>Message queue (best-effort ordering)</td><td>Decoupling app components, deferred async processing</td><td>Max message 64 KB; simple and cheap; not guaranteed FIFO</td></tr>
-              <tr><td class="row-label">Azure Table Storage</td><td>NoSQL key-value store</td><td>Device telemetry, user preferences, semi-structured lookups at low cost</td><td>Schema-free; very low cost; Cosmos DB Table API is the premium upgrade</td></tr>
-              <tr><td class="row-label">Azure Disk Storage</td><td>Block storage (virtual hard disk)</td><td>OS and data disks for Azure VMs</td><td>Not accessible via REST — attached as block device to VM; Premium SSD needed for 99.9% single-VM SLA</td></tr>
-            </tbody>
-          </table></div>
-
-          <h4 style="margin-top:1.2rem;">Blob vs. Data Lake Gen2 — The Relationship</h4>
-          <p>Data Lake Storage Gen2 is <strong>not a separate service</strong> — it is Blob Storage with the <strong>hierarchical namespace (HNS) feature enabled</strong> on the storage account.</p>
-
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Capability</th><th>Standard Blob</th><th>Data Lake Gen2 (Blob + HNS)</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Directory model</td><td>Flat — "folders" are just naming prefixes</td><td>True hierarchical filesystem — directories are first-class objects</td></tr>
-              <tr><td class="row-label">Rename a directory</td><td>O(n): must copy every object and delete originals — slow and costly</td><td>O(1): atomic metadata operation, milliseconds regardless of file count</td></tr>
-              <tr><td class="row-label">File-level permissions</td><td>RBAC at container or account level only</td><td>POSIX ACLs per individual file and directory</td></tr>
-              <tr><td class="row-label">Big data frameworks</td><td>Requires adapter; limited native support</td><td>Native HDFS via ABFS driver; Spark, Hive, Presto read/write natively</td></tr>
-              <tr><td class="row-label">Analytics integration</td><td>Functional</td><td>Optimized for Synapse Analytics, Databricks, HDInsight</td></tr>
-              <tr><td class="row-label">Access tiers</td><td>Hot / Cool / Cold / Archive</td><td>Identical — same infrastructure</td></tr>
-            </tbody>
-          </table></div>
-
-          <div class="callout callout-blue">
-            <div class="callout-title">The Typical Analytics Pipeline</div>
-            Raw data lands in <strong>Data Lake Gen2</strong> (bronze layer). <strong>Synapse Analytics</strong> or <strong>Databricks</strong> cleans and transforms it (silver → gold layers). Results go to <strong>Azure SQL</strong> or <strong>Cosmos DB</strong> for application consumption. Data Lake appears in "big data" and "analytics" questions because it is the raw data landing zone — not a monitoring or operational tool.
+          <p class="day-list-intro">Classify by data model and protocol to pick the right storage service quickly.</p>
+          <div class="decision-grid">
+            <div class="d-card"><div class="d-card-trigger">Need SMB/NFS network share</div><div class="d-card-answer">Azure Files</div><div class="d-card-note">File server replacement</div></div>
+            <div class="d-card"><div class="d-card-trigger">Need object store for media/backups</div><div class="d-card-answer">Blob Storage</div><div class="d-card-note">Access tiers available</div></div>
+            <div class="d-card"><div class="d-card-trigger">Need hierarchical namespace for analytics</div><div class="d-card-answer">Data Lake Gen2</div><div class="d-card-note">Blob + HNS</div></div>
+            <div class="d-card"><div class="d-card-trigger">Need app messaging buffer in storage account</div><div class="d-card-answer">Queue Storage</div><div class="d-card-note">Durable async message queue</div></div>
           </div>
-        </div><!-- /Storage -->
+          <div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Service</th><th>Data model</th><th>Best for</th><th>Key trait</th></tr></thead><tbody><tr><td class="row-label">Blob Storage</td><td>Object/flat</td><td>Media, backups</td><td>Hot/Cool/Cold/Archive tiers</td></tr><tr><td class="row-label">Data Lake Gen2</td><td>Hierarchical object store</td><td>Analytics pipelines</td><td>HDFS-compatible with HNS</td></tr><tr><td class="row-label">Azure Files</td><td>SMB/NFS file shares</td><td>Lift-and-shift files</td><td>Mountable network drive</td></tr><tr><td class="row-label">Queue Storage</td><td>Message queue</td><td>App decoupling</td><td>Simple async work queue</td></tr><tr><td class="row-label">Table Storage</td><td>NoSQL key-value</td><td>Large semi-structured datasets</td><td>Schema-less entities</td></tr><tr><td class="row-label">Disk Storage</td><td>Block storage</td><td>VM OS/data disks</td><td>Attached to VM</td></tr></tbody></table></div>
+          <div class="accordion-header">Blob vs. Data Lake Gen2 — The Relationship</div>
+          <div class="accordion-body"><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Capability</th><th>Blob</th><th>Data Lake Gen2</th></tr></thead><tbody><tr><td class="row-label">Foundation</td><td>Base object storage service</td><td>Built on Blob service</td></tr><tr><td class="row-label">Namespace</td><td>Flat</td><td>Hierarchical</td></tr><tr><td class="row-label">Directory rename</td><td>Copy/delete sequence</td><td>Atomic metadata operation</td></tr><tr><td class="row-label">Analytics integration</td><td>General purpose</td><td>Optimized for Synapse/Databricks</td></tr></tbody></table></div></div>
+          <div class="callout callout-blue"><div class="callout-title">Analytics pipeline</div>Land raw data in Data Lake Gen2, transform with Synapse/Databricks, then publish curated outputs.</div>
+          <div class="callout callout-amber"><div class="callout-title">Exam trap(s)</div><ul><li>Data Lake Gen2 is Blob Storage with hierarchical namespace enabled.</li></ul></div>
+          <div class="callout callout-green quick-recall"><div class="callout-title">Quick Recall</div><ul><li>Files=Azure Files, objects=Blob, analytics lake=Data Lake Gen2, VM blocks=Disk.</li></ul></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 6</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">SMB/NFS share in Azure<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Files</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Media/backups object store<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Blob Storage</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">HNS + Spark analytics<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Data Lake Gen2</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">VM OS/data block device<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Disk Storage</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Data Lake Gen2 architecture<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Blob + HNS</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Fast directory rename at scale<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Data Lake Gen2</div></div></div>
+          </div>
+        </div>
 
-        <!-- ─ TOPIC 5 ─ -->
         <div class="accordion-header">⚖️ Governance — Policy, Locks &amp; Blueprints</div>
         <div class="accordion-body">
-          <p class="day-list-intro">Three tools that all "control" resources — but on completely different dimensions. Policy controls <em>what</em> can exist. Locks control <em>whether</em> it can change. Blueprints control <em>how an environment is assembled</em>.</p>
-
+          <p class="day-list-intro">Choose governance by control axis: what can exist, whether it can change, or how an environment is packaged.</p>
           <div class="decision-grid">
-            <div class="d-card">
-              <div>"Enforce rules on existing or new resources — SKU, region, tags, settings"</div>
-              <span class="d-arrow">→</span>
-              <strong>Azure Policy</strong>
-            </div>
-            <div class="d-card">
-              <div>"Nobody can delete or modify this resource — not even Owners"</div>
-              <span class="d-arrow">→</span>
-              <strong>Resource Lock</strong>
-            </div>
-            <div class="d-card">
-              <div>"Deploy a complete new environment (resources + policies + RBAC) consistently"</div>
-              <span class="d-arrow">→</span>
-              <strong>Azure Blueprints</strong>
-            </div>
+            <div class="d-card"><div class="d-card-trigger">Enforce allowed config and compliance continuously</div><div class="d-card-answer">Azure Policy</div><div class="d-card-note">Deny/Audit/Modify/DeployIfNotExists</div></div>
+            <div class="d-card"><div class="d-card-trigger">Prevent deletes/edits, including Owners</div><div class="d-card-answer">Resource Locks</div><div class="d-card-note">CanNotDelete / ReadOnly</div></div>
+            <div class="d-card"><div class="d-card-trigger">Deploy repeatable landing zone baseline</div><div class="d-card-answer">Azure Blueprints</div><div class="d-card-note">Versioned package</div></div>
           </div>
-
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Tool</th><th>Controls</th><th>Operates when</th><th>Owner can override?</th><th>Applies to existing resources?</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Azure Policy</td><td>What kinds of resources can exist and what their configuration must be</td><td>At deployment (Deny) and continuously (Audit / remediate)</td><td>No — enforced by the platform regardless of RBAC role</td><td>Yes — Audit, Modify, and DeployIfNotExists remediate existing resources</td></tr>
-              <tr><td class="row-label">Resource Locks</td><td>Whether a resource can be modified or deleted at all</td><td>At any modification or deletion attempt</td><td>No — Owner cannot override; must remove the lock first</td><td>Yes — applied to any resource at any time</td></tr>
-              <tr><td class="row-label">Azure Blueprints</td><td>Initial environment composition — resources, policies, RBAC in one versioned package</td><td>At initial deployment / subscription setup</td><td>N/A — sets up initial state only</td><td>No — designed for new environments</td></tr>
-            </tbody>
-          </table></div>
-
-          <h4 style="margin-top:1.2rem;">Azure Policy Effects</h4>
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Effect</th><th>What happens</th><th>Use case</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Audit</td><td>Non-compliant resources flagged in the dashboard — NOT blocked</td><td>Initial rollout — understand scope before enforcing</td></tr>
-              <tr><td class="row-label">Deny</td><td>Deployment rejected at API time with an error</td><td>"VMs must use Premium SSD," "resources only in West US"</td></tr>
-              <tr><td class="row-label">DeployIfNotExists</td><td>Auto-deploy a missing sub-resource via remediation task</td><td>Auto-attach monitoring agent to every new VM</td></tr>
-              <tr><td class="row-label">Modify</td><td>Add, update, or remove resource properties during creation or remediation</td><td>Auto-tag with cost center; force TLS version on storage accounts</td></tr>
-            </tbody>
-          </table></div>
-
-          <div class="callout callout-blue">
-            <div class="callout-title">Blueprint Lock vs. Resource Lock</div>
-            Blueprints can apply locking that is <em>stronger</em> than a standard Resource Lock. Blueprint-locked resources cannot be modified by Owner — only by removing the Blueprint assignment itself (requires Blueprint Operator or Contributor at the management group). Ideal for regulated environments where infrastructure must remain exactly as provisioned.
+          <div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Tool</th><th>Controls</th><th>Operates when</th><th>Owner override?</th><th>Existing resources?</th></tr></thead><tbody><tr><td class="row-label">Azure Policy</td><td>Allowed state/config</td><td>Deploy + continuous eval</td><td>No</td><td>Yes</td></tr><tr><td class="row-label">Resource Locks</td><td>Change/delete ability</td><td>At modification request</td><td>No</td><td>Yes</td></tr><tr><td class="row-label">Azure Blueprints</td><td>Environment composition</td><td>At assignment</td><td>N/A</td><td>Mainly new envs</td></tr></tbody></table></div>
+          <div class="accordion-header">Azure Policy Effects</div>
+          <div class="accordion-body"><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Effect</th><th>Behavior</th><th>Typical use</th></tr></thead><tbody><tr><td class="row-label">Audit</td><td>Flags non-compliance</td><td>Visibility first</td></tr><tr><td class="row-label">Deny</td><td>Blocks deployment</td><td>Hard controls</td></tr><tr><td class="row-label">DeployIfNotExists</td><td>Deploys missing dependency</td><td>Auto diagnostics</td></tr><tr><td class="row-label">Modify</td><td>Edits/sets properties</td><td>Auto tags/settings</td></tr></tbody></table></div></div>
+          <div class="matching-game"><div class="match-instructions">Match governance scenario to the correct tool.</div><div class="match-columns"><div class="match-col"><div class="match-item" data-match="g1">Prevent deletion of production vault</div><div class="match-item" data-match="g2">Block VM creation in unsupported region</div><div class="match-item" data-match="g3">Deploy baseline controls in new subscription</div><div class="match-item" data-match="g4">Auto-add diagnostics extension</div><div class="match-item" data-match="g5">Auto-apply cost-center tag</div></div><div class="match-col"><div class="match-target" data-id="g1">Resource Lock</div><div class="match-target" data-id="g2">Azure Policy (Deny)</div><div class="match-target" data-id="g3">Azure Blueprints</div><div class="match-target" data-id="g4">Azure Policy (DeployIfNotExists)</div><div class="match-target" data-id="g5">Azure Policy (Modify)</div></div></div><div class="match-footer"><span class="match-score">0 / 5 matched</span><button class="reset-btn">Reset</button></div></div>
+          <div class="callout callout-amber"><div class="callout-title">Exam trap(s)</div><ul><li>Locks override RBAC (including Owner).</li><li>Blueprints are not continuous compliance engines.</li></ul></div>
+          <div class="callout callout-green quick-recall"><div class="callout-title">Quick Recall</div><ul><li>Policy=what is allowed, Lock=whether change is possible, Blueprint=packaged deployment.</li></ul></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 5</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Block disallowed region deploy<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Policy Deny</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Prevent deletion by admins<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Resource Lock</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Auto-add cost tag<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Policy Modify</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Deploy missing diagnostics<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Policy DeployIfNotExists</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">New subscription baseline package<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Blueprints</div></div></div>
           </div>
+        </div>
 
-          <div class="trap-group">
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">Resource Locks override RBAC — even Owners</span>
-              <div class="trap-body">An Owner with full RBAC permissions still cannot delete or modify a locked resource. The lock must be explicitly removed first — which itself is audited.</div>
-            </div>
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">Blueprints do not enforce ongoing compliance</span>
-              <div class="trap-body">Blueprints set up an environment once. If resources drift from spec after deployment, Blueprints do not detect or remediate that. Ongoing compliance enforcement is Azure Policy's job.</div>
-            </div>
-          </div>
-        </div><!-- /Governance -->
-
-        <!-- ─ TOPIC 6 ─ -->
         <div class="accordion-header">🔐 Identity &amp; Security Services</div>
         <div class="accordion-body">
-          <p class="day-list-intro">Six services — each defends a different asset. The organizing question is: <strong>what is being protected?</strong></p>
-
+          <p class="day-list-intro">Use mirrored service pairs to separate identity, endpoint, data, posture, and SIEM scenarios.</p>
           <div class="decision-grid">
-            <div class="d-card">
-              <div>Cloud (Entra ID) identities — risky sign-ins, compromised accounts</div>
-              <span class="d-arrow">→</span>
-              <strong>Azure Identity Protection</strong>
-            </div>
-            <div class="d-card">
-              <div>Devices &amp; on-prem Active Directory — endpoint threats, lateral movement</div>
-              <span class="d-arrow">→</span>
-              <strong>Defender for Endpoint</strong>
-            </div>
-            <div class="d-card">
-              <div>Documents &amp; data — wherever they travel (email, USB, personal devices)</div>
-              <span class="d-arrow">→</span>
-              <strong>Microsoft Purview</strong>
-            </div>
-            <div class="d-card">
-              <div>Access at sign-in time — conditional grant based on identity, device, location</div>
-              <span class="d-arrow">→</span>
-              <strong>Conditional Access</strong>
-            </div>
-            <div class="d-card">
-              <div>Entire security environment — SIEM, cross-source threat detection, incident response</div>
-              <span class="d-arrow">→</span>
-              <strong>Microsoft Sentinel</strong>
-            </div>
-            <div class="d-card">
-              <div>Azure resource configs — security posture, compliance baselines (HIPAA, PCI DSS)</div>
-              <span class="d-arrow">→</span>
-              <strong>Defender for Cloud</strong>
-            </div>
+            <div class="d-card"><div class="d-card-trigger">Entra risky sign-ins / leaked credentials</div><div class="d-card-answer">Identity Protection</div><div class="d-card-note">Cloud identity risk engine</div></div>
+            <div class="d-card"><div class="d-card-trigger">Endpoint compromise and on-prem AD attacks</div><div class="d-card-answer">Defender for Endpoint</div><div class="d-card-note">EDR and endpoint telemetry</div></div>
+            <div class="d-card"><div class="d-card-trigger">Sign-in grant/block/MFA logic</div><div class="d-card-answer">Conditional Access</div><div class="d-card-note">Policy gate at authentication time</div></div>
+            <div class="d-card"><div class="d-card-trigger">Document classification and persistent labels</div><div class="d-card-answer">Microsoft Purview</div><div class="d-card-note">Data protection follows content</div></div>
+            <div class="d-card"><div class="d-card-trigger">Cloud posture and compliance baseline</div><div class="d-card-answer">Defender for Cloud</div><div class="d-card-note">Secure Score and recommendations</div></div>
+            <div class="d-card"><div class="d-card-trigger">SIEM/SOAR investigation and response</div><div class="d-card-answer">Microsoft Sentinel</div><div class="d-card-note">Security operations analytics</div></div>
           </div>
-
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Service</th><th>Protected asset</th><th>Primary capability</th><th>Does NOT cover</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Azure Identity Protection</td><td>Entra ID cloud accounts and sign-ins</td><td>Detects anomalous sign-ins: impossible travel, unfamiliar location, leaked credentials. Assigns risk scores; integrates with Conditional Access to auto-block high-risk logins.</td><td>On-prem AD; device security; document protection</td></tr>
-              <tr><td class="row-label">Defender for Endpoint</td><td>Devices (Windows, macOS, Linux) and on-prem Active Directory</td><td>EDR: behavioral analysis, process monitoring, vulnerability management, lateral movement detection. Detects pass-the-hash, credential dumping, Kerberoasting against on-prem AD.</td><td>Cloud-only Entra ID identities; document protection</td></tr>
-              <tr><td class="row-label">Conditional Access</td><td>Access to apps and resources at sign-in time</td><td>Policy engine: grant / block / limit access based on user identity, device compliance, network location, user risk. Require MFA when signing in outside the corporate network.</td><td>Does not travel with documents after access is granted</td></tr>
-              <tr><td class="row-label">Microsoft Purview</td><td>Data and documents — wherever they are</td><td>Classify sensitive content (PII, financial, health records), apply sensitivity labels that travel with the document to email, USB, personal devices, third-party storage.</td><td>Identity sign-in protection; device security</td></tr>
-              <tr><td class="row-label">Microsoft Sentinel</td><td>The entire security environment (SIEM/SOAR)</td><td>Ingests logs from Monitor, firewalls, identity providers, Office 365, third-party systems. Applies analytics rules and AI/ML to detect attack patterns; automates response via Logic App playbooks.</td><td>Not a posture or compliance tool; no config recommendations</td></tr>
-              <tr><td class="row-label">Defender for Cloud</td><td>Azure resource configurations and compliance posture</td><td>Continuously assesses resource configs against security best practices and regulatory frameworks (HIPAA, PCI DSS, CIS, NIST). Gives Secure Score and prioritized remediation list.</td><td>Does not monitor identity sign-ins or protect endpoints directly</td></tr>
-            </tbody>
-          </table></div>
-
-          <div class="trap-group">
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">Identity Protection (cloud) vs. Defender for Endpoint (on-prem AD)</span>
-              <div class="trap-body">"Cloud identity threats" and "Entra ID risky sign-ins" → Identity Protection. "On-prem AD," "device threats," "domain account compromise" → Defender for Endpoint. They protect different identity systems.</div>
-            </div>
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">Purview ≠ Conditional Access</span>
-              <div class="trap-body">Conditional Access enforces access <em>at sign-in time</em> — once you are in, it is done. Purview protects the <em>document itself</em> after access — sensitivity labels travel with the file wherever it goes. "Protect documents wherever they travel" → Purview.</div>
-            </div>
+          <div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Service</th><th>Protects</th><th>Main function</th><th>Not for</th></tr></thead><tbody><tr><td class="row-label">Identity Protection</td><td>Cloud identities</td><td>Sign-in/user risk detection</td><td>Endpoint EDR</td></tr><tr><td class="row-label">Defender for Endpoint</td><td>Devices/on-prem AD</td><td>EDR + attack detection</td><td>Entra sign-in policy logic</td></tr><tr><td class="row-label">Conditional Access</td><td>Access at sign-in</td><td>Grant/block/MFA logic</td><td>Persistent file protection</td></tr><tr><td class="row-label">Purview</td><td>Data/documents</td><td>Classification/labeling</td><td>Sign-in risk scoring</td></tr></tbody></table></div>
+          <div class="accordion-header">Identity Protection vs. Defender for Endpoint — Mirror Pair</div>
+          <div class="accordion-body"><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Pair</th><th>Different by...</th></tr></thead><tbody><tr><td class="row-label">Identity Protection vs Defender for Endpoint</td><td>Cloud sign-in risk vs endpoint/on-prem threat</td></tr><tr><td class="row-label">Conditional Access vs Purview</td><td>Sign-in gate vs persistent data protection</td></tr><tr><td class="row-label">Defender for Cloud vs Sentinel</td><td>Posture/compliance vs SIEM operations</td></tr></tbody></table></div></div>
+          <div class="callout callout-amber"><div class="callout-title">Exam trap(s)</div><ul><li>Conditional Access ends at sign-in; Purview protection travels with files.</li></ul></div>
+          <div class="callout callout-green quick-recall"><div class="callout-title">Quick Recall</div><ul><li>Identity=Identity Protection, Endpoint=Defender for Endpoint, Data=Purview.</li></ul></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 6</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Risky Entra sign-ins<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Identity Protection</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Endpoint/on-prem AD attacks<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Defender for Endpoint</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Sign-in grant/block control<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Conditional Access</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Persistent document labels<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Purview</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Secure Score/compliance<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Defender for Cloud</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">SIEM analytics + response<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Sentinel</div></div></div>
           </div>
-        </div><!-- /Identity -->
+        </div>
 
-        <!-- ─ TOPIC 7 ─ -->
         <div class="accordion-header">🌐 Network Security Layers</div>
         <div class="accordion-body">
-          <p class="day-list-intro">Three services filter traffic at different scopes and OSI layers. The wrong choice is almost always a scope mismatch.</p>
-
+          <p class="day-list-intro">Most misses come from scope mismatch: subnet control, web ingress control, or centralized network control.</p>
           <div class="decision-grid">
-            <div class="d-card">
-              <div>Allow / deny inbound HTTP on a single VM or subnet</div>
-              <span class="d-arrow">→</span>
-              <strong>NSG</strong>
-            </div>
-            <div class="d-card">
-              <div>Web traffic load balancing, URL routing, WAF for SQLi / XSS</div>
-              <span class="d-arrow">→</span>
-              <strong>Application Gateway</strong>
-            </div>
-            <div class="d-card">
-              <div>Centralized traffic inspection across many VNets — FQDN filtering, threat intel</div>
-              <span class="d-arrow">→</span>
-              <strong>Azure Firewall</strong>
-            </div>
+            <div class="d-card"><div class="d-card-trigger">Allow/deny TCP/UDP at subnet/NIC</div><div class="d-card-answer">NSG</div><div class="d-card-note">L3/L4 control for local scope</div></div>
+            <div class="d-card"><div class="d-card-trigger">Need URL routing + WAF</div><div class="d-card-answer">Application Gateway</div><div class="d-card-note">L7 HTTP/HTTPS ingress</div></div>
+            <div class="d-card"><div class="d-card-trigger">Need central filtering across many VNets</div><div class="d-card-answer">Azure Firewall</div><div class="d-card-note">Hub-spoke policy engine</div></div>
           </div>
-
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Service</th><th>OSI Layer</th><th>Scope</th><th>Traffic type</th><th>Key capabilities</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label"><abbr title="Network Security Group">NSG</abbr></td><td>Layer 3–4 (IP + port)</td><td>Single subnet or individual NIC</td><td>Any TCP/UDP</td><td>Allow/deny by source IP, destination IP, port, protocol. Free. Stateful.</td></tr>
-              <tr><td class="row-label">Application Gateway</td><td>Layer 7 (HTTP/HTTPS only)</td><td>Backend pool of web servers</td><td>HTTP and HTTPS</td><td>URL-based routing, SSL offload, WAF (blocks SQLi/XSS), cookie-based session affinity. Not a hybrid connectivity tool.</td></tr>
-              <tr><td class="row-label">Azure Firewall</td><td>Layer 3–7</td><td>Hub — protects many VNets via hub-spoke topology</td><td>Any TCP/UDP/ICMP; HTTPS with TLS inspection</td><td>FQDN filtering, threat intelligence feeds, network and application rules, central logging, Azure Firewall Manager.</td></tr>
-            </tbody>
-          </table></div>
-
-          <h4 style="margin-top:1.2rem;">NSG Default Rules — Why Same-VNet Subnets Communicate by Default</h4>
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Priority</th><th>Rule name</th><th>Direction</th><th>Effect</th></tr></thead>
-            <tbody>
-              <tr><td>65000</td><td>AllowVnetInBound</td><td>Inbound</td><td><span class="pill pill-green">Allow</span> — all traffic from the VNet address space (any subnet in the same VNet)</td></tr>
-              <tr><td>65001</td><td>AllowAzureLoadBalancerInBound</td><td>Inbound</td><td><span class="pill pill-green">Allow</span> — Azure load balancer health probe traffic</td></tr>
-              <tr><td>65500</td><td>DenyAllInBound</td><td>Inbound</td><td><span class="pill pill-red">Deny</span> — everything else blocked unless a custom rule allows it</td></tr>
-              <tr><td>65000</td><td>AllowVnetOutBound</td><td>Outbound</td><td><span class="pill pill-green">Allow</span> — VMs can reach other resources in the same VNet</td></tr>
-              <tr><td>65001</td><td>AllowInternetOutBound</td><td>Outbound</td><td><span class="pill pill-green">Allow</span> — VMs can reach the internet outbound by default</td></tr>
-              <tr><td>65500</td><td>DenyAllOutBound</td><td>Outbound</td><td><span class="pill pill-red">Deny</span> — everything else blocked unless a custom rule permits it</td></tr>
-            </tbody>
-          </table></div>
-
-          <div class="callout callout-blue">
-            <div class="callout-title">Why VMs in Different Subnets of the Same VNet Communicate</div>
-            The <strong>AllowVnetInBound</strong> default rule (priority 65000) matches the <em>VirtualNetwork</em> service tag — representing the entire address space of the VNet, including all of its subnets. VM in Subnet-A can reach VM in Subnet-B because Subnet-B falls within that VNet address space. VMs in a <em>different VNet</em> are NOT covered — hence they require explicit VNet Peering.
+          <div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Service</th><th>OSI layer</th><th>Scope</th><th>Typical use</th></tr></thead><tbody><tr><td class="row-label">NSG</td><td>L3-L4</td><td>Subnet/NIC</td><td>Port/IP allow-deny</td></tr><tr><td class="row-label">Application Gateway</td><td>L7</td><td>Web backends</td><td>WAF and URL routing</td></tr><tr><td class="row-label">Azure Firewall</td><td>L3-L7</td><td>Multiple VNets</td><td>Central inspection/filtering</td></tr></tbody></table></div>
+          <div class="accordion-header">NSG default rules</div>
+          <div class="accordion-body"><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Priority</th><th>Rule</th><th>Effect</th></tr></thead><tbody><tr><td>65000</td><td>AllowVnetInBound</td><td>Permits same-VNet inbound</td></tr><tr><td>65001</td><td>AllowAzureLoadBalancerInBound</td><td>Permits health probes</td></tr><tr><td>65500</td><td>DenyAllInBound</td><td>Blocks remaining inbound</td></tr></tbody></table></div></div>
+          <div class="callout callout-blue"><div class="callout-title">Default VNet communication</div>AllowVnetInBound is why different subnets in the same VNet can communicate unless custom deny rules override it.</div>
+          <div class="callout callout-amber"><div class="callout-title">Exam trap(s)</div><ul><li>Application Gateway is not hybrid connectivity; use VPN Gateway/ExpressRoute.</li></ul></div>
+          <div class="callout callout-green quick-recall"><div class="callout-title">Quick Recall</div><ul><li>NSG=local L3/L4, App Gateway=web L7, Firewall=central multi-VNet.</li></ul></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 5</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Open 443 on one VM<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">NSG rule</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Web ingress + WAF<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Application Gateway</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Central multi-VNet filtering<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Firewall</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Same VNet subnet communication<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">AllowVnetInBound default</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Private dedicated connectivity<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">ExpressRoute</div></div></div>
           </div>
+        </div>
 
-          <div class="trap-group">
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">Application Gateway ≠ hybrid connectivity</span>
-              <div class="trap-body">Application Gateway is a web traffic load balancer and WAF. It routes HTTP/HTTPS to backend web servers — it does not connect on-premises networks to Azure. Hybrid connectivity = VPN Gateway or ExpressRoute.</div>
-            </div>
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">NSG is sufficient for single-VM HTTP/S</span>
-              <div class="trap-body">A question asking how to allow inbound HTTP/HTTPS to a single VM has a correct answer of "add an NSG inbound rule on port 80/443." Azure Firewall for this scenario is over-engineered and wrong. Firewall is for centralized, multi-VNet policy.</div>
-            </div>
-          </div>
-        </div><!-- /Networking -->
-
-        <!-- ─ TOPIC 8 ─ -->
         <div class="accordion-header">⚙️ Automation Services</div>
         <div class="accordion-body">
-          <p class="day-list-intro">Five services automate things. The discriminators are: <strong>who is the user</strong>, <strong>what gets automated</strong>, and <strong>what triggers it</strong>.</p>
-
+          <p class="day-list-intro">Differentiate automation by actor and trigger: developer code, integration workflow, business process, or infrastructure runbook.</p>
           <div class="decision-grid">
-            <div class="d-card">
-              <div>Developer writes custom code; triggered by events (HTTP, timer, blob, queue)</div>
-              <span class="d-arrow">→</span>
-              <strong>Azure Functions</strong>
-            </div>
-            <div class="d-card">
-              <div>Multi-step workflow connecting external systems via 400+ connectors</div>
-              <span class="d-arrow">→</span>
-              <strong>Logic Apps</strong>
-            </div>
-            <div class="d-card">
-              <div>Business user automates Office 365 / SharePoint / Teams — no code</div>
-              <span class="d-arrow">→</span>
-              <strong>Power Automate</strong>
-            </div>
-            <div class="d-card">
-              <div>IT ops runbook: VM start/stop, OS patching, respond to Monitor alert</div>
-              <span class="d-arrow">→</span>
-              <strong>Azure Automation</strong>
-            </div>
-            <div class="d-card">
-              <div>Background task on the same server as an existing App Service web app</div>
-              <span class="d-arrow">→</span>
-              <strong>WebJobs</strong>
-            </div>
+            <div class="d-card"><div class="d-card-trigger">Custom event-driven code execution</div><div class="d-card-answer">Azure Functions</div><div class="d-card-note">Serverless developer workflows</div></div>
+            <div class="d-card"><div class="d-card-trigger">Connector-rich integration orchestration</div><div class="d-card-answer">Logic Apps</div><div class="d-card-note">Visual designer with connectors</div></div>
+            <div class="d-card"><div class="d-card-trigger">Business approval workflow in M365 tools</div><div class="d-card-answer">Power Automate</div><div class="d-card-note">Low-code business automation</div></div>
+            <div class="d-card"><div class="d-card-trigger">Runbook response from Azure Monitor alerts</div><div class="d-card-answer">Azure Automation</div><div class="d-card-note">Ops remediation workflows</div></div>
+            <div class="d-card"><div class="d-card-trigger">Background job within App Service plan</div><div class="d-card-answer">WebJobs</div><div class="d-card-note">App-bound background processing</div></div>
           </div>
-
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Service</th><th>Who uses it</th><th>What gets automated</th><th>Billing model</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Azure Functions</td><td>Developers</td><td>Custom application code in any language; event-driven (HTTP, timer, queue, blob, Event Grid)</td><td>Consumption: per execution + per GB-second</td></tr>
-              <tr><td class="row-label">Logic Apps</td><td>Developers and IT pros</td><td>Multi-step workflows via visual designer + 400+ connectors (SAP, Salesforce, SharePoint, SQL)</td><td>Per action execution and per connector call</td></tr>
-              <tr><td class="row-label">Power Automate</td><td>Business users, citizen devs</td><td>Business process automation between Office 365 apps, Dynamics, SharePoint — no code needed</td><td>Microsoft 365 license or standalone per-user license</td></tr>
-              <tr><td class="row-label">Azure Automation</td><td>IT operations</td><td>Infrastructure management: VM start/stop, OS patching, config management, responding to Monitor alerts via runbook</td><td>Per runbook job runtime minute; free tier available</td></tr>
-              <tr><td class="row-label">WebJobs</td><td>Developers using App Service</td><td>Background tasks alongside a web app — file processing, queue polling, cleanup. Shares App Service plan.</td><td>No extra cost — uses existing App Service plan</td></tr>
-            </tbody>
-          </table></div>
-
-          <div class="callout callout-blue">
-            <div class="callout-title">Monitor Alert → Azure Automation</div>
-            Azure Monitor Alerts trigger Action Groups, which can invoke an <strong>Azure Automation runbook</strong>. When a question says "when CPU breaches a threshold, automatically scale down idle VMs" or "when a security alert fires, isolate the affected resource" — the answer is Azure Automation. Power Automate has no native Azure Monitor integration and is not designed for infrastructure remediation.
+          <div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Service</th><th>User persona</th><th>Automates</th><th>Keyword cue</th></tr></thead><tbody><tr><td class="row-label">Azure Functions</td><td>Developers</td><td>Event-driven code</td><td>Serverless function</td></tr><tr><td class="row-label">Logic Apps</td><td>Dev/IT</td><td>Connector workflows</td><td>Visual integration</td></tr><tr><td class="row-label">Power Automate</td><td>Business users</td><td>SaaS process automation</td><td>Citizen developer</td></tr><tr><td class="row-label">Azure Automation</td><td>IT ops</td><td>Runbooks and remediation</td><td>Monitor action group trigger</td></tr><tr><td class="row-label">WebJobs</td><td>App Service devs</td><td>Background tasks in app plan</td><td>Same App Service plan</td></tr></tbody></table></div>
+          <div class="accordion-header">Trigger-to-Service Mapping</div>
+          <div class="accordion-body"><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Trigger</th><th>Best match</th></tr></thead><tbody><tr><td>Blob uploaded then custom code run</td><td>Azure Functions</td></tr><tr><td>Azure Monitor threshold triggers script</td><td>Azure Automation runbook</td></tr><tr><td>SaaS approvals and notifications</td><td>Power Automate / Logic Apps</td></tr></tbody></table></div></div>
+          <div class="matching-game"><div class="match-instructions">Match automation scenario to service.</div><div class="match-columns"><div class="match-col"><div class="match-item" data-match="a1">Blob upload triggers custom C# processing</div><div class="match-item" data-match="a2">Monitor alert starts VM remediation runbook</div><div class="match-item" data-match="a3">Business approval workflow in M365 tools</div><div class="match-item" data-match="a4">Connector-driven SAP to CRM workflow</div><div class="match-item" data-match="a5">Background cleanup task for App Service app</div></div><div class="match-col"><div class="match-target" data-id="a1">Azure Functions</div><div class="match-target" data-id="a2">Azure Automation</div><div class="match-target" data-id="a3">Power Automate</div><div class="match-target" data-id="a4">Logic Apps</div><div class="match-target" data-id="a5">WebJobs</div></div></div><div class="match-footer"><span class="match-score">0 / 5 matched</span><button class="reset-btn">Reset</button></div></div>
+          <div class="callout callout-amber"><div class="callout-title">Exam trap(s)</div><ul><li>Monitor alert auto-remediation is Azure Automation, not Power Automate.</li></ul></div>
+          <div class="callout callout-green quick-recall"><div class="callout-title">Quick Recall</div><ul><li>Functions=code, Logic Apps=integration, Power Automate=business users, Automation=runbooks.</li></ul></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 5</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Blob event triggers code<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Functions</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Connector-based integration workflow<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Logic Apps</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Citizen-developer approval flow<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Power Automate</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Monitor alert runbook action<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Automation</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Background task in App Service<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">WebJobs</div></div></div>
           </div>
+        </div>
 
-          <div class="trap-group">
-            <div class="trap">
-              <span class="trap-badge">Exam trap</span>
-              <span class="trap-title">Respond to Monitor alert → Azure Automation, not Power Automate</span>
-              <div class="trap-body">Power Automate is for business-process automation between SaaS applications. Azure Monitor alerts → Action Group → Automation runbook is the correct chain for infrastructure auto-remediation.</div>
-            </div>
-          </div>
-        </div><!-- /Automation -->
-
-        <!-- ─ TOPIC 9 ─ -->
         <div class="accordion-header">🛡️ Azure DDoS Protection</div>
         <div class="accordion-body">
-          <p class="day-list-intro">A <abbr title="Distributed Denial of Service">DDoS</abbr> attack overwhelms a service with traffic from thousands of compromised systems, making it unavailable to legitimate users. Azure defends at two levels.</p>
-
+          <p class="day-list-intro">Basic is default baseline coverage; Standard adds per-customer visibility, support, and SLA-backed protections.</p>
           <div class="decision-grid">
-            <div class="d-card">
-              <div>Always-on, free, no configuration — automatic protection for all Azure customers</div>
-              <span class="d-arrow">→</span>
-              <strong>DDoS Basic (Infrastructure Protection)</strong>
-            </div>
-            <div class="d-card">
-              <div>Regulatory compliance, SLA-backed mitigation, attack analytics, DRR team access</div>
-              <span class="d-arrow">→</span>
-              <strong>DDoS Standard (Network Protection)</strong>
-            </div>
+            <div class="d-card"><div class="d-card-trigger">Need always-on baseline at no extra cost</div><div class="d-card-answer">DDoS Basic</div><div class="d-card-note">Included for all Azure customers</div></div>
+            <div class="d-card"><div class="d-card-trigger">Need attack telemetry, DRR team, and SLA evidence</div><div class="d-card-answer">DDoS Standard</div><div class="d-card-note">Paid and VNet associated</div></div>
           </div>
-
-          <div class="cmp-wrap"><table class="cmp-table">
-            <thead><tr><th>Dimension</th><th>DDoS Basic</th><th>DDoS Standard</th></tr></thead>
-            <tbody>
-              <tr><td class="row-label">Cost</td><td>Free — included automatically</td><td>Paid — monthly fee per protected public IP + data overage</td></tr>
-              <tr><td class="row-label">Enablement</td><td>Automatic — always on, no configuration</td><td>Must be explicitly created and associated with a VNet</td></tr>
-              <tr><td class="row-label">Mitigation approach</td><td>Generic volumetric mitigation at the Azure network edge; protects the platform overall, not per-customer</td><td>Adaptive tuning via ML — learns your traffic pattern, reacts precisely to deviations on your public IPs</td></tr>
-              <tr><td class="row-label">Attack telemetry</td><td>None per customer — you cannot see if an attack was mitigated</td><td>Real-time attack metrics in Monitor, per-IP mitigation logs, post-attack summaries</td></tr>
-              <tr><td class="row-label">Financial SLA</td><td>None — best-effort only</td><td>Financially backed SLA; Azure credits for scale-out costs during an attack</td></tr>
-              <tr><td class="row-label">DDoS Rapid Response</td><td>No dedicated support team</td><td>Access to Microsoft DRR team during active attacks</td></tr>
-              <tr><td class="row-label">Compliance suitability</td><td>Insufficient for requirements mandating documented DDoS SLA</td><td>Meets HIPAA, PCI DSS requirements for DDoS protection documentation</td></tr>
-            </tbody>
-          </table></div>
-        </div><!-- /DDoS -->
+          <div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Dimension</th><th>DDoS Basic</th><th>DDoS Standard</th></tr></thead><tbody><tr><td class="row-label">Cost</td><td>Included</td><td>Paid</td></tr><tr><td class="row-label">Per-customer attack telemetry</td><td>No</td><td>Yes</td></tr><tr><td class="row-label">Financial SLA/credits</td><td>No</td><td>Yes</td></tr></tbody></table></div>
+          <div class="accordion-header">DDoS Tier Selection Cues</div>
+          <div class="accordion-body"><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Requirement</th><th>Answer</th></tr></thead><tbody><tr><td>Regulatory requirement for documented DDoS controls</td><td>DDoS Standard</td></tr><tr><td>Need post-attack analytics and mitigation logs</td><td>DDoS Standard</td></tr><tr><td>General baseline protection only</td><td>DDoS Basic</td></tr></tbody></table></div></div>
+          <div class="callout callout-amber"><div class="callout-title">Exam trap(s)</div><ul><li>Basic is automatic but does not provide customer-visible attack analytics or SLA guarantees.</li></ul></div>
+          <div class="callout callout-green quick-recall"><div class="callout-title">Quick Recall</div><ul><li>Basic=free baseline; Standard=paid adaptive + telemetry + DRR + SLA.</li></ul></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 2</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Always-on free DDoS tier<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">DDoS Basic</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Telemetry + DRR + SLA tier<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">DDoS Standard</div></div></div>
+          </div>
+        </div>
 
       </div><!-- /topic accordions -->
 
-      <!-- ══ SCENARIO KEYWORD CHEAT SHEET ══ -->
       <h3 style="margin-top:1.5rem;">Scenario Keyword Cheat Sheet</h3>
-      <p class="day-tip">Each category is collapsible. If you see these keywords in a question stem, they strongly signal the answer shown.</p>
+      <p class="day-tip">Seven condensed decks for last-pass keyword recognition.</p>
 
       <div>
 
         <div class="accordion-header">☁️ Cloud Models &amp; Service Types</div>
         <div class="accordion-body">
-          <div class="table-wrap"><table>
-            <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
-            <tbody>
-              <tr><td>"On-prem Hyper-V, org-owned datacenter"</td><td>Private Cloud</td></tr>
-              <tr><td>"Mix of on-prem and public cloud, ExpressRoute + Azure"</td><td>Hybrid Cloud</td></tr>
-              <tr><td>"Standard Azure subscription, multi-tenant"</td><td>Public Cloud</td></tr>
-              <tr><td>"Office 365, complete end-user app, just use the application"</td><td>SaaS</td></tr>
-              <tr><td>"Managed platform, developer deploys code or data to it"</td><td>PaaS</td></tr>
-              <tr><td>"Cosmos DB, Azure MySQL, App Service, Azure SQL" — what type?</td><td>PaaS (not SaaS)</td></tr>
-              <tr><td>"Automatically scales, pay only when needed, demand spikes"</td><td>Elasticity</td></tr>
-              <tr><td>"Can scale up/out, designed to handle growth" (no auto implied)</td><td>Scalability</td></tr>
-            </tbody>
-          </table></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 8</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Org-owned datacenter only<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Private cloud — Why: one organization owns and runs the environment.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Azure + on-prem active link<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Hybrid cloud — Why: workloads run in both private and public clouds.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Multi-tenant Azure<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Public cloud — Why: provider-hosted shared infrastructure.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Manage OS/runtime<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">IaaS — Why: customer controls guest OS and platform layers.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Deploy app code on managed platform<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">PaaS — Why: provider manages OS/runtime while you ship code.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Complete end-user app<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">SaaS — Why: provider builds and runs the whole application.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Automatically adjusts capacity<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Elasticity — Why: resources scale in/out automatically with demand.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Can scale for growth<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Scalability — Why: architecture can increase capacity when needed.</div></div></div>
+          </div>
         </div>
 
         <div class="accordion-header">💾 Storage Services</div>
         <div class="accordion-body">
-          <div class="table-wrap"><table>
-            <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
-            <tbody>
-              <tr><td>"Big data, analytics pipelines, Spark, Synapse, data science storage"</td><td>Azure Data Lake Gen2</td></tr>
-              <tr><td>"Hierarchical namespace, rename petabytes instantly, HDFS-compatible"</td><td>Azure Data Lake Storage Gen2</td></tr>
-              <tr><td>"File share, SMB, replace file server, mountable network drive"</td><td>Azure Files</td></tr>
-              <tr><td>"Images, videos, backups, static website, CDN origin"</td><td>Blob Storage</td></tr>
-              <tr><td>"Decouple app components, async queue processing"</td><td>Azure Queue Storage</td></tr>
-              <tr><td>"VM OS disk, data disk, block storage"</td><td>Azure Disk Storage</td></tr>
-            </tbody>
-          </table></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 6</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Big data with HNS/Spark<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Data Lake Gen2 — Why: hierarchical namespace fits analytics engines.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">SMB file share replacement<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Files — Why: managed SMB/NFS network shares.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Object storage for media/backups<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Blob Storage — Why: optimized object store with tiering.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">App decoupling queue<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Queue Storage — Why: asynchronous message handoff between components.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Schema-less key-value storage<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Table Storage — Why: NoSQL entities keyed by partition/row key.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">VM disk storage<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Disk Storage — Why: block volumes attach directly to VMs.</div></div></div>
+          </div>
         </div>
 
         <div class="accordion-header">📊 Monitoring &amp; Observability</div>
         <div class="accordion-body">
-          <div class="table-wrap"><table>
-            <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
-            <tbody>
-              <tr><td>"App performance, response times, exceptions, microservices perf"</td><td>Application Insights</td></tr>
-              <tr><td>"Infrastructure health, VM alerts, service availability, metric thresholds"</td><td>Azure Monitor</td></tr>
-              <tr><td>"Query logs, central log store, KQL, correlate events across resources"</td><td>Log Analytics</td></tr>
-              <tr><td>"Cost / optimization / reliability / performance recommendations"</td><td>Azure Advisor</td></tr>
-              <tr><td>"Compliance baselines, HIPAA/PCI posture, Secure Score, AKS recommendations"</td><td>Defender for Cloud</td></tr>
-              <tr><td>"Detect threats, SIEM, security events, attack patterns across org"</td><td>Microsoft Sentinel</td></tr>
-            </tbody>
-          </table></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 6</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Infra metrics + alerts<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Monitor — Why: it is the central telemetry and alert umbrella.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">KQL over centralized logs<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Log Analytics — Why: workspace query engine for operational logs.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">App response and exceptions<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Application Insights — Why: app-level APM instrumentation and tracing.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Optimization recommendations<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Advisor — Why: best-practice guidance across cost/performance/security.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Secure Score/compliance posture<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Defender for Cloud — Why: posture and regulatory compliance management.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Security analytics SIEM<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Sentinel — Why: cloud SIEM/SOAR for incident operations.</div></div></div>
+          </div>
         </div>
 
         <div class="accordion-header">⚖️ Governance</div>
         <div class="accordion-body">
-          <div class="table-wrap"><table>
-            <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
-            <tbody>
-              <tr><td>"Enforce rules on existing or new resources, ongoing compliance"</td><td>Azure Policy</td></tr>
-              <tr><td>"Nobody can delete or modify this, prevent even admins from deleting"</td><td>Resource Lock</td></tr>
-              <tr><td>"Repeatable full environment deployment, new subscription setup"</td><td>Azure Blueprints</td></tr>
-              <tr><td>"Protect against datacenter failure, 99.99%"</td><td>Availability Zone</td></tr>
-              <tr><td>"Protect against rack / update-domain failure, 99.95%"</td><td>Availability Set</td></tr>
-            </tbody>
-          </table></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 5</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Enforce allowed config<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Policy — Why: evaluates and enforces compliance rules continuously.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Prevent delete/modify<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Resource Lock — Why: blocks operations even for privileged users.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Repeatable baseline deployment<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Blueprints — Why: packages policies/RBAC/templates into one assignment.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Datacenter-level resilience<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Availability Zone — Why: isolates workloads across separate datacenters.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Rack/update-domain resilience<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Availability Set — Why: spreads VMs across fault and update domains.</div></div></div>
+          </div>
         </div>
 
         <div class="accordion-header">🔐 Identity &amp; Security</div>
         <div class="accordion-body">
-          <div class="table-wrap"><table>
-            <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
-            <tbody>
-              <tr><td>"Risky sign-ins, compromised cloud identities, Entra ID threats"</td><td>Azure Identity Protection</td></tr>
-              <tr><td>"On-prem AD identities, endpoint threats, device security, domain compromise"</td><td>Defender for Endpoint</td></tr>
-              <tr><td>"Protect documents wherever they travel, sensitivity labels, data classification"</td><td>Microsoft Purview</td></tr>
-              <tr><td>"Verify regulatory compliance, HIPAA/PCI posture, Secure Score"</td><td>Microsoft Defender for Cloud</td></tr>
-              <tr><td>"Conditional grant/block at sign-in, MFA on unfamiliar network"</td><td>Conditional Access</td></tr>
-              <tr><td>"DDoS Basic" — cost and setup?</td><td>Free, always-on, automatic, no config required</td></tr>
-              <tr><td>"DDoS Standard" — what does it add?</td><td>Paid, adaptive ML tuning, SLA-backed, attack analytics, DRR team</td></tr>
-            </tbody>
-          </table></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 7</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Risky cloud sign-ins<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Identity Protection — Why: detects risky users and sign-ins in Entra ID.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Endpoint + on-prem AD threats<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Defender for Endpoint — Why: endpoint EDR with attack detection.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Protect docs wherever they travel<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Purview — Why: sensitivity labels persist with content.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Sign-in policy enforcement<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Conditional Access — Why: applies grant/block/MFA at sign-in time.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Cloud security posture/compliance<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Defender for Cloud — Why: posture recommendations and compliance controls.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">SIEM/SOAR incident response<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Sentinel — Why: correlates security signals for response workflows.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Paid DDoS with analytics/SLA<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">DDoS Standard — Why: adds telemetry, DRR support, and SLA-backed protection.</div></div></div>
+          </div>
         </div>
 
         <div class="accordion-header">🌐 Networking</div>
         <div class="accordion-body">
-          <div class="table-wrap"><table>
-            <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
-            <tbody>
-              <tr><td>"Inbound web traffic load balancer with WAF, URL routing, SSL offload"</td><td>Application Gateway</td></tr>
-              <tr><td>"Multi-VNet centralized traffic inspection, FQDN filtering, 15 VNets"</td><td>Azure Firewall</td></tr>
-              <tr><td>"Allow/deny HTTP/S on a single VM or subnet"</td><td>NSG inbound rule (sufficient — correct answer)</td></tr>
-              <tr><td>"Private dedicated connection to Azure, low latency, compliance"</td><td>ExpressRoute</td></tr>
-              <tr><td>"Cheap hybrid connection over internet"</td><td>Site-to-Site VPN</td></tr>
-              <tr><td>"VMs in same VNet, different subnets — can they talk?"</td><td>YES — AllowVnetInBound default rule permits it</td></tr>
-              <tr><td>"VMs in different VNets — can they talk?"</td><td>NO — require VNet Peering</td></tr>
-            </tbody>
-          </table></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 7</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">WAF + URL routing ingress<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Application Gateway — Why: L7 gateway with web firewall and routing.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Centralized VNet inspection<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Firewall — Why: centralized policy enforcement across networks.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Allow/deny ports on VM/subnet<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">NSG — Why: subnet/NIC level L3/L4 filtering.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Private dedicated Azure circuit<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">ExpressRoute — Why: private connectivity avoids the public internet.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Hybrid over internet tunnel<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Site-to-Site VPN — Why: encrypted tunnel across the internet.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Same-VNet subnet communication<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Allowed by default — Why: NSG default AllowVnetInBound permits it.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Different VNets communication<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">VNet Peering required — Why: separate VNets are isolated until peered.</div></div></div>
+          </div>
         </div>
 
         <div class="accordion-header">⚙️ Automation</div>
         <div class="accordion-body">
-          <div class="table-wrap"><table>
-            <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
-            <tbody>
-              <tr><td>"Serverless, per execution, on-demand code, event-driven function"</td><td>Azure Functions</td></tr>
-              <tr><td>"Low-code, citizen developer, Salesforce/SAP connectors, business workflow"</td><td>Power Automate</td></tr>
-              <tr><td>"Visual workflow, developer automation with 400+ connectors"</td><td>Logic Apps</td></tr>
-              <tr><td>"IT runbook, scheduled script, respond to Monitor alert, VM patching"</td><td>Azure Automation</td></tr>
-              <tr><td>"Background task tied to App Service"</td><td>WebJobs</td></tr>
-              <tr><td>"Host web/mobile/API app, managed platform"</td><td>App Service (PaaS)</td></tr>
-            </tbody>
-          </table></div>
+          <div class="flashcard-deck">
+            <div class="deck-nav"><button class="prev-btn">← Prev</button><span class="card-counter">1 / 6</span><button class="next-btn">Next →</button></div>
+            <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Event-driven serverless code<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Functions — Why: executes custom code from event triggers.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Visual integration workflows<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Logic Apps — Why: connector-based workflow orchestration.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Business-user low-code flows<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Power Automate — Why: citizen-developer automation in M365 ecosystem.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">IT runbooks and remediation<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">Azure Automation — Why: runbooks and operational remediation scripts.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Background jobs in App Service<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">WebJobs — Why: background processing tied to App Service plans.</div></div></div>
+            <div class="flashcard" tabindex="0"><div class="flashcard-inner"><div class="flashcard-front">Managed web app host<div class="flashcard-hint">Click to flip</div></div><div class="flashcard-back">App Service (PaaS) — Why: managed platform for web/API deployments.</div></div></div>
+          </div>
         </div>
 
       </div><!-- /cheat sheet accordions -->
 
     </div><!-- /Day 6 -->
+
 
   </div><!-- /cram-day-group -->
 
