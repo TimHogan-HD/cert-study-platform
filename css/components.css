@@ -1519,3 +1519,62 @@ td code { font-size: 0.8rem; }
 .pill-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
 .pill-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
 .pill-teal   { background: var(--teal-bg);   color: var(--teal);   border: 1px solid var(--teal-border); }
+
+/* ── SLA Tier Ladder ─────────────────────────────────────────── */
+.sla-ladder { display: flex; flex-direction: column; gap: 4px; }
+.sla-tier { display: flex; align-items: flex-start; gap: 12px; padding: 0.6rem 0.875rem; border-radius: var(--radius); border: 1px solid var(--border); }
+.sla-tier-pct { font-size: 0.82rem; font-weight: 700; min-width: 62px; flex-shrink: 0; padding-top: 2px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sla-tier-body { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.sla-tier-svcs { display: flex; flex-wrap: wrap; gap: 4px; }
+.sla-svc { font-size: 0.72rem; padding: 2px 8px; border-radius: 99px; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); }
+.sla-tier-down { font-size: 0.68rem; color: var(--muted); }
+.sla-tier-100  { background: var(--green-bg);  border-color: var(--green-border); }
+.sla-ladder + .trap { margin-top: 0.75rem; }
+.sla-tier-100  .sla-tier-pct { color: var(--green); }
+.sla-tier-9999 { background: var(--blue-bg);   border-color: var(--blue-border); }
+.sla-tier-9999 .sla-tier-pct { color: var(--blue); }
+.sla-tier-9995 { background: var(--teal-bg);   border-color: var(--teal-border); }
+.sla-tier-9995 .sla-tier-pct { color: var(--teal); }
+.sla-tier-999  { background: var(--amber-bg);  border-color: var(--amber-border); }
+.sla-tier-999  .sla-tier-pct { color: var(--amber); }
+.sla-tier-none { background: var(--surface2);  border-color: var(--border2); }
+.sla-tier-none .sla-tier-pct { color: var(--muted); }
+
+/* ── Architecture Number Stat Grid ───────────────────────────── */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 0.875rem 0.75rem; text-align: center; }
+.stat-val { font-size: 1.55rem; font-weight: 700; line-height: 1.1; color: var(--blue); font-variant-numeric: tabular-nums; }
+.stat-unit { font-size: 0.85rem; font-weight: 600; }
+.stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 5px; line-height: 1.4; }
+.stat-card-green .stat-val { color: var(--green); }
+
+/* ── Composite SLA Diagram ───────────────────────────────────── */
+.composite-diagram { display: flex; flex-direction: column; gap: 10px; }
+.comp-scenario { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem; }
+.comp-scenario-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.65rem; }
+.comp-label-bad  { color: var(--red); }
+.comp-label-good { color: var(--green); }
+.comp-chain { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.comp-svc { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.35rem 0.65rem; text-align: center; min-width: 78px; }
+.comp-svc-name { font-size: 0.68rem; color: var(--muted); }
+.comp-svc-sla  { font-size: 0.82rem; font-weight: 700; }
+.comp-op { font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+.comp-op-arrow { color: var(--red); }
+.comp-op-plus  { color: var(--green); }
+.comp-op-eq    { color: var(--muted); }
+.comp-result { padding: 0.4rem 0.75rem; border-radius: var(--radius); text-align: center; min-width: 96px; }
+.comp-result-val   { font-size: 0.88rem; font-weight: 700; }
+.comp-result-form  { font-size: 0.65rem; margin-top: 2px; opacity: 0.75; }
+.comp-result-bad   { background: var(--red-bg);   border: 1px solid var(--red-border);   color: var(--red); }
+.comp-result-good  { background: var(--green-bg); border: 1px solid var(--green-border); color: var(--green); }
+.comp-note { font-size: 0.73rem; color: var(--muted); margin: 0; line-height: 1.5; }
+
+/* ── Grouped Exam Traps ──────────────────────────────────────── */
+.trap-group { margin-bottom: 1.5rem; }
+.trap-group-header { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); padding-bottom: 0.3rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+.trap-group .trap { margin-bottom: 4px; }
+
+/* ── Grouped Checklist Sections ──────────────────────────────── */
+.check-section { margin-bottom: 1rem; }
+.check-section-header { font-size: 0.78rem; font-weight: 600; color: var(--text); padding: 0.35rem 0.65rem; background: var(--surface2); border-radius: var(--radius); margin-bottom: 0; border: 1px solid var(--border); }
+.check-section .check-item:first-child { border-top: none; }
