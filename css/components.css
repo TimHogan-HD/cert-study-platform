@@ -198,10 +198,10 @@ tr[data-exam-weight="high"] td:first-child::before {
 .domain-bar-track {
   flex: 1;
   height: 24px;
-  background: var(--surface2);
+  background: var(--surface3);
   border-radius: 4px;
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border2);
 }
 .domain-bar-fill {
   height: 100%;
@@ -1138,6 +1138,8 @@ tr[data-exam-weight="high"] td:first-child::before {
   margin-inline: -2.5rem;
   margin-bottom: 1rem;
   scroll-snap-type: x mandatory;
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
 }
 @media (max-width: 768px) {
   #domain-subnav-bar { margin-inline: -1rem; }
