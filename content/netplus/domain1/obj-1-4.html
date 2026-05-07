@@ -28,7 +28,7 @@
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>80</td><td><abbr title="HyperText Transfer Protocol">HTTP</abbr></td><td>TCP</td><td>Cleartext web traffic. Replaced by HTTPS for secure sites.</td></tr>
-          <tr><td>443</td><td><abbr title="HTTP Secure — HTTP over TLS/SSL">HTTPS</abbr></td><td>TCP</td><td>Encrypted web traffic. Standard for all modern websites.</td></tr>
+          <tr data-exam-weight="high"><td>443</td><td><abbr title="HTTP Secure — HTTP over TLS/SSL">HTTPS</abbr></td><td>TCP</td><td>Encrypted web traffic. Standard for all modern websites.</td></tr>
         </tbody>
       </table></div>
     </div>
@@ -67,9 +67,9 @@
       <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>22</td><td><abbr title="Secure Shell — encrypted remote access">SSH</abbr></td><td>TCP</td><td>Encrypted remote shell access. Replaces Telnet (port 23).</td></tr>
+          <tr data-exam-weight="high"><td>22</td><td><abbr title="Secure Shell — encrypted remote access">SSH</abbr></td><td>TCP</td><td>Encrypted remote shell access. Replaces Telnet (port 23).</td></tr>
           <tr><td>23</td><td>Telnet</td><td>TCP</td><td>Cleartext remote access — insecure, legacy. Replaced by SSH.</td></tr>
-          <tr><td>3389</td><td><abbr title="Remote Desktop Protocol — Windows GUI remote access">RDP</abbr></td><td>TCP (+UDP)</td><td>Windows remote desktop. High-value attack target — should be VPN-gated.</td></tr>
+          <tr data-exam-weight="high"><td>3389</td><td><abbr title="Remote Desktop Protocol — Windows GUI remote access">RDP</abbr></td><td>TCP (+UDP)</td><td>Windows remote desktop. High-value attack target — should be VPN-gated.</td></tr>
         </tbody>
       </table></div>
     </div>
@@ -79,7 +79,7 @@
       <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>53</td><td><abbr title="Domain Name System — resolves hostnames to IP addresses">DNS</abbr></td><td>UDP + TCP</td><td>UDP for queries (≤512 bytes). TCP for zone transfers and large responses. <strong>Both matter!</strong></td></tr>
+          <tr data-exam-weight="high"><td>53</td><td><abbr title="Domain Name System — resolves hostnames to IP addresses">DNS</abbr></td><td>UDP + TCP</td><td>UDP for queries (≤512 bytes). TCP for zone transfers and large responses. <strong>Both matter!</strong></td></tr>
           <tr><td>67</td><td><abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> Server</td><td>UDP</td><td>Server listens on 67. Client sends Discover from port 68.</td></tr>
           <tr><td>68</td><td>DHCP Client</td><td>UDP</td><td>Client source port during <abbr title="Discover-Offer-Request-Acknowledge">DORA</abbr> process.</td></tr>
           <tr><td>123</td><td><abbr title="Network Time Protocol — time synchronization">NTP</abbr></td><td>UDP</td><td>Time synchronization. Critical for Kerberos auth — max 5-minute clock skew.</td></tr>

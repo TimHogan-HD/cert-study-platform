@@ -75,6 +75,12 @@ td code { font-size: 0.8rem; }
 .table--comparison thead th { color: var(--blue); border-bottom-color: var(--blue-border); }
 .table--comparison tbody td:first-child { font-weight: 600; min-width: 130px; }
 
+/* High-exam-weight row marker — subtle left amber accent on first cell */
+tr[data-exam-weight="high"] td:first-child {
+  border-left: 3px solid var(--amber);
+  padding-left: calc(1rem - 3px);
+}
+
 /* ---------- Section Headers --------------------------------- */
 .section-eyebrow {
   font-size: 0.72rem;
