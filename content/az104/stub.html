@@ -911,11 +911,11 @@
     <div class="cram-day-panel">
       <p class="day-intro">Nine topic clusters that most often trip people up — each opens as a toggle. Work through the ones where you feel shakiest, then finish with the categorised keyword cheat sheet for a final pass before exam day.</p>
 
-      <div class="toggle-group">
+      <div>
 
         <!-- ─ TOPIC 1 ─ -->
-        <button class="toggle-btn">☁️ Cloud Models &amp; Service Types</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">☁️ Cloud Models &amp; Service Types</div>
+        <div class="accordion-body">
           <div class="cmp-wrap"><table class="cmp-table">
             <thead><tr><th>Model</th><th>Who owns infra?</th><th>Connection</th><th>Exam examples</th></tr></thead>
             <tbody>
@@ -927,7 +927,7 @@
 
           <div class="trap-group">
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">Hyper-V = Private, not Hybrid</span>
               <div class="trap-body">Hyper-V is a hypervisor that runs VMs on hardware <em>your org owns</em> — that is Private Cloud. It only becomes Hybrid when you add a live network link (S2S VPN or ExpressRoute) to an Azure subscription and actively use both together.</div>
             </div>
@@ -967,7 +967,7 @@
 
           <div class="trap-group">
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">Cosmos DB and Azure MySQL = PaaS, not SaaS</span>
               <div class="trap-body">A managed database is PaaS — you store your own data in it. SaaS means Microsoft built the entire end-user application. Cosmos DB is not an end-user app; it is a platform your developers build on.</div>
             </div>
@@ -975,8 +975,8 @@
         </div><!-- /Cloud Models -->
 
         <!-- ─ TOPIC 2 ─ -->
-        <button class="toggle-btn">📈 Elasticity vs. Scalability</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">📈 Elasticity vs. Scalability</div>
+        <div class="accordion-body">
           <div class="cmp-wrap"><table class="cmp-table">
             <thead><tr><th>Term</th><th>Definition</th><th>Automatic?</th><th>Exam trigger phrase</th></tr></thead>
             <tbody>
@@ -1010,8 +1010,8 @@
         </div><!-- /Elasticity -->
 
         <!-- ─ TOPIC 3 ─ -->
-        <button class="toggle-btn">📊 Azure Monitor Ecosystem</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">📊 Azure Monitor Ecosystem</div>
+        <div class="accordion-body">
           <p class="day-list-intro">Azure Monitor is the umbrella — everything else is either a sub-component or an adjacent service. Knowing the hierarchy is what separates correct from close-but-wrong answers.</p>
 
           <pre style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;font-size:0.82rem;overflow-x:auto;line-height:1.7;">Azure Monitor  ← umbrella; collects ALL metrics and logs from Azure resources
@@ -1053,12 +1053,12 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
 
           <div class="trap-group">
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">Azure Data Lake ≠ monitoring</span>
               <div class="trap-body">Data Lake has no alerting, no dashboards, no real-time ingestion from Azure resources, and no KQL. If a question mentions monitoring, alerting, or log correlation — Data Lake is never the answer.</div>
             </div>
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">Defender for Cloud ≠ Azure Advisor</span>
               <div class="trap-body">Advisor gives optimization recommendations (cost, reliability, performance). Defender for Cloud gives security posture scores and regulatory compliance baselines. "Reduce costs" → Advisor. "HIPAA compliance baseline" → Defender for Cloud.</div>
             </div>
@@ -1066,8 +1066,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
         </div><!-- /Monitor -->
 
         <!-- ─ TOPIC 4 ─ -->
-        <button class="toggle-btn">💾 Storage Services Spectrum</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">💾 Storage Services Spectrum</div>
+        <div class="accordion-body">
           <p class="day-list-intro">Six storage services — they overlap in what they can hold but differ in data model, access pattern, and downstream use. Match the service to the workload.</p>
 
           <div class="cmp-wrap"><table class="cmp-table">
@@ -1104,8 +1104,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
         </div><!-- /Storage -->
 
         <!-- ─ TOPIC 5 ─ -->
-        <button class="toggle-btn">⚖️ Governance — Policy, Locks &amp; Blueprints</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">⚖️ Governance — Policy, Locks &amp; Blueprints</div>
+        <div class="accordion-body">
           <p class="day-list-intro">Three tools that all "control" resources — but on completely different dimensions. Policy controls <em>what</em> can exist. Locks control <em>whether</em> it can change. Blueprints control <em>how an environment is assembled</em>.</p>
 
           <div class="decision-grid">
@@ -1153,12 +1153,12 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
 
           <div class="trap-group">
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">Resource Locks override RBAC — even Owners</span>
               <div class="trap-body">An Owner with full RBAC permissions still cannot delete or modify a locked resource. The lock must be explicitly removed first — which itself is audited.</div>
             </div>
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">Blueprints do not enforce ongoing compliance</span>
               <div class="trap-body">Blueprints set up an environment once. If resources drift from spec after deployment, Blueprints do not detect or remediate that. Ongoing compliance enforcement is Azure Policy's job.</div>
             </div>
@@ -1166,8 +1166,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
         </div><!-- /Governance -->
 
         <!-- ─ TOPIC 6 ─ -->
-        <button class="toggle-btn">🔐 Identity &amp; Security Services</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">🔐 Identity &amp; Security Services</div>
+        <div class="accordion-body">
           <p class="day-list-intro">Six services — each defends a different asset. The organizing question is: <strong>what is being protected?</strong></p>
 
           <div class="decision-grid">
@@ -1217,12 +1217,12 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
 
           <div class="trap-group">
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">Identity Protection (cloud) vs. Defender for Endpoint (on-prem AD)</span>
               <div class="trap-body">"Cloud identity threats" and "Entra ID risky sign-ins" → Identity Protection. "On-prem AD," "device threats," "domain account compromise" → Defender for Endpoint. They protect different identity systems.</div>
             </div>
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">Purview ≠ Conditional Access</span>
               <div class="trap-body">Conditional Access enforces access <em>at sign-in time</em> — once you are in, it is done. Purview protects the <em>document itself</em> after access — sensitivity labels travel with the file wherever it goes. "Protect documents wherever they travel" → Purview.</div>
             </div>
@@ -1230,8 +1230,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
         </div><!-- /Identity -->
 
         <!-- ─ TOPIC 7 ─ -->
-        <button class="toggle-btn">🌐 Network Security Layers</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">🌐 Network Security Layers</div>
+        <div class="accordion-body">
           <p class="day-list-intro">Three services filter traffic at different scopes and OSI layers. The wrong choice is almost always a scope mismatch.</p>
 
           <div class="decision-grid">
@@ -1281,12 +1281,12 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
 
           <div class="trap-group">
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">Application Gateway ≠ hybrid connectivity</span>
               <div class="trap-body">Application Gateway is a web traffic load balancer and WAF. It routes HTTP/HTTPS to backend web servers — it does not connect on-premises networks to Azure. Hybrid connectivity = VPN Gateway or ExpressRoute.</div>
             </div>
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">NSG is sufficient for single-VM HTTP/S</span>
               <div class="trap-body">A question asking how to allow inbound HTTP/HTTPS to a single VM has a correct answer of "add an NSG inbound rule on port 80/443." Azure Firewall for this scenario is over-engineered and wrong. Firewall is for centralized, multi-VNet policy.</div>
             </div>
@@ -1294,8 +1294,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
         </div><!-- /Networking -->
 
         <!-- ─ TOPIC 8 ─ -->
-        <button class="toggle-btn">⚙️ Automation Services</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">⚙️ Automation Services</div>
+        <div class="accordion-body">
           <p class="day-list-intro">Five services automate things. The discriminators are: <strong>who is the user</strong>, <strong>what gets automated</strong>, and <strong>what triggers it</strong>.</p>
 
           <div class="decision-grid">
@@ -1344,7 +1344,7 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
 
           <div class="trap-group">
             <div class="trap">
-              <span class="trap-badge">TRAP</span>
+              <span class="trap-badge">Exam trap</span>
               <span class="trap-title">Respond to Monitor alert → Azure Automation, not Power Automate</span>
               <div class="trap-body">Power Automate is for business-process automation between SaaS applications. Azure Monitor alerts → Action Group → Automation runbook is the correct chain for infrastructure auto-remediation.</div>
             </div>
@@ -1352,8 +1352,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
         </div><!-- /Automation -->
 
         <!-- ─ TOPIC 9 ─ -->
-        <button class="toggle-btn">🛡️ Azure DDoS Protection</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">🛡️ Azure DDoS Protection</div>
+        <div class="accordion-body">
           <p class="day-list-intro">A <abbr title="Distributed Denial of Service">DDoS</abbr> attack overwhelms a service with traffic from thousands of compromised systems, making it unavailable to legitimate users. Azure defends at two levels.</p>
 
           <div class="decision-grid">
@@ -1383,16 +1383,16 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
           </table></div>
         </div><!-- /DDoS -->
 
-      </div><!-- /toggle-group topics -->
+      </div><!-- /topic accordions -->
 
       <!-- ══ SCENARIO KEYWORD CHEAT SHEET ══ -->
       <h3 style="margin-top:1.5rem;">Scenario Keyword Cheat Sheet</h3>
       <p class="day-tip">Each category is collapsible. If you see these keywords in a question stem, they strongly signal the answer shown.</p>
 
-      <div class="toggle-group">
+      <div>
 
-        <button class="toggle-btn">☁️ Cloud Models &amp; Service Types</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">☁️ Cloud Models &amp; Service Types</div>
+        <div class="accordion-body">
           <div class="table-wrap"><table>
             <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
             <tbody>
@@ -1408,8 +1408,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
           </table></div>
         </div>
 
-        <button class="toggle-btn">💾 Storage Services</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">💾 Storage Services</div>
+        <div class="accordion-body">
           <div class="table-wrap"><table>
             <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
             <tbody>
@@ -1423,8 +1423,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
           </table></div>
         </div>
 
-        <button class="toggle-btn">📊 Monitoring &amp; Observability</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">📊 Monitoring &amp; Observability</div>
+        <div class="accordion-body">
           <div class="table-wrap"><table>
             <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
             <tbody>
@@ -1438,8 +1438,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
           </table></div>
         </div>
 
-        <button class="toggle-btn">⚖️ Governance</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">⚖️ Governance</div>
+        <div class="accordion-body">
           <div class="table-wrap"><table>
             <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
             <tbody>
@@ -1452,8 +1452,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
           </table></div>
         </div>
 
-        <button class="toggle-btn">🔐 Identity &amp; Security</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">🔐 Identity &amp; Security</div>
+        <div class="accordion-body">
           <div class="table-wrap"><table>
             <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
             <tbody>
@@ -1468,8 +1468,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
           </table></div>
         </div>
 
-        <button class="toggle-btn">🌐 Networking</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">🌐 Networking</div>
+        <div class="accordion-body">
           <div class="table-wrap"><table>
             <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
             <tbody>
@@ -1484,8 +1484,8 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
           </table></div>
         </div>
 
-        <button class="toggle-btn">⚙️ Automation</button>
-        <div class="toggle-panel">
+        <div class="accordion-header">⚙️ Automation</div>
+        <div class="accordion-body">
           <div class="table-wrap"><table>
             <thead><tr><th>If you see…</th><th>Answer</th></tr></thead>
             <tbody>
@@ -1499,7 +1499,7 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
           </table></div>
         </div>
 
-      </div><!-- /cheat sheet toggle-group -->
+      </div><!-- /cheat sheet accordions -->
 
     </div><!-- /Day 6 -->
 
