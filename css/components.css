@@ -67,6 +67,14 @@ tr:last-child td { border-bottom: none; }
 tbody tr:hover { background: var(--surface2); }
 td code { font-size: 0.8rem; }
 
+/* Reference table — ports, cable specs, standards: compact + monospace values */
+.table--reference td { font-size: 0.82rem; padding-top: 0.45rem; padding-bottom: 0.45rem; }
+.table--reference td:first-child { font-family: 'SF Mono','Fira Code','Cascadia Code',monospace; }
+
+/* Comparison table — conceptual contrast: accented headers, bold first col */
+.table--comparison thead th { color: var(--blue); border-bottom-color: var(--blue-border); }
+.table--comparison tbody td:first-child { font-weight: 600; min-width: 130px; }
+
 /* ---------- Section Headers --------------------------------- */
 .section-eyebrow {
   font-size: 0.72rem;

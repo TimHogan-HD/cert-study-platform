@@ -5,7 +5,7 @@
 
   <h3>TCP vs UDP</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--comparison">
       <thead>
         <tr><th>Feature</th><th>TCP</th><th>UDP</th></tr>
       </thead>
@@ -24,7 +24,7 @@
 
     <div class="port-group" data-group="web">
       <div class="port-group-title">Web Traffic</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>80</td><td><abbr title="HyperText Transfer Protocol">HTTP</abbr></td><td>TCP</td><td>Cleartext web traffic. Replaced by HTTPS for secure sites.</td></tr>
@@ -35,7 +35,7 @@
 
     <div class="port-group" data-group="file">
       <div class="port-group-title">File Transfer</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>20</td><td><abbr title="File Transfer Protocol — data channel">FTP</abbr> Data</td><td>TCP</td><td>Active mode data channel. Port 21 = control. ⚠ Two ports!</td></tr>
@@ -48,7 +48,7 @@
 
     <div class="port-group" data-group="email">
       <div class="port-group-title">Email</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>25</td><td><abbr title="Simple Mail Transfer Protocol">SMTP</abbr></td><td>TCP</td><td>Server-to-server email relay. Not for authenticated client submission.</td></tr>
@@ -64,7 +64,7 @@
 
     <div class="port-group" data-group="remote">
       <div class="port-group-title">Remote Access</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>22</td><td><abbr title="Secure Shell — encrypted remote access">SSH</abbr></td><td>TCP</td><td>Encrypted remote shell access. Replaces Telnet (port 23).</td></tr>
@@ -76,7 +76,7 @@
 
     <div class="port-group" data-group="infra">
       <div class="port-group-title">Infrastructure Services</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>53</td><td><abbr title="Domain Name System — resolves hostnames to IP addresses">DNS</abbr></td><td>UDP + TCP</td><td>UDP for queries (≤512 bytes). TCP for zone transfers and large responses. <strong>Both matter!</strong></td></tr>
@@ -90,7 +90,7 @@
 
     <div class="port-group" data-group="auth">
       <div class="port-group-title">Directory Services &amp; Authentication</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>88</td><td>Kerberos</td><td>TCP/UDP</td><td>Authentication protocol in Active Directory. Requires NTP sync — 5-minute clock skew max.</td></tr>
@@ -105,7 +105,7 @@
 
     <div class="port-group" data-group="mgmt">
       <div class="port-group-title">Network Management &amp; Monitoring</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>161</td><td><abbr title="Simple Network Management Protocol — manager polls agents">SNMP</abbr> Poll</td><td>UDP</td><td>Manager queries agents for device stats (CPU, interfaces, errors).</td></tr>
@@ -116,7 +116,7 @@
 
     <div class="port-group" data-group="voip">
       <div class="port-group-title">VoIP &amp; Conferencing</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>5060</td><td><abbr title="Session Initiation Protocol — VoIP call setup and teardown">SIP</abbr></td><td>TCP/UDP</td><td>VoIP call setup and teardown. Media (voice) travels on separate <abbr title="Real-time Transport Protocol">RTP</abbr> ports.</td></tr>
@@ -128,7 +128,7 @@
 
     <div class="port-group" data-group="routing">
       <div class="port-group-title">Routing Protocols</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>179</td><td><abbr title="Border Gateway Protocol — internet routing between autonomous systems">BGP</abbr></td><td>TCP</td><td>Internet routing between <abbr title="Autonomous Systems — independently managed routing domains">ASes</abbr>. Uses TCP for reliability.</td></tr>
@@ -139,7 +139,7 @@
 
     <div class="port-group" data-group="db">
       <div class="port-group-title">Database</div>
-      <div class="table-wrap"><table>
+      <div class="table-wrap"><table class="table--reference">
         <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td>1433</td><td>MS SQL</td><td>TCP</td><td>Microsoft SQL Server. Commonly targeted — often blocked at perimeter firewall.</td></tr>
