@@ -358,7 +358,7 @@ function initFragmentComponents(path) {
 /* ── Directory Services protocol flip rows ───────────────────── */
 function initAuthProtocolFlips() {
   document.querySelectorAll('.auth-protocol-flip').forEach(btn => {
-    btn.removeEventListener('click', btn._flipFn);
+    if (btn._flipFn) btn.removeEventListener('click', btn._flipFn);
     btn._flipFn = () => {
       const isFlipped = btn.classList.toggle('is-flipped');
       btn.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
