@@ -357,18 +357,31 @@ function initFragmentComponents(path) {
 
 /* ── Directory Services protocol flip rows ───────────────────── */
 function initAuthProtocolFlips() {
-  document.querySelectorAll('.auth-protocol-flip').forEach(btn => {
-    if (btn._flipFn) btn.removeEventListener('click', btn._flipFn);
-    btn._flipFn = () => {
-      const isFlipped = btn.classList.toggle('is-flipped');
-      btn.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
+  document.querySelectorAll('.auth-protocol-row').forEach(row => {
+    if (row._flipClickFn) row.removeEventListener('click', row._flipClickFn);
+    if (row._flipKeyFn) row.removeEventListener('keydown', row._flipKeyFn);
 
-      const front = btn.querySelector('.auth-protocol-front');
-      const back = btn.querySelector('.auth-protocol-back');
-      if (front) front.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
-      if (back) back.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
+    const toggleRow = () => {
+      const isFlipped = row.classList.toggle('is-flipped');
+      row.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
+      row.querySelectorAll('.auth-protocol-front').forEach(front => {
+        front.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
+      });
+      row.querySelectorAll('.auth-protocol-back').forEach(back => {
+        back.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
+      });
     };
-    btn.addEventListener('click', btn._flipFn);
+
+    row._flipClickFn = () => toggleRow();
+    row._flipKeyFn = e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleRow();
+      }
+    };
+
+    row.addEventListener('click', row._flipClickFn);
+    row.addEventListener('keydown', row._flipKeyFn);
   });
 }
 

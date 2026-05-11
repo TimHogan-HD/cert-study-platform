@@ -1364,86 +1364,81 @@ tr[data-exam-weight="high"] td:first-child::before {
 
 .auth-protocol-table tbody td {
   padding: 0;
+  vertical-align: top;
 }
 
 .auth-protocol-row + .auth-protocol-row td {
   border-top: 1px solid var(--border);
 }
 
-.auth-protocol-flip {
+.auth-protocol-row {
+  cursor: pointer;
+}
+
+.auth-protocol-row:focus-visible {
+  outline: 2px solid var(--blue-border);
+  outline-offset: -2px;
+}
+
+.auth-protocol-cell-flip {
   position: relative;
   display: block;
-  width: 100%;
   height: 5.4rem;
   min-height: 5.4rem;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
+  overflow: hidden;
   transform-style: preserve-3d;
   transition: transform 0.8s ease;
 }
 
-.auth-protocol-flip.is-flipped {
+.auth-protocol-row.is-flipped .auth-protocol-cell-flip {
   transform: rotateX(180deg);
-}
-
-.auth-protocol-flip:focus-visible {
-  outline: 2px solid var(--blue-border);
-  outline-offset: -2px;
 }
 
 .auth-protocol-face {
   position: absolute;
   inset: 0;
+  overflow: hidden;
   backface-visibility: hidden;
   background: var(--surface);
   color: var(--text);
-}
-
-.auth-protocol-front {
-  display: grid;
-  grid-template-columns: 12% 22% 16% 50%;
-  align-items: center;
-  gap: 0.6rem;
   padding: 0.55rem 0.75rem;
-}
-
-.auth-protocol-cell {
-  min-width: 0;
   font-size: 0.8rem;
   line-height: 1.35;
+  display: flex;
+  align-items: center;
 }
 
-.auth-protocol-front .auth-protocol-cell:not(:last-child) {
+.auth-protocol-row td:not(:last-child) .auth-protocol-face {
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.auth-protocol-front .auth-protocol-cell:last-child {
+.auth-protocol-row td:last-child .auth-protocol-face {
+  align-items: flex-start;
+  line-height: 1.4;
+  max-height: calc(1.4em * 3 + 1.1rem);
+}
+
+.auth-protocol-face.auth-protocol-front {
+  z-index: 1;
+}
+
+.auth-protocol-face.auth-protocol-back {
+  transform: rotateX(180deg);
+}
+
+.auth-protocol-row td:last-child .auth-protocol-face.auth-protocol-front {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-clamp: 2;
 }
 
-.auth-protocol-back {
-  transform: rotateX(180deg);
-  display: flex;
-  align-items: center;
-  padding: 0.7rem 0.9rem;
-}
-
-.auth-protocol-back span {
+.auth-protocol-row td:last-child .auth-protocol-face.auth-protocol-back {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 0.8rem;
-  line-height: 1.4;
+  line-clamp: 3;
 }
 
 .auth-protocol-row[data-protocol-state="legacy"] .auth-protocol-face {
@@ -1455,30 +1450,21 @@ tr[data-exam-weight="high"] td:first-child::before {
 }
 
 @media (max-width: 900px) {
-  .auth-protocol-flip {
+  .auth-protocol-cell-flip {
     height: 6rem;
     min-height: 6rem;
   }
 
-  .auth-protocol-front {
-    gap: 0.45rem;
+  .auth-protocol-face {
     padding: 0.5rem 0.6rem;
-  }
-
-  .auth-protocol-cell,
-  .auth-protocol-back span {
     font-size: 0.77rem;
   }
 }
 
 @media (max-width: 700px) {
-  .auth-protocol-flip {
+  .auth-protocol-cell-flip {
     height: 6.8rem;
     min-height: 6.8rem;
-  }
-
-  .auth-protocol-front {
-    grid-template-columns: 14% 24% 18% 44%;
   }
 }
 
