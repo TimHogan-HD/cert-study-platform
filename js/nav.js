@@ -349,25 +349,25 @@ function initFragmentComponents(path) {
   initFlashcards(path);
   initMatching();
   initAIExplain();
-  initAuthProtocolFlips();
+  initProtocolRefFlips();
   initDayTabs();
   initChecklist();
   injectDomainSubNav(path);
 }
 
-/* ── Directory Services protocol flip rows ───────────────────── */
-function initAuthProtocolFlips() {
-  document.querySelectorAll('.auth-protocol-row').forEach(row => {
+/* ── Protocol/service reference flip rows ────────────────────── */
+function initProtocolRefFlips() {
+  document.querySelectorAll('.protocol-ref-row').forEach(row => {
     if (row._flipClickFn) row.removeEventListener('click', row._flipClickFn);
     if (row._flipKeyFn) row.removeEventListener('keydown', row._flipKeyFn);
 
     const toggleRow = () => {
       const isFlipped = row.classList.toggle('is-flipped');
       row.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
-      row.querySelectorAll('.auth-protocol-front').forEach(front => {
+      row.querySelectorAll('.protocol-ref-front').forEach(front => {
         front.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
       });
-      row.querySelectorAll('.auth-protocol-back').forEach(back => {
+      row.querySelectorAll('.protocol-ref-back').forEach(back => {
         back.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
       });
     };

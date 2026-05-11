@@ -1353,16 +1353,21 @@ tr[data-exam-weight="high"] td:first-child::before {
 .port-group[data-group="routing"] .port-group-title { border-left-color: #adb5bd; }
 .port-group[data-group="db"]      .port-group-title { border-left-color: #e85d75; }
 
-/* ── Directory Services protocol flip rows (scoped to auth table only) ── */
-.auth-protocol-group .port-group-title {
-  border-left: none;
-}
-
-.auth-protocol-table {
+/* ── Protocol/service reference flip rows ───────────────────── */
+.protocol-ref-table {
   table-layout: fixed;
 }
 
-.auth-protocol-table tbody td {
+.protocol-ref-table th:nth-child(1),
+.protocol-ref-table td:nth-child(1) { width: 12%; }
+.protocol-ref-table th:nth-child(2),
+.protocol-ref-table td:nth-child(2) { width: 22%; }
+.protocol-ref-table th:nth-child(3),
+.protocol-ref-table td:nth-child(3) { width: 16%; }
+.protocol-ref-table th:nth-child(4),
+.protocol-ref-table td:nth-child(4) { width: 50%; }
+
+.protocol-ref-table tbody td {
   padding: 0.55rem 0.75rem;
   vertical-align: middle;
   font-size: 0.8rem;
@@ -1370,27 +1375,27 @@ tr[data-exam-weight="high"] td:first-child::before {
   background: var(--surface);
 }
 
-.auth-protocol-row + .auth-protocol-row td {
+.protocol-ref-row + .protocol-ref-row td {
   border-top: 1px solid var(--border);
 }
 
-.auth-protocol-row {
+.protocol-ref-row {
   cursor: pointer;
-  --auth-face-py: 0.55rem;
-  --auth-front-lines: 2;
-  --auth-back-lines: 3;
+  --protocol-face-py: 0.55rem;
+  --protocol-front-lines: 2;
+  --protocol-back-lines: 3;
 }
 
-.auth-protocol-row:focus-visible {
+.protocol-ref-row:focus-visible {
   outline: 2px solid var(--blue-border);
   outline-offset: -2px;
 }
 
-.auth-protocol-row td:last-child {
+.protocol-ref-row td:last-child {
   padding: 0;
 }
 
-.auth-protocol-cell-flip {
+.protocol-ref-cell-flip {
   position: relative;
   display: block;
   height: 5.4rem;
@@ -1400,82 +1405,82 @@ tr[data-exam-weight="high"] td:first-child::before {
   transition: transform 0.8s ease;
 }
 
-.auth-protocol-row.is-flipped .auth-protocol-cell-flip {
+.protocol-ref-row.is-flipped .protocol-ref-cell-flip {
   transform: rotateX(180deg);
 }
 
-.auth-protocol-face {
+.protocol-ref-face {
   position: absolute;
   inset: 0;
   overflow: hidden;
   backface-visibility: hidden;
   background: var(--surface);
   color: var(--text);
-  padding: var(--auth-face-py) 0.75rem;
+  padding: var(--protocol-face-py) 0.75rem;
   font-size: 0.8rem;
   line-height: 1.4;
   display: flex;
   align-items: flex-start;
-  max-height: calc((1.4em * var(--auth-back-lines)) + (var(--auth-face-py) * 2));
+  max-height: calc((1.4em * var(--protocol-back-lines)) + (var(--protocol-face-py) * 2));
 }
 
-.auth-protocol-face.auth-protocol-front {
+.protocol-ref-face.protocol-ref-front {
   z-index: 1;
 }
 
-.auth-protocol-face.auth-protocol-back {
+.protocol-ref-face.protocol-ref-back {
   transform: rotateX(180deg);
 }
 
-.auth-protocol-row td:last-child .auth-protocol-face.auth-protocol-front {
+.protocol-ref-row td:last-child .protocol-ref-face.protocol-ref-front {
   display: -webkit-box;
-  -webkit-line-clamp: var(--auth-front-lines);
+  -webkit-line-clamp: var(--protocol-front-lines);
   -webkit-box-orient: vertical;
-  line-clamp: var(--auth-front-lines);
+  line-clamp: var(--protocol-front-lines);
 }
 
-.auth-protocol-row td:last-child .auth-protocol-face.auth-protocol-back {
+.protocol-ref-row td:last-child .protocol-ref-face.protocol-ref-back {
   display: -webkit-box;
-  -webkit-line-clamp: var(--auth-back-lines);
+  -webkit-line-clamp: var(--protocol-back-lines);
   -webkit-box-orient: vertical;
-  line-clamp: var(--auth-back-lines);
+  line-clamp: var(--protocol-back-lines);
 }
 
-.auth-protocol-row[data-protocol-state="legacy"] .auth-protocol-face {
+.protocol-ref-row[data-protocol-state="legacy"] .protocol-ref-face {
   background: var(--amber-bg);
 }
 
-.auth-protocol-row[data-protocol-state="risky"] .auth-protocol-face {
+.protocol-ref-row[data-protocol-state="risky"] .protocol-ref-face {
   background: var(--red-bg);
 }
 
-.auth-protocol-row[data-protocol-state="legacy"] td {
+.protocol-ref-row[data-protocol-state="legacy"] td {
   background: var(--amber-bg);
 }
 
-.auth-protocol-row[data-protocol-state="risky"] td {
+.protocol-ref-row[data-protocol-state="risky"] td {
   background: var(--red-bg);
 }
 
 @media (max-width: 900px) {
-  .auth-protocol-cell-flip {
+  .protocol-ref-cell-flip {
     height: 6rem;
     min-height: 6rem;
   }
 
-  .auth-protocol-table tbody td {
+  .protocol-ref-table tbody td {
     padding: 0.5rem 0.6rem;
     font-size: 0.77rem;
   }
 
-  .auth-protocol-face {
+  .protocol-ref-face {
     padding: 0.5rem 0.6rem;
     font-size: 0.77rem;
   }
 }
 
 @media (max-width: 700px) {
-  .auth-protocol-cell-flip {
+  .protocol-ref-cell-flip {
     height: 6.8rem;
     min-height: 6.8rem;
   }
