@@ -1363,8 +1363,11 @@ tr[data-exam-weight="high"] td:first-child::before {
 }
 
 .auth-protocol-table tbody td {
-  padding: 0;
-  vertical-align: top;
+  padding: 0.55rem 0.75rem;
+  vertical-align: middle;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  background: var(--surface);
 }
 
 .auth-protocol-row + .auth-protocol-row td {
@@ -1373,11 +1376,16 @@ tr[data-exam-weight="high"] td:first-child::before {
 
 .auth-protocol-row {
   cursor: pointer;
+  --auth-face-py: 0.55rem;
 }
 
 .auth-protocol-row:focus-visible {
   outline: 2px solid var(--blue-border);
   outline-offset: -2px;
+}
+
+.auth-protocol-row td:last-child {
+  padding: 0;
 }
 
 .auth-protocol-cell-flip {
@@ -1401,22 +1409,12 @@ tr[data-exam-weight="high"] td:first-child::before {
   backface-visibility: hidden;
   background: var(--surface);
   color: var(--text);
-  padding: 0.55rem 0.75rem;
+  padding: var(--auth-face-py) 0.75rem;
   font-size: 0.8rem;
-  line-height: 1.35;
-  display: flex;
-  align-items: center;
-}
-
-.auth-protocol-row td:not(:last-child) .auth-protocol-face {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.auth-protocol-row td:last-child .auth-protocol-face {
-  align-items: flex-start;
   line-height: 1.4;
-  max-height: calc(1.4em * 3 + 1.1rem);
+  display: flex;
+  align-items: flex-start;
+  max-height: calc((1.4em * 3) + (var(--auth-face-py) * 2));
 }
 
 .auth-protocol-face.auth-protocol-front {
@@ -1449,10 +1447,23 @@ tr[data-exam-weight="high"] td:first-child::before {
   background: var(--red-bg);
 }
 
+.auth-protocol-row[data-protocol-state="legacy"] td {
+  background: var(--amber-bg);
+}
+
+.auth-protocol-row[data-protocol-state="risky"] td {
+  background: var(--red-bg);
+}
+
 @media (max-width: 900px) {
   .auth-protocol-cell-flip {
     height: 6rem;
     min-height: 6rem;
+  }
+
+  .auth-protocol-table tbody td {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.77rem;
   }
 
   .auth-protocol-face {
