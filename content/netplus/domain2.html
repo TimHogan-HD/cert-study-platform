@@ -129,6 +129,169 @@
     <li><strong>Metric:</strong> OSPF cost = 100 Mbps / link bandwidth. Lower cost = preferred path.</li>
   </ul>
 
+  <h3>Address Translation and Gateway Redundancy</h3>
+
+  <h3>NAT and PAT</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>How It Works</th><th>Key Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>NAT</strong> (Network Address Translation)</td><td>Router replaces private source IP with public IP on outbound packets; reverses on inbound replies</td><td>Many private IPs can share one public IP; used at internet edge</td></tr>
+        <tr><td><strong>Static NAT</strong></td><td>One private IP maps permanently to one public IP</td><td>Used for servers that need inbound connections (web server, mail server)</td></tr>
+        <tr><td><strong>Dynamic NAT</strong></td><td>Pool of public IPs; private IPs get assigned from pool as needed</td><td>Pool must be large enough for concurrent sessions</td></tr>
+        <tr><td><strong>PAT / NAT Overload</strong></td><td>Many private IPs share ONE public IP; differentiated by unique source port numbers</td><td>Most common form in SOHO and enterprise; what home routers do</td></tr>
+        <tr><td><strong>Inside Local</strong></td><td>Private IP of the host as seen inside the network</td><td>192.168.1.10 — before translation</td></tr>
+        <tr><td><strong>Inside Global</strong></td><td>Public IP used to represent the inside host on the internet</td><td>203.0.113.50:12345 (with PAT) — after translation</td></tr>
+        <tr><td><strong>Outside Local</strong></td><td>IP of an external host as seen from inside the network</td><td>Usually equals Outside Global unless hairpin NAT</td></tr>
+        <tr><td><strong>Outside Global</strong></td><td>Actual public IP of the external host on the internet</td><td>The "real" address of the remote server</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">How PAT Works</div>
+    <p>PAT is how one public IP serves an entire office. Each outbound session gets a unique source port (e.g., :12345, :12346). The NAT table maps {public IP + port} back to {private IP + port} for return traffic. This is why thousands of hosts can share a single public IP address.</p>
+  </div>
+
+  <h3>FHRP — First Hop Redundancy Protocols</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Protocol</th><th>Standard</th><th>VIP Behavior</th><th>Election</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>HSRP</strong> (Hot Standby Router Protocol)</td><td>Cisco proprietary</td><td>One active router, one standby; VIP is shared</td><td>Highest priority wins (default=100); on tie, highest IP wins</td><td>Active/standby only; no load balancing. <strong>Preempt must be configured</strong> for a recovered higher-priority router to reclaim active role.</td></tr>
+        <tr><td><strong>VRRP</strong> (Virtual Router Redundancy Protocol)</td><td>Open standard (RFC 5798)</td><td>One master router, one+ backup; VIP is shared</td><td>Highest priority wins (default=100)</td><td>Interoperable across vendors; similar to HSRP</td></tr>
+        <tr><td><strong>GLBP</strong> (Gateway Load Balancing Protocol)</td><td>Cisco proprietary</td><td>Multiple active routers share VIP; traffic load-balanced via AVF roles</td><td>AVG (Active Virtual Gateway) elected by highest priority</td><td>The <strong>only FHRP that provides both redundancy AND load balancing</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">What Is a VIP?</div>
+    <p>A VIP (Virtual IP) is an IP address that does not belong to any single physical device. Multiple routers share the VIP through FHRP. Hosts configure the VIP as their default gateway. If the active/master router fails, the standby/backup takes over the VIP — hosts never know the change occurred.</p>
+  </div>
+
+  <div class="pbq-prep">
+    <div class="pbq-prep-title">🎯 PBQ Prep — FHRP Scenario</div>
+    <p>Given routers with HSRP configured: identify the active router (highest priority, or highest IP on tie), explain what happens when it fails (standby takes over VIP), and identify the VIP vs physical router IPs. Know that HSRP default priority = 100. <strong>Preempt must be configured</strong> for the higher-priority router to reclaim the active role after recovery — without preempt, it stays standby even if its priority is higher.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Subinterfaces — Router-on-a-Stick Detail</div>
+    <p>A physical router interface can be divided into logical subinterfaces, each assigned to a different VLAN. The physical interface connects to a trunk port on the switch. Each subinterface has an 802.1Q encapsulation tag matching a VLAN ID and an IP address serving as the default gateway for that VLAN.</p>
+    <p>Example config:<br><code>interface Gi0/0.10</code><br><code>encapsulation dot1q 10</code><br><code>ip address 192.168.10.1 255.255.255.0</code></p>
+    <p><strong>Key requirement:</strong> The connected switch port must be configured as a trunk port.</p>
+  </div>
+
+  <h3>Flashcard Drill: NAT and PAT</h3>
+  <div class="flashcard-deck">
+    <div class="deck-nav">
+      <button class="prev-btn">← Prev</button>
+      <span class="card-counter">1 / 8</span>
+      <button class="next-btn">Next →</button>
+      <button class="shuffle-btn">Shuffle</button>
+    </div>
+    <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Static NAT<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>One-to-one permanent mapping</strong><br>One private IP → one public IP<br>Required for servers that need inbound connections (web, mail)</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Dynamic NAT<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Pool-based mapping</strong><br>Private IPs assigned from public IP pool as needed<br>Pool must be large enough for all concurrent sessions</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">PAT (Port Address Translation)<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Many-to-one via unique port numbers</strong><br>All inside hosts share one public IP<br>Each session gets a unique source port — most common NAT in use</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">NAT Overload<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Another name for PAT</strong><br>The Cisco IOS command for PAT is "ip nat inside source list … overload"<br>Same concept: many hosts, one public IP, differentiated by port</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Inside Local<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Private IP of the inside host</strong><br>As seen from inside the network — before translation<br>Example: 192.168.1.10</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Inside Global<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Public IP representing the inside host</strong><br>As seen from the internet — after translation<br>Example: 203.0.113.50 (or :12345 with PAT)</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Outside Local<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>External host IP as seen from inside</strong><br>Usually equals Outside Global<br>Different only with hairpin/loopback NAT</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Outside Global<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Actual public IP of the external host</strong><br>The real address of the remote internet server<br>Usually matches Outside Local</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Flashcard Drill: FHRP</h3>
+  <div class="flashcard-deck">
+    <div class="deck-nav">
+      <button class="prev-btn">← Prev</button>
+      <span class="card-counter">1 / 6</span>
+      <button class="next-btn">Next →</button>
+      <button class="shuffle-btn">Shuffle</button>
+    </div>
+    <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">HSRP Active Router Election<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Highest priority wins (default=100)</strong><br>On tie: highest IP address wins<br>Active router owns the VIP and responds to ARP for it</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">HSRP Standby Router<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Monitors active router via hellos</strong><br>Takes over VIP if active fails<br><strong>Preempt must be configured</strong> for high-priority router to reclaim active role after recovery</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">VRRP Master Router<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Open standard (RFC 5798)</strong><br>Master owns the Virtual IP<br>Backup routers monitor via advertisements<br>Vendor-neutral alternative to HSRP</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">GLBP AVG<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Active Virtual Gateway</strong><br>Elected by highest priority (default=100)<br>Assigns virtual MACs to AVFs (Active Virtual Forwarders)<br>Cisco proprietary</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">GLBP Load Balancing<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Only FHRP with both redundancy AND load balancing</strong><br>Multiple AVFs each have a different virtual MAC<br>AVG assigns different MACs to different hosts — spreads traffic</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Virtual IP (VIP)<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Shared gateway IP not owned by any single device</strong><br>Hosts use VIP as their default gateway<br>Active/master router owns it — standby takes over on failure<br>Failover is transparent to hosts</div>
+      </div>
+    </div>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -137,6 +300,11 @@
       <li>RIP max hop count is 15. A route with 16 hops = unreachable. This limits RIP to small networks.</li>
       <li>OSPF is classless; RIPv1 is classful (doesn't carry subnet masks). RIPv2 is classless.</li>
       <li>BGP is the internet's core routing protocol — it connects Autonomous Systems (AS).</li>
+      <li>PAT = NAT Overload = many hosts share one public IP via unique port numbers. Most "NAT" you see is actually PAT.</li>
+      <li>Static NAT is required for inbound connections to a server — dynamic NAT and PAT don't support inbound initiation.</li>
+      <li>GLBP is the only FHRP that load-balances. HSRP and VRRP are active/standby only.</li>
+      <li>HSRP preempt must be explicitly configured — higher-priority router does NOT automatically reclaim active role after recovery without it.</li>
+      <li>Subinterfaces require the connected switch port to be configured as a trunk port (dot1q).</li>
     </ul>
   </div>
 
@@ -147,6 +315,10 @@
       <li>Lower AD = more trusted = preferred between protocols</li>
       <li>OSPF = link-state, SPF algorithm, area-based | RIP = distance-vector, hop count max 15</li>
       <li>BGP = path vector, connects autonomous systems, runs internet routing</li>
+      <li>NAT = IP translation | PAT = many-to-one via unique port numbers | Static NAT = one-to-one (needed for servers)</li>
+      <li>FHRP: HSRP (Cisco, active/standby) | VRRP (open standard) | GLBP (Cisco, load balances)</li>
+      <li>VIP = virtual gateway IP shared by redundant routers; hosts always use VIP as default gateway</li>
+      <li>Subinterface = logical division of physical interface; one per VLAN; requires trunk port on switch</li>
     </ul>
   </div>
 
@@ -526,6 +698,37 @@
     </div>
   </div>
 
+  <h3>Antennas and Site Surveys</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Antenna Type</th><th>Radiation Pattern</th><th>Gain</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Omnidirectional</strong></td><td>360 degrees horizontal (donut shape)</td><td>Low-medium (2–5 dBi typical)</td><td>Standard indoor AP coverage; general office use</td></tr>
+        <tr><td><strong>Directional — Yagi</strong></td><td>Narrow beam, focused in one direction</td><td>High (10–20+ dBi)</td><td>Point-to-point building-to-building links; long-range outdoor</td></tr>
+        <tr><td><strong>Directional — Patch/Panel</strong></td><td>Sector coverage (~60–120 degrees)</td><td>Medium-high</td><td>Outdoor sectored coverage; stadium, warehouse wall mount</td></tr>
+        <tr><td><strong>Parabolic Dish</strong></td><td>Very narrow beam</td><td>Very high (20+ dBi)</td><td>Long-distance point-to-point links (km range)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Antenna Gain: dBi Explained</div>
+    <p>Gain is measured in <strong>dBi</strong> (decibels relative to isotropic). Higher gain = more focused beam, longer range in that direction, but narrower coverage angle. Omnidirectional APs are used for general coverage; directional antennas are used when you need to reach a specific location or cover a specific sector.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Wireless Site Survey</div>
+    <p>A site survey maps signal coverage before and after AP deployment. Types:</p>
+    <ul>
+      <li><strong>Passive survey:</strong> Listen-only, no association; maps existing signal and interference sources</li>
+      <li><strong>Active survey:</strong> Connect to AP; measures actual throughput and roaming behavior</li>
+      <li><strong>Predictive survey:</strong> Software models coverage using floor plans and wall materials before physical installation</li>
+    </ul>
+    <p>Output: a <strong>heat map</strong> showing RSSI coverage, dead zones, and channel overlap. Used to determine AP placement and channel assignments.</p>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -534,6 +737,8 @@
       <li>2.4 GHz has only 3 non-overlapping channels (1, 6, 11). This causes interference issues in dense areas.</li>
       <li>WEP is completely broken. Even WPA (TKIP) is weak. WPA2 (AES/CCMP) minimum for modern networks.</li>
       <li>SAE is a WPA3 feature that prevents offline dictionary attacks against captured handshakes.</li>
+      <li>Omnidirectional = 360 degree coverage, lower gain. Directional = focused beam, higher gain, longer range. Higher dBi is not always better — it narrows coverage angle.</li>
+      <li>Site survey output = wireless heat map. Passive survey = listen only (no association). Active survey = connect and measure throughput.</li>
     </ul>
   </div>
 
@@ -545,6 +750,8 @@
       <li>802.11ax (Wi-Fi 6) = OFDMA, dual-band; Wi-Fi 6E adds 6 GHz</li>
       <li>2.4GHz non-overlapping: 1, 6, 11 (only 3)</li>
       <li>WPA3 SAE = no offline dictionary attacks | WPA2 AES/CCMP = current minimum standard</li>
+      <li>Omni = 360° coverage | Directional (Yagi/panel) = focused beam, high gain</li>
+      <li>Site survey → heat map | Passive = listen only | Active = connect and measure</li>
     </ul>
   </div>
 
@@ -633,6 +840,24 @@
     </table>
   </div>
 
+  <h3>Datacenter Physical Layout</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>Description</th><th>Exam Context</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Cold aisle</strong></td><td>Aisle where server intakes (cold air) draw from; servers face cold aisle</td><td>Cold air delivered from raised floor perforations or overhead; servers pull air in from this side</td></tr>
+        <tr><td><strong>Hot aisle</strong></td><td>Aisle where server exhaust (hot air) exits from the rear of equipment</td><td>Hot air faces hot air; captured by return air ducts or CRAC units</td></tr>
+        <tr><td><strong>Hot/cold aisle containment</strong></td><td>Physical barriers (doors, curtains) separating hot and cold aisles</td><td>Prevents hot and cold air mixing; significantly improves cooling efficiency</td></tr>
+        <tr><td><strong>Port-side intake</strong></td><td>Server/switch design where airflow enters from the port side (front)</td><td>Common in top-of-rack switches; ports face cold aisle</td></tr>
+        <tr><td><strong>Port-side exhaust</strong></td><td>Airflow exits from the port side</td><td>Less common; requires reversed aisle orientation</td></tr>
+        <tr><td><strong>Rack unit (U)</strong></td><td>Standard unit of rack height = 1.75 inches</td><td>1U server, 2U firewall, 42U rack (standard full rack height)</td></tr>
+        <tr><td><strong>Rack diagram</strong></td><td>Logical representation showing what is installed in each rack unit</td><td>Documentation tool; shows U position of each device, power draw, cable runs</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -641,6 +866,8 @@
       <li>66 blocks are for <strong>voice/analog</strong>. 110 blocks support data (Cat 5e+).</li>
       <li>802.3af = 15.4W (older PoE). 802.3at = 30W (PoE+). 802.3bt = 90W (PoE++). Know all three.</li>
       <li>PoE power budget must be calculated for the entire switch — not just per-port.</li>
+      <li>Hot aisle/cold aisle orientation matters. A hot spot problem in a datacenter often indicates misaligned airflow — equipment exhaust facing cold intake. Most servers intake from front (cold aisle) and exhaust from rear (hot aisle).</li>
+      <li>1U = 1.75 inches. A standard full rack = 42U. Know rack unit sizing for PBQ rack diagram questions.</li>
     </ul>
   </div>
 
@@ -652,6 +879,8 @@
       <li>PoE: 802.3af=15.4W | 802.3at=30W | 802.3bt=90W</li>
       <li>TDR = copper fault location | OTDR = fiber fault location</li>
       <li>Late collisions = duplex mismatch | Runts = collision/speed issue | Giants = MTU misconfiguration</li>
+      <li>Cold aisle = server intake side | Hot aisle = server exhaust side | Containment = barriers between them</li>
+      <li>Port-side intake = ports face cold aisle | 1U = 1.75 inches | 42U = standard full rack</li>
     </ul>
   </div>
 

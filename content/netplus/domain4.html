@@ -124,6 +124,97 @@
     <li>Microsegmentation: divide network into small segments with strict access controls between them.</li>
   </ul>
 
+  <h3>Identity and Access Management</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>Definition</th><th>Exam Context</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>SSO</strong> (Single Sign-On)</td><td>One set of credentials grants access to multiple systems without re-authenticating</td><td>Reduces password fatigue; compromise of SSO credentials = broad access across all connected systems</td></tr>
+        <tr><td><strong>SAML</strong> (Security Assertion Markup Language)</td><td>XML-based standard for exchanging authentication/authorization data between Identity Provider (IdP) and Service Provider (SP)</td><td>Enables federated SSO across organizations; used in enterprise web app authentication</td></tr>
+        <tr><td><strong>LDAP</strong></td><td>Protocol for querying directory services; used for authentication lookups</td><td>Port 389 / LDAPS 636; Active Directory uses LDAP internally</td></tr>
+        <tr><td><strong>RBAC</strong> (Role-Based Access Control)</td><td>Permissions assigned to roles; users assigned to roles</td><td>Least privilege implementation — user gets only the permissions their role requires</td></tr>
+        <tr><td><strong>TOTP</strong> (Time-based One-Time Password)</td><td>OTP codes valid only for a short window (30–60 seconds)</td><td>RFC 6238; authenticator apps (Google Authenticator, Authy); prevents replay attacks</td></tr>
+        <tr><td><strong>Geofencing</strong></td><td>Access policy based on geographic location</td><td>Block logins from outside approved countries; require additional MFA outside office location</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">SAML vs SSO</div>
+    <p>SAML is the <em>protocol</em>; SSO is the <em>outcome</em>. SAML enables SSO across federated systems by allowing the IdP to assert identity to service providers without re-authentication. Geofencing is location-based access control — not a physical fence.</p>
+  </div>
+
+  <h3>Security Terminology — Know the Distinctions</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Term</th><th>Definition</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Threat</strong></td><td>Potential cause of harm — the "what could go wrong"</td><td>Ransomware, insider threat, natural disaster</td></tr>
+        <tr><td><strong>Vulnerability</strong></td><td>A weakness that can be exploited</td><td>Unpatched CVE, misconfigured firewall rule, default credentials</td></tr>
+        <tr><td><strong>Exploit</strong></td><td>The tool or technique used to take advantage of a vulnerability</td><td>Metasploit module, phishing kit, SQL injection string</td></tr>
+        <tr><td><strong>Risk</strong></td><td>Probability of a threat exploiting a vulnerability, resulting in impact</td><td>Risk = Threat × Vulnerability × Impact</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Threat vs Vulnerability vs Risk</div>
+    <p>A vulnerability does not become a risk until there is a threat capable of exploiting it. Patching removes the vulnerability; it does not eliminate the threat. A system with a known CVE but no network exposure has a vulnerability with low risk.</p>
+  </div>
+
+  <h3>Compliance Frameworks</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Standard</th><th>Scope</th><th>Key Network+ Requirement</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>PCI DSS</strong> (Payment Card Industry Data Security Standard)</td><td>Any organization that stores, processes, or transmits cardholder data</td><td>Network segmentation isolating cardholder data environment (CDE); encrypted transmission; access logging</td></tr>
+        <tr><td><strong>GDPR</strong> (General Data Protection Regulation)</td><td>Any organization handling personal data of EU residents</td><td>Data locality requirements (where data is stored/processed); breach notification obligation; right to erasure</td></tr>
+        <tr><td><strong>Data locality</strong></td><td>Regulatory requirement that data remain within a specific geographic jurisdiction</td><td>Affects cloud region selection; some countries prohibit data leaving their borders</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Physical Security Controls</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Control</th><th>Type</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Cameras / CCTV</strong></td><td>Detective</td><td>Record and monitor physical access; provide evidence of unauthorized entry</td></tr>
+        <tr><td><strong>Locks</strong> (physical, badge reader, cipher lock)</td><td>Preventive</td><td>Prevent unauthorized physical access to network equipment rooms</td></tr>
+        <tr><td><strong>Mantrap / Access control vestibule</strong></td><td>Preventive</td><td>Two-door entry; second door only opens after first closes; prevents tailgating/piggybacking</td></tr>
+        <tr><td><strong>Badge / smart card</strong></td><td>Preventive + Detective</td><td>Controls who enters secure areas; logs entry events for audit trail</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Network Segmentation by Device/User Type</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Segment Type</th><th>Why Isolated</th><th>Implementation</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>IoT / IIoT</strong></td><td>Limited security posture; cannot be patched frequently; diverse proprietary protocols</td><td>Separate VLAN; strict ACL; no access to corporate network unless specifically required</td></tr>
+        <tr><td><strong>OT / ICS / SCADA</strong></td><td>Industrial control systems; uptime-critical; often cannot be patched without vendor certification</td><td>Air gap or unidirectional data diode; never on same VLAN as IT</td></tr>
+        <tr><td><strong>Guest network</strong></td><td>Untrusted users; internet access only</td><td>Separate SSID, isolated VLAN, no access to corporate resources</td></tr>
+        <tr><td><strong>BYOD</strong></td><td>Personal devices with unknown security posture</td><td>MDM enrollment or quarantine VLAN; posture check before full network access</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ OT/ICS/SCADA — CIA Priority Order Is Inverted</div>
+    <p>In standard IT, the priority order is Confidentiality → Integrity → Availability. In OT/ICS/SCADA (industrial control systems), the priority is <strong>Availability → Integrity → Confidentiality</strong>. A power grid controller being inaccessible is catastrophic; a data breach, while serious, is secondary. This CIA inversion is a frequent exam scenario — know it cold.</p>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -131,6 +222,11 @@
       <li>MFA requires different factor TYPES. Two passwords ≠ MFA.</li>
       <li>Asymmetric encryption is slow — not used for bulk data. TLS uses asymmetric for handshake then switches to symmetric.</li>
       <li>MD5 is broken for security purposes. SHA-256 is the current standard.</li>
+      <li>SAML is the protocol; SSO is the outcome. SAML enables SSO across federated systems.</li>
+      <li>Geofencing = location-based access control (not a physical fence).</li>
+      <li>Vulnerability ≠ Risk. A vulnerability is a weakness; risk requires both a threat AND a vulnerability. Patching removes the vulnerability, not the threat.</li>
+      <li>PCI DSS requires CDE segmentation from all other networks. GDPR affects cloud region choice (data locality).</li>
+      <li>OT/ICS/SCADA: Availability is the top CIA priority — opposite of standard IT. Air gap or data diode for isolation.</li>
     </ul>
   </div>
 
@@ -142,6 +238,11 @@
       <li>Symmetric = same key, fast (AES) | Asymmetric = key pair, slow (RSA)</li>
       <li>SHA-256 = current hash standard | MD5/SHA-1 = deprecated/broken</li>
       <li>Zero trust = never trust, always verify; least privilege everywhere</li>
+      <li>SSO = one login, many systems | SAML = protocol enabling SSO | RBAC = role-based permissions</li>
+      <li>Threat = potential harm | Vulnerability = weakness | Exploit = attack tool | Risk = T × V × Impact</li>
+      <li>PCI DSS = CDE segmentation | GDPR = data locality | Data locality = geo constraints on cloud region</li>
+      <li>IoT/OT/ICS = isolated VLANs | SCADA = air gap or data diode | Guest = internet-only VLAN | BYOD = MDM or quarantine</li>
+      <li>OT/ICS CIA order: Availability → Integrity → Confidentiality (inverted vs standard IT)</li>
     </ul>
   </div>
 
@@ -365,6 +466,7 @@
         <tr><td><strong>NGFW (Next-Generation)</strong></td><td>L7</td><td>DPI, application awareness, integrated IPS, SSL inspection, user identity, URL filtering. Gold standard.</td></tr>
         <tr><td><strong>WAF (Web Application Firewall)</strong></td><td>L7</td><td>Protects web apps specifically. Blocks OWASP Top 10: SQLi, XSS, CSRF, etc.</td></tr>
         <tr><td><strong>Host-based Firewall</strong></td><td>L4/7</td><td>Software firewall on individual host (Windows Firewall, iptables). First and last line of defense per host.</td></tr>
+        <tr><td><strong>UTM</strong> (Unified Threat Management)</td><td>L3–L7</td><td>All-in-one appliance: firewall + IPS + antivirus + web filtering + email filtering + VPN in one device. Common in SMB environments. Performance tradeoff vs dedicated enterprise appliances.</td></tr>
       </tbody>
     </table>
   </div>
@@ -392,6 +494,11 @@
     <li>DMZ servers can connect to internal resources with strict rules (only specific ports/IPs).</li>
     <li>Often implemented with two firewalls or a three-legged firewall (three interfaces).</li>
   </ul>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Screened Subnet = DMZ</div>
+    <p>CompTIA N10-009 uses the term <strong>screened subnet</strong> as a synonym for DMZ. Both refer to the same architecture: a network segment isolated between two firewall boundaries where public-facing servers live. If an exam question says "screened subnet," it means DMZ.</p>
+  </div>
 
   <h3>Switch Security Features</h3>
   <div class="table-wrap">
@@ -474,6 +581,8 @@
       <li>Standard ACL = source IP only. Extended ACL = src + dst + port. Place standard ACLs near destination.</li>
       <li>Honeypots are designed to attract attackers — they are NOT production systems. They intentionally have fake vulnerabilities.</li>
       <li>Vulnerability scanning ≠ penetration testing. Scanning finds potential vulnerabilities. Pen testing exploits them.</li>
+      <li>Screened subnet = DMZ (same concept, different term). CompTIA N10-009 may use either term.</li>
+      <li>UTM = all-in-one security for SMB. NGFW = enterprise-grade DPI and application awareness. Both operate at L7 but NGFW is positioned as more performant for enterprise.</li>
     </ul>
   </div>
 
@@ -482,9 +591,10 @@
     <ul>
       <li>IDS = passive, SPAN port, alert only | IPS = inline, blocks traffic</li>
       <li>NGFW = DPI + IPS + app awareness + SSL inspection</li>
+      <li>UTM = all-in-one (firewall + IPS + AV + web filter + email filter + VPN), common in SMB</li>
       <li>Port security = MAC limits | DHCP snooping = rogue DHCP prevention | DAI = ARP protection (needs snooping)</li>
       <li>Standard ACL = source IP only | Extended ACL = src+dst+port</li>
-      <li>DMZ = public-facing servers isolated between internet and internal network</li>
+      <li>DMZ = screened subnet = public-facing servers isolated between internet and internal network</li>
     </ul>
   </div>
 
