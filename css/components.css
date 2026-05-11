@@ -1353,6 +1353,134 @@ tr[data-exam-weight="high"] td:first-child::before {
 .port-group[data-group="routing"] .port-group-title { border-left-color: #adb5bd; }
 .port-group[data-group="db"]      .port-group-title { border-left-color: #e85d75; }
 
+/* ── Directory Services protocol flip rows (scoped to auth table only) ── */
+.auth-protocol-group .port-group-title {
+  border-left: none;
+}
+
+.auth-protocol-table {
+  table-layout: fixed;
+}
+
+.auth-protocol-table tbody td {
+  padding: 0.55rem 0.75rem;
+  vertical-align: middle;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  background: var(--surface);
+}
+
+.auth-protocol-row + .auth-protocol-row td {
+  border-top: 1px solid var(--border);
+}
+
+.auth-protocol-row {
+  cursor: pointer;
+  --auth-face-py: 0.55rem;
+  --auth-front-lines: 2;
+  --auth-back-lines: 3;
+}
+
+.auth-protocol-row:focus-visible {
+  outline: 2px solid var(--blue-border);
+  outline-offset: -2px;
+}
+
+.auth-protocol-row td:last-child {
+  padding: 0;
+}
+
+.auth-protocol-cell-flip {
+  position: relative;
+  display: block;
+  height: 5.4rem;
+  min-height: 5.4rem;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+.auth-protocol-row.is-flipped .auth-protocol-cell-flip {
+  transform: rotateX(180deg);
+}
+
+.auth-protocol-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background: var(--surface);
+  color: var(--text);
+  padding: var(--auth-face-py) 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  max-height: calc((1.4em * var(--auth-back-lines)) + (var(--auth-face-py) * 2));
+}
+
+.auth-protocol-face.auth-protocol-front {
+  z-index: 1;
+}
+
+.auth-protocol-face.auth-protocol-back {
+  transform: rotateX(180deg);
+}
+
+.auth-protocol-row td:last-child .auth-protocol-face.auth-protocol-front {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--auth-front-lines);
+  -webkit-box-orient: vertical;
+  line-clamp: var(--auth-front-lines);
+}
+
+.auth-protocol-row td:last-child .auth-protocol-face.auth-protocol-back {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--auth-back-lines);
+  -webkit-box-orient: vertical;
+  line-clamp: var(--auth-back-lines);
+}
+
+.auth-protocol-row[data-protocol-state="legacy"] .auth-protocol-face {
+  background: var(--amber-bg);
+}
+
+.auth-protocol-row[data-protocol-state="risky"] .auth-protocol-face {
+  background: var(--red-bg);
+}
+
+.auth-protocol-row[data-protocol-state="legacy"] td {
+  background: var(--amber-bg);
+}
+
+.auth-protocol-row[data-protocol-state="risky"] td {
+  background: var(--red-bg);
+}
+
+@media (max-width: 900px) {
+  .auth-protocol-cell-flip {
+    height: 6rem;
+    min-height: 6rem;
+  }
+
+  .auth-protocol-table tbody td {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.77rem;
+  }
+
+  .auth-protocol-face {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.77rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .auth-protocol-cell-flip {
+    height: 6.8rem;
+    min-height: 6.8rem;
+  }
+}
+
 /* ── Shared Responsibility Diagram ──────────────────────── */
 .sr-diagram { margin: 1.25rem 0; overflow-x: auto; }
 .sr-grid {
