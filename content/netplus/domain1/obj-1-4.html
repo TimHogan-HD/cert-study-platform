@@ -125,17 +125,107 @@
       </table></div>
     </div>
 
-    <div class="port-group" data-group="auth">
+    <div class="port-group auth-protocol-group" data-group="auth">
       <div class="port-group-title">Directory Services &amp; Authentication</div>
-      <div class="table-wrap"><table class="table--reference">
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
+      <div class="table-wrap"><table class="table--reference auth-protocol-table">
+        <colgroup>
+          <col style="width: 12%">
+          <col style="width: 22%">
+          <col style="width: 16%">
+          <col style="width: 50%">
+        </colgroup>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary (flip row for example)</th></tr></thead>
         <tbody>
-          <tr><td>88</td><td>Kerberos</td><td>TCP/UDP</td><td>Authentication protocol in Active Directory. Requires NTP sync — 5-minute clock skew max.</td></tr>
-          <tr><td>389</td><td><abbr title="Lightweight Directory Access Protocol — directory queries (e.g. Active Directory)">LDAP</abbr></td><td>TCP</td><td>Directory service queries (Active Directory). Cleartext.</td></tr>
-          <tr><td>636</td><td>LDAPS</td><td>TCP</td><td>LDAP over TLS — encrypted directory queries.</td></tr>
-          <tr><td>49</td><td><abbr title="Terminal Access Controller Access-Control System Plus — AAA for network devices">TACACS+</abbr></td><td>TCP</td><td>Full packet encryption. Separates authentication, authorization, accounting. Used for network device admin.</td></tr>
-          <tr><td>1812</td><td><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> Auth</td><td>UDP</td><td>AAA for network access (Wi-Fi, VPN). Encrypts password only. ⚠ Uses UDP, unlike TACACS+.</td></tr>
-          <tr><td>1813</td><td>RADIUS Accounting</td><td>UDP</td><td>Tracks session duration, data transferred, usage.</td></tr>
+          <tr class="auth-protocol-row">
+            <td colspan="4">
+              <button class="auth-protocol-flip" type="button" aria-label="Flip Kerberos row to see an example" aria-pressed="false">
+                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">
+                  <span class="auth-protocol-cell">88</span>
+                  <span class="auth-protocol-cell">Kerberos</span>
+                  <span class="auth-protocol-cell">TCP/UDP</span>
+                  <span class="auth-protocol-cell">Authentication protocol in Active Directory. Requires <abbr title="Network Time Protocol">NTP</abbr> sync (5-minute skew max).</span>
+                </span>
+                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true">
+                  <span><strong>Example:</strong> A domain-joined Windows user signs in and receives a Kerberos ticket to access shared resources without re-entering credentials.</span>
+                </span>
+              </button>
+            </td>
+          </tr>
+          <tr class="auth-protocol-row" data-protocol-state="risky">
+            <td colspan="4">
+              <button class="auth-protocol-flip" type="button" aria-label="Flip LDAP row to see an example" aria-pressed="false">
+                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">
+                  <span class="auth-protocol-cell">389</span>
+                  <span class="auth-protocol-cell"><abbr title="Lightweight Directory Access Protocol — directory queries (e.g. Active Directory)">LDAP</abbr></span>
+                  <span class="auth-protocol-cell">TCP</span>
+                  <span class="auth-protocol-cell">Directory queries in cleartext. Risky on untrusted networks. Replacement: use LDAPS on port 636.</span>
+                </span>
+                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true">
+                  <span><strong>Example:</strong> A legacy app binds to LDAP:389 for user lookups; modern hardening migrates that bind to LDAPS:636 to encrypt credentials and queries.</span>
+                </span>
+              </button>
+            </td>
+          </tr>
+          <tr class="auth-protocol-row">
+            <td colspan="4">
+              <button class="auth-protocol-flip" type="button" aria-label="Flip LDAPS row to see an example" aria-pressed="false">
+                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">
+                  <span class="auth-protocol-cell">636</span>
+                  <span class="auth-protocol-cell">LDAPS</span>
+                  <span class="auth-protocol-cell">TCP</span>
+                  <span class="auth-protocol-cell">LDAP over TLS for encrypted directory queries and credential exchange.</span>
+                </span>
+                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true">
+                  <span><strong>Example:</strong> Security policy requires all directory binds over LDAPS so password checks and group lookups are encrypted end to end.</span>
+                </span>
+              </button>
+            </td>
+          </tr>
+          <tr class="auth-protocol-row" data-protocol-state="legacy">
+            <td colspan="4">
+              <button class="auth-protocol-flip" type="button" aria-label="Flip TACACS plus row to see an example" aria-pressed="false">
+                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">
+                  <span class="auth-protocol-cell">49</span>
+                  <span class="auth-protocol-cell"><abbr title="Terminal Access Controller Access-Control System Plus — AAA for network devices">TACACS+</abbr></span>
+                  <span class="auth-protocol-cell">TCP</span>
+                  <span class="auth-protocol-cell">AAA for network device administration with full packet encryption. In many modern environments, RADIUS-based NAC is more common.</span>
+                </span>
+                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true">
+                  <span><strong>Example:</strong> A legacy router admin team authenticates CLI logins against a TACACS+ server, while new wireless access is handled through RADIUS policies.</span>
+                </span>
+              </button>
+            </td>
+          </tr>
+          <tr class="auth-protocol-row">
+            <td colspan="4">
+              <button class="auth-protocol-flip" type="button" aria-label="Flip RADIUS authentication row to see an example" aria-pressed="false">
+                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">
+                  <span class="auth-protocol-cell">1812</span>
+                  <span class="auth-protocol-cell"><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> Auth</span>
+                  <span class="auth-protocol-cell">UDP</span>
+                  <span class="auth-protocol-cell">AAA for Wi-Fi and VPN access. Encrypts the password field and works with accounting on port 1813.</span>
+                </span>
+                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true">
+                  <span><strong>Example:</strong> 802.1X enterprise Wi-Fi sends user credentials to a RADIUS server for allow/deny decisions before network access is granted.</span>
+                </span>
+              </button>
+            </td>
+          </tr>
+          <tr class="auth-protocol-row">
+            <td colspan="4">
+              <button class="auth-protocol-flip" type="button" aria-label="Flip RADIUS accounting row to see an example" aria-pressed="false">
+                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">
+                  <span class="auth-protocol-cell">1813</span>
+                  <span class="auth-protocol-cell">RADIUS Accounting</span>
+                  <span class="auth-protocol-cell">UDP</span>
+                  <span class="auth-protocol-cell">Tracks session start, stop, duration, and usage for auditing and chargeback workflows.</span>
+                </span>
+                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true">
+                  <span><strong>Example:</strong> A network operations team uses RADIUS accounting logs to confirm VPN session durations during an incident investigation.</span>
+                </span>
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table></div>
     </div>

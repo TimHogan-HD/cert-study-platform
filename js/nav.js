@@ -349,9 +349,27 @@ function initFragmentComponents(path) {
   initFlashcards(path);
   initMatching();
   initAIExplain();
+  initAuthProtocolFlips();
   initDayTabs();
   initChecklist();
   injectDomainSubNav(path);
+}
+
+/* ── Directory Services protocol flip rows ───────────────────── */
+function initAuthProtocolFlips() {
+  document.querySelectorAll('.auth-protocol-flip').forEach(btn => {
+    btn.removeEventListener('click', btn._flipFn);
+    btn._flipFn = () => {
+      const isFlipped = btn.classList.toggle('is-flipped');
+      btn.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
+
+      const front = btn.querySelector('.auth-protocol-front');
+      const back = btn.querySelector('.auth-protocol-back');
+      if (front) front.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
+      if (back) back.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
+    };
+    btn.addEventListener('click', btn._flipFn);
+  });
 }
 
 /* ── AZ-900 day tabs ─────────────────────────────────────────── */

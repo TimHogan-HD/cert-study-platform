@@ -1353,6 +1353,135 @@ tr[data-exam-weight="high"] td:first-child::before {
 .port-group[data-group="routing"] .port-group-title { border-left-color: #adb5bd; }
 .port-group[data-group="db"]      .port-group-title { border-left-color: #e85d75; }
 
+/* ── Directory Services protocol flip rows (scoped to auth table only) ── */
+.auth-protocol-group .port-group-title {
+  border-left: none;
+}
+
+.auth-protocol-table {
+  table-layout: fixed;
+}
+
+.auth-protocol-table tbody td {
+  padding: 0;
+}
+
+.auth-protocol-row + .auth-protocol-row td {
+  border-top: 1px solid var(--border);
+}
+
+.auth-protocol-flip {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 5.4rem;
+  min-height: 5.4rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+.auth-protocol-flip.is-flipped {
+  transform: rotateX(180deg);
+}
+
+.auth-protocol-flip:focus-visible {
+  outline: 2px solid var(--blue-border);
+  outline-offset: -2px;
+}
+
+.auth-protocol-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.auth-protocol-front {
+  display: grid;
+  grid-template-columns: 12% 22% 16% 50%;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.75rem;
+}
+
+.auth-protocol-cell {
+  min-width: 0;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.auth-protocol-front .auth-protocol-cell:not(:last-child) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.auth-protocol-front .auth-protocol-cell:last-child {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.auth-protocol-back {
+  transform: rotateX(180deg);
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 0.9rem;
+}
+
+.auth-protocol-back span {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.auth-protocol-row[data-protocol-state="legacy"] .auth-protocol-face {
+  background: var(--amber-bg);
+}
+
+.auth-protocol-row[data-protocol-state="risky"] .auth-protocol-face {
+  background: var(--red-bg);
+}
+
+@media (max-width: 900px) {
+  .auth-protocol-flip {
+    height: 6rem;
+    min-height: 6rem;
+  }
+
+  .auth-protocol-front {
+    gap: 0.45rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .auth-protocol-cell,
+  .auth-protocol-back span {
+    font-size: 0.77rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .auth-protocol-flip {
+    height: 6.8rem;
+    min-height: 6.8rem;
+  }
+
+  .auth-protocol-front {
+    grid-template-columns: 14% 24% 18% 44%;
+  }
+}
+
 /* ── Shared Responsibility Diagram ──────────────────────── */
 .sr-diagram { margin: 1.25rem 0; overflow-x: auto; }
 .sr-grid {
