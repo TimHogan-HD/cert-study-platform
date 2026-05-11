@@ -1377,6 +1377,8 @@ tr[data-exam-weight="high"] td:first-child::before {
 .auth-protocol-row {
   cursor: pointer;
   --auth-face-py: 0.55rem;
+  --auth-front-lines: 2;
+  --auth-back-lines: 3;
 }
 
 .auth-protocol-row:focus-visible {
@@ -1414,7 +1416,7 @@ tr[data-exam-weight="high"] td:first-child::before {
   line-height: 1.4;
   display: flex;
   align-items: flex-start;
-  max-height: calc((1.4em * 3) + (var(--auth-face-py) * 2));
+  max-height: calc((1.4em * var(--auth-back-lines)) + (var(--auth-face-py) * 2));
 }
 
 .auth-protocol-face.auth-protocol-front {
@@ -1427,16 +1429,16 @@ tr[data-exam-weight="high"] td:first-child::before {
 
 .auth-protocol-row td:last-child .auth-protocol-face.auth-protocol-front {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: var(--auth-front-lines);
   -webkit-box-orient: vertical;
-  line-clamp: 2;
+  line-clamp: var(--auth-front-lines);
 }
 
 .auth-protocol-row td:last-child .auth-protocol-face.auth-protocol-back {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: var(--auth-back-lines);
   -webkit-box-orient: vertical;
-  line-clamp: 3;
+  line-clamp: var(--auth-back-lines);
 }
 
 .auth-protocol-row[data-protocol-state="legacy"] .auth-protocol-face {
