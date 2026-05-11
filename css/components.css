@@ -1354,18 +1354,20 @@ tr[data-exam-weight="high"] td:first-child::before {
 .port-group[data-group="db"]      .port-group-title { border-left-color: #e85d75; }
 
 /* ── Protocol/service reference flip rows ───────────────────── */
+.protocol-ref-help {
+  margin: 0.5rem 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
 .protocol-ref-table {
   table-layout: fixed;
 }
 
-.protocol-ref-table th:nth-child(1),
-.protocol-ref-table td:nth-child(1) { width: 12%; }
-.protocol-ref-table th:nth-child(2),
-.protocol-ref-table td:nth-child(2) { width: 22%; }
-.protocol-ref-table th:nth-child(3),
-.protocol-ref-table td:nth-child(3) { width: 16%; }
-.protocol-ref-table th:nth-child(4),
-.protocol-ref-table td:nth-child(4) { width: 50%; }
+.protocol-ref-cols .protocol-ref-col-port { width: 12%; }
+.protocol-ref-cols .protocol-ref-col-protocol { width: 22%; }
+.protocol-ref-cols .protocol-ref-col-transport { width: 16%; }
+.protocol-ref-cols .protocol-ref-col-summary { width: 50%; }
 
 .protocol-ref-table tbody td {
   padding: 0.55rem 0.75rem;
@@ -1398,8 +1400,8 @@ tr[data-exam-weight="high"] td:first-child::before {
 .protocol-ref-cell-flip {
   position: relative;
   display: block;
-  height: 5.4rem;
-  min-height: 5.4rem;
+  block-size: calc((1.4em * var(--protocol-back-lines)) + (var(--protocol-face-py) * 2));
+  min-block-size: calc((1.4em * var(--protocol-back-lines)) + (var(--protocol-face-py) * 2));
   overflow: hidden;
   transform-style: preserve-3d;
   transition: transform 0.8s ease;
@@ -1463,11 +1465,6 @@ tr[data-exam-weight="high"] td:first-child::before {
 }
 
 @media (max-width: 900px) {
-  .protocol-ref-cell-flip {
-    height: 6rem;
-    min-height: 6rem;
-  }
-
   .protocol-ref-table tbody td {
     padding: 0.5rem 0.6rem;
     font-size: 0.77rem;
@@ -1476,13 +1473,6 @@ tr[data-exam-weight="high"] td:first-child::before {
   .protocol-ref-face {
     padding: 0.5rem 0.6rem;
     font-size: 0.77rem;
-  }
-}
-
-@media (max-width: 700px) {
-  .protocol-ref-cell-flip {
-    height: 6.8rem;
-    min-height: 6.8rem;
   }
 }
 

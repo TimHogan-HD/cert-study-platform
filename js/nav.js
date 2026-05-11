@@ -363,7 +363,7 @@ function initProtocolRefFlips() {
 
     const toggleRow = () => {
       const isFlipped = row.classList.toggle('is-flipped');
-      row.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
+      row.setAttribute('aria-expanded', isFlipped ? 'true' : 'false');
       row.querySelectorAll('.protocol-ref-front').forEach(front => {
         front.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
       });
