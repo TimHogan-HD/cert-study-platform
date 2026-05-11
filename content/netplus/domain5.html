@@ -324,6 +324,11 @@
           <td>Graphical packet analyzer</td>
           <td>Filter: <code>ip.addr == 10.1.1.1</code>; follow TCP stream; decode protocols</td>
         </tr>
+        <tr>
+          <td><code>iperf3</code></td><td>All (free)</td>
+          <td>Measure actual TCP/UDP throughput between two endpoints</td>
+          <td><code>iperf3 -s</code> on server; <code>iperf3 -c [server-ip]</code> on client. Reports Mbps achieved. Use to verify actual link speed vs rated capacity and identify bottlenecks.</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -362,7 +367,8 @@
     <pre><code>show mac address-table
 show arp
 show vlan
-show ip interface brief</code></pre>
+show ip interface brief
+show power inline</code></pre>
 
     <p><strong>Step-by-step process:</strong></p>
     <ol>
@@ -370,6 +376,7 @@ show ip interface brief</code></pre>
       <li>Run <code>show vlan</code> — shows which ports are in which VLANs (access ports only; trunk ports are not listed here)</li>
       <li>Run <code>show mac address-table</code> — maps MAC addresses to ports. If target MAC appears on a trunk port, the device is on a downstream switch</li>
       <li>Run <code>show arp</code> — maps IP addresses to MAC addresses (only populated if this is a Layer 3 switch or router)</li>
+      <li>Run <code>show power inline</code> — displays PoE status per port: power class detected, watts allocated, and total switch power budget consumed vs. available. Use when a PoE device (AP, IP phone, camera) fails to power on despite being physically connected.</li>
     </ol>
 
     <p><strong>Sample output cross-reference scenario:</strong></p>
@@ -406,20 +413,24 @@ Internet  10.10.10.50  12   0050.7966.6800   Vlan10   ← MAC maps to IP 10.10.1
       <li>APIPA (169.254.x.x) = DHCP failure — not a bad IP address, a diagnostic signal</li>
       <li><code>pathping</code> is Windows only; combines ping + traceroute; shows per-hop loss statistics</li>
       <li><code>show arp</code> on a switch is only populated if the switch has SVIs (Layer 3 switch) or is a router</li>
+      <li><code>show power inline</code> — use when a PoE device won't power up; shows per-port power class and switch budget consumed vs. available</li>
+      <li><code>iperf3</code> requires a server endpoint (<code>iperf3 -s</code>) and a client (<code>iperf3 -c [ip]</code>); reports actual achievable throughput, not just link capacity</li>
     </ul>
   </div>
 
   <div class="callout callout-green">
     <div class="callout-title">✓ Quick Recall</div>
     <ul>
-      <li>4 discovery commands: <code>show mac address-table</code>, <code>show arp</code>, <code>show vlan</code>, <code>show ip interface brief</code></li>
+      <li>5 key discovery commands: <code>show mac address-table</code>, <code>show arp</code>, <code>show vlan</code>, <code>show ip interface brief</code>, <code>show power inline</code></li>
       <li>MAC→Port: <code>show mac address-table</code></li>
       <li>IP→MAC: <code>show arp</code></li>
       <li>Port→VLAN: <code>show vlan</code></li>
+      <li>PoE device won't power on: <code>show power inline</code></li>
       <li>APIPA 169.254.x.x = DHCP server unreachable</li>
       <li>DNS name fails but IP works → DNS issue, not routing</li>
       <li><code>ipconfig /flushdns</code> clears DNS resolver cache</li>
       <li>Routing loop → <code>traceroute</code> shows packets cycling between same hops</li>
+      <li><code>iperf3</code> = active throughput measurement between two endpoints</li>
     </ul>
   </div>
 
@@ -431,8 +442,52 @@ Internet  10.10.10.50  12   0050.7966.6800   Vlan10   ← MAC maps to IP 10.10.1
      ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-5-4">
   <div class="section-eyebrow">Objective 5.4</div>
-  <h2>Wireless Troubleshooting</h2>
-  <p>Wireless troubleshooting combines RF physics, authentication, and channel management. Symptoms often appear intermittent because RF conditions change over time.</p>
+  <h2>Performance Troubleshooting</h2>
+  <p>Objective 5.4 covers both wired performance issues and wireless troubleshooting. RF conditions, congestion, bottlenecks, and jitter all appear here.</p>
+
+  <h3>Wired Performance Issues</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Issue</th><th>Symptom</th><th>Likely Cause</th><th>Diagnostic Tool</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Bandwidth saturation / congestion</strong></td>
+          <td>High latency under load; applications slow during peak hours; VoIP drops</td>
+          <td>Link fully utilized; insufficient bandwidth for demand</td>
+          <td>NetFlow top talkers; <code>show interface</code> output drops counter; <code>iperf3</code></td>
+        </tr>
+        <tr>
+          <td><strong>Bottleneck</strong></td>
+          <td>Throughput limited to slower-than-expected rate across all paths</td>
+          <td>Single slow hop (speed mismatch, oversubscribed uplink, underpowered device)</td>
+          <td><code>traceroute</code> per-hop latency; <code>show interface</code> speed/duplex; <code>iperf3</code></td>
+        </tr>
+        <tr>
+          <td><strong>High latency</strong></td>
+          <td>Slow interactive apps; VoIP one-way delay; remote desktop sluggishness</td>
+          <td>Long path, congestion, serialization delay, queuing depth</td>
+          <td><code>ping</code> RTT; <code>pathping</code> per-hop loss; baseline comparison</td>
+        </tr>
+        <tr>
+          <td><strong>Packet loss</strong></td>
+          <td>TCP retransmissions; choppy VoIP; video freezes; FTP transfers fail</td>
+          <td>Interface errors, queue drops, flapping link, physical layer issue</td>
+          <td><code>show interface</code> input/output errors and drops; <code>ping</code> with extended count</td>
+        </tr>
+        <tr>
+          <td><strong>Jitter</strong></td>
+          <td>Inconsistent VoIP quality; audio glitches; video conferencing choppy</td>
+          <td>Variable queuing delay; no QoS policy; congested link</td>
+          <td>QoS monitoring in NMS; jitter measurement tools; VoIP MOS score</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Wired Performance Exam Trap</div>
+    <p>Official CompTIA N10-009 objective 5.4 covers <strong>both wired performance and wireless troubleshooting</strong>. Congestion, bottleneck, bandwidth saturation, latency, jitter, and packet loss are all 5.4 topics — not just wireless. Output drops on <code>show interface</code> = queue overflow = congestion.</p>
+  </div>
 
   <h3>Wireless Signal Metrics</h3>
   <div class="table-wrap">
@@ -506,6 +561,30 @@ Internet  10.10.10.50  12   0050.7966.6800   Vlan10   ← MAC maps to IP 10.10.1
           <td>HTTPS enforcement prevents captive portal redirect; DNS-based redirect blocked</td>
           <td>Modern devices use captive portal detection (HTTP probe to known URL); configure correctly</td>
         </tr>
+        <tr>
+          <td><strong>Antenna placement</strong></td>
+          <td>Dead zones in specific areas despite nearby APs; signal drops around corners or behind walls</td>
+          <td>AP antenna aimed incorrectly; omnidirectional AP in long narrow hallway loses signal at ends</td>
+          <td>Reposition AP; use directional antenna for long corridors; conduct active site survey; review heat map</td>
+        </tr>
+        <tr>
+          <td><strong>Disassociation</strong></td>
+          <td>Client suddenly disconnects and sees "connection lost"; must reconnect</td>
+          <td>AP-initiated deauthentication (load balancing, idle timeout, firmware bug, interference)</td>
+          <td>Check wireless controller logs for deauth reason code; check interference sources; update AP firmware</td>
+        </tr>
+        <tr>
+          <td><strong>Roaming failure</strong></td>
+          <td>Client drops connection when walking between AP coverage zones; sticky client stays on far AP</td>
+          <td>Client controls roaming decision and won't release old AP; 802.11r fast BSS transition not configured</td>
+          <td>Enable 802.11r fast roaming; configure RSSI threshold for AP to send deauth; enable band steering</td>
+        </tr>
+        <tr>
+          <td><strong>Coverage gap / dead zone</strong></td>
+          <td>No signal in part of building; client loses association completely in specific areas</td>
+          <td>Insufficient AP density; thick concrete/metal walls attenuating signal; AP placed too far</td>
+          <td>Add AP; conduct wireless site survey; adjust transmit power; review heat map output</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -531,6 +610,9 @@ Internet  10.10.10.50  12   0050.7966.6800   Vlan10   ← MAC maps to IP 10.10.1
       <li>Hidden node solution is RTS/CTS — not changing channels</li>
       <li>Sticky client is a client-side decision — the AP can't force roaming without sending a deauth or using BSS transition management (802.11v)</li>
       <li>RSSI is negative dBm — closer to zero = stronger signal (−40 is better than −80)</li>
+      <li>Objective 5.4 covers BOTH wired and wireless performance. Bottleneck, jitter, and packet loss are wired topics in this objective.</li>
+      <li>Output drops on <code>show interface</code> = queue overflow = link congestion — not a physical layer error.</li>
+      <li>Antenna placement affects dead zones — an omnidirectional AP placed at one end of a long hallway creates dead zones at the far end. Directional antennas solve corridor coverage.</li>
     </ul>
   </div>
 
@@ -544,6 +626,9 @@ Internet  10.10.10.50  12   0050.7966.6800   Vlan10   ← MAC maps to IP 10.10.1
       <li>Sticky client: device stays on far AP; fix with band steering or deauth</li>
       <li>Evil twin prevention: 802.1X certificate-based authentication</li>
       <li>Spectrum analyzer identifies non-Wi-Fi interference; wireless analyzer shows 802.11 networks only</li>
+      <li>Bottleneck = single slow hop | Congestion = link saturation | Jitter = delay variation (VoIP killer)</li>
+      <li>Output drops in <code>show interface</code> = queue overflow = congestion | <code>iperf3</code> = active throughput test</li>
+      <li>Roaming failure: enable 802.11r | Disassociation: check controller deauth reason code | Dead zone: site survey + add AP</li>
     </ul>
   </div>
 
@@ -556,6 +641,17 @@ Internet  10.10.10.50  12   0050.7966.6800   Vlan10   ← MAC maps to IP 10.10.1
 <div class="obj-section" id="obj-5-5">
   <div class="section-eyebrow">Objective 5.5</div>
   <h2>Security Troubleshooting</h2>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Study Navigation Note</div>
+    <p>The official CompTIA N10-009 objective 5.5 is <strong>"Use the appropriate tool or protocol to solve networking issues."</strong> That content is covered in this guide at:</p>
+    <ul>
+      <li><strong>Section 5.3</strong> — CLI tools: ping, traceroute, nslookup, dig, netstat, arp, nmap, tcpdump, Wireshark, iperf3, and Cisco show commands</li>
+      <li><strong>Section 5.2</strong> — Physical tools: cable tester, TDR, OTDR, toner probe, visual fault locator, multimeter, punchdown tool</li>
+    </ul>
+    <p>Study both 5.2 and 5.3 when preparing for exam objective 5.5. <strong>This section</strong> covers security troubleshooting symptoms, which is complementary exam content not covered under a specific official sub-objective number.</p>
+  </div>
+
   <p>Security issues often masquerade as network problems. Recognizing the indicators of compromise and knowing the correct response sequence are both exam-tested.</p>
 
   <h3>Indicators of Compromise (IoC)</h3>
