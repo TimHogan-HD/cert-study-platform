@@ -22,21 +22,8 @@
         <tr><td><strong>Change Management</strong></td><td>Tracks all changes to network configuration</td><td>Change request, approval, implementation steps, rollback plan, post-change verification</td></tr>
         <tr><td><strong>Asset Inventory</strong></td><td>Tracks all hardware and software in the network</td><td>Device model, serial, MAC, IP, location, firmware version, warranty</td></tr>
         <tr><td><strong>Configuration Backups</strong></td><td>Archives device configurations for recovery</td><td>Router/switch running-config, firewall rules, AP configs</td></tr>
-        <tr><td><strong>IPAM</strong> (IP Address Management)</td><td>Tracks all IP address assignments across the network</td><td>Subnet allocations, DHCP scopes, static assignments, DNS correlations</td></tr>
-        <tr><td><strong>Wireless heat map</strong></td><td>Visualizes Wi-Fi signal coverage across a physical space</td><td>RSSI contour map, dead zones, channel interference areas</td></tr>
-        <tr><td><strong>Rack diagram</strong></td><td>Documents physical layout of each rack</td><td>U positions of each device, power draw, cable runs to patch panel</td></tr>
-        <tr><td><strong>SLA</strong> (Service Level Agreement)</td><td>Contractual definition of service quality and uptime guarantees</td><td>Uptime %, response times, resolution times, penalties for breach</td></tr>
-        <tr><td><strong>SOP</strong> (Standard Operating Procedure)</td><td>Step-by-step procedures for common tasks</td><td>Runbooks for device replacement, link failover, VLAN changes</td></tr>
-        <tr><td><strong>EOL / EOS</strong> (End of Life / End of Support)</td><td>Tracks when vendor stops selling / supporting a product</td><td>Security patching stops at EOS; running EOS devices is a compliance risk</td></tr>
-        <tr><td><strong>Golden configuration</strong></td><td>Baseline approved config applied to new devices of the same class</td><td>Enforces standardization; deviations from golden config = drift</td></tr>
-        <tr><td><strong>Decommissioning documentation</strong></td><td>Records removal of a device from service</td><td>Data destruction method, asset disposal, config archive, DNS/DHCP cleanup</td></tr>
       </tbody>
     </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">Golden Configuration</div>
-    <p>A golden configuration is the approved baseline config for a device class (e.g., "standard access switch config"). All new switches receive this config on deployment. IaC tools can compare running configs against the golden config to detect drift.</p>
   </div>
 
   <h3>Performance Metrics to Monitor</h3>
@@ -62,9 +49,6 @@
       <li>Bandwidth ≠ throughput. Bandwidth is the link capacity; throughput is what you actually get.</li>
       <li>A baseline is taken <em>before</em> a problem occurs — it represents "normal." You compare current metrics against it.</li>
       <li>Change management includes a <strong>rollback plan</strong> — what to do if the change causes issues.</li>
-      <li>IPAM is the tool that manages IP address space — not DHCP. DHCP assigns addresses; IPAM tracks them across the entire network.</li>
-      <li>EOL = no longer sold. EOS = no longer supported (no patches). <strong>EOS is the security-relevant date</strong> — running EOS devices exposes you to unpatched CVEs.</li>
-      <li>SLA defines the uptime commitment, not just best-effort. Breach of SLA triggers contractual penalties.</li>
     </ul>
   </div>
 
@@ -75,9 +59,6 @@
       <li>Baseline = normal performance snapshot for comparison</li>
       <li>Jitter = packet delay variation — bad for VoIP | Latency = total one-way delay</li>
       <li>Change management: request → approval → implementation → verification → documentation</li>
-      <li>IPAM = IP address tracking (not DHCP) | Heat map = Wi-Fi signal map | Rack diagram = U-position doc</li>
-      <li>SLA = uptime commitment | EOL = stop selling | EOS = stop patching (security risk)</li>
-      <li>Golden config = approved baseline config | Decommission = document, archive, clean up DNS/DHCP</li>
     </ul>
   </div>
 
@@ -183,42 +164,6 @@
     </table>
   </div>
 
-  <h3>Traffic Mirroring</h3>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">Port Mirroring and SPAN</div>
-    <p>A <strong>SPAN (Switched Port Analyzer)</strong> port mirrors a copy of all traffic from one or more source ports to a destination port. A network analyzer (Wireshark, IDS sensor) connected to the SPAN port receives a copy of all mirrored traffic without interrupting the original traffic flow. Used when you need to inspect traffic without placing a device inline.</p>
-  </div>
-
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Method</th><th>Scope</th><th>Use Case</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>SPAN</strong></td><td>Same switch</td><td>Connect analyzer to local switch port for traffic inspection</td></tr>
-        <tr><td><strong>RSPAN</strong> (Remote SPAN)</td><td>Across VLANs on multiple switches</td><td>Mirror traffic from access switch to core where analyzer lives</td></tr>
-        <tr><td><strong>ERSPAN</strong> (Encapsulated RSPAN)</td><td>Across Layer 3 (GRE tunnel)</td><td>Mirror to a remote site or cloud-based analyzer</td></tr>
-        <tr><td><strong>TAP</strong> (Test Access Point)</td><td>Hardware passive mirror</td><td>High-fidelity capture without switch CPU load; passive, no configuration required</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>In-Band vs Out-of-Band Management</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Method</th><th>Traffic Path</th><th>When Available</th><th>Use Case</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>In-band management</strong></td><td>Management traffic shares the production network</td><td>Only when network is up</td><td>Normal operations: SSH to router over production link</td></tr>
-        <tr><td><strong>Out-of-band (OOB) management</strong></td><td>Dedicated management network or console port</td><td>Even when production network is down</td><td>Emergency recovery, initial configuration, network outage response</td></tr>
-        <tr><td><strong>Console port</strong></td><td>Direct physical serial/USB connection to device</td><td>Always (no network needed)</td><td>Factory reset, boot config, broken network access</td></tr>
-        <tr><td><strong>Jump box / bastion host</strong></td><td>Hardened server on management network; admins SSH to jump box first</td><td>When management network is up</td><td>Controls and audits all admin access to production devices</td></tr>
-      </tbody>
-    </table>
-  </div>
-
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -226,9 +171,6 @@
       <li>Syslog severity 0 = Emergency (most severe). 7 = Debug (least severe). <strong>Lower number = worse problem.</strong></li>
       <li>SNMPv3 is the only version with authentication AND encryption. SNMPv1/v2c = community strings (cleartext).</li>
       <li>NMS ≠ SIEM. NMS focuses on device performance. SIEM focuses on security events and correlation.</li>
-      <li>Out-of-band management is the ONLY way to access a device when its production network interfaces are unreachable. Console port = ultimate OOB access.</li>
-      <li>Jump box = bastion host (same concept). Admins SSH to jump box first; never directly to production devices. Centralizes and logs all admin access.</li>
-      <li>SPAN = software mirror on a switch (CPU load). TAP = passive hardware mirror (no CPU load, no config).</li>
     </ul>
   </div>
 
@@ -240,9 +182,6 @@
       <li>Syslog: 0=Emergency (worst) → 7=Debug (least severe). Port 514 UDP.</li>
       <li>NetFlow = active flow export | sFlow = passive sampling | IPFIX = open standard of NetFlow</li>
       <li>SIEM = security event correlation | NMS = network performance management</li>
-      <li>SPAN = traffic mirror to analyzer | TAP = passive hardware mirror (no switch CPU)</li>
-      <li>In-band = management over production network | OOB = dedicated management path</li>
-      <li>Console = always accessible (no network needed) | Jump box = bastion host, audits admin access</li>
     </ul>
   </div>
 
@@ -404,67 +343,6 @@
     Kerberos authentication (used in Active Directory) requires all devices to be within <strong>5 minutes</strong> of each other in clock time. If NTP fails and clocks drift more than 5 minutes, Kerberos tickets will be rejected and users can't authenticate. NTP is security-critical.
   </div>
 
-  <h3>How DNS Resolution Works</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Query Type</th><th>Who Initiates</th><th>Who Receives</th><th>Response Type</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Recursive</strong></td><td>Client to resolver</td><td>Resolver</td><td>Full answer (or NXDOMAIN) — resolver does all the work</td></tr>
-        <tr><td><strong>Iterative</strong></td><td>Resolver to each upstream server</td><td>Root, TLD, authoritative nameservers</td><td>Referral or answer — resolver asks each server separately</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <ol>
-    <li>Client sends <strong>recursive query</strong> to local resolver: "What is the IP for www.example.com?"</li>
-    <li>Resolver checks cache. If found and TTL not expired, returns immediately (non-authoritative answer).</li>
-    <li>Resolver sends <strong>iterative query</strong> to a root server → root responds with referral to .com TLD nameservers.</li>
-    <li>Resolver sends iterative query to .com TLD → TLD responds with referral to example.com authoritative nameservers.</li>
-    <li>Resolver sends iterative query to example.com authoritative → authoritative responds with A record answer.</li>
-    <li>Resolver caches result per TTL, returns answer to client.</li>
-  </ol>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">Authoritative vs Non-Authoritative Answers</div>
-    <p>An <strong>authoritative</strong> answer comes directly from the nameserver hosting the zone — it is definitive. A <strong>non-authoritative</strong> answer comes from a resolver's cache. The <code>aa</code> flag in <code>dig</code> output indicates an authoritative response. Use <code>dig +trace</code> to see the full iterative resolution chain.</p>
-    <p><strong>Reverse DNS:</strong> PTR records use the <code>in-addr.arpa</code> hierarchy. A PTR query for 8.8.8.8 becomes a query for <code>8.8.8.8.in-addr.arpa</code>. Used by mail servers for spam detection and by syslog to resolve source IPs to hostnames.</p>
-  </div>
-
-  <h3>DNS Security and Privacy Extensions</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Extension</th><th>Port</th><th>Mechanism</th><th>Protects Against</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>DNSSEC</strong></td><td>53 UDP/TCP</td><td>Cryptographic signatures (RRSIG) on DNS records; chain of trust from root via DS and DNSKEY records</td><td>DNS cache poisoning, spoofed or tampered records</td></tr>
-        <tr><td><strong>DoT</strong> (DNS over TLS)</td><td>853 TCP</td><td>Wraps DNS query in TLS tunnel</td><td>Eavesdropping on DNS queries; on-path inspection of what sites you visit</td></tr>
-        <tr><td><strong>DoH</strong> (DNS over HTTPS)</td><td>443 TCP</td><td>DNS query sent as HTTPS request</td><td>Eavesdropping; harder to block than DoT since it uses port 443</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">DNSSEC vs DoT vs DoH — Different Problems</div>
-    <p><strong>DNSSEC</strong> protects <em>data integrity</em> — are the records authentic and unmodified? <strong>DoT and DoH</strong> protect <em>query privacy</em> — can someone see what you're looking up? They solve different problems and can be deployed together.</p>
-  </div>
-
-  <h3>Time Protocol Comparison</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Protocol</th><th>Standard</th><th>Port</th><th>Precision</th><th>Use Case</th><th>Notes</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>NTP</strong></td><td>RFC 5905</td><td>123 UDP</td><td>~1–50 ms</td><td>General enterprise time sync</td><td>Stratum hierarchy; widely supported</td></tr>
-        <tr><td><strong>PTP</strong> (Precision Time Protocol)</td><td>IEEE 1588</td><td>319/320 UDP</td><td>Sub-microsecond</td><td>Financial trading, 5G, industrial control, broadcast media</td><td>Requires hardware timestamping in NICs and switches for full precision</td></tr>
-        <tr><td><strong>NTS</strong> (Network Time Security)</td><td>RFC 8915</td><td>4460 TCP</td><td>Same as NTP</td><td>Authenticated NTP</td><td>Adds authentication and encryption to NTP; prevents NTP spoofing and MITM attacks on time sync</td></tr>
-      </tbody>
-    </table>
-  </div>
-
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -474,9 +352,6 @@
       <li>MX records have <strong>priority</strong> values — lower number = higher priority. Multiple MX records for redundancy.</li>
       <li>DNS uses UDP for queries ≤512 bytes and TCP for zone transfers or larger responses.</li>
       <li>NTP stratum 0 = hardware clock (not on network). Stratum 1 = first server on the network.</li>
-      <li>DNSSEC does <strong>NOT encrypt</strong> DNS responses — it signs them. A signed record proves authenticity but the content is still readable.</li>
-      <li>DoT = port 853. DoH = port 443 (same as HTTPS — intentionally uses this port to blend with web traffic and avoid blocking).</li>
-      <li>PTP is used where NTP is not precise enough (financial trading, 5G). NTS = NTP with security added — not a new time protocol.</li>
     </ul>
   </div>
 
@@ -488,10 +363,6 @@
       <li>ip helper-address = DHCP relay for cross-subnet DHCP</li>
       <li>A=IPv4 | AAAA=IPv6 | MX=mail | PTR=reverse | CNAME=alias | TXT=SPF/DKIM</li>
       <li>NTP: Stratum 0=atomic clock → 1=primary server → 2=secondary → 16=unsynchronized</li>
-      <li>DNS recursive query = client asks resolver, gets final answer | Iterative = resolver asks each server in chain</li>
-      <li>Authoritative answer = from zone owner | Non-authoritative = from resolver cache | dig +trace shows full chain</li>
-      <li>DNSSEC = signs records (integrity, port 53) | DoT = port 853 | DoH = port 443</li>
-      <li>NTP = 123 UDP | PTP = 319/320 UDP, sub-microsecond precision | NTS = 4460 TCP, authenticated NTP</li>
     </ul>
   </div>
 
@@ -601,24 +472,6 @@
     </table>
   </div>
 
-  <h3>Access Management Methods</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Access Method</th><th>Description</th><th>Security Consideration</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>GUI (web-based)</strong></td><td>Browser-based management interface on the device</td><td>Should be HTTPS only; restrict to management VLAN</td></tr>
-        <tr><td><strong>SSH</strong></td><td>Encrypted CLI access; industry standard for network devices</td><td>Key-based auth preferred over password; disable Telnet</td></tr>
-        <tr><td><strong>API</strong></td><td>Programmatic access via REST/NETCONF/RESTCONF</td><td>Used by NMS and automation tools; authenticate with token or certificate</td></tr>
-        <tr><td><strong>Console port</strong></td><td>Direct physical serial/USB connection to device</td><td>Physical access required; no network dependency; always works</td></tr>
-        <tr><td><strong>Jump box / bastion host</strong></td><td>Admin connects to jump box first, then SSHes to devices from there</td><td>Centralizes and logs all admin access; reduces attack surface</td></tr>
-        <tr><td><strong>In-band management</strong></td><td>Management traffic shares the production network</td><td>Unavailable during network outages — use OOB as fallback</td></tr>
-        <tr><td><strong>Out-of-band (OOB) management</strong></td><td>Dedicated management network, separate from production</td><td>Always available even when production network fails; critical for recovery</td></tr>
-      </tbody>
-    </table>
-  </div>
-
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -627,8 +480,6 @@
       <li>TACACS+ is for device (router/switch) management. RADIUS is for network access (Wi-Fi, VPN).</li>
       <li>IPsec ESP provides encryption. IPsec AH does NOT encrypt — it only authenticates.</li>
       <li>802.1X supplicant = client. Authenticator = switch/WAP. Authentication server = RADIUS.</li>
-      <li>Jump box = bastion host (same concept). Admins never SSH directly to production devices — they SSH to the jump box first, which logs and audits the session.</li>
-      <li>OOB management uses a separate physical or logical path that survives production network failure. Console port = ultimate OOB (no network needed at all).</li>
     </ul>
   </div>
 
@@ -640,8 +491,6 @@
       <li>IPsec: AH=auth only | ESP=auth+encryption | IKE=key exchange</li>
       <li>802.1X: Supplicant (client) → Authenticator (switch/WAP) → Authentication Server (RADIUS)</li>
       <li>Site-to-site VPN = router-to-router | Remote access VPN = client-to-site</li>
-      <li>Jump box = bastion host; admins SSH here first, then to production devices</li>
-      <li>OOB = dedicated management path | Console = always accessible (no network needed)</li>
     </ul>
   </div>
 

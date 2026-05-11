@@ -209,35 +209,6 @@
     </table>
   </div>
 
-  <h3>Additional Network Functions</h3>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">CDN (Content Delivery Network)</div>
-    <p>CDNs distribute cached copies of content across geographically dispersed servers (edge nodes) so users receive data from the nearest node rather than the origin server. Reduces latency for static content (images, video, JS files). Examples: Cloudflare, Akamai, AWS CloudFront. CompTIA lists CDN as a network function alongside appliances.</p>
-  </div>
-
-  <h3>QoS (Quality of Service)</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>QoS Concept</th><th>Definition</th><th>Exam Context</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>QoS</strong></td><td>Mechanism to prioritize certain traffic types over others on congested links</td><td>VoIP and video need low latency; QoS ensures they aren't starved by bulk transfers</td></tr>
-        <tr><td><strong>DSCP</strong> (Differentiated Services Code Point)</td><td>6-bit field in IP header used to mark traffic priority</td><td>EF (Expedited Forwarding) = highest priority (VoIP/DSCP 46); AF = assured forwarding; BE = best-effort default</td></tr>
-        <tr><td><strong>CoS</strong> (Class of Service)</td><td>3-bit 802.1p field in 802.1Q VLAN tag; Layer 2 QoS marking</td><td>Used within a switched network before packets reach a router with DSCP</td></tr>
-        <tr><td><strong>Traffic shaping</strong></td><td>Delays excess traffic to conform to a rate limit (buffers packets)</td><td>Smooths bursts; adds latency</td></tr>
-        <tr><td><strong>Traffic policing</strong></td><td>Drops or re-marks packets that exceed a rate limit</td><td>Enforces hard limits; no buffering</td></tr>
-        <tr><td><strong>Queuing</strong></td><td>Scheduler decides which queued packets transmit first</td><td>Priority queuing (PQ), WFQ, CBWFQ common methods</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">TTL (Time to Live)</div>
-    <p>TTL is an 8-bit field in the IP header decremented by 1 at each router hop. When TTL reaches 0, the router drops the packet and sends an ICMP Time Exceeded message back to the source. Prevents packets from looping forever. <code>traceroute</code> exploits TTL by sending probes with incrementing TTL values to identify each hop.</p>
-  </div>
-
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -245,9 +216,6 @@
       <li>A WAP is NOT a router — it's only a Layer 2 device unless it's a combined router/WAP.</li>
       <li>Bridges are software-based; switches are hardware-based and faster.</li>
       <li>A proxy server caches and filters at L7. A NAT device changes IP addresses at L3.</li>
-      <li>QoS does NOT add bandwidth — it only controls how existing bandwidth is allocated under congestion. VoIP traffic is marked EF/DSCP 46.</li>
-      <li>Traffic shaping = delays excess traffic (adds latency). Traffic policing = drops excess traffic (no buffering).</li>
-      <li>TTL = hop countdown in IP header; traceroute sends probes with incrementing TTL values to map each hop.</li>
     </ul>
   </div>
 
@@ -259,9 +227,6 @@
       <li>IDS = passive, SPAN port, alerts only | IPS = inline, can block</li>
       <li>NGFW includes IPS + app awareness + deep packet inspection</li>
       <li>Load balancer: L4 (port-based) or L7 (content-aware)</li>
-      <li>CDN = distributed edge caching; reduces latency for static content</li>
-      <li>QoS = traffic prioritization; DSCP marks packets (EF/DSCP 46 = VoIP); shaping delays, policing drops</li>
-      <li>TTL = hop countdown; traceroute uses incrementing TTL to identify each hop</li>
     </ul>
   </div>
 
@@ -684,22 +649,6 @@
     </ul>
   </div>
 
-  <h3>Wireless WAN and Satellite Transmission Media</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Media Type</th><th>Technology</th><th>Typical Throughput</th><th>Typical Latency</th><th>Use Case</th><th>Notes</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>4G LTE</strong></td><td>3GPP LTE</td><td>10–150 Mbps</td><td>30–60 ms</td><td>WAN backup, mobile, IoT backhaul</td><td>Metered; higher latency than wired</td></tr>
-        <tr><td><strong>5G (Sub-6 GHz)</strong></td><td>3GPP NR</td><td>100 Mbps – 1 Gbps</td><td>10–20 ms</td><td>Fixed wireless access, SD-WAN transport</td><td>Wide coverage; most deployed band</td></tr>
-        <tr><td><strong>5G (mmWave)</strong></td><td>3GPP NR</td><td>Up to 10+ Gbps</td><td>&lt;5 ms</td><td>Dense urban, stadium, fixed point links</td><td>Very short range; line-of-sight preferred</td></tr>
-        <tr><td><strong>Satellite (LEO)</strong></td><td>Low Earth Orbit</td><td>50–300 Mbps</td><td>20–40 ms</td><td>Remote sites, maritime, emergency backup</td><td>Lower latency than GEO; Starlink example</td></tr>
-        <tr><td><strong>Satellite (GEO)</strong></td><td>Geostationary</td><td>1–25 Mbps</td><td>~600 ms RTT</td><td>Very remote sites, SCADA backhaul</td><td>High latency disqualifies VoIP and real-time apps</td></tr>
-      </tbody>
-    </table>
-  </div>
-
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -708,7 +657,6 @@
       <li>SMF = yellow jacket (usually). MMF = orange (OM2/OM3) or aqua (OM4). But cable color can vary — know the specs.</li>
       <li>RJ45 ≠ RJ11. RJ45 = 8 pins (Ethernet). RJ11 = 6 pins (telephone).</li>
       <li>LC connector is small (pushed by SFP ports). SC is square/larger. ST is round with a bayonet twist.</li>
-      <li>GEO satellite latency (~600 ms RTT) makes it unsuitable for VoIP and real-time interactive apps. Cellular (4G/5G) is a legitimate SD-WAN transport option.</li>
     </ul>
   </div>
 
@@ -720,7 +668,6 @@
       <li>LC = small, data center favorite | SC = square | ST = twist lock (bayonet)</li>
       <li>Plenum = air-handling spaces | Riser = between floors | PVC = conduit only</li>
       <li>SFP = 1G | SFP+ = 10G | QSFP = 40G | QSFP28 = 100G</li>
-      <li>4G LTE = 30–60 ms latency | 5G Sub-6 = 10–20 ms | LEO satellite = 20–40 ms | GEO satellite = ~600 ms RTT (no VoIP)</li>
     </ul>
   </div>
 
@@ -806,53 +753,12 @@
     <li><strong>vSwitch (Virtual Switch)</strong> — Software switch within a hypervisor (VMware vSwitch, Hyper-V vSwitch). Connects VMs to each other and to physical NICs.</li>
   </ul>
 
-  <h3>Cloud Networking Deep Dive</h3>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">NFV (Network Functions Virtualization)</div>
-    <p>NFV replaces dedicated hardware appliances (routers, firewalls, load balancers) with software running on commodity x86 servers. The appliance function still exists but runs as a VM or container. Benefit: spin up/down on demand, no rack space, no hardware procurement lead time. All cloud provider "virtual appliances" (security groups, NAT gateways, virtual firewalls) are NFV implementations.</p>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">VPC (Virtual Private Cloud)</div>
-    <p>A VPC is an isolated, logically partitioned network inside a public cloud provider. You define the CIDR block, create subnets, attach gateways, and control routing within your VPC. Multiple VPCs do not see each other by default — VPC peering or a transit gateway connects them. Every AWS/Azure/GCP account gets a default VPC.</p>
-  </div>
-
-  <h3>Cloud Security and Gateway Constructs</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Construct</th><th>Type</th><th>Statefulness</th><th>Scope</th><th>Key Behavior</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>AWS Security Group / Azure NSG</strong></td><td>Virtual firewall</td><td>Stateful</td><td>Applied to instance/NIC</td><td>Return traffic implicitly allowed; no explicit deny needed for replies</td></tr>
-        <tr><td><strong>AWS Network ACL / OCI Security List</strong></td><td>ACL</td><td>Stateless</td><td>Applied to subnet</td><td>Must explicitly permit BOTH inbound and outbound for a session to work</td></tr>
-        <tr><td><strong>Internet Gateway</strong></td><td>Routing attachment</td><td>N/A</td><td>VPC-level</td><td>Enables bidirectional internet access for resources with public IPs</td></tr>
-        <tr><td><strong>NAT Gateway</strong></td><td>Address translation</td><td>N/A</td><td>Private subnet</td><td>Outbound-only internet access; private-IP resources initiate, cannot receive inbound</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">Scalability vs Elasticity</div>
-    <p><strong>Scalability</strong> is the capacity to grow — adding servers, upgrading hardware. <strong>Elasticity</strong> is automatic bidirectional scaling in response to real-time load (scale out on demand, scale back in when load drops). Cloud is elastic; on-premises datacenters are typically only scalable. CompTIA treats these as distinct terms.</p>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">Multitenancy</div>
-    <p>Multitenancy means multiple customers share the same physical infrastructure with logical isolation. This is the economic foundation of public cloud. Your VM shares a physical host with other customers' VMs but cannot access their memory or storage.</p>
-  </div>
-
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
       <li>Spine-Leaf = data center design for east-west traffic. Three-tier = traditional enterprise (north-south traffic).</li>
       <li>IaaS = you manage OS and up. PaaS = you manage apps and data only. SaaS = nothing to manage.</li>
       <li>SDN separates <strong>control plane</strong> from <strong>data plane</strong> — know both terms.</li>
-      <li>Security groups (AWS) / NSGs (Azure) are <strong>stateful</strong>; Network ACLs are <strong>stateless</strong>. Not interchangeable — stateless ACLs require explicit rules for both directions.</li>
-      <li>Internet Gateway = bidirectional public access. NAT Gateway = outbound only (private hosts can initiate, cannot receive inbound).</li>
-      <li>Scalability = capacity to grow. Elasticity = auto-scaling in both directions. Cloud is elastic; on-prem is typically only scalable.</li>
-      <li>NFV = software appliances on commodity hardware. Not to be confused with SDN (control/data plane separation).</li>
     </ul>
   </div>
 
@@ -863,11 +769,6 @@
       <li>Spine-leaf: data center, every leaf connects to every spine, equal latency</li>
       <li>IaaS = VMs | PaaS = platforms | SaaS = apps (decreasing customer control)</li>
       <li>SDN = control plane separated from data plane via centralized controller</li>
-      <li>NFV = software appliances on commodity x86 (no dedicated hardware)</li>
-      <li>VPC = isolated cloud network with your own CIDR, subnets, and routing</li>
-      <li>Security group/NSG = stateful per-instance | NACL = stateless per-subnet</li>
-      <li>Internet GW = bidirectional public | NAT GW = outbound only</li>
-      <li>Elasticity = auto-scale up and down | Scalability = capacity to grow | Multitenancy = shared hardware, logical isolation</li>
     </ul>
   </div>
 
@@ -1127,89 +1028,6 @@
     </table>
   </div>
 
-  <h3>Evolving Network Environments</h3>
-
-  <h3>SD-WAN (Software-Defined Wide Area Network)</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>SD-WAN Property</th><th>What It Means</th><th>Why It Matters</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Application-aware routing</strong></td><td>Routes traffic based on application identity, not just IP/port</td><td>SaaS traffic (Office 365, Salesforce) goes direct to internet; sensitive traffic goes over MPLS</td></tr>
-        <tr><td><strong>Zero-touch provisioning (ZTP)</strong></td><td>New device boots, calls home, downloads config automatically</td><td>No technician at remote site; reduces deployment cost and error</td></tr>
-        <tr><td><strong>Transport agnostic</strong></td><td>Works over any WAN transport: MPLS, broadband, LTE, satellite</td><td>Mix and match transports per cost/performance need</td></tr>
-        <tr><td><strong>Central policy management</strong></td><td>One controller pushes policy to all edge devices</td><td>No per-device manual config; consistent policy everywhere</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">SD-WAN Replaces MPLS Hairpinning</div>
-    <p>Traditional WAN backhauls all branch traffic through HQ for security inspection before it reaches the internet — even if the destination is a cloud SaaS app. SD-WAN sends trusted SaaS traffic directly to the internet from each branch while routing sensitive traffic over MPLS or an encrypted overlay. This eliminates the latency and cost of hairpinning.</p>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">VXLAN — Virtual Extensible LAN</div>
-    <p>Traditional VLANs are limited to 4,094 IDs (12-bit field). VXLAN extends this to 16 million segments using a 24-bit <strong>VNI</strong> (VXLAN Network Identifier). VXLAN encapsulates Layer 2 Ethernet frames inside UDP packets (<strong>destination port 4789</strong>), allowing Layer 2 domains to stretch across a Layer 3 IP underlay. Primary use cases: data center interconnect (DCI) where VMs move between racks or sites, and multi-tenant cloud environments where each tenant needs isolated Layer 2 space. RFC 7348.</p>
-    <p><strong>Exam trap:</strong> VXLAN uses UDP port 4789. VNI = 24 bits = ~16 million segments (vs 4,094 for 802.1Q). Purpose is Layer 2 over Layer 3.</p>
-  </div>
-
-  <h3>Zero Trust Architecture (ZTA)</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>ZTA Principle</th><th>Definition</th><th>Implementation Example</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Never trust, always verify</strong></td><td>No implicit trust from network location — being on the LAN does not equal trusted</td><td>Require MFA for every access request regardless of source network</td></tr>
-        <tr><td><strong>Policy-based authentication</strong></td><td>Access decided per request based on identity + device posture + context</td><td>User + device certificate + location checked before granting access</td></tr>
-        <tr><td><strong>Least privilege</strong></td><td>Grant minimum permissions required; revoke when session ends</td><td>Per-app access, not broad network access; no persistent VPN tunnel</td></tr>
-        <tr><td><strong>Microsegmentation</strong></td><td>Network divided into small zones with strict controls between them</td><td>East-west traffic between servers requires authentication just like north-south</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">ZTA Reference: NIST SP 800-207</div>
-    <p>NIST SP 800-207 is the reference document for Zero Trust Architecture. The exam tests conceptual understanding: know the problem ZTA solves (implicit trust based on network location) and its core principles. ZTA is an architecture philosophy, not a single product.</p>
-  </div>
-
-  <h3>SASE and SSE</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Term</th><th>Full Name</th><th>Components</th><th>Use Case</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>SASE</strong></td><td>Secure Access Service Edge</td><td>SD-WAN + SWG + CASB + ZTNA + FWaaS, delivered as cloud service</td><td>Replace hairpinning through HQ; apply security at cloud PoP near user</td></tr>
-        <tr><td><strong>SSE</strong></td><td>Security Service Edge</td><td>SWG + CASB + ZTNA only (no SD-WAN)</td><td>Security-only subset of SASE; when SD-WAN is handled separately</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">SASE vs SSE</div>
-    <p>SASE = SD-WAN networking + cloud security stack in one service. SSE = just the security half. On the exam: know that SASE eliminates backhauling traffic through a central security stack by moving security inspection to cloud points-of-presence near users.</p>
-  </div>
-
-  <h3>IaC (Infrastructure as Code)</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>IaC Concept</th><th>Definition</th><th>Exam Context</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Playbooks / templates</strong></td><td>Reusable, declarative configuration files (Ansible playbooks, Terraform .tf files)</td><td>Define desired state; apply to 1 or 1,000 devices identically</td></tr>
-        <tr><td><strong>Configuration drift</strong></td><td>Deviation between declared config (in code) and actual running config</td><td>IaC tools detect and remediate drift automatically</td></tr>
-        <tr><td><strong>Source control</strong></td><td>Version control system (Git) tracks all config changes with history</td><td>Every config change is auditable, reversible, diff-able</td></tr>
-        <tr><td><strong>Version control</strong></td><td>Specific revisions of config files tracked over time</td><td>Roll back to previous known-good config in one command</td></tr>
-        <tr><td><strong>Branching</strong></td><td>Parallel config tracks (feature branch vs main)</td><td>Test changes in staging before pushing to production</td></tr>
-        <tr><td><strong>Conflict identification</strong></td><td>Merge conflicts signal two changes to the same config</td><td>Review and resolve before deployment</td></tr>
-      </tbody>
-    </table>
-  </div>
-
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -1219,10 +1037,6 @@
       <li>SLAAC doesn't use DHCP — it uses Router Advertisements (NDP). No DHCP server needed.</li>
       <li>NDP (Neighbor Discovery Protocol) replaces both ARP and some ICMP functions in IPv6.</li>
       <li>::1 = IPv6 loopback (equivalent to 127.0.0.1 in IPv4).</li>
-      <li>ZTA = "never trust, always verify" — being on the internal network does NOT grant implicit trust.</li>
-      <li>SASE = SD-WAN + cloud security stack. SSE = security only (no SD-WAN component).</li>
-      <li>VXLAN uses UDP port 4789. VNI = 24-bit field = ~16 million segments (802.1Q = 12-bit = 4,094 max).</li>
-      <li>IaC config drift = actual running config diverging from the declared state in version control.</li>
     </ul>
   </div>
 
@@ -1236,11 +1050,6 @@
       <li>No broadcast in IPv6 — multicast replaces it</li>
       <li>SLAAC = auto-config from Router Advertisement, no DHCP needed</li>
       <li>Dual stack = running IPv4 and IPv6 simultaneously on same interface</li>
-      <li>ZTA = never trust always verify; NIST SP 800-207</li>
-      <li>VXLAN = Layer 2 over Layer 3; UDP port 4789; 24-bit VNI (16M segments)</li>
-      <li>SD-WAN = app-aware, ZTP, transport-agnostic, central policy</li>
-      <li>SASE = SD-WAN + cloud security | SSE = security only (no SD-WAN)</li>
-      <li>IaC = config as code; version controlled; config drift = deviation from declared state</li>
     </ul>
   </div>
 
