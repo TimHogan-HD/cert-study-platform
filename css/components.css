@@ -2166,3 +2166,115 @@ tr[data-exam-weight="high"] td:first-child::before {
 .ipv6-shorten-result { margin-top: 0.65rem; font-size: 0.72rem; color: var(--hint); padding: 0.5rem 0.75rem; background: var(--surface2); border-radius: var(--radius); border: 1px solid var(--border2); line-height: 1.6; }
 .ipv6-shorten-result-val { font-family: monospace; font-weight: 700; color: var(--text); }
 .ipv6-shorten-result-purple { font-family: monospace; font-weight: 700; color: var(--purple); }
+
+/* ── TCP/IP comparison table — polish ────────────────────────── */
+.tcpip-comparison .tcpip-layer { font-size: 0.88rem; font-weight: 700; }
+.tcpip-comparison .tcpip-protocols { font-size: 0.78rem; opacity: 0.88; color: inherit; }
+.tcpip-comparison .tcpip-app .tcpip-protocols { color: var(--purple); }
+.tcpip-comparison .tcpip-transport .tcpip-protocols { color: var(--blue); }
+.tcpip-comparison .tcpip-internet .tcpip-protocols { color: var(--teal); }
+.tcpip-comparison .tcpip-netaccess .tcpip-protocols { color: var(--amber); }
+.tcpip-comparison .osi-num-cell { font-size: 0.88rem; font-weight: 700; min-width: 2rem; }
+.tcpip-comparison .osi-name-cell { font-size: 0.88rem; font-weight: 600; }
+
+/* ── IP Address Class row tinting ────────────────────────────── */
+.addr-class-row[data-class="a"] { background: var(--teal-bg); border-left: 3px solid var(--teal); }
+.addr-class-row[data-class="b"] { background: var(--blue-bg); border-left: 3px solid var(--blue); }
+.addr-class-row[data-class="c"] { background: var(--purple-bg); border-left: 3px solid var(--purple); }
+.addr-class-row[data-class="d"] { background: var(--amber-bg); border-left: 3px solid var(--amber); opacity: 0.75; }
+.addr-class-row[data-class="e"] { background: var(--red-bg); border-left: 3px solid var(--red); opacity: 0.65; }
+.addr-class-row[data-class] { border-top-color: transparent; }
+
+/* ── IPv6 shortening — contrast fixes ────────────────────────── */
+.ipv6-shorten-note { color: var(--muted) !important; }
+.ipv6-shorten-note strong { color: var(--text) !important; }
+.ipv6-shorten-num { color: var(--muted) !important; }
+.ipv6-shorten-grp-val { font-size: 0.9rem; }
+.ipv6-shorten-normal .ipv6-shorten-grp-val { color: var(--text); }
+.ipv6-shorten-sep { color: var(--muted) !important; }
+
+/* ── IDS/IPS flip cards ──────────────────────────────────────── */
+.ids-ips-flip-card {
+  position: relative;
+  cursor: pointer;
+}
+.ids-ips-flip-hint {
+  font-size: 0.62rem;
+  color: var(--hint);
+  text-align: right;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+  user-select: none;
+}
+.ids-ips-flip-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.ids-ips-flip-front,
+.ids-ips-flip-back {
+  grid-area: 1 / 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform-origin: center;
+}
+.ids-ips-flip-front {
+  opacity: 1;
+  transform: rotateY(0deg);
+}
+.ids-ips-flip-back {
+  opacity: 0;
+  transform: rotateY(90deg);
+  pointer-events: none;
+}
+.ids-ips-flip-card.is-flipped .ids-ips-flip-front {
+  opacity: 0;
+  transform: rotateY(-90deg);
+  pointer-events: none;
+}
+.ids-ips-flip-card.is-flipped .ids-ips-flip-back {
+  opacity: 1;
+  transform: rotateY(0deg);
+  pointer-events: auto;
+}
+.ids-ips-back-panel {
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+}
+.ids-ips-back-panel-ids { background: var(--blue-bg); border-color: var(--blue-border); }
+.ids-ips-back-panel-ips { background: var(--red-bg); border-color: var(--red-border); }
+.ids-ips-back-title { font-weight: 700; font-size: 0.9rem; }
+.ids-ips-back-def { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+.ids-ips-back-attrs { display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.1rem; }
+.ids-ips-back-attr { display: grid; grid-template-columns: 6rem 1fr; gap: 0.4rem; font-size: 0.78rem; }
+.ids-ips-back-attr-label { color: var(--hint); font-weight: 600; text-transform: uppercase; font-size: 0.63rem; letter-spacing: 0.05em; padding-top: 0.08rem; }
+.ids-ips-back-attr-val { color: var(--muted); line-height: 1.5; }
+.ids-ips-back-attr-val strong { color: var(--text); }
+
+/* ── IPv6 Multicast component ─────────────────────────────────── */
+.ipv6-mcast-intro { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.75rem; }
+.ipv6-mcast-wrap { border: 1px solid var(--border2); border-radius: var(--radius-lg); overflow: hidden; }
+.ipv6-mcast-head { display: grid; grid-template-columns: 7rem 5.5rem 1fr 6rem; background: var(--surface3); border-bottom: 1px solid var(--border2); }
+.ipv6-mcast-head span { padding: 0.38rem 0.7rem; font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); border-right: 1px solid var(--border2); }
+.ipv6-mcast-head span:last-child { border-right: none; }
+.ipv6-mcast-row { display: grid; grid-template-columns: 7rem 5.5rem 1fr 6rem; border-top: 1px solid var(--border2); align-items: start; border-left: 3px solid transparent; }
+.ipv6-mcast-row-all-nodes  { border-left-color: var(--blue); }
+.ipv6-mcast-row-all-routers { border-left-color: var(--teal); }
+.ipv6-mcast-row-ospf       { border-left-color: var(--green); }
+.ipv6-mcast-row-dhcp       { border-left-color: var(--purple); }
+.ipv6-mcast-row-rip        { border-left-color: var(--amber); }
+.ipv6-mcast-row-pim        { border-left-color: var(--red); }
+.ipv6-mcast-cell { padding: 0.55rem 0.7rem; font-size: 0.8rem; border-right: 1px solid var(--border2); }
+.ipv6-mcast-cell:last-child { border-right: none; font-size: 0.74rem; color: var(--muted); line-height: 1.5; }
+.ipv6-mcast-addr { font-family: monospace; font-weight: 700; color: var(--blue); font-size: 0.82rem; }
+.ipv6-mcast-scope { font-size: 0.74rem; color: var(--hint); }
+.ipv6-mcast-used { font-size: 0.8rem; color: var(--text); font-weight: 500; }
+@media (max-width: 700px) {
+  .ipv6-mcast-head { grid-template-columns: 6.5rem 1fr; }
+  .ipv6-mcast-head span:nth-child(2), .ipv6-mcast-head span:last-child { display: none; }
+  .ipv6-mcast-row { grid-template-columns: 6.5rem 1fr; }
+  .ipv6-mcast-cell:nth-child(2), .ipv6-mcast-cell:last-child { display: none; }
+}

@@ -353,7 +353,31 @@ function initFragmentComponents(path) {
   initDayTabs();
   initChecklist();
   initBinaryBits();
+  initIDSIPSFlips();
   injectDomainSubNav(path);
+}
+
+/* ── IDS/IPS flip cards ──────────────────────────────────────── */
+function initIDSIPSFlips() {
+  document.querySelectorAll('.ids-ips-flip-card').forEach(card => {
+    if (card._idsIpsFlipFn) card.removeEventListener('click', card._idsIpsFlipFn);
+    if (card._idsIpsKeyFn) card.removeEventListener('keydown', card._idsIpsKeyFn);
+
+    const toggle = () => {
+      const flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+      const hint = card.querySelector('.ids-ips-flip-hint');
+      if (hint) hint.textContent = flipped ? 'click to flip back ↩' : 'click to flip ↩';
+    };
+
+    card._idsIpsFlipFn = () => toggle();
+    card._idsIpsKeyFn = e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    };
+
+    card.addEventListener('click', card._idsIpsFlipFn);
+    card.addEventListener('keydown', card._idsIpsKeyFn);
+  });
 }
 
 /* ── Protocol/service reference flip rows ────────────────────── */

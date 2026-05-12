@@ -120,32 +120,100 @@
 
   <h3>IDS vs IPS — Traffic Flow</h3>
   <div class="ids-ips-diagram">
-    <!-- IDS Panel (passive) -->
-    <div class="ids-ips-panel ids-ips-panel-ids">
-      <div class="ids-ips-title"><abbr title="Intrusion Detection System">IDS</abbr> — Intrusion Detection System <span class="ids-ips-badge ids-ips-badge-passive">Passive</span></div>
-      <div class="ids-ips-flow">
-        <div class="ids-ips-node">Internet / WAN</div>
-        <div class="ids-ips-arrow">↓</div>
-        <div class="ids-ips-node">Switch / Router</div>
-        <div class="ids-ips-arrow">↓ ← tap (copy of traffic)</div>
-        <div class="ids-ips-node">Internal Network</div>
+
+    <!-- IDS Flip Card -->
+    <div class="ids-ips-flip-card" tabindex="0" role="button" aria-label="IDS card — click to flip" aria-expanded="false">
+      <div class="ids-ips-flip-hint">click to flip ↩</div>
+      <div class="ids-ips-flip-inner">
+        <!-- Front: traffic flow diagram -->
+        <div class="ids-ips-flip-front">
+          <div class="ids-ips-panel ids-ips-panel-ids">
+            <div class="ids-ips-title"><abbr title="Intrusion Detection System">IDS</abbr> — Intrusion Detection System <span class="ids-ips-badge ids-ips-badge-passive">Passive</span></div>
+            <div class="ids-ips-flow">
+              <div class="ids-ips-node">Internet / WAN</div>
+              <div class="ids-ips-arrow">↓</div>
+              <div class="ids-ips-node">Switch / Router</div>
+              <div class="ids-ips-arrow">↓ ← tap (copy of traffic)</div>
+              <div class="ids-ips-node">Internal Network</div>
+            </div>
+            <div class="ids-ips-node ids-ips-sensor">IDS Sensor<br><span style="font-size:0.72rem;font-weight:400">sees a COPY via SPAN port</span></div>
+            <div class="ids-ips-note">Out-of-band. Detects and alerts only — <strong>cannot block</strong>. No single point of failure.</div>
+          </div>
+        </div>
+        <!-- Back: full explanation -->
+        <div class="ids-ips-flip-back">
+          <div class="ids-ips-back-panel ids-ips-back-panel-ids">
+            <div class="ids-ips-back-title"><abbr title="Intrusion Detection System">IDS</abbr> — Intrusion Detection System</div>
+            <div class="ids-ips-back-def">A security monitoring tool that watches network or host activity for signs of attack, policy violations, or suspicious patterns — then <strong>generates alerts</strong> for security analysts. It never interferes with live traffic.</div>
+            <div class="ids-ips-back-attrs">
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Placement</span>
+                <span class="ids-ips-back-attr-val">Out-of-band. Receives a <strong>copy</strong> of traffic via a SPAN/mirror port or network tap — not in the traffic path itself.</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Detection</span>
+                <span class="ids-ips-back-attr-val"><strong>Signature-based</strong> (matches known attack patterns) and <strong>Anomaly-based</strong> (flags deviations from a learned baseline).</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Scope</span>
+                <span class="ids-ips-back-attr-val"><strong>NIDS</strong> = network-level (watches a segment). <strong>HIDS</strong> = host-level (monitors one device's logs and processes).</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Key limit</span>
+                <span class="ids-ips-back-attr-val">Alerts only — <strong>cannot block in real time</strong>. False positives require analyst review. Ideal where passive monitoring is required (legal/compliance reasons).</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="ids-ips-node ids-ips-sensor">IDS Sensor<br><span style="font-size:0.72rem;font-weight:400">sees a COPY via SPAN port</span></div>
-      <div class="ids-ips-note">Out-of-band. Detects and alerts only — <strong>cannot block</strong>. No single point of failure.</div>
     </div>
 
-    <!-- IPS Panel (active) -->
-    <div class="ids-ips-panel ids-ips-panel-ips">
-      <div class="ids-ips-title"><abbr title="Intrusion Prevention System">IPS</abbr> — Intrusion Prevention System <span class="ids-ips-badge ids-ips-badge-active">Active</span></div>
-      <div class="ids-ips-flow">
-        <div class="ids-ips-node">Internet / WAN</div>
-        <div class="ids-ips-arrow">↓</div>
-        <div class="ids-ips-node ids-ips-block">IPS (inline)<br><span style="font-size:0.72rem;font-weight:400">all traffic passes through</span></div>
-        <div class="ids-ips-arrow">↓ or ✕ blocked</div>
-        <div class="ids-ips-node">Internal Network</div>
+    <!-- IPS Flip Card -->
+    <div class="ids-ips-flip-card" tabindex="0" role="button" aria-label="IPS card — click to flip" aria-expanded="false">
+      <div class="ids-ips-flip-hint">click to flip ↩</div>
+      <div class="ids-ips-flip-inner">
+        <!-- Front: traffic flow diagram -->
+        <div class="ids-ips-flip-front">
+          <div class="ids-ips-panel ids-ips-panel-ips">
+            <div class="ids-ips-title"><abbr title="Intrusion Prevention System">IPS</abbr> — Intrusion Prevention System <span class="ids-ips-badge ids-ips-badge-active">Active</span></div>
+            <div class="ids-ips-flow">
+              <div class="ids-ips-node">Internet / WAN</div>
+              <div class="ids-ips-arrow">↓</div>
+              <div class="ids-ips-node ids-ips-block">IPS (inline)<br><span style="font-size:0.72rem;font-weight:400">all traffic passes through</span></div>
+              <div class="ids-ips-arrow">↓ or ✕ blocked</div>
+              <div class="ids-ips-node">Internal Network</div>
+            </div>
+            <div class="ids-ips-note">Inline — physically in the traffic path. Can detect, alert, <strong>and block</strong>. Fail-open = traffic passes; fail-closed = outage.</div>
+          </div>
+        </div>
+        <!-- Back: full explanation -->
+        <div class="ids-ips-flip-back">
+          <div class="ids-ips-back-panel ids-ips-back-panel-ips">
+            <div class="ids-ips-back-title"><abbr title="Intrusion Prevention System">IPS</abbr> — Intrusion Prevention System</div>
+            <div class="ids-ips-back-def">An active security control that sits <strong>physically inline</strong> in the traffic path and can block, drop, or modify malicious traffic in real time — without requiring human intervention.</div>
+            <div class="ids-ips-back-attrs">
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Placement</span>
+                <span class="ids-ips-back-attr-val">Inline — every packet flows <strong>through</strong> the IPS. Typically placed between the firewall and internal network.</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Actions</span>
+                <span class="ids-ips-back-attr-val">Can <strong>drop packets</strong>, reset TCP connections, block source IPs, and send alerts — simultaneously and automatically.</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Detection</span>
+                <span class="ids-ips-back-attr-val">Same signature and anomaly methods as IDS, but with authority to act. High false-positive rate = legitimate traffic blocked.</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Failure modes</span>
+                <span class="ids-ips-back-attr-val"><strong>Fail-open</strong> = IPS passes all traffic if it crashes (availability preserved, security lost). <strong>Fail-closed</strong> = blocks all traffic (network outage but secure).</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="ids-ips-note">Inline — physically in the traffic path. Can detect, alert, <strong>and block</strong>. Fail-open = traffic passes; fail-closed = outage.</div>
     </div>
+
   </div>
 
   <h3>Firewall Types</h3>
