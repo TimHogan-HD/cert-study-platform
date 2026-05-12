@@ -1,48 +1,18 @@
+<div class="section-eyebrow">Domain 1 · 23% of Exam</div>
+<h1 class="section-title">Networking Concepts</h1>
+<p class="section-sub">OSI model, devices, topologies, ports, cables, services, IPv4 subnetting, and IPv6. This domain is 23% of your exam — strong foundational knowledge here pays dividends in every other domain.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.4 — Ports & Protocols
+     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-1-4">
   <div class="section-eyebrow">Objective 1.4</div>
   <h2>Ports &amp; Protocols</h2>
-  <p>Memorize the port table. You <em>will</em> see port number questions on the exam. Focus especially on the ones with non-obvious transports or common confusions. <span class="exam-star-note"><span class="exam-star">★</span> = highest exam priority.</span></p>
-
-  <div class="concept-visual">
-    <div class="concept-visual-title">TCP 3-Way Handshake</div>
-    <svg viewBox="0 0 520 200" width="520" height="200" font-family="'SF Mono','Fira Code',monospace" font-size="13" xmlns="http://www.w3.org/2000/svg">
-      <style>text { fill: var(--text); }</style>
-      <!-- Column headers -->
-      <text x="90" y="22" text-anchor="middle" font-weight="700" style="fill: var(--blue)">CLIENT</text>
-      <text x="430" y="22" text-anchor="middle" font-weight="700" style="fill: var(--green)">SERVER</text>
-      <!-- Vertical lifelines -->
-      <line x1="90" y1="30" x2="90" y2="190" style="stroke: var(--hint)" stroke-width="1.5" stroke-dasharray="4 3"/>
-      <line x1="430" y1="30" x2="430" y2="190" style="stroke: var(--hint)" stroke-width="1.5" stroke-dasharray="4 3"/>
-      <!-- Step 1: SYN -->
-      <line x1="100" y1="65" x2="420" y2="65" style="stroke: var(--blue)" stroke-width="2" marker-end="url(#arr-blue)"/>
-      <text x="255" y="58" text-anchor="middle" style="fill: var(--blue)" font-size="12">SYN</text>
-      <text x="130" y="80" style="fill: var(--muted)" font-size="10">seq=0</text>
-      <!-- Step 2: SYN-ACK -->
-      <line x1="420" y1="110" x2="100" y2="110" style="stroke: var(--green)" stroke-width="2" marker-end="url(#arr-green)"/>
-      <text x="255" y="103" text-anchor="middle" style="fill: var(--green)" font-size="12">SYN-ACK</text>
-      <text x="340" y="125" style="fill: var(--muted)" font-size="10">seq=0, ack=1</text>
-      <!-- Step 3: ACK -->
-      <line x1="100" y1="155" x2="420" y2="155" style="stroke: var(--amber)" stroke-width="2" marker-end="url(#arr-amber)"/>
-      <text x="255" y="148" text-anchor="middle" style="fill: var(--amber)" font-size="12">ACK</text>
-      <text x="130" y="170" style="fill: var(--muted)" font-size="10">ack=1</text>
-      <!-- Arrowhead markers -->
-      <defs>
-        <marker id="arr-blue" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--blue)"/>
-        </marker>
-        <marker id="arr-green" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--green)"/>
-        </marker>
-        <marker id="arr-amber" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--amber)"/>
-        </marker>
-      </defs>
-    </svg>
-  </div>
+  <p>Memorize the port table. You <em>will</em> see port number questions on the exam. Focus especially on the ones with non-obvious transports or common confusions.</p>
 
   <h3>TCP vs UDP</h3>
   <div class="table-wrap">
-    <table class="table--comparison">
+    <table>
       <thead>
         <tr><th>Feature</th><th>TCP</th><th>UDP</th></tr>
       </thead>
@@ -56,200 +26,50 @@
     </table>
   </div>
 
-  <h3>Port &amp; Protocol Reference — By Category</h3>
-  <div class="port-groups">
-
-    <div class="port-group" data-group="web">
-      <div class="port-group-title">Web Traffic</div>
-      <div class="table-wrap"><table class="table--reference">
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td>80</td><td><abbr title="HyperText Transfer Protocol">HTTP</abbr></td><td>TCP</td><td>Cleartext web traffic. Replaced by HTTPS for secure sites.</td></tr>
-          <tr data-exam-weight="high"><td>443</td><td><abbr title="HTTP Secure — HTTP over TLS/SSL">HTTPS</abbr></td><td>TCP</td><td>Encrypted web traffic. Standard for all modern websites.</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-
-    <div class="port-group" data-group="file">
-      <div class="port-group-title">File Transfer</div>
-      <div class="table-wrap"><table class="table--reference">
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td>20</td><td><abbr title="File Transfer Protocol — data channel">FTP</abbr> Data</td><td>TCP</td><td>Active mode data channel. Port 21 = control. ⚠ Two ports!</td></tr>
-          <tr><td>21</td><td>FTP Control</td><td>TCP</td><td>Command/control channel. Passive mode negotiates ephemeral port over 21.</td></tr>
-          <tr><td>69</td><td><abbr title="Trivial File Transfer Protocol — no authentication">TFTP</abbr></td><td>UDP</td><td>No authentication, no directory listing. Used for network device firmware updates and PXE boot.</td></tr>
-          <tr><td>445</td><td><abbr title="Server Message Block — Windows file/print sharing">SMB</abbr></td><td>TCP</td><td>Windows file sharing and print sharing. Also used by ransomware (WannaCry/EternalBlue).</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-
-    <div class="port-group" data-group="email">
-      <div class="port-group-title">Email</div>
-      <div class="table-wrap"><table class="table--reference">
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td>25</td><td><abbr title="Simple Mail Transfer Protocol">SMTP</abbr></td><td>TCP</td><td>Server-to-server email relay. Not for authenticated client submission.</td></tr>
-          <tr><td>587</td><td>SMTP Submission</td><td>TCP</td><td>Authenticated client-to-server submission. Preferred over port 25 for sending.</td></tr>
-          <tr><td>110</td><td><abbr title="Post Office Protocol v3 — downloads and deletes email">POP3</abbr></td><td>TCP</td><td>Downloads email from server and deletes it. Single-device model.</td></tr>
-          <tr><td>995</td><td>POP3S</td><td>TCP</td><td>POP3 over <abbr title="Transport Layer Security">TLS</abbr> — encrypted POP3.</td></tr>
-          <tr><td>143</td><td><abbr title="Internet Message Access Protocol — syncs email across devices">IMAP</abbr></td><td>TCP</td><td>Keeps email on server and syncs across devices. Multi-device model. Contrast: POP3 deletes.</td></tr>
-          <tr><td>993</td><td>IMAPS</td><td>TCP</td><td>IMAP over TLS — encrypted IMAP.</td></tr>
-          <tr><td>119</td><td><abbr title="Network News Transfer Protocol — legacy newsgroups">NNTP</abbr></td><td>TCP</td><td>Legacy newsgroup protocol. Rarely seen today.</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-
-    <div class="port-group" data-group="remote">
-      <div class="port-group-title">Remote Access</div>
-      <div class="table-wrap"><table class="table--reference">
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr data-exam-weight="high"><td>22</td><td><abbr title="Secure Shell — encrypted remote access">SSH</abbr></td><td>TCP</td><td>Encrypted remote shell access. Replaces Telnet (port 23).</td></tr>
-          <tr><td>23</td><td>Telnet</td><td>TCP</td><td>Cleartext remote access — insecure, legacy. Replaced by SSH.</td></tr>
-          <tr data-exam-weight="high"><td>3389</td><td><abbr title="Remote Desktop Protocol — Windows GUI remote access">RDP</abbr></td><td>TCP (+UDP)</td><td>Windows remote desktop. High-value attack target — should be VPN-gated.</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-
-    <div class="port-group" data-group="infra">
-      <div class="port-group-title">Infrastructure Services</div>
-      <div class="table-wrap"><table class="table--reference">
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr data-exam-weight="high"><td>53</td><td><abbr title="Domain Name System — resolves hostnames to IP addresses">DNS</abbr></td><td>UDP + TCP</td><td>UDP for queries (≤512 bytes). TCP for zone transfers and large responses. <strong>Both matter!</strong></td></tr>
-          <tr><td>67</td><td><abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> Server</td><td>UDP</td><td>Server listens on 67. Client sends Discover from port 68.</td></tr>
-          <tr><td>68</td><td>DHCP Client</td><td>UDP</td><td>Client source port during <abbr title="Discover-Offer-Request-Acknowledge">DORA</abbr> process.</td></tr>
-          <tr><td>123</td><td><abbr title="Network Time Protocol — time synchronization">NTP</abbr></td><td>UDP</td><td>Time synchronization. Critical for Kerberos auth — max 5-minute clock skew.</td></tr>
-          <tr><td>514</td><td>Syslog</td><td>UDP</td><td>System event logging to a central server. UDP = no delivery guarantee; logs can be lost.</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-
-    <div class="port-group auth-protocol-group" data-group="auth">
-      <div class="port-group-title">Directory Services &amp; Authentication</div>
-      <div class="table-wrap"><table class="table--reference auth-protocol-table">
-        <colgroup>
-          <col style="width: 12%">
-          <col style="width: 22%">
-          <col style="width: 16%">
-          <col style="width: 50%">
-        </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary (flip row for example)</th></tr></thead>
-        <tbody>
-          <tr class="auth-protocol-row" tabindex="0" aria-label="Flip Kerberos row to see an example" aria-pressed="false">
-            <td>88</td>
-            <td>Kerberos</td>
-            <td>TCP/UDP</td>
-            <td>
-              <span class="auth-protocol-cell-flip auth-protocol-cell-flip-note">
-                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">Authentication protocol in Active Directory. Requires <abbr title="Network Time Protocol">NTP</abbr> sync (5-minute skew max).</span>
-                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true"><strong>Example:</strong> A domain-joined Windows user signs in and receives a Kerberos ticket to access shared resources without re-entering credentials.</span>
-              </span>
-            </td>
-          </tr>
-          <tr class="auth-protocol-row" tabindex="0" aria-label="Flip LDAP row to see an example" aria-pressed="false" data-protocol-state="risky">
-            <td>389</td>
-            <td><abbr title="Lightweight Directory Access Protocol — directory queries (e.g. Active Directory)">LDAP</abbr></td>
-            <td>TCP</td>
-            <td>
-              <span class="auth-protocol-cell-flip auth-protocol-cell-flip-note">
-                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">Directory queries in cleartext. Risky on untrusted networks. Replacement: use LDAPS on port 636.</span>
-                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true"><strong>Example:</strong> A legacy app binds to LDAP:389 for user lookups; modern hardening migrates that bind to LDAPS:636 to encrypt credentials and queries.</span>
-              </span>
-            </td>
-          </tr>
-          <tr class="auth-protocol-row" tabindex="0" aria-label="Flip LDAPS row to see an example" aria-pressed="false">
-            <td>636</td>
-            <td>LDAPS</td>
-            <td>TCP</td>
-            <td>
-              <span class="auth-protocol-cell-flip auth-protocol-cell-flip-note">
-                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">LDAP over TLS for encrypted directory queries and credential exchange.</span>
-                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true"><strong>Example:</strong> Security policy requires all directory binds over LDAPS so password checks and group lookups are encrypted end to end.</span>
-              </span>
-            </td>
-          </tr>
-          <tr class="auth-protocol-row" tabindex="0" aria-label="Flip TACACS+ row to see an example" aria-pressed="false" data-protocol-state="legacy">
-            <td>49</td>
-            <td><abbr title="Terminal Access Controller Access-Control System Plus — AAA for network devices">TACACS+</abbr></td>
-            <td>TCP</td>
-            <td>
-              <span class="auth-protocol-cell-flip auth-protocol-cell-flip-note">
-                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">AAA for network device administration with full packet encryption. In many modern environments, RADIUS-based NAC is more common.</span>
-                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true"><strong>Example:</strong> A legacy router admin team authenticates CLI logins against a TACACS+ server, while new wireless access is handled through RADIUS policies.</span>
-              </span>
-            </td>
-          </tr>
-          <tr class="auth-protocol-row" tabindex="0" aria-label="Flip RADIUS authentication row to see an example" aria-pressed="false">
-            <td>1812</td>
-            <td><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> Auth</td>
-            <td>UDP</td>
-            <td>
-              <span class="auth-protocol-cell-flip auth-protocol-cell-flip-note">
-                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">AAA for Wi-Fi and VPN access. Encrypts the password field and works with accounting on port 1813.</span>
-                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true"><strong>Example:</strong> 802.1X enterprise Wi-Fi sends user credentials to a RADIUS server for allow/deny decisions before network access is granted.</span>
-              </span>
-            </td>
-          </tr>
-          <tr class="auth-protocol-row" tabindex="0" aria-label="Flip RADIUS accounting row to see an example" aria-pressed="false">
-            <td>1813</td>
-            <td>RADIUS Accounting</td>
-            <td>UDP</td>
-            <td>
-              <span class="auth-protocol-cell-flip auth-protocol-cell-flip-note">
-                <span class="auth-protocol-face auth-protocol-front" aria-hidden="false">Tracks session start, stop, duration, and usage for auditing and chargeback workflows.</span>
-                <span class="auth-protocol-face auth-protocol-back" aria-hidden="true"><strong>Example:</strong> A network operations team uses RADIUS accounting logs to confirm VPN session durations during an incident investigation.</span>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table></div>
-    </div>
-
-    <div class="port-group" data-group="mgmt">
-      <div class="port-group-title">Network Management &amp; Monitoring</div>
-      <div class="table-wrap"><table class="table--reference">
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td>161</td><td><abbr title="Simple Network Management Protocol — manager polls agents">SNMP</abbr> Poll</td><td>UDP</td><td>Manager queries agents for device stats (CPU, interfaces, errors).</td></tr>
-          <tr><td>162</td><td>SNMP Trap</td><td>UDP</td><td>Agents send unsolicited alerts (traps) to the manager. Direction: agent → manager.</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-
-    <div class="port-group" data-group="voip">
-      <div class="port-group-title">VoIP &amp; Conferencing</div>
-      <div class="table-wrap"><table class="table--reference">
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td>5060</td><td><abbr title="Session Initiation Protocol — VoIP call setup and teardown">SIP</abbr></td><td>TCP/UDP</td><td>VoIP call setup and teardown. Media (voice) travels on separate <abbr title="Real-time Transport Protocol">RTP</abbr> ports.</td></tr>
-          <tr><td>5061</td><td>SIPS</td><td>TCP</td><td>SIP over TLS — encrypted VoIP signaling.</td></tr>
-          <tr><td>1720</td><td>H.323</td><td>TCP</td><td>Legacy VoIP signaling. Uses 1720 for call setup; media uses dynamic ports.</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-
-    <div class="port-group" data-group="routing">
-      <div class="port-group-title">Routing Protocols</div>
-      <div class="table-wrap"><table class="table--reference">
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td>179</td><td><abbr title="Border Gateway Protocol — internet routing between autonomous systems">BGP</abbr></td><td>TCP</td><td>Internet routing between <abbr title="Autonomous Systems — independently managed routing domains">ASes</abbr>. Uses TCP for reliability.</td></tr>
-          <tr><td>520</td><td><abbr title="Routing Information Protocol — legacy distance-vector IGP, max 15 hops">RIP</abbr></td><td>UDP</td><td>Legacy distance-vector routing. Max 15 hops. Mostly replaced by OSPF.</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-
-    <div class="port-group" data-group="db">
-      <div class="port-group-title">Database</div>
-      <div class="table-wrap"><table class="table--reference">
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td>1433</td><td>MS SQL</td><td>TCP</td><td>Microsoft SQL Server. Commonly targeted — often blocked at perimeter firewall.</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-
+  <h3>Complete Port &amp; Protocol Reference</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Notes / Exam Tips</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>20</td><td>FTP Data</td><td>TCP</td><td>Active mode data channel. Port 21 = control.</td></tr>
+        <tr><td>21</td><td>FTP Control</td><td>TCP</td><td>Command channel. Passive mode data uses ephemeral port negotiated over 21.</td></tr>
+        <tr><td>22</td><td>SSH</td><td>TCP</td><td>Secure Shell — encrypted remote access. Replaces Telnet.</td></tr>
+        <tr><td>23</td><td>Telnet</td><td>TCP</td><td>Cleartext remote access — insecure, legacy.</td></tr>
+        <tr><td>25</td><td>SMTP</td><td>TCP</td><td>Simple Mail Transfer Protocol — sending email (server-to-server or client-to-server).</td></tr>
+        <tr><td>53</td><td>DNS</td><td>UDP (and TCP)</td><td>UDP for queries (≤512 bytes). TCP for zone transfers and responses &gt;512 bytes. <strong>Both matter!</strong></td></tr>
+        <tr><td>67</td><td>DHCP Server</td><td>UDP</td><td>Server listens on 67. Client sends from port 68.</td></tr>
+        <tr><td>68</td><td>DHCP Client</td><td>UDP</td><td>Client source port during DORA process.</td></tr>
+        <tr><td>69</td><td>TFTP</td><td>UDP</td><td>Trivial FTP — no authentication, used for bootstrapping, IOS firmware updates.</td></tr>
+        <tr><td>80</td><td>HTTP</td><td>TCP</td><td>Cleartext web traffic.</td></tr>
+        <tr><td>110</td><td>POP3</td><td>TCP</td><td>Post Office Protocol v3 — downloads email and deletes from server.</td></tr>
+        <tr><td>119</td><td>NNTP</td><td>TCP</td><td>Network News Transfer Protocol — legacy newsgroups.</td></tr>
+        <tr><td>123</td><td>NTP</td><td>UDP</td><td>Network Time Protocol — time synchronization. Critical for Kerberos authentication.</td></tr>
+        <tr><td>143</td><td>IMAP</td><td>TCP</td><td>Internet Message Access Protocol — keeps email on server; syncs across devices.</td></tr>
+        <tr><td>161</td><td>SNMP</td><td>UDP</td><td>SNMP polling — manager polls agent (port 161). Agents send traps to manager on 162.</td></tr>
+        <tr><td>162</td><td>SNMP Trap</td><td>UDP</td><td>Agents send unsolicited alerts (traps) to SNMP manager on port 162.</td></tr>
+        <tr><td>389</td><td>LDAP</td><td>TCP</td><td>Lightweight Directory Access Protocol — used for directory services (Active Directory queries).</td></tr>
+        <tr><td>443</td><td>HTTPS</td><td>TCP</td><td>HTTP over TLS/SSL — encrypted web traffic.</td></tr>
+        <tr><td>445</td><td>SMB</td><td>TCP</td><td>Server Message Block — Windows file sharing, print sharing.</td></tr>
+        <tr><td>514</td><td>Syslog</td><td>UDP</td><td>System logging. Sends log messages to central syslog server.</td></tr>
+        <tr><td>587</td><td>SMTP (Submission)</td><td>TCP</td><td>Email submission from client to mail server (authenticated, preferred over 25).</td></tr>
+        <tr><td>636</td><td>LDAPS</td><td>TCP</td><td>LDAP over TLS/SSL — encrypted directory queries.</td></tr>
+        <tr><td>993</td><td>IMAPS</td><td>TCP</td><td>IMAP over TLS — encrypted IMAP.</td></tr>
+        <tr><td>995</td><td>POP3S</td><td>TCP</td><td>POP3 over TLS — encrypted POP3.</td></tr>
+        <tr><td>1433</td><td>MS SQL</td><td>TCP</td><td>Microsoft SQL Server database connections.</td></tr>
+        <tr><td>1720</td><td>H.323</td><td>TCP</td><td>VoIP signaling protocol (legacy).</td></tr>
+        <tr><td>1812</td><td>RADIUS Auth</td><td>UDP</td><td>RADIUS authentication. Port 1813 = RADIUS accounting.</td></tr>
+        <tr><td>1813</td><td>RADIUS Accounting</td><td>UDP</td><td>Tracks session usage, duration, data transferred.</td></tr>
+        <tr><td>3389</td><td>RDP</td><td>TCP</td><td>Remote Desktop Protocol — Windows remote desktop. UDP also used for newer versions.</td></tr>
+        <tr><td>5060</td><td>SIP</td><td>TCP/UDP</td><td>Session Initiation Protocol — VoIP call setup and teardown.</td></tr>
+        <tr><td>5061</td><td>SIPS</td><td>TCP</td><td>SIP over TLS — encrypted VoIP signaling.</td></tr>
+        <tr><td>49</td><td>TACACS+</td><td>TCP</td><td>Terminal Access Controller AC System+ — AAA for network devices. Full packet encryption.</td></tr>
+        <tr><td>88</td><td>Kerberos</td><td>TCP/UDP</td><td>Authentication protocol used in Active Directory. Requires synchronized clocks (NTP).</td></tr>
+        <tr><td>179</td><td>BGP</td><td>TCP</td><td>Border Gateway Protocol — internet routing protocol. Uses TCP for reliability.</td></tr>
+        <tr><td>520</td><td>RIP</td><td>UDP</td><td>Routing Information Protocol — legacy distance-vector routing.</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- Flashcard Deck -->
@@ -257,7 +77,7 @@
   <div class="flashcard-deck">
     <div class="deck-nav">
       <button class="prev-btn">← Prev</button>
-      <span class="card-counter">1 / 25</span>
+      <span class="card-counter">1 / 12</span>
       <button class="next-btn">Next →</button>
       <button class="shuffle-btn">Shuffle</button>
     </div>
@@ -265,252 +85,74 @@
 
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
-        <div class="flashcard-front">FTP<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 20 (data) / 21 (control)</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">20 = active mode data. 21 = commands/control. Passive mode negotiates ephemeral port over 21.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
         <div class="flashcard-front">SSH<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 22</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Encrypted remote shell access. Replaces Telnet (port 23).</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">Telnet<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 23</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Cleartext remote access — insecure, legacy. Replaced by SSH (22).</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">SMTP / Submission<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 25 (SMTP) / 587 (Submission)</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">25 = server-to-server relay. 587 = authenticated client-to-server submission (preferred).</div>
-        </div>
+        <div class="flashcard-back"><strong>Port 22</strong> — TCP<br>Encrypted remote shell access. Replaces Telnet (port 23).</div>
       </div>
     </div>
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
         <div class="flashcard-front">DNS<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 53</div>
-          <div class="fc-transport">UDP + TCP</div>
-          <div class="fc-desc">UDP for queries (≤512 bytes). TCP for zone transfers and responses &gt;512 bytes. Both matter!</div>
-        </div>
+        <div class="flashcard-back"><strong>Port 53</strong> — UDP (queries) + TCP (zone transfers &gt;512B)<br>Name resolution. UDP first; TCP for large responses.</div>
       </div>
     </div>
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
         <div class="flashcard-front">DHCP<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 67 (server) / 68 (client)</div>
-          <div class="fc-transport">UDP</div>
-          <div class="fc-desc">Dynamic IP assignment via DORA (Discover, Offer, Request, Acknowledge).</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">TFTP<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 69</div>
-          <div class="fc-transport">UDP</div>
-          <div class="fc-desc">Trivial FTP — no auth, no directory listing. Used for bootstrapping and IOS firmware updates.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">HTTP<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 80</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Hypertext Transfer Protocol — cleartext web traffic. Replaced by HTTPS (443) for secure sites.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">Kerberos<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 88</div>
-          <div class="fc-transport">TCP / UDP</div>
-          <div class="fc-desc">Authentication protocol used in Active Directory. Requires NTP sync — 5-minute clock skew max.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">POP3 / POP3S<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 110 / 995 (secure)</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Downloads email and deletes from server. Single-device model. 995 = POP3 over TLS.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">NTP<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 123</div>
-          <div class="fc-transport">UDP</div>
-          <div class="fc-desc">Network Time Protocol. Critical for Kerberos auth — max 5-minute clock skew tolerance.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">IMAP / IMAPS<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 143 / 993 (secure)</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Keeps email on server and syncs across devices. 993 = IMAP over TLS. Contrast with POP3 (deletes).</div>
-        </div>
+        <div class="flashcard-back"><strong>Port 67 (server)</strong> / <strong>68 (client)</strong> — UDP<br>Dynamic IP assignment. Remember: DORA.</div>
       </div>
     </div>
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
         <div class="flashcard-front">SNMP<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 161 (poll) / 162 (trap)</div>
-          <div class="fc-transport">UDP</div>
-          <div class="fc-desc">161 = manager polls agents. 162 = agents send unsolicited traps to manager.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">LDAP / LDAPS<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 389 / 636 (secure)</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Directory services (Active Directory queries). 636 = LDAP over TLS — encrypted.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">HTTPS<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 443</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">HTTP over TLS/SSL — encrypted web traffic. Standard for all secure websites.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">SMB<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 445</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Server Message Block — Windows file and print sharing. Also used by ransomware (EternalBlue/WannaCry).</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">Syslog<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 514</div>
-          <div class="fc-transport">UDP</div>
-          <div class="fc-desc">System event logging to a central server. UDP = no delivery guarantee — logs can be lost.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">RIP<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 520</div>
-          <div class="fc-transport">UDP</div>
-          <div class="fc-desc">Routing Information Protocol — legacy distance-vector IGP. Max 15 hops.</div>
-        </div>
-      </div>
-    </div>
-    <div class="flashcard" tabindex="0">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">TACACS+<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 49</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Full packet encryption. Separates AAA functions. Used for network device management. Contrast: RADIUS uses UDP.</div>
-        </div>
+        <div class="flashcard-back"><strong>Port 161 (poll)</strong> / <strong>162 (trap)</strong> — UDP<br>161 = manager polls agents. 162 = agents send traps to manager.</div>
       </div>
     </div>
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
         <div class="flashcard-front">RADIUS<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 1812 (auth) / 1813 (accounting)</div>
-          <div class="fc-transport">UDP</div>
-          <div class="fc-desc">AAA for network access (Wi-Fi, VPN). Encrypts only the password field. Contrast: TACACS+ uses TCP.</div>
-        </div>
+        <div class="flashcard-back"><strong>Port 1812 (auth)</strong> / <strong>1813 (accounting)</strong> — UDP<br>AAA for network access. UDP — not TCP. Encrypts only password.</div>
       </div>
     </div>
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
-        <div class="flashcard-front">MS SQL<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 1433</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Microsoft SQL Server database connections. Commonly targeted by attackers — often blocked at perimeter.</div>
-        </div>
+        <div class="flashcard-front">TACACS+<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Port 49</strong> — TCP<br>Full packet encryption. Separates Authentication, Authorization, Accounting. Used for device management.</div>
       </div>
     </div>
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
         <div class="flashcard-front">RDP<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 3389</div>
-          <div class="fc-transport">TCP (+ UDP)</div>
-          <div class="fc-desc">Remote Desktop Protocol — Windows GUI remote access. High-value attack target; should be VPN-gated.</div>
-        </div>
+        <div class="flashcard-back"><strong>Port 3389</strong> — TCP (+ UDP)<br>Remote Desktop Protocol. Windows-native remote access GUI.</div>
       </div>
     </div>
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
-        <div class="flashcard-front">SIP / SIPS<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 5060 (SIP) / 5061 (SIPS)</div>
-          <div class="fc-transport">TCP / UDP</div>
-          <div class="fc-desc">Session Initiation Protocol — VoIP call setup. 5061 = SIP over TLS (encrypted signaling).</div>
-        </div>
+        <div class="flashcard-front">LDAP / LDAPS<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>LDAP: 389</strong> / <strong>LDAPS: 636</strong> — TCP<br>Directory services (Active Directory). 636 = encrypted over TLS.</div>
       </div>
     </div>
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
-        <div class="flashcard-front">BGP<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 179</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Border Gateway Protocol — internet routing between autonomous systems. Uses TCP for reliability.</div>
-        </div>
+        <div class="flashcard-front">SMTP / SMTPS<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>SMTP: 25</strong> / <strong>Submission: 587</strong> — TCP<br>25 = server-to-server. 587 = client submission (authenticated). 465 = legacy SMTPS.</div>
       </div>
     </div>
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
-        <div class="flashcard-front">H.323<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back">
-          <div class="fc-port">Port 1720</div>
-          <div class="fc-transport">TCP</div>
-          <div class="fc-desc">Legacy VoIP signaling protocol. Uses 1720 for call setup; media streams use dynamic ports.</div>
-        </div>
+        <div class="flashcard-front">IMAP vs POP3<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>IMAP: 143</strong> (993 secure) | <strong>POP3: 110</strong> (995 secure) — TCP<br>IMAP = syncs/keeps on server. POP3 = downloads and deletes from server.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">NTP<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Port 123</strong> — UDP<br>Network Time Protocol. Critical for Kerberos (5-minute clock skew max).</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Syslog<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Port 514</strong> — UDP<br>System event logging to central server. UDP = no delivery guarantee.</div>
       </div>
     </div>
   </div>
@@ -541,7 +183,3 @@
     <button class="ai-explain-btn" data-topic="TCP vs UDP and common network ports">✦ Explain Differently</button>
   </div>
 </div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 1.5 — Cables & Media Types
-     ═══════════════════════════════════════════ -->

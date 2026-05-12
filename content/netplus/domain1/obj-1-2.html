@@ -1,10 +1,17 @@
+<div class="section-eyebrow">Domain 1 · 23% of Exam</div>
+<h1 class="section-title">Networking Concepts</h1>
+<p class="section-sub">OSI model, devices, topologies, ports, cables, services, IPv4 subnetting, and IPv6. This domain is 23% of your exam — strong foundational knowledge here pays dividends in every other domain.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.2 — Networking Devices
+     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-1-2">
   <div class="section-eyebrow">Objective 1.2</div>
   <h2>Networking Devices</h2>
-  <p>Know which device does what — and critically, which OSI layer it operates at. <span class="exam-star-note"><span class="exam-star">★</span> = highest exam priority.</span></p>
+  <p>Know which device does what — and critically, which OSI layer it operates at.</p>
 
   <div class="table-wrap">
-    <table class="table--comparison">
+    <table>
       <thead>
         <tr><th>Device</th><th>OSI Layer</th><th>What It Does</th><th>Key Detail</th></tr>
       </thead>
@@ -14,12 +21,12 @@
           <td>Repeats signal to ALL ports (one collision domain)</td>
           <td>Legacy — causes collisions. Replaced by switches.</td>
         </tr>
-        <tr data-exam-weight="high">
+        <tr>
           <td><strong>Switch</strong></td><td>L2</td>
           <td>Forwards frames based on MAC address table</td>
           <td>Each port = separate collision domain. All in same broadcast domain unless VLANs.</td>
         </tr>
-        <tr data-exam-weight="high">
+        <tr>
           <td><strong>Router</strong></td><td>L3</td>
           <td>Routes packets between networks using IP addresses</td>
           <td>Separates broadcast domains. Maintains routing table. Gateway between networks.</td>
@@ -34,7 +41,7 @@
           <td>Converts wired Ethernet to wireless (802.11)</td>
           <td>Not a router. Just an access point unless it's a SOHO router-AP combo.</td>
         </tr>
-        <tr data-exam-weight="high">
+        <tr>
           <td><strong>Firewall</strong></td><td>L3–L7</td>
           <td>Filters traffic based on rules (ACLs)</td>
           <td>Packet filter (L3/4), Stateful (L4), NGFW (L7). Know all three types.</td>
@@ -82,7 +89,7 @@
 
   <h3>Firewall Types</h3>
   <div class="table-wrap">
-    <table class="table--comparison">
+    <table>
       <thead>
         <tr><th>Type</th><th>OSI Layer</th><th>Capability</th></tr>
       </thead>
@@ -95,6 +102,35 @@
     </table>
   </div>
 
+  <h3>Additional Network Functions</h3>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">CDN (Content Delivery Network)</div>
+    <p>CDNs distribute cached copies of content across geographically dispersed servers (edge nodes) so users receive data from the nearest node rather than the origin server. Reduces latency for static content (images, video, JS files). Examples: Cloudflare, Akamai, AWS CloudFront. CompTIA lists CDN as a network function alongside appliances.</p>
+  </div>
+
+  <h3>QoS (Quality of Service)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>QoS Concept</th><th>Definition</th><th>Exam Context</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>QoS</strong></td><td>Mechanism to prioritize certain traffic types over others on congested links</td><td>VoIP and video need low latency; QoS ensures they aren't starved by bulk transfers</td></tr>
+        <tr><td><strong>DSCP</strong> (Differentiated Services Code Point)</td><td>6-bit field in IP header used to mark traffic priority</td><td>EF (Expedited Forwarding) = highest priority (VoIP/DSCP 46); AF = assured forwarding; BE = best-effort default</td></tr>
+        <tr><td><strong>CoS</strong> (Class of Service)</td><td>3-bit 802.1p field in 802.1Q VLAN tag; Layer 2 QoS marking</td><td>Used within a switched network before packets reach a router with DSCP</td></tr>
+        <tr><td><strong>Traffic shaping</strong></td><td>Delays excess traffic to conform to a rate limit (buffers packets)</td><td>Smooths bursts; adds latency</td></tr>
+        <tr><td><strong>Traffic policing</strong></td><td>Drops or re-marks packets that exceed a rate limit</td><td>Enforces hard limits; no buffering</td></tr>
+        <tr><td><strong>Queuing</strong></td><td>Scheduler decides which queued packets transmit first</td><td>Priority queuing (PQ), WFQ, CBWFQ common methods</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">TTL (Time to Live)</div>
+    <p>TTL is an 8-bit field in the IP header decremented by 1 at each router hop. When TTL reaches 0, the router drops the packet and sends an ICMP Time Exceeded message back to the source. Prevents packets from looping forever. <code>traceroute</code> exploits TTL by sending probes with incrementing TTL values to identify each hop.</p>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -102,6 +138,9 @@
       <li>A WAP is NOT a router — it's only a Layer 2 device unless it's a combined router/WAP.</li>
       <li>Bridges are software-based; switches are hardware-based and faster.</li>
       <li>A proxy server caches and filters at L7. A NAT device changes IP addresses at L3.</li>
+      <li>QoS does NOT add bandwidth — it only controls how existing bandwidth is allocated under congestion. VoIP traffic is marked EF/DSCP 46.</li>
+      <li>Traffic shaping = delays excess traffic (adds latency). Traffic policing = drops excess traffic (no buffering).</li>
+      <li>TTL = hop countdown in IP header; traceroute sends probes with incrementing TTL values to map each hop.</li>
     </ul>
   </div>
 
@@ -113,6 +152,9 @@
       <li>IDS = passive, SPAN port, alerts only | IPS = inline, can block</li>
       <li>NGFW includes IPS + app awareness + deep packet inspection</li>
       <li>Load balancer: L4 (port-based) or L7 (content-aware)</li>
+      <li>CDN = distributed edge caching; reduces latency for static content</li>
+      <li>QoS = traffic prioritization; DSCP marks packets (EF/DSCP 46 = VoIP); shaping delays, policing drops</li>
+      <li>TTL = hop countdown; traceroute uses incrementing TTL to identify each hop</li>
     </ul>
   </div>
 
@@ -120,7 +162,3 @@
     <button class="ai-explain-btn" data-topic="IDS vs IPS placement and function">✦ Explain Differently</button>
   </div>
 </div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 1.3 — Network Topologies
-     ═══════════════════════════════════════════ -->

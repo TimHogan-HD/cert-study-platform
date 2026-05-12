@@ -1,48 +1,16 @@
+<div class="section-eyebrow">Domain 3 · 19% of Exam</div>
+<h1 class="section-title">Network Operations</h1>
+<p class="section-sub">Documentation, monitoring, DHCP, DNS, NTP, remote access, AAA, and disaster recovery. DHCP DORA, DNS record types, SNMP, RADIUS vs TACACS+, and RPO/RTO are all exam staples.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 3.3 — DHCP, DNS & NTP
+     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-3-3">
   <div class="section-eyebrow">Objective 3.3</div>
   <h2>DHCP, DNS &amp; NTP</h2>
 
   <h3>DHCP — DORA Process</h3>
   <p>DHCP automates IP address assignment. The DORA process is the four-step handshake:</p>
-
-  <div class="concept-visual">
-    <div class="concept-visual-title">DORA Sequence — DHCP Handshake</div>
-    <svg viewBox="0 0 520 230" width="520" height="230" font-family="system-ui,sans-serif" font-size="13" xmlns="http://www.w3.org/2000/svg">
-      <style>text { fill: var(--text); }</style>
-      <defs>
-        <marker id="dora-arr-blue" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--blue)"/>
-        </marker>
-        <marker id="dora-arr-green" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--green)"/>
-        </marker>
-        <marker id="dora-arr-amber" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--amber)"/>
-        </marker>
-        <marker id="dora-arr-purple" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--purple)"/>
-        </marker>
-      </defs>
-      <!-- Column headers -->
-      <text x="90" y="22" text-anchor="middle" font-weight="700" style="fill: var(--blue)">CLIENT</text>
-      <text x="430" y="22" text-anchor="middle" font-weight="700" style="fill: var(--green)">DHCP SERVER</text>
-      <!-- Lifelines -->
-      <line x1="90" y1="30" x2="90" y2="220" style="stroke: var(--hint)" stroke-width="1.5" stroke-dasharray="4 3"/>
-      <line x1="430" y1="30" x2="430" y2="220" style="stroke: var(--hint)" stroke-width="1.5" stroke-dasharray="4 3"/>
-      <!-- D: Discover -->
-      <line x1="100" y1="60" x2="420" y2="60" style="stroke: var(--blue)" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#dora-arr-blue)"/>
-      <text x="255" y="53" text-anchor="middle" style="fill: var(--blue)" font-size="12">D — Discover (broadcast)</text>
-      <!-- O: Offer -->
-      <line x1="420" y1="105" x2="100" y2="105" style="stroke: var(--green)" stroke-width="2" marker-end="url(#dora-arr-green)"/>
-      <text x="255" y="98" text-anchor="middle" style="fill: var(--green)" font-size="12">O — Offer (unicast, IP proposal)</text>
-      <!-- R: Request -->
-      <line x1="100" y1="150" x2="420" y2="150" style="stroke: var(--amber)" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#dora-arr-amber)"/>
-      <text x="255" y="143" text-anchor="middle" style="fill: var(--amber)" font-size="12">R — Request (broadcast, accept offer)</text>
-      <!-- A: Acknowledge -->
-      <line x1="420" y1="195" x2="100" y2="195" style="stroke: var(--purple)" stroke-width="2" marker-end="url(#dora-arr-purple)"/>
-      <text x="255" y="188" text-anchor="middle" style="fill: var(--purple)" font-size="12">A — Acknowledge (lease confirmed)</text>
-    </svg>
-  </div>
 
   <div class="steps">
     <div class="step-box">
@@ -75,14 +43,9 @@
     </div>
   </div>
 
-
-  <div class="callout callout-amber">
-    <div class="callout-title">REMEMBER THIS</div>
-    <strong>DORA</strong> — Discover, Offer, Request, Acknowledge — is the four-step DHCP exchange. Common DNS records: <strong>A</strong> = IPv4, <strong>AAAA</strong> = IPv6, <strong>CNAME</strong> = alias, <strong>MX</strong> = mail server, <strong>PTR</strong> = reverse lookup, <strong>TXT</strong> = SPF/DKIM/verification.
-  </div>
   <h3>DHCP Options</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Option Code</th><th>Description</th></tr>
       </thead>
@@ -102,7 +65,7 @@
 
   <h3>DNS Record Types</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Record Type</th><th>Purpose</th><th>Example</th></tr>
       </thead>
@@ -158,7 +121,7 @@
 
   <h3>DNS Troubleshooting Commands</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Command</th><th>Platform</th><th>Use</th></tr>
       </thead>
@@ -171,51 +134,9 @@
     </table>
   </div>
 
-  <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — nslookup</span></div>
-    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> nslookup example.com
-Server:  corp-dns.corp.local
-Address: 192.168.1.53
-
-<span class="tn">Non-authoritative answer:</span>    <span class="tn">← from cache, not the zone's own server</span>
-Name:    <span class="th">example.com</span>
-Address: <span class="th">93.184.216.34</span>
-
-<span class="tpw">PS C:\&gt;</span> nslookup -type=MX example.com
-Server:  corp-dns.corp.local
-Address: 192.168.1.53
-
-example.com  mail exchanger = <span class="th">10</span>  mail1.example.com.  <span class="tn">← priority 10 (primary)</span>
-example.com  mail exchanger = <span class="th">20</span>  mail2.example.com.  <span class="tn">← priority 20 (backup)</span>
-<span class="tn"># Lower MX priority number = higher priority. 10 is attempted before 20</span>
-<span class="tn"># Use -type=NS for nameservers, -type=PTR for reverse lookup, -type=TXT for SPF</span></pre>
-  </div>
-
-  <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — Resolve-DnsName</span></div>
-    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com
-
-Name                            Type  TTL   Section  IPAddress
-----                            ----  ---   -------  ---------
-example.com                     A     <span class="th">3599</span>  Answer   <span class="th">93.184.216.34</span>
-<span class="tn"># TTL=3599s — how long this record is cached before re-querying</span>
-
-<span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com -Type MX
-
-Name         Type  TTL   Section  NameExchange        Preference
-----         ----  ---   -------  ------------        ----------
-example.com  MX    3600  Answer   mail1.example.com   <span class="th">10</span>
-example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
-<span class="tn"># Lower Preference = higher priority. 10 is tried before 20</span>
-
-<span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com -Server 8.8.8.8  <span class="tn">← bypass local resolver</span>
-<span class="tn"># If local fails but -Server 8.8.8.8 works → internal DNS server is the problem</span>
-<span class="tn"># If both fail → domain doesn't exist, or DNS traffic is being blocked</span></pre>
-  </div>
-
   <h3>NTP (Network Time Protocol)</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Stratum</th><th>Source</th><th>Examples</th></tr>
       </thead>
@@ -234,6 +155,67 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
     Kerberos authentication (used in Active Directory) requires all devices to be within <strong>5 minutes</strong> of each other in clock time. If NTP fails and clocks drift more than 5 minutes, Kerberos tickets will be rejected and users can't authenticate. NTP is security-critical.
   </div>
 
+  <h3>How DNS Resolution Works</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Query Type</th><th>Who Initiates</th><th>Who Receives</th><th>Response Type</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Recursive</strong></td><td>Client to resolver</td><td>Resolver</td><td>Full answer (or NXDOMAIN) — resolver does all the work</td></tr>
+        <tr><td><strong>Iterative</strong></td><td>Resolver to each upstream server</td><td>Root, TLD, authoritative nameservers</td><td>Referral or answer — resolver asks each server separately</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ol>
+    <li>Client sends <strong>recursive query</strong> to local resolver: "What is the IP for www.example.com?"</li>
+    <li>Resolver checks cache. If found and TTL not expired, returns immediately (non-authoritative answer).</li>
+    <li>Resolver sends <strong>iterative query</strong> to a root server → root responds with referral to .com TLD nameservers.</li>
+    <li>Resolver sends iterative query to .com TLD → TLD responds with referral to example.com authoritative nameservers.</li>
+    <li>Resolver sends iterative query to example.com authoritative → authoritative responds with A record answer.</li>
+    <li>Resolver caches result per TTL, returns answer to client.</li>
+  </ol>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Authoritative vs Non-Authoritative Answers</div>
+    <p>An <strong>authoritative</strong> answer comes directly from the nameserver hosting the zone — it is definitive. A <strong>non-authoritative</strong> answer comes from a resolver's cache. The <code>aa</code> flag in <code>dig</code> output indicates an authoritative response. Use <code>dig +trace</code> to see the full iterative resolution chain.</p>
+    <p><strong>Reverse DNS:</strong> PTR records use the <code>in-addr.arpa</code> hierarchy. A PTR query for 8.8.8.8 becomes a query for <code>8.8.8.8.in-addr.arpa</code>. Used by mail servers for spam detection and by syslog to resolve source IPs to hostnames.</p>
+  </div>
+
+  <h3>DNS Security and Privacy Extensions</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Extension</th><th>Port</th><th>Mechanism</th><th>Protects Against</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>DNSSEC</strong></td><td>53 UDP/TCP</td><td>Cryptographic signatures (RRSIG) on DNS records; chain of trust from root via DS and DNSKEY records</td><td>DNS cache poisoning, spoofed or tampered records</td></tr>
+        <tr><td><strong>DoT</strong> (DNS over TLS)</td><td>853 TCP</td><td>Wraps DNS query in TLS tunnel</td><td>Eavesdropping on DNS queries; on-path inspection of what sites you visit</td></tr>
+        <tr><td><strong>DoH</strong> (DNS over HTTPS)</td><td>443 TCP</td><td>DNS query sent as HTTPS request</td><td>Eavesdropping; harder to block than DoT since it uses port 443</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">DNSSEC vs DoT vs DoH — Different Problems</div>
+    <p><strong>DNSSEC</strong> protects <em>data integrity</em> — are the records authentic and unmodified? <strong>DoT and DoH</strong> protect <em>query privacy</em> — can someone see what you're looking up? They solve different problems and can be deployed together.</p>
+  </div>
+
+  <h3>Time Protocol Comparison</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Protocol</th><th>Standard</th><th>Port</th><th>Precision</th><th>Use Case</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>NTP</strong></td><td>RFC 5905</td><td>123 UDP</td><td>~1–50 ms</td><td>General enterprise time sync</td><td>Stratum hierarchy; widely supported</td></tr>
+        <tr><td><strong>PTP</strong> (Precision Time Protocol)</td><td>IEEE 1588</td><td>319/320 UDP</td><td>Sub-microsecond</td><td>Financial trading, 5G, industrial control, broadcast media</td><td>Requires hardware timestamping in NICs and switches for full precision</td></tr>
+        <tr><td><strong>NTS</strong> (Network Time Security)</td><td>RFC 8915</td><td>4460 TCP</td><td>Same as NTP</td><td>Authenticated NTP</td><td>Adds authentication and encryption to NTP; prevents NTP spoofing and MITM attacks on time sync</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -243,6 +225,9 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
       <li>MX records have <strong>priority</strong> values — lower number = higher priority. Multiple MX records for redundancy.</li>
       <li>DNS uses UDP for queries ≤512 bytes and TCP for zone transfers or larger responses.</li>
       <li>NTP stratum 0 = hardware clock (not on network). Stratum 1 = first server on the network.</li>
+      <li>DNSSEC does <strong>NOT encrypt</strong> DNS responses — it signs them. A signed record proves authenticity but the content is still readable.</li>
+      <li>DoT = port 853. DoH = port 443 (same as HTTPS — intentionally uses this port to blend with web traffic and avoid blocking).</li>
+      <li>PTP is used where NTP is not precise enough (financial trading, 5G). NTS = NTP with security added — not a new time protocol.</li>
     </ul>
   </div>
 
@@ -254,6 +239,10 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
       <li>ip helper-address = DHCP relay for cross-subnet DHCP</li>
       <li>A=IPv4 | AAAA=IPv6 | MX=mail | PTR=reverse | CNAME=alias | TXT=SPF/DKIM</li>
       <li>NTP: Stratum 0=atomic clock → 1=primary server → 2=secondary → 16=unsynchronized</li>
+      <li>DNS recursive query = client asks resolver, gets final answer | Iterative = resolver asks each server in chain</li>
+      <li>Authoritative answer = from zone owner | Non-authoritative = from resolver cache | dig +trace shows full chain</li>
+      <li>DNSSEC = signs records (integrity, port 53) | DoT = port 853 | DoH = port 443</li>
+      <li>NTP = 123 UDP | PTP = 319/320 UDP, sub-microsecond precision | NTS = 4460 TCP, authenticated NTP</li>
     </ul>
   </div>
 
@@ -261,7 +250,3 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
     <button class="ai-explain-btn" data-topic="DHCP DORA process and DNS record types">✦ Explain Differently</button>
   </div>
 </div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 3.4 — Remote Access & AAA
-     ═══════════════════════════════════════════ -->

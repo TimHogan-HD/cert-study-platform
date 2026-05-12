@@ -1,11 +1,67 @@
+<div class="section-eyebrow">Domain 5 · 24% of Exam — Highest Weight</div>
+<h1 class="section-title">Network Troubleshooting</h1>
+<p class="section-sub">The largest domain at 24% of the exam. Troubleshooting shows up as both MCQs and PBQs. Know the 7-step methodology cold, every CLI tool's output, and the confirmed PBQ simulation types.</p>
+
+<div class="callout callout-amber">
+  <div class="callout-title">⚠ Domain Priority Alert</div>
+  Domain 5 + Domain 1 = <strong>47% of the exam</strong>. Do not shortcut this domain. PBQs frequently come from Domain 5 troubleshooting scenarios — the network discovery simulation alone can burn 8–10 minutes if you're unprepared.
+</div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 5.4 — Wireless Issues
+     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-5-4">
   <div class="section-eyebrow">Objective 5.4</div>
-  <h2>Wireless Troubleshooting</h2>
-  <p>Wireless troubleshooting combines RF physics, authentication, and channel management. Symptoms often appear intermittent because RF conditions change over time.</p>
+  <h2>Performance Troubleshooting</h2>
+  <p>Objective 5.4 covers both wired performance issues and wireless troubleshooting. RF conditions, congestion, bottlenecks, and jitter all appear here.</p>
+
+  <h3>Wired Performance Issues</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Issue</th><th>Symptom</th><th>Likely Cause</th><th>Diagnostic Tool</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Bandwidth saturation / congestion</strong></td>
+          <td>High latency under load; applications slow during peak hours; VoIP drops</td>
+          <td>Link fully utilized; insufficient bandwidth for demand</td>
+          <td>NetFlow top talkers; <code>show interface</code> output drops counter; <code>iperf3</code></td>
+        </tr>
+        <tr>
+          <td><strong>Bottleneck</strong></td>
+          <td>Throughput limited to slower-than-expected rate across all paths</td>
+          <td>Single slow hop (speed mismatch, oversubscribed uplink, underpowered device)</td>
+          <td><code>traceroute</code> per-hop latency; <code>show interface</code> speed/duplex; <code>iperf3</code></td>
+        </tr>
+        <tr>
+          <td><strong>High latency</strong></td>
+          <td>Slow interactive apps; VoIP one-way delay; remote desktop sluggishness</td>
+          <td>Long path, congestion, serialization delay, queuing depth</td>
+          <td><code>ping</code> RTT; <code>pathping</code> per-hop loss; baseline comparison</td>
+        </tr>
+        <tr>
+          <td><strong>Packet loss</strong></td>
+          <td>TCP retransmissions; choppy VoIP; video freezes; FTP transfers fail</td>
+          <td>Interface errors, queue drops, flapping link, physical layer issue</td>
+          <td><code>show interface</code> input/output errors and drops; <code>ping</code> with extended count</td>
+        </tr>
+        <tr>
+          <td><strong>Jitter</strong></td>
+          <td>Inconsistent VoIP quality; audio glitches; video conferencing choppy</td>
+          <td>Variable queuing delay; no QoS policy; congested link</td>
+          <td>QoS monitoring in NMS; jitter measurement tools; VoIP MOS score</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Wired Performance Exam Trap</div>
+    <p>Official CompTIA N10-009 objective 5.4 covers <strong>both wired performance and wireless troubleshooting</strong>. Congestion, bottleneck, bandwidth saturation, latency, jitter, and packet loss are all 5.4 topics — not just wireless. Output drops on <code>show interface</code> = queue overflow = congestion.</p>
+  </div>
 
   <h3>Wireless Signal Metrics</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead><tr><th>Metric</th><th>Definition</th><th>Good Value</th><th>Problem Threshold</th></tr></thead>
       <tbody>
         <tr><td><strong>RSSI</strong> (Received Signal Strength Indicator)</td><td>Received signal power, in negative dBm</td><td>-50 to -67 dBm</td><td>Below -80 dBm: poor connectivity; below -90: unusable</td></tr>
@@ -18,7 +74,7 @@
 
   <h3>Common Wireless Issues</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead><tr><th>Issue</th><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>
       <tbody>
         <tr>
@@ -75,13 +131,37 @@
           <td>HTTPS enforcement prevents captive portal redirect; DNS-based redirect blocked</td>
           <td>Modern devices use captive portal detection (HTTP probe to known URL); configure correctly</td>
         </tr>
+        <tr>
+          <td><strong>Antenna placement</strong></td>
+          <td>Dead zones in specific areas despite nearby APs; signal drops around corners or behind walls</td>
+          <td>AP antenna aimed incorrectly; omnidirectional AP in long narrow hallway loses signal at ends</td>
+          <td>Reposition AP; use directional antenna for long corridors; conduct active site survey; review heat map</td>
+        </tr>
+        <tr>
+          <td><strong>Disassociation</strong></td>
+          <td>Client suddenly disconnects and sees "connection lost"; must reconnect</td>
+          <td>AP-initiated deauthentication (load balancing, idle timeout, firmware bug, interference)</td>
+          <td>Check wireless controller logs for deauth reason code; check interference sources; update AP firmware</td>
+        </tr>
+        <tr>
+          <td><strong>Roaming failure</strong></td>
+          <td>Client drops connection when walking between AP coverage zones; sticky client stays on far AP</td>
+          <td>Client controls roaming decision and won't release old AP; 802.11r fast BSS transition not configured</td>
+          <td>Enable 802.11r fast roaming; configure RSSI threshold for AP to send deauth; enable band steering</td>
+        </tr>
+        <tr>
+          <td><strong>Coverage gap / dead zone</strong></td>
+          <td>No signal in part of building; client loses association completely in specific areas</td>
+          <td>Insufficient AP density; thick concrete/metal walls attenuating signal; AP placed too far</td>
+          <td>Add AP; conduct wireless site survey; adjust transmit power; review heat map output</td>
+        </tr>
       </tbody>
     </table>
   </div>
 
   <h3>Wireless Diagnostic Tools</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead><tr><th>Tool</th><th>Purpose</th><th>Key Output</th></tr></thead>
       <tbody>
         <tr><td><strong>Wireless analyzer</strong> (e.g., inSSIDer, NetSpot)</td><td>Survey Wi-Fi networks, measure RSSI and channel utilization</td><td>SSID list, channels in use, signal strength per AP, security type</td></tr>
@@ -100,6 +180,9 @@
       <li>Hidden node solution is RTS/CTS — not changing channels</li>
       <li>Sticky client is a client-side decision — the AP can't force roaming without sending a deauth or using BSS transition management (802.11v)</li>
       <li>RSSI is negative dBm — closer to zero = stronger signal (−40 is better than −80)</li>
+      <li>Objective 5.4 covers BOTH wired and wireless performance. Bottleneck, jitter, and packet loss are wired topics in this objective.</li>
+      <li>Output drops on <code>show interface</code> = queue overflow = link congestion — not a physical layer error.</li>
+      <li>Antenna placement affects dead zones — an omnidirectional AP placed at one end of a long hallway creates dead zones at the far end. Directional antennas solve corridor coverage.</li>
     </ul>
   </div>
 
@@ -113,12 +196,11 @@
       <li>Sticky client: device stays on far AP; fix with band steering or deauth</li>
       <li>Evil twin prevention: 802.1X certificate-based authentication</li>
       <li>Spectrum analyzer identifies non-Wi-Fi interference; wireless analyzer shows 802.11 networks only</li>
+      <li>Bottleneck = single slow hop | Congestion = link saturation | Jitter = delay variation (VoIP killer)</li>
+      <li>Output drops in <code>show interface</code> = queue overflow = congestion | <code>iperf3</code> = active throughput test</li>
+      <li>Roaming failure: enable 802.11r | Disassociation: check controller deauth reason code | Dead zone: site survey + add AP</li>
     </ul>
   </div>
 
   <button class="ai-explain-btn" data-topic="wireless troubleshooting: RSSI, SNR, channel interference, and hidden node problem">✦ Explain Differently</button>
 </div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 5.5 — Security Issues
-     ═══════════════════════════════════════════ -->

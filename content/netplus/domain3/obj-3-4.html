@@ -1,10 +1,17 @@
+<div class="section-eyebrow">Domain 3 · 19% of Exam</div>
+<h1 class="section-title">Network Operations</h1>
+<p class="section-sub">Documentation, monitoring, DHCP, DNS, NTP, remote access, AAA, and disaster recovery. DHCP DORA, DNS record types, SNMP, RADIUS vs TACACS+, and RPO/RTO are all exam staples.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 3.4 — Remote Access & AAA
+     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-3-4">
   <div class="section-eyebrow">Objective 3.4</div>
   <h2>Remote Access &amp; AAA</h2>
 
   <h3>VPN Types</h3>
   <div class="table-wrap">
-    <table class="table--comparison">
+    <table>
       <thead>
         <tr><th>Type</th><th>Description</th><th>Use Case</th></tr>
       </thead>
@@ -35,7 +42,7 @@
 
   <h3>IPsec Components</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Component</th><th>Function</th></tr>
       </thead>
@@ -51,7 +58,7 @@
 
   <h3>RADIUS vs TACACS+</h3>
   <div class="table-wrap">
-    <table class="table--comparison">
+    <table>
       <thead>
         <tr><th>Feature</th><th>RADIUS</th><th>TACACS+</th></tr>
       </thead>
@@ -69,7 +76,7 @@
 
   <h3>802.1X Network Access Control</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Role</th><th>Component</th><th>Examples</th></tr>
       </thead>
@@ -83,7 +90,7 @@
 
   <h3>Remote Access Protocols</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Protocol</th><th>Port</th><th>Use</th><th>Security</th></tr>
       </thead>
@@ -96,6 +103,24 @@
     </table>
   </div>
 
+  <h3>Access Management Methods</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Access Method</th><th>Description</th><th>Security Consideration</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>GUI (web-based)</strong></td><td>Browser-based management interface on the device</td><td>Should be HTTPS only; restrict to management VLAN</td></tr>
+        <tr><td><strong>SSH</strong></td><td>Encrypted CLI access; industry standard for network devices</td><td>Key-based auth preferred over password; disable Telnet</td></tr>
+        <tr><td><strong>API</strong></td><td>Programmatic access via REST/NETCONF/RESTCONF</td><td>Used by NMS and automation tools; authenticate with token or certificate</td></tr>
+        <tr><td><strong>Console port</strong></td><td>Direct physical serial/USB connection to device</td><td>Physical access required; no network dependency; always works</td></tr>
+        <tr><td><strong>Jump box / bastion host</strong></td><td>Admin connects to jump box first, then SSHes to devices from there</td><td>Centralizes and logs all admin access; reduces attack surface</td></tr>
+        <tr><td><strong>In-band management</strong></td><td>Management traffic shares the production network</td><td>Unavailable during network outages — use OOB as fallback</td></tr>
+        <tr><td><strong>Out-of-band (OOB) management</strong></td><td>Dedicated management network, separate from production</td><td>Always available even when production network fails; critical for recovery</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -104,6 +129,8 @@
       <li>TACACS+ is for device (router/switch) management. RADIUS is for network access (Wi-Fi, VPN).</li>
       <li>IPsec ESP provides encryption. IPsec AH does NOT encrypt — it only authenticates.</li>
       <li>802.1X supplicant = client. Authenticator = switch/WAP. Authentication server = RADIUS.</li>
+      <li>Jump box = bastion host (same concept). Admins never SSH directly to production devices — they SSH to the jump box first, which logs and audits the session.</li>
+      <li>OOB management uses a separate physical or logical path that survives production network failure. Console port = ultimate OOB (no network needed at all).</li>
     </ul>
   </div>
 
@@ -115,6 +142,8 @@
       <li>IPsec: AH=auth only | ESP=auth+encryption | IKE=key exchange</li>
       <li>802.1X: Supplicant (client) → Authenticator (switch/WAP) → Authentication Server (RADIUS)</li>
       <li>Site-to-site VPN = router-to-router | Remote access VPN = client-to-site</li>
+      <li>Jump box = bastion host; admins SSH here first, then to production devices</li>
+      <li>OOB = dedicated management path | Console = always accessible (no network needed)</li>
     </ul>
   </div>
 
@@ -122,7 +151,3 @@
     <button class="ai-explain-btn" data-topic="RADIUS vs TACACS+ AAA protocols">✦ Explain Differently</button>
   </div>
 </div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 3.5 — Policies & Disaster Recovery
-     ═══════════════════════════════════════════ -->

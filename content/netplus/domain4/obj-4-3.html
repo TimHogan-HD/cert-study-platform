@@ -1,3 +1,10 @@
+<div class="section-eyebrow">Domain 4 · 14% of Exam</div>
+<h1 class="section-title">Network Security</h1>
+<p class="section-sub">CIA triad, attack types, hardening techniques, and defense tools. 14% of the exam — but security concepts weave through all other domains too.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 4.3 — Network Hardening & Defense
+     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-4-3">
   <div class="section-eyebrow">Objective 4.3</div>
   <h2>Network Hardening &amp; Defense</h2>
@@ -10,7 +17,7 @@
 
   <h3>Firewall Types</h3>
   <div class="table-wrap">
-    <table class="table--comparison">
+    <table>
       <thead>
         <tr><th>Type</th><th>Layer</th><th>Capability</th></tr>
       </thead>
@@ -20,13 +27,14 @@
         <tr><td><strong>NGFW (Next-Generation)</strong></td><td>L7</td><td>DPI, application awareness, integrated IPS, SSL inspection, user identity, URL filtering. Gold standard.</td></tr>
         <tr><td><strong>WAF (Web Application Firewall)</strong></td><td>L7</td><td>Protects web apps specifically. Blocks OWASP Top 10: SQLi, XSS, CSRF, etc.</td></tr>
         <tr><td><strong>Host-based Firewall</strong></td><td>L4/7</td><td>Software firewall on individual host (Windows Firewall, iptables). First and last line of defense per host.</td></tr>
+        <tr><td><strong>UTM</strong> (Unified Threat Management)</td><td>L3–L7</td><td>All-in-one appliance: firewall + IPS + antivirus + web filtering + email filtering + VPN in one device. Common in SMB environments. Performance tradeoff vs dedicated enterprise appliances.</td></tr>
       </tbody>
     </table>
   </div>
 
   <h3>IDS vs IPS Placement (Critical)</h3>
   <div class="table-wrap">
-    <table class="table--comparison">
+    <table>
       <thead>
         <tr><th>Feature</th><th>IDS</th><th>IPS</th></tr>
       </thead>
@@ -48,9 +56,14 @@
     <li>Often implemented with two firewalls or a three-legged firewall (three interfaces).</li>
   </ul>
 
+  <div class="callout callout-blue">
+    <div class="callout-title">Screened Subnet = DMZ</div>
+    <p>CompTIA N10-009 uses the term <strong>screened subnet</strong> as a synonym for DMZ. Both refer to the same architecture: a network segment isolated between two firewall boundaries where public-facing servers live. If an exam question says "screened subnet," it means DMZ.</p>
+  </div>
+
   <h3>Switch Security Features</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Feature</th><th>Purpose</th><th>What It Prevents</th></tr>
       </thead>
@@ -86,7 +99,7 @@
 
   <h3>ACLs (Access Control Lists)</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Type</th><th>Match Criteria</th><th>Number Range (Cisco)</th></tr>
       </thead>
@@ -108,7 +121,7 @@
 
   <h3>Other Security Tools</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Tool</th><th>Purpose</th></tr>
       </thead>
@@ -129,6 +142,8 @@
       <li>Standard ACL = source IP only. Extended ACL = src + dst + port. Place standard ACLs near destination.</li>
       <li>Honeypots are designed to attract attackers — they are NOT production systems. They intentionally have fake vulnerabilities.</li>
       <li>Vulnerability scanning ≠ penetration testing. Scanning finds potential vulnerabilities. Pen testing exploits them.</li>
+      <li>Screened subnet = DMZ (same concept, different term). CompTIA N10-009 may use either term.</li>
+      <li>UTM = all-in-one security for SMB. NGFW = enterprise-grade DPI and application awareness. Both operate at L7 but NGFW is positioned as more performant for enterprise.</li>
     </ul>
   </div>
 
@@ -137,9 +152,10 @@
     <ul>
       <li>IDS = passive, SPAN port, alert only | IPS = inline, blocks traffic</li>
       <li>NGFW = DPI + IPS + app awareness + SSL inspection</li>
+      <li>UTM = all-in-one (firewall + IPS + AV + web filter + email filter + VPN), common in SMB</li>
       <li>Port security = MAC limits | DHCP snooping = rogue DHCP prevention | DAI = ARP protection (needs snooping)</li>
       <li>Standard ACL = source IP only | Extended ACL = src+dst+port</li>
-      <li>DMZ = public-facing servers isolated between internet and internal network</li>
+      <li>DMZ = screened subnet = public-facing servers isolated between internet and internal network</li>
     </ul>
   </div>
 
