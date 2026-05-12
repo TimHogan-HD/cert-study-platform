@@ -2117,7 +2117,7 @@ tr[data-exam-weight="high"] td:first-child::before {
 .mda-group-label { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.2rem; }
 .mda-divider { height: 1px; background: var(--border2); margin: 0.55rem 0; }
 .mask-derive-tables { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.65rem; }
-.mask-derive-tables > div { flex: 1 1 240px; min-width: 0; overflow-x: auto; }
+.mask-derive-tables > div { flex: 1 1 240px; min-width: 0; }
 
 /* ── 7-Second Subnetting components ─────────────────── */
 .ss-intro { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 0.75rem; }
