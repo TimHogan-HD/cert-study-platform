@@ -2091,7 +2091,21 @@ tr[data-exam-weight="high"] td:first-child::before {
 .magic-table td { padding: 0.28rem 0.5rem; border-bottom: 1px solid var(--border2); font-family: monospace; color: var(--text); font-size: 0.76rem; }
 .magic-table tr:last-child td { border-bottom: none; }
 .magic-hl { color: var(--text) !important; font-weight: 700 !important; }
-@media (max-width: 600px) { .method-body { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .method-body { grid-template-columns: 1fr; } }
+/* ── Mask derivation explainer ───────────────────────── */
+.mask-derive-box { background: var(--surface2); border: 1px solid var(--border2); border-left: 4px solid var(--blue); border-radius: var(--radius-lg); padding: 1rem 1.1rem; margin-bottom: 0.75rem; }
+.mask-derive-header { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.45rem; }
+.mask-derive-rule { font-size: 0.8rem; color: var(--text); line-height: 1.6; margin-bottom: 0.65rem; }
+.mask-derive-sublabel { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 0.3rem; }
+.mask-derive-bitrow { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; max-width: 300px; margin-bottom: 0.7rem; }
+.mask-derive-bit { background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 4px; text-align: center; padding: 0.3rem 0; font-size: 0.72rem; font-weight: 700; color: var(--blue); font-family: monospace; }
+.mask-derive-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; margin-bottom: 0.45rem; }
+.mask-derive-table th { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); padding: 0.28rem 0.6rem; border-bottom: 1px solid var(--border2); text-align: left; }
+.mask-derive-table td { padding: 0.28rem 0.6rem; border-bottom: 1px solid var(--border2); color: var(--text); font-family: monospace; font-size: 0.78rem; }
+.mask-derive-table tr:last-child td { border-bottom: none; }
+.mask-derive-table td:first-child { color: var(--blue); font-weight: 700; }
+.mask-derive-table td:last-child { color: var(--green); font-weight: 700; }
+.mask-derive-caption { font-size: 0.74rem; color: var(--muted); font-style: italic; }
 
 /* ── 7-Second Subnetting components ─────────────────── */
 .ss-intro { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 0.75rem; }

@@ -264,6 +264,37 @@
     <strong>/24</strong> = 256 addresses, 254 usable hosts (subtract network + broadcast). <strong>/30</strong> = 4 addresses, 2 usable hosts — the standard choice for point-to-point WAN links. <strong>/31</strong> = 2 addresses, both usable on point-to-point links per RFC 3021. <strong>/32</strong> = a single host route.
   </div>
 
+  <!-- Mask derivation explainer -->
+  <div class="mask-derive-box">
+    <div class="mask-derive-header">How to convert a CIDR prefix to a subnet mask</div>
+    <p class="mask-derive-rule">A subnet mask is simply <strong>N ones followed by zeros</strong>, written as four decimal octets. Any full octet of ones equals 255 — so /24 (three full octets) is always 255.255.255.0. The only math needed is in the last active octet, where the remaining prefix bits fill in from the left. Add up the bit positions they occupy.</p>
+    <div class="mask-derive-sublabel">4th octet bit positions — prefix bits fill from the left</div>
+    <div class="mask-derive-bitrow">
+      <div class="mask-derive-bit">128</div>
+      <div class="mask-derive-bit">64</div>
+      <div class="mask-derive-bit">32</div>
+      <div class="mask-derive-bit">16</div>
+      <div class="mask-derive-bit">8</div>
+      <div class="mask-derive-bit">4</div>
+      <div class="mask-derive-bit">2</div>
+      <div class="mask-derive-bit">1</div>
+    </div>
+    <table class="mask-derive-table">
+      <thead>
+        <tr><th>Prefix</th><th>Bits into 4th octet (prefix − 24)</th><th>Sum</th><th>Last octet</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>/25</td><td>1 → fills 128</td><td>128</td><td>128</td></tr>
+        <tr><td>/26</td><td>2 → fills 128, 64</td><td>128+64</td><td>192</td></tr>
+        <tr><td>/27</td><td>3 → fills 128, 64, 32</td><td>128+64+32</td><td>224</td></tr>
+        <tr><td>/28</td><td>4 → fills 128, 64, 32, 16</td><td>128+64+32+16</td><td>240</td></tr>
+        <tr><td>/29</td><td>5 → fills 128, 64, 32, 16, 8</td><td>128+64+32+16+8</td><td>248</td></tr>
+        <tr><td>/30</td><td>6 → fills 128, 64, 32, 16, 8, 4</td><td>128+64+32+16+8+4</td><td>252</td></tr>
+      </tbody>
+    </table>
+    <div class="mask-derive-caption">To reverse: last octet 192 → which bits sum to 192? → 128+64 → 2 bits → /26. Last octet 240 → 128+64+32+16 → 4 bits → /28.</div>
+  </div>
+
   <!-- Subnetting Methods — Full Guides -->
   <h3>Subnetting Methods</h3>
   <p style="font-size:0.85rem;color:var(--text);margin-bottom:0.75rem">Three core approaches plus a chart-based speed method for the exam. Pick the one that clicks and drill it until it's automatic — most people blend Powers of 2 for host counts with Magic Number for network addresses.</p>
@@ -340,7 +371,7 @@
         <div style="margin-top:0.75rem">
           <div class="method-col-label">Quick block size reference</div>
           <table class="magic-table">
-            <thead><tr><th>Mask octet</th><th>Block size</th><th>Prefix</th></tr></thead>
+            <thead><tr><th>Last active octet</th><th>Block size</th><th>Prefix</th></tr></thead>
             <tbody>
               <tr><td>128</td><td class="magic-hl">128</td><td>/25</td></tr>
               <tr><td>192</td><td class="magic-hl">64</td><td>/26</td></tr>
