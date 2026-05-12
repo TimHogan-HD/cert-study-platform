@@ -13,106 +13,73 @@
 
   <h3>The 7 OSI Layers</h3>
 
-  <div class="osi-stack">
-    <div class="osi-stack-header">
-      <span>#</span><span>Layer</span><span>PDU</span><span>Key Protocols / Technologies</span><span>Devices</span>
+  <div class="osi-v2">
+    <div class="osi-v2-header">
+      <span>#</span><span>Layer</span><span>PDU</span><span>Protocols / Technologies</span><span>Devices</span>
     </div>
 
-    <div class="osi-layer" data-layer="7">
-      <div class="osi-layer-num">7</div>
-      <div class="osi-layer-name">Application</div>
-      <div class="osi-layer-pdu">Data</div>
-      <div class="osi-layer-proto">
-        <abbr title="HyperText Transfer Protocol">HTTP</abbr>,
-        <abbr title="HTTP Secure (HTTP over TLS)">HTTPS</abbr>,
-        <abbr title="File Transfer Protocol">FTP</abbr>,
-        <abbr title="Simple Mail Transfer Protocol">SMTP</abbr>,
-        <abbr title="Domain Name System">DNS</abbr>,
-        <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr>,
-        <abbr title="Simple Network Management Protocol">SNMP</abbr>,
-        <abbr title="Secure Shell">SSH</abbr>, Telnet
-      </div>
-      <div class="osi-layer-devices">Gateways, Proxies, L7 Firewalls</div>
+    <div class="osi-v2-row" data-layer="7">
+      <div class="osi-v2-num">7</div>
+      <div class="osi-v2-name">Application</div>
+      <div class="osi-v2-pdu">Data</div>
+      <div class="osi-v2-proto"><abbr title="HyperText Transfer Protocol">HTTP</abbr>, <abbr title="HTTP Secure">HTTPS</abbr>, <abbr title="File Transfer Protocol">FTP</abbr>, <abbr title="Simple Mail Transfer Protocol">SMTP</abbr>, <abbr title="Domain Name System">DNS</abbr>, <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr>, <abbr title="Simple Network Management Protocol">SNMP</abbr>, <abbr title="Secure Shell">SSH</abbr>, Telnet</div>
+      <div class="osi-v2-devices">Gateways, Proxies, L7 Firewalls</div>
     </div>
 
-    <div class="osi-layer" data-layer="6">
-      <div class="osi-layer-num">6</div>
-      <div class="osi-layer-name">Presentation</div>
-      <div class="osi-layer-pdu">Data</div>
-      <div class="osi-layer-proto">
-        <abbr title="Transport Layer Security / Secure Sockets Layer">TLS/SSL</abbr>,
-        JPEG, MPEG,
-        <abbr title="American Standard Code for Information Interchange">ASCII</abbr>,
-        Encryption/Compression
-      </div>
-      <div class="osi-layer-devices">—</div>
+    <div class="osi-v2-row" data-layer="6">
+      <div class="osi-v2-num">6</div>
+      <div class="osi-v2-name">Presentation</div>
+      <div class="osi-v2-pdu">Data</div>
+      <div class="osi-v2-proto"><abbr title="Transport Layer Security / Secure Sockets Layer">TLS/SSL</abbr>, JPEG, MPEG, <abbr title="American Standard Code for Information Interchange">ASCII</abbr>, Encryption/Compression</div>
+      <div class="osi-v2-devices">—</div>
     </div>
 
-    <div class="osi-layer" data-layer="5">
-      <div class="osi-layer-num">5</div>
-      <div class="osi-layer-name">Session</div>
-      <div class="osi-layer-pdu">Data</div>
-      <div class="osi-layer-proto">
-        <abbr title="Network Basic Input/Output System">NetBIOS</abbr>,
-        <abbr title="Remote Procedure Call">RPC</abbr>,
-        <abbr title="Point-to-Point Tunneling Protocol">PPTP</abbr>,
-        <abbr title="Layer 2 Tunneling Protocol">L2TP</abbr>,
-        SQL sessions
-      </div>
-      <div class="osi-layer-devices">—</div>
+    <div class="osi-v2-row" data-layer="5">
+      <div class="osi-v2-num">5</div>
+      <div class="osi-v2-name">Session</div>
+      <div class="osi-v2-pdu">Data</div>
+      <div class="osi-v2-proto"><abbr title="Network Basic Input/Output System">NetBIOS</abbr>, <abbr title="Remote Procedure Call">RPC</abbr>, <abbr title="Point-to-Point Tunneling Protocol">PPTP</abbr>, <abbr title="Layer 2 Tunneling Protocol">L2TP</abbr>, SQL sessions</div>
+      <div class="osi-v2-devices">—</div>
     </div>
 
-    <div class="osi-layer" data-layer="4">
-      <div class="osi-layer-num">4</div>
-      <div class="osi-layer-name">Transport</div>
-      <div class="osi-layer-pdu">Segment (<abbr title="Transmission Control Protocol">TCP</abbr>) / Datagram (<abbr title="User Datagram Protocol">UDP</abbr>)</div>
-      <div class="osi-layer-proto">
-        <abbr title="Transmission Control Protocol — reliable, connection-oriented">TCP</abbr>,
-        <abbr title="User Datagram Protocol — fast, connectionless">UDP</abbr>,
-        <abbr title="Transport Layer Security">TLS</abbr> handshake
-      </div>
-      <div class="osi-layer-devices">Firewalls (stateful), Load Balancers</div>
+    <div class="osi-v2-row" data-layer="4">
+      <div class="osi-v2-num">4</div>
+      <div class="osi-v2-name">Transport</div>
+      <div class="osi-v2-pdu">Segment / Datagram</div>
+      <div class="osi-v2-proto"><abbr title="Transmission Control Protocol — reliable, connection-oriented">TCP</abbr>, <abbr title="User Datagram Protocol — fast, connectionless">UDP</abbr>, <abbr title="Transport Layer Security">TLS</abbr> handshake</div>
+      <div class="osi-v2-devices">Firewalls (stateful), Load Balancers</div>
     </div>
 
-    <div class="osi-layer" data-layer="3">
-      <div class="osi-layer-num">3</div>
-      <div class="osi-layer-name">Network</div>
-      <div class="osi-layer-pdu">Packet</div>
-      <div class="osi-layer-proto">
-        <abbr title="Internet Protocol version 4/6">IP (v4/v6)</abbr>,
-        <abbr title="Internet Control Message Protocol — used by ping/traceroute">ICMP</abbr>,
-        <abbr title="Open Shortest Path First — link-state routing protocol">OSPF</abbr>,
-        <abbr title="Border Gateway Protocol — internet routing between autonomous systems">BGP</abbr>,
-        <abbr title="Routing Information Protocol — legacy distance-vector protocol">RIP</abbr>,
-        <abbr title="Address Resolution Protocol — maps IP to MAC">ARP</abbr> (debated)
-      </div>
-      <div class="osi-layer-devices">Routers, L3 Switches, Firewalls</div>
+    <div class="osi-v2-row" data-layer="3">
+      <div class="osi-v2-num">3</div>
+      <div class="osi-v2-name">Network</div>
+      <div class="osi-v2-pdu">Packet</div>
+      <div class="osi-v2-proto"><abbr title="Internet Protocol v4/v6">IP</abbr>, <abbr title="Internet Control Message Protocol">ICMP</abbr>, <abbr title="Open Shortest Path First">OSPF</abbr>, <abbr title="Border Gateway Protocol">BGP</abbr>, <abbr title="Routing Information Protocol">RIP</abbr>, <abbr title="Address Resolution Protocol">ARP</abbr></div>
+      <div class="osi-v2-devices">Routers, L3 Switches, Firewalls</div>
     </div>
 
-    <div class="osi-layer" data-layer="2">
-      <div class="osi-layer-num">2</div>
-      <div class="osi-layer-name">Data Link</div>
-      <div class="osi-layer-pdu">Frame</div>
-      <div class="osi-layer-proto">
-        Ethernet,
-        802.11 Wi-Fi,
-        <abbr title="802.1Q — VLAN (Virtual LAN) tagging standard">802.1Q VLAN</abbr>,
-        <abbr title="Point-to-Point Protocol">PPP</abbr>,
-        <abbr title="Address Resolution Protocol — maps IP to MAC">ARP</abbr>,
-        <abbr title="Spanning Tree Protocol — prevents Layer 2 loops">STP</abbr>
-      </div>
-      <div class="osi-layer-devices">Switches, Bridges, <abbr title="Wireless Access Points">WAPs</abbr> (L2)</div>
+    <div class="osi-v2-row" data-layer="2">
+      <div class="osi-v2-num">2</div>
+      <div class="osi-v2-name">Data Link</div>
+      <div class="osi-v2-pdu">Frame</div>
+      <div class="osi-v2-proto">Ethernet, 802.11 Wi-Fi, <abbr title="802.1Q — VLAN tagging">802.1Q</abbr>, <abbr title="Point-to-Point Protocol">PPP</abbr>, ARP, <abbr title="Spanning Tree Protocol">STP</abbr></div>
+      <div class="osi-v2-devices">Switches, Bridges, <abbr title="Wireless Access Points">WAPs</abbr></div>
     </div>
 
-    <div class="osi-layer" data-layer="1">
-      <div class="osi-layer-num">1</div>
-      <div class="osi-layer-name">Physical</div>
-      <div class="osi-layer-pdu">Bit</div>
-      <div class="osi-layer-proto">
-        Electrical signals, light pulses, radio waves;
-        <abbr title="RS-232 — legacy serial communication standard">RS-232</abbr>
-      </div>
-      <div class="osi-layer-devices">Hubs, Repeaters, <abbr title="Network Interface Cards">NICs</abbr>, Cables, Connectors</div>
+    <div class="osi-v2-row" data-layer="1">
+      <div class="osi-v2-num">1</div>
+      <div class="osi-v2-name">Physical</div>
+      <div class="osi-v2-pdu">Bit</div>
+      <div class="osi-v2-proto">Electrical signals, light pulses, radio waves; <abbr title="RS-232 — legacy serial standard">RS-232</abbr></div>
+      <div class="osi-v2-devices">Hubs, Repeaters, <abbr title="Network Interface Cards">NICs</abbr>, Cables</div>
+    </div>
+
+    <div class="osi-v2-encap-strip">
+      <div class="osi-v2-encap-cell encap-l7">App Data</div>
+      <div class="osi-v2-encap-cell encap-l4">+ TCP/UDP Header</div>
+      <div class="osi-v2-encap-cell encap-l3">+ IP Header</div>
+      <div class="osi-v2-encap-cell encap-l2">+ Ethernet Frame</div>
+      <div class="osi-v2-encap-cell encap-l1">Bits on wire →</div>
     </div>
   </div>
 
@@ -122,18 +89,54 @@
   </div>
 
   <h3>TCP/IP Model vs OSI Model</h3>
-  <div class="table-wrap">
-    <table class="table--comparison">
-      <thead>
-        <tr><th>TCP/IP Layer</th><th>OSI Equivalent</th><th>Key Protocols</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Application</strong></td><td>Layers 5, 6, 7</td><td>HTTP, FTP, DNS, SMTP, SSH, SNMP</td></tr>
-        <tr><td><strong>Transport</strong></td><td>Layer 4</td><td>TCP, UDP</td></tr>
-        <tr><td><strong>Internet</strong></td><td>Layer 3</td><td>IP, ICMP, ARP</td></tr>
-        <tr><td><strong>Network Access</strong></td><td>Layers 1, 2</td><td>Ethernet, Wi-Fi, Frame Relay</td></tr>
-      </tbody>
-    </table>
+  <div class="tcpip-bracket">
+    <!-- TCP/IP side (left) -->
+    <div class="tcpip-col">
+      <div class="tcpip-label">TCP/IP (4 layers)</div>
+      <div class="tcpip-block tcpip-block-app">
+        <span style="font-size:0.88rem">Application</span>
+        <span style="font-size:0.72rem;font-weight:400;opacity:0.8;margin-top:2px">HTTP, FTP, DNS, SMTP, SSH</span>
+      </div>
+      <div class="tcpip-block tcpip-block-transport">
+        <span>Transport</span>
+        <span style="font-size:0.72rem;font-weight:400;opacity:0.8;margin-top:2px">TCP, UDP</span>
+      </div>
+      <div class="tcpip-block tcpip-block-internet">
+        <span>Internet</span>
+        <span style="font-size:0.72rem;font-weight:400;opacity:0.8;margin-top:2px">IP, ICMP, ARP</span>
+      </div>
+      <div class="tcpip-block tcpip-block-netaccess">
+        <span>Network Access</span>
+        <span style="font-size:0.72rem;font-weight:400;opacity:0.8;margin-top:2px">Ethernet, Wi-Fi</span>
+      </div>
+    </div>
+
+    <!-- Connector SVG — lines mapping TCP/IP layers to OSI groups -->
+    <svg class="tcpip-connector" viewBox="0 0 32 230" preserveAspectRatio="none" aria-hidden="true">
+      <!-- App (top 3/7 of height) → L7, L6, L5 -->
+      <line x1="0" y1="45" x2="32" y2="15"  stroke="rgba(168,85,247,0.4)" stroke-width="1.2"/>
+      <line x1="0" y1="45" x2="32" y2="48"  stroke="rgba(168,85,247,0.4)" stroke-width="1.2"/>
+      <line x1="0" y1="45" x2="32" y2="81"  stroke="rgba(168,85,247,0.4)" stroke-width="1.2"/>
+      <!-- Transport → L4 -->
+      <line x1="0" y1="120" x2="32" y2="114" stroke="rgba(59,130,246,0.4)" stroke-width="1.2"/>
+      <!-- Internet → L3 -->
+      <line x1="0" y1="160" x2="32" y2="148" stroke="rgba(20,184,166,0.4)" stroke-width="1.2"/>
+      <!-- Network Access → L2, L1 -->
+      <line x1="0" y1="200" x2="32" y2="182" stroke="rgba(245,158,11,0.4)" stroke-width="1.2"/>
+      <line x1="0" y1="200" x2="32" y2="215" stroke="rgba(239,68,68,0.4)"  stroke-width="1.2"/>
+    </svg>
+
+    <!-- OSI side (right) — compact rows reusing C1 color classes -->
+    <div class="tcpip-osi-col">
+      <div class="tcpip-label">OSI (7 layers)</div>
+      <div class="osi-v2-row" data-layer="7" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">7</div><div class="osi-v2-name" style="font-size:0.8rem">Application</div></div>
+      <div class="osi-v2-row" data-layer="6" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">6</div><div class="osi-v2-name" style="font-size:0.8rem">Presentation</div></div>
+      <div class="osi-v2-row" data-layer="5" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">5</div><div class="osi-v2-name" style="font-size:0.8rem">Session</div></div>
+      <div class="osi-v2-row" data-layer="4" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">4</div><div class="osi-v2-name" style="font-size:0.8rem">Transport</div></div>
+      <div class="osi-v2-row" data-layer="3" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">3</div><div class="osi-v2-name" style="font-size:0.8rem">Network</div></div>
+      <div class="osi-v2-row" data-layer="2" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">2</div><div class="osi-v2-name" style="font-size:0.8rem">Data Link</div></div>
+      <div class="osi-v2-row" data-layer="1" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">1</div><div class="osi-v2-name" style="font-size:0.8rem">Physical</div></div>
+    </div>
   </div>
 
   <h3>Encapsulation &amp; Decapsulation</h3>
