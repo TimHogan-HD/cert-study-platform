@@ -227,43 +227,37 @@
   <p class="ipv6-mcast-intro">IPv6 has <strong>no broadcast</strong> — multicast replaces it entirely. Each protocol registers a well-known multicast group address (always <code>ff02::</code> for link-local scope) so routers and nodes only receive packets relevant to them. The <code>ff02</code> prefix means link-local scope: packets never cross a router.</p>
   <div class="ipv6-mcast-wrap">
     <div class="ipv6-mcast-head">
-      <span>Address</span><span>Scope</span><span>Used By / Purpose</span><span>Protocol</span>
+      <span>Address</span><span>Scope</span><span>What It Does</span>
     </div>
     <div class="ipv6-mcast-row ipv6-mcast-row-all-nodes">
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::1</span></div>
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
-      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">All IPv6 nodes on segment</span></div>
-      <div class="ipv6-mcast-cell">IPv6 equivalent of IPv4 broadcast — every host on the local link receives this. Used for NDP and router discovery.</div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">All IPv6 nodes on segment</span><span class="ipv6-mcast-desc">IPv6 equivalent of IPv4 broadcast — every host on the local link receives this. Used for NDP and router discovery.</span></div>
     </div>
     <div class="ipv6-mcast-row ipv6-mcast-row-all-routers">
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::2</span></div>
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
-      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">All IPv6 routers</span></div>
-      <div class="ipv6-mcast-cell">Hosts send Router Solicitation messages here to request a Router Advertisement (used by SLAAC/NDP).</div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">All IPv6 routers</span><span class="ipv6-mcast-desc">Hosts send Router Solicitation messages here to request a Router Advertisement (used by SLAAC/NDP).</span></div>
     </div>
     <div class="ipv6-mcast-row ipv6-mcast-row-ospf">
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::5</span></div>
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
-      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">OSPFv3 — all routers</span></div>
-      <div class="ipv6-mcast-cell">All OSPFv3-enabled routers on the segment. Used for Hello packets and general OSPF traffic. Compare: OSPFv2 uses 224.0.0.5.</div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">OSPFv3 — all routers</span><span class="ipv6-mcast-desc">All OSPFv3-enabled routers on the segment. Used for Hello packets and general OSPF traffic. Compare: OSPFv2 uses 224.0.0.5.</span></div>
     </div>
     <div class="ipv6-mcast-row ipv6-mcast-row-ospf">
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::6</span></div>
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
-      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">OSPFv3 — DR/BDR only</span></div>
-      <div class="ipv6-mcast-cell">Designated Router and Backup DR only. Used by non-DR/BDR routers to send LSAs; reduces flooding on multi-access segments.</div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">OSPFv3 — DR/BDR only</span><span class="ipv6-mcast-desc">Designated Router and Backup DR only. Used by non-DR/BDR routers to send LSAs; reduces flooding on multi-access segments.</span></div>
     </div>
     <div class="ipv6-mcast-row ipv6-mcast-row-dhcp">
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::1:2</span></div>
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
-      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">DHCPv6 agents</span></div>
-      <div class="ipv6-mcast-cell">All DHCPv6 servers and relay agents. Hosts send their Solicit message here when requesting a managed address (stateful DHCPv6).</div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">DHCPv6 agents</span><span class="ipv6-mcast-desc">All DHCPv6 servers and relay agents. Hosts send their Solicit message here when requesting a managed address (stateful DHCPv6).</span></div>
     </div>
     <div class="ipv6-mcast-row ipv6-mcast-row-rip">
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::9</span></div>
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
-      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">RIPng routers</span></div>
-      <div class="ipv6-mcast-cell">RIPng (RIP for IPv6) uses this instead of the IPv4 224.0.0.9. Distance-vector routing updates sent here on UDP port 521.</div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">RIPng routers</span><span class="ipv6-mcast-desc">RIPng (RIP for IPv6) uses this instead of the IPv4 224.0.0.9. Distance-vector routing updates sent here on UDP port 521.</span></div>
     </div>
   </div>
   <p style="font-size:0.74rem;color:var(--muted);margin-top:0.4rem">All <code>ff02::</code> addresses are link-local scope — they never cross a router. The <code>ff</code> prefix marks any address as multicast; the second byte encodes scope (<code>02</code> = link-local, <code>05</code> = site-local, <code>0e</code> = global).</p>
