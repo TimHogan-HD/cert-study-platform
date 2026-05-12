@@ -1,10 +1,3 @@
-<div class="section-eyebrow">Domain 1 · 23% of Exam</div>
-<h1 class="section-title">Networking Concepts</h1>
-<p class="section-sub">OSI model, devices, topologies, ports, cables, services, IPv4 subnetting, and IPv6. This domain is 23% of your exam — strong foundational knowledge here pays dividends in every other domain.</p>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 1.8 — IPv6 Addressing
-     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-1-8">
   <div class="section-eyebrow">Objective 1.8</div>
   <h2>IPv6 Addressing</h2>
@@ -12,7 +5,7 @@
 
   <h3>IPv4 vs IPv6 Comparison</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--comparison">
       <thead>
         <tr><th>Feature</th><th>IPv4</th><th>IPv6</th></tr>
       </thead>
@@ -30,6 +23,11 @@
     </table>
   </div>
 
+  <div class="callout callout-blue">
+    <div class="callout-title">KEY DISTINCTION</div>
+    <strong>Link-local (fe80::/10)</strong> is auto-configured on every IPv6 interface and only routable on the local link — never crosses a router. <strong>Global unicast (2000::/3)</strong> is the public, routable equivalent of an IPv4 public address. If you see <code>fe80::</code> in a question, it cannot reach the internet.
+  </div>
+
   <h3>IPv6 Address Format &amp; Shortening Rules</h3>
   <p>Full IPv6: <code>2001:0db8:0000:0000:0000:0000:0000:0001</code></p>
   <ol>
@@ -43,7 +41,7 @@
 
   <h3>IPv6 Address Types</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Type</th><th>Prefix</th><th>Description</th><th>IPv4 Equivalent</th></tr>
       </thead>
@@ -62,7 +60,7 @@
 
   <h3>Common IPv6 Multicast Addresses</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Address</th><th>Scope</th><th>Used By</th></tr>
       </thead>
@@ -77,7 +75,7 @@
 
   <h3>IPv6 Address Configuration Methods</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Method</th><th>Description</th></tr>
       </thead>
@@ -108,7 +106,7 @@
 
   <h3>IPv6 Transition Mechanisms</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Mechanism</th><th>Description</th></tr>
       </thead>
@@ -117,89 +115,6 @@
         <tr><td><strong>Tunneling (6in4, 6to4, ISATAP, Teredo)</strong></td><td>IPv6 packets encapsulated inside IPv4 packets to traverse IPv4-only infrastructure.</td></tr>
         <tr><td><strong>NAT64</strong></td><td>IPv6-only clients communicate with IPv4-only servers. Router translates between v4 and v6.</td></tr>
         <tr><td><strong>DNS64</strong></td><td>Works with NAT64 — synthesizes AAAA records for IPv4-only servers so IPv6 clients can resolve them.</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>Evolving Network Environments</h3>
-
-  <h3>SD-WAN (Software-Defined Wide Area Network)</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>SD-WAN Property</th><th>What It Means</th><th>Why It Matters</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Application-aware routing</strong></td><td>Routes traffic based on application identity, not just IP/port</td><td>SaaS traffic (Office 365, Salesforce) goes direct to internet; sensitive traffic goes over MPLS</td></tr>
-        <tr><td><strong>Zero-touch provisioning (ZTP)</strong></td><td>New device boots, calls home, downloads config automatically</td><td>No technician at remote site; reduces deployment cost and error</td></tr>
-        <tr><td><strong>Transport agnostic</strong></td><td>Works over any WAN transport: MPLS, broadband, LTE, satellite</td><td>Mix and match transports per cost/performance need</td></tr>
-        <tr><td><strong>Central policy management</strong></td><td>One controller pushes policy to all edge devices</td><td>No per-device manual config; consistent policy everywhere</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">SD-WAN Replaces MPLS Hairpinning</div>
-    <p>Traditional WAN backhauls all branch traffic through HQ for security inspection before it reaches the internet — even if the destination is a cloud SaaS app. SD-WAN sends trusted SaaS traffic directly to the internet from each branch while routing sensitive traffic over MPLS or an encrypted overlay. This eliminates the latency and cost of hairpinning.</p>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">VXLAN — Virtual Extensible LAN</div>
-    <p>Traditional VLANs are limited to 4,094 IDs (12-bit field). VXLAN extends this to 16 million segments using a 24-bit <strong>VNI</strong> (VXLAN Network Identifier). VXLAN encapsulates Layer 2 Ethernet frames inside UDP packets (<strong>destination port 4789</strong>), allowing Layer 2 domains to stretch across a Layer 3 IP underlay. Primary use cases: data center interconnect (DCI) where VMs move between racks or sites, and multi-tenant cloud environments where each tenant needs isolated Layer 2 space. RFC 7348.</p>
-    <p><strong>Exam trap:</strong> VXLAN uses UDP port 4789. VNI = 24 bits = ~16 million segments (vs 4,094 for 802.1Q). Purpose is Layer 2 over Layer 3.</p>
-  </div>
-
-  <h3>Zero Trust Architecture (ZTA)</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>ZTA Principle</th><th>Definition</th><th>Implementation Example</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Never trust, always verify</strong></td><td>No implicit trust from network location — being on the LAN does not equal trusted</td><td>Require MFA for every access request regardless of source network</td></tr>
-        <tr><td><strong>Policy-based authentication</strong></td><td>Access decided per request based on identity + device posture + context</td><td>User + device certificate + location checked before granting access</td></tr>
-        <tr><td><strong>Least privilege</strong></td><td>Grant minimum permissions required; revoke when session ends</td><td>Per-app access, not broad network access; no persistent VPN tunnel</td></tr>
-        <tr><td><strong>Microsegmentation</strong></td><td>Network divided into small zones with strict controls between them</td><td>East-west traffic between servers requires authentication just like north-south</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">ZTA Reference: NIST SP 800-207</div>
-    <p>NIST SP 800-207 is the reference document for Zero Trust Architecture. The exam tests conceptual understanding: know the problem ZTA solves (implicit trust based on network location) and its core principles. ZTA is an architecture philosophy, not a single product.</p>
-  </div>
-
-  <h3>SASE and SSE</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Term</th><th>Full Name</th><th>Components</th><th>Use Case</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>SASE</strong></td><td>Secure Access Service Edge</td><td>SD-WAN + SWG + CASB + ZTNA + FWaaS, delivered as cloud service</td><td>Replace hairpinning through HQ; apply security at cloud PoP near user</td></tr>
-        <tr><td><strong>SSE</strong></td><td>Security Service Edge</td><td>SWG + CASB + ZTNA only (no SD-WAN)</td><td>Security-only subset of SASE; when SD-WAN is handled separately</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">SASE vs SSE</div>
-    <p>SASE = SD-WAN networking + cloud security stack in one service. SSE = just the security half. On the exam: know that SASE eliminates backhauling traffic through a central security stack by moving security inspection to cloud points-of-presence near users.</p>
-  </div>
-
-  <h3>IaC (Infrastructure as Code)</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>IaC Concept</th><th>Definition</th><th>Exam Context</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Playbooks / templates</strong></td><td>Reusable, declarative configuration files (Ansible playbooks, Terraform .tf files)</td><td>Define desired state; apply to 1 or 1,000 devices identically</td></tr>
-        <tr><td><strong>Configuration drift</strong></td><td>Deviation between declared config (in code) and actual running config</td><td>IaC tools detect and remediate drift automatically</td></tr>
-        <tr><td><strong>Source control</strong></td><td>Version control system (Git) tracks all config changes with history</td><td>Every config change is auditable, reversible, diff-able</td></tr>
-        <tr><td><strong>Version control</strong></td><td>Specific revisions of config files tracked over time</td><td>Roll back to previous known-good config in one command</td></tr>
-        <tr><td><strong>Branching</strong></td><td>Parallel config tracks (feature branch vs main)</td><td>Test changes in staging before pushing to production</td></tr>
-        <tr><td><strong>Conflict identification</strong></td><td>Merge conflicts signal two changes to the same config</td><td>Review and resolve before deployment</td></tr>
       </tbody>
     </table>
   </div>
@@ -213,10 +128,6 @@
       <li>SLAAC doesn't use DHCP — it uses Router Advertisements (NDP). No DHCP server needed.</li>
       <li>NDP (Neighbor Discovery Protocol) replaces both ARP and some ICMP functions in IPv6.</li>
       <li>::1 = IPv6 loopback (equivalent to 127.0.0.1 in IPv4).</li>
-      <li>ZTA = "never trust, always verify" — being on the internal network does NOT grant implicit trust.</li>
-      <li>SASE = SD-WAN + cloud security stack. SSE = security only (no SD-WAN component).</li>
-      <li>VXLAN uses UDP port 4789. VNI = 24-bit field = ~16 million segments (802.1Q = 12-bit = 4,094 max).</li>
-      <li>IaC config drift = actual running config diverging from the declared state in version control.</li>
     </ul>
   </div>
 
@@ -230,11 +141,6 @@
       <li>No broadcast in IPv6 — multicast replaces it</li>
       <li>SLAAC = auto-config from Router Advertisement, no DHCP needed</li>
       <li>Dual stack = running IPv4 and IPv6 simultaneously on same interface</li>
-      <li>ZTA = never trust always verify; NIST SP 800-207</li>
-      <li>VXLAN = Layer 2 over Layer 3; UDP port 4789; 24-bit VNI (16M segments)</li>
-      <li>SD-WAN = app-aware, ZTP, transport-agnostic, central policy</li>
-      <li>SASE = SD-WAN + cloud security | SSE = security only (no SD-WAN)</li>
-      <li>IaC = config as code; version controlled; config drift = deviation from declared state</li>
     </ul>
   </div>
 

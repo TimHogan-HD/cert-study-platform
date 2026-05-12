@@ -1,18 +1,52 @@
-<div class="section-eyebrow">Domain 1 · 23% of Exam</div>
-<h1 class="section-title">Networking Concepts</h1>
-<p class="section-sub">OSI model, devices, topologies, ports, cables, services, IPv4 subnetting, and IPv6. This domain is 23% of your exam — strong foundational knowledge here pays dividends in every other domain.</p>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 1.7 — IPv4 Addressing & Subnetting
-     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-1-7">
   <div class="section-eyebrow">Objective 1.7</div>
   <h2>IPv4 Addressing &amp; Subnetting</h2>
   <p>Subnetting is guaranteed to appear on the exam — as a standard question AND as a PBQ. Master it.</p>
 
+  <h3>What Is an IP Address?</h3>
+  <p>An <strong>IPv4 address</strong> is a 32-bit number that uniquely identifies a device on a network. It is written as four <strong>octets</strong> (8-bit groups) in dotted-decimal notation — for example, <code>192.168.1.50</code>. Each octet ranges from 0 to 255.</p>
+
+  <div class="ip-explainer">
+    <p class="ip-explainer-caption">Example: <code>192.168.1.50/24</code> — the first 24 bits are the network portion, the last 8 bits are the host portion.</p>
+    <div class="ip-anatomy">
+      <div class="ip-octet net-octet">
+        <div class="ip-octet-value">192</div>
+        <div class="ip-octet-bin">1100 0000</div>
+      </div>
+      <div class="ip-octet net-octet">
+        <div class="ip-octet-value">168</div>
+        <div class="ip-octet-bin">1010 1000</div>
+      </div>
+      <div class="ip-octet net-octet">
+        <div class="ip-octet-value">1</div>
+        <div class="ip-octet-bin">0000 0001</div>
+      </div>
+      <div class="ip-octet host-octet">
+        <div class="ip-octet-value">50</div>
+        <div class="ip-octet-bin">0011 0010</div>
+      </div>
+    </div>
+    <div class="ip-anatomy-legend">
+      <span class="net-legend">Network portion (fixed — identifies the subnet)</span>
+      <span class="host-legend">Host portion (variable — identifies the device)</span>
+    </div>
+  </div>
+
+  <h4>The Subnet Mask</h4>
+  <p>The <strong>subnet mask</strong> tells a device which bits are the network portion and which are the host portion. It's always a block of consecutive 1s followed by 0s. Two common notations:</p>
+  <ul>
+    <li><strong>Dotted-decimal:</strong> <code>255.255.255.0</code> — the 1s cover the first three octets (network), 0s cover the last (host).</li>
+    <li><strong><abbr title="Classless Inter-Domain Routing — uses a /prefix to denote the subnet mask length">CIDR</abbr> prefix notation:</strong> <code>/24</code> — means the first 24 bits are the network mask. Same as 255.255.255.0.</li>
+  </ul>
+  <p>A host determines whether a destination IP is on the <em>same subnet</em> by <strong>ANDing</strong> both IPs with the subnet mask. If the network portions match, the destination is local (no router needed). If they differ, the packet goes to the default gateway.</p>
+
+  <h4>Public vs. Private Addresses</h4>
+  <p><strong>Private addresses</strong> (<abbr title="RFC 1918 — the IETF standard that defines non-routable private IP ranges">RFC 1918</abbr>) are reserved for use inside private networks. They are <em>not routable on the internet</em>. Routers at the network edge use <strong><abbr title="Network Address Translation — maps private IPs to a public IP for internet access">NAT</abbr></strong> (Network Address Translation) to convert private source addresses to a public IP before forwarding traffic to the internet.</p>
+  <p>The three RFC 1918 private ranges are: <code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, and <code>192.168.0.0/16</code>.</p>
+
   <h3>IP Address Classes</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Class</th><th>First Octet Range</th><th>Default Mask</th><th>Private Ranges (RFC 1918)</th><th>Notes</th></tr>
       </thead>
@@ -28,7 +62,7 @@
 
   <h3>Special IPv4 Addresses</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Address / Range</th><th>Purpose</th></tr>
       </thead>
@@ -45,7 +79,7 @@
 
   <h3>CIDR Subnet Reference</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Prefix</th><th>Subnet Mask</th><th>Total Addresses</th><th>Usable Hosts</th><th>Common Use</th></tr>
       </thead>
@@ -65,6 +99,11 @@
     </table>
   </div>
 
+
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>/24</strong> = 256 addresses, 254 usable hosts (subtract network + broadcast). <strong>/30</strong> = 4 addresses, 2 usable hosts — the standard choice for point-to-point WAN links. <strong>/31</strong> = 2 addresses, both usable on point-to-point links per RFC 3021. <strong>/32</strong> = a single host route.
+  </div>
   <h3>Interactive Subnetting Calculator</h3>
   <div class="subnet-calc" id="subnet-calc">
     <form id="subnet-form">
@@ -133,3 +172,7 @@
     <button class="ai-explain-btn" data-topic="IPv4 subnetting and CIDR notation">✦ Explain Differently</button>
   </div>
 </div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.8 — IPv6 Addressing
+     ═══════════════════════════════════════════ -->

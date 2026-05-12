@@ -1,15 +1,3 @@
-<div class="section-eyebrow">Domain 5 · 24% of Exam — Highest Weight</div>
-<h1 class="section-title">Network Troubleshooting</h1>
-<p class="section-sub">The largest domain at 24% of the exam. Troubleshooting shows up as both MCQs and PBQs. Know the 7-step methodology cold, every CLI tool's output, and the confirmed PBQ simulation types.</p>
-
-<div class="callout callout-amber">
-  <div class="callout-title">⚠ Domain Priority Alert</div>
-  Domain 5 + Domain 1 = <strong>47% of the exam</strong>. Do not shortcut this domain. PBQs frequently come from Domain 5 troubleshooting scenarios — the network discovery simulation alone can burn 8–10 minutes if you're unprepared.
-</div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 5.3 — Network Issues
-     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-5-3">
   <div class="section-eyebrow">Objective 5.3</div>
   <h2>Network Issues &amp; CLI Troubleshooting</h2>
@@ -17,7 +5,7 @@
 
   <h3>CLI Troubleshooting Tools</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead><tr><th>Tool</th><th>OS</th><th>Purpose</th><th>Key Usage / Output</th></tr></thead>
       <tbody>
         <tr>
@@ -85,13 +73,115 @@
           <td>Graphical packet analyzer</td>
           <td>Filter: <code>ip.addr == 10.1.1.1</code>; follow TCP stream; decode protocols</td>
         </tr>
-        <tr>
-          <td><code>iperf3</code></td><td>All (free)</td>
-          <td>Measure actual TCP/UDP throughput between two endpoints</td>
-          <td><code>iperf3 -s</code> on server; <code>iperf3 -c [server-ip]</code> on client. Reports Mbps achieved. Use to verify actual link speed vs rated capacity and identify bottlenecks.</td>
-        </tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>ipconfig / ifconfig / ip a</strong> — show local interface config. <strong>ping</strong> — basic L3 reachability. <strong>tracert / traceroute</strong> — hop-by-hop path. <strong>nslookup / dig</strong> — DNS resolution. <strong>netstat / ss</strong> — open ports and connections. <strong>arp -a</strong> — local ARP cache.
+  </div>
+
+  <h3>Command Output Examples</h3>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — ping</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> ping -n 4 8.8.8.8
+
+Pinging 8.8.8.8 with 32 bytes of data:
+Reply from 8.8.8.8: bytes=32 <span class="th">time=12ms</span> TTL=57
+Reply from 8.8.8.8: bytes=32 <span class="th">time=11ms</span> TTL=57
+Reply from 8.8.8.8: bytes=32 <span class="th">time=13ms</span> TTL=57
+Reply from 8.8.8.8: bytes=32 <span class="th">time=12ms</span> TTL=57
+
+Ping statistics for 8.8.8.8:
+    Packets: Sent = 4, Received = 4, Lost = 0 (<span class="ts">0% loss</span>),
+Approximate round trip times in milli-seconds:
+    Minimum = 11ms, Maximum = 13ms, Average = 12ms
+<span class="tn"># RTT in ms + 0% loss = Layer 3 reachability confirmed</span>
+<span class="tn"># ping -t = continuous (Ctrl+C to stop)  |  ping -n 4 = send 4 packets</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — tracert</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> tracert 8.8.8.8
+
+Tracing route to dns.google [8.8.8.8]
+over a maximum of 30 hops:
+
+  1    1 ms    1 ms    1 ms  <span class="th">192.168.1.1</span>     <span class="tn">← default gateway (hop 1)</span>
+  2    5 ms    5 ms    5 ms  10.0.0.1
+  3    8 ms    9 ms    8 ms  72.14.232.1
+  4    <span class="te">*        *        *</span>    Request timed out.   <span class="tn">← ICMP blocked — NOT necessarily down</span>
+  5   12 ms   12 ms   11 ms  8.8.8.8
+
+Trace complete.
+<span class="tn"># Each hop = one router; RTT shown 3 times.  Linux equivalent: traceroute</span>
+<span class="tn"># * * * = ICMP filtered at that hop — device may still be forwarding traffic</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — ipconfig /all</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> ipconfig /all
+
+Windows IP Configuration
+   Host Name . . . . . . : DESKTOP-AB123
+   DNS Suffix  . . . . . : corp.local
+
+Ethernet adapter Ethernet0:
+   IPv4 Address. . . . . : <span class="th">192.168.1.50</span>
+   Subnet Mask . . . . . : <span class="th">255.255.255.0</span>
+   Default Gateway . . . : <span class="th">192.168.1.1</span>
+   DHCP Server . . . . . : <span class="th">192.168.1.10</span>
+   DNS Servers . . . . . : 192.168.1.53
+                            8.8.8.8
+   Lease Obtained. . . . : Mon May 06 08:00:00 2026
+   Lease Expires . . . . : Tue May 07 08:00:00 2026
+<span class="tn"># /flushdns — clears DNS cache  |  /renew — forces new DHCP lease</span>
+<span class="tn"># Linux equivalent: ip addr show  |  ifconfig (legacy)</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — nslookup</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> nslookup example.com
+Server:  192.168.1.53
+Address: 192.168.1.53
+
+Non-authoritative answer:
+Name:    <span class="th">example.com</span>
+Address: <span class="th">93.184.216.34</span>
+<span class="tn"># "Non-authoritative" = answer came from cache, not the zone's own DNS server</span>
+
+<span class="tpw">PS C:\&gt;</span> nslookup -type=mx example.com  <span class="tn"># query MX records</span>
+<span class="tpw">PS C:\&gt;</span> nslookup example.com 8.8.8.8   <span class="tn"># query a specific DNS server</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — arp -a</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> arp -a
+Interface: 192.168.1.50 --- 0x3
+  Internet Address      Physical Address        Type
+  <span class="th">192.168.1.1</span>           <span class="th">00-1a-2b-3c-4d-5e</span>      dynamic
+  192.168.1.53          00-1a-2b-3c-4d-60      dynamic
+  192.168.1.255         ff-ff-ff-ff-ff-ff      static
+<span class="tn"># Maps IP → MAC (Layer 3 → Layer 2).  Use to spot IP conflicts: same IP, two MACs</span>
+<span class="tn"># arp -d 192.168.1.1 — delete a specific entry (requires elevation)</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — netstat</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> netstat -an
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State
+  TCP    0.0.0.0:22             0.0.0.0:0              <span class="ts">LISTENING</span>
+  TCP    0.0.0.0:80             0.0.0.0:0              <span class="ts">LISTENING</span>
+  TCP    192.168.1.50:49234     93.184.216.34:443      <span class="th">ESTABLISHED</span>
+  TCP    192.168.1.50:49235     172.217.14.68:443      <span class="th">ESTABLISHED</span>
+  UDP    0.0.0.0:68             *:*
+<span class="tn"># -an = all connections + numeric (no DNS lookup).  Port 68 = DHCP client</span>
+<span class="tn"># netstat -r = routing table  |  netstat -s = per-protocol statistics</span></pre>
   </div>
 
   <h3>APIPA — Diagnostic Indicator</h3>
@@ -104,7 +194,7 @@
 
   <h3>Common Network Issues</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead><tr><th>Issue</th><th>Symptom</th><th>Likely Cause</th><th>Diagnostic Command</th></tr></thead>
       <tbody>
         <tr><td>IP conflict</td><td>Both devices lose connectivity intermittently</td><td>Two devices share same IP (static conflict or rogue DHCP)</td><td><code>arp -a</code>; check DHCP lease table</td></tr>
@@ -125,38 +215,42 @@
     <p><strong>What it looks like:</strong> You are given a terminal connected to a switch. You have 4 available commands. You must find: the MAC address of a target device, its IP address, which VLAN it's on, and which port it connects to — possibly across multiple switches.</p>
 
     <p><strong>The 4 commands you get:</strong></p>
-    <pre><code>show mac address-table
-show arp
-show vlan
-show ip interface brief
-show power inline</code></pre>
+    <div class="terminal">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS</span></div>
+      <pre class="terminal-body"><span class="tpc">Switch1#</span> show mac address-table   <span class="tn">← step 1: find MAC → port</span>
+<span class="tpc">Switch1#</span> show vlan                 <span class="tn">← step 2: confirm port → VLAN</span>
+<span class="tpc">Switch1#</span> show arp                  <span class="tn">← step 3: resolve MAC → IP</span>
+<span class="tpc">Switch1#</span> show ip interface brief   <span class="tn">← step 4: verify SVI/L3 interfaces</span></pre>
+    </div>
 
     <p><strong>Step-by-step process:</strong></p>
     <ol>
-      <li>Run <code>show ip interface brief</code> — confirms which interfaces are up/down and which IPs belong to this switch (SVIs)</li>
-      <li>Run <code>show vlan</code> — shows which ports are in which VLANs (access ports only; trunk ports are not listed here)</li>
-      <li>Run <code>show mac address-table</code> — maps MAC addresses to ports. If target MAC appears on a trunk port, the device is on a downstream switch</li>
-      <li>Run <code>show arp</code> — maps IP addresses to MAC addresses (only populated if this is a Layer 3 switch or router)</li>
-      <li>Run <code>show power inline</code> — displays PoE status per port: power class detected, watts allocated, and total switch power budget consumed vs. available. Use when a PoE device (AP, IP phone, camera) fails to power on despite being physically connected.</li>
+      <li>Run <code>show mac address-table</code> — find which port the target MAC address appears on. If it's on a trunk port, the device is one switch further downstream.</li>
+      <li>Run <code>show vlan</code> — confirm which VLAN that port belongs to (shows access ports only; trunk ports are not listed).</li>
+      <li>Run <code>show arp</code> — resolve the MAC address to an IP address (only populated if this is a Layer 3 switch or router with SVIs).</li>
+      <li>Run <code>show ip interface brief</code> — verify which SVIs (Layer 3 interfaces) are up and what IPs are assigned to each VLAN.</li>
     </ol>
 
     <p><strong>Sample output cross-reference scenario:</strong></p>
-    <pre><code>Switch1# show mac address-table
-Vlan  Mac Address        Type    Ports
-----  -----------------  ------  -----
-10    0050.7966.6800     DYNAMIC Gi0/1    ← target device MAC on port Gi0/1
-10    0050.7966.6801     DYNAMIC Gi0/2
-20    0050.7966.6802     DYNAMIC Gi0/3
+    <div class="terminal">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — Network Discovery PBQ</span></div>
+      <pre class="terminal-body"><span class="tpc">Switch1#</span> show mac address-table
+Vlan  Mac Address        Type     Ports
+----  -----------------  -------  -----
+10    <span class="th">0050.7966.6800</span>     DYNAMIC  <span class="th">Gi0/1</span>   <span class="tn">← target device on port Gi0/1</span>
+10    0050.7966.6801     DYNAMIC  Gi0/2
+20    0050.7966.6802     DYNAMIC  Gi0/3
 
-Switch1# show vlan
+<span class="tpc">Switch1#</span> show vlan
 VLAN  Name      Status    Ports
-----  --------  --------  ------
-10    CORP      active    Gi0/1, Gi0/2
+----  --------  --------  ---------------
+<span class="th">10</span>    CORP      active    <span class="th">Gi0/1</span>, Gi0/2   <span class="tn">← port Gi0/1 is in VLAN 10</span>
 20    GUEST     active    Gi0/3
 
-Switch1# show arp
-Protocol  Address      Age  Hardware Addr    Interface
-Internet  10.10.10.50  12   0050.7966.6800   Vlan10   ← MAC maps to IP 10.10.10.50</code></pre>
+<span class="tpc">Switch1#</span> show arp
+Protocol  Address        Age  Hardware Addr       Interface
+Internet  <span class="th">10.10.10.50</span>   12   <span class="th">0050.7966.6800</span>     Vlan10  <span class="tn">← MAC → IP resolved</span></pre>
+    </div>
 
     <p><strong>Conclusion:</strong> Target device MAC <code>0050.7966.6800</code> is on port <code>Gi0/1</code>, VLAN <code>10</code>, IP address <code>10.10.10.50</code>.</p>
     <p><strong>Multi-switch:</strong> If the MAC appears on a trunk port (e.g., Gi0/0), run the same commands on the downstream switch connected to that trunk port — the device is one hop further.</p>
@@ -174,26 +268,26 @@ Internet  10.10.10.50  12   0050.7966.6800   Vlan10   ← MAC maps to IP 10.10.1
       <li>APIPA (169.254.x.x) = DHCP failure — not a bad IP address, a diagnostic signal</li>
       <li><code>pathping</code> is Windows only; combines ping + traceroute; shows per-hop loss statistics</li>
       <li><code>show arp</code> on a switch is only populated if the switch has SVIs (Layer 3 switch) or is a router</li>
-      <li><code>show power inline</code> — use when a PoE device won't power up; shows per-port power class and switch budget consumed vs. available</li>
-      <li><code>iperf3</code> requires a server endpoint (<code>iperf3 -s</code>) and a client (<code>iperf3 -c [ip]</code>); reports actual achievable throughput, not just link capacity</li>
     </ul>
   </div>
 
   <div class="callout callout-green">
     <div class="callout-title">✓ Quick Recall</div>
     <ul>
-      <li>5 key discovery commands: <code>show mac address-table</code>, <code>show arp</code>, <code>show vlan</code>, <code>show ip interface brief</code>, <code>show power inline</code></li>
+      <li>4 discovery commands: <code>show mac address-table</code>, <code>show arp</code>, <code>show vlan</code>, <code>show ip interface brief</code></li>
       <li>MAC→Port: <code>show mac address-table</code></li>
       <li>IP→MAC: <code>show arp</code></li>
       <li>Port→VLAN: <code>show vlan</code></li>
-      <li>PoE device won't power on: <code>show power inline</code></li>
       <li>APIPA 169.254.x.x = DHCP server unreachable</li>
       <li>DNS name fails but IP works → DNS issue, not routing</li>
       <li><code>ipconfig /flushdns</code> clears DNS resolver cache</li>
       <li>Routing loop → <code>traceroute</code> shows packets cycling between same hops</li>
-      <li><code>iperf3</code> = active throughput measurement between two endpoints</li>
     </ul>
   </div>
 
   <button class="ai-explain-btn" data-topic="network discovery using show commands on Cisco switches">✦ Explain Differently</button>
 </div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 5.4 — Wireless Issues
+     ═══════════════════════════════════════════ -->

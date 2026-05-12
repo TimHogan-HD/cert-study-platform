@@ -1,17 +1,36 @@
-<div class="section-eyebrow">Domain 2 · 20% of Exam</div>
-<h1 class="section-title">Network Implementation</h1>
-<p class="section-sub">Routing technologies, switching and VLANs, wireless standards, and physical installation. This domain heavily tests STP, VLAN configuration, and 802.11 standards — all frequent PBQ and MCQ topics.</p>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 2.3 — Wireless Standards
-     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-2-3">
   <div class="section-eyebrow">Objective 2.3</div>
   <h2>Wireless Standards</h2>
+  <p class="section-sub exam-star-note"><span class="exam-star">★</span> = highest exam priority row.</p>
+
+  <div class="concept-visual">
+    <div class="concept-visual-title">802.11 Max Speed vs Range</div>
+    <svg viewBox="0 0 520 200" width="520" height="200" font-family="system-ui,sans-serif" font-size="12" xmlns="http://www.w3.org/2000/svg">
+      <style>text { fill: var(--text); }</style>
+      <!-- Y-axis labels (standards) -->
+      <text x="48" y="52" text-anchor="end" style="fill: var(--muted)">802.11b</text>
+      <text x="48" y="87" text-anchor="end" style="fill: var(--muted)">802.11g</text>
+      <text x="48" y="122" text-anchor="end" style="fill: var(--muted)">802.11n</text>
+      <text x="48" y="157" text-anchor="end" style="fill: var(--muted)">802.11ac</text>
+      <text x="48" y="188" text-anchor="end" style="fill: var(--amber)" font-weight="700">802.11ax ★</text>
+      <!-- Speed bars: b/g use purple (legacy 2.4GHz), n/ac use blue, ax uses amber -->
+      <rect x="55" y="38" width="5" height="20" rx="3" style="fill: var(--purple)"/>
+      <rect x="55" y="73" width="25" height="20" rx="3" style="fill: var(--purple)"/>
+      <rect x="55" y="108" width="80" height="20" rx="3" style="fill: var(--blue)"/>
+      <rect x="55" y="143" width="200" height="20" rx="3" style="fill: var(--blue)"/>
+      <rect x="55" y="174" width="430" height="18" rx="3" style="fill: var(--amber)"/>
+      <!-- Speed labels (hardcoded #fff for contrast against colored bars) -->
+      <text x="63" y="53" fill="#fff" font-size="11">11 Mbps · 2.4 GHz</text>
+      <text x="83" y="88" fill="#fff" font-size="11">54 Mbps · 2.4 GHz</text>
+      <text x="138" y="123" fill="#fff" font-size="11">600 Mbps · 2.4/5 GHz</text>
+      <text x="258" y="158" fill="#fff" font-size="11">3.5 Gbps · 5 GHz</text>
+      <text x="175" y="188" fill="#1a1200" font-weight="700" font-size="11">9.6 Gbps · 2.4/5/6 GHz (Wi-Fi 6)</text>
+    </svg>
+  </div>
 
   <h3>802.11 Standards</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Standard</th><th>Frequency</th><th>Max Speed</th><th>Technology</th><th>Key Notes</th></tr>
       </thead>
@@ -36,7 +55,7 @@
           <td><strong>802.11ac</strong> (Wi-Fi 5)</td><td>5 GHz only</td><td>6.9 Gbps</td><td>MU-MIMO, OFDM, wider channels</td>
           <td>2013. 5 GHz only. MU-MIMO (multi-user). Up to 160 MHz channels. Beamforming.</td>
         </tr>
-        <tr>
+        <tr data-exam-weight="high">
           <td><strong>802.11ax</strong> (Wi-Fi 6/6E)</td><td>2.4, 5, and 6 GHz</td><td>9.6 Gbps</td><td>MU-MIMO, OFDMA, BSS Coloring</td>
           <td>2019/2021. OFDMA for efficiency. BSS coloring reduces interference. Wi-Fi 6E adds 6 GHz band.</td>
         </tr>
@@ -48,9 +67,14 @@
     </table>
   </div>
 
+
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>2.4 GHz</strong> = longer range, better wall penetration, but only 3 non-overlapping channels (1, 6, 11) and more interference. <strong>5 GHz</strong> = higher throughput, more non-overlapping channels (~24), but shorter range. <strong>6 GHz</strong> (Wi-Fi 6E) = cleanest spectrum, shortest range.
+  </div>
   <h3>Wireless Security Standards</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--comparison">
       <thead>
         <tr><th>Standard</th><th>Encryption</th><th>Auth</th><th>Vulnerability</th></tr>
       </thead>
@@ -82,7 +106,7 @@
 
   <h3>Wireless Channels</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Band</th><th>Total Channels</th><th>Non-Overlapping</th><th>Notes</th></tr>
       </thead>
@@ -112,7 +136,7 @@
 
   <h3>Key Wireless Terms</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Term</th><th>Definition</th></tr>
       </thead>
@@ -176,37 +200,6 @@
     </div>
   </div>
 
-  <h3>Antennas and Site Surveys</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Antenna Type</th><th>Radiation Pattern</th><th>Gain</th><th>Use Case</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Omnidirectional</strong></td><td>360 degrees horizontal (donut shape)</td><td>Low-medium (2–5 dBi typical)</td><td>Standard indoor AP coverage; general office use</td></tr>
-        <tr><td><strong>Directional — Yagi</strong></td><td>Narrow beam, focused in one direction</td><td>High (10–20+ dBi)</td><td>Point-to-point building-to-building links; long-range outdoor</td></tr>
-        <tr><td><strong>Directional — Patch/Panel</strong></td><td>Sector coverage (~60–120 degrees)</td><td>Medium-high</td><td>Outdoor sectored coverage; stadium, warehouse wall mount</td></tr>
-        <tr><td><strong>Parabolic Dish</strong></td><td>Very narrow beam</td><td>Very high (20+ dBi)</td><td>Long-distance point-to-point links (km range)</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">Antenna Gain: dBi Explained</div>
-    <p>Gain is measured in <strong>dBi</strong> (decibels relative to isotropic). Higher gain = more focused beam, longer range in that direction, but narrower coverage angle. Omnidirectional APs are used for general coverage; directional antennas are used when you need to reach a specific location or cover a specific sector.</p>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">Wireless Site Survey</div>
-    <p>A site survey maps signal coverage before and after AP deployment. Types:</p>
-    <ul>
-      <li><strong>Passive survey:</strong> Listen-only, no association; maps existing signal and interference sources</li>
-      <li><strong>Active survey:</strong> Connect to AP; measures actual throughput and roaming behavior</li>
-      <li><strong>Predictive survey:</strong> Software models coverage using floor plans and wall materials before physical installation</li>
-    </ul>
-    <p>Output: a <strong>heat map</strong> showing RSSI coverage, dead zones, and channel overlap. Used to determine AP placement and channel assignments.</p>
-  </div>
-
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -215,8 +208,6 @@
       <li>2.4 GHz has only 3 non-overlapping channels (1, 6, 11). This causes interference issues in dense areas.</li>
       <li>WEP is completely broken. Even WPA (TKIP) is weak. WPA2 (AES/CCMP) minimum for modern networks.</li>
       <li>SAE is a WPA3 feature that prevents offline dictionary attacks against captured handshakes.</li>
-      <li>Omnidirectional = 360 degree coverage, lower gain. Directional = focused beam, higher gain, longer range. Higher dBi is not always better — it narrows coverage angle.</li>
-      <li>Site survey output = wireless heat map. Passive survey = listen only (no association). Active survey = connect and measure throughput.</li>
     </ul>
   </div>
 
@@ -228,8 +219,6 @@
       <li>802.11ax (Wi-Fi 6) = OFDMA, dual-band; Wi-Fi 6E adds 6 GHz</li>
       <li>2.4GHz non-overlapping: 1, 6, 11 (only 3)</li>
       <li>WPA3 SAE = no offline dictionary attacks | WPA2 AES/CCMP = current minimum standard</li>
-      <li>Omni = 360° coverage | Directional (Yagi/panel) = focused beam, high gain</li>
-      <li>Site survey → heat map | Passive = listen only | Active = connect and measure</li>
     </ul>
   </div>
 
@@ -237,3 +226,7 @@
     <button class="ai-explain-btn" data-topic="802.11 wireless standards and Wi-Fi frequencies">✦ Explain Differently</button>
   </div>
 </div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 2.4 — Physical Network Installation
+     ═══════════════════════════════════════════ -->

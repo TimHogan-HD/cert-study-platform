@@ -1,17 +1,11 @@
-<div class="section-eyebrow">Domain 1 · 23% of Exam</div>
-<h1 class="section-title">Networking Concepts</h1>
-<p class="section-sub">OSI model, devices, topologies, ports, cables, services, IPv4 subnetting, and IPv6. This domain is 23% of your exam — strong foundational knowledge here pays dividends in every other domain.</p>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 1.5 — Cables & Media Types
-     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-1-5">
   <div class="section-eyebrow">Objective 1.5</div>
   <h2>Cables &amp; Media Types</h2>
+  <p class="section-sub exam-star-note"><span class="exam-star">★</span> = highest exam priority row.</p>
 
   <h3>Copper Twisted Pair (UTP/STP)</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Category</th><th>Max Speed</th><th>Max Distance</th><th>Use Case</th><th>Notes</th></tr>
       </thead>
@@ -19,16 +13,21 @@
         <tr><td>Cat 5</td><td>100 Mbps</td><td>100m</td><td>Legacy FastEthernet</td><td>Obsolete. 4 pairs, no longer sold.</td></tr>
         <tr><td>Cat 5e</td><td>1 Gbps</td><td>100m</td><td>GbE for older installs</td><td>"e" = enhanced, reduced crosstalk vs Cat5.</td></tr>
         <tr><td>Cat 6</td><td>1 Gbps (100m) / 10 Gbps (55m)</td><td>55m @ 10G</td><td>GbE &amp; short 10GbE runs</td><td>Thicker, spline separator, strict spec.</td></tr>
-        <tr><td>Cat 6A</td><td>10 Gbps</td><td>100m</td><td>10GbE full runs</td><td>"A" = augmented. Larger diameter, often STP. <strong>Recommended for new installs.</strong></td></tr>
+        <tr data-exam-weight="high"><td>Cat 6A</td><td>10 Gbps</td><td>100m</td><td>10GbE full runs</td><td>"A" = augmented. Larger diameter, often STP. <strong>Recommended for new installs.</strong></td></tr>
         <tr><td>Cat 7</td><td>10 Gbps</td><td>100m</td><td>Data center, proprietary</td><td>Not TIA/EIA standard; uses GG45 or TERA connectors (not RJ45).</td></tr>
         <tr><td>Cat 8</td><td>25–40 Gbps</td><td>30m</td><td>Data center top-of-rack</td><td>Very short runs between servers and switches. Uses RJ45 or TERA.</td></tr>
       </tbody>
     </table>
   </div>
 
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>Cat 6A</strong> = 10 GbE up to the full 100m run. <strong>Cat 6</strong> = 10 GbE only to 55m. <strong>Cat 5e</strong> = 1 GbE max. If a question pairs "10 Gbps" with "100 meters", the answer is Cat 6A.
+  </div>
+
   <h3>Fiber Optic</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Type</th><th>Core Diameter</th><th>Light Source</th><th>Distance</th><th>Cost</th><th>Use Case</th></tr>
       </thead>
@@ -60,7 +59,7 @@
 
   <h3>Fiber Connector Types</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Connector</th><th>Type</th><th>Coupling</th><th>Notes</th></tr>
       </thead>
@@ -78,7 +77,7 @@
 
   <h3>Transceiver Types</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Transceiver</th><th>Speed</th><th>Use</th></tr>
       </thead>
@@ -94,7 +93,7 @@
 
   <h3>Cable Jacket Ratings</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead>
         <tr><th>Rating</th><th>Where Used</th><th>Key Property</th></tr>
       </thead>
@@ -118,22 +117,6 @@
     </ul>
   </div>
 
-  <h3>Wireless WAN and Satellite Transmission Media</h3>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Media Type</th><th>Technology</th><th>Typical Throughput</th><th>Typical Latency</th><th>Use Case</th><th>Notes</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>4G LTE</strong></td><td>3GPP LTE</td><td>10–150 Mbps</td><td>30–60 ms</td><td>WAN backup, mobile, IoT backhaul</td><td>Metered; higher latency than wired</td></tr>
-        <tr><td><strong>5G (Sub-6 GHz)</strong></td><td>3GPP NR</td><td>100 Mbps – 1 Gbps</td><td>10–20 ms</td><td>Fixed wireless access, SD-WAN transport</td><td>Wide coverage; most deployed band</td></tr>
-        <tr><td><strong>5G (mmWave)</strong></td><td>3GPP NR</td><td>Up to 10+ Gbps</td><td>&lt;5 ms</td><td>Dense urban, stadium, fixed point links</td><td>Very short range; line-of-sight preferred</td></tr>
-        <tr><td><strong>Satellite (LEO)</strong></td><td>Low Earth Orbit</td><td>50–300 Mbps</td><td>20–40 ms</td><td>Remote sites, maritime, emergency backup</td><td>Lower latency than GEO; Starlink example</td></tr>
-        <tr><td><strong>Satellite (GEO)</strong></td><td>Geostationary</td><td>1–25 Mbps</td><td>~600 ms RTT</td><td>Very remote sites, SCADA backhaul</td><td>High latency disqualifies VoIP and real-time apps</td></tr>
-      </tbody>
-    </table>
-  </div>
-
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -142,7 +125,6 @@
       <li>SMF = yellow jacket (usually). MMF = orange (OM2/OM3) or aqua (OM4). But cable color can vary — know the specs.</li>
       <li>RJ45 ≠ RJ11. RJ45 = 8 pins (Ethernet). RJ11 = 6 pins (telephone).</li>
       <li>LC connector is small (pushed by SFP ports). SC is square/larger. ST is round with a bayonet twist.</li>
-      <li>GEO satellite latency (~600 ms RTT) makes it unsuitable for VoIP and real-time interactive apps. Cellular (4G/5G) is a legitimate SD-WAN transport option.</li>
     </ul>
   </div>
 
@@ -154,7 +136,6 @@
       <li>LC = small, data center favorite | SC = square | ST = twist lock (bayonet)</li>
       <li>Plenum = air-handling spaces | Riser = between floors | PVC = conduit only</li>
       <li>SFP = 1G | SFP+ = 10G | QSFP = 40G | QSFP28 = 100G</li>
-      <li>4G LTE = 30–60 ms latency | 5G Sub-6 = 10–20 ms | LEO satellite = 20–40 ms | GEO satellite = ~600 ms RTT (no VoIP)</li>
     </ul>
   </div>
 
@@ -162,3 +143,7 @@
     <button class="ai-explain-btn" data-topic="fiber optic cable types and connectors">✦ Explain Differently</button>
   </div>
 </div>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.6 — Network Services
+     ═══════════════════════════════════════════ -->
