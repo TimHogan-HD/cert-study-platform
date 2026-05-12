@@ -1,10 +1,17 @@
+<div class="section-eyebrow">Domain 2 · 20% of Exam</div>
+<h1 class="section-title">Network Implementation</h1>
+<p class="section-sub">Routing technologies, switching and VLANs, wireless standards, and physical installation. This domain heavily tests STP, VLAN configuration, and 802.11 standards — all frequent PBQ and MCQ topics.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 2.4 — Physical Network Installation
+     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-2-4">
   <div class="section-eyebrow">Objective 2.4</div>
   <h2>Physical Network Installation</h2>
 
   <h3>Structured Cabling Components</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Component</th><th>Description</th></tr>
       </thead>
@@ -22,7 +29,7 @@
 
   <h3>Power over Ethernet (PoE) Standards</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Standard</th><th>Power Delivered</th><th>Use Case</th></tr>
       </thead>
@@ -41,7 +48,7 @@
 
   <h3>Cable Testing Tools</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Tool</th><th>What It Tests</th><th>OSI Layer</th></tr>
       </thead>
@@ -61,7 +68,7 @@
 
   <h3>Common Interface Error Types</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Error</th><th>Symptom</th><th>Cause</th></tr>
       </thead>
@@ -75,6 +82,24 @@
     </table>
   </div>
 
+  <h3>Datacenter Physical Layout</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>Description</th><th>Exam Context</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Cold aisle</strong></td><td>Aisle where server intakes (cold air) draw from; servers face cold aisle</td><td>Cold air delivered from raised floor perforations or overhead; servers pull air in from this side</td></tr>
+        <tr><td><strong>Hot aisle</strong></td><td>Aisle where server exhaust (hot air) exits from the rear of equipment</td><td>Hot air faces hot air; captured by return air ducts or CRAC units</td></tr>
+        <tr><td><strong>Hot/cold aisle containment</strong></td><td>Physical barriers (doors, curtains) separating hot and cold aisles</td><td>Prevents hot and cold air mixing; significantly improves cooling efficiency</td></tr>
+        <tr><td><strong>Port-side intake</strong></td><td>Server/switch design where airflow enters from the port side (front)</td><td>Common in top-of-rack switches; ports face cold aisle</td></tr>
+        <tr><td><strong>Port-side exhaust</strong></td><td>Airflow exits from the port side</td><td>Less common; requires reversed aisle orientation</td></tr>
+        <tr><td><strong>Rack unit (U)</strong></td><td>Standard unit of rack height = 1.75 inches</td><td>1U server, 2U firewall, 42U rack (standard full rack height)</td></tr>
+        <tr><td><strong>Rack diagram</strong></td><td>Logical representation showing what is installed in each rack unit</td><td>Documentation tool; shows U position of each device, power draw, cable runs</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -83,6 +108,8 @@
       <li>66 blocks are for <strong>voice/analog</strong>. 110 blocks support data (Cat 5e+).</li>
       <li>802.3af = 15.4W (older PoE). 802.3at = 30W (PoE+). 802.3bt = 90W (PoE++). Know all three.</li>
       <li>PoE power budget must be calculated for the entire switch — not just per-port.</li>
+      <li>Hot aisle/cold aisle orientation matters. A hot spot problem in a datacenter often indicates misaligned airflow — equipment exhaust facing cold intake. Most servers intake from front (cold aisle) and exhaust from rear (hot aisle).</li>
+      <li>1U = 1.75 inches. A standard full rack = 42U. Know rack unit sizing for PBQ rack diagram questions.</li>
     </ul>
   </div>
 
@@ -94,6 +121,8 @@
       <li>PoE: 802.3af=15.4W | 802.3at=30W | 802.3bt=90W</li>
       <li>TDR = copper fault location | OTDR = fiber fault location</li>
       <li>Late collisions = duplex mismatch | Runts = collision/speed issue | Giants = MTU misconfiguration</li>
+      <li>Cold aisle = server intake side | Hot aisle = server exhaust side | Containment = barriers between them</li>
+      <li>Port-side intake = ports face cold aisle | 1U = 1.75 inches | 42U = standard full rack</li>
     </ul>
   </div>
 

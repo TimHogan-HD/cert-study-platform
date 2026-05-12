@@ -1,11 +1,18 @@
+<div class="section-eyebrow">Domain 1 · 23% of Exam</div>
+<h1 class="section-title">Networking Concepts</h1>
+<p class="section-sub">OSI model, devices, topologies, ports, cables, services, IPv4 subnetting, and IPv6. This domain is 23% of your exam — strong foundational knowledge here pays dividends in every other domain.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.6 — Network Services
+     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-1-6">
   <div class="section-eyebrow">Objective 1.6</div>
   <h2>Network Services</h2>
-  <p>Core infrastructure services that every network depends on: <code>DHCP</code>, <code>DNS</code>, <code>NTP</code>, and network architectures. (Deep coverage of DHCP/DNS operational details is in Domain 3.)</p>
+  <p>Core infrastructure services that every network depends on: DHCP, DNS, NTP, and network architectures. (Deep coverage of DHCP/DNS operational details is in Domain 3.)</p>
 
   <h3>Corporate &amp; Data Center Network Architecture</h3>
   <div class="table-wrap">
-    <table class="table--comparison">
+    <table>
       <thead>
         <tr><th>Architecture</th><th>Tiers</th><th>Description</th></tr>
       </thead>
@@ -34,95 +41,23 @@
     </table>
   </div>
 
-
-  <div class="callout callout-blue">
-    <div class="callout-title">KEY DISTINCTION</div>
-    <strong>DHCP lease</strong> = address assigned automatically for a finite duration; the client can end up with a different address next time. <strong>Static (reservation)</strong> = a specific MAC always gets the same IP from the DHCP pool. <strong>Manual static</strong> = configured directly on the host, no DHCP involvement at all. Reservations are the right answer for printers and servers that need DNS-stable addresses.
-  </div>
   <h3>Cloud Concepts &amp; Connectivity</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Model</th><th>What Customer Manages</th><th>Examples</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>IaaS</strong> (<abbr title="Infrastructure as a Service — provider manages physical hardware and virtualization; customer manages OS and above">Infrastructure as a Service</abbr>)</td><td>OS, middleware, runtime, apps, data</td><td>AWS EC2, Azure VMs, Google Compute Engine</td></tr>
-        <tr><td><strong>PaaS</strong> (<abbr title="Platform as a Service — provider manages everything up through the runtime; customer manages apps and data">Platform as a Service</abbr>)</td><td>Apps and data only</td><td>Azure App Service, Google App Engine, Heroku</td></tr>
-        <tr><td><strong>SaaS</strong> (<abbr title="Software as a Service — provider manages everything; customer just uses the application">Software as a Service</abbr>)</td><td>Nothing — just uses the app</td><td>Microsoft 365, Salesforce, Google Workspace</td></tr>
+        <tr><td><strong>IaaS</strong> (Infrastructure as a Service)</td><td>OS, middleware, apps, data</td><td>AWS EC2, Azure VMs, Google Compute Engine</td></tr>
+        <tr><td><strong>PaaS</strong> (Platform as a Service)</td><td>Apps and data only</td><td>Azure App Service, Google App Engine, Heroku</td></tr>
+        <tr><td><strong>SaaS</strong> (Software as a Service)</td><td>Nothing — just uses the app</td><td>Microsoft 365, Salesforce, Google Workspace</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h4>Shared Responsibility Model</h4>
-  <p>In every cloud model, responsibility for security and management is <strong>split between the customer and the cloud provider</strong>. As you move from IaaS → PaaS → SaaS, the provider takes on more layers.</p>
-
-  <div class="sr-diagram">
-    <div class="sr-grid">
-      <!-- Header row -->
-      <div class="sr-cell sr-header">Layer</div>
-      <div class="sr-cell sr-header">IaaS</div>
-      <div class="sr-cell sr-header">PaaS</div>
-      <div class="sr-cell sr-header">SaaS</div>
-      <!-- Data row -->
-      <div class="sr-cell sr-label">Applications</div>
-      <div class="sr-cell sr-customer">Customer</div>
-      <div class="sr-cell sr-customer">Customer</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <!-- Data row -->
-      <div class="sr-cell sr-label">Data</div>
-      <div class="sr-cell sr-customer">Customer</div>
-      <div class="sr-cell sr-customer">Customer</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <!-- Data row -->
-      <div class="sr-cell sr-label">Runtime</div>
-      <div class="sr-cell sr-customer">Customer</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <!-- Data row -->
-      <div class="sr-cell sr-label">Middleware</div>
-      <div class="sr-cell sr-customer">Customer</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <!-- Data row -->
-      <div class="sr-cell sr-label">Operating System</div>
-      <div class="sr-cell sr-customer">Customer</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <!-- Data row -->
-      <div class="sr-cell sr-label">Virtualization</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <!-- Data row -->
-      <div class="sr-cell sr-label">Servers</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <!-- Data row -->
-      <div class="sr-cell sr-label">Storage</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <!-- Data row -->
-      <div class="sr-cell sr-label">Networking</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <!-- Data row -->
-      <div class="sr-cell sr-label">Data Center</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-      <div class="sr-cell sr-provider">Provider</div>
-    </div>
-    <div class="sr-legend">
-      <div class="sr-legend-item"><div class="sr-swatch sr-swatch-customer"></div>Customer responsibility</div>
-      <div class="sr-legend-item"><div class="sr-swatch sr-swatch-provider"></div>Provider responsibility</div>
-    </div>
-  </div>
-
   <h3>Cloud Deployment Models</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Model</th><th>Description</th></tr>
       </thead>
@@ -144,12 +79,53 @@
     <li><strong>vSwitch (Virtual Switch)</strong> — Software switch within a hypervisor (VMware vSwitch, Hyper-V vSwitch). Connects VMs to each other and to physical NICs.</li>
   </ul>
 
+  <h3>Cloud Networking Deep Dive</h3>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">NFV (Network Functions Virtualization)</div>
+    <p>NFV replaces dedicated hardware appliances (routers, firewalls, load balancers) with software running on commodity x86 servers. The appliance function still exists but runs as a VM or container. Benefit: spin up/down on demand, no rack space, no hardware procurement lead time. All cloud provider "virtual appliances" (security groups, NAT gateways, virtual firewalls) are NFV implementations.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">VPC (Virtual Private Cloud)</div>
+    <p>A VPC is an isolated, logically partitioned network inside a public cloud provider. You define the CIDR block, create subnets, attach gateways, and control routing within your VPC. Multiple VPCs do not see each other by default — VPC peering or a transit gateway connects them. Every AWS/Azure/GCP account gets a default VPC.</p>
+  </div>
+
+  <h3>Cloud Security and Gateway Constructs</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Construct</th><th>Type</th><th>Statefulness</th><th>Scope</th><th>Key Behavior</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>AWS Security Group / Azure NSG</strong></td><td>Virtual firewall</td><td>Stateful</td><td>Applied to instance/NIC</td><td>Return traffic implicitly allowed; no explicit deny needed for replies</td></tr>
+        <tr><td><strong>AWS Network ACL / OCI Security List</strong></td><td>ACL</td><td>Stateless</td><td>Applied to subnet</td><td>Must explicitly permit BOTH inbound and outbound for a session to work</td></tr>
+        <tr><td><strong>Internet Gateway</strong></td><td>Routing attachment</td><td>N/A</td><td>VPC-level</td><td>Enables bidirectional internet access for resources with public IPs</td></tr>
+        <tr><td><strong>NAT Gateway</strong></td><td>Address translation</td><td>N/A</td><td>Private subnet</td><td>Outbound-only internet access; private-IP resources initiate, cannot receive inbound</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Scalability vs Elasticity</div>
+    <p><strong>Scalability</strong> is the capacity to grow — adding servers, upgrading hardware. <strong>Elasticity</strong> is automatic bidirectional scaling in response to real-time load (scale out on demand, scale back in when load drops). Cloud is elastic; on-premises datacenters are typically only scalable. CompTIA treats these as distinct terms.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Multitenancy</div>
+    <p>Multitenancy means multiple customers share the same physical infrastructure with logical isolation. This is the economic foundation of public cloud. Your VM shares a physical host with other customers' VMs but cannot access their memory or storage.</p>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
       <li>Spine-Leaf = data center design for east-west traffic. Three-tier = traditional enterprise (north-south traffic).</li>
       <li>IaaS = you manage OS and up. PaaS = you manage apps and data only. SaaS = nothing to manage.</li>
       <li>SDN separates <strong>control plane</strong> from <strong>data plane</strong> — know both terms.</li>
+      <li>Security groups (AWS) / NSGs (Azure) are <strong>stateful</strong>; Network ACLs are <strong>stateless</strong>. Not interchangeable — stateless ACLs require explicit rules for both directions.</li>
+      <li>Internet Gateway = bidirectional public access. NAT Gateway = outbound only (private hosts can initiate, cannot receive inbound).</li>
+      <li>Scalability = capacity to grow. Elasticity = auto-scaling in both directions. Cloud is elastic; on-prem is typically only scalable.</li>
+      <li>NFV = software appliances on commodity hardware. Not to be confused with SDN (control/data plane separation).</li>
     </ul>
   </div>
 
@@ -160,6 +136,11 @@
       <li>Spine-leaf: data center, every leaf connects to every spine, equal latency</li>
       <li>IaaS = VMs | PaaS = platforms | SaaS = apps (decreasing customer control)</li>
       <li>SDN = control plane separated from data plane via centralized controller</li>
+      <li>NFV = software appliances on commodity x86 (no dedicated hardware)</li>
+      <li>VPC = isolated cloud network with your own CIDR, subnets, and routing</li>
+      <li>Security group/NSG = stateful per-instance | NACL = stateless per-subnet</li>
+      <li>Internet GW = bidirectional public | NAT GW = outbound only</li>
+      <li>Elasticity = auto-scale up and down | Scalability = capacity to grow | Multitenancy = shared hardware, logical isolation</li>
     </ul>
   </div>
 
@@ -167,7 +148,3 @@
     <button class="ai-explain-btn" data-topic="cloud computing models IaaS PaaS SaaS and network architecture">✦ Explain Differently</button>
   </div>
 </div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 1.7 — IPv4 Addressing & Subnetting
-     ═══════════════════════════════════════════ -->

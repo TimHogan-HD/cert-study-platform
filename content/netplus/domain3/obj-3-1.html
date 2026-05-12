@@ -5,14 +5,13 @@
 <!-- ═══════════════════════════════════════════
      OBJ 3.1 — Documentation & Monitoring
      ═══════════════════════════════════════════ -->
-
 <div class="obj-section" id="obj-3-1">
   <div class="section-eyebrow">Objective 3.1</div>
   <h2>Network Documentation &amp; Monitoring</h2>
 
   <h3>Network Documentation Types</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Document Type</th><th>Purpose</th><th>Contains</th></tr>
       </thead>
@@ -23,13 +22,26 @@
         <tr><td><strong>Change Management</strong></td><td>Tracks all changes to network configuration</td><td>Change request, approval, implementation steps, rollback plan, post-change verification</td></tr>
         <tr><td><strong>Asset Inventory</strong></td><td>Tracks all hardware and software in the network</td><td>Device model, serial, MAC, IP, location, firmware version, warranty</td></tr>
         <tr><td><strong>Configuration Backups</strong></td><td>Archives device configurations for recovery</td><td>Router/switch running-config, firewall rules, AP configs</td></tr>
+        <tr><td><strong>IPAM</strong> (IP Address Management)</td><td>Tracks all IP address assignments across the network</td><td>Subnet allocations, DHCP scopes, static assignments, DNS correlations</td></tr>
+        <tr><td><strong>Wireless heat map</strong></td><td>Visualizes Wi-Fi signal coverage across a physical space</td><td>RSSI contour map, dead zones, channel interference areas</td></tr>
+        <tr><td><strong>Rack diagram</strong></td><td>Documents physical layout of each rack</td><td>U positions of each device, power draw, cable runs to patch panel</td></tr>
+        <tr><td><strong>SLA</strong> (Service Level Agreement)</td><td>Contractual definition of service quality and uptime guarantees</td><td>Uptime %, response times, resolution times, penalties for breach</td></tr>
+        <tr><td><strong>SOP</strong> (Standard Operating Procedure)</td><td>Step-by-step procedures for common tasks</td><td>Runbooks for device replacement, link failover, VLAN changes</td></tr>
+        <tr><td><strong>EOL / EOS</strong> (End of Life / End of Support)</td><td>Tracks when vendor stops selling / supporting a product</td><td>Security patching stops at EOS; running EOS devices is a compliance risk</td></tr>
+        <tr><td><strong>Golden configuration</strong></td><td>Baseline approved config applied to new devices of the same class</td><td>Enforces standardization; deviations from golden config = drift</td></tr>
+        <tr><td><strong>Decommissioning documentation</strong></td><td>Records removal of a device from service</td><td>Data destruction method, asset disposal, config archive, DNS/DHCP cleanup</td></tr>
       </tbody>
     </table>
   </div>
 
+  <div class="callout callout-blue">
+    <div class="callout-title">Golden Configuration</div>
+    <p>A golden configuration is the approved baseline config for a device class (e.g., "standard access switch config"). All new switches receive this config on deployment. IaC tools can compare running configs against the golden config to detect drift.</p>
+  </div>
+
   <h3>Performance Metrics to Monitor</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Metric</th><th>Definition</th><th>Issue When…</th></tr>
       </thead>
@@ -50,6 +62,9 @@
       <li>Bandwidth ≠ throughput. Bandwidth is the link capacity; throughput is what you actually get.</li>
       <li>A baseline is taken <em>before</em> a problem occurs — it represents "normal." You compare current metrics against it.</li>
       <li>Change management includes a <strong>rollback plan</strong> — what to do if the change causes issues.</li>
+      <li>IPAM is the tool that manages IP address space — not DHCP. DHCP assigns addresses; IPAM tracks them across the entire network.</li>
+      <li>EOL = no longer sold. EOS = no longer supported (no patches). <strong>EOS is the security-relevant date</strong> — running EOS devices exposes you to unpatched CVEs.</li>
+      <li>SLA defines the uptime commitment, not just best-effort. Breach of SLA triggers contractual penalties.</li>
     </ul>
   </div>
 
@@ -60,6 +75,9 @@
       <li>Baseline = normal performance snapshot for comparison</li>
       <li>Jitter = packet delay variation — bad for VoIP | Latency = total one-way delay</li>
       <li>Change management: request → approval → implementation → verification → documentation</li>
+      <li>IPAM = IP address tracking (not DHCP) | Heat map = Wi-Fi signal map | Rack diagram = U-position doc</li>
+      <li>SLA = uptime commitment | EOL = stop selling | EOS = stop patching (security risk)</li>
+      <li>Golden config = approved baseline config | Decommission = document, archive, clean up DNS/DHCP</li>
     </ul>
   </div>
 
@@ -67,7 +85,3 @@
     <button class="ai-explain-btn" data-topic="network documentation types and performance monitoring">✦ Explain Differently</button>
   </div>
 </div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 3.2 — Network Monitoring Tools
-     ═══════════════════════════════════════════ -->

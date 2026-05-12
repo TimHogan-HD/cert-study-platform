@@ -1,3 +1,10 @@
+<div class="section-eyebrow">Domain 1 · 23% of Exam</div>
+<h1 class="section-title">Networking Concepts</h1>
+<p class="section-sub">OSI model, devices, topologies, ports, cables, services, IPv4 subnetting, and IPv6. This domain is 23% of your exam — strong foundational knowledge here pays dividends in every other domain.</p>
+
+<!-- ═══════════════════════════════════════════
+     OBJ 1.3 — Network Topologies
+     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-1-3">
   <div class="section-eyebrow">Objective 1.3</div>
   <h2>Network Topologies &amp; Types</h2>
@@ -5,7 +12,7 @@
 
   <h3>LAN Topologies</h3>
   <div class="table-wrap">
-    <table class="table--comparison">
+    <table>
       <thead>
         <tr><th>Topology</th><th>Description</th><th>Advantages</th><th>Disadvantages</th></tr>
       </thead>
@@ -50,163 +57,9 @@
     </table>
   </div>
 
-  <h3>Topology Diagrams</h3>
-  <div class="topology-grid">
-
-    <!-- Star -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- center switch -->
-        <circle cx="80" cy="65" r="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2"/>
-        <text x="80" y="69" text-anchor="middle" font-size="8" fill="var(--blue)" font-weight="600">SW</text>
-        <!-- spokes -->
-        <line x1="80" y1="53" x2="80" y2="22" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="80" y1="77" x2="80" y2="108" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="68" y1="60" x2="32" y2="42" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="92" y1="60" x2="128" y2="42" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="68" y1="70" x2="32" y2="88" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="92" y1="70" x2="128" y2="88" stroke="var(--border2)" stroke-width="1.5"/>
-        <!-- nodes -->
-        <circle cx="80" cy="16" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="80" cy="114" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="26" cy="38" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="134" cy="38" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="26" cy="92" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="134" cy="92" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-      </svg>
-      <div class="topology-diagram-label">Star</div>
-      <div class="topology-diagram-sub">Central switch/hub</div>
-    </div>
-
-    <!-- Bus -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- bus cable -->
-        <line x1="14" y1="65" x2="146" y2="65" stroke="var(--blue)" stroke-width="2.5"/>
-        <!-- terminators -->
-        <rect x="10" y="58" width="6" height="14" rx="2" fill="var(--blue)" opacity="0.5"/>
-        <rect x="144" y="58" width="6" height="14" rx="2" fill="var(--blue)" opacity="0.5"/>
-        <!-- drops -->
-        <line x1="38" y1="65" x2="38" y2="35" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="70" y1="65" x2="70" y2="35" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="102" y1="65" x2="102" y2="35" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="38" y1="65" x2="38" y2="95" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="70" y1="65" x2="70" y2="95" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="102" y1="65" x2="102" y2="95" stroke="var(--border2)" stroke-width="1.5"/>
-        <!-- nodes top -->
-        <circle cx="38" cy="28" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="70" cy="28" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="102" cy="28" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <!-- nodes bottom -->
-        <circle cx="38" cy="102" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="70" cy="102" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="102" cy="102" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-      </svg>
-      <div class="topology-diagram-label">Bus</div>
-      <div class="topology-diagram-sub">Shared cable + terminators</div>
-    </div>
-
-    <!-- Ring -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- ring path -->
-        <circle cx="80" cy="65" r="42" stroke="var(--border2)" stroke-width="1.5" stroke-dasharray="0"/>
-        <!-- nodes at compass points -->
-        <circle cx="80" cy="23" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="122" cy="65" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="80" cy="107" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="38" cy="65" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <!-- arrows showing data direction -->
-        <path d="M 118 46 A 42 42 0 0 1 122 65" stroke="var(--blue)" stroke-width="2" fill="none" marker-end="url(#arr)"/>
-        <defs>
-          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-            <path d="M0,0 L6,3 L0,6 Z" fill="var(--blue)"/>
-          </marker>
-        </defs>
-      </svg>
-      <div class="topology-diagram-label">Ring</div>
-      <div class="topology-diagram-sub">Unidirectional token passing</div>
-    </div>
-
-    <!-- Full Mesh -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- 5-node full mesh: every node connects to every other -->
-        <!-- positions: top(80,20), TR(130,50), BR(110,105), BL(50,105), TL(30,50) -->
-        <!-- all 10 connections -->
-        <line x1="80" y1="20" x2="130" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="20" x2="110" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="20" x2="50" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="20" x2="30" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="130" y1="50" x2="110" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="130" y1="50" x2="50" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="130" y1="50" x2="30" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="110" y1="105" x2="50" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="110" y1="105" x2="30" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="50" y1="105" x2="30" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <!-- nodes -->
-        <circle cx="80" cy="20" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="130" cy="50" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="110" cy="105" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="50" cy="105" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="30" cy="50" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-      </svg>
-      <div class="topology-diagram-label">Full Mesh</div>
-      <div class="topology-diagram-sub">n(n−1)/2 connections</div>
-    </div>
-
-    <!-- Partial Mesh -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- same 5 nodes, only some connected -->
-        <line x1="80" y1="20" x2="130" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="20" x2="30" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="130" y1="50" x2="110" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="30" y1="50" x2="50" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="110" y1="105" x2="50" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="20" x2="110" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <!-- missing connections shown as dashed -->
-        <line x1="130" y1="50" x2="30" y2="50" stroke="var(--hint)" stroke-width="1" stroke-dasharray="3,3"/>
-        <line x1="130" y1="50" x2="50" y2="105" stroke="var(--hint)" stroke-width="1" stroke-dasharray="3,3"/>
-        <!-- nodes -->
-        <circle cx="80" cy="20" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="130" cy="50" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="110" cy="105" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="50" cy="105" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="30" cy="50" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-      </svg>
-      <div class="topology-diagram-label">Partial Mesh</div>
-      <div class="topology-diagram-sub">Some redundant paths</div>
-    </div>
-
-    <!-- Hub-and-Spoke (WAN) -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- hub -->
-        <circle cx="80" cy="65" r="14" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2"/>
-        <text x="80" y="69" text-anchor="middle" font-size="8" fill="var(--blue)" font-weight="600">HQ</text>
-        <!-- spokes to branches -->
-        <line x1="80" y1="51" x2="80" y2="18" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="92" y1="58" x2="132" y2="38" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="92" y1="72" x2="132" y2="92" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="80" y1="79" x2="80" y2="112" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="68" y1="58" x2="28" y2="38" stroke="var(--border2)" stroke-width="1.5"/>
-        <!-- branch nodes -->
-        <circle cx="80" cy="12" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="138" cy="34" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="138" cy="96" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="80" cy="118" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="22" cy="34" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-      </svg>
-      <div class="topology-diagram-label">Hub-and-Spoke</div>
-      <div class="topology-diagram-sub">WAN — branches via HQ</div>
-    </div>
-
-  </div>
-
   <h3>WAN Topology Types</h3>
   <div class="table-wrap">
-    <table class="table--comparison">
+    <table>
       <thead>
         <tr><th>WAN Type</th><th>Description</th><th>Use Case</th></tr>
       </thead>
@@ -222,7 +75,7 @@
 
   <h3>Network Types by Scope</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table>
       <thead>
         <tr><th>Type</th><th>Scope</th><th>Examples</th></tr>
       </thead>
@@ -237,11 +90,6 @@
         <tr><td><strong>SOHO</strong> (Small Office / Home Office)</td><td>Small local network</td><td>Home router with switch+WAP, small business</td></tr>
       </tbody>
     </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">KEY DISTINCTION</div>
-    <strong>What breaks when one device fails?</strong> <strong>Bus:</strong> a single break splits the network in two. <strong>Ring:</strong> one failed node breaks the whole loop (unless dual-ring). <strong>Star:</strong> only the failed node loses connectivity — the rest keep working. This is why star is the dominant LAN topology.
   </div>
 
   <div class="callout callout-amber">
@@ -269,7 +117,3 @@
     <button class="ai-explain-btn" data-topic="network topology types and WAN architectures">✦ Explain Differently</button>
   </div>
 </div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 1.4 — Ports & Protocols
-     ═══════════════════════════════════════════ -->
