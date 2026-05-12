@@ -6,30 +6,92 @@
   <h3>What Is an IP Address?</h3>
   <p>An <strong>IPv4 address</strong> is a 32-bit number that uniquely identifies a device on a network. It is written as four <strong>octets</strong> (8-bit groups) in dotted-decimal notation — for example, <code>192.168.1.50</code>. Each octet ranges from 0 to 255.</p>
 
-  <div class="ip-explainer">
-    <p class="ip-explainer-caption">Example: <code>192.168.1.50/24</code> — the first 24 bits are the network portion, the last 8 bits are the host portion.</p>
-    <div class="ip-anatomy">
-      <div class="ip-octet net-octet">
-        <div class="ip-octet-value">192</div>
-        <div class="ip-octet-bin">1100 0000</div>
-      </div>
-      <div class="ip-octet net-octet">
-        <div class="ip-octet-value">168</div>
-        <div class="ip-octet-bin">1010 1000</div>
-      </div>
-      <div class="ip-octet net-octet">
-        <div class="ip-octet-value">1</div>
-        <div class="ip-octet-bin">0000 0001</div>
-      </div>
-      <div class="ip-octet host-octet">
-        <div class="ip-octet-value">50</div>
-        <div class="ip-octet-bin">0011 0010</div>
-      </div>
+  <!-- C9: Binary Conversion Explainer (collapsible accordion) -->
+  <div class="accordion-header">Binary Conversion — How IP Addresses Work in Binary</div>
+  <div class="accordion-body">
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem">Each octet is an 8-bit binary number. Bit positions represent powers of 2 from 128 (leftmost) to 1 (rightmost). Click the bit cells to toggle them and see the decimal total update live.</p>
+    <div class="binary-bit-header">
+      <div class="binary-bit-label">128</div>
+      <div class="binary-bit-label">64</div>
+      <div class="binary-bit-label">32</div>
+      <div class="binary-bit-label">16</div>
+      <div class="binary-bit-label">8</div>
+      <div class="binary-bit-label">4</div>
+      <div class="binary-bit-label">2</div>
+      <div class="binary-bit-label">1</div>
     </div>
-    <div class="ip-anatomy-legend">
-      <span class="net-legend">Network portion (fixed — identifies the subnet)</span>
-      <span class="host-legend">Host portion (variable — identifies the device)</span>
+    <div class="binary-bit-grid" id="bit-grid">
+      <div class="binary-bit-cell" data-value="128">0</div>
+      <div class="binary-bit-cell" data-value="64">0</div>
+      <div class="binary-bit-cell" data-value="32">0</div>
+      <div class="binary-bit-cell" data-value="16">0</div>
+      <div class="binary-bit-cell" data-value="8">0</div>
+      <div class="binary-bit-cell" data-value="4">0</div>
+      <div class="binary-bit-cell" data-value="2">0</div>
+      <div class="binary-bit-cell" data-value="1">0</div>
     </div>
+    <div class="binary-total-label">Decimal Total</div>
+    <div class="binary-total-display" id="bit-total">0</div>
+
+    <h4 style="margin-top:1.25rem">Worked Example: 192 = 11000000</h4>
+    <div class="binary-worked-example">
+      <div class="binary-worked-pos">
+        <span>128</span><span>64</span><span>32</span><span>16</span><span>8</span><span>4</span><span>2</span><span>1</span>
+      </div>
+      <div class="binary-worked-bits">
+        <span class="binary-worked-bit-1">1</span>
+        <span class="binary-worked-bit-1">1</span>
+        <span class="binary-worked-bit-0">0</span>
+        <span class="binary-worked-bit-0">0</span>
+        <span class="binary-worked-bit-0">0</span>
+        <span class="binary-worked-bit-0">0</span>
+        <span class="binary-worked-bit-0">0</span>
+        <span class="binary-worked-bit-0">0</span>
+      </div>
+      <div style="margin-top:0.5rem;font-size:0.85rem">128 + 64 = <strong style="color:var(--blue)">192</strong></div>
+    </div>
+
+    <div class="callout callout-teal" style="margin-top:0.75rem">
+      <div class="callout-title">Subnet Mask Connection</div>
+      A /24 mask (255.255.255.0) = <code>11111111.11111111.11111111.00000000</code> — 24 consecutive 1-bits mark the network. A /30 mask (255.255.255.252) = <code>11111111.11111111.11111111.11111100</code> — 30 ones, 2 zeros = 4 addresses, 2 usable.
+    </div>
+  </div>
+
+  <!-- C6: IPv4 Address Anatomy Bar v2 -->
+  <div class="ip-v2-container">
+    <div class="ip-v2-header-row">
+      <div class="ip-v2-header-cell">Octet 1</div>
+      <div class="ip-v2-header-cell">Octet 2</div>
+      <div class="ip-v2-header-cell">Octet 3</div>
+      <div class="ip-v2-header-cell">Octet 4</div>
+    </div>
+
+    <div class="ip-v2-row-label">IP Address — 192.168.1.50 &nbsp;<code style="font-size:0.68rem;font-weight:700">/24</code></div>
+    <div class="ip-v2-row">
+      <div class="ip-v2-cell ip-v2-cell-net"><div class="ip-v2-dec ip-v2-dec-net">192</div><div class="ip-v2-bin">1100 0000</div></div>
+      <div class="ip-v2-cell ip-v2-cell-net"><div class="ip-v2-dec ip-v2-dec-net">168</div><div class="ip-v2-bin">1010 1000</div></div>
+      <div class="ip-v2-cell ip-v2-cell-net"><div class="ip-v2-dec ip-v2-dec-net">1</div><div class="ip-v2-bin">0000 0001</div></div>
+      <div class="ip-v2-cell ip-v2-cell-host"><div class="ip-v2-dec ip-v2-dec-host">50</div><div class="ip-v2-bin">0011 0010</div></div>
+    </div>
+
+    <div class="ip-v2-row-label">Subnet Mask — 255.255.255.0</div>
+    <div class="ip-v2-row">
+      <div class="ip-v2-cell ip-v2-cell-net"><div class="ip-v2-dec ip-v2-dec-net">255</div><div class="ip-v2-bin">1111 1111</div></div>
+      <div class="ip-v2-cell ip-v2-cell-net"><div class="ip-v2-dec ip-v2-dec-net">255</div><div class="ip-v2-bin">1111 1111</div></div>
+      <div class="ip-v2-cell ip-v2-cell-net"><div class="ip-v2-dec ip-v2-dec-net">255</div><div class="ip-v2-bin">1111 1111</div></div>
+      <div class="ip-v2-cell ip-v2-cell-host"><div class="ip-v2-dec ip-v2-dec-host">0</div><div class="ip-v2-bin">0000 0000</div></div>
+    </div>
+
+    <div class="ip-v2-footer">
+      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span style="color:var(--blue);font-weight:700;font-size:0.82rem">Network</span></div>
+      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span style="color:var(--blue);font-weight:700;font-size:0.82rem">Network</span></div>
+      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span style="color:var(--blue);font-weight:700;font-size:0.82rem">Network</span></div>
+      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span style="color:var(--teal);font-weight:700;font-size:0.82rem">Host</span></div>
+    </div>
+  </div>
+  <div class="ip-v2-legend">
+    <span><span class="ip-v2-legend-dot" style="background:rgba(59,130,246,0.5)"></span>Network portion — identifies the subnet (fixed)</span>
+    <span><span class="ip-v2-legend-dot" style="background:rgba(20,184,166,0.5)"></span>Host portion — identifies the device (variable)</span>
   </div>
 
   <h4>The Subnet Mask</h4>
@@ -86,17 +148,18 @@
       <tbody>
         <tr><td>/8</td><td>255.0.0.0</td><td>16,777,216</td><td>16,777,214</td><td>Class A default</td></tr>
         <tr><td>/16</td><td>255.255.0.0</td><td>65,536</td><td>65,534</td><td>Class B default</td></tr>
-        <tr><td>/24</td><td>255.255.255.0</td><td>256</td><td>254</td><td>Most common LAN subnet</td></tr>
+        <tr class="cidr-row-highlight"><td>/24 ★</td><td>255.255.255.0</td><td>256</td><td>254</td><td>Most common LAN subnet</td></tr>
         <tr><td>/25</td><td>255.255.255.128</td><td>128</td><td>126</td><td>Split /24 in half</td></tr>
         <tr><td>/26</td><td>255.255.255.192</td><td>64</td><td>62</td><td>Small department</td></tr>
         <tr><td>/27</td><td>255.255.255.224</td><td>32</td><td>30</td><td>Small team</td></tr>
         <tr><td>/28</td><td>255.255.255.240</td><td>16</td><td>14</td><td>Small workgroup</td></tr>
         <tr><td>/29</td><td>255.255.255.248</td><td>8</td><td>6</td><td>Small segment</td></tr>
-        <tr><td>/30</td><td>255.255.255.252</td><td>4</td><td>2</td><td>Point-to-point WAN links</td></tr>
-        <tr><td>/31</td><td>255.255.255.254</td><td>2</td><td>2 (P2P RFC 3021)</td><td>Point-to-point (no broadcast)</td></tr>
+        <tr class="cidr-row-highlight"><td>/30 ★</td><td>255.255.255.252</td><td>4</td><td>2</td><td>Point-to-point WAN links</td></tr>
+        <tr><td>/31</td><td>255.255.255.254</td><td>2</td><td>2 (P2P RFC 3021)</td><td>Point-to-point (no broadcast addr)</td></tr>
         <tr><td>/32</td><td>255.255.255.255</td><td>1</td><td>1 (host route)</td><td>Single host, loopback</td></tr>
       </tbody>
     </table>
+    <div class="cidr-footer-note">★ Exam priority. Note: /31 and /32 are exceptions to the "subtract 2" rule — /31 uses both addresses per RFC 3021 (P2P only); /32 is a single host route.</div>
   </div>
 
 
@@ -104,6 +167,86 @@
     <div class="callout-title">REMEMBER THIS</div>
     <strong>/24</strong> = 256 addresses, 254 usable hosts (subtract network + broadcast). <strong>/30</strong> = 4 addresses, 2 usable hosts — the standard choice for point-to-point WAN links. <strong>/31</strong> = 2 addresses, both usable on point-to-point links per RFC 3021. <strong>/32</strong> = a single host route.
   </div>
+
+  <!-- C8: Subnetting Methods -->
+  <h3>Subnetting Methods</h3>
+  <div class="subnet-methods-grid">
+
+    <!-- Method 1: Powers of 2 -->
+    <div class="subnet-method-card">
+      <div class="subnet-method-title">Powers of 2 <span class="subnet-method-tag">Mental Math</span></div>
+      <div class="subnet-method-desc">Memorise 2¹ through 2⁸: 2, 4, 8, 16, 32, 64, 128, 256. Host bits = 32 − prefix. Usable hosts = 2<sup>host bits</sup> − 2. Pick the next power of 2 that satisfies the host requirement.</div>
+      <div class="subnet-method-example">Need 50 hosts → 2⁶ = 64 (62 usable) → /26
+Need 200 hosts → 2⁸ = 256 (254 usable) → /24</div>
+    </div>
+
+    <!-- Method 2: Magic Number -->
+    <div class="subnet-method-card">
+      <div class="subnet-method-title">Magic Number <span class="subnet-method-tag">Fast</span></div>
+      <div class="subnet-method-desc">Magic number = 256 − interesting mask octet. Network addresses increment by the magic number. Find the multiple of the magic number ≤ host octet = network address. Broadcast = next multiple − 1.</div>
+      <div class="subnet-method-example">172.16.45.14 /20 → mask 255.255.240.0
+Magic = 256 − 240 = 16
+Multiples of 16: 0, 16, 32, 48 → 32 ≤ 45
+Network: 172.16.32.0  Broadcast: 172.16.47.255</div>
+    </div>
+
+    <!-- Method 3: Binary AND -->
+    <div class="subnet-method-card">
+      <div class="subnet-method-title">Binary AND <span class="subnet-method-tag">Precise</span></div>
+      <div class="subnet-method-desc">AND the host IP with the subnet mask bit-by-bit. The result is the network address. Most reliable for non-octet boundaries (/20, /22, /27, etc.).</div>
+      <div class="subnet-method-example">IP:   172.16.45.14  → 0010 1101
+Mask: 255.255.240.0 → 1111 0000
+AND:  172.16.32.0   → 0010 0000</div>
+    </div>
+
+    <!-- Method 4: 7-Second Method -->
+    <div class="subnet-method-card">
+      <div class="subnet-method-title">7-Second Method <span class="subnet-method-tag">PBQ Speed</span></div>
+      <div class="subnet-method-desc">Write two lookup charts at the start of your exam. Chart 1 maps prefix → mask → hosts. Chart 2 maps hosts needed → smallest prefix. Designed for maximum speed under time pressure.</div>
+      <div class="subnet-attribution">Chart approach popularised by Prof. James Messer (professormesser.com) for CompTIA exam prep.</div>
+
+      <div style="margin-top:0.75rem;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--muted)">Chart 1 — Prefix → Usable Hosts</div>
+      <div class="subnet-chart subnet-chart-4col" style="margin-bottom:0.75rem">
+        <div class="subnet-chart-header">Prefix</div><div class="subnet-chart-header">Mask (last octet)</div><div class="subnet-chart-header">Total</div><div class="subnet-chart-header">Usable</div>
+        <div>/25</div><div>128</div><div>128</div><div>126</div>
+        <div>/26</div><div>192</div><div>64</div><div>62</div>
+        <div>/27</div><div>224</div><div>32</div><div>30</div>
+        <div>/28</div><div>240</div><div>16</div><div>14</div>
+        <div>/29</div><div>248</div><div>8</div><div>6</div>
+        <div class="subnet-chart-highlight">/30</div><div class="subnet-chart-highlight">252</div><div class="subnet-chart-highlight">4</div><div class="subnet-chart-highlight">2 (P2P)</div>
+      </div>
+
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--muted)">Chart 2 — Hosts Needed → Prefix</div>
+      <div class="subnet-chart subnet-chart-3col">
+        <div class="subnet-chart-header">Hosts Needed</div><div class="subnet-chart-header">Use Prefix</div><div class="subnet-chart-header">Usable</div>
+        <div class="subnet-chart-highlight">2</div><div class="subnet-chart-highlight">/30</div><div class="subnet-chart-highlight">2</div>
+        <div>3–6</div><div>/29</div><div>6</div>
+        <div>7–14</div><div>/28</div><div>14</div>
+        <div>15–30</div><div>/27</div><div>30</div>
+        <div>31–62</div><div>/26</div><div>62</div>
+        <div>63–126</div><div>/25</div><div>126</div>
+        <div class="subnet-chart-highlight">127–254</div><div class="subnet-chart-highlight">/24</div><div class="subnet-chart-highlight">254</div>
+      </div>
+    </div>
+
+  </div>
+
+  <h4>Method Selection Guide</h4>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Scenario</th><th>Best Method</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Prefix ends on octet boundary (/8, /16, /24)</td><td>Powers of 2</td><td>Full octets — trivial arithmetic</td></tr>
+        <tr><td>Find network / broadcast for a given host IP</td><td>Magic Number or Binary AND</td><td>Quick iteration or exact precision</td></tr>
+        <tr><td>Non-octet boundary (/20, /22, /27)</td><td>Binary AND</td><td>Only reliable method for partial octets</td></tr>
+        <tr><td>PBQ: design subnets for N departments under time pressure</td><td>7-Second Charts</td><td>Charts already written — fastest lookup</td></tr>
+        <tr><td>Find smallest prefix for X hosts</td><td>Powers of 2 / Chart 2</td><td>Round up to next power of 2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3>Interactive Subnetting Calculator</h3>
   <div class="subnet-calc" id="subnet-calc">
     <form id="subnet-form">
