@@ -1844,7 +1844,9 @@ tr[data-exam-weight="high"] td:first-child::before {
 .cloud-deploy-card-public  { border-top-color: var(--blue); }
 .cloud-deploy-card-private { border-top-color: var(--green); }
 .cloud-deploy-card-hybrid  { border-top-color: var(--teal); }
-.cloud-deploy-card-multi   { border-top-color: var(--purple); }
+.cloud-deploy-card-multi      { border-top-color: var(--purple); }
+.cloud-deploy-card-community  { border-top-color: var(--amber); }
+.cloud-deploy-badge-community { background: var(--amber-bg); color: var(--amber); }
 .cloud-deploy-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.15rem; }
 .cloud-deploy-badge { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; padding: 0.1rem 0.45rem; border-radius: 20px; display: inline-block; margin-left: 0.4rem; vertical-align: middle; }
 .cloud-deploy-badge-public  { background: var(--blue-bg); color: var(--blue); }

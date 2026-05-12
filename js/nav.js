@@ -483,7 +483,7 @@ function initGuidedSubnetting() {
     ],
     powers: [
       {prefix:25},{prefix:26},{prefix:27},{prefix:28},
-      {prefix:29},{prefix:30},{prefix:20},{prefix:22},
+      {prefix:29},{prefix:30},{prefix:28},{prefix:25},
     ],
     and: [
       {ip:'10.0.5.200',prefix:27},{ip:'192.168.1.175',prefix:26},
@@ -615,7 +615,8 @@ function initGuidedSubnetting() {
   }
 
   function normalize(val,type) {
-    return val.trim().replace(/\s+/g,'');
+    const s=val.trim().replace(/\s+/g,'');
+    return type==='binary' ? s.replace(/[^01]/g,'') : s;
   }
 
   function checkAnswers() {

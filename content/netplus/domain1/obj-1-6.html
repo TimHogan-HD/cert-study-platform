@@ -142,6 +142,11 @@
       <div class="cloud-deploy-desc">Using multiple public CSPs simultaneously to avoid vendor lock-in, optimize costs, or leverage regional presence. Adds operational complexity.</div>
       <div class="cloud-deploy-example">AWS + Azure + GCP simultaneously</div>
     </div>
+    <div class="cloud-deploy-card cloud-deploy-card-community">
+      <div class="cloud-deploy-title">Community Cloud <span class="cloud-deploy-badge cloud-deploy-badge-community">Shared Sector</span></div>
+      <div class="cloud-deploy-desc">Infrastructure shared by several organizations with common concerns — regulatory, compliance, or mission. More controlled than public, less costly than each running private.</div>
+      <div class="cloud-deploy-example">Government clouds (FedRAMP/GovCloud), healthcare consortiums</div>
+    </div>
   </div>
 
   <h3>Network Virtualization</h3>
@@ -179,8 +184,8 @@
         <tr><th>Control</th><th>Type</th><th>Stateful?</th><th>Scope</th><th>Notes</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>AWS Security Group / Azure NSG</strong></td><td>Virtual firewall</td><td>Yes (stateful)</td><td>Per-instance / per-NIC</td><td>Return traffic automatically allowed; rules apply to specific resources</td></tr>
-        <tr><td><strong>AWS <abbr title="Network Access Control List">NACL</abbr> / OCI Security List</strong></td><td>Subnet ACL</td><td>No (stateless)</td><td>Per-subnet</td><td>Must explicitly allow both inbound AND outbound for each flow</td></tr>
+        <tr data-exam-weight="high"><td><strong>AWS Security Group / Azure NSG</strong></td><td>Virtual firewall</td><td>Yes (stateful)</td><td>Per-instance / per-NIC</td><td>Return traffic automatically allowed; rules apply to specific resources</td></tr>
+        <tr data-exam-weight="high"><td><strong>AWS <abbr title="Network Access Control List">NACL</abbr> / OCI Security List</strong></td><td>Subnet ACL</td><td>No (stateless)</td><td>Per-subnet</td><td>Must explicitly allow both inbound AND outbound for each flow</td></tr>
         <tr><td><strong>Internet Gateway</strong></td><td>VPC attachment</td><td>N/A</td><td>VPC-level</td><td>Bidirectional public internet access for resources with public IPs</td></tr>
         <tr><td><strong>NAT Gateway / NAT Instance</strong></td><td>Address translation</td><td>Yes</td><td>VPC-level</td><td>Outbound-only internet for private subnet instances — no inbound initiated connections</td></tr>
       </tbody>
