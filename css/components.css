@@ -1362,6 +1362,7 @@ tr[data-exam-weight="high"] td:first-child::before {
 
 .protocol-ref-table {
   table-layout: fixed;
+  min-width: 0;
 }
 
 .protocol-ref-cols .protocol-ref-col-port     { width: 12%; }
@@ -1416,10 +1417,19 @@ tr[data-exam-weight="high"] td:first-child::before {
 
 .protocol-ref-face.protocol-ref-back {
   opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-front { opacity: 0; }
-.protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-back  { opacity: 1; }
+.protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-front {
+  opacity: 0;
+  pointer-events: none;
+}
+.protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-back  {
+  opacity: 1;
+  pointer-events: auto;
+  overflow-y: auto;
+}
 
 /* State tinting — applies to td background + both faces */
 .protocol-ref-row[data-protocol-state="legacy"] td,
