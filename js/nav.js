@@ -498,9 +498,10 @@ function initGuidedSubnetting() {
     const magic=256-mask[3], net=sgNet(ip,prefix), bcast=sgBcast(ip,prefix);
     const first=sgAdd1(net), last=sgSub1(bcast), ipOc=ip.split('.').map(Number);
     const bitsInLast=prefix-24;
+    const bitVals=[128,64,32,16,8,4,2,1].slice(0,bitsInLast).join(' + ');
     return [
       {instruction:`What is the subnet mask for /${prefix}?`,
-       hint:`/${prefix} puts ${bitsInLast} prefix bit(s) into the 4th octet. The 4th octet fills bit positions left to right: 128, 64, 32, 16, 8, 4, 2, 1. Add up the first ${bitsInLast} of those values. The first three octets are all 1s = 255.`,
+       hint:`The first three octets are always 255. For the 4th octet: /${prefix} goes ${bitsInLast} bit(s) past /24, so add ${bitsInLast} value(s) from the left of the bit chart — ${bitVals}.`,
        placeholder:'255.255.255.___',answer:maskStr,type:'ip'},
       {instruction:`Your mask is ${maskStr}. Subtract the last active octet from 256. What is the magic number (block size)?`,
        hint:`256 − ${mask[3]} = ? This number is how far apart each subnet boundary is.`,
@@ -530,6 +531,7 @@ function initGuidedSubnetting() {
     const {prefix}=p, hb=32-prefix, total=Math.pow(2,hb);
     const usable=prefix===31?2:prefix===32?1:total-2;
     const bitsInLast=prefix-24;
+    const bitVals=[128,64,32,16,8,4,2,1].slice(0,bitsInLast).join(' + ');
     return [
       {instruction:`How many host bits are in a /${prefix} network?`,
        hint:`An IP address has 32 bits total. The prefix uses ${prefix} for the network — the rest are host bits.`,
@@ -541,7 +543,7 @@ function initGuidedSubnetting() {
        hint:`One address is the network ID (all host bits 0), one is the broadcast (all host bits 1). Both are reserved. Exception: /31 = 2 usable, /32 = 1.`,
        placeholder:'Usable hosts',answer:String(usable),type:'number'},
       {instruction:`What is the subnet mask for /${prefix}?`,
-       hint:`/${prefix} puts ${bitsInLast} prefix bit(s) into the 4th octet. The 4th octet fills bit positions left to right: 128, 64, 32, 16, 8, 4, 2, 1. Add up the first ${bitsInLast} of those values. The first three octets are all 1s = 255.`,
+       hint:`The first three octets are always 255. For the 4th octet: /${prefix} goes ${bitsInLast} bit(s) past /24, so add ${bitsInLast} value(s) from the left of the bit chart — ${bitVals}.`,
        placeholder:'255.255.255.___',answer:sgStr(sgMask(prefix)),type:'ip'},
     ];
   }
@@ -551,9 +553,10 @@ function initGuidedSubnetting() {
     const ipOc=ip.split('.').map(Number), net=sgNet(ip,prefix);
     const intOct=ipOc[3], maskOct=mask[3], netOct=net[3];
     const bitsInLast=prefix-24;
+    const bitVals=[128,64,32,16,8,4,2,1].slice(0,bitsInLast).join(' + ');
     return [
       {instruction:`What is the subnet mask for /${prefix}?`,
-       hint:`/${prefix} puts ${bitsInLast} prefix bit(s) into the 4th octet. The 4th octet fills bit positions left to right: 128, 64, 32, 16, 8, 4, 2, 1. Add up the first ${bitsInLast} of those values. The first three octets are all 1s = 255.`,
+       hint:`The first three octets are always 255. For the 4th octet: /${prefix} goes ${bitsInLast} bit(s) past /24, so add ${bitsInLast} value(s) from the left of the bit chart — ${bitVals}.`,
        placeholder:'255.255.255.___',answer:maskStr,type:'ip'},
       {instruction:`Convert the last octet of the IP address (${intOct}) to 8-bit binary:`,
        hint:'Bit values left to right: 128, 64, 32, 16, 8, 4, 2, 1. Write all 8 digits, including leading zeros.',
