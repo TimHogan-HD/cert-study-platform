@@ -1978,3 +1978,191 @@ tr[data-exam-weight="high"] td:first-child::before {
   .ipv6-config-grid { grid-template-columns: 1fr; }
 }
 .check-section .check-item:first-child { border-top: none; }
+
+/* ══════════════════════════════════════════════════════
+   DOMAIN 1 REDESIGN — BATCH 2 COMPONENTS
+   ══════════════════════════════════════════════════════ */
+
+/* ── TCP/IP vs OSI comparison table ───────────────── */
+.tcpip-comparison { width: 100%; border-collapse: collapse; }
+.tcpip-comparison th { padding: 0.4rem 0.75rem; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); background: var(--surface3); border: 1px solid var(--border2); text-align: center; }
+.tcpip-comparison td { border: 1px solid var(--border2); vertical-align: middle; padding: 0; }
+.tcpip-layer { font-weight: 700; font-size: 0.88rem; text-align: center; padding: 0.6rem 0.75rem; }
+.tcpip-protocols { font-size: 0.72rem; color: var(--muted); padding: 0.4rem 0.65rem; }
+.tcpip-arrow-cell { text-align: center; color: var(--hint); font-size: 0.82rem; padding: 0.35rem 0.4rem; background: var(--surface3); }
+.osi-num-cell { text-align: center; font-weight: 700; font-size: 0.82rem; padding: 0.35rem 0.4rem; }
+.osi-name-cell { padding: 0.35rem 0.65rem; font-size: 0.82rem; font-weight: 500; }
+.tcpip-app { background: var(--purple-bg); color: var(--purple); }
+.tcpip-transport { background: var(--blue-bg); color: var(--blue); }
+.tcpip-internet { background: var(--teal-bg); color: var(--teal); }
+.tcpip-netaccess { background: var(--amber-bg); color: var(--amber); }
+.osi-num-7, .osi-name-7 { background: var(--purple-bg); } .osi-num-7 { color: var(--purple); }
+.osi-num-6, .osi-name-6 { background: rgba(168,85,247,0.07); } .osi-num-6 { color: var(--purple); }
+.osi-num-5, .osi-name-5 { background: rgba(168,85,247,0.04); } .osi-num-5 { color: var(--purple); }
+.osi-num-4, .osi-name-4 { background: var(--blue-bg); } .osi-num-4 { color: var(--blue); }
+.osi-num-3, .osi-name-3 { background: var(--teal-bg); } .osi-num-3 { color: var(--teal); }
+.osi-num-2, .osi-name-2 { background: var(--amber-bg); } .osi-num-2 { color: var(--amber); }
+.osi-num-1, .osi-name-1 { background: var(--red-bg); } .osi-num-1 { color: var(--red); }
+
+/* ── IPv4 address classes table ────────────────────── */
+.addr-class-wrap { border: 1px solid var(--border2); border-radius: var(--radius-lg); overflow: hidden; margin: 0.75rem 0; }
+.addr-class-head { display: grid; grid-template-columns: 2.8rem 5.5rem 7rem 1fr 1fr; background: var(--surface3); border-bottom: 1px solid var(--border2); }
+.addr-class-head span { padding: 0.38rem 0.65rem; font-size: 0.64rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); border-right: 1px solid var(--border2); }
+.addr-class-head span:last-child { border-right: none; }
+.addr-class-row { display: grid; grid-template-columns: 2.8rem 5.5rem 7rem 1fr 1fr; border-top: 1px solid var(--border2); align-items: center; }
+.addr-class-row:nth-child(even) { background: var(--surface2); }
+.addr-class-row.addr-class-dim { opacity: 0.65; }
+.addr-class-cell { padding: 0.5rem 0.65rem; font-size: 0.8rem; border-right: 1px solid var(--border2); }
+.addr-class-cell:last-child { border-right: none; color: var(--muted); font-size: 0.76rem; }
+.addr-class-badge { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; border-radius: var(--radius); font-size: 0.78rem; font-weight: 700; }
+.addr-class-a { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-border); }
+.addr-class-b { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+.addr-class-c { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+.addr-class-d { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.addr-class-e { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.addr-class-mono { font-family: monospace; font-size: 0.76rem; }
+@media (max-width: 600px) { .addr-class-head, .addr-class-row { grid-template-columns: 2.5rem 1fr 1fr; } .addr-class-head span:nth-child(3), .addr-class-cell:nth-child(3) { display: none; } }
+
+/* ── Special IPv4 address cards ────────────────────── */
+.special-addr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin: 0.75rem 0; }
+.special-addr-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.75rem 1rem; border-left: 3px solid var(--border2); }
+.special-addr-card-loopback { border-left-color: var(--blue); }
+.special-addr-card-apipa { border-left-color: var(--red); }
+.special-addr-card-default { border-left-color: var(--green); }
+.special-addr-card-broadcast { border-left-color: var(--amber); }
+.special-addr-addr { font-family: monospace; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+.special-addr-card-loopback .special-addr-addr { color: var(--blue); }
+.special-addr-card-apipa .special-addr-addr { color: var(--red); }
+.special-addr-card-default .special-addr-addr { color: var(--green); }
+.special-addr-card-broadcast .special-addr-addr { color: var(--amber); }
+.special-addr-name { font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+.special-addr-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
+@media (max-width: 480px) { .special-addr-grid { grid-template-columns: 1fr; } }
+
+/* ── CIDR reference grid ────────────────────────────── */
+.cidr-grid-wrap { border: 1px solid var(--border2); border-radius: var(--radius-lg); overflow: hidden; margin: 0.75rem 0; }
+.cidr-grid-head { display: grid; grid-template-columns: 3.2rem 9.5rem 5.5rem 4.5rem 1fr; background: var(--surface3); border-bottom: 1px solid var(--border2); }
+.cidr-grid-head span { padding: 0.38rem 0.65rem; font-size: 0.64rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); border-right: 1px solid var(--border2); }
+.cidr-grid-head span:last-child { border-right: none; }
+.cidr-grid-row { display: grid; grid-template-columns: 3.2rem 9.5rem 5.5rem 4.5rem 1fr; border-top: 1px solid var(--border2); align-items: center; }
+.cidr-grid-row:nth-child(even) { background: var(--surface2); }
+.cidr-grid-cell { padding: 0.46rem 0.65rem; font-size: 0.8rem; border-right: 1px solid var(--border2); }
+.cidr-grid-cell:last-child { border-right: none; font-size: 0.74rem; color: var(--muted); }
+.cidr-prefix { font-family: monospace; font-weight: 700; color: var(--text); }
+.cidr-mask { font-family: monospace; font-size: 0.74rem; color: var(--muted); }
+.cidr-num { font-family: monospace; color: var(--muted); }
+.cidr-usable { font-family: monospace; font-weight: 600; color: var(--text); }
+.cidr-tag { display: inline-block; font-size: 0.62rem; padding: 0.08rem 0.38rem; border-radius: 3px; margin-right: 0.2rem; font-weight: 500; vertical-align: middle; }
+.cidr-tag-blue { background: var(--blue-bg); color: var(--blue); }
+.cidr-tag-teal { background: var(--teal-bg); color: var(--teal); }
+.cidr-tag-amber { background: var(--amber-bg); color: var(--amber); }
+.cidr-grid-note { padding: 0.4rem 0.65rem; font-size: 0.7rem; color: var(--hint); border-top: 1px solid var(--border2); }
+@media (max-width: 600px) { .cidr-grid-head, .cidr-grid-row { grid-template-columns: 2.8rem 1fr 3.5rem 3.5rem; } .cidr-grid-head span:nth-child(5), .cidr-grid-cell:nth-child(5) { display: none; } }
+
+/* ── Full subnetting method cards ───────────────────── */
+.method-card { border: 1px solid var(--border2); border-radius: var(--radius-lg); background: var(--surface2); margin-bottom: 0.75rem; overflow: hidden; }
+.method-header { padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--border2); display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; background: var(--surface3); }
+.method-name { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+.method-tag { font-size: 0.62rem; font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0; }
+.method-tag-fast { background: var(--green-bg); color: var(--green); }
+.method-tag-reliable { background: var(--blue-bg); color: var(--blue); }
+.method-tag-visual { background: var(--purple-bg); color: var(--purple); }
+.method-tag-pbq { background: var(--amber-bg); color: var(--amber); }
+.method-body { padding: 0.85rem 0.9rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+.method-col-label { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); margin-bottom: 0.4rem; }
+.method-steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+.method-steps li { counter-increment: step; font-size: 0.8rem; color: var(--muted); padding: 0.22rem 0 0.22rem 1.5rem; position: relative; line-height: 1.5; }
+.method-steps li::before { content: counter(step); position: absolute; left: 0; top: 0.28rem; width: 1rem; height: 1rem; border-radius: 50%; background: var(--surface3); border: 1px solid var(--border2); font-size: 0.6rem; font-weight: 700; color: var(--hint); display: flex; align-items: center; justify-content: center; line-height: 1; }
+.method-example { background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.65rem 0.85rem; font-size: 0.8rem; margin-top: 0.5rem; }
+.ex-q { font-size: 0.7rem; color: var(--hint); margin-bottom: 0.4rem; font-style: italic; }
+.ex-step { display: flex; gap: 0.5rem; margin-bottom: 0.22rem; align-items: baseline; }
+.ex-step:last-of-type { margin-bottom: 0; }
+.ex-label { color: var(--hint); flex-shrink: 0; width: 3.5rem; font-size: 0.7rem; }
+.ex-val { font-family: monospace; color: var(--text); font-weight: 500; font-size: 0.78rem; }
+.ex-note { color: var(--hint); font-size: 0.67rem; margin-left: 0.25rem; font-style: italic; display: block; margin-top: 0.15rem; padding-left: 0; }
+.ex-divider { border: none; border-top: 1px solid var(--border2); margin: 0.4rem 0; }
+.ex-answer { font-size: 0.8rem; font-weight: 700; color: var(--green); margin-top: 0.2rem; }
+.powers-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; margin-bottom: 0.35rem; }
+.powers-cell { text-align: center; border-radius: var(--radius); padding: 0.35rem 0.1rem; background: var(--surface); border: 1px solid var(--border2); }
+.powers-exp { font-size: 0.58rem; color: var(--hint); }
+.powers-val { font-size: 0.74rem; font-weight: 700; font-family: monospace; color: var(--text); }
+.magic-table { width: 100%; border-collapse: collapse; font-size: 0.76rem; margin-top: 0.4rem; }
+.magic-table th { font-size: 0.63rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--hint); padding: 0.28rem 0.5rem; border-bottom: 1px solid var(--border2); text-align: left; }
+.magic-table td { padding: 0.28rem 0.5rem; border-bottom: 1px solid var(--border2); font-family: monospace; color: var(--muted); font-size: 0.76rem; }
+.magic-table tr:last-child td { border-bottom: none; }
+.magic-hl { color: var(--text) !important; font-weight: 700 !important; }
+@media (max-width: 600px) { .method-body { grid-template-columns: 1fr; } }
+
+/* ── 7-Second Subnetting components ─────────────────── */
+.ss-intro { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 0.75rem; }
+.ss-intro-title { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.ss-intro-body { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+.ss-intro-attr { font-size: 0.68rem; color: var(--hint); margin-top: 0.35rem; }
+.ss-charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+.ss-chart-block { border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; }
+.ss-chart-header { background: var(--surface3); padding: 0.42rem 0.65rem; border-bottom: 1px solid var(--border2); }
+.ss-chart-header + .ss-chart-header { border-top: 1px solid var(--border2); }
+.ss-chart-title { font-size: 0.74rem; font-weight: 700; color: var(--muted); }
+.ss-chart-sub { font-size: 0.64rem; color: var(--hint); margin-top: 0.1rem; }
+.ss-c1-head, .ss-c1-row { display: grid; grid-template-columns: 2.8rem 1fr 3.2rem 3.2rem; }
+.ss-c1-head { background: var(--surface3); border-top: 1px solid var(--border2); }
+.ss-c1-row { border-top: 1px solid var(--border2); }
+.ss-c1-row:nth-child(even) { background: var(--surface2); }
+.ss-c1-cell { padding: 0.3rem 0.45rem; font-size: 0.72rem; font-family: monospace; color: var(--muted); border-right: 1px solid var(--border2); }
+.ss-c1-cell:last-child { border-right: none; }
+.ss-c1-cell.ss-bold { font-weight: 700; color: var(--hint); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.ss-c2-section { border-top: 1px solid var(--border2); }
+.ss-c2-section:first-child { border-top: none; }
+.ss-c2-label { padding: 0.25rem 0.65rem; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--hint); background: var(--surface3); border-bottom: 1px solid var(--border2); }
+.ss-c2-row { display: flex; align-items: baseline; padding: 0.28rem 0.65rem; border-top: 1px solid var(--border2); gap: 0.5rem; }
+.ss-c2-row:first-child { border-top: none; }
+.ss-c2-prefix { font-size: 0.74rem; font-weight: 700; font-family: monospace; color: var(--text); flex-shrink: 0; width: 2.75rem; }
+.ss-c2-bounds { font-size: 0.68rem; font-family: monospace; color: var(--muted); flex: 1; line-height: 1.5; }
+.ss-c2-footer { padding: 0.38rem 0.65rem; font-size: 0.63rem; color: var(--hint); border-top: 1px solid var(--border2); }
+.ss-steps-wrap { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.85rem; }
+.ss-step-card { border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-columns: 2.75rem 1fr; }
+.ss-step-num { display: flex; align-items: center; justify-content: center; font-size: 1.15rem; font-weight: 700; color: var(--hint); background: var(--surface3); border-right: 1px solid var(--border2); }
+.ss-step-body { padding: 0.6rem 0.9rem; }
+.ss-step-title { font-size: 0.84rem; font-weight: 700; color: var(--text); margin-bottom: 0.18rem; }
+.ss-step-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.ss-step-tip { font-size: 0.7rem; color: var(--hint); margin-top: 0.22rem; font-style: italic; }
+.ss-example-wrap { border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; margin-bottom: 0.85rem; }
+.ss-example-header { background: var(--blue-bg); border-bottom: 1px solid var(--blue-border); padding: 0.48rem 0.9rem; display: flex; align-items: baseline; gap: 0.65rem; flex-wrap: wrap; }
+.ss-example-label { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--blue); flex-shrink: 0; }
+.ss-example-q { font-size: 0.8rem; font-weight: 700; color: var(--text); font-family: monospace; }
+.ss-example-steps { padding: 0.75rem 0.9rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.ss-ex-row { display: grid; grid-template-columns: 1.2rem 5.5rem 1fr; gap: 0.5rem; align-items: baseline; }
+.ss-ex-n { font-size: 0.62rem; font-weight: 700; color: var(--hint); text-align: center; }
+.ss-ex-label { font-size: 0.7rem; color: var(--hint); }
+.ss-ex-val { font-family: monospace; color: var(--text); font-weight: 500; font-size: 0.78rem; }
+.ss-ex-note { font-size: 0.68rem; color: var(--hint); font-style: italic; grid-column: 2 / -1; margin-top: -0.2rem; }
+.ss-answer-row { margin-top: 0.4rem; padding: 0.5rem 0.75rem; background: var(--green-bg); border: 1px solid var(--green-border); border-radius: var(--radius); display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+.ss-ans-label { color: var(--hint); font-size: 0.62rem; margin-bottom: 0.08rem; }
+.ss-ans-val { font-family: monospace; font-weight: 700; color: var(--green); font-size: 0.78rem; }
+.ss-exam-tip { background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: var(--radius); padding: 0.65rem 0.9rem; font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+.ss-exam-tip strong { color: var(--amber); font-weight: 600; }
+@media (max-width: 600px) { .ss-charts-grid { grid-template-columns: 1fr; } .ss-ex-row { grid-template-columns: 1.2rem 1fr; } .ss-answer-row { grid-template-columns: 1fr 1fr; } }
+
+/* ── IPv6 shortening step visual ─────────────────────── */
+.ipv6-shorten-wrap { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius-lg); overflow: hidden; }
+.ipv6-shorten-row { display: grid; grid-template-columns: 3.75rem 1fr; border-bottom: 1px solid var(--border2); }
+.ipv6-shorten-row:last-child { border-bottom: none; }
+.ipv6-shorten-side { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0.9rem 0.5rem; background: var(--surface3); border-right: 1px solid var(--border2); gap: 0.25rem; }
+.ipv6-shorten-num { font-size: 1.1rem; font-weight: 700; color: var(--hint); }
+.ipv6-shorten-tag { font-size: 0.56rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--hint); text-align: center; line-height: 1.3; }
+.ipv6-shorten-main { padding: 0.9rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.ipv6-shorten-groups { display: flex; align-items: center; flex-wrap: wrap; gap: 0; font-family: monospace; font-weight: 600; }
+.ipv6-shorten-sep { color: var(--hint); padding: 0 1px; font-size: 0.88rem; }
+.ipv6-shorten-grp { display: inline-flex; flex-direction: column; align-items: center; border-radius: 4px; padding: 0.3rem 0.3rem 0.18rem; text-align: center; }
+.ipv6-shorten-grp-val { font-size: 0.85rem; font-weight: 700; line-height: 1; }
+.ipv6-shorten-grp-sub { font-size: 0.48rem; margin-top: 0.18rem; font-weight: 400; opacity: 0.6; }
+.ipv6-shorten-normal { color: var(--text); }
+.ipv6-shorten-zero-full { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.ipv6-shorten-zero-trimmed { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.ipv6-shorten-collapsed { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); padding: 0.3rem 0.65rem 0.18rem !important; font-size: 0.95rem; }
+.ipv6-shorten-note { font-size: 0.72rem; color: var(--hint); line-height: 1.6; }
+.ipv6-shorten-note strong { color: var(--muted); }
+.ipv6-shorten-connector { display: flex; align-items: center; justify-content: center; height: 1.25rem; background: var(--surface3); border-bottom: 1px solid var(--border2); }
+.ipv6-shorten-result { margin-top: 0.65rem; font-size: 0.72rem; color: var(--hint); padding: 0.5rem 0.75rem; background: var(--surface2); border-radius: var(--radius); border: 1px solid var(--border2); line-height: 1.6; }
+.ipv6-shorten-result-val { font-family: monospace; font-weight: 700; color: var(--text); }
+.ipv6-shorten-result-purple { font-family: monospace; font-weight: 700; color: var(--purple); }

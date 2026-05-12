@@ -71,25 +71,98 @@
   </div>
 
   <h3>IPv6 Address Format &amp; Shortening Rules</h3>
-  <p>Full IPv6: <code>2001:0db8:0000:0000:0000:0000:0000:0001</code></p>
-  <div class="ipv6-rules">
-    <div class="ipv6-rule">
-      <div class="ipv6-rule-num">1</div>
-      <div>
-        <div class="ipv6-rule-title">Drop leading zeros in each group</div>
-        <div class="ipv6-rule-before">2001:<strong>0</strong>db8:<strong>0</strong>000:<strong>0</strong>000:<strong>0</strong>000:<strong>0</strong>000:<strong>0</strong>000:<strong>0</strong>001</div>
-        <div class="ipv6-rule-after">2001:db8:0:0:0:0:0:1</div>
+  <p>Full example: <code>2001:0db8:0000:0000:0000:0000:0000:0001</code> → shortened to <code>2001:db8::1</code></p>
+
+  <div class="ipv6-shorten-wrap">
+
+    <!-- Step 1: Full address -->
+    <div class="ipv6-shorten-row">
+      <div class="ipv6-shorten-side">
+        <div class="ipv6-shorten-num">1</div>
+        <div class="ipv6-shorten-tag">Full address</div>
+      </div>
+      <div class="ipv6-shorten-main">
+        <div class="ipv6-shorten-groups">
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">2001</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">0db8</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span><span class="ipv6-shorten-grp-sub">zero</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span><span class="ipv6-shorten-grp-sub">zero</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span><span class="ipv6-shorten-grp-sub">zero</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span><span class="ipv6-shorten-grp-sub">zero</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span><span class="ipv6-shorten-grp-sub">zero</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">0001</span></span>
+        </div>
+        <div class="ipv6-shorten-note">Five consecutive all-zero groups highlighted — targets for both rules.</div>
       </div>
     </div>
-    <div class="ipv6-rule">
-      <div class="ipv6-rule-num">2</div>
-      <div>
-        <div class="ipv6-rule-title">Replace the longest run of consecutive all-zero groups with <code>::</code> — only once per address</div>
-        <div class="ipv6-rule-before">2001:db8:<strong>0:0:0:0:0</strong>:1</div>
-        <div class="ipv6-rule-after">2001:db8::1</div>
-        <p style="font-size:0.78rem;color:var(--muted);margin-top:0.4rem"><code>::</code> can appear ONLY ONCE — pick the longest run. If two runs are equal length, compress the first.</p>
+
+    <!-- Connector -->
+    <div class="ipv6-shorten-connector">
+      <svg width="16" height="18" viewBox="0 0 16 18" aria-hidden="true"><path d="M8 0 L8 12 M4 9 L8 14 L12 9" fill="none" stroke="var(--hint)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Step 2: Drop leading zeros -->
+    <div class="ipv6-shorten-row">
+      <div class="ipv6-shorten-side">
+        <div class="ipv6-shorten-num">2</div>
+        <div class="ipv6-shorten-tag">Rule 1 — drop leading zeros</div>
+      </div>
+      <div class="ipv6-shorten-main">
+        <div class="ipv6-shorten-groups">
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">2001</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.35">0</span>db8</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">0001</span></span>
+        </div>
+        <div class="ipv6-shorten-note">Leading zeros stripped <em>within</em> each group — <strong>000</strong>0 → 0. Each group still exists; <code>0db8</code> loses its leading zero too → <code>db8</code>.</div>
       </div>
     </div>
+
+    <!-- Connector -->
+    <div class="ipv6-shorten-connector">
+      <svg width="16" height="18" viewBox="0 0 16 18" aria-hidden="true"><path d="M8 0 L8 12 M4 9 L8 14 L12 9" fill="none" stroke="var(--hint)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Step 3: Collapse zero run -->
+    <div class="ipv6-shorten-row">
+      <div class="ipv6-shorten-side">
+        <div class="ipv6-shorten-num">3</div>
+        <div class="ipv6-shorten-tag">Rule 2 — collapse zero run</div>
+      </div>
+      <div class="ipv6-shorten-main">
+        <div class="ipv6-shorten-groups">
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">2001</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">db8</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-collapsed"><span class="ipv6-shorten-grp-val">::</span><span class="ipv6-shorten-grp-sub" style="opacity:1;font-size:0.55rem">:0:0:0:0:0:</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">1</span></span>
+        </div>
+        <div class="ipv6-shorten-note">All five <code style="color:var(--amber)">0</code> groups collapse into <strong style="color:var(--purple)">::</strong> — the purple block shows what got swallowed. <strong>Rule:</strong> <code style="color:var(--purple)">::</code> can appear only <strong>once</strong>; always compress the longest consecutive run.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ipv6-shorten-result">
+    Final result: <span class="ipv6-shorten-result-val">2001:db8::1</span> &nbsp;·&nbsp; 38 chars → 10 chars. The <span class="ipv6-shorten-result-purple">::</span> expands back to however many zero groups are needed to fill 8 total — in this case, five groups of zeros.
   </div>
 
   <h3>IPv6 Address Types</h3>
@@ -220,7 +293,7 @@
         <tr><th><abbr title="Software-Defined Wide Area Network">SD-WAN</abbr> Feature</th><th>Description</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>Application-aware routing</strong></td><td>Routes specific apps over the best available transport (MPLS, broadband, LTE) based on real-time path quality (latency, jitter, loss)</td></tr>
+        <tr><td><strong>Application-aware routing</strong></td><td>Routes specific apps over the best available transport (MPLS, broadband, LTE) based on real-time path quality (latency, jitter, loss)</td></tr>
         <tr><td><strong>Zero-touch provisioning (<abbr title="Zero-Touch Provisioning">ZTP</abbr>)</strong></td><td>Branch devices auto-configure from a central controller on first boot — no on-site engineer required</td></tr>
         <tr><td><strong>Transport-agnostic</strong></td><td>Works over any WAN transport: MPLS, broadband internet, 4G/5G cellular, satellite</td></tr>
         <tr><td><strong>Centralized policy management</strong></td><td>Single pane of glass for all WAN policies, QoS, and security across all sites</td></tr>
@@ -244,7 +317,7 @@
         <tr><th><abbr title="Zero Trust Architecture">ZTA</abbr> Principle</th><th>Description</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>Never trust, always verify</strong></td><td>No implicit trust based on network location — every request is authenticated and authorized</td></tr>
+        <tr><td><strong>Never trust, always verify</strong></td><td>No implicit trust based on network location — every request is authenticated and authorized</td></tr>
         <tr><td><strong>Policy-based authentication</strong></td><td>Access decisions based on identity, device posture, location, and resource sensitivity — not just credentials</td></tr>
         <tr><td><strong>Least privilege</strong></td><td>Users and systems get minimum access required for their role — no standing admin rights</td></tr>
         <tr><td><strong>Microsegmentation</strong></td><td>Workloads isolated individually; lateral movement blocked even inside the network perimeter</td></tr>
@@ -263,8 +336,8 @@
         <tr><th>Framework</th><th>Components</th><th>Focus</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong><abbr title="Secure Access Service Edge">SASE</abbr></strong></td><td>SD-WAN + <abbr title="Secure Web Gateway">SWG</abbr> + <abbr title="Cloud Access Security Broker">CASB</abbr> + <abbr title="Zero Trust Network Access">ZTNA</abbr> + <abbr title="Firewall as a Service">FWaaS</abbr></td><td>Converges WAN networking AND security into a single cloud-delivered service</td></tr>
-        <tr data-exam-weight="high"><td><strong><abbr title="Security Service Edge">SSE</abbr></strong></td><td>SWG + CASB + ZTNA (security stack only)</td><td>Security-only subset of SASE — no SD-WAN component; cloud-delivered security</td></tr>
+        <tr><td><strong><abbr title="Secure Access Service Edge">SASE</abbr></strong></td><td>SD-WAN + <abbr title="Secure Web Gateway">SWG</abbr> + <abbr title="Cloud Access Security Broker">CASB</abbr> + <abbr title="Zero Trust Network Access">ZTNA</abbr> + <abbr title="Firewall as a Service">FWaaS</abbr></td><td>Converges WAN networking AND security into a single cloud-delivered service</td></tr>
+        <tr><td><strong><abbr title="Security Service Edge">SSE</abbr></strong></td><td>SWG + CASB + ZTNA (security stack only)</td><td>Security-only subset of SASE — no SD-WAN component; cloud-delivered security</td></tr>
       </tbody>
     </table>
   </div>

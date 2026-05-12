@@ -89,54 +89,53 @@
   </div>
 
   <h3>TCP/IP Model vs OSI Model</h3>
-  <div class="tcpip-bracket">
-    <!-- TCP/IP side (left) -->
-    <div class="tcpip-col">
-      <div class="tcpip-label">TCP/IP (4 layers)</div>
-      <div class="tcpip-block tcpip-block-app">
-        <span style="font-size:0.88rem">Application</span>
-        <span style="font-size:0.72rem;font-weight:400;opacity:0.8;margin-top:2px">HTTP, FTP, DNS, SMTP, SSH</span>
-      </div>
-      <div class="tcpip-block tcpip-block-transport">
-        <span>Transport</span>
-        <span style="font-size:0.72rem;font-weight:400;opacity:0.8;margin-top:2px">TCP, UDP</span>
-      </div>
-      <div class="tcpip-block tcpip-block-internet">
-        <span>Internet</span>
-        <span style="font-size:0.72rem;font-weight:400;opacity:0.8;margin-top:2px">IP, ICMP, ARP</span>
-      </div>
-      <div class="tcpip-block tcpip-block-netaccess">
-        <span>Network Access</span>
-        <span style="font-size:0.72rem;font-weight:400;opacity:0.8;margin-top:2px">Ethernet, Wi-Fi</span>
-      </div>
-    </div>
-
-    <!-- Connector SVG — lines mapping TCP/IP layers to OSI groups -->
-    <svg class="tcpip-connector" viewBox="0 0 32 230" preserveAspectRatio="none" aria-hidden="true">
-      <!-- App (top 3/7 of height) → L7, L6, L5 -->
-      <line x1="0" y1="45" x2="32" y2="15"  stroke="rgba(168,85,247,0.4)" stroke-width="1.2"/>
-      <line x1="0" y1="45" x2="32" y2="48"  stroke="rgba(168,85,247,0.4)" stroke-width="1.2"/>
-      <line x1="0" y1="45" x2="32" y2="81"  stroke="rgba(168,85,247,0.4)" stroke-width="1.2"/>
-      <!-- Transport → L4 -->
-      <line x1="0" y1="120" x2="32" y2="114" stroke="rgba(59,130,246,0.4)" stroke-width="1.2"/>
-      <!-- Internet → L3 -->
-      <line x1="0" y1="160" x2="32" y2="148" stroke="rgba(20,184,166,0.4)" stroke-width="1.2"/>
-      <!-- Network Access → L2, L1 -->
-      <line x1="0" y1="200" x2="32" y2="182" stroke="rgba(245,158,11,0.4)" stroke-width="1.2"/>
-      <line x1="0" y1="200" x2="32" y2="215" stroke="rgba(239,68,68,0.4)"  stroke-width="1.2"/>
-    </svg>
-
-    <!-- OSI side (right) — compact rows reusing C1 color classes -->
-    <div class="tcpip-osi-col">
-      <div class="tcpip-label">OSI (7 layers)</div>
-      <div class="osi-v2-row" data-layer="7" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">7</div><div class="osi-v2-name" style="font-size:0.8rem">Application</div></div>
-      <div class="osi-v2-row" data-layer="6" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">6</div><div class="osi-v2-name" style="font-size:0.8rem">Presentation</div></div>
-      <div class="osi-v2-row" data-layer="5" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">5</div><div class="osi-v2-name" style="font-size:0.8rem">Session</div></div>
-      <div class="osi-v2-row" data-layer="4" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">4</div><div class="osi-v2-name" style="font-size:0.8rem">Transport</div></div>
-      <div class="osi-v2-row" data-layer="3" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">3</div><div class="osi-v2-name" style="font-size:0.8rem">Network</div></div>
-      <div class="osi-v2-row" data-layer="2" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">2</div><div class="osi-v2-name" style="font-size:0.8rem">Data Link</div></div>
-      <div class="osi-v2-row" data-layer="1" style="padding:0.42rem 0.6rem;grid-template-columns:1.8rem 1fr;gap:0 0.5rem;font-size:0.8rem"><div class="osi-v2-num">1</div><div class="osi-v2-name" style="font-size:0.8rem">Physical</div></div>
-    </div>
+  <div class="table-wrap">
+    <table class="tcpip-comparison">
+      <thead>
+        <tr>
+          <th colspan="2">TCP/IP (4 layers)</th>
+          <th colspan="2">OSI (7 layers)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tcpip-layer tcpip-app" rowspan="3">Application</td>
+          <td class="tcpip-protocols tcpip-app" rowspan="3">HTTP · FTP · DNS<br>SMTP · SSH · TLS</td>
+          <td class="osi-num-cell osi-num-7">7</td>
+          <td class="osi-name-cell osi-name-7">Application</td>
+        </tr>
+        <tr>
+          <td class="osi-num-cell osi-num-6">6</td>
+          <td class="osi-name-cell osi-name-6">Presentation</td>
+        </tr>
+        <tr>
+          <td class="osi-num-cell osi-num-5">5</td>
+          <td class="osi-name-cell osi-name-5">Session</td>
+        </tr>
+        <tr>
+          <td class="tcpip-layer tcpip-transport">Transport</td>
+          <td class="tcpip-protocols tcpip-transport">TCP · UDP</td>
+          <td class="osi-num-cell osi-num-4">4</td>
+          <td class="osi-name-cell osi-name-4">Transport</td>
+        </tr>
+        <tr>
+          <td class="tcpip-layer tcpip-internet">Internet</td>
+          <td class="tcpip-protocols tcpip-internet">IP · ICMP · ARP</td>
+          <td class="osi-num-cell osi-num-3">3</td>
+          <td class="osi-name-cell osi-name-3">Network</td>
+        </tr>
+        <tr>
+          <td class="tcpip-layer tcpip-netaccess" rowspan="2">Network Access</td>
+          <td class="tcpip-protocols tcpip-netaccess" rowspan="2">Ethernet · Wi-Fi · MAC</td>
+          <td class="osi-num-cell osi-num-2">2</td>
+          <td class="osi-name-cell osi-name-2">Data Link</td>
+        </tr>
+        <tr>
+          <td class="osi-num-cell osi-num-1">1</td>
+          <td class="osi-name-cell osi-name-1">Physical</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <h3>Encapsulation &amp; Decapsulation</h3>

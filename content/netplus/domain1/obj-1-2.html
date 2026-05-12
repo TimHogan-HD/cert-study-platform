@@ -122,7 +122,7 @@
   <div class="ids-ips-diagram">
     <!-- IDS Panel (passive) -->
     <div class="ids-ips-panel ids-ips-panel-ids">
-      <div class="ids-ips-title">IDS <span class="ids-ips-badge ids-ips-badge-passive">Passive</span></div>
+      <div class="ids-ips-title"><abbr title="Intrusion Detection System">IDS</abbr> — Intrusion Detection System <span class="ids-ips-badge ids-ips-badge-passive">Passive</span></div>
       <div class="ids-ips-flow">
         <div class="ids-ips-node">Internet / WAN</div>
         <div class="ids-ips-arrow">↓</div>
@@ -136,7 +136,7 @@
 
     <!-- IPS Panel (active) -->
     <div class="ids-ips-panel ids-ips-panel-ips">
-      <div class="ids-ips-title">IPS <span class="ids-ips-badge ids-ips-badge-active">Active</span></div>
+      <div class="ids-ips-title"><abbr title="Intrusion Prevention System">IPS</abbr> — Intrusion Prevention System <span class="ids-ips-badge ids-ips-badge-active">Active</span></div>
       <div class="ids-ips-flow">
         <div class="ids-ips-node">Internet / WAN</div>
         <div class="ids-ips-arrow">↓</div>
@@ -187,10 +187,10 @@
         <tr><th>Mechanism</th><th>Layer</th><th>How It Works</th><th>Key Detail</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>QoS / DSCP</strong></td><td>L3</td><td>IP header <abbr title="Differentiated Services Code Point">DSCP</abbr> field (6-bit) marks packet priority</td><td>EF (Expedited Forwarding) = VoIP, DSCP 46; AF = Assured Forwarding; BE = Best Effort (default, 0)</td></tr>
+        <tr><td><strong>QoS / DSCP</strong></td><td>L3</td><td>IP header <abbr title="Differentiated Services Code Point">DSCP</abbr> field (6-bit) marks packet priority</td><td>EF (Expedited Forwarding) = VoIP, DSCP 46; AF = Assured Forwarding; BE = Best Effort (default, 0)</td></tr>
         <tr><td><strong>CoS</strong></td><td>L2</td><td>802.1p 3-bit field in 802.1Q VLAN tag marks priority</td><td>0–7; only present on tagged (trunk) frames; lost at L3 boundary</td></tr>
-        <tr data-exam-weight="high"><td><strong>Traffic Shaping</strong></td><td>L3–L4</td><td>Buffers excess traffic to smooth bursts — adds latency but no drops</td><td>Smooth, compliant with contracted rate; introduces delay</td></tr>
-        <tr data-exam-weight="high"><td><strong>Traffic Policing</strong></td><td>L3–L4</td><td>Drops or re-marks packets that exceed a defined rate — no buffering</td><td>Bursty drops; typically at ISP edge or WAN handoff</td></tr>
+        <tr><td><strong>Traffic Shaping</strong></td><td>L3–L4</td><td>Buffers excess traffic to smooth bursts — adds latency but no drops</td><td>Smooth, compliant with contracted rate; introduces delay</td></tr>
+        <tr><td><strong>Traffic Policing</strong></td><td>L3–L4</td><td>Drops or re-marks packets that exceed a defined rate — no buffering</td><td>Bursty drops; typically at ISP edge or WAN handoff</td></tr>
         <tr><td><strong>Queuing</strong></td><td>L3</td><td>Scheduler determines order packets leave interface</td><td><abbr title="Priority Queuing">PQ</abbr> = strict priority; <abbr title="Weighted Fair Queuing">WFQ</abbr> = bandwidth share; <abbr title="Class-Based WFQ">CBWFQ</abbr> = class-defined bandwidth</td></tr>
       </tbody>
     </table>

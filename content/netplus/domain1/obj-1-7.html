@@ -107,59 +107,155 @@
   <p>The three RFC 1918 private ranges are: <code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, and <code>192.168.0.0/16</code>.</p>
 
   <h3>IP Address Classes</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Class</th><th>First Octet Range</th><th>Default Mask</th><th>Private Ranges (RFC 1918)</th><th>Notes</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>A</strong></td><td>1–126</td><td>/8 (255.0.0.0)</td><td>10.0.0.0 – 10.255.255.255</td><td>Large networks; 16M hosts per network. 127.x.x.x = loopback (reserved).</td></tr>
-        <tr><td><strong>B</strong></td><td>128–191</td><td>/16 (255.255.0.0)</td><td>172.16.0.0 – 172.31.255.255</td><td>Medium networks; 65,534 hosts per network.</td></tr>
-        <tr><td><strong>C</strong></td><td>192–223</td><td>/24 (255.255.255.0)</td><td>192.168.0.0 – 192.168.255.255</td><td>Small networks; 254 hosts per network. Most common in SOHO.</td></tr>
-        <tr><td><strong>D</strong></td><td>224–239</td><td>N/A</td><td>N/A</td><td>Multicast (OSPF=224.0.0.5/6, RIP=224.0.0.9, PIM=224.0.0.13).</td></tr>
-        <tr><td><strong>E</strong></td><td>240–255</td><td>N/A</td><td>N/A</td><td>Reserved/experimental. Not used in production.</td></tr>
-      </tbody>
-    </table>
+  <div class="addr-class-wrap">
+    <div class="addr-class-head">
+      <span>Class</span><span>First Octet</span><span>Default Mask</span><span>Private Range (RFC 1918)</span><span>Notes</span>
+    </div>
+    <div class="addr-class-row">
+      <div class="addr-class-cell"><span class="addr-class-badge addr-class-a">A</span></div>
+      <div class="addr-class-cell addr-class-mono">1–126</div>
+      <div class="addr-class-cell addr-class-mono">/8 (255.0.0.0)</div>
+      <div class="addr-class-cell addr-class-mono">10.0.0.0 – 10.255.255.255</div>
+      <div class="addr-class-cell">Large networks; 16M hosts per network. 127.x.x.x = loopback (reserved).</div>
+    </div>
+    <div class="addr-class-row">
+      <div class="addr-class-cell"><span class="addr-class-badge addr-class-b">B</span></div>
+      <div class="addr-class-cell addr-class-mono">128–191</div>
+      <div class="addr-class-cell addr-class-mono">/16 (255.255.0.0)</div>
+      <div class="addr-class-cell addr-class-mono">172.16.0.0 – 172.31.255.255</div>
+      <div class="addr-class-cell">Medium networks; 65,534 hosts per network.</div>
+    </div>
+    <div class="addr-class-row">
+      <div class="addr-class-cell"><span class="addr-class-badge addr-class-c">C</span></div>
+      <div class="addr-class-cell addr-class-mono">192–223</div>
+      <div class="addr-class-cell addr-class-mono">/24 (255.255.255.0)</div>
+      <div class="addr-class-cell addr-class-mono">192.168.0.0 – 192.168.255.255</div>
+      <div class="addr-class-cell">Small networks; 254 hosts per network. Most common in SOHO.</div>
+    </div>
+    <div class="addr-class-row addr-class-dim">
+      <div class="addr-class-cell"><span class="addr-class-badge addr-class-d">D</span></div>
+      <div class="addr-class-cell addr-class-mono">224–239</div>
+      <div class="addr-class-cell">N/A</div>
+      <div class="addr-class-cell">N/A</div>
+      <div class="addr-class-cell">Multicast only. OSPF=224.0.0.5/6, RIP=224.0.0.9, PIM=224.0.0.13.</div>
+    </div>
+    <div class="addr-class-row addr-class-dim">
+      <div class="addr-class-cell"><span class="addr-class-badge addr-class-e">E</span></div>
+      <div class="addr-class-cell addr-class-mono">240–255</div>
+      <div class="addr-class-cell">N/A</div>
+      <div class="addr-class-cell">N/A</div>
+      <div class="addr-class-cell">Reserved / experimental. Not used in production.</div>
+    </div>
   </div>
 
   <h3>Special IPv4 Addresses</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Address / Range</th><th>Purpose</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><code>127.0.0.1</code> (127.0.0.0/8)</td><td>Loopback — tests the local IP stack. Never routed.</td></tr>
-        <tr><td><code>169.254.0.0/16</code></td><td>APIPA (Automatic Private IP Addressing) — assigned when DHCP fails. Indicates a problem!</td></tr>
-        <tr><td><code>0.0.0.0</code></td><td>Default route (all traffic not in routing table). Also "all interfaces" when binding a service.</td></tr>
-        <tr><td><code>255.255.255.255</code></td><td>Limited broadcast — sent to all hosts in local subnet. Not routed.</td></tr>
-        <tr><td><code>x.x.x.255</code> (network-specific)</td><td>Directed broadcast to a specific subnet. Mostly blocked by routers.</td></tr>
-        <tr><td><code>224.0.0.0/4</code></td><td>Multicast range — one-to-many communication.</td></tr>
-      </tbody>
-    </table>
+  <div class="special-addr-grid">
+    <div class="special-addr-card special-addr-card-loopback">
+      <div class="special-addr-addr">127.0.0.1 <span style="font-size:0.72rem;font-weight:400;color:var(--muted)">(127.0.0.0/8)</span></div>
+      <div class="special-addr-name">Loopback</div>
+      <div class="special-addr-desc">Tests the local IP stack without sending traffic on the network. Never routed. <code>ping 127.0.0.1</code> always succeeds if TCP/IP is functioning.</div>
+    </div>
+    <div class="special-addr-card special-addr-card-apipa">
+      <div class="special-addr-addr">169.254.0.0/16</div>
+      <div class="special-addr-name"><abbr title="Automatic Private IP Addressing">APIPA</abbr></div>
+      <div class="special-addr-desc">Auto-assigned when <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> fails. Seeing 169.254.x.x on a host means the DHCP server is unreachable — check DHCP service and network connectivity.</div>
+    </div>
+    <div class="special-addr-card special-addr-card-default">
+      <div class="special-addr-addr">0.0.0.0</div>
+      <div class="special-addr-name">Default / Unspecified</div>
+      <div class="special-addr-desc">Default route — matches all traffic not in the routing table (gateway of last resort). Also means "all interfaces" when binding a network service to listen on every available address.</div>
+    </div>
+    <div class="special-addr-card special-addr-card-broadcast">
+      <div class="special-addr-addr">255.255.255.255</div>
+      <div class="special-addr-name">Limited Broadcast</div>
+      <div class="special-addr-desc">Sent to all hosts in the local subnet. Not routed by any router. Directed broadcast (<code>x.x.x.255</code>) targets a specific subnet; mostly blocked by routers to prevent Smurf attacks.</div>
+    </div>
   </div>
+  <p style="font-size:0.8rem;color:var(--muted);margin-top:0.3rem">Also note: <code>224.0.0.0/4</code> = multicast range (Class D). <code>x.x.x.255</code> = directed broadcast to a specific subnet.</p>
 
   <h3>CIDR Subnet Reference</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Prefix</th><th>Subnet Mask</th><th>Total Addresses</th><th>Usable Hosts</th><th>Common Use</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>/8</td><td>255.0.0.0</td><td>16,777,216</td><td>16,777,214</td><td>Class A default</td></tr>
-        <tr><td>/16</td><td>255.255.0.0</td><td>65,536</td><td>65,534</td><td>Class B default</td></tr>
-        <tr class="cidr-row-highlight"><td>/24 ★</td><td>255.255.255.0</td><td>256</td><td>254</td><td>Most common LAN subnet</td></tr>
-        <tr><td>/25</td><td>255.255.255.128</td><td>128</td><td>126</td><td>Split /24 in half</td></tr>
-        <tr><td>/26</td><td>255.255.255.192</td><td>64</td><td>62</td><td>Small department</td></tr>
-        <tr><td>/27</td><td>255.255.255.224</td><td>32</td><td>30</td><td>Small team</td></tr>
-        <tr><td>/28</td><td>255.255.255.240</td><td>16</td><td>14</td><td>Small workgroup</td></tr>
-        <tr><td>/29</td><td>255.255.255.248</td><td>8</td><td>6</td><td>Small segment</td></tr>
-        <tr class="cidr-row-highlight"><td>/30 ★</td><td>255.255.255.252</td><td>4</td><td>2</td><td>Point-to-point WAN links</td></tr>
-        <tr><td>/31</td><td>255.255.255.254</td><td>2</td><td>2 (P2P RFC 3021)</td><td>Point-to-point (no broadcast addr)</td></tr>
-        <tr><td>/32</td><td>255.255.255.255</td><td>1</td><td>1 (host route)</td><td>Single host, loopback</td></tr>
-      </tbody>
-    </table>
-    <div class="cidr-footer-note">★ Exam priority. Note: /31 and /32 are exceptions to the "subtract 2" rule — /31 uses both addresses per RFC 3021 (P2P only); /32 is a single host route.</div>
+  <div class="cidr-grid-wrap">
+    <div class="cidr-grid-head">
+      <span>Prefix</span><span>Subnet Mask</span><span>Total Addr</span><span>Usable</span><span>Common Use</span>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/8</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.0.0.0</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">16,777,216</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">16,777,214</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-tag cidr-tag-blue">Class A</span>Large enterprise, ISP</div>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/16</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.255.0.0</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">65,536</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">65,534</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-tag cidr-tag-blue">Class B</span>Large campus, data center</div>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/24</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.255.255.0</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">256</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">254</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-tag cidr-tag-blue">Class C</span>Standard LAN — most common</div>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/25</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.255.255.128</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">128</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">126</span></div>
+      <div class="cidr-grid-cell">Split /24 in half</div>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/26</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.255.255.192</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">64</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">62</span></div>
+      <div class="cidr-grid-cell">Department subnet</div>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/27</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.255.255.224</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">32</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">30</span></div>
+      <div class="cidr-grid-cell">Small team / floor</div>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/28</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.255.255.240</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">16</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">14</span></div>
+      <div class="cidr-grid-cell">Small workgroup, lab</div>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/29</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.255.255.248</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">8</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">6</span></div>
+      <div class="cidr-grid-cell">Small server segment</div>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/30</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.255.255.252</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">4</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">2</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-tag cidr-tag-teal">P2P</span>WAN link between routers</div>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/31</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.255.255.254</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">2</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">2</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-tag cidr-tag-amber">RFC 3021</span>P2P, no broadcast addr</div>
+    </div>
+    <div class="cidr-grid-row">
+      <div class="cidr-grid-cell"><span class="cidr-prefix">/32</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-mask">255.255.255.255</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-num">1</span></div>
+      <div class="cidr-grid-cell"><span class="cidr-usable">1</span></div>
+      <div class="cidr-grid-cell">Host route, loopback</div>
+    </div>
+    <div class="cidr-grid-note">Usable = total − 2 (network + broadcast). Exceptions: /31 both usable (RFC 3021 P2P) · /32 is the host itself.</div>
   </div>
 
 
@@ -168,84 +264,291 @@
     <strong>/24</strong> = 256 addresses, 254 usable hosts (subtract network + broadcast). <strong>/30</strong> = 4 addresses, 2 usable hosts — the standard choice for point-to-point WAN links. <strong>/31</strong> = 2 addresses, both usable on point-to-point links per RFC 3021. <strong>/32</strong> = a single host route.
   </div>
 
-  <!-- C8: Subnetting Methods -->
+  <!-- Subnetting Methods — Full Guides -->
   <h3>Subnetting Methods</h3>
-  <div class="subnet-methods-grid">
+  <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem">Three core approaches plus a chart-based speed method for the exam. Pick the one that clicks and drill it until it's automatic — most people blend Powers of 2 for host counts with Magic Number for network addresses.</p>
 
-    <!-- Method 1: Powers of 2 -->
-    <div class="subnet-method-card">
-      <div class="subnet-method-title">Powers of 2 <span class="subnet-method-tag">Mental Math</span></div>
-      <div class="subnet-method-desc">Memorise 2¹ through 2⁸: 2, 4, 8, 16, 32, 64, 128, 256. Host bits = 32 − prefix. Usable hosts = 2<sup>host bits</sup> − 2. Pick the next power of 2 that satisfies the host requirement.</div>
-      <div class="subnet-method-example">Need 50 hosts → 2⁶ = 64 (62 usable) → /26
-Need 200 hosts → 2⁸ = 256 (254 usable) → /24</div>
+  <!-- Method 1: Powers of 2 -->
+  <div class="method-card">
+    <div class="method-header">
+      <div class="method-name">Method 1 — Powers of 2</div>
+      <div class="method-tag method-tag-fast">Fastest for host counts</div>
     </div>
-
-    <!-- Method 2: Magic Number -->
-    <div class="subnet-method-card">
-      <div class="subnet-method-title">Magic Number <span class="subnet-method-tag">Fast</span></div>
-      <div class="subnet-method-desc">Magic number = 256 − interesting mask octet. Network addresses increment by the magic number. Find the multiple of the magic number ≤ host octet = network address. Broadcast = next multiple − 1.</div>
-      <div class="subnet-method-example">172.16.45.14 /20 → mask 255.255.240.0
-Magic = 256 − 240 = 16
-Multiples of 16: 0, 16, 32, 48 → 32 ≤ 45
-Network: 172.16.32.0  Broadcast: 172.16.47.255</div>
-    </div>
-
-    <!-- Method 3: Binary AND -->
-    <div class="subnet-method-card">
-      <div class="subnet-method-title">Binary AND <span class="subnet-method-tag">Precise</span></div>
-      <div class="subnet-method-desc">AND the host IP with the subnet mask bit-by-bit. The result is the network address. Most reliable for non-octet boundaries (/20, /22, /27, etc.).</div>
-      <div class="subnet-method-example">IP:   172.16.45.14  → 0010 1101
-Mask: 255.255.240.0 → 1111 0000
-AND:  172.16.32.0   → 0010 0000</div>
-    </div>
-
-    <!-- Method 4: 7-Second Method -->
-    <div class="subnet-method-card">
-      <div class="subnet-method-title">7-Second Method <span class="subnet-method-tag">PBQ Speed</span></div>
-      <div class="subnet-method-desc">Write two lookup charts at the start of your exam. Chart 1 maps prefix → mask → hosts. Chart 2 maps hosts needed → smallest prefix. Designed for maximum speed under time pressure.</div>
-      <div class="subnet-attribution">Chart approach popularised by Prof. James Messer (professormesser.com) for CompTIA exam prep.</div>
-
-      <div style="margin-top:0.75rem;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--muted)">Chart 1 — Prefix → Usable Hosts</div>
-      <div class="subnet-chart subnet-chart-4col" style="margin-bottom:0.75rem">
-        <div class="subnet-chart-header">Prefix</div><div class="subnet-chart-header">Mask (last octet)</div><div class="subnet-chart-header">Total</div><div class="subnet-chart-header">Usable</div>
-        <div>/25</div><div>128</div><div>128</div><div>126</div>
-        <div>/26</div><div>192</div><div>64</div><div>62</div>
-        <div>/27</div><div>224</div><div>32</div><div>30</div>
-        <div>/28</div><div>240</div><div>16</div><div>14</div>
-        <div>/29</div><div>248</div><div>8</div><div>6</div>
-        <div class="subnet-chart-highlight">/30</div><div class="subnet-chart-highlight">252</div><div class="subnet-chart-highlight">4</div><div class="subnet-chart-highlight">2 (P2P)</div>
+    <div class="method-body">
+      <div>
+        <div class="method-col-label">How it works</div>
+        <ol class="method-steps">
+          <li>Count the host bits: <code>32 − prefix</code></li>
+          <li>Raise 2 to that power for total addresses</li>
+          <li>Subtract 2 for usable hosts</li>
+          <li>For subnet count: raise 2 to borrowed bits (prefix − base)</li>
+        </ol>
+        <div style="margin-top:0.75rem">
+          <div class="method-col-label">Powers to memorise</div>
+          <div class="powers-grid">
+            <div class="powers-cell"><div class="powers-exp">2¹</div><div class="powers-val">2</div></div>
+            <div class="powers-cell"><div class="powers-exp">2²</div><div class="powers-val">4</div></div>
+            <div class="powers-cell"><div class="powers-exp">2³</div><div class="powers-val">8</div></div>
+            <div class="powers-cell"><div class="powers-exp">2⁴</div><div class="powers-val">16</div></div>
+            <div class="powers-cell"><div class="powers-exp">2⁵</div><div class="powers-val">32</div></div>
+            <div class="powers-cell"><div class="powers-exp">2⁶</div><div class="powers-val">64</div></div>
+            <div class="powers-cell"><div class="powers-exp">2⁷</div><div class="powers-val">128</div></div>
+            <div class="powers-cell"><div class="powers-exp">2⁸</div><div class="powers-val">256</div></div>
+          </div>
+        </div>
       </div>
-
-      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--muted)">Chart 2 — Hosts Needed → Prefix</div>
-      <div class="subnet-chart subnet-chart-3col">
-        <div class="subnet-chart-header">Hosts Needed</div><div class="subnet-chart-header">Use Prefix</div><div class="subnet-chart-header">Usable</div>
-        <div class="subnet-chart-highlight">2</div><div class="subnet-chart-highlight">/30</div><div class="subnet-chart-highlight">2</div>
-        <div>3–6</div><div>/29</div><div>6</div>
-        <div>7–14</div><div>/28</div><div>14</div>
-        <div>15–30</div><div>/27</div><div>30</div>
-        <div>31–62</div><div>/26</div><div>62</div>
-        <div>63–126</div><div>/25</div><div>126</div>
-        <div class="subnet-chart-highlight">127–254</div><div class="subnet-chart-highlight">/24</div><div class="subnet-chart-highlight">254</div>
+      <div>
+        <div class="method-col-label">Example — how many hosts on a /26?</div>
+        <div class="method-example">
+          <div class="ex-q">Q: How many usable hosts does a /26 provide?</div>
+          <div class="ex-step"><span class="ex-label">Host bits</span><span class="ex-val">32 − 26 = 6</span></div>
+          <div class="ex-step"><span class="ex-label">Total</span><span class="ex-val">2⁶ = 64</span></div>
+          <div class="ex-step"><span class="ex-label">Subtract</span><span class="ex-val">64 − 2 = 62</span><span class="ex-note">(network + broadcast)</span></div>
+          <hr class="ex-divider">
+          <div class="ex-answer">62 usable hosts → /26</div>
+        </div>
+        <div style="margin-top:0.6rem">
+          <div class="method-col-label">Example — how many subnets?</div>
+          <div class="method-example">
+            <div class="ex-q">Q: Divide 192.168.1.0/24 into /26 subnets. How many?</div>
+            <div class="ex-step"><span class="ex-label">Borrowed</span><span class="ex-val">26 − 24 = 2 bits</span></div>
+            <div class="ex-step"><span class="ex-label">Subnets</span><span class="ex-val">2² = 4</span></div>
+            <hr class="ex-divider">
+            <div class="ex-answer">4 subnets of 64 addresses each</div>
+          </div>
+        </div>
       </div>
     </div>
-
   </div>
 
-  <h4>Method Selection Guide</h4>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Scenario</th><th>Best Method</th><th>Why</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Prefix ends on octet boundary (/8, /16, /24)</td><td>Powers of 2</td><td>Full octets — trivial arithmetic</td></tr>
-        <tr><td>Find network / broadcast for a given host IP</td><td>Magic Number or Binary AND</td><td>Quick iteration or exact precision</td></tr>
-        <tr><td>Non-octet boundary (/20, /22, /27)</td><td>Binary AND</td><td>Only reliable method for partial octets</td></tr>
-        <tr><td>PBQ: design subnets for N departments under time pressure</td><td>7-Second Charts</td><td>Charts already written — fastest lookup</td></tr>
-        <tr><td>Find smallest prefix for X hosts</td><td>Powers of 2 / Chart 2</td><td>Round up to next power of 2</td></tr>
-      </tbody>
-    </table>
+  <!-- Method 2: Magic Number -->
+  <div class="method-card">
+    <div class="method-header">
+      <div class="method-name">Method 2 — Magic Number (Block Size)</div>
+      <div class="method-tag method-tag-reliable">Best for finding network address</div>
+    </div>
+    <div class="method-body">
+      <div>
+        <div class="method-col-label">How it works</div>
+        <ol class="method-steps">
+          <li>Find the interesting octet — the one that isn't 255 or 0 in the mask</li>
+          <li>Magic number = <code>256 − mask octet</code></li>
+          <li>Magic number = block size (subnets increment by this)</li>
+          <li>Largest multiple of the block ≤ host's octet = network address</li>
+          <li>Broadcast = next block start − 1</li>
+        </ol>
+        <div style="margin-top:0.75rem">
+          <div class="method-col-label">Quick block size reference</div>
+          <table class="magic-table">
+            <thead><tr><th>Mask octet</th><th>Block size</th><th>Prefix</th></tr></thead>
+            <tbody>
+              <tr><td>128</td><td class="magic-hl">128</td><td>/25</td></tr>
+              <tr><td>192</td><td class="magic-hl">64</td><td>/26</td></tr>
+              <tr><td>224</td><td class="magic-hl">32</td><td>/27</td></tr>
+              <tr><td>240</td><td class="magic-hl">16</td><td>/28</td></tr>
+              <tr><td>248</td><td class="magic-hl">8</td><td>/29</td></tr>
+              <tr><td>252</td><td class="magic-hl">4</td><td>/30</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="method-col-label">Example — what network is 172.16.45.14 /20 on?</div>
+        <div class="method-example">
+          <div class="ex-q">Mask for /20 = 255.255.240.0 — interesting octet is 3rd</div>
+          <div class="ex-step"><span class="ex-label">Magic #</span><span class="ex-val">256 − 240 = 16</span></div>
+          <div class="ex-step"><span class="ex-label">Multiples</span><span class="ex-val">0, 16, 32, 48…</span></div>
+          <div class="ex-step"><span class="ex-label">Host oct</span><span class="ex-val">45 → floor = 32</span><span class="ex-note">(32 ≤ 45 &lt; 48)</span></div>
+          <hr class="ex-divider">
+          <div class="ex-answer">Network: 172.16.32.0 · Broadcast: 172.16.47.255</div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Method 3: Binary AND -->
+  <div class="method-card">
+    <div class="method-header">
+      <div class="method-name">Method 3 — Binary AND</div>
+      <div class="method-tag method-tag-visual">Most precise · good for understanding</div>
+    </div>
+    <div class="method-body">
+      <div>
+        <div class="method-col-label">How it works</div>
+        <ol class="method-steps">
+          <li>Convert IP and subnet mask to binary</li>
+          <li>AND each bit pair: 1 AND 1 = 1; anything else = 0</li>
+          <li>Result is the network address</li>
+          <li>Flip all host bits to 1 for the broadcast address</li>
+        </ol>
+        <div style="margin-top:0.6rem;font-size:0.77rem;color:var(--muted);line-height:1.6">AND rules: <code>1·1=1</code> &nbsp; <code>1·0=0</code> &nbsp; <code>0·0=0</code><br>Only 1 AND 1 produces 1 — the mask filters, keeping only the network bits.</div>
+      </div>
+      <div>
+        <div class="method-col-label">Example — network address of 192.168.1.50 /24</div>
+        <div class="method-example" style="font-family:var(--mono,monospace);font-size:0.77rem;line-height:1.8">
+          <div style="color:var(--hint);font-size:0.67rem;margin-bottom:0.3rem">Binary AND operation:</div>
+          <div style="color:var(--blue)">IP:&nbsp;&nbsp; 11000000.10101000.00000001.<span style="color:var(--teal)">00110010</span></div>
+          <div style="color:var(--blue);opacity:0.7">Mask: 11111111.11111111.11111111.<span style="color:var(--teal);opacity:0.7">00000000</span></div>
+          <div style="height:1px;background:var(--border2);margin:0.3rem 0"></div>
+          <div style="color:var(--green)">Net:&nbsp; 11000000.10101000.00000001.<span style="opacity:.4">00000000</span></div>
+          <hr class="ex-divider">
+          <div class="ex-answer" style="font-family:inherit">Network: 192.168.1.0 · Broadcast: 192.168.1.255</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue" style="margin-bottom:0.75rem">
+    <div class="callout-title">PBQ Strategy</div>
+    Common PBQ: given a network like 10.0.0.0/8 and 5 departments needing 200, 100, 50, 25, and 10 hosts — assign the most efficient subnet to each. <strong>Always work largest to smallest.</strong> Use powers of 2 to find the right prefix, then magic number to assign non-overlapping ranges. /24 for 200, /25 for 100, /26 for 50, /27 for 25, /28 for 10.
+  </div>
+
+  <!-- Method 4: 7-Second Method -->
+  <h4>Method 4 — Professor Messer's 7-Second Subnetting</h4>
+  <div class="ss-intro">
+    <div class="ss-intro-title">Almost zero math — build two charts, answer every question by lookup</div>
+    <div class="ss-intro-body">The core insight: instead of calculating subnetting math under exam pressure, write two reference charts on your scratch paper in the first 60 seconds of the exam. Every subnetting question then becomes a lookup, not a calculation.</div>
+    <div class="ss-intro-attr">— Professor Messer, CompTIA Network+ N10-009, Objective 1.7 (professormesser.com)</div>
+  </div>
+
+  <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem"><strong>Step 0</strong> — Write these two charts on scratch paper before you start the exam.</p>
+
+  <div class="ss-charts-grid">
+    <!-- Chart 1 -->
+    <div class="ss-chart-block">
+      <div class="ss-chart-header">
+        <div class="ss-chart-title">Chart 1 — CIDR to decimal mask</div>
+        <div class="ss-chart-sub">Converts prefix notation + shows hosts/subnet</div>
+      </div>
+      <div class="ss-c1-head">
+        <span class="ss-c1-cell ss-bold">CIDR</span>
+        <span class="ss-c1-cell ss-bold">Mask</span>
+        <span class="ss-c1-cell ss-bold">Total</span>
+        <span class="ss-c1-cell ss-bold">Usable</span>
+      </div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/24</div><div class="ss-c1-cell">255.255.255.0</div><div class="ss-c1-cell">256</div><div class="ss-c1-cell">254</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/25</div><div class="ss-c1-cell">255.255.255.128</div><div class="ss-c1-cell">128</div><div class="ss-c1-cell">126</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/26</div><div class="ss-c1-cell">255.255.255.192</div><div class="ss-c1-cell">64</div><div class="ss-c1-cell">62</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/27</div><div class="ss-c1-cell">255.255.255.224</div><div class="ss-c1-cell">32</div><div class="ss-c1-cell">30</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/28</div><div class="ss-c1-cell">255.255.255.240</div><div class="ss-c1-cell">16</div><div class="ss-c1-cell">14</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/29</div><div class="ss-c1-cell">255.255.255.248</div><div class="ss-c1-cell">8</div><div class="ss-c1-cell">6</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/30</div><div class="ss-c1-cell">255.255.255.252</div><div class="ss-c1-cell">4</div><div class="ss-c1-cell">2</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/31</div><div class="ss-c1-cell">255.255.255.254</div><div class="ss-c1-cell">2</div><div class="ss-c1-cell">2</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/32</div><div class="ss-c1-cell">255.255.255.255</div><div class="ss-c1-cell">1</div><div class="ss-c1-cell">1</div></div>
+      <div class="ss-c1-head" style="border-top:1px solid var(--border2)">
+        <span class="ss-c1-cell ss-bold" style="grid-column:1/-1;font-size:0.6rem;font-style:italic">Class B — last two octets vary</span>
+      </div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/16</div><div class="ss-c1-cell">255.255.0.0</div><div class="ss-c1-cell">65536</div><div class="ss-c1-cell">65534</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/20</div><div class="ss-c1-cell">255.255.240.0</div><div class="ss-c1-cell">4096</div><div class="ss-c1-cell">4094</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/22</div><div class="ss-c1-cell">255.255.252.0</div><div class="ss-c1-cell">1024</div><div class="ss-c1-cell">1022</div></div>
+      <div class="ss-c1-row"><div class="ss-c1-cell">/23</div><div class="ss-c1-cell">255.255.254.0</div><div class="ss-c1-cell">512</div><div class="ss-c1-cell">510</div></div>
+    </div>
+
+    <!-- Chart 2 -->
+    <div class="ss-chart-block">
+      <div class="ss-chart-header">
+        <div class="ss-chart-title">Chart 2 — Subnet boundaries (4th octet)</div>
+        <div class="ss-chart-sub">Find which subnet a host belongs to by lookup</div>
+      </div>
+      <div class="ss-c2-section">
+        <div class="ss-c2-label">Block size 128 → /25</div>
+        <div class="ss-c2-row"><div class="ss-c2-prefix">/25</div><div class="ss-c2-bounds">0–127 &nbsp;·&nbsp; 128–255</div></div>
+      </div>
+      <div class="ss-c2-section">
+        <div class="ss-c2-label">Block size 64 → /26</div>
+        <div class="ss-c2-row"><div class="ss-c2-prefix">/26</div><div class="ss-c2-bounds">0–63 · 64–127 · 128–191 · 192–255</div></div>
+      </div>
+      <div class="ss-c2-section">
+        <div class="ss-c2-label">Block size 32 → /27</div>
+        <div class="ss-c2-row"><div class="ss-c2-prefix">/27</div><div class="ss-c2-bounds">0–31 · 32–63 · 64–95 · 96–127<br>128–159 · 160–191 · 192–223 · 224–255</div></div>
+      </div>
+      <div class="ss-c2-section">
+        <div class="ss-c2-label">Block size 16 → /28</div>
+        <div class="ss-c2-row"><div class="ss-c2-prefix">/28</div><div class="ss-c2-bounds">0 · 16 · 32 · 48 · 64 · 80 · 96 · 112<br>128 · 144 · 160 · 176 · 192 · 208 · 224 · 240</div></div>
+      </div>
+      <div class="ss-c2-section">
+        <div class="ss-c2-label">Block size 8 → /29</div>
+        <div class="ss-c2-row"><div class="ss-c2-prefix">/29</div><div class="ss-c2-bounds">0 · 8 · 16 · 24 · 32 · 40 · 48 · 56 · 64 · 72 · 80 · 88 · 96 · 104 · 112 · 120 · 128 · 136 · 144 · 152 · 160 · 168 · 176 · 184 · 192 · 200 · 208 · 216 · 224 · 232 · 240 · 248</div></div>
+      </div>
+      <div class="ss-c2-section">
+        <div class="ss-c2-label">Block size 4 → /30 (P2P)</div>
+        <div class="ss-c2-row"><div class="ss-c2-prefix">/30</div><div class="ss-c2-bounds">0 · 4 · 8 · 12 · … · 248 · 252</div></div>
+      </div>
+      <div class="ss-c2-footer">Network = start of range · Broadcast = end of range · First host = start+1 · Last host = end−1</div>
+    </div>
+  </div>
+
+  <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem"><strong>The 4-step process</strong></p>
+  <div class="ss-steps-wrap">
+    <div class="ss-step-card">
+      <div class="ss-step-num">1</div>
+      <div class="ss-step-body">
+        <div class="ss-step-title">Convert to decimal</div>
+        <div class="ss-step-desc">If the mask is given in CIDR notation (e.g. /26), look it up in Chart 1 to get the decimal mask (255.255.255.192) and the number of hosts per subnet (62 usable). Chart 1 does this in one glance — no math.</div>
+      </div>
+    </div>
+    <div class="ss-step-card">
+      <div class="ss-step-num">2</div>
+      <div class="ss-step-body">
+        <div class="ss-step-title">Find the network address</div>
+        <div class="ss-step-desc">Look at the host's value in the interesting octet. Find which block range it falls in using Chart 2. The start of that range is the network address.</div>
+        <div class="ss-step-tip">e.g. host = .88, /26 → block size 64 → ranges: 0–63, 64–127 → .88 is in 64–127 → network = x.x.x.64</div>
+      </div>
+    </div>
+    <div class="ss-step-card">
+      <div class="ss-step-num">3</div>
+      <div class="ss-step-body">
+        <div class="ss-step-title">Find the broadcast address</div>
+        <div class="ss-step-desc">The broadcast address is the last address in the same range — the end of the block from Chart 2. No calculation needed.</div>
+        <div class="ss-step-tip">Continuing the example: range is 64–127 → broadcast = x.x.x.127</div>
+      </div>
+    </div>
+    <div class="ss-step-card">
+      <div class="ss-step-num">4</div>
+      <div class="ss-step-body">
+        <div class="ss-step-title">Find first and last usable hosts</div>
+        <div class="ss-step-desc">First host = network + 1 &nbsp;·&nbsp; Last host = broadcast − 1. This is the only arithmetic in the entire method.</div>
+        <div class="ss-step-tip">First = x.x.x.65 &nbsp;·&nbsp; Last = x.x.x.126</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss-example-wrap">
+    <div class="ss-example-header">
+      <div class="ss-example-label">Worked Example</div>
+      <div class="ss-example-q">165.245.12.88 /26 — find network, broadcast, first host, last host</div>
+    </div>
+    <div class="ss-example-steps">
+      <div class="ss-ex-row">
+        <div class="ss-ex-n">1</div>
+        <div class="ss-ex-label">Chart 1 lookup</div>
+        <div class="ss-ex-val">/26 → 255.255.255.192 &nbsp;<span style="color:var(--hint);font-size:0.7rem">(64 total, 62 usable)</span></div>
+      </div>
+      <div class="ss-ex-row">
+        <div class="ss-ex-n">2</div>
+        <div class="ss-ex-label">Interesting octet</div>
+        <div class="ss-ex-val">4th = 88 → block 64 → ranges: 0–63, 64–127 → 88 is in 64–127</div>
+      </div>
+      <div class="ss-ex-row">
+        <div class="ss-ex-n">3</div>
+        <div class="ss-ex-label">Network / Broadcast</div>
+        <div class="ss-ex-val">Network = 165.245.12.64 &nbsp;·&nbsp; Broadcast = 165.245.12.127</div>
+      </div>
+      <div class="ss-ex-row">
+        <div class="ss-ex-n">4</div>
+        <div class="ss-ex-label">First / Last host</div>
+        <div class="ss-ex-val">First = 165.245.12.65 &nbsp;·&nbsp; Last = 165.245.12.126</div>
+      </div>
+      <div class="ss-answer-row">
+        <div><div class="ss-ans-label">Network</div><div class="ss-ans-val">165.245.12.64</div></div>
+        <div><div class="ss-ans-label">Broadcast</div><div class="ss-ans-val">165.245.12.127</div></div>
+        <div><div class="ss-ans-label">First host</div><div class="ss-ans-val">165.245.12.65</div></div>
+        <div><div class="ss-ans-label">Last host</div><div class="ss-ans-val">165.245.12.126</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ss-exam-tip"><strong>Exam strategy:</strong> Spend the first 60–90 seconds writing both charts on scratch paper before answering a single question. Once they're on paper, every subnetting question is a lookup. The only math you do is +1 and −1. <strong>Practice until writing the charts takes under 60 seconds.</strong> The method works for /16–/30 — for /8 Class A questions, the magic number or powers of 2 is faster.</div>
 
   <h3>Interactive Subnetting Calculator</h3>
   <div class="subnet-calc" id="subnet-calc">
