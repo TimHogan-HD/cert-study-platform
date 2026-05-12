@@ -1362,7 +1362,6 @@ tr[data-exam-weight="high"] td:first-child::before {
 
 .protocol-ref-table {
   table-layout: fixed;
-  min-width: 0;
 }
 
 .protocol-ref-cols .protocol-ref-col-port     { width: 12%; }
@@ -1395,13 +1394,14 @@ tr[data-exam-weight="high"] td:first-child::before {
   padding: 0;
 }
 
-/* Cross-fade flip — no 3D transforms (overflow:hidden breaks preserve-3d) */
+/* Cross-fade flip — grid stacking so both faces contribute to row height */
 .protocol-ref-cell-flip {
-  position: relative;
-  display: block;
+  display: grid;
 }
 
 .protocol-ref-face {
+  grid-area: 1 / 1; /* stack front and back in same cell; row sizes to the taller face */
+  display: block; /* span is inline by default; block ensures padding contributes to height */
   background: var(--surface);
   color: var(--text);
   padding: var(--protocol-face-py) 0.75rem;
@@ -1411,15 +1411,11 @@ tr[data-exam-weight="high"] td:first-child::before {
 }
 
 .protocol-ref-face.protocol-ref-front {
-  position: relative; /* in-flow — sets the row height */
   opacity: 1;
 }
 
 .protocol-ref-face.protocol-ref-back {
-  position: absolute;
-  inset: 0;
   opacity: 0;
-  overflow-y: auto;
 }
 
 .protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-front { opacity: 0; }
