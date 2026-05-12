@@ -9,7 +9,7 @@
   <!-- C9: Binary Conversion Explainer (collapsible accordion) -->
   <div class="accordion-header">Binary Conversion — How IP Addresses Work in Binary</div>
   <div class="accordion-body">
-    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem">Each octet is an 8-bit binary number. Bit positions represent powers of 2 from 128 (leftmost) to 1 (rightmost). Click the bit cells to toggle them and see the decimal total update live.</p>
+    <p style="font-size:0.85rem;color:var(--text);margin-bottom:0.75rem">Each octet is an 8-bit binary number. Bit positions represent powers of 2 from 128 (leftmost) to 1 (rightmost). Click the bit cells to toggle them and see the decimal total update live.</p>
     <div class="binary-bit-header">
       <div class="binary-bit-label">128</div>
       <div class="binary-bit-label">64</div>
@@ -171,7 +171,7 @@
       <div class="special-addr-desc">Sent to all hosts in the local subnet. Not routed by any router. Directed broadcast (<code>x.x.x.255</code>) targets a specific subnet; mostly blocked by routers to prevent Smurf attacks.</div>
     </div>
   </div>
-  <p style="font-size:0.8rem;color:var(--muted);margin-top:0.3rem">Also note: <code>224.0.0.0/4</code> = multicast range (Class D). <code>x.x.x.255</code> = directed broadcast to a specific subnet.</p>
+  <p style="font-size:0.8rem;color:var(--text);margin-top:0.3rem">Also note: <code>224.0.0.0/4</code> = multicast range (Class D). <code>x.x.x.255</code> = directed broadcast to a specific subnet.</p>
 
   <h3>CIDR Subnet Reference</h3>
   <div class="cidr-grid-wrap">
@@ -266,7 +266,7 @@
 
   <!-- Subnetting Methods — Full Guides -->
   <h3>Subnetting Methods</h3>
-  <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem">Three core approaches plus a chart-based speed method for the exam. Pick the one that clicks and drill it until it's automatic — most people blend Powers of 2 for host counts with Magic Number for network addresses.</p>
+  <p style="font-size:0.85rem;color:var(--text);margin-bottom:0.75rem">Three core approaches plus a chart-based speed method for the exam. Pick the one that clicks and drill it until it's automatic — most people blend Powers of 2 for host counts with Magic Number for network addresses.</p>
 
   <!-- Method 1: Powers of 2 -->
   <div class="method-card">
@@ -381,12 +381,12 @@
           <li>Result is the network address</li>
           <li>Flip all host bits to 1 for the broadcast address</li>
         </ol>
-        <div style="margin-top:0.6rem;font-size:0.77rem;color:var(--muted);line-height:1.6">AND rules: <code>1·1=1</code> &nbsp; <code>1·0=0</code> &nbsp; <code>0·0=0</code><br>Only 1 AND 1 produces 1 — the mask filters, keeping only the network bits.</div>
+        <div style="margin-top:0.6rem;font-size:0.77rem;color:var(--text);line-height:1.6">AND rules: <code>1·1=1</code> &nbsp; <code>1·0=0</code> &nbsp; <code>0·0=0</code><br>Only 1 AND 1 produces 1 — the mask filters, keeping only the network bits.</div>
       </div>
       <div>
         <div class="method-col-label">Example — network address of 192.168.1.50 /24</div>
         <div class="method-example" style="font-family:var(--mono,monospace);font-size:0.77rem;line-height:1.8">
-          <div style="color:var(--hint);font-size:0.67rem;margin-bottom:0.3rem">Binary AND operation:</div>
+          <div style="color:var(--muted);font-size:0.67rem;margin-bottom:0.3rem">Binary AND operation:</div>
           <div style="color:var(--blue)">IP:&nbsp;&nbsp; 11000000.10101000.00000001.<span style="color:var(--teal)">00110010</span></div>
           <div style="color:var(--blue);opacity:0.7">Mask: 11111111.11111111.11111111.<span style="color:var(--teal);opacity:0.7">00000000</span></div>
           <div style="height:1px;background:var(--border2);margin:0.3rem 0"></div>
@@ -411,7 +411,7 @@
     <div class="ss-intro-attr">— Professor Messer, CompTIA Network+ N10-009, Objective 1.7 (professormesser.com)</div>
   </div>
 
-  <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem"><strong>Step 0</strong> — Write these two charts on scratch paper before you start the exam.</p>
+  <p style="font-size:0.8rem;color:var(--text);margin-bottom:0.5rem"><strong>Step 0</strong> — Write these two charts on scratch paper before you start the exam.</p>
 
   <div class="ss-charts-grid">
     <!-- Chart 1 -->
@@ -478,7 +478,7 @@
     </div>
   </div>
 
-  <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem"><strong>The 4-step process</strong></p>
+  <p style="font-size:0.8rem;color:var(--text);margin-bottom:0.5rem"><strong>The 4-step process</strong></p>
   <div class="ss-steps-wrap">
     <div class="ss-step-card">
       <div class="ss-step-num">1</div>
@@ -522,7 +522,7 @@
       <div class="ss-ex-row">
         <div class="ss-ex-n">1</div>
         <div class="ss-ex-label">Chart 1 lookup</div>
-        <div class="ss-ex-val">/26 → 255.255.255.192 &nbsp;<span style="color:var(--hint);font-size:0.7rem">(64 total, 62 usable)</span></div>
+        <div class="ss-ex-val">/26 → 255.255.255.192 &nbsp;<span style="color:var(--muted);font-size:0.7rem">(64 total, 62 usable)</span></div>
       </div>
       <div class="ss-ex-row">
         <div class="ss-ex-n">2</div>
