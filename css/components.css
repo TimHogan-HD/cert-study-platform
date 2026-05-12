@@ -1398,6 +1398,7 @@ tr[data-exam-weight="high"] td:first-child::before {
 /* Cross-fade flip — grid stacking so both faces contribute to row height */
 .protocol-ref-cell-flip {
   display: grid;
+  min-width: 0;
 }
 
 .protocol-ref-face {
@@ -1413,20 +1414,24 @@ tr[data-exam-weight="high"] td:first-child::before {
 
 .protocol-ref-face.protocol-ref-front {
   opacity: 1;
+  visibility: visible;
 }
 
 .protocol-ref-face.protocol-ref-back {
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   overflow: hidden;
 }
 
 .protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-front {
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 .protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-back {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   overflow-y: auto;
 }
