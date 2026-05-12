@@ -267,8 +267,32 @@
   <!-- Mask derivation explainer -->
   <div class="mask-derive-box">
     <div class="mask-derive-header">How to convert a CIDR prefix to a subnet mask</div>
-    <p class="mask-derive-rule">A subnet mask is simply <strong>N ones followed by zeros</strong>, written as four decimal octets. Any full octet of ones equals 255 — so /24 (three full octets) is always 255.255.255.0. The only math needed is in the last active octet, where the remaining prefix bits fill in from the left. Add up the bit positions they occupy.</p>
-    <div class="mask-derive-sublabel">4th octet bit positions — prefix bits fill from the left</div>
+
+    <div class="mda-wrap">
+      <div class="mda-row">
+        <span class="mda-label">Forward</span>
+        <span class="mda-chip mda-chip-prefix">/26</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip">2 bits past /24</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip">128 + 64</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip mda-chip-result">192</span>
+      </div>
+      <div class="mda-row">
+        <span class="mda-label">Reverse</span>
+        <span class="mda-chip mda-chip-result">192</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip">128 + 64</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip">2 bits past /24</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip mda-chip-prefix">/26</span>
+      </div>
+    </div>
+
+    <p class="mask-derive-rule">A subnet mask is N ones followed by zeros. Full octets of ones = 255. The last active octet is where the math happens — count how many prefix bits extend past the nearest /8 boundary, then add their positional values from the left of the bit chart.</p>
+    <div class="mask-derive-sublabel">4th octet bit positions — values fill from the left</div>
     <div class="mask-derive-bitrow">
       <div class="mask-derive-bit">128</div>
       <div class="mask-derive-bit">64</div>
@@ -292,7 +316,6 @@
         <tr><td>/30</td><td>128 + 64 + 32 + 16 + 8 + 4</td><td>252</td></tr>
       </tbody>
     </table>
-    <div class="mask-derive-caption">Forward: /26 → 2 bits past /24 → 128+64 → last octet 192. &nbsp;|&nbsp; Reverse: last octet 192 → 128+64 → 2 bits past /24 → /26.</div>
   </div>
 
   <!-- Subnetting Methods — Full Guides -->
