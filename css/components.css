@@ -2157,7 +2157,7 @@ tr[data-exam-weight="high"] td:first-child::before {
 .ipv6-shorten-grp-val { font-size: 0.85rem; font-weight: 700; line-height: 1; }
 .ipv6-shorten-grp-sub { font-size: 0.48rem; margin-top: 0.18rem; font-weight: 400; }
 .ipv6-shorten-normal { color: var(--text); }
-.ipv6-shorten-zero-full { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.ipv6-shorten-zero-full { color: var(--amber); }
 .ipv6-shorten-zero-trimmed { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
 .ipv6-shorten-collapsed { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); padding: 0.3rem 0.65rem 0.18rem !important; font-size: 0.95rem; }
 .ipv6-shorten-note { font-size: 0.72rem; color: var(--text); line-height: 1.6; }

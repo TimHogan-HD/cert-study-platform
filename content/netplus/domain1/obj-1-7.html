@@ -331,8 +331,8 @@
       <div>
         <div class="method-col-label">How it works</div>
         <ol class="method-steps">
-          <li>Find the interesting octet — the one that isn't 255 or 0 in the mask</li>
-          <li>Magic number = <code>256 − mask octet</code></li>
+          <li>Find the last active octet — the one that isn't 255 or 0 in the mask</li>
+          <li>Magic number = <code>256 − last active octet</code></li>
           <li>Magic number = block size (subnets increment by this)</li>
           <li>Largest multiple of the block ≤ host's octet = network address</li>
           <li>Broadcast = next block start − 1</li>
@@ -355,7 +355,7 @@
       <div>
         <div class="method-col-label">Example — what network is 172.16.45.14 /20 on?</div>
         <div class="method-example">
-          <div class="ex-q">Mask for /20 = 255.255.240.0 — interesting octet is 3rd</div>
+          <div class="ex-q">Mask for /20 = 255.255.240.0 — last active octet is 3rd</div>
           <div class="ex-step"><span class="ex-label">Magic #</span><span class="ex-val">256 − 240 = 16</span></div>
           <div class="ex-step"><span class="ex-label">Multiples</span><span class="ex-val">0, 16, 32, 48…</span></div>
           <div class="ex-step"><span class="ex-label">Host oct</span><span class="ex-val">45 → floor = 32</span><span class="ex-note">(32 ≤ 45 &lt; 48)</span></div>
@@ -491,7 +491,7 @@
       <div class="ss-step-num">2</div>
       <div class="ss-step-body">
         <div class="ss-step-title">Find the network address</div>
-        <div class="ss-step-desc">Look at the host's value in the interesting octet. Find which block range it falls in using Chart 2. The start of that range is the network address.</div>
+        <div class="ss-step-desc">Look at the host's value in the last active octet. Find which block range it falls in using Chart 2. The start of that range is the network address.</div>
         <div class="ss-step-tip">e.g. host = .88, /26 → block size 64 → ranges: 0–63, 64–127 → .88 is in 64–127 → network = x.x.x.64</div>
       </div>
     </div>
