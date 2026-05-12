@@ -1,7 +1,26 @@
 <div class="obj-section" id="obj-5-4">
   <div class="section-eyebrow">Objective 5.4</div>
-  <h2>Wireless Troubleshooting</h2>
-  <p>Wireless troubleshooting combines RF physics, authentication, and channel management. Symptoms often appear intermittent because RF conditions change over time.</p>
+  <h2>Performance Troubleshooting</h2>
+  <p>Performance troubleshooting covers both wired and wireless issues. Symptoms range from high latency under load to intermittent drops — RF conditions, bandwidth saturation, and duplex mismatches all manifest as performance problems.</p>
+
+  <h3>Wired Performance Issues</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Issue</th><th>Symptom</th><th>Diagnostic Tool</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>Bandwidth saturation / congestion</strong></td><td>High latency under load; downloads slow all traffic</td><td>NetFlow; <code>show interface</code> (output drops); <code>iperf3</code></td><td>QoS policy; upgrade link; traffic shaping; offload to secondary ISP</td></tr>
+        <tr data-exam-weight="high"><td><strong>Bottleneck</strong></td><td>One hop is consistently slow; fast before and after</td><td><code>traceroute</code> + <code>show interface [if] speed duplex</code></td><td>Upgrade that link; redistribute load; check for duplex mismatch at bottleneck</td></tr>
+        <tr><td><strong>High latency</strong></td><td>Slow interactive sessions (SSH, RDP, web); VoIP choppy</td><td><code>ping</code> RTT; <code>pathping</code> per-hop latency</td><td>Check for routing loops; reduce queue depth; prioritize with QoS</td></tr>
+        <tr><td><strong>Packet loss</strong></td><td>TCP retransmissions; file transfers stall; VoIP gaps</td><td><code>show interface</code> errors and drops; <code>ping</code> extended</td><td>Replace cable; check for CRC errors (physical layer); verify duplex; check queue drops</td></tr>
+        <tr><td><strong>Jitter</strong></td><td>Inconsistent VoIP quality; variable response times</td><td>QoS monitoring; VoIP call statistics on UCM/controller</td><td>Enable QoS; prioritize RTP traffic (DSCP EF); reduce network load at congested links</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Objective 5.4 Coverage — Both Wired AND Wireless</div>
+    <p>CompTIA N10-009 objective 5.4 covers performance troubleshooting for <strong>both wired and wireless</strong> networks. Bandwidth saturation, bottlenecks, high latency, packet loss, and jitter are all 5.4 topics — as is the wireless content below. Expect exam questions on both.</p>
+  </div>
 
   <h3>Wireless Signal Metrics</h3>
   <div class="table-wrap">
@@ -75,6 +94,30 @@
           <td>HTTPS enforcement prevents captive portal redirect; DNS-based redirect blocked</td>
           <td>Modern devices use captive portal detection (HTTP probe to known URL); configure correctly</td>
         </tr>
+        <tr>
+          <td><strong>Antenna placement</strong></td>
+          <td>Dead zones despite nearby APs; signal stronger in corridor than target area</td>
+          <td>Incorrect antenna aiming; omnidirectional used where directional needed</td>
+          <td>Reposition AP; switch to directional (patch/panel) antenna; conduct site survey to identify dead zones</td>
+        </tr>
+        <tr>
+          <td><strong>Disassociation</strong></td>
+          <td>Sudden client disconnect mid-session; frequent reconnection required</td>
+          <td>RF interference; AP firmware bug; client driver issue; deauth attack</td>
+          <td>Check deauth reason codes in controller logs; update AP firmware; investigate interference sources</td>
+        </tr>
+        <tr data-exam-weight="high">
+          <td><strong>Roaming failure</strong></td>
+          <td>Drops when moving between AP coverage areas; sticky client can't roam; call drops</td>
+          <td>802.11r not configured; RSSI threshold too low; band steering disabled</td>
+          <td>Enable 802.11r (fast BSS transition); configure RSSI threshold for roam trigger; enable band steering</td>
+        </tr>
+        <tr>
+          <td><strong>Coverage gap / dead zone</strong></td>
+          <td>No Wi-Fi signal in specific area despite adjacent APs</td>
+          <td>Insufficient AP density; physical obstacles (concrete, metal); TX power too low</td>
+          <td>Add AP in dead zone; conduct site survey; increase TX power or use directional antenna</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -106,6 +149,9 @@
   <div class="callout callout-green">
     <div class="callout-title">✓ Quick Recall</div>
     <ul>
+      <li>Obj 5.4 = BOTH wired performance AND wireless troubleshooting</li>
+      <li>Congestion = high latency under load; check <code>show interface</code> output drops + iperf3</li>
+      <li>Packet loss = CRC errors, duplex mismatch, or queue drops; jitter = inconsistent delay (QoS fixes it)</li>
       <li>2.4GHz non-overlapping channels: 1, 6, 11 only</li>
       <li>RSSI closer to 0 = stronger (−40 > −80)</li>
       <li>SNR &gt;20 dB = good; &lt;10 dB = poor</li>
@@ -113,6 +159,7 @@
       <li>Sticky client: device stays on far AP; fix with band steering or deauth</li>
       <li>Evil twin prevention: 802.1X certificate-based authentication</li>
       <li>Spectrum analyzer identifies non-Wi-Fi interference; wireless analyzer shows 802.11 networks only</li>
+      <li>Roaming failure → enable 802.11r; configure RSSI roam threshold; band steering</li>
     </ul>
   </div>
 

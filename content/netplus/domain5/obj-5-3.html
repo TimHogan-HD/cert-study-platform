@@ -73,6 +73,11 @@
           <td>Graphical packet analyzer</td>
           <td>Filter: <code>ip.addr == 10.1.1.1</code>; follow TCP stream; decode protocols</td>
         </tr>
+        <tr data-exam-weight="high">
+          <td><code>iperf3</code></td><td>All (free)</td>
+          <td>Measure actual TCP/UDP throughput between two endpoints</td>
+          <td><code>iperf3 -s</code> on server side; <code>iperf3 -c [server-ip]</code> on client. Reports achieved Mbps — use to verify actual link speed vs rated capacity and identify bandwidth bottlenecks</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -268,6 +273,8 @@ Internet  <span class="th">10.10.10.50</span>   12   <span class="th">0050.7966.
       <li>APIPA (169.254.x.x) = DHCP failure — not a bad IP address, a diagnostic signal</li>
       <li><code>pathping</code> is Windows only; combines ping + traceroute; shows per-hop loss statistics</li>
       <li><code>show arp</code> on a switch is only populated if the switch has SVIs (Layer 3 switch) or is a router</li>
+      <li><code>show power inline</code> — shows PoE status per port: power class, watts allocated, total budget used vs available. Run this when a PoE device (IP phone, AP, camera) fails to power on.</li>
+      <li><code>iperf3</code> = active throughput test tool; <em>not</em> built into IOS — run on end hosts to verify actual link capacity vs rated speed.</li>
     </ul>
   </div>
 
@@ -282,6 +289,8 @@ Internet  <span class="th">10.10.10.50</span>   12   <span class="th">0050.7966.
       <li>DNS name fails but IP works → DNS issue, not routing</li>
       <li><code>ipconfig /flushdns</code> clears DNS resolver cache</li>
       <li>Routing loop → <code>traceroute</code> shows packets cycling between same hops</li>
+      <li><code>show power inline</code> → PoE device won't power on → check watts allocated and budget</li>
+      <li><code>iperf3 -s</code> (server) / <code>iperf3 -c [ip]</code> (client) → measures actual TCP/UDP throughput in Mbps</li>
     </ul>
   </div>
 
