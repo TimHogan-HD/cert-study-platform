@@ -1,34 +1,11 @@
-<div class="section-eyebrow">Domain 5 · 24% of Exam — Highest Weight</div>
-<h1 class="section-title">Network Troubleshooting</h1>
-<p class="section-sub">The largest domain at 24% of the exam. Troubleshooting shows up as both MCQs and PBQs. Know the 7-step methodology cold, every CLI tool's output, and the confirmed PBQ simulation types.</p>
-
-<div class="callout callout-amber">
-  <div class="callout-title">⚠ Domain Priority Alert</div>
-  Domain 5 + Domain 1 = <strong>47% of the exam</strong>. Do not shortcut this domain. PBQs frequently come from Domain 5 troubleshooting scenarios — the network discovery simulation alone can burn 8–10 minutes if you're unprepared.
-</div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 5.5 — Security Issues
-     ═══════════════════════════════════════════ -->
 <div class="obj-section" id="obj-5-5">
   <div class="section-eyebrow">Objective 5.5</div>
   <h2>Security Troubleshooting</h2>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">Study Navigation Note</div>
-    <p>The official CompTIA N10-009 objective 5.5 is <strong>"Use the appropriate tool or protocol to solve networking issues."</strong> That content is covered in this guide at:</p>
-    <ul>
-      <li><strong>Section 5.3</strong> — CLI tools: ping, traceroute, nslookup, dig, netstat, arp, nmap, tcpdump, Wireshark, iperf3, and Cisco show commands</li>
-      <li><strong>Section 5.2</strong> — Physical tools: cable tester, TDR, OTDR, toner probe, visual fault locator, multimeter, punchdown tool</li>
-    </ul>
-    <p>Study both 5.2 and 5.3 when preparing for exam objective 5.5. <strong>This section</strong> covers security troubleshooting symptoms, which is complementary exam content not covered under a specific official sub-objective number.</p>
-  </div>
-
   <p>Security issues often masquerade as network problems. Recognizing the indicators of compromise and knowing the correct response sequence are both exam-tested.</p>
 
   <h3>Indicators of Compromise (IoC)</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead><tr><th>Symptom</th><th>Possible Cause</th><th>Investigative Step</th></tr></thead>
       <tbody>
         <tr><td>Unusual outbound traffic spikes</td><td>Malware C2, data exfiltration, botnet participation</td><td>NetFlow analysis; check destination IPs against threat feeds; inspect DNS queries</td></tr>
@@ -44,9 +21,22 @@
     </table>
   </div>
 
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — unexpected open ports (IoC)</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> netstat -an | findstr LISTENING
+TCP    0.0.0.0:22      0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← SSH (expected on this server)</span>
+TCP    0.0.0.0:80      0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← HTTP (expected)</span>
+TCP    0.0.0.0:443     0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← HTTPS (expected)</span>
+TCP    0.0.0.0:<span class="te">4444</span>    0.0.0.0:0    <span class="te">LISTENING</span>   <span class="tn">← NOT expected — investigate immediately</span>
+TCP    0.0.0.0:3389    0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← RDP</span>
+<span class="tn"># Port 4444 = common Metasploit/reverse shell default port</span>
+<span class="tn"># Baseline: document expected open ports. Any unlisted port = potential backdoor</span>
+<span class="tn"># Follow up: identify the process listening on 4444 with "netstat -anb" (Windows)</span></pre>
+  </div>
+
   <h3>Incident Response Steps (Network Context)</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead><tr><th>Step</th><th>Action</th><th>Example</th></tr></thead>
       <tbody>
         <tr><td>1. <strong>Identify</strong></td><td>Confirm the incident is real; gather evidence</td><td>Confirm traffic anomaly is not a false positive; capture packets</td></tr>
@@ -67,6 +57,27 @@
     <p><strong>Locate rogue server:</strong> Check DHCP lease logs; use <code>show ip dhcp snooping binding</code> on the switch; trace MAC of rogue server to physical port.</p>
   </div>
 
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Rogue DHCP — victim ipconfig &amp; switch snooping</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> ipconfig /all
+Ethernet adapter Ethernet:
+   IPv4 Address. . . : 192.168.1.105
+   Subnet Mask . . . : 255.255.255.0
+   <span class="te">Default Gateway . : 10.0.0.99</span>     <span class="tn">← WRONG — legitimate GW is 192.168.1.1</span>
+   <span class="te">DHCP Server . . . : 10.0.0.99</span>     <span class="tn">← rogue DHCP server address</span>
+   <span class="te">DNS Servers . . . : 10.0.0.99</span>     <span class="tn">← attacker controlling DNS = hijack risk</span>
+<span class="tn"># All traffic and DNS queries may be routed through the attacker's device</span>
+
+<span class="tpc">Switch1#</span> show ip dhcp snooping binding
+MacAddress         IpAddress     Lease(sec)  Type  VLAN  Interface
+-----------------  ------------  ----------  ----  ----  ---------
+aa:bb:cc:11:22:33  192.168.1.105   86400     dhcp  10    Fa0/3
+cc:dd:ee:44:55:66  192.168.1.106   86400     dhcp  10    Fa0/4
+<span class="te">aa:bb:cc:99:00:11</span>  <span class="te">10.0.0.99</span>       86400     dhcp  10    <span class="te">Fa0/12</span>  <span class="tn">← rogue device</span>
+<span class="tn"># MAC aa:bb:cc:99:00:11 on Fa0/12 — physically locate and disconnect</span>
+<span class="tn"># Enable DHCP snooping: only trusted ports (uplinks) can send DHCP Offers/Acks</span></pre>
+  </div>
+
   <h3>ARP Poisoning Scenario</h3>
   <div class="callout callout-blue">
     <div class="callout-title">Symptoms &amp; Response</div>
@@ -75,9 +86,28 @@
     <p><strong>Fix:</strong> Enable <strong>Dynamic ARP Inspection (DAI)</strong> — validates ARP packets against DHCP snooping binding table. Forged ARP replies are dropped.</p>
   </div>
 
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">ARP Poisoning — detecting spoofed gateway MAC</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> arp -a
+Interface: 192.168.1.50 --- 0x3
+  Internet Address      Physical Address        Type
+  <span class="th">192.168.1.1</span>           <span class="te">aa-bb-cc-11-22-33</span>      dynamic   <span class="tn">← gateway</span>
+  <span class="th">192.168.1.200</span>         <span class="te">aa-bb-cc-11-22-33</span>      dynamic   <span class="tn">← attacker's IP</span>
+  192.168.1.100         dd-ee-ff-44-55-66      dynamic
+<span class="tn"># Gateway (.1) and attacker (.200) share the SAME MAC aa-bb-cc-11-22-33</span>
+<span class="tn"># Attacker sent forged ARP replies claiming to be the gateway</span>
+<span class="tn"># Traffic from .50 destined for the internet is intercepted (MITM)</span>
+
+<span class="tn"># Compare to known-good gateway MAC (from switch's MAC address table):</span>
+<span class="tpc">Switch1#</span> show mac address-table | include <span class="th">Gi0/0</span>
+10  <span class="ts">cc-dd-ee-77-88-99</span>  DYNAMIC  Gi0/0   <span class="tn">← real gateway MAC on uplink</span>
+<span class="tn"># Gateway's true MAC is cc-dd-ee-77-88-99 — NOT aa-bb-cc-11-22-33</span>
+<span class="tn"># Enable DAI (Dynamic ARP Inspection) to drop forged ARP replies automatically</span></pre>
+  </div>
+
   <h3>Social Engineering Indicators</h3>
   <div class="table-wrap">
-    <table>
+    <table class="table--reference">
       <thead><tr><th>Type</th><th>Indicator</th><th>Mitigation</th></tr></thead>
       <tbody>
         <tr><td>Phishing</td><td>Unexpected email with urgent request, mismatched sender domain, suspicious link</td><td>Email filtering, user training, MFA</td></tr>
