@@ -269,6 +269,7 @@
     <div class="mask-derive-header">How to convert a CIDR prefix to a subnet mask</div>
 
     <div class="mda-wrap">
+      <div class="mda-group-label">4th octet active (prefix /25–/30)</div>
       <div class="mda-row">
         <span class="mda-label">Forward</span>
         <span class="mda-chip mda-chip-prefix">/26</span>
@@ -277,7 +278,7 @@
         <span class="mda-sep">→</span>
         <span class="mda-chip">128 + 64</span>
         <span class="mda-sep">→</span>
-        <span class="mda-chip mda-chip-result">192</span>
+        <span class="mda-chip mda-chip-result">255.255.255.192</span>
       </div>
       <div class="mda-row">
         <span class="mda-label">Reverse</span>
@@ -289,10 +290,33 @@
         <span class="mda-sep">→</span>
         <span class="mda-chip mda-chip-prefix">/26</span>
       </div>
+      <div class="mda-divider"></div>
+      <div class="mda-group-label">3rd octet active (prefix /17–/23)</div>
+      <div class="mda-row">
+        <span class="mda-label">Forward</span>
+        <span class="mda-chip mda-chip-prefix">/20</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip">4 bits past /16</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip">128 + 64 + 32 + 16</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip mda-chip-result">255.255.240.0</span>
+      </div>
+      <div class="mda-row">
+        <span class="mda-label">Reverse</span>
+        <span class="mda-chip mda-chip-result">240</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip">128 + 64 + 32 + 16</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip">4 bits past /16</span>
+        <span class="mda-sep">→</span>
+        <span class="mda-chip mda-chip-prefix">/20</span>
+      </div>
     </div>
 
-    <p class="mask-derive-rule">A subnet mask is N ones followed by zeros. Full octets of ones = 255. The last active octet is where the math happens — count how many prefix bits extend past the nearest /8 boundary, then add their positional values from the left of the bit chart.</p>
-    <div class="mask-derive-sublabel">4th octet bit positions — values fill from the left</div>
+    <p class="mask-derive-rule">The same rule applies to any prefix. Divide by 8 to find how many full 255 octets come first, then count the remaining bits into the next octet and add their values from the left. The bit positions are always 128, 64, 32, 16, 8, 4, 2, 1.</p>
+
+    <div class="mask-derive-sublabel">Bit positions — same values apply to whichever octet is active</div>
     <div class="mask-derive-bitrow">
       <div class="mask-derive-bit">128</div>
       <div class="mask-derive-bit">64</div>
@@ -303,19 +327,38 @@
       <div class="mask-derive-bit">2</div>
       <div class="mask-derive-bit">1</div>
     </div>
-    <table class="mask-derive-table">
-      <thead>
-        <tr><th>Prefix</th><th>Add these bit values</th><th>Last octet</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>/25</td><td>128</td><td>128</td></tr>
-        <tr><td>/26</td><td>128 + 64</td><td>192</td></tr>
-        <tr><td>/27</td><td>128 + 64 + 32</td><td>224</td></tr>
-        <tr><td>/28</td><td>128 + 64 + 32 + 16</td><td>240</td></tr>
-        <tr><td>/29</td><td>128 + 64 + 32 + 16 + 8</td><td>248</td></tr>
-        <tr><td>/30</td><td>128 + 64 + 32 + 16 + 8 + 4</td><td>252</td></tr>
-      </tbody>
-    </table>
+
+    <div class="mask-derive-tables">
+      <div>
+        <div class="mask-derive-sublabel" style="margin-bottom:0.3rem">4th octet active — /25 to /30</div>
+        <table class="mask-derive-table">
+          <thead><tr><th>Prefix</th><th>Add these bit values</th><th>Mask</th></tr></thead>
+          <tbody>
+            <tr><td>/25</td><td>128</td><td>255.255.255.128</td></tr>
+            <tr><td>/26</td><td>128 + 64</td><td>255.255.255.192</td></tr>
+            <tr><td>/27</td><td>128 + 64 + 32</td><td>255.255.255.224</td></tr>
+            <tr><td>/28</td><td>128 + 64 + 32 + 16</td><td>255.255.255.240</td></tr>
+            <tr><td>/29</td><td>128 + 64 + 32 + 16 + 8</td><td>255.255.255.248</td></tr>
+            <tr><td>/30</td><td>128 + 64 + 32 + 16 + 8 + 4</td><td>255.255.255.252</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="mask-derive-sublabel" style="margin-bottom:0.3rem">3rd octet active — /17 to /23</div>
+        <table class="mask-derive-table">
+          <thead><tr><th>Prefix</th><th>Add these bit values</th><th>Mask</th></tr></thead>
+          <tbody>
+            <tr><td>/17</td><td>128</td><td>255.255.128.0</td></tr>
+            <tr><td>/18</td><td>128 + 64</td><td>255.255.192.0</td></tr>
+            <tr><td>/19</td><td>128 + 64 + 32</td><td>255.255.224.0</td></tr>
+            <tr><td>/20</td><td>128 + 64 + 32 + 16</td><td>255.255.240.0</td></tr>
+            <tr><td>/21</td><td>128 + 64 + 32 + 16 + 8</td><td>255.255.248.0</td></tr>
+            <tr><td>/22</td><td>128 + 64 + 32 + 16 + 8 + 4</td><td>255.255.252.0</td></tr>
+            <tr><td>/23</td><td>128 + 64 + 32 + 16 + 8 + 4 + 2</td><td>255.255.254.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <!-- Subnetting Methods — Full Guides -->
