@@ -66,22 +66,19 @@
         <colgroup class="protocol-ref-cols">
           <col class="protocol-ref-col-port">
           <col class="protocol-ref-col-protocol">
-          <col class="protocol-ref-col-transport">
           <col class="protocol-ref-col-summary">
         </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip HTTP row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
             <td>80</td>
-            <td><abbr title="HyperText Transfer Protocol">HTTP</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Cleartext web traffic. Replaced by HTTPS for secure sites.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A legacy internal dashboard still loads on HTTP:80 until a TLS certificate is deployed and the site is redirected to HTTPS.</span></span></td>
+            <td><abbr title="HyperText Transfer Protocol">HTTP</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Cleartext web traffic. Replaced by HTTPS for secure sites.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A user opens an old intranet site on HTTP:80, and anyone on that network could read the traffic.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip HTTPS row to see an example" role="button" aria-expanded="false">
             <td>443</td>
-            <td><abbr title="HTTP Secure — HTTP over TLS/SSL">HTTPS</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Encrypted web traffic. Standard for all modern websites.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A customer signs in to an ecommerce site over HTTPS so credentials and session cookies are encrypted in transit.</span></span></td>
+            <td><abbr title="HTTP Secure — HTTP over TLS/SSL">HTTPS</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Encrypted web traffic. Standard for all modern websites.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A user signs in to a bank website over HTTPS:443, so the login is encrypted.</span></span></td>
           </tr>
         </tbody>
       </table></div>
@@ -93,34 +90,29 @@
         <colgroup class="protocol-ref-cols">
           <col class="protocol-ref-col-port">
           <col class="protocol-ref-col-protocol">
-          <col class="protocol-ref-col-transport">
           <col class="protocol-ref-col-summary">
         </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip FTP data row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
             <td>20</td>
-            <td><abbr title="File Transfer Protocol — data channel">FTP</abbr> Data</td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Active mode data channel. Port 21 = control. ⚠ Two ports!</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> During active-mode FTP, a server sends file data from port 20 to a client after commands are negotiated on port 21.</span></span></td>
+            <td><abbr title="File Transfer Protocol — data channel">FTP</abbr> Data <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Active mode data channel. Port 21 = control. ⚠ Two ports!</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> After FTP login on port 21, the file itself is sent on port 20 in active mode.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip FTP control row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
             <td>21</td>
-            <td>FTP Control</td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Command/control channel. Passive mode negotiates ephemeral port over 21.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A user authenticates to an old FTP server on port 21, then the client opens a passive high port for file transfer.</span></span></td>
+            <td>FTP Control <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Command/control channel. Passive mode negotiates ephemeral port over 21.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An admin logs in to an old FTP server on port 21 to run file transfer commands.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip TFTP row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
             <td>69</td>
-            <td><abbr title="Trivial File Transfer Protocol — no authentication">TFTP</abbr></td>
-            <td>UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">No authentication, no directory listing. Used for network device firmware updates and PXE boot.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A switch pulls a boot image from a trusted local TFTP server during zero-touch provisioning.</span></span></td>
+            <td><abbr title="Trivial File Transfer Protocol — no authentication">TFTP</abbr> <span class="proto-transport">UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">No authentication, no directory listing. Used for network device firmware updates and PXE boot.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A new switch downloads its startup config from a local TFTP server.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip SMB row to see an example" role="button" aria-expanded="false">
             <td>445</td>
-            <td><abbr title="Server Message Block — Windows file/print sharing">SMB</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Windows file sharing and print sharing. Also used by ransomware (WannaCry/EternalBlue).</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A finance team maps a Windows network share over SMB:445, so admins tightly control lateral SMB access between VLANs.</span></span></td>
+            <td><abbr title="Server Message Block — Windows file/print sharing">SMB</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Windows file sharing and print sharing. Also used by ransomware (WannaCry/EternalBlue).</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An employee opens a shared folder on a Windows file server over SMB:445.</span></span></td>
           </tr>
         </tbody>
       </table></div>
@@ -132,52 +124,44 @@
         <colgroup class="protocol-ref-cols">
           <col class="protocol-ref-col-port">
           <col class="protocol-ref-col-protocol">
-          <col class="protocol-ref-col-transport">
           <col class="protocol-ref-col-summary">
         </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip SMTP row to see an example" role="button" aria-expanded="false">
             <td>25</td>
-            <td><abbr title="Simple Mail Transfer Protocol">SMTP</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Server-to-server email relay. Not for authenticated client submission.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A company mail gateway relays outbound messages to partner mail servers over SMTP:25.</span></span></td>
+            <td><abbr title="Simple Mail Transfer Protocol">SMTP</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Server-to-server email relay. Not for authenticated client submission.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> One mail server sends outbound email to another mail server on port 25.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip SMTP submission row to see an example" role="button" aria-expanded="false">
             <td>587</td>
-            <td>SMTP Submission</td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Authenticated client-to-server submission. Preferred over port 25 for sending.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Outlook submits a user&#39;s sent mail to the organization mailbox service on port 587 with authentication.</span></span></td>
+            <td>SMTP Submission <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Authenticated client-to-server submission. Preferred over port 25 for sending.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Your mail app sends your message to your company mail server on port 587.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip POP3 row to see an example" role="button" aria-expanded="false">
             <td>110</td>
-            <td><abbr title="Post Office Protocol v3 — downloads and deletes email">POP3</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Downloads email from server and deletes it. Single-device model.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A kiosk mailbox downloads messages via POP3 to one local machine and removes them from the server.</span></span></td>
+            <td><abbr title="Post Office Protocol v3 — downloads and deletes email">POP3</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Downloads email from server and deletes it. Single-device model.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A kiosk mailbox downloads messages to one PC and removes them from the server.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip POP3S row to see an example" role="button" aria-expanded="false">
             <td>995</td>
-            <td>POP3S</td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">POP3 over <abbr title="Transport Layer Security">TLS</abbr> — encrypted POP3.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A legacy scanner mailbox still uses POP3 semantics but is secured by connecting on POP3S:995.</span></span></td>
+            <td>POP3S <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">POP3 over <abbr title="Transport Layer Security">TLS</abbr> — encrypted POP3.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A scanner mailbox checks mail on POP3S:995 so the connection is encrypted.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip IMAP row to see an example" role="button" aria-expanded="false">
             <td>143</td>
-            <td><abbr title="Internet Message Access Protocol — syncs email across devices">IMAP</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Keeps email on server and syncs across devices. Multi-device model. Contrast: POP3 deletes.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A user reads the same mailbox from laptop and phone because IMAP syncs state from the server.</span></span></td>
+            <td><abbr title="Internet Message Access Protocol — syncs email across devices">IMAP</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Keeps email on server and syncs across devices. Multi-device model. Contrast: POP3 deletes.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A user reads the same mailbox on phone and laptop because IMAP keeps mail on the server.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip IMAPS row to see an example" role="button" aria-expanded="false">
             <td>993</td>
-            <td>IMAPS</td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">IMAP over TLS — encrypted IMAP.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A mobile mail client connects to IMAPS:993 so message headers and content stay encrypted on public Wi-Fi.</span></span></td>
+            <td>IMAPS <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">IMAP over TLS — encrypted IMAP.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A phone app connects on IMAPS:993 to sync email securely on public Wi-Fi.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip NNTP row to see an example" role="button" aria-expanded="false" data-protocol-state="legacy">
             <td>119</td>
-            <td><abbr title="Network News Transfer Protocol — legacy newsgroups">NNTP</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy newsgroup protocol. Rarely seen today.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A specialist archive mirror still syncs historical technical newsgroups over NNTP:119.</span></span></td>
+            <td><abbr title="Network News Transfer Protocol — legacy newsgroups">NNTP</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy newsgroup protocol. Rarely seen today.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A hobby archive server still mirrors old newsgroup posts on NNTP:119.</span></span></td>
           </tr>
         </tbody>
       </table></div>
@@ -189,28 +173,24 @@
         <colgroup class="protocol-ref-cols">
           <col class="protocol-ref-col-port">
           <col class="protocol-ref-col-protocol">
-          <col class="protocol-ref-col-transport">
           <col class="protocol-ref-col-summary">
         </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip SSH row to see an example" role="button" aria-expanded="false">
             <td>22</td>
-            <td><abbr title="Secure Shell — encrypted remote access">SSH</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Encrypted remote shell access. Replaces Telnet (port 23).</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A Linux admin uses SSH keys on port 22 to manage routers and servers without exposing passwords in cleartext.</span></span></td>
+            <td><abbr title="Secure Shell — encrypted remote access">SSH</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Encrypted remote shell access. Replaces Telnet (port 23).</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An admin uses SSH:22 to run commands on a Linux server.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip Telnet row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
             <td>23</td>
-            <td>Telnet</td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Cleartext remote access — insecure, legacy. Replaced by SSH.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A lab-only serial terminal server still exposes Telnet, so access is isolated to a management VLAN.</span></span></td>
+            <td>Telnet <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Cleartext remote access — insecure, legacy. Replaced by SSH.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A lab switch still allows Telnet:23 for testing on an isolated network.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip RDP row to see an example" role="button" aria-expanded="false">
             <td>3389</td>
-            <td><abbr title="Remote Desktop Protocol — Windows GUI remote access">RDP</abbr></td>
-            <td>TCP (+UDP)</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Windows remote desktop. High-value attack target — should be VPN-gated.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Help desk staff connect to user workstations over RDP only after joining a company VPN with MFA.</span></span></td>
+            <td><abbr title="Remote Desktop Protocol — Windows GUI remote access">RDP</abbr> <span class="proto-transport">TCP (+UDP)</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Windows remote desktop. High-value attack target — should be VPN-gated.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Help desk connects to a user workstation over RDP after joining the company VPN.</span></span></td>
           </tr>
         </tbody>
       </table></div>
@@ -222,40 +202,34 @@
         <colgroup class="protocol-ref-cols">
           <col class="protocol-ref-col-port">
           <col class="protocol-ref-col-protocol">
-          <col class="protocol-ref-col-transport">
           <col class="protocol-ref-col-summary">
         </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip DNS row to see an example" role="button" aria-expanded="false">
             <td>53</td>
-            <td><abbr title="Domain Name System — resolves hostnames to IP addresses">DNS</abbr></td>
-            <td>UDP + TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">UDP for queries (≤512 bytes). TCP for zone transfers and large responses. <strong>Both matter!</strong></span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A branch resolver sends normal lookups via UDP but falls back to TCP for large DNSSEC responses.</span></span></td>
+            <td><abbr title="Domain Name System — resolves hostnames to IP addresses">DNS</abbr> <span class="proto-transport">UDP + TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">UDP for queries (≤512 bytes). TCP for zone transfers and large responses. <strong>Both matter!</strong></span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A PC asks DNS for example.com over UDP 53, and large replies can switch to TCP 53.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip DHCP server row to see an example" role="button" aria-expanded="false">
             <td>67</td>
-            <td><abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> Server</td>
-            <td>UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Server listens on 67. Client sends Discover from port 68.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A newly connected laptop broadcasts DHCP Discover and the local DHCP service answers from UDP 67.</span></span></td>
+            <td><abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> Server <span class="proto-transport">UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Server listens on 67. Client sends Discover from port 68.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> When a laptop joins Wi-Fi, the DHCP server replies from UDP 67 with an IP address.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip DHCP client row to see an example" role="button" aria-expanded="false">
             <td>68</td>
-            <td>DHCP Client</td>
-            <td>UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Client source port during <abbr title="Discover-Offer-Request-Acknowledge">DORA</abbr> process.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Packet capture during troubleshooting shows DHCP Requests sourced from UDP 68 on the endpoint.</span></span></td>
+            <td>DHCP Client <span class="proto-transport">UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Client source port during <abbr title="Discover-Offer-Request-Acknowledge">DORA</abbr> process.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> In a packet capture, the client sends DHCP requests from UDP 68.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip NTP row to see an example" role="button" aria-expanded="false">
             <td>123</td>
-            <td><abbr title="Network Time Protocol — time synchronization">NTP</abbr></td>
-            <td>UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Time synchronization. Critical for Kerberos auth — max 5-minute clock skew.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Domain controllers and clients sync to NTP so Kerberos ticket validation does not fail on skew.</span></span></td>
+            <td><abbr title="Network Time Protocol — time synchronization">NTP</abbr> <span class="proto-transport">UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Time synchronization. Critical for Kerberos auth — max 5-minute clock skew.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Workstations sync time with the NTP server so logins and timestamps stay correct.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip Syslog row to see an example" role="button" aria-expanded="false">
             <td>514</td>
-            <td>Syslog</td>
-            <td>UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">System event logging to a central server. UDP = no delivery guarantee; logs can be lost.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Firewall appliances send syslog events to a SIEM collector on UDP 514 for centralized alerting.</span></span></td>
+            <td>Syslog <span class="proto-transport">UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">System event logging to a central server. UDP = no delivery guarantee; logs can be lost.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Routers send log messages to a central syslog server on UDP 514.</span></span></td>
           </tr>
         </tbody>
       </table></div>
@@ -267,46 +241,39 @@
         <colgroup class="protocol-ref-cols">
           <col class="protocol-ref-col-port">
           <col class="protocol-ref-col-protocol">
-          <col class="protocol-ref-col-transport">
           <col class="protocol-ref-col-summary">
         </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip Kerberos row to see an example" role="button" aria-expanded="false">
             <td>88</td>
-            <td>Kerberos</td>
-            <td>TCP/UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Authentication protocol in Active Directory. Requires <abbr title="Network Time Protocol">NTP</abbr> sync (5-minute skew max).</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A domain-joined Windows user signs in and receives a Kerberos ticket to access shared resources without re-entering credentials.</span></span></td>
+            <td>Kerberos <span class="proto-transport">TCP/UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Authentication protocol in Active Directory. Requires <abbr title="Network Time Protocol">NTP</abbr> sync (5-minute skew max).</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A user signs in to Windows and gets a Kerberos ticket to open a file share.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip LDAP row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
             <td>389</td>
-            <td><abbr title="Lightweight Directory Access Protocol — directory queries (e.g. Active Directory)">LDAP</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Directory queries in cleartext. Risky on untrusted networks. Replacement: use LDAPS on port 636.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A legacy app binds to LDAP:389 for user lookups; modern hardening migrates that bind to LDAPS:636 to encrypt credentials and queries.</span></span></td>
+            <td><abbr title="Lightweight Directory Access Protocol — directory queries (e.g. Active Directory)">LDAP</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Directory queries in cleartext. Risky on untrusted networks. Replacement: use LDAPS on port 636.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An old app checks usernames over LDAP:389 without encryption.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip LDAPS row to see an example" role="button" aria-expanded="false">
             <td>636</td>
-            <td>LDAPS</td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">LDAP over TLS for encrypted directory queries and credential exchange.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Security policy requires all directory binds over LDAPS so password checks and group lookups are encrypted end to end.</span></span></td>
+            <td>LDAPS <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">LDAP over TLS for encrypted directory queries and credential exchange.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A modern app checks users over LDAPS:636 so directory traffic is encrypted.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip TACACS+ row to see an example" role="button" aria-expanded="false" data-protocol-state="legacy">
             <td>49</td>
-            <td><abbr title="Terminal Access Controller Access-Control System Plus — AAA for network devices">TACACS+</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">AAA for network device administration with full packet encryption. In many modern environments, RADIUS-based NAC is more common.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A legacy router admin team authenticates CLI logins against a TACACS+ server, while new wireless access is handled through RADIUS policies.</span></span></td>
+            <td><abbr title="Terminal Access Controller Access-Control System Plus — AAA for network devices">TACACS+</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">AAA for network device administration with full packet encryption. In many modern environments, RADIUS-based NAC is more common.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Network admins sign in to routers through a TACACS+ server.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip RADIUS authentication row to see an example" role="button" aria-expanded="false">
             <td>1812</td>
-            <td><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> Auth</td>
-            <td>UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">AAA for Wi-Fi and VPN access. Encrypts the password field and works with accounting on port 1813.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> 802.1X enterprise Wi-Fi sends user credentials to a RADIUS server for allow/deny decisions before network access is granted.</span></span></td>
+            <td><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> Auth <span class="proto-transport">UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">AAA for Wi-Fi and VPN access. Encrypts the password field and works with accounting on port 1813.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Enterprise Wi-Fi sends login credentials to RADIUS on UDP 1812.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip RADIUS accounting row to see an example" role="button" aria-expanded="false">
             <td>1813</td>
-            <td>RADIUS Accounting</td>
-            <td>UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Tracks session start, stop, duration, and usage for auditing and chargeback workflows.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A network operations team uses RADIUS accounting logs to confirm VPN session durations during an incident investigation.</span></span></td>
+            <td>RADIUS Accounting <span class="proto-transport">UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Tracks session start, stop, duration, and usage for auditing and chargeback workflows.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> RADIUS accounting on UDP 1813 logs when VPN sessions start and stop.</span></span></td>
           </tr>
         </tbody>
       </table></div>
@@ -318,22 +285,19 @@
         <colgroup class="protocol-ref-cols">
           <col class="protocol-ref-col-port">
           <col class="protocol-ref-col-protocol">
-          <col class="protocol-ref-col-transport">
           <col class="protocol-ref-col-summary">
         </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip SNMP poll row to see an example" role="button" aria-expanded="false">
             <td>161</td>
-            <td><abbr title="Simple Network Management Protocol — manager polls agents">SNMP</abbr> Poll</td>
-            <td>UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Manager queries agents for device stats (CPU, interfaces, errors).</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A monitoring platform polls router interfaces on UDP 161 every minute for utilization graphs.</span></span></td>
+            <td><abbr title="Simple Network Management Protocol — manager polls agents">SNMP</abbr> Poll <span class="proto-transport">UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Manager queries agents for device stats (CPU, interfaces, errors).</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A monitoring tool polls a switch on UDP 161 for interface status.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip SNMP trap row to see an example" role="button" aria-expanded="false">
             <td>162</td>
-            <td>SNMP Trap</td>
-            <td>UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Agents send unsolicited alerts (traps) to the manager. Direction: agent → manager.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A switch sends an SNMP trap on link failure so the NOC is alerted immediately.</span></span></td>
+            <td>SNMP Trap <span class="proto-transport">UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Agents send unsolicited alerts (traps) to the manager. Direction: agent → manager.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A switch sends an SNMP trap when a link goes down.</span></span></td>
           </tr>
         </tbody>
       </table></div>
@@ -345,28 +309,24 @@
         <colgroup class="protocol-ref-cols">
           <col class="protocol-ref-col-port">
           <col class="protocol-ref-col-protocol">
-          <col class="protocol-ref-col-transport">
           <col class="protocol-ref-col-summary">
         </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip SIP row to see an example" role="button" aria-expanded="false">
             <td>5060</td>
-            <td><abbr title="Session Initiation Protocol — VoIP call setup and teardown">SIP</abbr></td>
-            <td>TCP/UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">VoIP call setup and teardown. Media (voice) travels on separate <abbr title="Real-time Transport Protocol">RTP</abbr> ports.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An IP phone registers to a PBX over SIP:5060, then voice streams over negotiated RTP ports.</span></span></td>
+            <td><abbr title="Session Initiation Protocol — VoIP call setup and teardown">SIP</abbr> <span class="proto-transport">TCP/UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">VoIP call setup and teardown. Media (voice) travels on separate <abbr title="Real-time Transport Protocol">RTP</abbr> ports.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An IP phone sets up a call with the PBX on SIP port 5060.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip SIPS row to see an example" role="button" aria-expanded="false">
             <td>5061</td>
-            <td>SIPS</td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">SIP over TLS — encrypted VoIP signaling.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A contact center encrypts SIP signaling on port 5061 so caller metadata is protected in transit.</span></span></td>
+            <td>SIPS <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">SIP over TLS — encrypted VoIP signaling.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A VoIP system uses SIPS:5061 so call signaling is encrypted.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip H.323 row to see an example" role="button" aria-expanded="false" data-protocol-state="legacy">
             <td>1720</td>
-            <td>H.323</td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy VoIP signaling. Uses 1720 for call setup; media uses dynamic ports.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A legacy video conferencing bridge still negotiates sessions on H.323:1720 during phased migration to SIP.</span></span></td>
+            <td>H.323 <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy VoIP signaling. Uses 1720 for call setup; media uses dynamic ports.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An older video room still starts calls on H.323 port 1720.</span></span></td>
           </tr>
         </tbody>
       </table></div>
@@ -378,22 +338,19 @@
         <colgroup class="protocol-ref-cols">
           <col class="protocol-ref-col-port">
           <col class="protocol-ref-col-protocol">
-          <col class="protocol-ref-col-transport">
           <col class="protocol-ref-col-summary">
         </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip BGP row to see an example" role="button" aria-expanded="false">
             <td>179</td>
-            <td><abbr title="Border Gateway Protocol — internet routing between autonomous systems">BGP</abbr></td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Internet routing between <abbr title="Autonomous Systems — independently managed routing domains">ASes</abbr>. Uses TCP for reliability.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An ISP edge router exchanges route updates with an upstream provider over BGP:179.</span></span></td>
+            <td><abbr title="Border Gateway Protocol — internet routing between autonomous systems">BGP</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Internet routing between <abbr title="Autonomous Systems — independently managed routing domains">ASes</abbr>. Uses TCP for reliability.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An edge router exchanges internet routes with an ISP over BGP:179.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip RIP row to see an example" role="button" aria-expanded="false" data-protocol-state="legacy">
             <td>520</td>
-            <td><abbr title="Routing Information Protocol — legacy distance-vector IGP, max 15 hops">RIP</abbr></td>
-            <td>UDP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy distance-vector routing. Max 15 hops. Mostly replaced by OSPF.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A small legacy branch still advertises local subnets with RIP while core routers run OSPF.</span></span></td>
+            <td><abbr title="Routing Information Protocol — legacy distance-vector IGP, max 15 hops">RIP</abbr> <span class="proto-transport">UDP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy distance-vector routing. Max 15 hops. Mostly replaced by OSPF.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A small legacy router advertises local networks to a neighbor using RIP:520.</span></span></td>
           </tr>
         </tbody>
       </table></div>
@@ -405,16 +362,14 @@
         <colgroup class="protocol-ref-cols">
           <col class="protocol-ref-col-port">
           <col class="protocol-ref-col-protocol">
-          <col class="protocol-ref-col-transport">
           <col class="protocol-ref-col-summary">
         </colgroup>
-        <thead><tr><th>Port</th><th>Protocol</th><th>Transport</th><th>Summary</th></tr></thead>
+        <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip Microsoft SQL row to see an example" role="button" aria-expanded="false">
             <td>1433</td>
-            <td>MS SQL</td>
-            <td>TCP</td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Microsoft SQL Server. Commonly targeted — often blocked at perimeter firewall.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An internal app server reaches SQL Server on 1433 while firewall rules block internet-originated traffic.</span></span></td>
+            <td>MS SQL <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Microsoft SQL Server. Commonly targeted — often blocked at perimeter firewall.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An internal app connects to the SQL Server database on TCP 1433.</span></span></td>
           </tr>
         </tbody>
       </table></div>

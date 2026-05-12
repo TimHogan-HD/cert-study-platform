@@ -1362,12 +1362,12 @@ tr[data-exam-weight="high"] td:first-child::before {
 
 .protocol-ref-table {
   table-layout: fixed;
+  min-width: 0;
 }
 
-.protocol-ref-cols .protocol-ref-col-port { width: 12%; }
-.protocol-ref-cols .protocol-ref-col-protocol { width: 22%; }
-.protocol-ref-cols .protocol-ref-col-transport { width: 16%; }
-.protocol-ref-cols .protocol-ref-col-summary { width: 50%; }
+.protocol-ref-cols .protocol-ref-col-port     { width: 12%; }
+.protocol-ref-cols .protocol-ref-col-protocol { width: 28%; }
+.protocol-ref-cols .protocol-ref-col-summary  { width: 60%; }
 
 .protocol-ref-table tbody td {
   padding: 0.55rem 0.75rem;
@@ -1384,8 +1384,6 @@ tr[data-exam-weight="high"] td:first-child::before {
 .protocol-ref-row {
   cursor: pointer;
   --protocol-face-py: 0.55rem;
-  --protocol-front-lines: 2;
-  --protocol-back-lines: 3;
 }
 
 .protocol-ref-row:focus-visible {
@@ -1397,71 +1395,71 @@ tr[data-exam-weight="high"] td:first-child::before {
   padding: 0;
 }
 
+/* Cross-fade flip — grid stacking so both faces contribute to row height */
 .protocol-ref-cell-flip {
-  position: relative;
-  display: block;
-  block-size: calc((1.4em * var(--protocol-back-lines)) + (var(--protocol-face-py) * 2));
-  min-block-size: calc((1.4em * var(--protocol-back-lines)) + (var(--protocol-face-py) * 2));
-  overflow: hidden;
-  transform-style: preserve-3d;
-  transition: transform 0.8s ease;
-}
-
-.protocol-ref-row.is-flipped .protocol-ref-cell-flip {
-  transform: rotateX(180deg);
+  display: grid;
+  min-width: 0;
 }
 
 .protocol-ref-face {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  backface-visibility: hidden;
+  grid-area: 1 / 1; /* stack front and back in same cell; row sizes to the taller face */
+  display: block; /* span is inline by default; block ensures padding contributes to height */
   background: var(--surface);
   color: var(--text);
   padding: var(--protocol-face-py) 0.75rem;
   font-size: 0.8rem;
   line-height: 1.4;
-  display: flex;
-  align-items: flex-start;
-  max-height: calc((1.4em * var(--protocol-back-lines)) + (var(--protocol-face-py) * 2));
+  transition: opacity 0.25s ease;
 }
 
 .protocol-ref-face.protocol-ref-front {
-  z-index: 1;
+  opacity: 1;
+  visibility: visible;
 }
 
 .protocol-ref-face.protocol-ref-back {
-  transform: rotateX(180deg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.protocol-ref-row td:last-child .protocol-ref-face.protocol-ref-front {
-  display: -webkit-box;
-  -webkit-line-clamp: var(--protocol-front-lines);
-  -webkit-box-orient: vertical;
-  line-clamp: var(--protocol-front-lines);
+.protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-front {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-back {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  overflow-y: auto;
 }
 
-.protocol-ref-row td:last-child .protocol-ref-face.protocol-ref-back {
-  display: -webkit-box;
-  -webkit-line-clamp: var(--protocol-back-lines);
-  -webkit-box-orient: vertical;
-  line-clamp: var(--protocol-back-lines);
-}
-
+/* State tinting — applies to td background + both faces */
+.protocol-ref-row[data-protocol-state="legacy"] td,
 .protocol-ref-row[data-protocol-state="legacy"] .protocol-ref-face {
   background: var(--amber-bg);
 }
 
+.protocol-ref-row[data-protocol-state="risky"] td,
 .protocol-ref-row[data-protocol-state="risky"] .protocol-ref-face {
   background: var(--red-bg);
 }
 
-.protocol-ref-row[data-protocol-state="legacy"] td {
-  background: var(--amber-bg);
-}
-
-.protocol-ref-row[data-protocol-state="risky"] td {
-  background: var(--red-bg);
+/* Transport badge inline in Protocol cell */
+.proto-transport {
+  display: inline-block;
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  background: var(--surface2);
+  color: var(--muted);
+  vertical-align: middle;
+  margin-left: 0.35em;
+  white-space: nowrap;
 }
 
 @media (max-width: 900px) {
