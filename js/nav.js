@@ -352,6 +352,7 @@ function initFragmentComponents(path) {
   initProtocolRefFlips();
   initDayTabs();
   initChecklist();
+  initBinaryBits();
   injectDomainSubNav(path);
 }
 
@@ -400,6 +401,33 @@ function initDayTabs() {
       });
     });
   });
+}
+
+/* ── Binary bit toggle for C9 binary explainer ───────────────── */
+function initBinaryBits() {
+  const grid = document.getElementById('bit-grid');
+  const totalDisplay = document.getElementById('bit-total');
+  if (!grid || !totalDisplay) return;
+
+  function updateTotal() {
+    let total = 0;
+    grid.querySelectorAll('.binary-bit-cell').forEach(cell => {
+      if (cell.classList.contains('bit-on')) total += parseInt(cell.dataset.value, 10);
+    });
+    totalDisplay.textContent = total;
+  }
+
+  grid.querySelectorAll('.binary-bit-cell').forEach(cell => {
+    if (cell._bitToggleFn) cell.removeEventListener('click', cell._bitToggleFn);
+    cell._bitToggleFn = () => {
+      const isOn = cell.classList.toggle('bit-on');
+      cell.textContent = isOn ? '1' : '0';
+      updateTotal();
+    };
+    cell.addEventListener('click', cell._bitToggleFn);
+  });
+
+  updateTotal();
 }
 
 /* ── Pre-exam checklist with localStorage persistence ────────── */
