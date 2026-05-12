@@ -105,6 +105,34 @@
     </ul>
   </div>
 
+  <h3>Additional Network Functions</h3>
+
+  <div class="callout callout-blue">
+    <div class="callout-title"><abbr title="Content Delivery Network">CDN</abbr> — Content Delivery Network</div>
+    <p>A geographically distributed network of edge servers that cache static content (images, video, JS, CSS) close to end users. Requests are routed to the nearest edge node, dramatically reducing latency. Examples: Cloudflare, Akamai, Amazon CloudFront. The origin server is only hit for cache misses or dynamic content.</p>
+  </div>
+
+  <h3>Quality of Service (<abbr title="Quality of Service">QoS</abbr>)</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Mechanism</th><th>Layer</th><th>How It Works</th><th>Key Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>QoS / DSCP</strong></td><td>L3</td><td>IP header <abbr title="Differentiated Services Code Point">DSCP</abbr> field (6-bit) marks packet priority</td><td>EF (Expedited Forwarding) = VoIP, DSCP 46; AF = Assured Forwarding; BE = Best Effort (default, 0)</td></tr>
+        <tr><td><strong>CoS</strong></td><td>L2</td><td>802.1p 3-bit field in 802.1Q VLAN tag marks priority</td><td>0–7; only present on tagged (trunk) frames; lost at L3 boundary</td></tr>
+        <tr data-exam-weight="high"><td><strong>Traffic Shaping</strong></td><td>L3–L4</td><td>Buffers excess traffic to smooth bursts — adds latency but no drops</td><td>Smooth, compliant with contracted rate; introduces delay</td></tr>
+        <tr data-exam-weight="high"><td><strong>Traffic Policing</strong></td><td>L3–L4</td><td>Drops or re-marks packets that exceed a defined rate — no buffering</td><td>Bursty drops; typically at ISP edge or WAN handoff</td></tr>
+        <tr><td><strong>Queuing</strong></td><td>L3</td><td>Scheduler determines order packets leave interface</td><td><abbr title="Priority Queuing">PQ</abbr> = strict priority; <abbr title="Weighted Fair Queuing">WFQ</abbr> = bandwidth share; <abbr title="Class-Based WFQ">CBWFQ</abbr> = class-defined bandwidth</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title"><abbr title="Time To Live">TTL</abbr> — Time to Live</div>
+    <p>An 8-bit field in the IPv4 header (Hop Limit in IPv6). Each router decrements TTL by 1 before forwarding. When TTL reaches 0, the packet is discarded and the router sends an <strong>ICMP Time Exceeded</strong> message back to the source. <code>traceroute</code> exploits this: it sends packets with progressively increasing TTL (1, 2, 3…) to map each hop along the path.</p>
+  </div>
+
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 1.2</div>
     <ul>
@@ -113,6 +141,9 @@
       <li>IDS = passive, SPAN port, alerts only | IPS = inline, can block</li>
       <li>NGFW includes IPS + app awareness + deep packet inspection</li>
       <li>Load balancer: L4 (port-based) or L7 (content-aware)</li>
+      <li>CDN = edge caching near users; reduces latency for static content</li>
+      <li>QoS DSCP EF = VoIP (DSCP 46) | Shaping = buffers (delays) | Policing = drops</li>
+      <li>TTL decrements per hop; 0 = ICMP Time Exceeded; traceroute uses this</li>
     </ul>
   </div>
 

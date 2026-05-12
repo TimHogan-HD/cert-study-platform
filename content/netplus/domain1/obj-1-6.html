@@ -153,6 +153,42 @@
     </ul>
   </div>
 
+  <h3>Cloud Networking Deep Dive</h3>
+
+  <div class="callout callout-blue">
+    <div class="callout-title"><abbr title="Network Functions Virtualization">NFV</abbr> — Network Functions Virtualization</div>
+    <p>Replaces dedicated physical appliances (firewalls, load balancers, routers, WAN optimizers) with software running on commodity x86 servers or in cloud VMs. Enables faster deployment, elastic scaling, and lower CapEx. Cloud providers offer NFV-based services natively — e.g., virtual firewalls, virtual load balancers — as virtual appliances alongside IaaS instances.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title"><abbr title="Virtual Private Cloud">VPC</abbr> — Virtual Private Cloud</div>
+    <p>An isolated logical network within a public cloud provider's infrastructure. Defined by a <abbr title="Classless Inter-Domain Routing">CIDR</abbr> block (e.g., 10.0.0.0/16). Subdivided into subnets (public and private). Connectivity options: VPC peering (direct VPC-to-VPC), Transit Gateway (hub-and-spoke between many VPCs), VPN Gateway, or Direct Connect/ExpressRoute. Each cloud account gets a <em>default VPC</em> per region.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Control</th><th>Type</th><th>Stateful?</th><th>Scope</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>AWS Security Group / Azure NSG</strong></td><td>Virtual firewall</td><td>Yes (stateful)</td><td>Per-instance / per-NIC</td><td>Return traffic automatically allowed; rules apply to specific resources</td></tr>
+        <tr data-exam-weight="high"><td><strong>AWS <abbr title="Network Access Control List">NACL</abbr> / OCI Security List</strong></td><td>Subnet ACL</td><td>No (stateless)</td><td>Per-subnet</td><td>Must explicitly allow both inbound AND outbound for each flow</td></tr>
+        <tr><td><strong>Internet Gateway</strong></td><td>VPC attachment</td><td>N/A</td><td>VPC-level</td><td>Bidirectional public internet access for resources with public IPs</td></tr>
+        <tr><td><strong>NAT Gateway / NAT Instance</strong></td><td>Address translation</td><td>Yes</td><td>VPC-level</td><td>Outbound-only internet for private subnet instances — no inbound initiated connections</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Scalability vs Elasticity</div>
+    <p><strong>Scalability</strong> = the ability to add capacity (scale up/out) to handle more load. <strong>Elasticity</strong> = automatic <em>bidirectional</em> scaling — resources are provisioned when demand rises and de-provisioned when demand falls. Cloud infrastructure is elastic; traditional on-premises infrastructure is merely scalable (you provision for peak, waste capacity at off-peak).</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Multitenancy</div>
+    <p>Multiple customers (tenants) share the same physical infrastructure while being logically isolated from one another. Logical isolation is enforced through hypervisors, VPCs, VLANs, and IAM policies. Multitenancy is the economic foundation of public cloud — shared infrastructure reduces per-tenant cost.</p>
+  </div>
+
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 1.6</div>
     <ul>
@@ -160,6 +196,11 @@
       <li>Spine-leaf: data center, every leaf connects to every spine, equal latency</li>
       <li>IaaS = VMs | PaaS = platforms | SaaS = apps (decreasing customer control)</li>
       <li>SDN = control plane separated from data plane via centralized controller</li>
+      <li>NFV = physical appliances replaced by software on commodity x86 or cloud VMs</li>
+      <li>VPC = isolated logical cloud network; CIDR block, subnets, peering</li>
+      <li>Security Group/NSG = stateful, per-instance | NACL = stateless, per-subnet</li>
+      <li>Elasticity = auto bidirectional scaling (up AND down); Scalability = capacity to grow</li>
+      <li>Multitenancy = shared physical, logically isolated — foundation of public cloud economics</li>
     </ul>
   </div>
 
