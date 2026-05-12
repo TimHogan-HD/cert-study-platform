@@ -259,14 +259,32 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
     </table>
   </div>
 
-  <ol class="steps-list">
-    <li><strong>Client → Recursive Resolver:</strong> Client sends recursive query to its configured DNS resolver (e.g., ISP resolver or 8.8.8.8)</li>
-    <li><strong>Resolver checks cache:</strong> If the answer is cached (TTL not expired), it returns immediately. Otherwise, resolution begins.</li>
-    <li><strong>Resolver → Root Server (iterative):</strong> "Who handles .com?" Root server refers resolver to the .com TLD name servers.</li>
-    <li><strong>Resolver → TLD Server (iterative):</strong> "Who handles example.com?" TLD server refers resolver to example.com's authoritative name servers.</li>
-    <li><strong>Resolver → Authoritative Server (iterative):</strong> "What is the IP for www.example.com?" Authoritative server returns the A record.</li>
-    <li><strong>Resolver → Client:</strong> Returns the answer and caches it for the record's TTL duration.</li>
-  </ol>
+  <div class="steps-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-body"><strong>Client → Recursive Resolver:</strong> Client sends recursive query to its configured DNS resolver (e.g., ISP resolver or 8.8.8.8)</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-body"><strong>Resolver checks cache:</strong> If the answer is cached (TTL not expired), it returns immediately. Otherwise, resolution begins.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-body"><strong>Resolver → Root Server (iterative):</strong> "Who handles .com?" Root server refers resolver to the .com TLD name servers.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-body"><strong>Resolver → TLD Server (iterative):</strong> "Who handles example.com?" TLD server refers resolver to example.com's authoritative name servers.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-body"><strong>Resolver → Authoritative Server (iterative):</strong> "What is the IP for www.example.com?" Authoritative server returns the A record.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">6</div>
+      <div class="step-body"><strong>Resolver → Client:</strong> Returns the answer and caches it for the record's TTL duration.</div>
+    </div>
+  </div>
 
   <div class="callout callout-blue">
     <div class="callout-title">Authoritative vs Non-Authoritative Responses</div>
