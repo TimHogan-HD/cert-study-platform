@@ -1747,4 +1747,234 @@ tr[data-exam-weight="high"] td:first-child::before {
 /* ── Grouped Checklist Sections ──────────────────────────────── */
 .check-section { margin-bottom: 1rem; }
 .check-section-header { font-size: 0.78rem; font-weight: 600; color: var(--text); padding: 0.35rem 0.65rem; background: var(--surface2); border-radius: var(--radius); margin-bottom: 0; border: 1px solid var(--border); }
+
+/* ═══════════════════════════════════════════════════════════════
+   DOMAIN 1 VISUAL REDESIGN — C1–C10
+   All classes prefixed to avoid conflicts with existing styles.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── C1: OSI Stack v2 ────────────────────────────────────────── */
+.osi-v2 { display: flex; flex-direction: column; gap: 3px; margin: 1rem 0 1.25rem; }
+.osi-v2-header { display: grid; grid-template-columns: 2.2rem 9rem 7rem 1fr 1fr; gap: 0; padding: 0.2rem 0.85rem; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); }
+.osi-v2-row { display: grid; grid-template-columns: 2.2rem 9rem 7rem 1fr 1fr; gap: 0 0.6rem; padding: 0.55rem 0.85rem; border-left: 4px solid transparent; border-radius: 6px; align-items: center; }
+.osi-v2-row[data-layer="7"] { background: var(--purple-bg); border-left-color: var(--purple); }
+.osi-v2-row[data-layer="6"] { background: rgba(168,85,247,0.07); border-left-color: rgba(168,85,247,0.6); }
+.osi-v2-row[data-layer="5"] { background: rgba(168,85,247,0.04); border-left-color: rgba(168,85,247,0.35); }
+.osi-v2-row[data-layer="4"] { background: var(--blue-bg); border-left-color: var(--blue); }
+.osi-v2-row[data-layer="3"] { background: var(--teal-bg); border-left-color: var(--teal); }
+.osi-v2-row[data-layer="2"] { background: var(--amber-bg); border-left-color: var(--amber); }
+.osi-v2-row[data-layer="1"] { background: var(--red-bg); border-left-color: var(--red); }
+.osi-v2-num { font-weight: 700; font-size: 0.85rem; opacity: 0.7; text-align: center; }
+.osi-v2-name { font-weight: 700; font-size: 0.9rem; }
+.osi-v2-pdu { font-size: 0.75rem; color: var(--muted); }
+.osi-v2-proto { font-size: 0.75rem; color: var(--muted); }
+.osi-v2-devices { font-size: 0.75rem; color: var(--muted); }
+.osi-v2-encap-strip { display: flex; border-radius: var(--radius); overflow: hidden; margin-top: 0.75rem; font-size: 0.72rem; text-align: center; }
+.osi-v2-encap-cell { flex: 1; padding: 0.4rem 0.3rem; font-size: 0.7rem; font-weight: 600; line-height: 1.3; }
+.encap-l7 { background: var(--purple-bg); color: var(--purple); }
+.encap-l4 { background: var(--blue-bg); color: var(--blue); }
+.encap-l3 { background: var(--teal-bg); color: var(--teal); }
+.encap-l2 { background: var(--amber-bg); color: var(--amber); }
+.encap-l1 { background: var(--red-bg); color: var(--red); }
+@media (max-width: 700px) {
+  .osi-v2-header { grid-template-columns: 2rem 1fr; }
+  .osi-v2-header span:nth-child(n+3) { display: none; }
+  .osi-v2-row { grid-template-columns: 2rem 1fr; }
+  .osi-v2-pdu, .osi-v2-proto, .osi-v2-devices { display: none; }
+  .osi-v2-encap-cell { font-size: 0.62rem; padding: 0.35rem 0.1rem; }
+}
+
+/* ── C2: TCP/IP ↔ OSI Bracket ────────────────────────────────── */
+.tcpip-bracket { display: flex; gap: 0.5rem; align-items: stretch; margin: 1rem 0 1.5rem; }
+.tcpip-col { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+.tcpip-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); text-align: center; padding-bottom: 0.3rem; }
+.tcpip-block { display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 6px; font-weight: 600; padding: 0.5rem 0.85rem; text-align: center; border: 1px solid transparent; }
+.tcpip-block-app { flex: 3; background: var(--purple-bg); border-color: var(--purple-border); color: var(--purple); }
+.tcpip-block-transport { flex: 1; background: var(--blue-bg); border-color: var(--blue-border); color: var(--blue); }
+.tcpip-block-internet { flex: 1; background: var(--teal-bg); border-color: var(--teal-border); color: var(--teal); }
+.tcpip-block-netaccess { flex: 2; background: var(--amber-bg); border-color: var(--amber-border); color: var(--amber); }
+.tcpip-connector { flex-shrink: 0; width: 2rem; }
+.tcpip-osi-col { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+@media (max-width: 600px) {
+  .tcpip-bracket { flex-direction: column; }
+  .tcpip-connector { display: none; }
+  .tcpip-osi-col { margin-top: 0.5rem; }
+}
+
+/* ── C3: Device Cards by Layer ───────────────────────────────── */
+.device-layer-group { margin-bottom: 1.25rem; }
+.device-layer-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+.device-layer-badge { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2rem 0.65rem; border-radius: 20px; border: 1px solid transparent; flex-shrink: 0; }
+.device-layer-badge-l7  { background: var(--purple-bg); color: var(--purple); border-color: var(--purple-border); }
+.device-layer-badge-l47 { background: var(--blue-bg); color: var(--blue); border-color: var(--blue-border); }
+.device-layer-badge-l3  { background: var(--teal-bg); color: var(--teal); border-color: var(--teal-border); }
+.device-layer-badge-l2  { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-border); }
+.device-layer-badge-l1  { background: var(--red-bg); color: var(--red); border-color: var(--red-border); }
+.device-layer-cards { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.device-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.6rem 0.85rem; min-width: 150px; flex: 1 1 150px; max-width: 260px; }
+.device-card-name { font-weight: 700; font-size: 0.88rem; margin-bottom: 0.2rem; }
+.device-card-desc { font-size: 0.77rem; color: var(--muted); line-height: 1.45; }
+.device-card-detail { font-size: 0.73rem; color: var(--hint); margin-top: 0.25rem; }
+@media (max-width: 480px) {
+  .device-card { flex: 1 1 100%; max-width: 100%; }
+}
+
+/* ── C4: IDS vs IPS Traffic Flow ─────────────────────────────── */
+.ids-ips-diagram { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+.ids-ips-panel { border-radius: var(--radius-lg); padding: 1rem; border: 1px solid transparent; display: flex; flex-direction: column; gap: 0.75rem; }
+.ids-ips-panel-ids { background: var(--blue-bg); border-color: var(--blue-border); }
+.ids-ips-panel-ips { background: var(--red-bg); border-color: var(--red-border); }
+.ids-ips-title { font-weight: 700; font-size: 0.9rem; }
+.ids-ips-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: 20px; display: inline-block; margin-left: 0.4rem; vertical-align: middle; }
+.ids-ips-badge-passive { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+.ids-ips-badge-active  { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.ids-ips-flow { display: flex; flex-direction: column; gap: 0.35rem; }
+.ids-ips-node { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.4rem 0.7rem; font-size: 0.78rem; text-align: center; font-weight: 600; }
+.ids-ips-arrow { text-align: center; font-size: 0.75rem; color: var(--muted); line-height: 1; }
+.ids-ips-sensor { background: var(--blue-bg); border-color: var(--blue-border); color: var(--blue); }
+.ids-ips-block  { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+.ids-ips-note { font-size: 0.75rem; color: var(--muted); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 0.5rem; margin-top: auto; }
+@media (max-width: 600px) {
+  .ids-ips-diagram { grid-template-columns: 1fr; }
+}
+
+/* ── C5: Cloud Deployment Cards ──────────────────────────────── */
+.cloud-deploy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 1rem 0; }
+.cloud-deploy-card { background: var(--surface2); border: 1px solid var(--border2); border-top: 3px solid transparent; border-radius: var(--radius-lg); padding: 1.1rem 1.25rem; }
+.cloud-deploy-card-public  { border-top-color: var(--blue); }
+.cloud-deploy-card-private { border-top-color: var(--green); }
+.cloud-deploy-card-hybrid  { border-top-color: var(--teal); }
+.cloud-deploy-card-multi   { border-top-color: var(--purple); }
+.cloud-deploy-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.15rem; }
+.cloud-deploy-badge { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; padding: 0.1rem 0.45rem; border-radius: 20px; display: inline-block; margin-left: 0.4rem; vertical-align: middle; }
+.cloud-deploy-badge-public  { background: var(--blue-bg); color: var(--blue); }
+.cloud-deploy-badge-private { background: var(--green-bg); color: var(--green); }
+.cloud-deploy-badge-hybrid  { background: var(--teal-bg); color: var(--teal); }
+.cloud-deploy-badge-multi   { background: var(--purple-bg); color: var(--purple); }
+.cloud-deploy-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin-top: 0.4rem; }
+.cloud-deploy-example { font-size: 0.75rem; color: var(--hint); margin-top: 0.35rem; }
+@media (max-width: 480px) {
+  .cloud-deploy-grid { grid-template-columns: 1fr; }
+}
+
+/* ── C6: IPv4 Anatomy Bar v2 ─────────────────────────────────── */
+.ip-v2-container { border: 1px solid var(--border2); border-radius: var(--radius-lg); overflow: hidden; margin: 1.25rem 0 0.5rem; }
+.ip-v2-header-row { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--surface3); border-bottom: 1px solid var(--border); }
+.ip-v2-header-cell { padding: 0.3rem 0.5rem; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); text-align: center; border-right: 1px solid var(--border); }
+.ip-v2-header-cell:last-child { border-right: none; }
+.ip-v2-row-label { display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0.75rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); background: var(--surface2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.ip-v2-row { display: grid; grid-template-columns: repeat(4, 1fr); }
+.ip-v2-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0.5rem 0.25rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); gap: 0.15rem; }
+.ip-v2-cell:last-child { border-right: none; }
+.ip-v2-cell-net  { background: var(--blue-bg); }
+.ip-v2-cell-host { background: var(--teal-bg); }
+.ip-v2-dec { font-family: var(--mono, monospace); font-size: 1.05rem; font-weight: 700; }
+.ip-v2-dec-net  { color: var(--blue); }
+.ip-v2-dec-host { color: var(--teal); }
+.ip-v2-bin { font-family: var(--mono, monospace); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.05em; }
+.ip-v2-footer { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--surface2); border-top: 2px solid var(--border2); }
+.ip-v2-footer-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0.35rem 0.5rem; border-right: 1px solid var(--border); text-align: center; }
+.ip-v2-footer-cell:last-child { border-right: none; }
+.ip-v2-footer-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--hint); display: block; margin-bottom: 0.1rem; }
+.ip-v2-legend { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem; }
+.ip-v2-legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 0.35rem; vertical-align: middle; }
+
+/* ── C7: CIDR Table Enhancements ─────────────────────────────── */
+.cidr-row-highlight { background: var(--blue-bg) !important; }
+.cidr-row-highlight td { font-weight: 600; }
+.cidr-footer-note { font-size: 0.78rem; color: var(--muted); padding: 0.5rem 1rem; background: var(--surface2); border-top: 1px solid var(--border); border-radius: 0 0 var(--radius) var(--radius); line-height: 1.5; }
+
+/* ── C8: Subnet Methods ──────────────────────────────────────── */
+.subnet-methods-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin: 1rem 0; }
+.subnet-method-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.85rem 1rem; transition: border-color 0.15s; }
+.subnet-method-card:hover { border-color: var(--blue-border); }
+.subnet-method-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
+.subnet-method-tag { font-size: 0.64rem; font-weight: 700; text-transform: uppercase; padding: 0.1rem 0.4rem; border-radius: 20px; margin-left: 0.35rem; vertical-align: middle; background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); display: inline-block; }
+.subnet-method-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+.subnet-method-example { font-family: var(--mono, monospace); font-size: 0.75rem; background: var(--surface3); border-radius: 4px; padding: 0.4rem 0.6rem; margin-top: 0.4rem; color: var(--text); line-height: 1.6; }
+.subnet-chart { display: grid; gap: 2px 8px; font-size: 0.75rem; margin: 0.5rem 0; font-family: var(--mono, monospace); }
+.subnet-chart-4col { grid-template-columns: auto auto auto auto; }
+.subnet-chart-3col { grid-template-columns: auto auto auto; }
+.subnet-chart-header { font-weight: 700; color: var(--muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; font-family: inherit; }
+.subnet-chart-highlight { color: var(--amber); font-weight: 700; }
+.subnet-attribution { font-size: 0.72rem; color: var(--hint); margin-top: 0.4rem; font-style: italic; }
+@media (max-width: 480px) {
+  .subnet-methods-grid { grid-template-columns: 1fr; }
+}
+
+/* ── C9: Binary Conversion Explainer ─────────────────────────── */
+.binary-bit-header { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; margin-bottom: 2px; }
+.binary-bit-label { text-align: center; font-size: 0.68rem; font-weight: 700; color: var(--muted); font-family: var(--mono, monospace); }
+.binary-bit-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; margin-bottom: 0.75rem; }
+.binary-bit-cell { border: 2px solid var(--border2); border-radius: var(--radius); padding: 0.55rem 0.1rem; text-align: center; font-family: var(--mono, monospace); font-size: 1.05rem; font-weight: 700; cursor: pointer; user-select: none; transition: all 0.15s; background: var(--surface2); color: var(--hint); }
+.binary-bit-cell.bit-on { background: var(--blue-bg); border-color: var(--blue); color: var(--blue); }
+.binary-bit-cell:hover { background: var(--surface3); }
+.binary-bit-cell.bit-on:hover { filter: brightness(1.15); }
+.binary-total-label { text-align: center; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.25rem; }
+.binary-total-display { text-align: center; font-size: 1.5rem; font-weight: 700; color: var(--blue); padding: 0.5rem; background: var(--blue-bg); border-radius: var(--radius); border: 1px solid var(--blue-border); margin-bottom: 0.75rem; font-family: var(--mono, monospace); }
+.binary-worked-example { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.85rem 1rem; margin: 0.75rem 0; }
+.binary-worked-pos { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; text-align: center; font-size: 0.68rem; color: var(--muted); margin-bottom: 4px; font-family: var(--mono, monospace); }
+.binary-worked-bits { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; text-align: center; font-size: 1.1rem; font-weight: 700; font-family: var(--mono, monospace); }
+.binary-worked-bit-1 { color: var(--blue); }
+.binary-worked-bit-0 { color: var(--hint); }
+
+/* ── C10: IPv6 Components ────────────────────────────────────── */
+/* C10-A: Address Anatomy Bar */
+.ipv6-anatomy { display: flex; border: 1px solid var(--border2); border-radius: var(--radius-lg); overflow: hidden; margin: 1rem 0 0.5rem; }
+.ipv6-group { flex: 1; display: flex; flex-direction: column; border-right: 1px solid var(--border); }
+.ipv6-group:last-child { border-right: none; }
+.ipv6-group-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0; color: var(--muted); background: var(--surface3); width: 100%; text-align: center; border-bottom: 1px solid var(--border); }
+.ipv6-group-hex { font-family: var(--mono, monospace); font-size: 0.8rem; font-weight: 700; padding: 0.5rem 0.1rem; width: 100%; text-align: center; }
+.ipv6-group-prefix .ipv6-group-hex { background: var(--blue-bg); color: var(--blue); }
+.ipv6-group-iid .ipv6-group-hex { background: var(--teal-bg); color: var(--teal); }
+.ipv6-anatomy-legend { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem; }
+@media (max-width: 600px) {
+  .ipv6-group-hex { font-size: 0.65rem; padding: 0.4rem 0.05rem; }
+  .ipv6-group-label { font-size: 0.55rem; }
+}
+
+/* C10-B: Shortening Rules */
+.ipv6-rules { display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0; }
+.ipv6-rule { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.85rem 1rem; }
+.ipv6-rule-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.45rem; }
+.ipv6-rule-num { width: 26px; height: 26px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; color: var(--blue); flex-shrink: 0; }
+.ipv6-rule-title { font-weight: 700; font-size: 0.88rem; }
+.ipv6-rule-before { font-family: var(--mono, monospace); font-size: 0.8rem; color: var(--muted); margin-bottom: 0.2rem; }
+.ipv6-rule-after { font-family: var(--mono, monospace); font-size: 0.8rem; color: var(--teal); font-weight: 600; }
+
+/* C10-C: Address Type Rows */
+.ipv6-types-header { display: grid; grid-template-columns: 8rem 8.5rem 1fr 6.5rem; gap: 0.5rem 0.75rem; padding: 0.3rem 0.85rem; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); border-bottom: 1px solid var(--border); margin-bottom: 3px; }
+.ipv6-types { display: flex; flex-direction: column; gap: 3px; margin: 0 0 1rem; }
+.ipv6-type-row { display: grid; grid-template-columns: 8rem 8.5rem 1fr 6.5rem; gap: 0.5rem 0.75rem; padding: 0.5rem 0.85rem; border-radius: 6px; border-left: 4px solid transparent; align-items: center; }
+.ipv6-type-name   { font-weight: 700; font-size: 0.82rem; }
+.ipv6-type-prefix { font-family: var(--mono, monospace); font-size: 0.75rem; color: var(--muted); }
+.ipv6-type-desc   { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+.ipv6-type-equiv  { font-size: 0.72rem; color: var(--hint); }
+.ipv6-type-global      { background: var(--blue-bg);   border-left-color: var(--blue);   }
+.ipv6-type-linklocal   { background: var(--teal-bg);   border-left-color: var(--teal);   }
+.ipv6-type-ula         { background: var(--green-bg);  border-left-color: var(--green);  }
+.ipv6-type-loopback    { background: var(--purple-bg); border-left-color: var(--purple); }
+.ipv6-type-multicast   { background: var(--amber-bg);  border-left-color: var(--amber);  }
+.ipv6-type-anycast     { background: var(--surface2);  border-left-color: var(--border2); }
+.ipv6-type-unspecified { background: var(--surface2);  border-left-color: var(--hint);   }
+.ipv6-type-solicited   { background: var(--red-bg);    border-left-color: var(--red);    }
+@media (max-width: 700px) {
+  .ipv6-types-header { grid-template-columns: 7rem 7rem 1fr; }
+  .ipv6-types-header span:last-child { display: none; }
+  .ipv6-type-row { grid-template-columns: 7rem 7rem 1fr; }
+  .ipv6-type-equiv { display: none; }
+}
+
+/* C10-D: Config Method Cards */
+.ipv6-config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
+.ipv6-config-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.85rem 1rem; }
+.ipv6-config-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
+.ipv6-config-badge { font-size: 0.64rem; font-weight: 700; text-transform: uppercase; padding: 0.1rem 0.4rem; border-radius: 20px; display: inline-block; margin-left: 0.35rem; vertical-align: middle; }
+.ipv6-config-badge-stateless { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-border); }
+.ipv6-config-badge-stateful  { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+.ipv6-config-badge-manual    { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.ipv6-config-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+@media (max-width: 480px) {
+  .ipv6-config-grid { grid-template-columns: 1fr; }
+}
 .check-section .check-item:first-child { border-top: none; }
