@@ -550,24 +550,26 @@
 
   <div class="ss-exam-tip"><strong>Exam strategy:</strong> Spend the first 60–90 seconds writing both charts on scratch paper before answering a single question. Once they're on paper, every subnetting question is a lookup. The only math you do is +1 and −1. <strong>Practice until writing the charts takes under 60 seconds.</strong> The method works for /16–/30 — for /8 Class A questions, the magic number or powers of 2 is faster.</div>
 
-  <h3>Interactive Subnetting Calculator</h3>
-  <div class="subnet-calc" id="subnet-calc">
-    <form id="subnet-form">
-      <div class="subnet-inputs">
-        <input id="subnet-ip" type="text" placeholder="e.g. 192.168.1.0" value="192.168.1.0" />
-        <span>/</span>
-        <input id="subnet-prefix" type="number" min="0" max="32" placeholder="24" value="24" />
-        <button type="submit">Calculate</button>
+  <h3>Guided Subnetting Practice</h3>
+  <div id="subnet-guide" class="subnet-guide">
+    <p class="sg-intro">Select a method below. A problem appears, and you work through each step — the guide explains what to do but won't calculate for you. Enter your answers, then check them at the end.</p>
+    <div class="sg-method-row">
+      <button class="sg-method-btn" data-method="magic" type="button">Magic Number</button>
+      <button class="sg-method-btn" data-method="powers" type="button">Powers of 2</button>
+      <button class="sg-method-btn" data-method="and" type="button">Binary AND</button>
+    </div>
+    <div id="sg-body" class="sg-body" hidden>
+      <div class="sg-problem-bar">
+        <div class="sg-problem-label">Problem</div>
+        <div id="sg-problem-text" class="sg-problem-text"></div>
+        <button id="sg-new-btn" type="button" class="sg-new-btn">New ↻</button>
       </div>
-    </form>
-    <div id="subnet-output"></div>
-    <div class="subnet-hosts-mode">
-      <h4>How many hosts do I need?</h4>
-      <form id="hosts-form">
-        <input id="host-count" type="number" min="1" max="16777214" placeholder="Number of hosts needed" />
-        <button type="submit">Find Smallest Prefix</button>
-      </form>
-      <div id="hosts-result"></div>
+      <div id="sg-steps-list" class="sg-steps-list"></div>
+      <div class="sg-actions-row">
+        <button id="sg-check-btn" type="button" class="sg-check-btn">Check Answers</button>
+        <button id="sg-reveal-btn" type="button" class="sg-reveal-btn">Reveal Answers</button>
+      </div>
+      <div id="sg-summary" class="sg-summary" hidden></div>
     </div>
   </div>
 

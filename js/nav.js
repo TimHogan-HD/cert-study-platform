@@ -354,6 +354,7 @@ function initFragmentComponents(path) {
   initChecklist();
   initBinaryBits();
   initIDSIPSFlips();
+  initGuidedSubnetting();
   injectDomainSubNav(path);
 }
 
@@ -452,6 +453,212 @@ function initBinaryBits() {
   });
 
   updateTotal();
+}
+
+/* ── Guided Subnetting Practice ──────────────────────────────────────────── */
+function initGuidedSubnetting() {
+  const guide = document.getElementById('subnet-guide');
+  if (!guide || guide._sgInit) return;
+  guide._sgInit = true;
+
+  // helpers
+  function sgMask(p) {
+    const b = '1'.repeat(p) + '0'.repeat(32 - p);
+    return [0, 8, 16, 24].map(i => parseInt(b.slice(i, i + 8), 2));
+  }
+  function sgNet(ip, p)   { const oc = ip.split('.').map(Number), m = sgMask(p); return oc.map((x,i) => x & m[i]); }
+  function sgBcast(ip, p) { const oc = ip.split('.').map(Number), m = sgMask(p); return oc.map((x,i) => (x & m[i]) | (~m[i] & 0xff)); }
+  function sgAdd1(oc) { const r=[...oc]; let c=1; for(let i=3;i>=0&&c;i--){const s=r[i]+c;r[i]=s&0xff;c=s>>8;} return r; }
+  function sgSub1(oc) { const r=[...oc]; let b=1; for(let i=3;i>=0&&b;i--){const s=r[i]-b;r[i]=s<0?s+256:s;b=s<0?1:0;} return r; }
+  function sgStr(oc) { return oc.join('.'); }
+  function sgBin8(n) { return n.toString(2).padStart(8, '0'); }
+  function sgEsc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  const POOLS = {
+    magic: [
+      {ip:'192.168.1.100',prefix:26},{ip:'10.0.0.200',prefix:27},
+      {ip:'172.16.5.150',prefix:28},{ip:'192.168.50.75',prefix:25},
+      {ip:'10.10.10.130',prefix:29},{ip:'172.31.100.200',prefix:30},
+      {ip:'192.168.10.50',prefix:26},{ip:'10.1.2.85',prefix:27},
+    ],
+    powers: [
+      {prefix:25},{prefix:26},{prefix:27},{prefix:28},
+      {prefix:29},{prefix:30},{prefix:20},{prefix:22},
+    ],
+    and: [
+      {ip:'10.0.5.200',prefix:27},{ip:'192.168.1.175',prefix:26},
+      {ip:'172.16.20.100',prefix:28},{ip:'10.100.50.220',prefix:29},
+      {ip:'192.168.200.50',prefix:25},{ip:'10.10.10.250',prefix:30},
+      {ip:'172.20.35.66',prefix:27},{ip:'192.168.99.130',prefix:26},
+    ],
+  };
+
+  function buildMagicSteps(p) {
+    const {ip,prefix}=p, mask=sgMask(prefix), maskStr=sgStr(mask);
+    const magic=256-mask[3], net=sgNet(ip,prefix), bcast=sgBcast(ip,prefix);
+    const first=sgAdd1(net), last=sgSub1(bcast), ipOc=ip.split('.').map(Number);
+    return [
+      {instruction:`What is the subnet mask for a /${prefix} network?`,
+       hint:'Each group of 8 prefix bits = 255. Partial octet: 256 − 2^(remaining host bits). /24→.0 · /25→.128 · /26→.192 · /27→.224 · /28→.240 · /29→.248 · /30→.252',
+       placeholder:'255.255.255.___',answer:maskStr,type:'ip'},
+      {instruction:`Magic number = 256 − (last non-255 octet of the subnet mask). The last octet of your mask is ${mask[3]}. What is the magic number?`,
+       hint:`256 − ${mask[3]} = the block size for this prefix.`,
+       placeholder:'Enter a number',answer:String(magic),type:'number'},
+      {instruction:`Block boundaries are multiples of the magic number: 0, ${magic}, ${magic*2}, ${magic*3}… The host's 4th octet is ${ipOc[3]}. What is the 4th octet of the network address (largest multiple of ${magic} that is ≤ ${ipOc[3]})?`,
+       hint:`⌊${ipOc[3]} ÷ ${magic}⌋ × ${magic} = block start.`,
+       placeholder:'Block start 0–255',answer:String(net[3]),type:'number'},
+      {instruction:`Broadcast = block start + magic number − 1. Block starts at ${net[3]}, magic = ${magic}. What is the broadcast 4th octet?`,
+       hint:`${net[3]} + ${magic} − 1 = ?`,
+       placeholder:'Broadcast 4th octet',answer:String(bcast[3]),type:'number'},
+      {instruction:'Enter the full network address (all 4 octets):',
+       hint:`First 3 octets stay the same as the host IP: ${ipOc[0]}.${ipOc[1]}.${ipOc[2]}.___`,
+       placeholder:'x.x.x.x',answer:sgStr(net),type:'ip'},
+      {instruction:'Enter the full broadcast address:',
+       hint:`First 3 octets: ${ipOc[0]}.${ipOc[1]}.${ipOc[2]}.___`,
+       placeholder:'x.x.x.x',answer:sgStr(bcast),type:'ip'},
+      {instruction:'Enter the first usable host address:',
+       hint:'First usable = network address + 1',
+       placeholder:'x.x.x.x',answer:sgStr(first),type:'ip'},
+      {instruction:'Enter the last usable host address:',
+       hint:'Last usable = broadcast address − 1',
+       placeholder:'x.x.x.x',answer:sgStr(last),type:'ip'},
+    ];
+  }
+
+  function buildPowersSteps(p) {
+    const {prefix}=p, hb=32-prefix, total=Math.pow(2,hb);
+    const usable=prefix===31?2:prefix===32?1:total-2;
+    return [
+      {instruction:`A /${prefix} subnet — how many bits are in the host portion? (32 − ${prefix})`,
+       hint:'Host bits = all bits NOT used for the network prefix.',
+       placeholder:'Host bits',answer:String(hb),type:'number'},
+      {instruction:`With ${hb} host bits, how many TOTAL addresses exist? (2^${hb})`,
+       hint:`Double 2 a total of ${hb} times starting from 1. 2^8=256, 2^7=128, 2^6=64, 2^5=32, 2^4=16, 2^3=8, 2^2=4, 2^1=2.`,
+       placeholder:`2^${hb} = ?`,answer:String(total),type:'number'},
+      {instruction:'Usable hosts = total − 2 (reserving one address for the network ID and one for broadcast). How many usable hosts?',
+       hint:`${total} − 2. Exception: /31 = 2 usable (RFC 3021 P2P), /32 = 1 (host route).`,
+       placeholder:'Usable hosts',answer:String(usable),type:'number'},
+      {instruction:`What is the subnet mask for /${prefix}? (bonus step)`,
+       hint:'/24→255.255.255.0 · each additional bit: 128, 192, 224, 240, 248, 252…',
+       placeholder:'255.255.255.___',answer:sgStr(sgMask(prefix)),type:'ip'},
+    ];
+  }
+
+  function buildAndSteps(p) {
+    const {ip,prefix}=p, mask=sgMask(prefix), maskStr=sgStr(mask);
+    const ipOc=ip.split('.').map(Number), net=sgNet(ip,prefix);
+    const intOct=ipOc[3], maskOct=mask[3], netOct=net[3];
+    return [
+      {instruction:`What is the subnet mask for /${prefix}?`,
+       hint:'/24→255.255.255.0 · /25→.128 · /26→.192 · /27→.224 · /28→.240 · /29→.248 · /30→.252',
+       placeholder:'255.255.255.___',answer:maskStr,type:'ip'},
+      {instruction:`Convert the 4th octet of the IP (${intOct}) to 8-bit binary:`,
+       hint:'Bit positions left to right: 128, 64, 32, 16, 8, 4, 2, 1. Write exactly 8 digits.',
+       placeholder:'8 bits e.g. 11001000',answer:sgBin8(intOct),type:'binary'},
+      {instruction:`Convert the 4th octet of the subnet mask (${maskOct}) to 8-bit binary:`,
+       hint:'Subnet mask octets are always a run of 1s followed by 0s.',
+       placeholder:'8 bits e.g. 11100000',answer:sgBin8(maskOct),type:'binary'},
+      {instruction:'AND the two values bit by bit (1 AND 1 = 1; any 0 = 0). Write the 8-bit binary result:',
+       hint:`IP:   ${sgBin8(intOct)}\nMask: ${sgBin8(maskOct)}\nCompare each column.`,
+       placeholder:'8-bit AND result',answer:sgBin8(netOct),type:'binary'},
+      {instruction:'Convert your binary result to decimal and enter the full network address:',
+       hint:`${sgBin8(netOct)} = ${netOct}. First 3 octets stay the same: ${ipOc[0]}.${ipOc[1]}.${ipOc[2]}.___`,
+       placeholder:'x.x.x.x',answer:sgStr(net),type:'ip'},
+    ];
+  }
+
+  let method=null, problem=null, steps=null;
+  const idxMap={};
+  const body=document.getElementById('sg-body');
+  const probEl=document.getElementById('sg-problem-text');
+  const list=document.getElementById('sg-steps-list');
+  const sumEl=document.getElementById('sg-summary');
+
+  function render() {
+    probEl.textContent = method==='powers' ? `Given: /${problem.prefix} subnet` : `Given: ${problem.ip} /${problem.prefix}`;
+    sumEl.hidden=true; sumEl.innerHTML='';
+    list.innerHTML=steps.map((s,i)=>`
+      <div class="sg-step" data-step="${i}">
+        <div class="sg-step-num">${i+1}</div>
+        <div class="sg-step-content">
+          <div class="sg-step-instruction">${sgEsc(s.instruction)}</div>
+          <div class="sg-step-hint">${sgEsc(s.hint)}</div>
+          <input class="sg-step-input" type="text" placeholder="${sgEsc(s.placeholder)}" autocomplete="off" spellcheck="false"/>
+          <div class="sg-step-msg" hidden></div>
+        </div>
+      </div>`).join('');
+  }
+
+  function selectMethod(m) {
+    method=m;
+    guide.querySelectorAll('.sg-method-btn').forEach(b=>b.classList.toggle('active',b.dataset.method===m));
+    const pool=POOLS[m];
+    if(idxMap[m]==null) idxMap[m]=Math.floor(Math.random()*pool.length);
+    problem=pool[idxMap[m]];
+    steps=m==='magic'?buildMagicSteps(problem):m==='powers'?buildPowersSteps(problem):buildAndSteps(problem);
+    body.hidden=false;
+    render();
+  }
+
+  function newProblem() {
+    const pool=POOLS[method];
+    idxMap[method]=(idxMap[method]+1)%pool.length;
+    problem=pool[idxMap[method]];
+    steps=method==='magic'?buildMagicSteps(problem):method==='powers'?buildPowersSteps(problem):buildAndSteps(problem);
+    render();
+  }
+
+  function normalize(val,type) {
+    return val.trim().replace(/\s+/g,'');
+  }
+
+  function checkAnswers() {
+    let correct=0;
+    list.querySelectorAll('.sg-step').forEach((el,i)=>{
+      const s=steps[i];
+      const inp=el.querySelector('.sg-step-input');
+      const msg=el.querySelector('.sg-step-msg');
+      const ok=normalize(inp.value,s.type)===normalize(s.answer,s.type);
+      if(ok) correct++;
+      inp.className='sg-step-input '+(ok?'sg-input-correct':'sg-input-incorrect');
+      msg.hidden=false;
+      msg.className='sg-step-msg '+(ok?'sg-correct':'sg-incorrect');
+      msg.textContent=ok?'✓ Correct':`✗ Got "${inp.value||'(blank)'}"`;
+    });
+    sumEl.hidden=false;
+    sumEl.className='sg-summary '+(correct===steps.length?'sg-summary-pass':'sg-summary-fail');
+    sumEl.innerHTML=correct===steps.length
+      ?`<strong>✓ All ${steps.length} correct!</strong> Hit "New ↻" to practice another problem.`
+      :`<strong>${correct} / ${steps.length} correct.</strong> Fix the steps marked ✗ and check again — or hit Reveal to see all answers.`;
+  }
+
+  function revealAnswers() {
+    steps.forEach((s,i)=>{
+      const el=list.querySelector(`[data-step="${i}"]`);
+      const inp=el.querySelector('.sg-step-input');
+      const msg=el.querySelector('.sg-step-msg');
+      inp.value=s.answer;
+      inp.className='sg-step-input sg-input-revealed';
+      msg.hidden=false;
+      msg.className='sg-step-msg sg-revealed';
+      msg.textContent='↑ Revealed';
+    });
+    sumEl.hidden=false;
+    sumEl.className='sg-summary sg-summary-reveal';
+    sumEl.innerHTML='Answers revealed. Try a <strong>New Problem ↻</strong> to practice on your own.';
+  }
+
+  guide.querySelectorAll('.sg-method-btn').forEach(btn=>{
+    if(btn._sgM) btn.removeEventListener('click',btn._sgM);
+    btn._sgM=()=>selectMethod(btn.dataset.method);
+    btn.addEventListener('click',btn._sgM);
+  });
+  const checkBtn=document.getElementById('sg-check-btn');
+  const revealBtn=document.getElementById('sg-reveal-btn');
+  const newBtn=document.getElementById('sg-new-btn');
+  if(checkBtn){if(checkBtn._sgC)checkBtn.removeEventListener('click',checkBtn._sgC);checkBtn._sgC=checkAnswers;checkBtn.addEventListener('click',checkBtn._sgC);}
+  if(revealBtn){if(revealBtn._sgR)revealBtn.removeEventListener('click',revealBtn._sgR);revealBtn._sgR=revealAnswers;revealBtn.addEventListener('click',revealBtn._sgR);}
+  if(newBtn){if(newBtn._sgN)newBtn.removeEventListener('click',newBtn._sgN);newBtn._sgN=newProblem;newBtn.addEventListener('click',newBtn._sgN);}
 }
 
 /* ── Pre-exam checklist with localStorage persistence ────────── */

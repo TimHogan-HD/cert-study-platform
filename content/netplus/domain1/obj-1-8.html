@@ -71,7 +71,7 @@
   </div>
 
   <h3>IPv6 Address Format &amp; Shortening Rules</h3>
-  <p>Full example: <code>2001:0db8:0000:0000:0000:0000:0000:0001</code> → shortened to <code>2001:db8::1</code></p>
+  <p>Full example: <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code> → shortened to <code>2001:db8:85a3::8a2e:370:7334</code></p>
 
   <div class="ipv6-shorten-wrap">
 
@@ -87,19 +87,19 @@
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">0db8</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span><span class="ipv6-shorten-grp-sub">zero</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">85a3</span></span>
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span><span class="ipv6-shorten-grp-sub">zero</span></span>
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span><span class="ipv6-shorten-grp-sub">zero</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span><span class="ipv6-shorten-grp-sub">zero</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">8a2e</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span><span class="ipv6-shorten-grp-sub">zero</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">0370</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">0001</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">7334</span></span>
         </div>
-        <div class="ipv6-shorten-note">Five consecutive all-zero groups highlighted — targets for both rules.</div>
+        <div class="ipv6-shorten-note">Two consecutive all-zero groups highlighted — the target for Rule 2. <code>0db8</code> and <code>0370</code> also have leading zeros (Rule 1 applies to them in step 2).</div>
       </div>
     </div>
 
@@ -118,21 +118,21 @@
         <div class="ipv6-shorten-groups">
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">2001</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.35">0</span>db8</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">0</span>db8</span><span class="ipv6-shorten-grp-sub">1 dropped</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">85a3</span></span>
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">8a2e</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">0</span>370</span><span class="ipv6-shorten-grp-sub">1 dropped</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
-          <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">0001</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">7334</span></span>
         </div>
-        <div class="ipv6-shorten-note">Leading zeros stripped <em>within</em> each group — <strong>000</strong>0 → 0. Each group still exists; <code>0db8</code> loses its leading zero too → <code>db8</code>.</div>
+        <div class="ipv6-shorten-note">Leading zeros stripped <em>within</em> each group — <code>0db8</code> → <code>db8</code>, <code>0370</code> → <code>370</code>, <code>0000</code> → <code>0</code>. Each group still exists; the colon separators remain.</div>
       </div>
     </div>
 
@@ -152,17 +152,29 @@
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">2001</span></span>
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">db8</span></span>
-          <span class="ipv6-shorten-grp ipv6-shorten-collapsed"><span class="ipv6-shorten-grp-val">::</span><span class="ipv6-shorten-grp-sub" style="opacity:1;font-size:0.55rem">:0:0:0:0:0:</span></span>
-          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">1</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">85a3</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-collapsed"><span class="ipv6-shorten-grp-val">::</span><span class="ipv6-shorten-grp-sub" style="opacity:1;font-size:0.55rem">:0:0:</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">8a2e</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">370</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">7334</span></span>
         </div>
-        <div class="ipv6-shorten-note">All five <code style="color:var(--amber)">0</code> groups collapse into <strong style="color:var(--purple)">::</strong> — the purple block shows what got swallowed. <strong>Rule:</strong> <code style="color:var(--purple)">::</code> can appear only <strong>once</strong>; always compress the longest consecutive run.</div>
+        <div class="ipv6-shorten-note">Both <code style="color:var(--amber)">0</code> groups collapse into <strong style="color:var(--purple)">::</strong> — the purple block shows what got swallowed. <strong>Rule:</strong> <code style="color:var(--purple)">::</code> can appear only <strong>once</strong>; always compress the longest consecutive run.</div>
       </div>
     </div>
 
   </div>
 
-  <div class="ipv6-shorten-result">
-    Final result: <span class="ipv6-shorten-result-val">2001:db8::1</span> &nbsp;·&nbsp; 38 chars → 10 chars. The <span class="ipv6-shorten-result-purple">::</span> expands back to however many zero groups are needed to fill 8 total — in this case, five groups of zeros.
+  <div class="ipv6-shorten-result-row">
+    <div class="ipv6-shorten-result-side">
+      <div class="ipv6-shorten-result-badge">Result</div>
+    </div>
+    <div class="ipv6-shorten-result-body">
+      <div class="ipv6-shorten-result-addr"><span class="ipv6-shorten-result-val">2001:db8:85a3::8a2e:370:7334</span></div>
+      <div class="ipv6-shorten-result-meta">39 chars → 28 chars &nbsp;·&nbsp; The <code style="color:var(--purple)">::</code> expands back to however many zero groups are needed to fill 8 total — in this case, two groups of zeros.</div>
+    </div>
   </div>
 
   <h3>IPv6 Address Types</h3>
