@@ -501,7 +501,7 @@ function initGuidedSubnetting() {
     const bitVals=[128,64,32,16,8,4,2,1].slice(0,bitsInLast).join(' + ');
     return [
       {instruction:`What is the subnet mask for /${prefix}?`,
-       hint:`The first three octets are always 255. For the 4th octet: /${prefix} goes ${bitsInLast} bit(s) past /24, so add ${bitsInLast} value(s) from the left of the bit chart — ${bitVals}.`,
+       hint:`/${prefix} → ${bitsInLast} bit(s) past /24 → add from the chart: ${bitVals}.`,
        placeholder:'255.255.255.___',answer:maskStr,type:'ip'},
       {instruction:`Your mask is ${maskStr}. Subtract the last active octet from 256. What is the magic number (block size)?`,
        hint:`256 − ${mask[3]} = ? This number is how far apart each subnet boundary is.`,
@@ -543,7 +543,7 @@ function initGuidedSubnetting() {
        hint:`One address is the network ID (all host bits 0), one is the broadcast (all host bits 1). Both are reserved. Exception: /31 = 2 usable, /32 = 1.`,
        placeholder:'Usable hosts',answer:String(usable),type:'number'},
       {instruction:`What is the subnet mask for /${prefix}?`,
-       hint:`The first three octets are always 255. For the 4th octet: /${prefix} goes ${bitsInLast} bit(s) past /24, so add ${bitsInLast} value(s) from the left of the bit chart — ${bitVals}.`,
+       hint:`/${prefix} → ${bitsInLast} bit(s) past /24 → add from the chart: ${bitVals}.`,
        placeholder:'255.255.255.___',answer:sgStr(sgMask(prefix)),type:'ip'},
     ];
   }
@@ -556,7 +556,7 @@ function initGuidedSubnetting() {
     const bitVals=[128,64,32,16,8,4,2,1].slice(0,bitsInLast).join(' + ');
     return [
       {instruction:`What is the subnet mask for /${prefix}?`,
-       hint:`The first three octets are always 255. For the 4th octet: /${prefix} goes ${bitsInLast} bit(s) past /24, so add ${bitsInLast} value(s) from the left of the bit chart — ${bitVals}.`,
+       hint:`/${prefix} → ${bitsInLast} bit(s) past /24 → add from the chart: ${bitVals}.`,
        placeholder:'255.255.255.___',answer:maskStr,type:'ip'},
       {instruction:`Convert the last octet of the IP address (${intOct}) to 8-bit binary:`,
        hint:'Bit values left to right: 128, 64, 32, 16, 8, 4, 2, 1. Write all 8 digits, including leading zeros.',

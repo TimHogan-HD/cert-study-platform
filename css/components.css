@@ -2091,7 +2091,7 @@ tr[data-exam-weight="high"] td:first-child::before {
 .magic-table td { padding: 0.28rem 0.5rem; border-bottom: 1px solid var(--border2); font-family: monospace; color: var(--text); font-size: 0.76rem; }
 .magic-table tr:last-child td { border-bottom: none; }
 .magic-hl { color: var(--text) !important; font-weight: 700 !important; }
-@media (max-width: 720px) { .method-body { grid-template-columns: 1fr; } }
+@media (max-width: 850px) { .method-body { grid-template-columns: 1fr; } }
 /* ── Mask derivation explainer ───────────────────────── */
 .mask-derive-box { background: var(--surface2); border: 1px solid var(--border2); border-left: 4px solid var(--blue); border-radius: var(--radius-lg); padding: 1rem 1.1rem; margin-bottom: 0.75rem; }
 .mask-derive-header { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.45rem; }
