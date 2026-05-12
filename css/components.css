@@ -1362,6 +1362,7 @@ tr[data-exam-weight="high"] td:first-child::before {
 
 .protocol-ref-table {
   table-layout: fixed;
+  min-width: 0;
 }
 
 .protocol-ref-cols .protocol-ref-col-port     { width: 12%; }
