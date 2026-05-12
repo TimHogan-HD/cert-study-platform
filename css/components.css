@@ -2168,14 +2168,15 @@ tr[data-exam-weight="high"] td:first-child::before {
 .ipv6-shorten-result-purple { font-family: monospace; font-weight: 700; color: var(--purple); }
 
 /* ── TCP/IP comparison table — polish ────────────────────────── */
-.tcpip-comparison .tcpip-layer { font-size: 0.88rem; font-weight: 700; }
-.tcpip-comparison .tcpip-protocols { font-size: 0.78rem; opacity: 0.88; color: inherit; }
+/* Specificity bump needed: .tcpip-comparison td {padding:0} (0-1-1) beats bare class rules (0-1-0) */
+.tcpip-comparison .tcpip-layer { font-size: 0.88rem; font-weight: 700; padding: 0.55rem 0.85rem; text-align: center; }
+.tcpip-comparison .tcpip-protocols { font-size: 0.78rem; opacity: 0.88; color: inherit; padding: 0.45rem 0.75rem; }
 .tcpip-comparison .tcpip-app .tcpip-protocols { color: var(--purple); }
 .tcpip-comparison .tcpip-transport .tcpip-protocols { color: var(--blue); }
 .tcpip-comparison .tcpip-internet .tcpip-protocols { color: var(--teal); }
 .tcpip-comparison .tcpip-netaccess .tcpip-protocols { color: var(--amber); }
-.tcpip-comparison .osi-num-cell { font-size: 0.88rem; font-weight: 700; min-width: 2rem; }
-.tcpip-comparison .osi-name-cell { font-size: 0.88rem; font-weight: 600; }
+.tcpip-comparison .osi-num-cell { font-size: 0.88rem; font-weight: 700; min-width: 2.2rem; padding: 0.45rem 0.5rem; text-align: center; }
+.tcpip-comparison .osi-name-cell { font-size: 0.88rem; font-weight: 600; padding: 0.45rem 0.75rem; }
 
 /* ── IP Address Class row tinting ────────────────────────────── */
 .addr-class-row[data-class="a"] { background: var(--teal-bg); border-left: 3px solid var(--teal); }
