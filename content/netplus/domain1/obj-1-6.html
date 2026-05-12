@@ -121,19 +121,27 @@
   </div>
 
   <h3>Cloud Deployment Models</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Model</th><th>Description</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Public Cloud</strong></td><td>Shared infrastructure owned by CSP (AWS, Azure, GCP). Resources shared among many customers.</td></tr>
-        <tr><td><strong>Private Cloud</strong></td><td>Cloud infrastructure dedicated to one organization. On-premises or hosted privately.</td></tr>
-        <tr><td><strong>Hybrid Cloud</strong></td><td>Combination of public and private. Data/workloads move between environments.</td></tr>
-        <tr><td><strong>Community Cloud</strong></td><td>Shared by several organizations with common concerns (e.g., government, healthcare).</td></tr>
-        <tr><td><strong>Multi-Cloud</strong></td><td>Using multiple public CSPs simultaneously (AWS + Azure + GCP).</td></tr>
-      </tbody>
-    </table>
+  <div class="cloud-deploy-grid">
+    <div class="cloud-deploy-card cloud-deploy-card-public">
+      <div class="cloud-deploy-title">Public Cloud <span class="cloud-deploy-badge cloud-deploy-badge-public">Shared</span></div>
+      <div class="cloud-deploy-desc">Shared infrastructure owned and operated by a Cloud Service Provider. Resources shared among many customers via multitenancy — you pay for what you use.</div>
+      <div class="cloud-deploy-example">AWS, Microsoft Azure, Google Cloud Platform</div>
+    </div>
+    <div class="cloud-deploy-card cloud-deploy-card-private">
+      <div class="cloud-deploy-title">Private Cloud <span class="cloud-deploy-badge cloud-deploy-badge-private">Dedicated</span></div>
+      <div class="cloud-deploy-desc">Cloud infrastructure dedicated to one organization. On-premises or hosted privately — greater control, compliance, and security at higher cost.</div>
+      <div class="cloud-deploy-example">VMware vSphere, OpenStack, AWS Outposts</div>
+    </div>
+    <div class="cloud-deploy-card cloud-deploy-card-hybrid">
+      <div class="cloud-deploy-title">Hybrid Cloud <span class="cloud-deploy-badge cloud-deploy-badge-hybrid">Mixed</span></div>
+      <div class="cloud-deploy-desc">Combination of public and private. Workloads move between environments based on policy — sensitive data on-premises, burst capacity in public cloud.</div>
+      <div class="cloud-deploy-example">Azure Arc, AWS Direct Connect to on-prem datacenter</div>
+    </div>
+    <div class="cloud-deploy-card cloud-deploy-card-multi">
+      <div class="cloud-deploy-title">Multi-Cloud <span class="cloud-deploy-badge cloud-deploy-badge-multi">Multiple CSPs</span></div>
+      <div class="cloud-deploy-desc">Using multiple public CSPs simultaneously to avoid vendor lock-in, optimize costs, or leverage regional presence. Adds operational complexity.</div>
+      <div class="cloud-deploy-example">AWS + Azure + GCP simultaneously</div>
+    </div>
   </div>
 
   <h3>Network Virtualization</h3>
