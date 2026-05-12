@@ -107,6 +107,34 @@
     </ul>
   </div>
 
+  <h3>Access Management Methods</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Method</th><th>Protocol</th><th>Authentication</th><th>Use Case / Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>GUI / Web-Based</strong></td><td>HTTPS (443)</td><td>Username/password; certificate</td><td>Browser-based management interface; use HTTPS only — HTTP exposes credentials</td></tr>
+        <tr data-exam-weight="high"><td><strong>SSH</strong></td><td>TCP 22</td><td>Username/password or public key</td><td>Encrypted CLI; key-based authentication preferred over passwords; replaces Telnet</td></tr>
+        <tr><td><strong>API</strong></td><td>REST (HTTPS), NETCONF (830 TCP), RESTCONF (443)</td><td>Token, certificate, OAuth</td><td>Programmatic management; used by IaC tools (Ansible, Terraform); NETCONF = XML, RESTCONF = REST</td></tr>
+        <tr data-exam-weight="high"><td><strong>Console Port</strong></td><td>Serial / USB (direct)</td><td>Username/password (if configured)</td><td>Physical connection; always accessible regardless of network state; initial config and recovery mode</td></tr>
+        <tr data-exam-weight="high"><td><strong>Jump Box / Bastion Host</strong></td><td>SSH to jump box; then SSH to device</td><td>MFA + SSH keys recommended</td><td>Admins SSH to jump box first; jump box SSH to target device; all sessions logged centrally</td></tr>
+        <tr><td><strong>In-Band Management</strong></td><td>Shares production interfaces/VLAN</td><td>As above</td><td>Normal operations; unavailable if production network fails</td></tr>
+        <tr><td><strong>OOB Management</strong></td><td>Dedicated console server, cellular modem, OOBM VLAN on separate NIC</td><td>As above</td><td>Emergency access path; survives production network failure; physically separate from data plane</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Access Methods Exam Traps</div>
+    <ul>
+      <li><strong>Jump box = bastion host</strong> — same concept, different names. Admins never SSH directly to production devices.</li>
+      <li><strong>OOB = separate path that survives production failure</strong>. If the question mentions "can't reach the device over the network," the answer is OOB or console.</li>
+      <li>Telnet (23) = unencrypted, never use. SSH (22) = encrypted, required for production.</li>
+      <li>NETCONF uses port 830 TCP; RESTCONF uses 443 (HTTPS).</li>
+    </ul>
+  </div>
+
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 3.4</div>
     <ul>
@@ -115,6 +143,9 @@
       <li>IPsec: AH=auth only | ESP=auth+encryption | IKE=key exchange</li>
       <li>802.1X: Supplicant (client) → Authenticator (switch/WAP) → Authentication Server (RADIUS)</li>
       <li>Site-to-site VPN = router-to-router | Remote access VPN = client-to-site</li>
+      <li>Jump box = bastion host; all admin access goes through it first</li>
+      <li>OOB = separate management path; survives production network failure</li>
+      <li>Console = ultimate OOB; direct serial/USB; always accessible</li>
     </ul>
   </div>
 

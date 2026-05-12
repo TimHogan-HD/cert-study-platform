@@ -86,6 +86,33 @@
     </ul>
   </div>
 
+  <h3>Datacenter Physical Layout</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Concept</th><th>Description</th><th>Key Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>Hot Aisle</strong></td><td>Aisle where server exhaust ports face — collects hot air from server rear</td><td>Hot air is captured and routed back to CRAC/CRAH cooling units; typically odd-numbered aisles</td></tr>
+        <tr data-exam-weight="high"><td><strong>Cold Aisle</strong></td><td>Aisle where server intake ports face — delivers cool air from raised floor or ceiling</td><td>Servers draw cool air from the front; alternates with hot aisles</td></tr>
+        <tr><td><strong>Hot/Cold Aisle Containment</strong></td><td>Physical curtains, doors, or panels that separate hot and cold aisles</td><td>Prevents hot and cold air mixing; significantly improves cooling efficiency and PUE</td></tr>
+        <tr><td><strong>Port-side Intake</strong></td><td>Some network equipment (switches) draws cool air through the port side (front)</td><td>Front-to-back airflow — intake at ports, exhaust at rear; align with cold-aisle-facing orientation</td></tr>
+        <tr><td><strong>Port-side Exhaust</strong></td><td>Some equipment exhausts hot air through the port side (front)</td><td>Rear-to-front airflow — creates hot air in cold aisle; requires careful placement or separate cooling</td></tr>
+        <tr><td><strong>Rack Unit (U / RU)</strong></td><td>Standard measurement of rack height</td><td>1U = 1.75 inches (44.45 mm); standard rack = 42U; used for capacity planning and asset documentation</td></tr>
+        <tr><td><strong>Rack Diagram</strong></td><td>Visual documentation of equipment installed in each rack, by U position</td><td>Shows device model, U position, cabling; essential for capacity planning and change management</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Datacenter Exam Traps</div>
+    <ul>
+      <li>A <strong>hot spot</strong> inside a rack usually means <strong>misaligned airflow</strong> — a blanking panel is missing, or equipment with non-standard airflow direction is installed in the wrong orientation.</li>
+      <li>Most servers: <strong>intake from front (cold aisle), exhaust from rear (hot aisle)</strong>. Network equipment may vary — always check manufacturer airflow direction before installing.</li>
+      <li>Containment improves efficiency; without it, hot and cold air mix and cooling systems work harder.</li>
+    </ul>
+  </div>
+
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 2.4</div>
     <ul>
@@ -94,6 +121,9 @@
       <li>PoE: 802.3af=15.4W | 802.3at=30W | 802.3bt=90W</li>
       <li>TDR = copper fault location | OTDR = fiber fault location</li>
       <li>Late collisions = duplex mismatch | Runts = collision/speed issue | Giants = MTU misconfiguration</li>
+      <li>Cold aisle = server intakes face in | Hot aisle = server exhausts face in</li>
+      <li>1U = 1.75 inches | Standard rack = 42U</li>
+      <li>Hot spot = missing blanking panel or misaligned airflow direction</li>
     </ul>
   </div>
 

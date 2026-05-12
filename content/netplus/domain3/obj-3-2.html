@@ -102,6 +102,51 @@
     </ul>
   </div>
 
+  <h3>Traffic Mirroring</h3>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Port Mirroring / <abbr title="Switched Port Analyzer">SPAN</abbr></div>
+    <p>Copies traffic from one or more source ports (or VLANs) to a designated mirror port where a packet analyzer (Wireshark, IDS/IPS sensor) is connected. Traffic flows on the source port are unaffected — SPAN is non-intrusive. The mirror port is effectively read-only for analysis.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Method</th><th>Scope</th><th>Transport</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>SPAN</strong> (local)</td><td>Same switch</td><td>Switched port</td><td>Capture traffic between ports on one switch; analyzer plugged in locally</td></tr>
+        <tr><td><strong>RSPAN</strong> (Remote SPAN)</td><td>Across switches via VLAN</td><td>Dedicated RSPAN VLAN</td><td>Analyzer on a different switch; mirror traffic sent across trunk using a reserved VLAN</td></tr>
+        <tr><td><strong>ERSPAN</strong> (Encapsulated RSPAN)</td><td>Across Layer 3 boundaries</td><td>GRE tunnel</td><td>Analyzer in a different subnet or data center; mirror traffic encapsulated in GRE over IP</td></tr>
+        <tr data-exam-weight="high"><td><strong>Network TAP</strong></td><td>Inline on a cable</td><td>Passive optical/electrical</td><td>Hardware tap inserted into fiber or copper — passively copies all traffic; no switch involvement; cannot be disabled by software</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>In-Band vs Out-of-Band Management</h3>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Method</th><th>Path</th><th>Availability</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>In-Band Management</strong></td><td>Shares production network (Ethernet, IP)</td><td>Unavailable if production network is down</td><td>Day-to-day SSH/HTTPS management via standard interfaces</td></tr>
+        <tr data-exam-weight="high"><td><strong>Out-of-Band (<abbr title="Out-of-Band">OOB</abbr>) Management</strong></td><td>Dedicated separate network (console server, cellular modem, management VLAN on separate NIC)</td><td>Available even when production interfaces are down</td><td>Emergency access during outages, firmware updates, initial config</td></tr>
+        <tr><td><strong>Console Port</strong></td><td>Direct serial/USB connection to device</td><td>Always available (no network dependency)</td><td>Ultimate OOB; initial configuration; recovery mode access</td></tr>
+        <tr><td><strong>Jump Box / Bastion Host</strong></td><td>Intermediate server in management network; admins SSH here first</td><td>Management network dependent</td><td>Centralized auditable choke point for all device access; logs all admin sessions</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ OOB and Jump Box Exam Traps</div>
+    <ul>
+      <li><strong>OOB is the only way</strong> to access a device when production interfaces are completely unreachable.</li>
+      <li><strong>Console port = ultimate OOB</strong> — works even if the OS is partially broken or the NIC is failed.</li>
+      <li><strong>Jump box = bastion host</strong> — admins never SSH directly to production devices; all sessions go through the jump box for centralized logging and access control.</li>
+    </ul>
+  </div>
+
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 3.2</div>
     <ul>
@@ -110,6 +155,9 @@
       <li>Syslog: 0=Emergency (worst) → 7=Debug (least severe). Port 514 UDP.</li>
       <li>NetFlow = active flow export | sFlow = passive sampling | IPFIX = open standard of NetFlow</li>
       <li>SIEM = security event correlation | NMS = network performance management</li>
+      <li>SPAN = same switch | RSPAN = across switches (VLAN) | ERSPAN = across L3 (GRE) | TAP = passive hardware</li>
+      <li>OOB = separate path, works when production is down | Console = ultimate OOB</li>
+      <li>Jump box = bastion host; all admin access through it for centralized logging</li>
     </ul>
   </div>
 

@@ -246,6 +246,105 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
     </ul>
   </div>
 
+  <h3>How DNS Resolution Works</h3>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Query Type</th><th>Who Does the Work</th><th>Response</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>Recursive</strong></td><td>Resolver does all the work on behalf of the client</td><td>Returns the final answer (IP address) or an error — client gets a complete response</td></tr>
+        <tr data-exam-weight="high"><td><strong>Iterative</strong></td><td>Each server gives the best answer it can (a referral or the answer)</td><td>Resolver queries root → TLD → authoritative servers in sequence, following referrals</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="steps-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-body"><strong>Client → Recursive Resolver:</strong> Client sends recursive query to its configured DNS resolver (e.g., ISP resolver or 8.8.8.8)</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-body"><strong>Resolver checks cache:</strong> If the answer is cached (TTL not expired), it returns immediately. Otherwise, resolution begins.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-body"><strong>Resolver → Root Server (iterative):</strong> "Who handles .com?" Root server refers resolver to the .com TLD name servers.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-body"><strong>Resolver → TLD Server (iterative):</strong> "Who handles example.com?" TLD server refers resolver to example.com's authoritative name servers.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-body"><strong>Resolver → Authoritative Server (iterative):</strong> "What is the IP for www.example.com?" Authoritative server returns the A record.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">6</div>
+      <div class="step-body"><strong>Resolver → Client:</strong> Returns the answer and caches it for the record's TTL duration.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Authoritative vs Non-Authoritative Responses</div>
+    <p>An <strong>authoritative</strong> response comes directly from the zone's name server — it's the definitive source. A <strong>non-authoritative</strong> response comes from a resolver's cache. In <code>dig</code> output, the <code>aa</code> flag indicates an authoritative answer. Use <code>dig +trace example.com</code> to see the full iterative resolution chain.</p>
+    <p>Reverse DNS: PTR records map IP → hostname, stored in <code>in-addr.arpa</code> zones. Mail servers use reverse DNS to detect spam — a sending IP with no PTR record is suspicious.</p>
+  </div>
+
+  <h3>DNS Security and Privacy Extensions</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Technology</th><th>Port</th><th>Protocol</th><th>Purpose</th><th>What It Protects Against</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong><abbr title="DNS Security Extensions">DNSSEC</abbr></strong></td><td>53 UDP/TCP</td><td>Digital signatures (RRSIG records)</td><td>Integrity — signs DNS records so resolvers can verify they haven't been tampered with</td><td>Cache poisoning / DNS spoofing (does NOT encrypt queries)</td></tr>
+        <tr data-exam-weight="high"><td><strong><abbr title="DNS over TLS">DoT</abbr></strong></td><td><strong>853</strong> TCP</td><td>DNS inside TLS tunnel</td><td>Privacy — encrypts DNS queries between client and resolver</td><td>Eavesdropping on DNS queries; easily distinguishable (port 853)</td></tr>
+        <tr data-exam-weight="high"><td><strong><abbr title="DNS over HTTPS">DoH</abbr></strong></td><td><strong>443</strong> TCP</td><td>DNS inside HTTPS</td><td>Privacy — encrypts DNS queries; blends with HTTPS traffic</td><td>Eavesdropping; harder for enterprises to block/inspect than DoT</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">DNSSEC vs DoT vs DoH — The Key Distinction</div>
+    <p><strong>DNSSEC</strong> = <em>integrity</em>. It signs DNS records with cryptographic signatures so you know the answer hasn't been forged. It does <strong>NOT encrypt</strong> queries — anyone can still see what you're resolving.<br>
+    <strong>DoT / DoH</strong> = <em>privacy</em>. They encrypt the DNS query and response in transit. They do NOT validate the content of DNS records (that's DNSSEC's job).<br>
+    These are complementary, not alternatives — DNSSEC + DoT together provides both integrity and privacy.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ DNS Security Exam Traps</div>
+    <ul>
+      <li><strong>DNSSEC does NOT encrypt</strong> — it signs records for integrity verification. Queries are still visible in cleartext.</li>
+      <li><strong>DoT = port 853</strong>; DoH = port 443. DoH uses the HTTPS port intentionally to blend with web traffic.</li>
+      <li>DoH is harder for enterprise security tools to block/inspect because it looks like HTTPS traffic.</li>
+    </ul>
+  </div>
+
+  <h3>Time Protocol Comparison</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Protocol</th><th>Standard</th><th>Port</th><th>Accuracy</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>NTP</strong></td><td>RFC 5905</td><td>123 UDP</td><td>~1–50 ms</td><td>General enterprise time sync; all network devices, servers</td></tr>
+        <tr data-exam-weight="high"><td><strong>PTP</strong> (IEEE 1588)</td><td>IEEE 1588-2019</td><td>319/320 UDP</td><td>Sub-microsecond</td><td>Financial trading, 5G RAN synchronization, industrial automation, broadcast media</td></tr>
+        <tr><td><strong>NTS</strong></td><td>RFC 8915</td><td>4460 TCP</td><td>Same as NTP</td><td>Authenticated NTP — prevents time spoofing and MITM against NTP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Time Protocol Exam Traps</div>
+    <ul>
+      <li>Use <strong>PTP when NTP is not precise enough</strong> — financial trading, 5G, and industrial control require sub-microsecond accuracy.</li>
+      <li><strong>NTS = NTP + security</strong> — it's not a new time protocol; it adds authentication to NTP to prevent spoofing.</li>
+      <li>Know port numbers: NTP = 123 UDP | PTP = 319/320 UDP | NTS = 4460 TCP.</li>
+    </ul>
+  </div>
+
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 3.3</div>
     <ul>
@@ -254,6 +353,9 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
       <li>ip helper-address = DHCP relay for cross-subnet DHCP</li>
       <li>A=IPv4 | AAAA=IPv6 | MX=mail | PTR=reverse | CNAME=alias | TXT=SPF/DKIM</li>
       <li>NTP: Stratum 0=atomic clock → 1=primary server → 2=secondary → 16=unsynchronized</li>
+      <li>DNS resolution: Client → Recursive Resolver → Root → TLD → Authoritative (iterative steps)</li>
+      <li>DNSSEC = integrity (signs records, no encryption) | DoT = privacy port 853 | DoH = privacy port 443</li>
+      <li>PTP = sub-microsecond (financial/5G/industrial) | NTS = authenticated NTP (RFC 8915, port 4460)</li>
     </ul>
   </div>
 

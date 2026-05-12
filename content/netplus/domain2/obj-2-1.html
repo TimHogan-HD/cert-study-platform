@@ -162,6 +162,183 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
     </ul>
   </div>
 
+  <h3>Address Translation and Gateway Redundancy</h3>
+
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Term</th><th>Description</th><th>Key Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong><abbr title="Network Address Translation">NAT</abbr></strong></td><td>Translates private IP addresses to public IP addresses at the router/firewall</td><td>Hides internal addressing; required because IPv4 public space is exhausted</td></tr>
+        <tr data-exam-weight="high"><td><strong>Static NAT</strong></td><td>One-to-one mapping of a private IP to a specific public IP — permanent</td><td>Used for inbound servers (web, mail) that must be reachable from internet with fixed public IP</td></tr>
+        <tr><td><strong>Dynamic NAT</strong></td><td>Pool of public IPs assigned on demand to outbound connections</td><td>Not one-to-one; pool exhaustion = no outbound access</td></tr>
+        <tr data-exam-weight="high"><td><strong><abbr title="Port Address Translation">PAT</abbr> / NAT Overload</strong></td><td>Many private IPs share a single public IP — differentiated by unique source port numbers</td><td>The most common NAT type; allows thousands of hosts to share one public IP</td></tr>
+        <tr><td><strong>Inside Local</strong></td><td>Private IP of the internal host as seen from inside the network</td><td>e.g., 192.168.1.10 — what the host thinks its IP is</td></tr>
+        <tr><td><strong>Inside Global</strong></td><td>Public IP of the internal host as seen from outside the network (after NAT)</td><td>e.g., 203.0.113.5 — what the internet sees</td></tr>
+        <tr><td><strong>Outside Local</strong></td><td>IP of the external destination as seen from inside (before NAT)</td><td>Usually same as Outside Global unless NAT is bidirectional</td></tr>
+        <tr><td><strong>Outside Global</strong></td><td>Actual public IP of the external destination server</td><td>e.g., 8.8.8.8 — DNS server's real address</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">How PAT Works</div>
+    <p><abbr title="Port Address Translation">PAT</abbr> assigns a unique source port to each outbound session. The NAT table maps {inside local IP : original source port} → {inside global IP : translated port}. When return traffic arrives, the NAT table uses the destination port to identify which internal host gets the packet. Thousands of hosts share one public IP because port numbers (0–65535) provide enough unique combinations.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ NAT Exam Traps</div>
+    <ul>
+      <li><strong>PAT = NAT overload</strong> — same thing, different names. CompTIA may use either.</li>
+      <li>Static NAT is required for <strong>inbound</strong> servers — dynamic NAT and PAT do not support inbound connections.</li>
+      <li>"Inside Local" = private IP of internal host. "Inside Global" = public IP after translation.</li>
+    </ul>
+  </div>
+
+  <h3>First Hop Redundancy Protocols (<abbr title="First Hop Redundancy Protocol">FHRP</abbr>)</h3>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Protocol</th><th>Standard</th><th>Roles</th><th>Key Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>HSRP</strong></td><td>Cisco proprietary</td><td>Active / Standby</td><td>Higher priority = Active (default 100); <code>preempt</code> allows higher priority to reclaim Active role; virtual IP + virtual MAC</td></tr>
+        <tr data-exam-weight="high"><td><strong>VRRP</strong></td><td>Open standard (RFC 5798)</td><td>Master / Backup</td><td>Higher priority = Master; vendor-agnostic; virtual IP may be one router's real IP</td></tr>
+        <tr><td><strong>GLBP</strong></td><td>Cisco proprietary</td><td>AVG + up to 4 AVFs</td><td>Load balances across multiple gateways simultaneously; <abbr title="Active Virtual Gateway">AVG</abbr> assigns virtual MACs to <abbr title="Active Virtual Forwarder">AVF</abbr>s</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Virtual IP (<abbr title="Virtual IP">VIP</abbr>) Concept</div>
+    <p>All FHRP protocols present a shared <strong>virtual IP address</strong> to hosts as the default gateway. Hosts configure this VIP as their gateway — they never need to know which physical router is active. When the active/master router fails, the standby/backup router assumes the VIP (and virtual MAC) within seconds, providing transparent failover with no host reconfiguration needed.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">PBQ Prep — FHRP Scenarios</div>
+    <ul>
+      <li>If asked to identify the <strong>active router</strong>: look for highest priority (default 100); if tied, highest IP wins.</li>
+      <li><strong>VIP vs physical IP</strong>: hosts use the VIP as gateway; the physical IP is only for management.</li>
+      <li><strong>Preempt behavior</strong>: without <code>preempt</code>, a recovered higher-priority router stays standby; with preempt, it reclaims Active.</li>
+      <li>HSRP group number must match on both routers; VRRP virtual router ID must match.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Router-on-a-Stick / Subinterfaces</div>
+    <p>A single router physical interface is divided into logical <strong>subinterfaces</strong> — one per VLAN. Each subinterface is configured with 802.1Q encapsulation (<code>encapsulation dot1q [vlan-id]</code>) and an IP address that serves as the default gateway for that VLAN. The connected switch port must be a <strong>trunk port</strong>. This enables inter-VLAN routing without a dedicated physical interface per VLAN.</p>
+    <pre style="background:var(--surface2);padding:0.5rem;border-radius:4px;font-size:0.85em;margin-top:0.5rem;overflow-x:auto;">interface GigabitEthernet0/0.10
+  encapsulation dot1Q 10
+  ip address 192.168.10.1 255.255.255.0</pre>
+  </div>
+
+  <h3>NAT/PAT Flashcard Deck</h3>
+  <div class="flashcard-deck">
+    <div class="deck-nav">
+      <button class="prev-btn">← Prev</button>
+      <span class="card-counter">1 / 8</span>
+      <button class="next-btn">Next →</button>
+      <button class="shuffle-btn">Shuffle</button>
+    </div>
+    <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is PAT also called?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>NAT Overload.</strong> PAT = Port Address Translation = NAT Overload. Multiple hosts share one public IP differentiated by unique source ports.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Static NAT: when is it required?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>For inbound servers.</strong> Static NAT maps one private IP to one public IP permanently — required for web servers, mail servers, or any resource that external clients must initiate connections to.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is "Inside Local"?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Private IP of the internal host</strong> as seen from inside the network — e.g., 192.168.1.10. This is what the host thinks its own IP address is.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is "Inside Global"?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Public IP of the internal host</strong> as seen from outside the network after NAT translation — e.g., 203.0.113.5. This is what the internet sees.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">How does PAT differentiate sessions from multiple hosts sharing one public IP?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Unique source port numbers.</strong> The NAT table maps {private IP : original port} → {public IP : translated port}. Return traffic uses the destination port to route back to the correct host.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Dynamic NAT vs PAT — key difference?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Dynamic NAT</strong> assigns one unique public IP per session from a pool (pool can be exhausted). <strong>PAT</strong> allows many hosts to share a single public IP using port multiplexing — much more scalable.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is "Outside Local" vs "Outside Global"?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Outside Local</strong> = IP of external destination as seen from inside the network. <strong>Outside Global</strong> = actual public IP of the external server. Usually identical unless bidirectional NAT is in use.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Can PAT support inbound connections initiated from the internet?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>No.</strong> PAT is outbound-only for dynamic sessions. There is no NAT table entry for inbound-initiated connections. Use Static NAT to expose an internal server to inbound internet traffic.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>FHRP Flashcard Deck</h3>
+  <div class="flashcard-deck">
+    <div class="deck-nav">
+      <button class="prev-btn">← Prev</button>
+      <span class="card-counter">1 / 6</span>
+      <button class="next-btn">Next →</button>
+      <button class="shuffle-btn">Shuffle</button>
+    </div>
+    <div class="deck-progress"><div class="deck-progress-bar"></div></div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">HSRP: how is the Active router elected?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Highest priority wins</strong> (default 100). Tie-break = highest IP address. The Active router owns the virtual IP and forwards traffic for hosts using that VIP as their gateway.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What does HSRP Standby do?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Monitors the Active router</strong> and takes over the virtual IP if Active fails. Without <code>preempt</code>, a recovered higher-priority router stays Standby unless the current Active fails.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">VRRP vs HSRP: what's the key difference?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>VRRP is an open standard</strong> (RFC 5798), vendor-agnostic. HSRP is Cisco proprietary. Both use Master/Active + Backup/Standby model with a shared virtual IP.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is GLBP's advantage over HSRP/VRRP?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Load balancing.</strong> GLBP allows up to 4 AVFs (Active Virtual Forwarders) to actively forward traffic simultaneously. HSRP/VRRP only have one active gateway — standby is idle.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What does "preempt" do in HSRP?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>Allows a higher-priority router to reclaim the Active role</strong> when it comes back online. Without preempt, a recovered router stays Standby even if its priority is higher than the current Active.</div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is a Virtual IP (VIP) in FHRP?<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back"><strong>A shared IP address configured as the default gateway on all hosts.</strong> The active FHRP router owns this VIP. On failover, the standby assumes the VIP — hosts never need reconfiguration because their gateway IP never changes.</div>
+      </div>
+    </div>
+  </div>
+
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 2.1</div>
     <ul>
@@ -169,6 +346,12 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
       <li>Lower AD = more trusted = preferred between protocols</li>
       <li>OSPF = link-state, SPF algorithm, area-based | RIP = distance-vector, hop count max 15</li>
       <li>BGP = path vector, connects autonomous systems, runs internet routing</li>
+      <li>PAT = NAT Overload; many hosts share one public IP via unique source ports</li>
+      <li>Static NAT = one-to-one, required for inbound servers</li>
+      <li>Inside Local = private IP | Inside Global = public IP after translation</li>
+      <li>HSRP = Cisco, Active/Standby | VRRP = open standard, Master/Backup | GLBP = Cisco, load balances</li>
+      <li>FHRP VIP = shared virtual gateway IP; hosts never reconfigure on failover</li>
+      <li>Subinterfaces + dot1Q encapsulation = router-on-a-stick inter-VLAN routing</li>
     </ul>
   </div>
 

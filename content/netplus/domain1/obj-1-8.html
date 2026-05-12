@@ -119,6 +119,78 @@
     </table>
   </div>
 
+  <h3>Evolving Network Environments</h3>
+
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th><abbr title="Software-Defined Wide Area Network">SD-WAN</abbr> Feature</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>Application-aware routing</strong></td><td>Routes specific apps over the best available transport (MPLS, broadband, LTE) based on real-time path quality (latency, jitter, loss)</td></tr>
+        <tr><td><strong>Zero-touch provisioning (<abbr title="Zero-Touch Provisioning">ZTP</abbr>)</strong></td><td>Branch devices auto-configure from a central controller on first boot — no on-site engineer required</td></tr>
+        <tr><td><strong>Transport-agnostic</strong></td><td>Works over any WAN transport: MPLS, broadband internet, 4G/5G cellular, satellite</td></tr>
+        <tr><td><strong>Centralized policy management</strong></td><td>Single pane of glass for all WAN policies, QoS, and security across all sites</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">SD-WAN — Why It Matters</div>
+    <p>Traditional WAN forces all branch traffic back to HQ over MPLS (hairpinning) before reaching the internet or cloud apps. SD-WAN enables <strong>direct cloud breakout</strong> at the branch — Office 365, Salesforce, and SaaS traffic goes directly to the internet instead of traversing expensive MPLS circuits.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title"><abbr title="Virtual Extensible LAN">VXLAN</abbr> — Virtual Extensible LAN</div>
+    <p>A network virtualization technology that encapsulates Layer 2 Ethernet frames inside UDP packets (port <strong>4789</strong>), allowing L2 segments to span L3 networks. Uses a <strong>24-bit <abbr title="VXLAN Network Identifier">VNI</abbr></strong> (16 million segments vs 12-bit 802.1Q's 4,096 VLANs). Common in data center interconnect (<abbr title="Data Center Interconnect">DCI</abbr>) and multi-tenant cloud environments. Defined in <abbr title="Request for Comments">RFC</abbr> 7348.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th><abbr title="Zero Trust Architecture">ZTA</abbr> Principle</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>Never trust, always verify</strong></td><td>No implicit trust based on network location — every request is authenticated and authorized</td></tr>
+        <tr><td><strong>Policy-based authentication</strong></td><td>Access decisions based on identity, device posture, location, and resource sensitivity — not just credentials</td></tr>
+        <tr><td><strong>Least privilege</strong></td><td>Users and systems get minimum access required for their role — no standing admin rights</td></tr>
+        <tr><td><strong>Microsegmentation</strong></td><td>Workloads isolated individually; lateral movement blocked even inside the network perimeter</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">NIST SP 800-207 — Zero Trust Architecture</div>
+    <p>The definitive US government framework for ZTA. Defines the Policy Engine, Policy Administrator, and Policy Enforcement Point model. CompTIA N10-009 references ZTA concepts; know the core principles above and that NIST 800-207 is the authoritative reference.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Framework</th><th>Components</th><th>Focus</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong><abbr title="Secure Access Service Edge">SASE</abbr></strong></td><td>SD-WAN + <abbr title="Secure Web Gateway">SWG</abbr> + <abbr title="Cloud Access Security Broker">CASB</abbr> + <abbr title="Zero Trust Network Access">ZTNA</abbr> + <abbr title="Firewall as a Service">FWaaS</abbr></td><td>Converges WAN networking AND security into a single cloud-delivered service</td></tr>
+        <tr data-exam-weight="high"><td><strong><abbr title="Security Service Edge">SSE</abbr></strong></td><td>SWG + CASB + ZTNA (security stack only)</td><td>Security-only subset of SASE — no SD-WAN component; cloud-delivered security</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th><abbr title="Infrastructure as Code">IaC</abbr> Concept</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Playbooks / Templates</strong></td><td>Declarative or imperative files (Ansible playbook, Terraform template) that define desired infrastructure state</td></tr>
+        <tr><td><strong>Configuration drift</strong></td><td>When a device's actual config diverges from the defined baseline — IaC tools detect and remediate drift</td></tr>
+        <tr><td><strong>Source / version control</strong></td><td>Network configs stored in Git; every change tracked, attributed, and reversible</td></tr>
+        <tr><td><strong>Branching</strong></td><td>Separate development and production config branches; changes tested before merging</td></tr>
+        <tr><td><strong>Conflict identification</strong></td><td>Version control surfaces merge conflicts when two engineers change the same config simultaneously</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -128,6 +200,10 @@
       <li>SLAAC doesn't use DHCP — it uses Router Advertisements (NDP). No DHCP server needed.</li>
       <li>NDP (Neighbor Discovery Protocol) replaces both ARP and some ICMP functions in IPv6.</li>
       <li>::1 = IPv6 loopback (equivalent to 127.0.0.1 in IPv4).</li>
+      <li><strong>VXLAN UDP port = 4789</strong>; 24-bit VNI = 16 million segments (vs 802.1Q 12-bit = 4,096 VLANs).</li>
+      <li><strong>ZTA = "never trust, always verify"</strong> — NIST SP 800-207 is the reference. Microsegmentation is a key ZTA mechanism.</li>
+      <li><strong>SASE = SD-WAN + security stack</strong>; SSE = security only (no WAN). Both cloud-delivered.</li>
+      <li>IaC detects <strong>configuration drift</strong> — when running config diverges from defined template/golden config.</li>
     </ul>
   </div>
 
@@ -141,6 +217,11 @@
       <li>No broadcast in IPv6 — multicast replaces it</li>
       <li>SLAAC = auto-config from Router Advertisement, no DHCP needed</li>
       <li>Dual stack = running IPv4 and IPv6 simultaneously on same interface</li>
+      <li>SD-WAN = app-aware routing, transport-agnostic, centralized policy, ZTP</li>
+      <li>VXLAN = L2 over L3, UDP 4789, 24-bit VNI (16M segments), RFC 7348</li>
+      <li>ZTA = never trust always verify, microsegmentation, least privilege; NIST 800-207</li>
+      <li>SASE = SD-WAN + SWG + CASB + ZTNA + FWaaS | SSE = security-only subset</li>
+      <li>IaC = version-controlled configs, detects drift, enables ZTP/Golden Config</li>
     </ul>
   </div>
 

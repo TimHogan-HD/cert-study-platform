@@ -211,6 +211,37 @@
     </ul>
   </div>
 
+  <h3>Antennas and Site Surveys</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Antenna Type</th><th>Radiation Pattern</th><th>Typical Gain</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr data-exam-weight="high"><td><strong>Omnidirectional</strong></td><td>360° horizontal (donut shape)</td><td>2–5 dBi</td><td>General indoor coverage; ceiling-mounted APs in open office</td></tr>
+        <tr data-exam-weight="high"><td><strong>Yagi</strong></td><td>Narrow beam (10–30°)</td><td>10–20+ dBi</td><td>Point-to-point outdoor links; connecting buildings across a campus</td></tr>
+        <tr><td><strong>Patch / Panel</strong></td><td>Sector (60–120°)</td><td>6–15 dBi</td><td>Stadiums, warehouses, directed coverage; wall-mounted for hallways</td></tr>
+        <tr><td><strong>Parabolic Dish</strong></td><td>Very narrow beam (&lt;5°)</td><td>20–35+ dBi</td><td>Long-distance point-to-point links; microwave backhaul</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Antenna Gain — dBi</div>
+    <p><strong>dBi</strong> = decibels relative to an isotropic radiator (theoretical perfect omnidirectional antenna). Higher dBi means more focused radiation in a specific direction — <em>not</em> more transmit power. A high-gain directional antenna concentrates signal into a narrow beam, increasing range in that direction but reducing coverage area. Higher gain is not always better — it depends on the deployment scenario.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Wireless Site Surveys</div>
+    <p>A site survey determines optimal AP placement, channel assignment, and TX power settings.</p>
+    <ul>
+      <li><strong>Passive survey:</strong> Listen-only mode — the surveyor walks the area with a WiFi analyzer to measure existing signal, noise, and interference without connecting to any network.</li>
+      <li><strong>Active survey:</strong> Connect to an AP and measure real-world throughput, latency, and packet loss at various locations.</li>
+      <li><strong>Predictive survey:</strong> Software models RF propagation using floor plan data — no physical walk-through. Faster but less accurate; used for initial planning.</li>
+      <li><strong>Output:</strong> A <strong>heat map</strong> showing RSSI coverage, dead zones, and channel overlap areas across the floor plan.</li>
+    </ul>
+  </div>
+
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 2.3</div>
     <ul>
@@ -219,6 +250,9 @@
       <li>802.11ax (Wi-Fi 6) = OFDMA, dual-band; Wi-Fi 6E adds 6 GHz</li>
       <li>2.4GHz non-overlapping: 1, 6, 11 (only 3)</li>
       <li>WPA3 SAE = no offline dictionary attacks | WPA2 AES/CCMP = current minimum standard</li>
+      <li>Omnidirectional = 360° | Yagi = narrow beam, P2P | Patch = sector | Parabolic = very narrow, long-distance</li>
+      <li>dBi = gain relative to isotropic; higher gain = more focused, not more power</li>
+      <li>Site survey types: Passive (listen only) | Active (connect + measure) | Predictive (software model)</li>
     </ul>
   </div>
 
