@@ -2068,7 +2068,8 @@ tr[data-exam-weight="high"] td:first-child::before {
 .method-tag-reliable { background: var(--blue-bg); color: var(--blue); }
 .method-tag-visual { background: var(--purple-bg); color: var(--purple); }
 .method-tag-pbq { background: var(--amber-bg); color: var(--amber); }
-.method-body { padding: 0.85rem 0.9rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+.method-body { padding: 0.85rem 0.9rem; display: flex; flex-wrap: wrap; gap: 0.85rem; }
+.method-body > div { flex: 1 1 280px; min-width: 0; }
 .method-col-label { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.4rem; }
 .method-steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
 .method-steps li { counter-increment: step; font-size: 0.8rem; color: var(--text); padding: 0.22rem 0 0.22rem 1.5rem; position: relative; line-height: 1.5; }
@@ -2091,7 +2092,6 @@ tr[data-exam-weight="high"] td:first-child::before {
 .magic-table td { padding: 0.28rem 0.5rem; border-bottom: 1px solid var(--border2); font-family: monospace; color: var(--text); font-size: 0.76rem; }
 .magic-table tr:last-child td { border-bottom: none; }
 .magic-hl { color: var(--text) !important; font-weight: 700 !important; }
-@media (max-width: 850px) { .method-body { grid-template-columns: 1fr; } }
 /* ── Mask derivation explainer ───────────────────────── */
 .mask-derive-box { background: var(--surface2); border: 1px solid var(--border2); border-left: 4px solid var(--blue); border-radius: var(--radius-lg); padding: 1rem 1.1rem; margin-bottom: 0.75rem; }
 .mask-derive-header { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.45rem; }
@@ -2107,16 +2107,17 @@ tr[data-exam-weight="high"] td:first-child::before {
 .mask-derive-table td:last-child { color: var(--green); font-weight: 700; }
 .mask-derive-caption { font-size: 0.74rem; color: var(--muted); font-style: italic; }
 .mda-wrap { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1rem; padding: 0.75rem 0.9rem; background: var(--surface3); border-radius: var(--radius); }
-.mda-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.3rem; }
-.mda-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); min-width: 4.5rem; flex-shrink: 0; }
-.mda-chip { background: var(--surface2); border: 1px solid var(--border2); border-radius: 4px; padding: 0.2rem 0.55rem; font-size: 0.82rem; font-weight: 600; color: var(--text); font-family: monospace; }
+.mda-row { display: flex; align-items: flex-start; gap: 0.5rem; }
+.mda-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); min-width: 4.5rem; flex-shrink: 0; padding-top: 0.25rem; }
+.mda-chips { display: flex; align-items: center; flex-wrap: wrap; gap: 0.3rem; flex: 1; min-width: 0; }
+.mda-chip { background: var(--surface2); border: 1px solid var(--border2); border-radius: 4px; padding: 0.15rem 0.4rem; font-size: 0.78rem; font-weight: 600; color: var(--text); font-family: monospace; }
 .mda-chip-prefix { background: var(--blue-bg); border-color: var(--blue-border); color: var(--blue); }
 .mda-chip-result { background: var(--green-bg); border-color: var(--green-border); color: var(--green); font-weight: 700; }
 .mda-sep { color: var(--muted); font-size: 0.9rem; font-weight: 600; padding: 0 0.1rem; }
 .mda-group-label { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.2rem; }
 .mda-divider { height: 1px; background: var(--border2); margin: 0.55rem 0; }
-.mask-derive-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.65rem; }
-@media (max-width: 600px) { .mask-derive-tables { grid-template-columns: 1fr; } }
+.mask-derive-tables { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.65rem; }
+.mask-derive-tables > div { flex: 1 1 240px; min-width: 0; overflow-x: auto; }
 
 /* ── 7-Second Subnetting components ─────────────────── */
 .ss-intro { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 0.75rem; }
