@@ -1425,7 +1425,7 @@ tr[data-exam-weight="high"] td:first-child::before {
   opacity: 0;
   pointer-events: none;
 }
-.protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-back  {
+.protocol-ref-row.is-flipped .protocol-ref-face.protocol-ref-back {
   opacity: 1;
   pointer-events: auto;
   overflow-y: auto;
