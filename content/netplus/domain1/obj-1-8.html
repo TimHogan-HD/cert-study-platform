@@ -28,80 +28,282 @@
     <strong>Link-local (fe80::/10)</strong> is auto-configured on every IPv6 interface and only routable on the local link — never crosses a router. <strong>Global unicast (2000::/3)</strong> is the public, routable equivalent of an IPv4 public address. If you see <code>fe80::</code> in a question, it cannot reach the internet.
   </div>
 
+  <!-- C10-A: IPv6 Address Anatomy Bar -->
+  <h4>IPv6 Address Anatomy — 128 bits, 8 groups of 16</h4>
+  <p style="font-size:0.85rem;color:var(--text);margin-bottom:0.5rem">Full example: <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>. Groups 1–4 = Network Prefix (64 bits); Groups 5–8 = Interface ID / IID (64 bits).</p>
+  <div class="ipv6-anatomy">
+    <div class="ipv6-group ipv6-group-prefix">
+      <div class="ipv6-group-label">Group 1</div>
+      <div class="ipv6-group-hex">2001</div>
+    </div>
+    <div class="ipv6-group ipv6-group-prefix">
+      <div class="ipv6-group-label">Group 2</div>
+      <div class="ipv6-group-hex">0db8</div>
+    </div>
+    <div class="ipv6-group ipv6-group-prefix">
+      <div class="ipv6-group-label">Group 3</div>
+      <div class="ipv6-group-hex">85a3</div>
+    </div>
+    <div class="ipv6-group ipv6-group-prefix">
+      <div class="ipv6-group-label">Group 4</div>
+      <div class="ipv6-group-hex">0000</div>
+    </div>
+    <div class="ipv6-group ipv6-group-iid">
+      <div class="ipv6-group-label">Group 5</div>
+      <div class="ipv6-group-hex">0000</div>
+    </div>
+    <div class="ipv6-group ipv6-group-iid">
+      <div class="ipv6-group-label">Group 6</div>
+      <div class="ipv6-group-hex">8a2e</div>
+    </div>
+    <div class="ipv6-group ipv6-group-iid">
+      <div class="ipv6-group-label">Group 7</div>
+      <div class="ipv6-group-hex">0370</div>
+    </div>
+    <div class="ipv6-group ipv6-group-iid">
+      <div class="ipv6-group-label">Group 8</div>
+      <div class="ipv6-group-hex">7334</div>
+    </div>
+  </div>
+  <div class="ipv6-anatomy-legend">
+    <span><span class="ip-v2-legend-dot" style="background:rgba(59,130,246,0.5)"></span>Network Prefix (groups 1–4, 64 bits)</span>
+    <span><span class="ip-v2-legend-dot" style="background:rgba(20,184,166,0.5)"></span>Interface ID / IID (groups 5–8, 64 bits)</span>
+  </div>
+
   <h3>IPv6 Address Format &amp; Shortening Rules</h3>
-  <p>Full IPv6: <code>2001:0db8:0000:0000:0000:0000:0000:0001</code></p>
-  <ol>
-    <li><strong>Rule 1:</strong> Drop leading zeros in each group → <code>2001:db8:0:0:0:0:0:1</code></li>
-    <li><strong>Rule 2:</strong> Replace one or more consecutive all-zero groups with <code>::</code> (only ONCE per address) → <code>2001:db8::1</code></li>
-  </ol>
-  <div class="callout callout-blue">
-    <div class="callout-title">:: Rule</div>
-    The double colon (<code>::</code>) can only appear ONCE in an IPv6 address. It replaces one or more consecutive groups of all zeros. Pick the longest run of zeros to compress.
+  <p>Full example: <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code> → shortened to <code>2001:db8:85a3::8a2e:370:7334</code></p>
+
+  <div class="ipv6-shorten-wrap">
+
+    <!-- Step 1: Full address -->
+    <div class="ipv6-shorten-row">
+      <div class="ipv6-shorten-side">
+        <div class="ipv6-shorten-num">1</div>
+        <div class="ipv6-shorten-tag">Full address</div>
+      </div>
+      <div class="ipv6-shorten-main">
+        <div class="ipv6-shorten-groups">
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">2001</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">0db8</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">85a3</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-full"><span class="ipv6-shorten-grp-val">0000</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">8a2e</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">0370</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">7334</span></span>
+        </div>
+        <div class="ipv6-shorten-note">Two consecutive all-zero groups highlighted — the target for Rule 2. <code>0db8</code> and <code>0370</code> also have leading zeros (Rule 1 applies to them in step 2).</div>
+      </div>
+    </div>
+
+    <!-- Connector -->
+    <div class="ipv6-shorten-connector">
+      <svg width="16" height="18" viewBox="0 0 16 18" aria-hidden="true"><path d="M8 0 L8 12 M4 9 L8 14 L12 9" fill="none" stroke="var(--hint)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Step 2: Drop leading zeros -->
+    <div class="ipv6-shorten-row">
+      <div class="ipv6-shorten-side">
+        <div class="ipv6-shorten-num">2</div>
+        <div class="ipv6-shorten-tag">Rule 1 — drop leading zeros</div>
+      </div>
+      <div class="ipv6-shorten-main">
+        <div class="ipv6-shorten-groups">
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">2001</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">0</span>db8</span><span class="ipv6-shorten-grp-sub">1 dropped</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">85a3</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">8a2e</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">0</span>370</span><span class="ipv6-shorten-grp-sub">1 dropped</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">7334</span></span>
+        </div>
+        <div class="ipv6-shorten-note">Leading zeros stripped <em>within</em> each group — <code>0db8</code> → <code>db8</code>, <code>0370</code> → <code>370</code>, <code>0000</code> → <code>0</code>. Each group still exists; the colon separators remain.</div>
+      </div>
+    </div>
+
+    <!-- Connector -->
+    <div class="ipv6-shorten-connector">
+      <svg width="16" height="18" viewBox="0 0 16 18" aria-hidden="true"><path d="M8 0 L8 12 M4 9 L8 14 L12 9" fill="none" stroke="var(--hint)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Step 3: Collapse zero run -->
+    <div class="ipv6-shorten-row">
+      <div class="ipv6-shorten-side">
+        <div class="ipv6-shorten-num">3</div>
+        <div class="ipv6-shorten-tag">Rule 2 — collapse zero run</div>
+      </div>
+      <div class="ipv6-shorten-main">
+        <div class="ipv6-shorten-groups">
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">2001</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">db8</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">85a3</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-collapsed"><span class="ipv6-shorten-grp-val">::</span><span class="ipv6-shorten-grp-sub" style="opacity:1;font-size:0.55rem">:0:0:</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">8a2e</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">370</span></span>
+          <span class="ipv6-shorten-sep">:</span>
+          <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">7334</span></span>
+        </div>
+        <div class="ipv6-shorten-note">Both <code style="color:var(--amber)">0</code> groups collapse into <strong style="color:var(--purple)">::</strong> — the purple block shows what got swallowed. <strong>Rule:</strong> <code style="color:var(--purple)">::</code> can appear only <strong>once</strong>; always compress the longest consecutive run.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ipv6-shorten-result-row">
+    <div class="ipv6-shorten-result-side">
+      <div class="ipv6-shorten-result-badge">Result</div>
+    </div>
+    <div class="ipv6-shorten-result-body">
+      <div class="ipv6-shorten-result-addr"><span class="ipv6-shorten-result-val">2001:db8:85a3::8a2e:370:7334</span></div>
+      <div class="ipv6-shorten-result-meta">39 chars → 28 chars &nbsp;·&nbsp; The <code style="color:var(--purple)">::</code> expands back to however many zero groups are needed to fill 8 total — in this case, two groups of zeros.</div>
+    </div>
   </div>
 
   <h3>IPv6 Address Types</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Type</th><th>Prefix</th><th>Description</th><th>IPv4 Equivalent</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Global Unicast</strong></td><td>2000::/3</td><td>Publicly routable — the IPv6 equivalent of public IPv4</td><td>Public IP</td></tr>
-        <tr><td><strong>Link-Local</strong></td><td>fe80::/10</td><td>Auto-configured on every interface; not routable beyond the link</td><td>APIPA 169.254.x.x</td></tr>
-        <tr><td><strong>Unique Local (ULA)</strong></td><td>fc00::/7 (fd prefix most common)</td><td>Private use; not globally routable</td><td>RFC 1918 (10.x, 172.16–31.x, 192.168.x)</td></tr>
-        <tr><td><strong>Loopback</strong></td><td>::1/128</td><td>Local loopback — tests IPv6 stack</td><td>127.0.0.1</td></tr>
-        <tr><td><strong>Unspecified</strong></td><td>::/128</td><td>No address assigned — used as source during DAD</td><td>0.0.0.0</td></tr>
-        <tr><td><strong>Multicast</strong></td><td>ff00::/8</td><td>One-to-many; no broadcast in IPv6 — multicast replaces it</td><td>224.0.0.0/4</td></tr>
-        <tr><td><strong>Anycast</strong></td><td>From unicast space</td><td>Same address assigned to multiple nodes; routed to nearest</td><td>No direct equivalent</td></tr>
-        <tr><td><strong>Solicited-Node Multicast</strong></td><td>ff02::1:ff00:0/104</td><td>Used by NDP (replaces ARP); built from interface's low-order bits</td><td>ARP</td></tr>
-      </tbody>
-    </table>
+  <div class="ipv6-types-header">
+    <div>Type</div>
+    <div>Prefix</div>
+    <div>Description</div>
+    <div>IPv4 Equiv</div>
+  </div>
+  <div class="ipv6-types">
+    <div class="ipv6-type-row ipv6-type-global">
+      <div><strong>Global Unicast</strong></div>
+      <div><code>2000::/3</code></div>
+      <div>Publicly routable — the IPv6 equivalent of a public IPv4 address</div>
+      <div>Public IP</div>
+    </div>
+    <div class="ipv6-type-row ipv6-type-linklocal">
+      <div><strong>Link-Local</strong></div>
+      <div><code>fe80::/10</code></div>
+      <div>Auto-configured on every interface; not routable beyond the local link</div>
+      <div>APIPA 169.254.x.x</div>
+    </div>
+    <div class="ipv6-type-row ipv6-type-ula">
+      <div><strong>Unique Local (ULA)</strong></div>
+      <div><code>fc00::/7</code> (fd… most common)</div>
+      <div>Private use; not globally routable — IPv6's RFC 1918</div>
+      <div>10.x / 172.16–31.x / 192.168.x</div>
+    </div>
+    <div class="ipv6-type-row ipv6-type-loopback">
+      <div><strong>Loopback</strong></div>
+      <div><code>::1/128</code></div>
+      <div>Local loopback — tests the IPv6 stack on the host</div>
+      <div>127.0.0.1</div>
+    </div>
+    <div class="ipv6-type-row ipv6-type-multicast">
+      <div><strong>Multicast</strong></div>
+      <div><code>ff00::/8</code></div>
+      <div>One-to-many; replaces broadcast entirely in IPv6</div>
+      <div>224.0.0.0/4</div>
+    </div>
+    <div class="ipv6-type-row ipv6-type-anycast">
+      <div><strong>Anycast</strong></div>
+      <div>From unicast space</div>
+      <div>Same address on multiple nodes; packet routed to the nearest one</div>
+      <div>No direct equiv</div>
+    </div>
+    <div class="ipv6-type-row ipv6-type-unspecified">
+      <div><strong>Unspecified</strong></div>
+      <div><code>::/128</code></div>
+      <div>No address assigned — used as source during DAD (Duplicate Address Detection)</div>
+      <div>0.0.0.0</div>
+    </div>
+    <div class="ipv6-type-row ipv6-type-solicited">
+      <div><strong>Solicited-Node Multicast</strong></div>
+      <div><code>ff02::1:ff00:0/104</code></div>
+      <div>Used by NDP (replaces ARP); derived from interface's low-order 24 bits</div>
+      <div>ARP</div>
+    </div>
   </div>
 
   <h3>Common IPv6 Multicast Addresses</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Address</th><th>Scope</th><th>Used By</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><code>ff02::1</code></td><td>Link-local</td><td>All IPv6 nodes on segment</td></tr>
-        <tr><td><code>ff02::2</code></td><td>Link-local</td><td>All IPv6 routers</td></tr>
-        <tr><td><code>ff02::5</code></td><td>Link-local</td><td>OSPFv3 all routers</td></tr>
-        <tr><td><code>ff02::6</code></td><td>Link-local</td><td>OSPFv3 DR/BDR routers</td></tr>
-      </tbody>
-    </table>
+  <p class="ipv6-mcast-intro">IPv6 has <strong>no broadcast</strong> — multicast replaces it entirely. Each protocol registers a well-known multicast group address (always <code>ff02::</code> for link-local scope) so routers and nodes only receive packets relevant to them. The <code>ff02</code> prefix means link-local scope: packets never cross a router.</p>
+  <div class="ipv6-mcast-wrap">
+    <div class="ipv6-mcast-head">
+      <span>Address</span><span>Scope</span><span>What It Does</span>
+    </div>
+    <div class="ipv6-mcast-row ipv6-mcast-row-all-nodes">
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::1</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">All IPv6 nodes on segment</span><span class="ipv6-mcast-desc">IPv6 equivalent of IPv4 broadcast — every host on the local link receives this. Used for NDP and router discovery.</span></div>
+    </div>
+    <div class="ipv6-mcast-row ipv6-mcast-row-all-routers">
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::2</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">All IPv6 routers</span><span class="ipv6-mcast-desc">Hosts send Router Solicitation messages here to request a Router Advertisement (used by SLAAC/NDP).</span></div>
+    </div>
+    <div class="ipv6-mcast-row ipv6-mcast-row-ospf">
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::5</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">OSPFv3 — all routers</span><span class="ipv6-mcast-desc">All OSPFv3-enabled routers on the segment. Used for Hello packets and general OSPF traffic. Compare: OSPFv2 uses 224.0.0.5.</span></div>
+    </div>
+    <div class="ipv6-mcast-row ipv6-mcast-row-ospf">
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::6</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">OSPFv3 — DR/BDR only</span><span class="ipv6-mcast-desc">Designated Router and Backup DR only. Used by non-DR/BDR routers to send LSAs; reduces flooding on multi-access segments.</span></div>
+    </div>
+    <div class="ipv6-mcast-row ipv6-mcast-row-dhcp">
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::1:2</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">DHCPv6 agents</span><span class="ipv6-mcast-desc">All DHCPv6 servers and relay agents. Hosts send their Solicit message here when requesting a managed address (stateful DHCPv6).</span></div>
+    </div>
+    <div class="ipv6-mcast-row ipv6-mcast-row-rip">
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-addr">ff02::9</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-scope">Link-local</span></div>
+      <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">RIPng routers</span><span class="ipv6-mcast-desc">RIPng (RIP for IPv6) uses this instead of the IPv4 224.0.0.9. Distance-vector routing updates sent here on UDP port 521.</span></div>
+    </div>
   </div>
+  <p style="font-size:0.74rem;color:var(--muted);margin-top:0.4rem">All <code>ff02::</code> addresses are link-local scope — they never cross a router. The <code>ff</code> prefix marks any address as multicast; the second byte encodes scope (<code>02</code> = link-local, <code>05</code> = site-local, <code>0e</code> = global).</p>
 
   <h3>IPv6 Address Configuration Methods</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Method</th><th>Description</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>SLAAC</strong> (Stateless Address Autoconfiguration)</td>
-          <td>Host uses router advertisement (RA) to learn network prefix + generates its own host ID from EUI-64 or random. No DHCP server needed. Stateless.</td>
-        </tr>
-        <tr>
-          <td><strong>DHCPv6 Stateful</strong></td>
-          <td>DHCPv6 server assigns full IPv6 address. Server keeps state (like IPv4 DHCP).</td>
-        </tr>
-        <tr>
-          <td><strong>DHCPv6 Stateless</strong></td>
-          <td>SLAAC provides address; DHCPv6 provides only DNS/options (not the IP itself).</td>
-        </tr>
-        <tr>
-          <td><strong>Manual</strong></td>
-          <td>Administrator statically assigns IPv6 address. Used for servers, routers.</td>
-        </tr>
-        <tr>
-          <td><strong>EUI-64</strong></td>
-          <td>Host ID generated from 48-bit MAC address (insert <code>fffe</code> in middle, flip 7th bit). Creates globally unique host ID portion.</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="ipv6-config-grid">
+    <div class="ipv6-config-card">
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem">
+        <strong>SLAAC</strong>
+        <span class="ipv6-config-badge ipv6-config-badge-stateless">Stateless</span>
+      </div>
+      <p style="font-size:0.85rem;margin:0">Host uses Router Advertisement (RA) to learn the network prefix, then generates its own Interface ID via EUI-64 or a random value. <strong>No DHCP server required.</strong></p>
+    </div>
+    <div class="ipv6-config-card">
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem">
+        <strong>DHCPv6 Stateful</strong>
+        <span class="ipv6-config-badge ipv6-config-badge-stateful">Stateful</span>
+      </div>
+      <p style="font-size:0.85rem;margin:0">DHCPv6 server assigns a full IPv6 address <em>and</em> options (DNS, etc.). Server tracks leases — analogous to IPv4 DHCP.</p>
+    </div>
+    <div class="ipv6-config-card">
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem">
+        <strong>DHCPv6 Stateless</strong>
+        <span class="ipv6-config-badge ipv6-config-badge-stateless">Hybrid</span>
+      </div>
+      <p style="font-size:0.85rem;margin:0">SLAAC assigns the IP address; DHCPv6 provides only options such as DNS server addresses. Server tracks no leases.</p>
+    </div>
+    <div class="ipv6-config-card">
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem">
+        <strong>Manual / EUI-64</strong>
+        <span class="ipv6-config-badge ipv6-config-badge-manual">Admin</span>
+      </div>
+      <p style="font-size:0.85rem;margin:0"><strong>Manual:</strong> admin statically assigns the full address — used for routers and servers. <strong>EUI-64:</strong> IID derived from 48-bit MAC (insert <code>fffe</code>, flip 7th bit).</p>
+    </div>
   </div>
 
   <h3>IPv6 Transition Mechanisms</h3>
@@ -127,7 +329,7 @@
         <tr><th><abbr title="Software-Defined Wide Area Network">SD-WAN</abbr> Feature</th><th>Description</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>Application-aware routing</strong></td><td>Routes specific apps over the best available transport (MPLS, broadband, LTE) based on real-time path quality (latency, jitter, loss)</td></tr>
+        <tr><td><strong>Application-aware routing</strong></td><td>Routes specific apps over the best available transport (MPLS, broadband, LTE) based on real-time path quality (latency, jitter, loss)</td></tr>
         <tr><td><strong>Zero-touch provisioning (<abbr title="Zero-Touch Provisioning">ZTP</abbr>)</strong></td><td>Branch devices auto-configure from a central controller on first boot — no on-site engineer required</td></tr>
         <tr><td><strong>Transport-agnostic</strong></td><td>Works over any WAN transport: MPLS, broadband internet, 4G/5G cellular, satellite</td></tr>
         <tr><td><strong>Centralized policy management</strong></td><td>Single pane of glass for all WAN policies, QoS, and security across all sites</td></tr>
@@ -151,7 +353,7 @@
         <tr><th><abbr title="Zero Trust Architecture">ZTA</abbr> Principle</th><th>Description</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>Never trust, always verify</strong></td><td>No implicit trust based on network location — every request is authenticated and authorized</td></tr>
+        <tr><td><strong>Never trust, always verify</strong></td><td>No implicit trust based on network location — every request is authenticated and authorized</td></tr>
         <tr><td><strong>Policy-based authentication</strong></td><td>Access decisions based on identity, device posture, location, and resource sensitivity — not just credentials</td></tr>
         <tr><td><strong>Least privilege</strong></td><td>Users and systems get minimum access required for their role — no standing admin rights</td></tr>
         <tr><td><strong>Microsegmentation</strong></td><td>Workloads isolated individually; lateral movement blocked even inside the network perimeter</td></tr>
@@ -170,8 +372,8 @@
         <tr><th>Framework</th><th>Components</th><th>Focus</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong><abbr title="Secure Access Service Edge">SASE</abbr></strong></td><td>SD-WAN + <abbr title="Secure Web Gateway">SWG</abbr> + <abbr title="Cloud Access Security Broker">CASB</abbr> + <abbr title="Zero Trust Network Access">ZTNA</abbr> + <abbr title="Firewall as a Service">FWaaS</abbr></td><td>Converges WAN networking AND security into a single cloud-delivered service</td></tr>
-        <tr data-exam-weight="high"><td><strong><abbr title="Security Service Edge">SSE</abbr></strong></td><td>SWG + CASB + ZTNA (security stack only)</td><td>Security-only subset of SASE — no SD-WAN component; cloud-delivered security</td></tr>
+        <tr><td><strong><abbr title="Secure Access Service Edge">SASE</abbr></strong></td><td>SD-WAN + <abbr title="Secure Web Gateway">SWG</abbr> + <abbr title="Cloud Access Security Broker">CASB</abbr> + <abbr title="Zero Trust Network Access">ZTNA</abbr> + <abbr title="Firewall as a Service">FWaaS</abbr></td><td>Converges WAN networking AND security into a single cloud-delivered service</td></tr>
+        <tr><td><strong><abbr title="Security Service Edge">SSE</abbr></strong></td><td>SWG + CASB + ZTNA (security stack only)</td><td>Security-only subset of SASE — no SD-WAN component; cloud-delivered security</td></tr>
       </tbody>
     </table>
   </div>

@@ -1,83 +1,219 @@
 <div class="obj-section" id="obj-1-2">
   <div class="section-eyebrow">Objective 1.2</div>
   <h2>Networking Devices</h2>
-  <p>Know which device does what — and critically, which OSI layer it operates at. <span class="exam-star-note"><span class="exam-star">★</span> = highest exam priority.</span></p>
+  <p>Know which device does what — and critically, which OSI layer it operates at.</p>
 
-  <div class="table-wrap">
-    <table class="table--comparison">
-      <thead>
-        <tr><th>Device</th><th>OSI Layer</th><th>What It Does</th><th>Key Detail</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Hub</strong></td><td>L1</td>
-          <td>Repeats signal to ALL ports (one collision domain)</td>
-          <td>Legacy — causes collisions. Replaced by switches.</td>
-        </tr>
-        <tr data-exam-weight="high">
-          <td><strong>Switch</strong></td><td>L2</td>
-          <td>Forwards frames based on MAC address table</td>
-          <td>Each port = separate collision domain. All in same broadcast domain unless VLANs.</td>
-        </tr>
-        <tr data-exam-weight="high">
-          <td><strong>Router</strong></td><td>L3</td>
-          <td>Routes packets between networks using IP addresses</td>
-          <td>Separates broadcast domains. Maintains routing table. Gateway between networks.</td>
-        </tr>
-        <tr>
-          <td><strong>Bridge</strong></td><td>L2</td>
-          <td>Connects two network segments, filters by MAC</td>
-          <td>Software-based; largely replaced by switches.</td>
-        </tr>
-        <tr>
-          <td><strong>WAP (Wireless Access Point)</strong></td><td>L2</td>
-          <td>Converts wired Ethernet to wireless (802.11)</td>
-          <td>Not a router. Just an access point unless it's a SOHO router-AP combo.</td>
-        </tr>
-        <tr data-exam-weight="high">
-          <td><strong>Firewall</strong></td><td>L3–L7</td>
-          <td>Filters traffic based on rules (ACLs)</td>
-          <td>Packet filter (L3/4), Stateful (L4), NGFW (L7). Know all three types.</td>
-        </tr>
-        <tr>
-          <td><strong>Load Balancer</strong></td><td>L4–L7</td>
-          <td>Distributes traffic across multiple servers</td>
-          <td>L4 = TCP/UDP port based. L7 = URL/content-aware. Improves availability.</td>
-        </tr>
-        <tr>
-          <td><strong>Proxy Server</strong></td><td>L7</td>
-          <td>Acts as intermediary; caches content, filters requests</td>
-          <td>Forward proxy = client-facing. Reverse proxy = server-facing (also a load balancer).</td>
-        </tr>
-        <tr>
-          <td><strong>IDS</strong></td><td>L3–L7</td>
-          <td>Monitors traffic for threats — alerts only</td>
-          <td><strong>Passive / out-of-band</strong>. Connects to SPAN/mirror port. Cannot block traffic.</td>
-        </tr>
-        <tr>
-          <td><strong>IPS</strong></td><td>L3–L7</td>
-          <td>Monitors AND blocks malicious traffic</td>
-          <td><strong>Active / inline</strong>. Traffic flows through IPS. Can drop packets. Single point of failure if it fails.</td>
-        </tr>
-        <tr>
-          <td><strong>Content Filter</strong></td><td>L7</td>
-          <td>Blocks or allows content based on URL, category</td>
-          <td>Web filtering. Often integrated into NGFW or proxy.</td>
-        </tr>
-        <tr>
-          <td><strong>VPN Concentrator</strong></td><td>L3–L4</td>
-          <td>Terminates many VPN tunnels efficiently</td>
-          <td>Used in enterprise for many remote users. Handles IPsec/SSL VPN.</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- L7 Application -->
+  <div class="device-layer-group">
+    <div class="device-layer-header">
+      <span class="device-layer-badge device-layer-badge-l7">L7 Application</span>
+    </div>
+    <div class="device-layer-cards">
+      <div class="device-card">
+        <div class="device-card-name">Proxy Server</div>
+        <div class="device-card-desc">Acts as intermediary — caches content, filters requests</div>
+        <div class="device-card-detail">Forward proxy = client-facing. Reverse proxy = server-facing (also a load balancer).</div>
+      </div>
+      <div class="device-card">
+        <div class="device-card-name">Content Filter</div>
+        <div class="device-card-desc">Blocks or allows content by URL or category</div>
+        <div class="device-card-detail">Web filtering. Often integrated into NGFW or proxy.</div>
+      </div>
+    </div>
   </div>
 
-  <h3>IDS vs IPS — Critical Distinction</h3>
-  <div class="callout callout-blue">
-    <div class="callout-title">IDS = Passive (SPAN Port) | IPS = Active (Inline)</div>
-    <p><strong>IDS:</strong> Connected to a mirror/SPAN port. It sees a <em>copy</em> of traffic. Can detect and alert but <em>cannot block</em> traffic since it's not in the traffic path.</p>
-    <p><strong>IPS:</strong> Placed <em>inline</em> — all traffic physically passes through it. Can detect, alert, <em>and block</em> threats in real time. If it fails open, traffic passes unsecured. If it fails closed, it becomes a network outage.</p>
+  <!-- L4-L7 Multi-layer -->
+  <div class="device-layer-group">
+    <div class="device-layer-header">
+      <span class="device-layer-badge device-layer-badge-l47">L4–L7 Multi-layer</span>
+    </div>
+    <div class="device-layer-cards">
+      <div class="device-card">
+        <div class="device-card-name">Firewall</div>
+        <div class="device-card-desc">Filters traffic by rules (ACLs)</div>
+        <div class="device-card-detail">Packet filter (L3/4), Stateful (L4), NGFW (L7). Know all three types.</div>
+      </div>
+      <div class="device-card">
+        <div class="device-card-name">Load Balancer</div>
+        <div class="device-card-desc">Distributes traffic across multiple servers</div>
+        <div class="device-card-detail">L4 = TCP/UDP port-based. L7 = URL/content-aware (cookie, path).</div>
+      </div>
+      <div class="device-card">
+        <div class="device-card-name">IDS</div>
+        <div class="device-card-desc">Monitors traffic for threats — alerts only (passive)</div>
+        <div class="device-card-detail">Out-of-band via SPAN/mirror port. Cannot block traffic.</div>
+      </div>
+      <div class="device-card">
+        <div class="device-card-name">IPS</div>
+        <div class="device-card-desc">Monitors AND blocks malicious traffic (active)</div>
+        <div class="device-card-detail">Inline — traffic flows through it. Can drop packets. Single point of failure if it fails.</div>
+      </div>
+      <div class="device-card">
+        <div class="device-card-name">VPN Concentrator</div>
+        <div class="device-card-desc">Terminates many VPN tunnels efficiently</div>
+        <div class="device-card-detail">Used in enterprise for many remote users. Handles IPsec/SSL VPN.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L3 Network -->
+  <div class="device-layer-group">
+    <div class="device-layer-header">
+      <span class="device-layer-badge device-layer-badge-l3">L3 Network</span>
+    </div>
+    <div class="device-layer-cards">
+      <div class="device-card">
+        <div class="device-card-name">Router</div>
+        <div class="device-card-desc">Routes packets between networks using IP addresses</div>
+        <div class="device-card-detail">Separates broadcast domains. Maintains routing table. Default gateway device.</div>
+      </div>
+      <div class="device-card">
+        <div class="device-card-name">L3 Switch</div>
+        <div class="device-card-desc">Routes between VLANs — operates at L2 AND L3</div>
+        <div class="device-card-detail">Inter-VLAN routing without a separate router. Faster than a dedicated router for this task.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L2 Data Link -->
+  <div class="device-layer-group">
+    <div class="device-layer-header">
+      <span class="device-layer-badge device-layer-badge-l2">L2 Data Link</span>
+    </div>
+    <div class="device-layer-cards">
+      <div class="device-card">
+        <div class="device-card-name">Switch</div>
+        <div class="device-card-desc">Forwards frames based on MAC address table</div>
+        <div class="device-card-detail">Each port = separate collision domain. All ports share one broadcast domain (unless VLANs).</div>
+      </div>
+      <div class="device-card">
+        <div class="device-card-name">Bridge</div>
+        <div class="device-card-desc">Connects two segments, filters by MAC</div>
+        <div class="device-card-detail">Software-based; largely replaced by switches.</div>
+      </div>
+      <div class="device-card">
+        <div class="device-card-name">WAP</div>
+        <div class="device-card-desc">Converts wired Ethernet to wireless (802.11)</div>
+        <div class="device-card-detail">Not a router. Just an access point unless it's a combined SOHO device.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L1 Physical -->
+  <div class="device-layer-group">
+    <div class="device-layer-header">
+      <span class="device-layer-badge device-layer-badge-l1">L1 Physical</span>
+    </div>
+    <div class="device-layer-cards">
+      <div class="device-card">
+        <div class="device-card-name">Hub</div>
+        <div class="device-card-desc">Repeats signal to ALL ports — one collision domain</div>
+        <div class="device-card-detail">Legacy. Causes collisions. Every device on a hub shares bandwidth.</div>
+      </div>
+      <div class="device-card">
+        <div class="device-card-name">Repeater</div>
+        <div class="device-card-desc">Regenerates signal to extend cable distance</div>
+        <div class="device-card-detail">No intelligence — boosts signal only. Modern equivalent: powered fiber extender.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>IDS vs IPS — Traffic Flow</h3>
+  <div class="ids-ips-diagram">
+
+    <!-- IDS Flip Card -->
+    <div class="ids-ips-flip-card" tabindex="0" role="button" aria-label="IDS card — click to flip" aria-expanded="false">
+      <div class="ids-ips-flip-hint">click to flip ↩</div>
+      <div class="ids-ips-flip-inner">
+        <!-- Front: traffic flow diagram -->
+        <div class="ids-ips-flip-front">
+          <div class="ids-ips-panel ids-ips-panel-ids">
+            <div class="ids-ips-title"><abbr title="Intrusion Detection System">IDS</abbr> — Intrusion Detection System <span class="ids-ips-badge ids-ips-badge-passive">Passive</span></div>
+            <div class="ids-ips-flow">
+              <div class="ids-ips-node">Internet / WAN</div>
+              <div class="ids-ips-arrow">↓</div>
+              <div class="ids-ips-node">Switch / Router</div>
+              <div class="ids-ips-arrow">↓ ← tap (copy of traffic)</div>
+              <div class="ids-ips-node">Internal Network</div>
+            </div>
+            <div class="ids-ips-node ids-ips-sensor">IDS Sensor<br><span style="font-size:0.72rem;font-weight:400">sees a COPY via SPAN port</span></div>
+            <div class="ids-ips-note">Out-of-band. Detects and alerts only — <strong>cannot block</strong>. No single point of failure.</div>
+          </div>
+        </div>
+        <!-- Back: full explanation -->
+        <div class="ids-ips-flip-back">
+          <div class="ids-ips-back-panel ids-ips-back-panel-ids">
+            <div class="ids-ips-back-title"><abbr title="Intrusion Detection System">IDS</abbr> — Intrusion Detection System</div>
+            <div class="ids-ips-back-def">A security monitoring tool that watches network or host activity for signs of attack, policy violations, or suspicious patterns — then <strong>generates alerts</strong> for security analysts. It never interferes with live traffic.</div>
+            <div class="ids-ips-back-attrs">
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Placement</span>
+                <span class="ids-ips-back-attr-val">Out-of-band. Receives a <strong>copy</strong> of traffic via a SPAN/mirror port or network tap — not in the traffic path itself.</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Detection</span>
+                <span class="ids-ips-back-attr-val"><strong>Signature-based</strong> (matches known attack patterns) and <strong>Anomaly-based</strong> (flags deviations from a learned baseline).</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Scope</span>
+                <span class="ids-ips-back-attr-val"><strong>NIDS</strong> = network-level (watches a segment). <strong>HIDS</strong> = host-level (monitors one device's logs and processes).</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Key limit</span>
+                <span class="ids-ips-back-attr-val">Alerts only — <strong>cannot block in real time</strong>. False positives require analyst review. Ideal where passive monitoring is required (legal/compliance reasons).</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IPS Flip Card -->
+    <div class="ids-ips-flip-card" tabindex="0" role="button" aria-label="IPS card — click to flip" aria-expanded="false">
+      <div class="ids-ips-flip-hint">click to flip ↩</div>
+      <div class="ids-ips-flip-inner">
+        <!-- Front: traffic flow diagram -->
+        <div class="ids-ips-flip-front">
+          <div class="ids-ips-panel ids-ips-panel-ips">
+            <div class="ids-ips-title"><abbr title="Intrusion Prevention System">IPS</abbr> — Intrusion Prevention System <span class="ids-ips-badge ids-ips-badge-active">Active</span></div>
+            <div class="ids-ips-flow">
+              <div class="ids-ips-node">Internet / WAN</div>
+              <div class="ids-ips-arrow">↓</div>
+              <div class="ids-ips-node ids-ips-block">IPS (inline)<br><span style="font-size:0.72rem;font-weight:400">all traffic passes through</span></div>
+              <div class="ids-ips-arrow">↓ or ✕ blocked</div>
+              <div class="ids-ips-node">Internal Network</div>
+            </div>
+            <div class="ids-ips-note">Inline — physically in the traffic path. Can detect, alert, <strong>and block</strong>. Fail-open = traffic passes; fail-closed = outage.</div>
+          </div>
+        </div>
+        <!-- Back: full explanation -->
+        <div class="ids-ips-flip-back">
+          <div class="ids-ips-back-panel ids-ips-back-panel-ips">
+            <div class="ids-ips-back-title"><abbr title="Intrusion Prevention System">IPS</abbr> — Intrusion Prevention System</div>
+            <div class="ids-ips-back-def">An active security control that sits <strong>physically inline</strong> in the traffic path and can block, drop, or modify malicious traffic in real time — without requiring human intervention.</div>
+            <div class="ids-ips-back-attrs">
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Placement</span>
+                <span class="ids-ips-back-attr-val">Inline — every packet flows <strong>through</strong> the IPS. Typically placed between the firewall and internal network.</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Actions</span>
+                <span class="ids-ips-back-attr-val">Can <strong>drop packets</strong>, reset TCP connections, block source IPs, and send alerts — simultaneously and automatically.</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Detection</span>
+                <span class="ids-ips-back-attr-val">Same signature and anomaly methods as IDS, but with authority to act. High false-positive rate = legitimate traffic blocked.</span>
+              </div>
+              <div class="ids-ips-back-attr">
+                <span class="ids-ips-back-attr-label">Failure modes</span>
+                <span class="ids-ips-back-attr-val"><strong>Fail-open</strong> = IPS passes all traffic if it crashes (availability preserved, security lost). <strong>Fail-closed</strong> = blocks all traffic (network outage but secure).</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <h3>Firewall Types</h3>
@@ -119,10 +255,10 @@
         <tr><th>Mechanism</th><th>Layer</th><th>How It Works</th><th>Key Detail</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>QoS / DSCP</strong></td><td>L3</td><td>IP header <abbr title="Differentiated Services Code Point">DSCP</abbr> field (6-bit) marks packet priority</td><td>EF (Expedited Forwarding) = VoIP, DSCP 46; AF = Assured Forwarding; BE = Best Effort (default, 0)</td></tr>
+        <tr><td><strong>QoS / DSCP</strong></td><td>L3</td><td>IP header <abbr title="Differentiated Services Code Point">DSCP</abbr> field (6-bit) marks packet priority</td><td>EF (Expedited Forwarding) = VoIP, DSCP 46; AF = Assured Forwarding; BE = Best Effort (default, 0)</td></tr>
         <tr><td><strong>CoS</strong></td><td>L2</td><td>802.1p 3-bit field in 802.1Q VLAN tag marks priority</td><td>0–7; only present on tagged (trunk) frames; lost at L3 boundary</td></tr>
-        <tr data-exam-weight="high"><td><strong>Traffic Shaping</strong></td><td>L3–L4</td><td>Buffers excess traffic to smooth bursts — adds latency but no drops</td><td>Smooth, compliant with contracted rate; introduces delay</td></tr>
-        <tr data-exam-weight="high"><td><strong>Traffic Policing</strong></td><td>L3–L4</td><td>Drops or re-marks packets that exceed a defined rate — no buffering</td><td>Bursty drops; typically at ISP edge or WAN handoff</td></tr>
+        <tr><td><strong>Traffic Shaping</strong></td><td>L3–L4</td><td>Buffers excess traffic to smooth bursts — adds latency but no drops</td><td>Smooth, compliant with contracted rate; introduces delay</td></tr>
+        <tr><td><strong>Traffic Policing</strong></td><td>L3–L4</td><td>Drops or re-marks packets that exceed a defined rate — no buffering</td><td>Bursty drops; typically at ISP edge or WAN handoff</td></tr>
         <tr><td><strong>Queuing</strong></td><td>L3</td><td>Scheduler determines order packets leave interface</td><td><abbr title="Priority Queuing">PQ</abbr> = strict priority; <abbr title="Weighted Fair Queuing">WFQ</abbr> = bandwidth share; <abbr title="Class-Based WFQ">CBWFQ</abbr> = class-defined bandwidth</td></tr>
       </tbody>
     </table>
