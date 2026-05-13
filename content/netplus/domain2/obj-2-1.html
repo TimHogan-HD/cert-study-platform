@@ -46,22 +46,22 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
 
   <!-- C1: AD vs Metric Decision Flow -->
   <div style="background:var(--surface2);border:.5px solid var(--border2);border-radius:10px;padding:16px;margin:8px 0">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px">AD vs Metric — Two-Stage Decision Flow</div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:12px">AD vs Metric — Two-Stage Decision Flow</div>
     <div class="decision-wrap">
       <div class="decision-box dec-question">Router learns a route from multiple sources</div>
       <div class="dec-line"></div>
       <div class="decision-box dec-ad" style="min-width:240px">
-        <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;opacity:.7">Stage 1 — Inter-protocol · checked first</div>
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;color:var(--muted)">Stage 1 — Inter-protocol · checked first</div>
         <div>Compare Administrative Distance</div>
-        <div style="font-size:10px;margin-top:3px;opacity:.7;font-family:var(--mono,monospace)">OSPF=110 · RIP=120 · Static=1</div>
+        <div style="font-size:11px;margin-top:3px;color:var(--muted);font-family:var(--mono,monospace)">OSPF=110 · RIP=120 · Static=1</div>
       </div>
       <div class="dec-line"></div>
       <div class="dec-note">Lowest AD wins — one protocol selected</div>
       <div class="dec-line"></div>
       <div class="decision-box dec-metric" style="min-width:240px">
-        <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;opacity:.7">Stage 2 — Intra-protocol · checked second</div>
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;color:var(--muted)">Stage 2 — Intra-protocol · checked second</div>
         <div>Compare Metric</div>
-        <div style="font-size:10px;margin-top:3px;opacity:.7;font-family:var(--mono,monospace)">OSPF cost · RIP hops · EIGRP bandwidth+delay</div>
+        <div style="font-size:11px;margin-top:3px;color:var(--muted);font-family:var(--mono,monospace)">OSPF cost · RIP hops · EIGRP bandwidth+delay</div>
       </div>
       <div class="dec-line"></div>
       <div class="decision-box dec-winner">Route installed in routing table ✓</div>
@@ -202,7 +202,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
 
   <!-- C2: NAT Inside/Outside Packet Flow -->
   <div style="background:var(--surface2);border:.5px solid var(--border2);border-radius:10px;padding:16px;margin:8px 0">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px">NAT Terminology — Packet Flow</div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:10px">NAT Terminology — Packet Flow</div>
     <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px">Outbound packet: 192.168.1.10 → 8.8.8.8 (Google DNS)</div>
     <div class="nat-flow">
       <div class="nat-row">
@@ -287,12 +287,12 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
 
   <!-- C3: FHRP Virtual IP Topology -->
   <div style="background:var(--surface2);border:.5px solid var(--border2);border-radius:10px;padding:16px;margin:8px 0">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px">FHRP — Virtual IP Topology</div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:12px">FHRP — Virtual IP Topology</div>
     <div class="fhrp-wrap">
       <div class="fhrp-hosts">
-        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC1<br><span style="font-family:var(--mono,monospace);font-size:9px;color:var(--muted)">gw: 10.0.0.1</span></div>
-        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC2<br><span style="font-family:var(--mono,monospace);font-size:9px;color:var(--muted)">gw: 10.0.0.1</span></div>
-        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC3<br><span style="font-family:var(--mono,monospace);font-size:9px;color:var(--muted)">gw: 10.0.0.1</span></div>
+        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC1<br><span style="font-family:var(--mono,monospace);font-size:10px;color:var(--muted)">gw: 10.0.0.1</span></div>
+        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC2<br><span style="font-family:var(--mono,monospace);font-size:10px;color:var(--muted)">gw: 10.0.0.1</span></div>
+        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC3<br><span style="font-family:var(--mono,monospace);font-size:10px;color:var(--muted)">gw: 10.0.0.1</span></div>
       </div>
       <div style="display:flex;gap:36px;justify-content:center">
         <div class="fhrp-arrow-down"></div>
@@ -309,7 +309,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
           <div class="fhrp-router-name" style="color:var(--green)">Router A</div>
           <div class="fhrp-router-role" style="color:var(--green)">Active (HSRP) / Master (VRRP)</div>
           <div class="fhrp-router-ip">10.0.0.2 · priority 110</div>
-          <div style="font-size:9px;color:var(--green);margin-top:3px">Owns VIP · forwards traffic</div>
+          <div style="font-size:10px;color:var(--green);margin-top:3px">Owns VIP · forwards traffic</div>
         </div>
         <div class="fhrp-heartbeat">
           <div class="fhrp-heartbeat-label">heartbeat</div>
@@ -320,7 +320,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
           <div class="fhrp-router-name" style="color:var(--muted)">Router B</div>
           <div class="fhrp-router-role" style="color:var(--muted)">Standby (HSRP) / Backup (VRRP)</div>
           <div class="fhrp-router-ip">10.0.0.3 · priority 100</div>
-          <div style="font-size:9px;color:var(--muted);margin-top:3px">Assumes VIP if Router A fails</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px">Assumes VIP if Router A fails</div>
         </div>
       </div>
     </div>
@@ -343,7 +343,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
 
   <!-- C4: Router-on-a-Stick Subinterface Diagram -->
   <div style="background:var(--surface2);border:.5px solid var(--border2);border-radius:10px;padding:16px;margin:8px 0">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px">Router-on-a-Stick — Subinterface Layout</div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:12px">Router-on-a-Stick — Subinterface Layout</div>
     <div class="roas-wrap">
       <div class="roas-router">Router<div style="font-size:10px;font-weight:400;margin-top:2px;font-family:var(--mono,monospace)">Gi0/0 — one physical port</div></div>
       <div class="roas-trunk"></div>
