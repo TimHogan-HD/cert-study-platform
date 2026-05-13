@@ -2,6 +2,41 @@
   <div class="section-eyebrow">Objective 2.4</div>
   <h2>Physical Network Installation</h2>
 
+  <!-- C11: MDF/IDF Hierarchy Diagram -->
+  <div style="background:var(--surface2);border:.5px solid var(--border2);border-radius:10px;padding:16px;margin:8px 0 16px">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--hint);margin-bottom:14px">Structured Cabling Hierarchy — MDF → IDF → Access → Endpoints</div>
+    <div class="mdf-wrap">
+      <div class="mdf-node mdf-isp">ISP / WAN<div class="mdf-sub">Demarcation point</div></div>
+      <div class="mdf-line"></div>
+      <div class="mdf-node mdf-main">MDF — Main Distribution Frame<div class="mdf-sub">Core switches · ISP handoff · patch panels</div></div>
+      <div class="mdf-line"></div>
+      <div class="mdf-row">
+        <div class="mdf-branch">
+          <div class="mdf-node mdf-idf" style="min-width:130px;font-size:11px">IDF — Floor 1<div class="mdf-sub">Access switches · patch panel</div></div>
+          <div class="mdf-line"></div>
+          <div class="mdf-node mdf-acc" style="font-size:11px">Access Switch<div class="mdf-sub">VLAN ports · PoE</div></div>
+          <div class="mdf-line"></div>
+          <div style="display:flex;gap:4px">
+            <div class="mdf-node mdf-end" style="font-size:10px;padding:4px 8px">PC</div>
+            <div class="mdf-node mdf-end" style="font-size:10px;padding:4px 8px">Phone</div>
+            <div class="mdf-node mdf-end" style="font-size:10px;padding:4px 8px">AP</div>
+          </div>
+        </div>
+        <div class="mdf-branch">
+          <div class="mdf-node mdf-idf" style="min-width:130px;font-size:11px">IDF — Floor 2<div class="mdf-sub">Access switches · patch panel</div></div>
+          <div class="mdf-line"></div>
+          <div class="mdf-node mdf-acc" style="font-size:11px">Access Switch<div class="mdf-sub">VLAN ports · PoE</div></div>
+          <div class="mdf-line"></div>
+          <div style="display:flex;gap:4px">
+            <div class="mdf-node mdf-end" style="font-size:10px;padding:4px 8px">PC</div>
+            <div class="mdf-node mdf-end" style="font-size:10px;padding:4px 8px">Phone</div>
+            <div class="mdf-node mdf-end" style="font-size:10px;padding:4px 8px">AP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <h3>Structured Cabling Components</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -86,7 +121,44 @@
     </ul>
   </div>
 
+  <!-- C12: Hot/Cold Aisle Airflow Diagram -->
   <h3>Datacenter Physical Layout</h3>
+  <div style="background:var(--surface2);border:.5px solid var(--border2);border-radius:10px;padding:16px;margin:8px 0 12px">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--hint);margin-bottom:10px">Hot/Cold Aisle Airflow — Cross-Section View</div>
+    <div class="dc-wrap">
+      <div class="dc-cold">
+        <div class="dc-arrow" style="color:#60a5fa">❄</div>
+        <div class="dc-label">Cold Aisle</div>
+        <div style="font-size:10px;color:#60a5fa;text-align:center">Cool air in →</div>
+        <div class="dc-rack">
+          <div class="dc-rack-u server"></div>
+          <div class="dc-rack-u server"></div>
+          <div class="dc-rack-u server"></div>
+          <div class="dc-rack-u server"></div>
+          <div class="dc-rack-u server"></div>
+        </div>
+        <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:4px">Server<br>intake ports face cold aisle</div>
+      </div>
+      <div class="dc-mid">
+        <div class="dc-mid-label">Rack row</div>
+      </div>
+      <div class="dc-hot">
+        <div class="dc-arrow" style="color:#f87171">🔥</div>
+        <div class="dc-label">Hot Aisle</div>
+        <div style="font-size:10px;color:#f87171;text-align:center">→ Hot exhaust out</div>
+        <div class="dc-rack">
+          <div class="dc-rack-u server"></div>
+          <div class="dc-rack-u server"></div>
+          <div class="dc-rack-u server"></div>
+          <div class="dc-rack-u server"></div>
+          <div class="dc-rack-u server"></div>
+        </div>
+        <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:4px">Server<br>exhaust ports face hot aisle</div>
+      </div>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--muted);padding:7px 10px;background:var(--surface3);border-radius:6px;border:.5px solid var(--border)">Containment (curtains/doors) prevents cold and hot air from mixing — significantly improves cooling efficiency. A hot spot = missing blanking panel or equipment installed in wrong airflow orientation.</div>
+  </div>
+
   <div class="table-wrap">
     <table class="table--reference">
       <thead>
