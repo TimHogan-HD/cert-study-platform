@@ -51,22 +51,22 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
       <div class="decision-box dec-question">Router learns a route from multiple sources</div>
       <div class="dec-line"></div>
       <div class="decision-box dec-ad" style="min-width:240px">
-        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;color:var(--muted)">Stage 1 — Inter-protocol · checked first</div>
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;color:var(--text)">Stage 1 — Inter-protocol · checked first</div>
         <div>Compare Administrative Distance</div>
-        <div style="font-size:11px;margin-top:3px;color:var(--muted);font-family:var(--mono,monospace)">OSPF=110 · RIP=120 · Static=1</div>
+        <div style="font-size:11px;margin-top:3px;color:var(--text);font-family:var(--mono,monospace)">OSPF=110 · RIP=120 · Static=1</div>
       </div>
       <div class="dec-line"></div>
       <div class="dec-note">Lowest AD wins — one protocol selected</div>
       <div class="dec-line"></div>
       <div class="decision-box dec-metric" style="min-width:240px">
-        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;color:var(--muted)">Stage 2 — Intra-protocol · checked second</div>
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;color:var(--text)">Stage 2 — Intra-protocol · checked second</div>
         <div>Compare Metric</div>
-        <div style="font-size:11px;margin-top:3px;color:var(--muted);font-family:var(--mono,monospace)">OSPF cost · RIP hops · EIGRP bandwidth+delay</div>
+        <div style="font-size:11px;margin-top:3px;color:var(--text);font-family:var(--mono,monospace)">OSPF cost · RIP hops · EIGRP bandwidth+delay</div>
       </div>
       <div class="dec-line"></div>
       <div class="decision-box dec-winner">Route installed in routing table ✓</div>
     </div>
-    <div style="margin-top:10px;font-size:11px;color:var(--muted);padding:8px 10px;background:var(--surface3);border-radius:6px;border:.5px solid var(--border)">
+    <div style="margin-top:10px;font-size:11px;color:var(--text);padding:8px 10px;background:var(--surface3);border-radius:6px;border:.5px solid var(--border)">
       <strong style="color:var(--text)">Exam trap:</strong> AD is between protocols (which source to trust). Metric is within a protocol (which path to take). They are always checked in that order.
     </div>
   </div>
@@ -203,7 +203,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
   <!-- C2: NAT Inside/Outside Packet Flow -->
   <div style="background:var(--surface2);border:.5px solid var(--border2);border-radius:10px;padding:16px;margin:8px 0">
     <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:10px">NAT Terminology — Packet Flow</div>
-    <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px">Outbound packet: 192.168.1.10 → 8.8.8.8 (Google DNS)</div>
+    <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:6px">Outbound packet: 192.168.1.10 → 8.8.8.8 (Google DNS)</div>
     <div class="nat-flow">
       <div class="nat-row">
         <div class="nat-label">Inside<br>before NAT</div>
@@ -249,7 +249,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
         <div class="nat-term-def">Real IP of the external destination server</div>
       </div>
     </div>
-    <div style="margin-top:8px;font-size:11px;color:var(--muted)"><strong style="color:var(--text)">Outside Local</strong> = IP of external destination as seen from inside — usually identical to Outside Global unless bidirectional NAT is in use.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--text)"><strong style="color:var(--text)">Outside Local</strong> = IP of external destination as seen from inside — usually identical to Outside Global unless bidirectional NAT is in use.</div>
   </div>
 
   <div class="callout callout-blue">
@@ -290,9 +290,9 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
     <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:12px">FHRP — Virtual IP Topology</div>
     <div class="fhrp-wrap">
       <div class="fhrp-hosts">
-        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC1<br><span style="font-family:var(--mono,monospace);font-size:10px;color:var(--muted)">gw: 10.0.0.1</span></div>
-        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC2<br><span style="font-family:var(--mono,monospace);font-size:10px;color:var(--muted)">gw: 10.0.0.1</span></div>
-        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC3<br><span style="font-family:var(--mono,monospace);font-size:10px;color:var(--muted)">gw: 10.0.0.1</span></div>
+        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC1<br><span style="font-family:var(--mono,monospace);font-size:10px;color:var(--text)">gw: 10.0.0.1</span></div>
+        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC2<br><span style="font-family:var(--mono,monospace);font-size:10px;color:var(--text)">gw: 10.0.0.1</span></div>
+        <div class="fhrp-host"><div class="fhrp-host-label">Host</div>PC3<br><span style="font-family:var(--mono,monospace);font-size:10px;color:var(--text)">gw: 10.0.0.1</span></div>
       </div>
       <div style="display:flex;gap:36px;justify-content:center">
         <div class="fhrp-arrow-down"></div>
@@ -317,10 +317,10 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
           <div class="fhrp-heartbeat-label">↔</div>
         </div>
         <div class="fhrp-router fhrp-router-standby">
-          <div class="fhrp-router-name" style="color:var(--muted)">Router B</div>
-          <div class="fhrp-router-role" style="color:var(--muted)">Standby (HSRP) / Backup (VRRP)</div>
+          <div class="fhrp-router-name" style="color:var(--text)">Router B</div>
+          <div class="fhrp-router-role" style="color:var(--text)">Standby (HSRP) / Backup (VRRP)</div>
           <div class="fhrp-router-ip">10.0.0.3 · priority 100</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:3px">Assumes VIP if Router A fails</div>
+          <div style="font-size:10px;color:var(--text);margin-top:3px">Assumes VIP if Router A fails</div>
         </div>
       </div>
     </div>
@@ -356,7 +356,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
         <div class="roas-vlan roas-v30">VLAN 30<div class="roas-vlan-sub">Gi0/0.30<br>192.168.30.1/24</div></div>
       </div>
     </div>
-    <div style="margin-top:8px;font-size:11px;color:var(--muted);padding:7px 10px;background:var(--surface3);border-radius:6px;border:.5px solid var(--border)">One physical interface → multiple logical subinterfaces via <code>encapsulation dot1Q [vlan-id]</code>. Switch port connecting to router must be a trunk. Router becomes the inter-VLAN gateway.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--text);padding:7px 10px;background:var(--surface3);border-radius:6px;border:.5px solid var(--border)">One physical interface → multiple logical subinterfaces via <code>encapsulation dot1Q [vlan-id]</code>. Switch port connecting to router must be a trunk. Router becomes the inter-VLAN gateway.</div>
   </div>
 
   <div class="callout callout-blue">
