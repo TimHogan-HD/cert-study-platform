@@ -1496,15 +1496,15 @@ tr[data-exam-weight="high"] td:first-child::before {
   line-height: 1.3;
 }
 .sr-cell:last-child, .sr-cell:nth-child(4n) { border-right: none; }
-.sr-header { background: rgba(255,255,255,0.06); font-weight: 700; font-size: 0.75rem; }
-.sr-label  { justify-content: flex-start; font-size: 0.78rem; color: var(--muted); background: rgba(255,255,255,0.02); }
-.sr-customer  { background: rgba(13,110,253,0.18); color: #79c0ff; font-size: 0.72rem; font-weight: 600; }
-.sr-provider  { background: rgba(126,231,135,0.12); color: #7ee787; font-size: 0.72rem; font-weight: 600; }
+.sr-header { background: var(--surface3); font-weight: 700; font-size: 0.75rem; }
+.sr-label  { justify-content: flex-start; font-size: 0.78rem; color: var(--muted); background: var(--surface2); }
+.sr-customer  { background: var(--blue-bg2); color: var(--blue); font-size: 0.72rem; font-weight: 600; }
+.sr-provider  { background: var(--green-bg); color: var(--green); font-size: 0.72rem; font-weight: 600; }
 .sr-legend { display: flex; gap: 1.5rem; margin-top: 0.6rem; font-size: 0.75rem; }
 .sr-legend-item { display: flex; align-items: center; gap: 0.4rem; }
 .sr-swatch { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
-.sr-swatch-customer { background: rgba(13,110,253,0.5); }
-.sr-swatch-provider  { background: rgba(126,231,135,0.4); }
+.sr-swatch-customer { background: var(--blue); }
+.sr-swatch-provider  { background: var(--green); }
 
 /* ── IP Addressing Explainer ────────────────────────────── */
 .ip-explainer { margin: 1.25rem 0; }
@@ -1833,6 +1833,7 @@ tr[data-exam-weight="high"] td:first-child::before {
 .ids-ips-arrow { text-align: center; font-size: 0.75rem; color: var(--muted); line-height: 1; }
 .ids-ips-sensor { background: var(--blue-bg); border-color: var(--blue-border); color: var(--blue); }
 .ids-ips-block  { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+.ids-ips-node-note { font-size: 0.72rem; font-weight: 400; color: inherit; opacity: 0.85; display: block; margin-top: 0.15rem; }
 .ids-ips-note { font-size: 0.75rem; color: var(--muted); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 0.5rem; margin-top: auto; }
 @media (max-width: 600px) {
   .ids-ips-diagram { grid-template-columns: 1fr; }
@@ -1880,6 +1881,8 @@ tr[data-exam-weight="high"] td:first-child::before {
 .ip-v2-footer-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--hint); display: block; margin-bottom: 0.1rem; }
 .ip-v2-legend { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem; }
 .ip-v2-legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 0.35rem; vertical-align: middle; }
+.ip-v2-legend-dot[data-color="net"]  { background: var(--blue); }
+.ip-v2-legend-dot[data-color="host"] { background: var(--teal); }
 
 /* ── C7: CIDR Table Enhancements ─────────────────────────────── */
 .cidr-row-highlight { background: var(--blue-bg) !important; }
@@ -1970,6 +1973,7 @@ tr[data-exam-weight="high"] td:first-child::before {
 /* C10-D: Config Method Cards */
 .ipv6-config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
 .ipv6-config-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.85rem 1rem; }
+.ipv6-config-card-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
 .ipv6-config-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
 .ipv6-config-badge { font-size: 0.64rem; font-weight: 700; text-transform: uppercase; padding: 0.1rem 0.4rem; border-radius: 20px; display: inline-block; margin-left: 0.35rem; vertical-align: middle; }
 .ipv6-config-badge-stateless { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-border); }
@@ -2350,3 +2354,37 @@ tr[data-exam-weight="high"] td:first-child::before {
 .ipv6-shorten-result-addr { margin-bottom: 0.3rem; }
 .ipv6-shorten-result-val { font-family: monospace; font-weight: 700; color: var(--text); font-size: 1.05rem; }
 .ipv6-shorten-result-meta { font-size: 0.74rem; color: var(--muted); line-height: 1.5; }
+
+/* ── Shared annotation utilities ─────────────────────────────────── */
+.section-note { font-size: 0.85rem; color: var(--text); margin-bottom: 0.75rem; line-height: 1.55; }
+.guide-note   { font-size: 0.8rem; color: var(--text); margin-bottom: 0.5rem; line-height: 1.5; }
+.addr-sub     { font-size: 0.72rem; font-weight: 400; color: var(--muted); }
+.and-rules-note { margin-top: 0.6rem; font-size: 0.77rem; color: var(--text); line-height: 1.6; }
+
+/* ── Binary AND operation block ──────────────────────────────────── */
+.binary-and-block { font-family: var(--mono, monospace); font-size: 0.77rem; line-height: 1.8; }
+.binary-and-label { color: var(--muted); font-size: 0.67rem; margin-bottom: 0.3rem; }
+.binary-and-ip    { color: var(--blue); }
+.binary-and-mask  { color: var(--blue); opacity: 0.7; }
+.binary-and-divider { height: 1px; background: var(--border2); margin: 0.3rem 0; }
+.binary-and-result  { color: var(--green); }
+
+/* ── IP v2 footer value labels ───────────────────────────────────── */
+.ip-v2-footer-val              { font-weight: 700; font-size: 0.82rem; }
+.ip-v2-footer-val[data-col="net"]  { color: var(--blue); }
+.ip-v2-footer-val[data-col="host"] { color: var(--teal); }
+
+/* ── Binary worked example sum line ─────────────────────────────── */
+.binary-worked-sum { margin-top: 0.5rem; font-size: 0.85rem; }
+.binary-worked-sum strong { color: var(--blue); }
+
+/* ── IPv6 shortening diagram helpers ─────────────────────────────── */
+.ipv6-digit-dropped { text-decoration: line-through; opacity: 0.5; }
+.ipv6-shorten-grp-sub-expanded { opacity: 1; font-size: 0.55rem; }
+
+/* ── Method card inner spacer ────────────────────────────────────── */
+.method-spacer { margin-top: 0.75rem; }
+
+/* ── 7-second subnetting chart section separator ─────────────────── */
+.ss-c1-head-section { border-top: 1px solid var(--border2); }
+.ss-c1-section-label { grid-column: 1 / -1; font-size: 0.6rem; font-style: italic; }

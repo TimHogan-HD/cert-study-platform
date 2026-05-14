@@ -9,7 +9,7 @@
   <!-- C9: Binary Conversion Explainer (collapsible accordion) -->
   <div class="accordion-header">Binary Conversion — How IP Addresses Work in Binary</div>
   <div class="accordion-body">
-    <p style="font-size:0.85rem;color:var(--text);margin-bottom:0.75rem">Each octet is an 8-bit binary number. Bit positions represent powers of 2 from 128 (leftmost) to 1 (rightmost). Click the bit cells to toggle them and see the decimal total update live.</p>
+    <p class="section-note">Each octet is an 8-bit binary number. Bit positions represent powers of 2 from 128 (leftmost) to 1 (rightmost). Click the bit cells to toggle them and see the decimal total update live.</p>
     <div class="binary-bit-header">
       <div class="binary-bit-label">128</div>
       <div class="binary-bit-label">64</div>
@@ -33,7 +33,7 @@
     <div class="binary-total-label">Decimal Total</div>
     <div class="binary-total-display" id="bit-total">0</div>
 
-    <h4 style="margin-top:1.25rem">Worked Example: 192 = 11000000</h4>
+    <h4>Worked Example: 192 = 11000000</h4>
     <div class="binary-worked-example">
       <div class="binary-worked-pos">
         <span>128</span><span>64</span><span>32</span><span>16</span><span>8</span><span>4</span><span>2</span><span>1</span>
@@ -48,10 +48,10 @@
         <span class="binary-worked-bit-0">0</span>
         <span class="binary-worked-bit-0">0</span>
       </div>
-      <div style="margin-top:0.5rem;font-size:0.85rem">128 + 64 = <strong style="color:var(--blue)">192</strong></div>
+      <div class="binary-worked-sum">128 + 64 = <strong>192</strong></div>
     </div>
 
-    <div class="callout callout-teal" style="margin-top:0.75rem">
+    <div class="callout callout-teal">
       <div class="callout-title">Subnet Mask Connection</div>
       A /24 mask (255.255.255.0) = <code>11111111.11111111.11111111.00000000</code> — 24 consecutive 1-bits mark the network. A /30 mask (255.255.255.252) = <code>11111111.11111111.11111111.11111100</code> — 30 ones, 2 zeros = 4 addresses, 2 usable.
     </div>
@@ -66,7 +66,7 @@
       <div class="ip-v2-header-cell">Octet 4</div>
     </div>
 
-    <div class="ip-v2-row-label">IP Address — 192.168.1.50 &nbsp;<code style="font-size:0.68rem;font-weight:700">/24</code></div>
+    <div class="ip-v2-row-label">IP Address — 192.168.1.50 &nbsp;<code class="addr-sub">/24</code></div>
     <div class="ip-v2-row">
       <div class="ip-v2-cell ip-v2-cell-net"><div class="ip-v2-dec ip-v2-dec-net">192</div><div class="ip-v2-bin">1100 0000</div></div>
       <div class="ip-v2-cell ip-v2-cell-net"><div class="ip-v2-dec ip-v2-dec-net">168</div><div class="ip-v2-bin">1010 1000</div></div>
@@ -83,15 +83,15 @@
     </div>
 
     <div class="ip-v2-footer">
-      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span style="color:var(--blue);font-weight:700;font-size:0.82rem">Network</span></div>
-      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span style="color:var(--blue);font-weight:700;font-size:0.82rem">Network</span></div>
-      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span style="color:var(--blue);font-weight:700;font-size:0.82rem">Network</span></div>
-      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span style="color:var(--teal);font-weight:700;font-size:0.82rem">Host</span></div>
+      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span class="ip-v2-footer-val" data-col="net">Network</span></div>
+      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span class="ip-v2-footer-val" data-col="net">Network</span></div>
+      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span class="ip-v2-footer-val" data-col="net">Network</span></div>
+      <div class="ip-v2-footer-cell"><span class="ip-v2-footer-label">AND result</span><span class="ip-v2-footer-val" data-col="host">Host</span></div>
     </div>
   </div>
   <div class="ip-v2-legend">
-    <span><span class="ip-v2-legend-dot" style="background:rgba(59,130,246,0.5)"></span>Network portion — identifies the subnet (fixed)</span>
-    <span><span class="ip-v2-legend-dot" style="background:rgba(20,184,166,0.5)"></span>Host portion — identifies the device (variable)</span>
+    <span><span class="ip-v2-legend-dot" data-color="net"></span>Network portion — identifies the subnet (fixed)</span>
+    <span><span class="ip-v2-legend-dot" data-color="host"></span>Host portion — identifies the device (variable)</span>
   </div>
 
   <h4>The Subnet Mask</h4>
@@ -151,7 +151,7 @@
   <h3>Special IPv4 Addresses</h3>
   <div class="special-addr-grid">
     <div class="special-addr-card special-addr-card-loopback">
-      <div class="special-addr-addr">127.0.0.1 <span style="font-size:0.72rem;font-weight:400;color:var(--muted)">(127.0.0.0/8)</span></div>
+      <div class="special-addr-addr">127.0.0.1 <span class="addr-sub">(127.0.0.0/8)</span></div>
       <div class="special-addr-name">Loopback</div>
       <div class="special-addr-desc">Tests the local IP stack without sending traffic on the network. Never routed. <code>ping 127.0.0.1</code> always succeeds if TCP/IP is functioning.</div>
     </div>
@@ -171,7 +171,7 @@
       <div class="special-addr-desc">Sent to all hosts in the local subnet. Not routed by any router. Directed broadcast (<code>x.x.x.255</code>) targets a specific subnet; mostly blocked by routers to prevent Smurf attacks.</div>
     </div>
   </div>
-  <p style="font-size:0.8rem;color:var(--text);margin-top:0.3rem">Also note: <code>224.0.0.0/4</code> = multicast range (Class D). <code>x.x.x.255</code> = directed broadcast to a specific subnet.</p>
+  <p class="guide-note">Also note: <code>224.0.0.0/4</code> = multicast range (Class D). <code>x.x.x.255</code> = directed broadcast to a specific subnet.</p>
 
   <h3>CIDR Subnet Reference</h3>
   <div class="cidr-grid-wrap">
@@ -338,7 +338,7 @@
 
     <div class="mask-derive-tables">
       <div>
-        <div class="mask-derive-sublabel" style="margin-bottom:0.3rem">4th octet active — /25 to /30</div>
+        <div class="mask-derive-sublabel">4th octet active — /25 to /30</div>
         <table class="mask-derive-table">
           <thead><tr><th>Prefix</th><th>Add these bit values</th><th>Mask</th></tr></thead>
           <tbody>
@@ -352,7 +352,7 @@
         </table>
       </div>
       <div>
-        <div class="mask-derive-sublabel" style="margin-bottom:0.3rem">3rd octet active — /17 to /23</div>
+        <div class="mask-derive-sublabel">3rd octet active — /17 to /23</div>
         <table class="mask-derive-table">
           <thead><tr><th>Prefix</th><th>Add these bit values</th><th>Mask</th></tr></thead>
           <tbody>
@@ -371,7 +371,7 @@
 
   <!-- Subnetting Methods — Full Guides -->
   <h3>Subnetting Methods</h3>
-  <p style="font-size:0.85rem;color:var(--text);margin-bottom:0.75rem">Three core approaches plus a chart-based speed method for the exam. Pick the one that clicks and drill it until it's automatic — most people blend Powers of 2 for host counts with Magic Number for network addresses.</p>
+  <p class="section-note">Three core approaches plus a chart-based speed method for the exam. Pick the one that clicks and drill it until it's automatic — most people blend Powers of 2 for host counts with Magic Number for network addresses.</p>
 
   <!-- Method 1: Powers of 2 -->
   <div class="method-card">
@@ -388,7 +388,7 @@
           <li>Subtract 2 for usable hosts</li>
           <li>For subnet count: raise 2 to borrowed bits (prefix − base)</li>
         </ol>
-        <div style="margin-top:0.75rem">
+        <div class="method-spacer">
           <div class="method-col-label">Powers to memorise</div>
           <div class="powers-grid">
             <div class="powers-cell"><div class="powers-exp">2¹</div><div class="powers-val">2</div></div>
@@ -412,7 +412,7 @@
           <hr class="ex-divider">
           <div class="ex-answer">62 usable hosts → /26</div>
         </div>
-        <div style="margin-top:0.6rem">
+        <div class="method-spacer">
           <div class="method-col-label">Example — how many subnets?</div>
           <div class="method-example">
             <div class="ex-q">Q: Divide 192.168.1.0/24 into /26 subnets. How many?</div>
@@ -442,7 +442,7 @@
           <li>Largest multiple of the block ≤ host's octet = network address</li>
           <li>Broadcast = next block start − 1</li>
         </ol>
-        <div style="margin-top:0.75rem">
+        <div class="method-spacer">
           <div class="method-col-label">Quick block size reference</div>
           <table class="magic-table">
             <thead><tr><th>Last active octet</th><th>Block size</th><th>Prefix</th></tr></thead>
@@ -486,24 +486,24 @@
           <li>Result is the network address</li>
           <li>Flip all host bits to 1 for the broadcast address</li>
         </ol>
-        <div style="margin-top:0.6rem;font-size:0.77rem;color:var(--text);line-height:1.6">AND rules: <code>1·1=1</code> &nbsp; <code>1·0=0</code> &nbsp; <code>0·0=0</code><br>Only 1 AND 1 produces 1 — the mask filters, keeping only the network bits.</div>
+        <div class="and-rules-note">AND rules: <code>1·1=1</code> &nbsp; <code>1·0=0</code> &nbsp; <code>0·0=0</code><br>Only 1 AND 1 produces 1 — the mask filters, keeping only the network bits.</div>
       </div>
       <div>
         <div class="method-col-label">Example — network address of 192.168.1.50 /24</div>
-        <div class="method-example" style="font-family:var(--mono,monospace);font-size:0.77rem;line-height:1.8">
-          <div style="color:var(--muted);font-size:0.67rem;margin-bottom:0.3rem">Binary AND operation:</div>
-          <div style="color:var(--blue)">IP:&nbsp;&nbsp; 11000000.10101000.00000001.<span style="color:var(--teal)">00110010</span></div>
-          <div style="color:var(--blue);opacity:0.7">Mask: 11111111.11111111.11111111.<span style="color:var(--teal);opacity:0.7">00000000</span></div>
-          <div style="height:1px;background:var(--border2);margin:0.3rem 0"></div>
-          <div style="color:var(--green)">Net:&nbsp; 11000000.10101000.00000001.<span style="opacity:.4">00000000</span></div>
+        <div class="method-example binary-and-block">
+          <div class="binary-and-label">Binary AND operation:</div>
+          <div class="binary-and-ip">IP:&nbsp;&nbsp; 11000000.10101000.00000001.<span style="color:var(--teal)">00110010</span></div>
+          <div class="binary-and-mask">Mask: 11111111.11111111.11111111.<span style="color:var(--teal);opacity:0.7">00000000</span></div>
+          <div class="binary-and-divider"></div>
+          <div class="binary-and-result">Net:&nbsp; 11000000.10101000.00000001.<span style="opacity:.4">00000000</span></div>
           <hr class="ex-divider">
-          <div class="ex-answer" style="font-family:inherit">Network: 192.168.1.0 · Broadcast: 192.168.1.255</div>
+          <div class="ex-answer">Network: 192.168.1.0 · Broadcast: 192.168.1.255</div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="callout callout-blue" style="margin-bottom:0.75rem">
+  <div class="callout callout-blue">
     <div class="callout-title">PBQ Strategy</div>
     Common PBQ: given a network like 10.0.0.0/8 and 5 departments needing 200, 100, 50, 25, and 10 hosts — assign the most efficient subnet to each. <strong>Always work largest to smallest.</strong> Use powers of 2 to find the right prefix, then magic number to assign non-overlapping ranges. /24 for 200, /25 for 100, /26 for 50, /27 for 25, /28 for 10.
   </div>
@@ -516,7 +516,7 @@
     <div class="ss-intro-attr">— Professor Messer, CompTIA Network+ N10-009, Objective 1.7 (professormesser.com)</div>
   </div>
 
-  <p style="font-size:0.8rem;color:var(--text);margin-bottom:0.5rem"><strong>Step 0</strong> — Write these two charts on scratch paper before you start the exam.</p>
+  <p class="guide-note"><strong>Step 0</strong> — Write these two charts on scratch paper before you start the exam.</p>
 
   <div class="ss-charts-grid">
     <!-- Chart 1 -->
@@ -540,8 +540,8 @@
       <div class="ss-c1-row"><div class="ss-c1-cell">/30</div><div class="ss-c1-cell">255.255.255.252</div><div class="ss-c1-cell">4</div><div class="ss-c1-cell">2</div></div>
       <div class="ss-c1-row"><div class="ss-c1-cell">/31</div><div class="ss-c1-cell">255.255.255.254</div><div class="ss-c1-cell">2</div><div class="ss-c1-cell">2</div></div>
       <div class="ss-c1-row"><div class="ss-c1-cell">/32</div><div class="ss-c1-cell">255.255.255.255</div><div class="ss-c1-cell">1</div><div class="ss-c1-cell">1</div></div>
-      <div class="ss-c1-head" style="border-top:1px solid var(--border2)">
-        <span class="ss-c1-cell ss-bold" style="grid-column:1/-1;font-size:0.6rem;font-style:italic">Class B — last two octets vary</span>
+      <div class="ss-c1-head ss-c1-head-section">
+        <span class="ss-c1-cell ss-bold ss-c1-section-label">Class B — last two octets vary</span>
       </div>
       <div class="ss-c1-row"><div class="ss-c1-cell">/16</div><div class="ss-c1-cell">255.255.0.0</div><div class="ss-c1-cell">65536</div><div class="ss-c1-cell">65534</div></div>
       <div class="ss-c1-row"><div class="ss-c1-cell">/20</div><div class="ss-c1-cell">255.255.240.0</div><div class="ss-c1-cell">4096</div><div class="ss-c1-cell">4094</div></div>
@@ -583,7 +583,7 @@
     </div>
   </div>
 
-  <p style="font-size:0.8rem;color:var(--text);margin-bottom:0.5rem"><strong>The 4-step process</strong></p>
+  <p class="guide-note"><strong>The 4-step process</strong></p>
   <div class="ss-steps-wrap">
     <div class="ss-step-card">
       <div class="ss-step-num">1</div>
@@ -627,7 +627,7 @@
       <div class="ss-ex-row">
         <div class="ss-ex-n">1</div>
         <div class="ss-ex-label">Chart 1 lookup</div>
-        <div class="ss-ex-val">/26 → 255.255.255.192 &nbsp;<span style="color:var(--muted);font-size:0.7rem">(64 total, 62 usable)</span></div>
+        <div class="ss-ex-val">/26 → 255.255.255.192 &nbsp;<span class="addr-sub">(64 total, 62 usable)</span></div>
       </div>
       <div class="ss-ex-row">
         <div class="ss-ex-n">2</div>
@@ -695,13 +695,13 @@
   </div>
 
   <div class="pbq-prep">
-    <div class="pbq-prep-title">🎯 PBQ Prep — Subnetting</div>
+    <div class="pbq-prep-title">PBQ Prep — Subnetting</div>
     <p><strong>Common PBQ scenario:</strong> "You have the network 10.0.0.0/8 and need to create subnets for 5 departments: 200 hosts, 100 hosts, 50 hosts, 25 hosts, 10 hosts. Assign the most efficient subnet to each."</p>
     <p><strong>Approach:</strong> Always solve the largest subnet first. Work from largest requirement to smallest. Use the calculator above to verify.</p>
   </div>
 
   <div class="callout callout-amber">
-    <div class="callout-title">⚠ Exam Traps</div>
+    <div class="callout-title">Exam Traps</div>
     <ul>
       <li>Always subtract 2 for usable hosts (network address + broadcast address). Exception: /31 and /32.</li>
       <li>169.254.x.x = APIPA — the device couldn't reach a DHCP server. Check DHCP service and connectivity.</li>
