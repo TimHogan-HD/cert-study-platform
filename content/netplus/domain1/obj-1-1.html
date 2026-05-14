@@ -13,73 +13,219 @@
 
   <h3>The 7 OSI Layers</h3>
 
-  <div class="osi-v2">
-    <div class="osi-v2-header">
-      <span>#</span><span>Layer</span><span>PDU</span><span>Protocols / Technologies</span><span>Devices</span>
+  <div class="osi-card-stack">
+    <div class="osi-card-stack-header">
+      <span>#</span><span>Layer</span><span>PDU</span><span>Protocols / Technologies</span><span>Devices</span><span></span>
     </div>
 
-    <div class="osi-v2-row" data-layer="7">
-      <div class="osi-v2-num">7</div>
-      <div class="osi-v2-name">Application</div>
-      <div class="osi-v2-pdu">Data</div>
-      <div class="osi-v2-proto"><abbr title="HyperText Transfer Protocol">HTTP</abbr>, <abbr title="HTTP Secure">HTTPS</abbr>, <abbr title="File Transfer Protocol">FTP</abbr>, <abbr title="Simple Mail Transfer Protocol">SMTP</abbr>, <abbr title="Domain Name System">DNS</abbr>, <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr>, <abbr title="Simple Network Management Protocol">SNMP</abbr>, <abbr title="Secure Shell">SSH</abbr>, Telnet</div>
-      <div class="osi-v2-devices">Gateways, Proxies, L7 Firewalls</div>
+    <!-- Layer 7 -->
+    <div class="osi-flip-card" data-layer="7" tabindex="0" role="button" aria-expanded="false">
+      <div class="osi-card-front">
+        <div class="osi-card-num">7</div>
+        <div class="osi-card-name">Application</div>
+        <div class="osi-card-pdu">Data</div>
+        <div class="osi-card-protos"><abbr title="HyperText Transfer Protocol">HTTP</abbr>, <abbr title="HTTP Secure">HTTPS</abbr>, <abbr title="File Transfer Protocol">FTP</abbr>, <abbr title="Simple Mail Transfer Protocol">SMTP</abbr>, <abbr title="Domain Name System">DNS</abbr>, <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr>, <abbr title="Secure Shell">SSH</abbr></div>
+        <div class="osi-card-devices">Gateways, Proxies, L7 Firewalls</div>
+        <div class="osi-card-chevron">▾</div>
+      </div>
+      <div class="osi-card-detail">
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">What it does</div>
+          <div class="osi-detail-val">Provides network services directly to user applications. Protocols here are what users interact with — web browsers, email clients, file transfer tools. No OSI header is added; the PDU is just the application data itself.</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Full protocol list</div>
+          <div class="osi-detail-val"><abbr title="HyperText Transfer Protocol">HTTP</abbr> (80) · <abbr title="HTTP Secure">HTTPS</abbr> (443) · <abbr title="File Transfer Protocol">FTP</abbr> (20/21) · <abbr title="Simple Mail Transfer Protocol">SMTP</abbr> (25/587) · <abbr title="Domain Name System">DNS</abbr> (53) · <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> (67/68) · <abbr title="Simple Network Management Protocol">SNMP</abbr> (161/162) · <abbr title="Secure Shell">SSH</abbr> (22) · Telnet (23)</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Exam tip</div>
+          <div class="osi-detail-exam">A question mentioning "application-aware", "deep packet inspection", "content filtering", or "Layer 7 firewall" always points here. NGFW and WAF operate at L7.</div>
+        </div>
+      </div>
     </div>
 
-    <div class="osi-v2-row" data-layer="6">
-      <div class="osi-v2-num">6</div>
-      <div class="osi-v2-name">Presentation</div>
-      <div class="osi-v2-pdu">Data</div>
-      <div class="osi-v2-proto"><abbr title="Transport Layer Security / Secure Sockets Layer">TLS/SSL</abbr>, JPEG, MPEG, <abbr title="American Standard Code for Information Interchange">ASCII</abbr>, Encryption/Compression</div>
-      <div class="osi-v2-devices">—</div>
+    <!-- Layer 6 -->
+    <div class="osi-flip-card" data-layer="6" tabindex="0" role="button" aria-expanded="false">
+      <div class="osi-card-front">
+        <div class="osi-card-num">6</div>
+        <div class="osi-card-name">Presentation</div>
+        <div class="osi-card-pdu">Data</div>
+        <div class="osi-card-protos"><abbr title="Transport Layer Security / Secure Sockets Layer">TLS/SSL</abbr>, JPEG, MPEG, <abbr title="American Standard Code for Information Interchange">ASCII</abbr>, Encryption</div>
+        <div class="osi-card-devices">—</div>
+        <div class="osi-card-chevron">▾</div>
+      </div>
+      <div class="osi-card-detail">
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">What it does</div>
+          <div class="osi-detail-val">Handles data translation, formatting, encryption, and compression so that the application layer can consume it correctly. It's the "translator" — ensures data from one system can be read by another regardless of encoding differences.</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Key functions</div>
+          <div class="osi-detail-val">Encryption/decryption (TLS) · Character encoding (ASCII, Unicode) · Data compression (JPEG, MPEG, ZIP) · Serialization (JSON, XML)</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Exam tip</div>
+          <div class="osi-detail-exam">TLS/SSL are often listed here, but TLS handshake is also associated with L4. CompTIA: encryption and format conversion = L6. No dedicated devices at this layer.</div>
+        </div>
+      </div>
     </div>
 
-    <div class="osi-v2-row" data-layer="5">
-      <div class="osi-v2-num">5</div>
-      <div class="osi-v2-name">Session</div>
-      <div class="osi-v2-pdu">Data</div>
-      <div class="osi-v2-proto"><abbr title="Network Basic Input/Output System">NetBIOS</abbr>, <abbr title="Remote Procedure Call">RPC</abbr>, <abbr title="Point-to-Point Tunneling Protocol">PPTP</abbr>, <abbr title="Layer 2 Tunneling Protocol">L2TP</abbr>, SQL sessions</div>
-      <div class="osi-v2-devices">—</div>
+    <!-- Layer 5 -->
+    <div class="osi-flip-card" data-layer="5" tabindex="0" role="button" aria-expanded="false">
+      <div class="osi-card-front">
+        <div class="osi-card-num">5</div>
+        <div class="osi-card-name">Session</div>
+        <div class="osi-card-pdu">Data</div>
+        <div class="osi-card-protos"><abbr title="Network Basic Input/Output System">NetBIOS</abbr>, <abbr title="Remote Procedure Call">RPC</abbr>, <abbr title="Point-to-Point Tunneling Protocol">PPTP</abbr>, <abbr title="Layer 2 Tunneling Protocol">L2TP</abbr>, SQL sessions</div>
+        <div class="osi-card-devices">—</div>
+        <div class="osi-card-chevron">▾</div>
+      </div>
+      <div class="osi-card-detail">
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">What it does</div>
+          <div class="osi-detail-val">Establishes, manages, and terminates communication sessions between applications. It handles dialog control (who talks when) and synchronization checkpoints so a broken session can resume without restarting from scratch.</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Key concepts</div>
+          <div class="osi-detail-val">Session establishment/teardown · Half-duplex vs full-duplex control · Checkpointing for recovery · Authentication at session level (NetBIOS)</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Exam tip</div>
+          <div class="osi-detail-exam">L5 is rarely tested heavily — but know that SQL sessions and RPC calls operate here. PPTP/L2TP tunneling begins at L5. The least-tested layer of the seven.</div>
+        </div>
+      </div>
     </div>
 
-    <div class="osi-v2-row" data-layer="4">
-      <div class="osi-v2-num">4</div>
-      <div class="osi-v2-name">Transport</div>
-      <div class="osi-v2-pdu">Segment (<abbr title="Transmission Control Protocol">TCP</abbr>) / Datagram (<abbr title="User Datagram Protocol">UDP</abbr>)</div>
-      <div class="osi-v2-proto"><abbr title="Transmission Control Protocol — reliable, connection-oriented">TCP</abbr>, <abbr title="User Datagram Protocol — fast, connectionless">UDP</abbr>, <abbr title="Transport Layer Security">TLS</abbr> handshake</div>
-      <div class="osi-v2-devices">Firewalls (stateful), Load Balancers</div>
+    <!-- Layer 4 -->
+    <div class="osi-flip-card" data-layer="4" tabindex="0" role="button" aria-expanded="false">
+      <div class="osi-card-front">
+        <div class="osi-card-num">4</div>
+        <div class="osi-card-name">Transport</div>
+        <div class="osi-card-pdu">Segment (TCP) / Datagram (UDP)</div>
+        <div class="osi-card-protos"><abbr title="Transmission Control Protocol">TCP</abbr>, <abbr title="User Datagram Protocol">UDP</abbr>, <abbr title="Transport Layer Security">TLS</abbr> handshake</div>
+        <div class="osi-card-devices">Firewalls (stateful), Load Balancers</div>
+        <div class="osi-card-chevron">▾</div>
+      </div>
+      <div class="osi-card-detail">
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">What it does</div>
+          <div class="osi-detail-val">Provides end-to-end communication between processes (identified by port numbers). TCP adds reliability: sequencing, acknowledgment, retransmission, and flow control. UDP is connectionless — fast, no guarantee. This layer adds the <strong>source and destination port numbers</strong>.</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">TCP vs UDP</div>
+          <div class="osi-detail-val"><strong>TCP</strong> — connection-oriented, 3-way handshake (SYN/SYN-ACK/ACK), reliable, ordered, slower. Used by HTTP, SMTP, FTP.<br><strong>UDP</strong> — connectionless, no handshake, fast, unordered. Used by DNS, DHCP, VoIP, streaming.</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Exam tip</div>
+          <div class="osi-detail-exam">Stateful firewalls and load balancers live here. Port numbers are a Layer 4 concept. The 3-way handshake is L4. "Which layer uses port numbers?" = always L4.</div>
+        </div>
+      </div>
     </div>
 
-    <div class="osi-v2-row" data-layer="3">
-      <div class="osi-v2-num">3</div>
-      <div class="osi-v2-name">Network</div>
-      <div class="osi-v2-pdu">Packet</div>
-      <div class="osi-v2-proto"><abbr title="Internet Protocol v4/v6">IP</abbr>, <abbr title="Internet Control Message Protocol">ICMP</abbr>, <abbr title="Open Shortest Path First">OSPF</abbr>, <abbr title="Border Gateway Protocol">BGP</abbr>, <abbr title="Routing Information Protocol">RIP</abbr>, <abbr title="Address Resolution Protocol">ARP</abbr></div>
-      <div class="osi-v2-devices">Routers, L3 Switches, Firewalls</div>
+    <!-- Layer 3 -->
+    <div class="osi-flip-card" data-layer="3" tabindex="0" role="button" aria-expanded="false">
+      <div class="osi-card-front">
+        <div class="osi-card-num">3</div>
+        <div class="osi-card-name">Network</div>
+        <div class="osi-card-pdu">Packet</div>
+        <div class="osi-card-protos"><abbr title="Internet Protocol v4/v6">IP</abbr>, <abbr title="Internet Control Message Protocol">ICMP</abbr>, <abbr title="Open Shortest Path First">OSPF</abbr>, <abbr title="Border Gateway Protocol">BGP</abbr>, <abbr title="Routing Information Protocol">RIP</abbr>, <abbr title="Address Resolution Protocol">ARP</abbr></div>
+        <div class="osi-card-devices">Routers, L3 Switches, Firewalls</div>
+        <div class="osi-card-chevron">▾</div>
+      </div>
+      <div class="osi-card-detail">
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">What it does</div>
+          <div class="osi-detail-val">Handles logical addressing (IP addresses) and routing — finding the best path from source to destination across multiple networks. Routers examine IP headers to make forwarding decisions. This layer adds the <strong>source and destination IP addresses</strong>.</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Key protocols</div>
+          <div class="osi-detail-val"><strong>IP</strong> — logical addressing, fragmentation · <strong>ICMP</strong> — ping, traceroute, unreachable messages · <strong>OSPF/BGP/RIP</strong> — routing protocols that build routing tables · <strong>ARP</strong> — resolves IP to MAC (bridges L2/L3)</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Exam tip</div>
+          <div class="osi-detail-exam">Router = L3. "Routable" means L3. IP addresses, subnetting, and routing tables are all L3. ICMP (ping) is L3. ARP is debated (L2 or L3) — CompTIA accepts both.</div>
+        </div>
+      </div>
     </div>
 
-    <div class="osi-v2-row" data-layer="2">
-      <div class="osi-v2-num">2</div>
-      <div class="osi-v2-name">Data Link</div>
-      <div class="osi-v2-pdu">Frame</div>
-      <div class="osi-v2-proto">Ethernet, 802.11 Wi-Fi, <abbr title="802.1Q — VLAN tagging">802.1Q</abbr>, <abbr title="Point-to-Point Protocol">PPP</abbr>, ARP, <abbr title="Spanning Tree Protocol">STP</abbr></div>
-      <div class="osi-v2-devices">Switches, Bridges, <abbr title="Wireless Access Points">WAPs</abbr></div>
+    <!-- Layer 2 -->
+    <div class="osi-flip-card" data-layer="2" tabindex="0" role="button" aria-expanded="false">
+      <div class="osi-card-front">
+        <div class="osi-card-num">2</div>
+        <div class="osi-card-name">Data Link</div>
+        <div class="osi-card-pdu">Frame</div>
+        <div class="osi-card-protos">Ethernet, 802.11 Wi-Fi, <abbr title="802.1Q — VLAN tagging">802.1Q</abbr>, <abbr title="Point-to-Point Protocol">PPP</abbr>, ARP, <abbr title="Spanning Tree Protocol">STP</abbr></div>
+        <div class="osi-card-devices">Switches, Bridges, <abbr title="Wireless Access Points">WAPs</abbr></div>
+        <div class="osi-card-chevron">▾</div>
+      </div>
+      <div class="osi-card-detail">
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">What it does</div>
+          <div class="osi-detail-val">Handles node-to-node data transfer on the same network segment using <strong>MAC addresses</strong>. Divided into two sublayers: LLC (Logical Link Control — error detection) and MAC (Media Access Control — addressing, CSMA/CD). Adds Ethernet header and trailer (Frame Check Sequence).</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Key concepts</div>
+          <div class="osi-detail-val"><strong>MAC addresses</strong> — 48-bit hardware addresses (burned-in) · <strong>Switches</strong> — forward frames by MAC table (CAM table) · <strong>802.1Q</strong> — VLAN tagging · <strong>STP</strong> — prevents switching loops · <strong>FCS</strong> — frame error check in trailer</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Exam tip</div>
+          <div class="osi-detail-exam">Switch = L2. MAC address = L2. "What layer does a switch operate at?" = L2. VLANs (802.1Q) are L2. STP is L2. A bridge is a software switch — also L2.</div>
+        </div>
+      </div>
     </div>
 
-    <div class="osi-v2-row" data-layer="1">
-      <div class="osi-v2-num">1</div>
-      <div class="osi-v2-name">Physical</div>
-      <div class="osi-v2-pdu">Bit</div>
-      <div class="osi-v2-proto">Electrical signals, light pulses, radio waves; <abbr title="RS-232 — legacy serial standard">RS-232</abbr></div>
-      <div class="osi-v2-devices">Hubs, Repeaters, <abbr title="Network Interface Cards">NICs</abbr>, Cables</div>
+    <!-- Layer 1 -->
+    <div class="osi-flip-card" data-layer="1" tabindex="0" role="button" aria-expanded="false">
+      <div class="osi-card-front">
+        <div class="osi-card-num">1</div>
+        <div class="osi-card-name">Physical</div>
+        <div class="osi-card-pdu">Bit</div>
+        <div class="osi-card-protos">Electrical signals, light pulses, radio waves; <abbr title="RS-232 — legacy serial standard">RS-232</abbr></div>
+        <div class="osi-card-devices">Hubs, Repeaters, <abbr title="Network Interface Cards">NICs</abbr>, Cables</div>
+        <div class="osi-card-chevron">▾</div>
+      </div>
+      <div class="osi-card-detail">
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">What it does</div>
+          <div class="osi-detail-val">Transmits raw bits over a physical medium — electrical voltage on copper, light pulses on fiber, or radio waves wirelessly. Defines connector types, cable specs, signal voltages, bit timing, and pin assignments. No addressing at this layer — just 1s and 0s.</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Media &amp; standards</div>
+          <div class="osi-detail-val"><strong>Copper</strong> — Cat5e/Cat6/Cat6A UTP, coax · <strong>Fiber</strong> — SMF (long range) / MMF (short range) · <strong>Wireless</strong> — 802.11 radio frequencies · <strong>Standards</strong> — RS-232, 100BASE-TX, 1000BASE-T</div>
+        </div>
+        <div class="osi-detail-section">
+          <div class="osi-detail-label">Exam tip</div>
+          <div class="osi-detail-exam">Hub = L1 (broadcasts to all ports, no intelligence). Repeater = L1 (amplifies signal). NIC = L1/L2 boundary. "Bits on wire" = always L1. Physical layer issues = cable, NIC, or hub problems.</div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="osi-v2-encap-strip">
-      <div class="osi-v2-encap-cell encap-l7">App Data</div>
-      <div class="osi-v2-encap-cell encap-l4">+ TCP/UDP Header</div>
-      <div class="osi-v2-encap-cell encap-l3">+ IP Header</div>
-      <div class="osi-v2-encap-cell encap-l2">+ Ethernet Frame</div>
-      <div class="osi-v2-encap-cell encap-l1">Bits on wire →</div>
+  <h3>Encapsulation — What Each Layer Adds</h3>
+  <p class="section-note">As data travels <strong>down</strong> the stack on the sending side, each layer wraps the payload with its own header (and L2 adds a trailer). On the receiving side the process reverses — each layer strips its header as data travels <em>up</em>.</p>
+  <div class="encap-build">
+    <div class="encap-build-row">
+      <span class="encap-layer-label">L7 App</span>
+      <span class="encap-hdr encap-hdr-app">App Data</span>
+    </div>
+    <div class="encap-build-row">
+      <span class="encap-layer-label">L4 Transport</span>
+      <span class="encap-hdr encap-hdr-tcp">TCP/UDP Hdr</span>
+      <span class="encap-payload encap-payload-tcp">App Data (Segment/Datagram)</span>
+    </div>
+    <div class="encap-build-row">
+      <span class="encap-layer-label">L3 Network</span>
+      <span class="encap-hdr encap-hdr-ip">IP Hdr</span>
+      <span class="encap-payload encap-payload-ip">TCP/UDP Hdr + App Data (Packet)</span>
+    </div>
+    <div class="encap-build-row">
+      <span class="encap-layer-label">L2 Data Link</span>
+      <span class="encap-hdr encap-hdr-eth">Eth Hdr</span>
+      <span class="encap-payload encap-payload-eth">IP Hdr + TCP/UDP Hdr + App Data + FCS (Frame)</span>
+    </div>
+    <div class="encap-build-row">
+      <span class="encap-layer-label">L1 Physical</span>
+      <span class="encap-hdr encap-hdr-bits">1010110… Bits on wire</span>
     </div>
   </div>
 

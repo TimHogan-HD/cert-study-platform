@@ -354,8 +354,29 @@ function initFragmentComponents(path) {
   initChecklist();
   initBinaryBits();
   initIDSIPSFlips();
+  initOSIFlips();
   initGuidedSubnetting();
   injectDomainSubNav(path);
+}
+
+/* ── OSI layer expand cards ──────────────────────────────────── */
+function initOSIFlips() {
+  document.querySelectorAll('.osi-flip-card').forEach(card => {
+    if (card._osiFlipFn) card.removeEventListener('click', card._osiFlipFn);
+    if (card._osiKeyFn)  card.removeEventListener('keydown', card._osiKeyFn);
+
+    const toggle = () => {
+      const open = card.classList.toggle('is-open');
+      card.setAttribute('aria-expanded', open ? 'true' : 'false');
+      const chevron = card.querySelector('.osi-card-chevron');
+      if (chevron) chevron.textContent = open ? '▴' : '▾';
+    };
+
+    card._osiFlipFn = () => toggle();
+    card._osiKeyFn  = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } };
+    card.addEventListener('click', card._osiFlipFn);
+    card.addEventListener('keydown', card._osiKeyFn);
+  });
 }
 
 /* ── IDS/IPS flip cards ──────────────────────────────────────── */

@@ -4,6 +4,195 @@
   <p>Core infrastructure services that every network depends on: <code>DHCP</code>, <code>DNS</code>, <code>NTP</code>, and network architectures. (Deep coverage of DHCP/DNS operational details is in Domain 3.)</p>
 
   <h3>Corporate &amp; Data Center Network Architecture</h3>
+
+  <div class="arch-diagram-grid">
+
+    <!-- Three-Tier -->
+    <div class="arch-diagram">
+      <svg viewBox="0 0 190 148" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Core layer -->
+        <rect x="55" y="8" width="36" height="18" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5"/>
+        <text x="73" y="20" text-anchor="middle" font-size="7" fill="var(--blue)" font-weight="700">Core</text>
+        <rect x="99" y="8" width="36" height="18" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5"/>
+        <text x="117" y="20" text-anchor="middle" font-size="7" fill="var(--blue)" font-weight="700">Core</text>
+        <line x1="91" y1="17" x2="99" y2="17" stroke="var(--blue)" stroke-width="1.2"/>
+        <!-- Core label -->
+        <text x="12" y="20" text-anchor="start" font-size="6" fill="var(--hint)">Core</text>
+        <!-- Core→Dist lines -->
+        <line x1="73" y1="26" x2="55" y2="52" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="73" y1="26" x2="135" y2="52" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="117" y1="26" x2="55" y2="52" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="117" y1="26" x2="135" y2="52" stroke="var(--border2)" stroke-width="1.2"/>
+        <!-- Distribution layer -->
+        <rect x="37" y="52" width="36" height="18" rx="3" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5"/>
+        <text x="55" y="64" text-anchor="middle" font-size="7" fill="var(--purple)" font-weight="700">Dist</text>
+        <rect x="117" y="52" width="36" height="18" rx="3" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5"/>
+        <text x="135" y="64" text-anchor="middle" font-size="7" fill="var(--purple)" font-weight="700">Dist</text>
+        <text x="12" y="64" text-anchor="start" font-size="6" fill="var(--hint)">Dist</text>
+        <!-- Dist→Access lines -->
+        <line x1="55" y1="70" x2="30" y2="96" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="55" y1="70" x2="95" y2="96" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="135" y1="70" x2="95" y2="96" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="135" y1="70" x2="160" y2="96" stroke="var(--border2)" stroke-width="1.2"/>
+        <!-- Access layer -->
+        <rect x="14" y="96" width="32" height="16" rx="3" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
+        <text x="30" y="107" text-anchor="middle" font-size="6" fill="var(--teal)" font-weight="700">Access</text>
+        <rect x="79" y="96" width="32" height="16" rx="3" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
+        <text x="95" y="107" text-anchor="middle" font-size="6" fill="var(--teal)" font-weight="700">Access</text>
+        <rect x="144" y="96" width="32" height="16" rx="3" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
+        <text x="160" y="107" text-anchor="middle" font-size="6" fill="var(--teal)" font-weight="700">Access</text>
+        <text x="12" y="108" text-anchor="start" font-size="6" fill="var(--hint)"></text>
+        <!-- Devices row -->
+        <line x1="30" y1="112" x2="22" y2="128" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="30" y1="112" x2="38" y2="128" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="95" y1="112" x2="87" y2="128" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="95" y1="112" x2="103" y2="128" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="160" y1="112" x2="152" y2="128" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="160" y1="112" x2="168" y2="128" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="22" cy="132" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="38" cy="132" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="87" cy="132" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="103" cy="132" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="152" cy="132" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="168" cy="132" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <text x="12" y="144" text-anchor="start" font-size="6" fill="var(--hint)">End devices</text>
+      </svg>
+      <div class="arch-diagram-label">Three-Tier</div>
+      <div class="arch-diagram-sub">Core → Distribution → Access</div>
+    </div>
+
+    <!-- Collapsed Core -->
+    <div class="arch-diagram">
+      <svg viewBox="0 0 190 148" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Core/Dist merged layer -->
+        <rect x="47" y="18" width="44" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5"/>
+        <text x="69" y="26" text-anchor="middle" font-size="6" fill="var(--blue)" font-weight="700">Core/</text>
+        <text x="69" y="34" text-anchor="middle" font-size="6" fill="var(--blue)" font-weight="700">Dist</text>
+        <rect x="99" y="18" width="44" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5"/>
+        <text x="121" y="26" text-anchor="middle" font-size="6" fill="var(--blue)" font-weight="700">Core/</text>
+        <text x="121" y="34" text-anchor="middle" font-size="6" fill="var(--blue)" font-weight="700">Dist</text>
+        <line x1="91" y1="28" x2="99" y2="28" stroke="var(--blue)" stroke-width="1.2"/>
+        <text x="8" y="30" text-anchor="start" font-size="6" fill="var(--hint)">Core+Dist</text>
+        <!-- Core/Dist → Access -->
+        <line x1="69" y1="38" x2="40" y2="76" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="69" y1="38" x2="95" y2="76" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="121" y1="38" x2="95" y2="76" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="121" y1="38" x2="150" y2="76" stroke="var(--border2)" stroke-width="1.2"/>
+        <!-- Access layer -->
+        <rect x="20" y="76" width="40" height="16" rx="3" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
+        <text x="40" y="87" text-anchor="middle" font-size="6" fill="var(--teal)" font-weight="700">Access</text>
+        <rect x="75" y="76" width="40" height="16" rx="3" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
+        <text x="95" y="87" text-anchor="middle" font-size="6" fill="var(--teal)" font-weight="700">Access</text>
+        <rect x="130" y="76" width="40" height="16" rx="3" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
+        <text x="150" y="87" text-anchor="middle" font-size="6" fill="var(--teal)" font-weight="700">Access</text>
+        <text x="8" y="88" text-anchor="start" font-size="6" fill="var(--hint)">Access</text>
+        <!-- End devices -->
+        <line x1="40" y1="92" x2="30" y2="110" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="40" y1="92" x2="50" y2="110" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="95" y1="92" x2="85" y2="110" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="95" y1="92" x2="105" y2="110" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="150" y1="92" x2="140" y2="110" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="150" y1="92" x2="160" y2="110" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="30" cy="114" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="50" cy="114" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="85" cy="114" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="105" cy="114" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="140" cy="114" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="160" cy="114" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <text x="8" y="130" text-anchor="start" font-size="6" fill="var(--hint)">End devices</text>
+        <!-- Saved cost note -->
+        <text x="95" y="145" text-anchor="middle" font-size="6" fill="var(--muted)" font-style="italic">Merged layers = lower cost</text>
+      </svg>
+      <div class="arch-diagram-label">Collapsed Core</div>
+      <div class="arch-diagram-sub">Core/Dist merged → Access</div>
+    </div>
+
+    <!-- Spine-Leaf -->
+    <div class="arch-diagram">
+      <svg viewBox="0 0 190 148" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Spines -->
+        <rect x="30" y="14" width="40" height="18" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5"/>
+        <text x="50" y="26" text-anchor="middle" font-size="7" fill="var(--blue)" font-weight="700">Spine 1</text>
+        <rect x="120" y="14" width="40" height="18" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5"/>
+        <text x="140" y="26" text-anchor="middle" font-size="7" fill="var(--blue)" font-weight="700">Spine 2</text>
+        <text x="4" y="26" text-anchor="start" font-size="6" fill="var(--hint)"></text>
+        <!-- Spine interconnect -->
+        <line x1="70" y1="23" x2="120" y2="23" stroke="var(--blue)" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <!-- Leaves -->
+        <rect x="10" y="86" width="36" height="18" rx="3" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5"/>
+        <text x="28" y="98" text-anchor="middle" font-size="6.5" fill="var(--purple)" font-weight="700">Leaf 1</text>
+        <rect x="77" y="86" width="36" height="18" rx="3" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5"/>
+        <text x="95" y="98" text-anchor="middle" font-size="6.5" fill="var(--purple)" font-weight="700">Leaf 2</text>
+        <rect x="144" y="86" width="36" height="18" rx="3" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5"/>
+        <text x="162" y="98" text-anchor="middle" font-size="6.5" fill="var(--purple)" font-weight="700">Leaf 3</text>
+        <!-- Every leaf → every spine (partial mesh) -->
+        <line x1="28" y1="86" x2="50" y2="32" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="28" y1="86" x2="140" y2="32" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="95" y1="86" x2="50" y2="32" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="95" y1="86" x2="140" y2="32" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="162" y1="86" x2="50" y2="32" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="162" y1="86" x2="140" y2="32" stroke="var(--border2)" stroke-width="1.2"/>
+        <!-- End devices below leaves -->
+        <line x1="28" y1="104" x2="20" y2="120" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="28" y1="104" x2="36" y2="120" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="95" y1="104" x2="87" y2="120" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="95" y1="104" x2="103" y2="120" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="162" y1="104" x2="154" y2="120" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="162" y1="104" x2="170" y2="120" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="20" cy="124" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="36" cy="124" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="87" cy="124" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="103" cy="124" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="154" cy="124" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <circle cx="170" cy="124" r="4" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <text x="95" y="144" text-anchor="middle" font-size="6" fill="var(--muted)" font-style="italic">Every leaf ↔ every spine</text>
+      </svg>
+      <div class="arch-diagram-label">Spine-Leaf</div>
+      <div class="arch-diagram-sub">Equal latency · east-west optimized</div>
+    </div>
+
+    <!-- SOHO -->
+    <div class="arch-diagram">
+      <svg viewBox="0 0 190 148" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Internet cloud -->
+        <ellipse cx="95" cy="22" rx="40" ry="14" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
+        <text x="95" y="20" text-anchor="middle" font-size="7" fill="var(--muted)" font-weight="600">Internet</text>
+        <text x="95" y="29" text-anchor="middle" font-size="5.5" fill="var(--hint)">ISP</text>
+        <!-- Line to router -->
+        <line x1="95" y1="36" x2="95" y2="58" stroke="var(--border2)" stroke-width="1.5"/>
+        <!-- Router/WAP combined -->
+        <rect x="60" y="58" width="70" height="22" rx="5" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
+        <text x="95" y="67" text-anchor="middle" font-size="6.5" fill="var(--teal)" font-weight="700">Router + Switch</text>
+        <text x="95" y="76" text-anchor="middle" font-size="5.5" fill="var(--teal)">+ WAP</text>
+        <!-- Lines to devices -->
+        <line x1="95" y1="80" x2="35" y2="108" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="95" y1="80" x2="75" y2="108" stroke="var(--border2)" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <line x1="95" y1="80" x2="95" y2="108" stroke="var(--border2)" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <line x1="95" y1="80" x2="115" y2="108" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="95" y1="80" x2="155" y2="108" stroke="var(--border2)" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <!-- Devices -->
+        <rect x="22" y="108" width="26" height="16" rx="3" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <text x="35" y="119" text-anchor="middle" font-size="5.5" fill="var(--text)">Desktop</text>
+        <circle cx="75" cy="116" r="8" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <text x="75" y="119" text-anchor="middle" font-size="5" fill="var(--text)">Phone</text>
+        <circle cx="95" cy="116" r="8" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <text x="95" y="119" text-anchor="middle" font-size="5" fill="var(--text)">Tablet</text>
+        <rect x="102" y="108" width="26" height="16" rx="3" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <text x="115" y="119" text-anchor="middle" font-size="5.5" fill="var(--text)">Laptop</text>
+        <circle cx="155" cy="116" r="8" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1"/>
+        <text x="155" y="119" text-anchor="middle" font-size="5" fill="var(--text)">TV</text>
+        <!-- Legend: dashed = wireless -->
+        <line x1="20" y1="138" x2="36" y2="138" stroke="var(--border2)" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <text x="40" y="141" font-size="5.5" fill="var(--hint)">Wi-Fi</text>
+        <line x1="75" y1="138" x2="91" y2="138" stroke="var(--border2)" stroke-width="1.2"/>
+        <text x="95" y="141" font-size="5.5" fill="var(--hint)">Wired</text>
+      </svg>
+      <div class="arch-diagram-label">SOHO</div>
+      <div class="arch-diagram-sub">Single device: router + switch + WAP</div>
+    </div>
+
+  </div>
+
   <div class="table-wrap">
     <table class="table--comparison">
       <thead>

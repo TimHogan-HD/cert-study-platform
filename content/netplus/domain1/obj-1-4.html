@@ -70,7 +70,7 @@
         </colgroup>
         <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
-          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip HTTP row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip HTTP row to see an example" role="button" aria-expanded="false">
             <td>80</td>
             <td><abbr title="HyperText Transfer Protocol">HTTP</abbr> <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Cleartext web traffic. Replaced by HTTPS for secure sites.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A user opens an old intranet site on HTTP:80, and anyone on that network could read the traffic.</span></span></td>
@@ -94,17 +94,17 @@
         </colgroup>
         <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
-          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip FTP data row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip FTP data row to see an example" role="button" aria-expanded="false">
             <td>20</td>
             <td><abbr title="File Transfer Protocol — data channel">FTP</abbr> Data <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Active mode data channel. Port 21 = control. ⚠ Two ports!</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> After FTP login on port 21, the file itself is sent on port 20 in active mode.</span></span></td>
           </tr>
-          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip FTP control row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip FTP control row to see an example" role="button" aria-expanded="false">
             <td>21</td>
             <td>FTP Control <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Command/control channel. Passive mode negotiates ephemeral port over 21.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An admin logs in to an old FTP server on port 21 to run file transfer commands.</span></span></td>
           </tr>
-          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip TFTP row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip TFTP row to see an example" role="button" aria-expanded="false">
             <td>69</td>
             <td><abbr title="Trivial File Transfer Protocol — no authentication">TFTP</abbr> <span class="proto-transport">UDP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">No authentication, no directory listing. Used for network device firmware updates and PXE boot.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A new switch downloads its startup config from a local TFTP server.</span></span></td>
@@ -158,7 +158,7 @@
             <td>IMAPS <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">IMAP over TLS — encrypted IMAP.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A phone app connects on IMAPS:993 to sync email securely on public Wi-Fi.</span></span></td>
           </tr>
-          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip NNTP row to see an example" role="button" aria-expanded="false" data-protocol-state="legacy">
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip NNTP row to see an example" role="button" aria-expanded="false">
             <td>119</td>
             <td><abbr title="Network News Transfer Protocol — legacy newsgroups">NNTP</abbr> <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy newsgroup protocol. Rarely seen today.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A hobby archive server still mirrors old newsgroup posts on NNTP:119.</span></span></td>
@@ -182,7 +182,7 @@
             <td><abbr title="Secure Shell — encrypted remote access">SSH</abbr> <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Encrypted remote shell access. Replaces Telnet (port 23).</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An admin uses SSH:22 to run commands on a Linux server.</span></span></td>
           </tr>
-          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip Telnet row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip Telnet row to see an example" role="button" aria-expanded="false">
             <td>23</td>
             <td>Telnet <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Cleartext remote access — insecure, legacy. Replaced by SSH.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A lab switch still allows Telnet:23 for testing on an isolated network.</span></span></td>
@@ -250,7 +250,7 @@
             <td>Kerberos <span class="proto-transport">TCP/UDP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Authentication protocol in Active Directory. Requires <abbr title="Network Time Protocol">NTP</abbr> sync (5-minute skew max).</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A user signs in to Windows and gets a Kerberos ticket to open a file share.</span></span></td>
           </tr>
-          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip LDAP row to see an example" role="button" aria-expanded="false" data-protocol-state="risky">
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip LDAP row to see an example" role="button" aria-expanded="false">
             <td>389</td>
             <td><abbr title="Lightweight Directory Access Protocol — directory queries (e.g. Active Directory)">LDAP</abbr> <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Directory queries in cleartext. Risky on untrusted networks. Replacement: use LDAPS on port 636.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An old app checks usernames over LDAP:389 without encryption.</span></span></td>
@@ -260,7 +260,7 @@
             <td>LDAPS <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">LDAP over TLS for encrypted directory queries and credential exchange.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A modern app checks users over LDAPS:636 so directory traffic is encrypted.</span></span></td>
           </tr>
-          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip TACACS+ row to see an example" role="button" aria-expanded="false" data-protocol-state="legacy">
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip TACACS+ row to see an example" role="button" aria-expanded="false">
             <td>49</td>
             <td><abbr title="Terminal Access Controller Access-Control System Plus — AAA for network devices">TACACS+</abbr> <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">AAA for network device administration with full packet encryption. In many modern environments, RADIUS-based NAC is more common.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Network admins sign in to routers through a TACACS+ server.</span></span></td>
@@ -323,7 +323,7 @@
             <td>SIPS <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">SIP over TLS — encrypted VoIP signaling.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A VoIP system uses SIPS:5061 so call signaling is encrypted.</span></span></td>
           </tr>
-          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip H.323 row to see an example" role="button" aria-expanded="false" data-protocol-state="legacy">
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip H.323 row to see an example" role="button" aria-expanded="false">
             <td>1720</td>
             <td>H.323 <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy VoIP signaling. Uses 1720 for call setup; media uses dynamic ports.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An older video room still starts calls on H.323 port 1720.</span></span></td>
@@ -347,7 +347,7 @@
             <td><abbr title="Border Gateway Protocol — internet routing between autonomous systems">BGP</abbr> <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Internet routing between <abbr title="Autonomous Systems — independently managed routing domains">ASes</abbr>. Uses TCP for reliability.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An edge router exchanges internet routes with an ISP over BGP:179.</span></span></td>
           </tr>
-          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip RIP row to see an example" role="button" aria-expanded="false" data-protocol-state="legacy">
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip RIP row to see an example" role="button" aria-expanded="false">
             <td>520</td>
             <td><abbr title="Routing Information Protocol — legacy distance-vector IGP, max 15 hops">RIP</abbr> <span class="proto-transport">UDP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy distance-vector routing. Max 15 hops. Mostly replaced by OSPF.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A small legacy router advertises local networks to a neighbor using RIP:520.</span></span></td>

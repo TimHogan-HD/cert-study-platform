@@ -1784,6 +1784,73 @@ tr[data-exam-weight="high"] td:first-child::before {
   .osi-v2-encap-cell { font-size: 0.62rem; padding: 0.35rem 0.1rem; }
 }
 
+/* ── OSI Flip Cards ──────────────────────────────────────────────── */
+.osi-card-stack { display: flex; flex-direction: column; gap: 3px; margin: 1rem 0 1.25rem; }
+.osi-card-stack-header { display: grid; grid-template-columns: 2.2rem 9rem 6.5rem 1fr 1fr 1.5rem; gap: 0 0.6rem; padding: 0.2rem 0.85rem; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); }
+.osi-flip-card { border-left: 4px solid transparent; border-radius: 6px; cursor: pointer; overflow: hidden; transition: filter 0.15s; position: relative; user-select: none; }
+.osi-flip-card:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.osi-flip-card:hover { filter: brightness(1.05); }
+.osi-flip-card[data-layer="7"] { background: var(--purple-bg); border-left-color: var(--purple); }
+.osi-flip-card[data-layer="6"] { background: rgba(168,85,247,0.07); border-left-color: rgba(168,85,247,0.6); }
+.osi-flip-card[data-layer="5"] { background: rgba(168,85,247,0.04); border-left-color: rgba(168,85,247,0.35); }
+.osi-flip-card[data-layer="4"] { background: var(--blue-bg); border-left-color: var(--blue); }
+.osi-flip-card[data-layer="3"] { background: var(--teal-bg); border-left-color: var(--teal); }
+.osi-flip-card[data-layer="2"] { background: var(--amber-bg); border-left-color: var(--amber); }
+.osi-flip-card[data-layer="1"] { background: var(--red-bg); border-left-color: var(--red); }
+.osi-card-front { display: grid; grid-template-columns: 2.2rem 9rem 6.5rem 1fr 1fr 1.5rem; gap: 0 0.6rem; padding: 0.55rem 0.85rem; align-items: center; }
+.osi-card-num { font-weight: 700; font-size: 0.85rem; text-align: center; }
+.osi-card-name { font-weight: 700; font-size: 0.9rem; }
+.osi-card-pdu { font-size: 0.75rem; color: var(--text); }
+.osi-card-protos { font-size: 0.75rem; color: var(--text); }
+.osi-card-devices { font-size: 0.75rem; color: var(--text); }
+.osi-card-chevron { font-size: 0.75rem; color: var(--hint); text-align: right; transition: transform 0.2s; line-height: 1; }
+.osi-flip-card.is-open .osi-card-chevron { transform: rotate(180deg); }
+.osi-card-detail { display: none; padding: 0.85rem 1rem 0.85rem 3.75rem; border-top: 1px solid var(--border); gap: 0.75rem; }
+.osi-flip-card.is-open .osi-card-detail { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+.osi-detail-section { display: flex; flex-direction: column; gap: 0.25rem; }
+.osi-detail-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--hint); }
+.osi-detail-val { font-size: 0.78rem; color: var(--text); line-height: 1.5; }
+.osi-detail-exam { font-size: 0.74rem; color: var(--text); line-height: 1.5; background: var(--surface3); border-radius: 4px; padding: 0.4rem 0.6rem; margin-top: 0.1rem; }
+@media (max-width: 700px) {
+  .osi-card-stack-header { display: none; }
+  .osi-card-front { grid-template-columns: 2rem 1fr auto; }
+  .osi-card-pdu, .osi-card-protos, .osi-card-devices { display: none; }
+  .osi-flip-card.is-open .osi-card-detail { grid-template-columns: 1fr; }
+  .osi-card-detail { padding-left: 1rem; }
+}
+
+/* ── Encapsulation build graphic ─────────────────────────────────── */
+.encap-build { margin: 1.25rem 0 0.5rem; display: flex; flex-direction: column; gap: 3px; }
+.encap-build-row { display: flex; align-items: stretch; gap: 2px; border-radius: 5px; overflow: hidden; }
+.encap-hdr { flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; padding: 0.3rem 0.45rem; text-align: center; line-height: 1.2; white-space: nowrap; }
+.encap-payload { flex: 1; display: flex; align-items: center; padding: 0.3rem 0.5rem; font-size: 0.67rem; color: var(--muted); font-style: italic; }
+.encap-hdr-app  { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+.encap-hdr-tcp  { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+.encap-hdr-ip   { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-border); }
+.encap-hdr-eth  { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.encap-hdr-bits { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.encap-payload-app  { background: var(--purple-bg); border: 1px solid var(--purple-border); }
+.encap-payload-tcp  { background: var(--blue-bg); border: 1px solid var(--blue-border); color: var(--text); font-style: normal; font-size: 0.64rem; }
+.encap-payload-ip   { background: var(--teal-bg); border: 1px solid var(--teal-border); color: var(--text); font-style: normal; font-size: 0.64rem; }
+.encap-payload-eth  { background: var(--amber-bg); border: 1px solid var(--amber-border); color: var(--text); font-style: normal; font-size: 0.64rem; }
+.encap-arrow { font-size: 0.65rem; color: var(--hint); padding: 0 0.25rem; align-self: center; flex-shrink: 0; }
+.encap-layer-label { font-size: 0.62rem; color: var(--hint); width: 4.5rem; flex-shrink: 0; text-align: right; padding-right: 0.5rem; align-self: center; }
+.encap-build-wrap { display: flex; gap: 0; align-items: stretch; }
+.encap-build-labels { display: flex; flex-direction: column; gap: 3px; justify-content: stretch; }
+.encap-build-label { font-size: 0.6rem; color: var(--hint); text-align: right; padding-right: 0.5rem; display: flex; align-items: center; justify-content: flex-end; }
+
+/* ── Architecture diagrams (obj-1-6) ─────────────────────────────── */
+.arch-diagram-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.85rem; margin: 1rem 0; }
+.arch-diagram { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 0.85rem 0.75rem 0.65rem; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.arch-diagram svg { width: 100%; max-width: 170px; height: auto; }
+.arch-diagram-label { font-size: 0.78rem; font-weight: 600; color: var(--text); margin-top: 0.5rem; }
+.arch-diagram-sub { font-size: 0.65rem; color: var(--muted); margin-top: 0.1rem; }
+
+/* ── WAN + Scope diagrams (obj-1-3) ──────────────────────────────── */
+.wan-diagram-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 0.85rem; margin: 1rem 0; }
+.scope-diagram-wrap { margin: 1rem 0; display: flex; justify-content: center; }
+.scope-diagram-wrap svg { width: 100%; max-width: 480px; height: auto; }
+
 /* ── C2: TCP/IP ↔ OSI Bracket ────────────────────────────────── */
 .tcpip-bracket { display: flex; gap: 0.5rem; align-items: stretch; margin: 1rem 0 1.5rem; }
 .tcpip-col { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
