@@ -355,6 +355,7 @@ function initFragmentComponents(path) {
   initBinaryBits();
   initIDSIPSFlips();
   initOSIFlips();
+  initArchFlips();
   initGuidedSubnetting();
   injectDomainSubNav(path);
 }
@@ -376,6 +377,24 @@ function initOSIFlips() {
     card._osiKeyFn  = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } };
     card.addEventListener('click', card._osiFlipFn);
     card.addEventListener('keydown', card._osiKeyFn);
+  });
+}
+
+/* ── Architecture flip cards ─────────────────────────────────── */
+function initArchFlips() {
+  document.querySelectorAll('.arch-flip-card').forEach(card => {
+    if (card._archFlipFn) card.removeEventListener('click', card._archFlipFn);
+    if (card._archKeyFn)  card.removeEventListener('keydown', card._archKeyFn);
+
+    const toggle = () => {
+      const flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+    };
+
+    card._archFlipFn = () => toggle();
+    card._archKeyFn  = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } };
+    card.addEventListener('click', card._archFlipFn);
+    card.addEventListener('keydown', card._archKeyFn);
   });
 }
 

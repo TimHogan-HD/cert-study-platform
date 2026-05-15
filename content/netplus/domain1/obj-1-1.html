@@ -201,32 +201,66 @@
     </div>
   </div>
 
-  <h3>Encapsulation — What Each Layer Adds</h3>
-  <p class="section-note">As data travels <strong>down</strong> the stack on the sending side, each layer wraps the payload with its own header (and L2 adds a trailer). On the receiving side the process reverses — each layer strips its header as data travels <em>up</em>.</p>
-  <div class="encap-build">
-    <div class="encap-build-row">
-      <span class="encap-layer-label">L7 App</span>
-      <span class="encap-hdr encap-hdr-app">App Data</span>
+  <h3>Encapsulation &amp; De-Encapsulation</h3>
+  <p class="section-note">Sending side wraps data with headers going <strong>down</strong> the stack; receiving side strips them going <strong>up</strong>. L2 also adds a trailer (<abbr title="Frame Check Sequence">FCS</abbr>).</p>
+  <div class="encap-dual">
+    <div class="encap-dual-side">
+      <div class="encap-dual-header">&#8595; Encapsulation — Sender</div>
+      <div class="encap-dual-rows">
+        <div class="encap-build-row">
+          <span class="encap-layer-label">L7 App</span>
+          <span class="encap-hdr encap-hdr-app">App Data</span>
+        </div>
+        <div class="encap-build-row">
+          <span class="encap-layer-label">L4 Transport</span>
+          <span class="encap-hdr encap-hdr-tcp">TCP/UDP Hdr</span>
+          <span class="encap-payload encap-payload-tcp">App Data &#8594; Segment</span>
+        </div>
+        <div class="encap-build-row">
+          <span class="encap-layer-label">L3 Network</span>
+          <span class="encap-hdr encap-hdr-ip">IP Hdr</span>
+          <span class="encap-payload encap-payload-ip">TCP Hdr + Data &#8594; Packet</span>
+        </div>
+        <div class="encap-build-row">
+          <span class="encap-layer-label">L2 Data Link</span>
+          <span class="encap-hdr encap-hdr-eth">Eth Hdr</span>
+          <span class="encap-payload encap-payload-eth">IP + TCP + Data + FCS &#8594; Frame</span>
+        </div>
+        <div class="encap-build-row">
+          <span class="encap-layer-label">L1 Physical</span>
+          <span class="encap-hdr encap-hdr-bits">1010110&#8230; Bits on wire</span>
+        </div>
+      </div>
     </div>
-    <div class="encap-build-row">
-      <span class="encap-layer-label">L4 Transport</span>
-      <span class="encap-hdr encap-hdr-tcp">TCP/UDP Hdr</span>
-      <span class="encap-payload encap-payload-tcp">App Data (Segment/Datagram)</span>
+    <div class="encap-dual-side">
+      <div class="encap-dual-header">&#8593; De-Encapsulation — Receiver</div>
+      <div class="encap-dual-rows">
+        <div class="encap-build-row">
+          <span class="encap-layer-label">L7 App</span>
+          <span class="encap-hdr encap-hdr-app">App Data delivered</span>
+        </div>
+        <div class="encap-build-row">
+          <span class="encap-layer-label">L4 Transport</span>
+          <span class="encap-hdr encap-hdr-tcp">strip TCP/UDP Hdr</span>
+          <span class="encap-payload encap-payload-tcp">Segment &#8594; App Data</span>
+        </div>
+        <div class="encap-build-row">
+          <span class="encap-layer-label">L3 Network</span>
+          <span class="encap-hdr encap-hdr-ip">strip IP Hdr</span>
+          <span class="encap-payload encap-payload-ip">Packet &#8594; Segment</span>
+        </div>
+        <div class="encap-build-row">
+          <span class="encap-layer-label">L2 Data Link</span>
+          <span class="encap-hdr encap-hdr-eth">strip Eth Hdr+FCS</span>
+          <span class="encap-payload encap-payload-eth">Frame &#8594; Packet</span>
+        </div>
+        <div class="encap-build-row">
+          <span class="encap-layer-label">L1 Physical</span>
+          <span class="encap-hdr encap-hdr-bits">Bits received</span>
+        </div>
+      </div>
     </div>
-    <div class="encap-build-row">
-      <span class="encap-layer-label">L3 Network</span>
-      <span class="encap-hdr encap-hdr-ip">IP Hdr</span>
-      <span class="encap-payload encap-payload-ip">TCP/UDP Hdr + App Data (Packet)</span>
-    </div>
-    <div class="encap-build-row">
-      <span class="encap-layer-label">L2 Data Link</span>
-      <span class="encap-hdr encap-hdr-eth">Eth Hdr</span>
-      <span class="encap-payload encap-payload-eth">IP Hdr + TCP/UDP Hdr + App Data + FCS (Frame)</span>
-    </div>
-    <div class="encap-build-row">
-      <span class="encap-layer-label">L1 Physical</span>
-      <span class="encap-hdr encap-hdr-bits">1010110… Bits on wire</span>
-    </div>
+    <div class="encap-medium-bar">&#8213; Copper / Fiber / Wireless &#8213;</div>
   </div>
 
   <div class="callout callout-blue">

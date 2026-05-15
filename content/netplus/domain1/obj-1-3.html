@@ -3,53 +3,6 @@
   <h2>Network Topologies &amp; Types</h2>
   <p>Topology describes how devices are physically and logically connected. Physical topology is how cables are run; logical topology is how data flows.</p>
 
-  <h3>LAN Topologies</h3>
-  <div class="table-wrap">
-    <table class="table--comparison">
-      <thead>
-        <tr><th>Topology</th><th>Description</th><th>Advantages</th><th>Disadvantages</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Star</strong></td>
-          <td>All devices connect to a central switch/hub</td>
-          <td>Easy troubleshoot; one device failure doesn't affect others</td>
-          <td>Central switch = single point of failure</td>
-        </tr>
-        <tr>
-          <td><strong>Bus</strong></td>
-          <td>All devices on one shared cable (terminated at both ends)</td>
-          <td>Simple, cheap, minimal cabling</td>
-          <td>Collision-prone; cable break kills entire network. Legacy (10BASE-2 coax).</td>
-        </tr>
-        <tr>
-          <td><strong>Ring</strong></td>
-          <td>Devices connected in a circle; data travels in one direction</td>
-          <td>Predictable performance; no collisions with token passing</td>
-          <td>Single break disrupts entire ring (unless dual-ring / FDDI)</td>
-        </tr>
-        <tr>
-          <td><strong>Mesh (Full)</strong></td>
-          <td>Every device connects to every other device</td>
-          <td>Maximum redundancy; no single point of failure</td>
-          <td>Expensive; # connections = n(n-1)/2; complex management</td>
-        </tr>
-        <tr>
-          <td><strong>Mesh (Partial)</strong></td>
-          <td>Some but not all devices have redundant paths</td>
-          <td>Balance of cost and redundancy</td>
-          <td>Some paths remain single points of failure</td>
-        </tr>
-        <tr>
-          <td><strong>Hybrid</strong></td>
-          <td>Combination of topologies (star-bus, star-ring)</td>
-          <td>Flexible; most modern networks are hybrid</td>
-          <td>Complex design and troubleshooting</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
   <h3>Topology Diagrams</h3>
   <div class="topology-grid">
 
@@ -204,6 +157,53 @@
 
   </div>
 
+  <h3>LAN Topologies</h3>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Topology</th><th>Description</th><th>Advantages</th><th>Disadvantages</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Star</strong></td>
+          <td>All devices connect to a central switch/hub</td>
+          <td>Easy troubleshoot; one device failure doesn't affect others</td>
+          <td>Central switch = single point of failure</td>
+        </tr>
+        <tr>
+          <td><strong>Bus</strong></td>
+          <td>All devices on one shared cable (terminated at both ends)</td>
+          <td>Simple, cheap, minimal cabling</td>
+          <td>Collision-prone; cable break kills entire network. Legacy (10BASE-2 coax).</td>
+        </tr>
+        <tr>
+          <td><strong>Ring</strong></td>
+          <td>Devices connected in a circle; data travels in one direction</td>
+          <td>Predictable performance; no collisions with token passing</td>
+          <td>Single break disrupts entire ring (unless dual-ring / FDDI)</td>
+        </tr>
+        <tr>
+          <td><strong>Mesh (Full)</strong></td>
+          <td>Every device connects to every other device</td>
+          <td>Maximum redundancy; no single point of failure</td>
+          <td>Expensive; # connections = n(n-1)/2; complex management</td>
+        </tr>
+        <tr>
+          <td><strong>Mesh (Partial)</strong></td>
+          <td>Some but not all devices have redundant paths</td>
+          <td>Balance of cost and redundancy</td>
+          <td>Some paths remain single points of failure</td>
+        </tr>
+        <tr>
+          <td><strong>Hybrid</strong></td>
+          <td>Combination of topologies (star-bus, star-ring)</td>
+          <td>Flexible; most modern networks are hybrid</td>
+          <td>Complex design and troubleshooting</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3>WAN Topology Types</h3>
 
   <div class="wan-diagram-grid">
@@ -324,7 +324,7 @@
   <h3>Network Types by Scope</h3>
 
   <div class="scope-diagram-wrap">
-    <svg viewBox="0 0 480 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Network scope diagram from PAN to WAN">
+    <svg viewBox="0 -40 480 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Network scope diagram from PAN to WAN">
       <!-- Concentric arcs, centre at (240, 220), spreading upward -->
       <!-- WAN — outermost -->
       <path d="M 10,200 A 230,230 0 0,1 470,200" stroke="var(--purple)" stroke-width="2" fill="var(--purple-bg)" opacity="0.5"/>
