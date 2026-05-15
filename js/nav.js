@@ -388,7 +388,7 @@ function initArchFlips() {
 
     const toggle = () => {
       const flipped = card.classList.toggle('is-flipped');
-      card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
     };
 
     card._archFlipFn = () => toggle();
