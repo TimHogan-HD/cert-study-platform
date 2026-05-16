@@ -3,6 +3,12 @@
   <h2>Networking Devices</h2>
   <p>Know which device does what — and critically, which OSI layer it operates at.</p>
 
+  <div class="callout callout-blue">
+    <div class="callout-title">Physical vs Virtual Appliances</div>
+    <p><strong>Physical appliance:</strong> dedicated hardware device with fixed capacity deployed on-premises (e.g., a rack-mounted Cisco firewall or hardware load balancer). <strong>Virtual appliance:</strong> the same logical function running as a software instance on a hypervisor or in a cloud environment. Every device in this section has a virtual counterpart.</p>
+    <p>Examples: virtual router (Cisco CSR1000v), virtual firewall (Cisco ASAv, Palo Alto VM-Series), virtual load balancer (F5 BIG-IP VE). The function is identical — the form factor is software rather than dedicated silicon. Cloud and virtualized environments rely almost entirely on virtual appliances.</p>
+  </div>
+
   <!-- L7 Application -->
   <div class="device-layer-group">
     <div class="device-layer-header">
@@ -49,9 +55,9 @@
         <div class="device-card-detail">Inline — traffic flows through it. Can drop packets. Single point of failure if it fails.</div>
       </div>
       <div class="device-card">
-        <div class="device-card-name">VPN Concentrator</div>
-        <div class="device-card-desc">Terminates many VPN tunnels efficiently</div>
-        <div class="device-card-detail">Used in enterprise for many remote users. Handles IPsec/SSL VPN.</div>
+        <div class="device-card-name">VPN / VPN Concentrator</div>
+        <div class="device-card-desc">Creates encrypted tunnels over untrusted networks</div>
+        <div class="device-card-detail"><strong>VPN (function):</strong> encrypts traffic between two endpoints so it traverses the internet as if on a private network. Can be implemented on a router, firewall, or dedicated hardware. <strong>VPN Concentrator (device):</strong> dedicated appliance optimized to terminate large numbers of simultaneous VPN tunnels — used when firewall VPN capacity is insufficient. Handles IPsec/SSL VPN.</div>
       </div>
     </div>
   </div>
@@ -96,6 +102,11 @@
         <div class="device-card-desc">Converts wired Ethernet to wireless (802.11)</div>
         <div class="device-card-detail">Not a router. Just an access point unless it's a combined SOHO device.</div>
       </div>
+      <div class="device-card">
+        <div class="device-card-name">Wireless Controller</div>
+        <div class="device-card-desc">Centrally manages multiple lightweight APs</div>
+        <div class="device-card-detail"><strong>WLC (Wireless LAN Controller):</strong> manages configuration, firmware, roaming, RF optimization, and security policy for lightweight (thin) APs from one control point. Lightweight APs have no local intelligence — they cannot function without the controller. Contrast with <strong>autonomous (fat) APs</strong>, which operate fully independently with all configuration on-board.</div>
+      </div>
     </div>
   </div>
 
@@ -114,6 +125,25 @@
         <div class="device-card-name">Repeater</div>
         <div class="device-card-desc">Regenerates signal to extend cable distance</div>
         <div class="device-card-detail">No intelligence — boosts signal only. Modern equivalent: powered fiber extender.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Storage Networking -->
+  <div class="device-layer-group">
+    <div class="device-layer-header">
+      <span class="device-layer-badge device-layer-badge-l47">Storage Networking</span>
+    </div>
+    <div class="device-layer-cards">
+      <div class="device-card">
+        <div class="device-card-name">NAS</div>
+        <div class="device-card-desc">File-level shared storage over the network</div>
+        <div class="device-card-detail"><strong><abbr title="Network-Attached Storage">NAS</abbr>:</strong> a storage device connected directly to the network, providing file-level access to multiple clients simultaneously via <strong>NFS</strong> (Linux/Unix) or <strong>SMB/CIFS</strong> (Windows). Functions as a dedicated file server appliance. Any client with network access and permissions can mount the share.</div>
+      </div>
+      <div class="device-card">
+        <div class="device-card-name">SAN</div>
+        <div class="device-card-desc">Block-level storage over a dedicated network</div>
+        <div class="device-card-detail"><strong><abbr title="Storage Area Network">SAN</abbr>:</strong> a dedicated high-speed network that provides block-level storage to servers. Servers treat a SAN <abbr title="Logical Unit Number">LUN</abbr> as a locally attached disk — the OS formats and mounts it directly. Protocols: <strong>Fibre Channel (FC)</strong>, <strong>iSCSI</strong> (FC over IP), <strong>FCoE</strong>. Not accessible as a file share.</div>
       </div>
     </div>
   </div>
@@ -238,6 +268,8 @@
       <li>A WAP is NOT a router — it's only a Layer 2 device unless it's a combined router/WAP.</li>
       <li>Bridges are software-based; switches are hardware-based and faster.</li>
       <li>A proxy server caches and filters at L7. A NAT device changes IP addresses at L3.</li>
+      <li><strong>NAS = file-level access over the network (NFS/SMB). SAN = block-level access over a dedicated storage network (FC/iSCSI).</strong> A scenario describing shared folder access across a LAN is NAS. A scenario describing a server that needs raw block storage for a database is SAN.</li>
+      <li><strong>Autonomous AP = full intelligence on-board, standalone operation. Lightweight AP = zero local intelligence, requires a WLC.</strong> A scenario about centrally managing dozens of APs is describing a WLC deployment. Lightweight APs cannot function without their controller.</li>
     </ul>
   </div>
 
@@ -280,6 +312,9 @@
       <li>CDN = edge caching near users; reduces latency for static content</li>
       <li>QoS DSCP EF = VoIP (DSCP 46) | Shaping = buffers (delays) | Policing = drops</li>
       <li>TTL decrements per hop; 0 = ICMP Time Exceeded; traceroute uses this</li>
+      <li>NAS = file-level (NFS/SMB) | SAN = block-level (FC/iSCSI) — different access models</li>
+      <li>WLC = manages lightweight APs centrally | Autonomous AP = standalone, full on-board config</li>
+      <li>Physical appliance = dedicated hardware | Virtual appliance = same function in software on hypervisor/cloud</li>
     </ul>
   </div>
 
