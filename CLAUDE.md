@@ -87,6 +87,19 @@ All `init*` functions are no-ops if their target elements are absent, so they're
 
 Vercel serverless function. Accepts `POST /api/explain` with JSON body `{ topic: string }`. Calls `claude-sonnet-4-20250514` with `max_tokens: 300`. Requires `ANTHROPIC_API_KEY` env var; optionally `ALLOWED_ORIGIN` for CORS.
 
+## Design Philosophy
+
+**Avoid generic fonts.** Do not use Inter, Roboto, or Space Grotesk. Choose a font with actual character.
+
+**No cookie-cutter component patterns.** Avoid the default AI design aesthetic: no washed-out muted palettes, no grey-on-grey, no low-contrast milky tones.
+
+**Contrast and color rules:**
+- Background: true near-black (`#0d0d0d` or similar) — not `#1a1a1a` grey soup
+- Body text: high-contrast white or near-white (`#f0f0f0`+) — use `--text`, never `--muted` for content users must read
+- Accent colors: fully saturated and visually punchy — every accent must be distinct and immediately recognizable
+- `--muted` (`#888`) is for genuinely secondary/decorative text only (timestamps, separators, "click to flip" hints) — never for labels, values, notes, or anything a student needs to read
+- Never use `opacity` to fade readable text — use an explicit color token instead
+
 ## Content Conventions
 
 - **Terminals:** Use `.terminal` + `.terminal-bar` + `.terminal-body`. Host-side prompts use `<span class="tpw">PS C:\&gt;</span>` (PowerShell). Cisco IOS prompts use `<span class="tpc">Switch1#</span>`. Syntax classes: `.th` (highlight), `.ts` (success), `.te` (error), `.tn` (annotation/comment).

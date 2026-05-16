@@ -356,6 +356,7 @@ function initFragmentComponents(path) {
   initIDSIPSFlips();
   initOSIFlips();
   initArchFlips();
+  initFlipCards('.flip-card', '.flip-hint');
   initGuidedSubnetting();
   injectDomainSubNav(path);
 }
@@ -398,27 +399,33 @@ function initArchFlips() {
   });
 }
 
-/* ── IDS/IPS flip cards ──────────────────────────────────────── */
-function initIDSIPSFlips() {
-  document.querySelectorAll('.ids-ips-flip-card').forEach(card => {
-    if (card._idsIpsFlipFn) card.removeEventListener('click', card._idsIpsFlipFn);
-    if (card._idsIpsKeyFn) card.removeEventListener('keydown', card._idsIpsKeyFn);
+/* ── Generic flip cards ──────────────────────────────────────── */
+function initFlipCards(selector, hintSel) {
+  hintSel = hintSel || '.flip-hint';
+  document.querySelectorAll(selector).forEach(card => {
+    if (card._flipCardFn) card.removeEventListener('click', card._flipCardFn);
+    if (card._flipCardKeyFn) card.removeEventListener('keydown', card._flipCardKeyFn);
 
     const toggle = () => {
       const flipped = card.classList.toggle('is-flipped');
       card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
-      const hint = card.querySelector('.ids-ips-flip-hint');
+      const hint = card.querySelector(hintSel);
       if (hint) hint.textContent = flipped ? 'click to flip back ↩' : 'click to flip ↩';
     };
 
-    card._idsIpsFlipFn = () => toggle();
-    card._idsIpsKeyFn = e => {
+    card._flipCardFn = () => toggle();
+    card._flipCardKeyFn = e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
     };
 
-    card.addEventListener('click', card._idsIpsFlipFn);
-    card.addEventListener('keydown', card._idsIpsKeyFn);
+    card.addEventListener('click', card._flipCardFn);
+    card.addEventListener('keydown', card._flipCardKeyFn);
   });
+}
+
+/* ── IDS/IPS flip cards ──────────────────────────────────────── */
+function initIDSIPSFlips() {
+  initFlipCards('.ids-ips-flip-card', '.ids-ips-flip-hint');
 }
 
 /* ── Protocol/service reference flip rows ────────────────────── */

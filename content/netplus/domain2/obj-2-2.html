@@ -3,32 +3,35 @@
   <h2>Switching &amp; VLANs</h2>
   <p>VLANs and STP are among the most-tested topics in Domain 2. Expect both MCQ and PBQ coverage.</p>
 
+  <!-- C5: VLAN Segmentation Topology -->
   <div class="concept-visual">
-    <div class="concept-visual-title">VLAN Segmentation</div>
-    <svg viewBox="0 0 520 220" width="520" height="220" font-family="system-ui,sans-serif" font-size="13" xmlns="http://www.w3.org/2000/svg">
+    <div class="concept-visual-title">VLAN Segmentation — Separate Broadcast Domains</div>
+    <svg viewBox="0 0 520 230" width="100%" font-family="system-ui,sans-serif" font-size="13" xmlns="http://www.w3.org/2000/svg" style="max-width:520px;display:block;margin:0 auto">
       <style>text { fill: var(--text); }</style>
       <!-- Router box -->
       <rect x="185" y="8" width="150" height="38" rx="6" style="fill: var(--blue-bg); stroke: var(--blue)" stroke-width="1.5"/>
       <text x="260" y="31" text-anchor="middle" font-weight="700" style="fill: var(--blue)">Router</text>
       <!-- Trunk link -->
       <line x1="260" y1="46" x2="260" y2="78" style="stroke: var(--muted)" stroke-width="2" stroke-dasharray="4 3"/>
-      <text x="275" y="67" style="fill: var(--muted)" font-size="10">Trunk (802.1Q)</text>
+      <text x="276" y="66" style="fill: var(--muted)" font-size="10">Trunk (802.1Q)</text>
       <!-- Switch box -->
       <rect x="185" y="78" width="150" height="38" rx="6" style="fill: var(--green-bg); stroke: var(--green)" stroke-width="1.5"/>
       <text x="260" y="101" text-anchor="middle" font-weight="700" style="fill: var(--green)">Switch</text>
       <!-- VLAN 10 box -->
-      <rect x="20" y="155" width="175" height="56" rx="8" style="fill: var(--blue-bg); stroke: var(--blue)" stroke-width="1.5"/>
-      <text x="108" y="178" text-anchor="middle" font-weight="700" style="fill: var(--blue)">VLAN 10 — Sales</text>
-      <text x="108" y="198" text-anchor="middle" style="fill: var(--muted)" font-size="11">PC1, PC2, PC3</text>
+      <rect x="15" y="158" width="178" height="58" rx="8" style="fill: var(--amber-bg); stroke: var(--amber)" stroke-width="1.5"/>
+      <text x="104" y="180" text-anchor="middle" font-weight="700" style="fill: var(--amber)">VLAN 10 — Sales</text>
+      <text x="104" y="198" text-anchor="middle" style="fill: var(--muted)" font-size="11">PC1, PC2, PC3</text>
+      <text x="104" y="212" text-anchor="middle" style="fill: var(--muted)" font-size="9">← Broadcast Domain 1 →</text>
       <!-- VLAN 20 box -->
-      <rect x="325" y="155" width="175" height="56" rx="8" style="fill: var(--purple-bg); stroke: var(--purple)" stroke-width="1.5"/>
-      <text x="413" y="178" text-anchor="middle" font-weight="700" style="fill: var(--purple)">VLAN 20 — Engineering</text>
-      <text x="413" y="198" text-anchor="middle" style="fill: var(--muted)" font-size="11">PC4, PC5, PC6</text>
+      <rect x="327" y="158" width="178" height="58" rx="8" style="fill: var(--teal-bg); stroke: var(--teal)" stroke-width="1.5"/>
+      <text x="416" y="180" text-anchor="middle" font-weight="700" style="fill: var(--teal)">VLAN 20 — Engineering</text>
+      <text x="416" y="198" text-anchor="middle" style="fill: var(--muted)" font-size="11">PC4, PC5, PC6</text>
+      <text x="416" y="212" text-anchor="middle" style="fill: var(--muted)" font-size="9">← Broadcast Domain 2 →</text>
       <!-- Lines from switch to VLANs -->
-      <line x1="220" y1="116" x2="150" y2="155" style="stroke: var(--blue)" stroke-width="1.5"/>
-      <line x1="300" y1="116" x2="375" y2="155" style="stroke: var(--purple)" stroke-width="1.5"/>
-      <text x="155" y="142" style="fill: var(--blue)" font-size="10">Access</text>
-      <text x="315" y="142" style="fill: var(--purple)" font-size="10">Access</text>
+      <line x1="218" y1="116" x2="145" y2="158" style="stroke: var(--amber)" stroke-width="1.5"/>
+      <line x1="302" y1="116" x2="380" y2="158" style="stroke: var(--teal)" stroke-width="1.5"/>
+      <text x="145" y="144" style="fill: var(--amber)" font-size="10">Access port</text>
+      <text x="305" y="144" style="fill: var(--teal)" font-size="10">Access port</text>
     </svg>
   </div>
 
@@ -110,25 +113,55 @@
   <h3>Spanning Tree Protocol (STP / 802.1D)</h3>
   <p>STP prevents Layer 2 loops in redundant switched networks. Without STP, broadcast storms and MAC table instability result.</p>
 
+  <!-- C6: STP State Timeline + RSTP Mapping -->
   <h4>STP Port States (802.1D)</h4>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>State</th><th>Duration</th><th>Sends BPDUs</th><th>Learns MACs</th><th>Forwards Data</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Blocking</strong></td><td>20 seconds (Max Age)</td><td>No (listens)</td><td>No</td><td>No</td></tr>
-        <tr><td><strong>Listening</strong></td><td>15 seconds (Forward Delay)</td><td>Yes</td><td>No</td><td>No</td></tr>
-        <tr><td><strong>Learning</strong></td><td>15 seconds (Forward Delay)</td><td>Yes</td><td>Yes</td><td>No</td></tr>
-        <tr><td><strong>Forwarding</strong></td><td>Ongoing</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-        <tr><td><strong>Disabled</strong></td><td>Until admin enables</td><td>No</td><td>No</td><td>No</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <div style="background:var(--surface2);border:.5px solid var(--border2);border-radius:10px;padding:16px;margin:8px 0">
+    <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:8px">802.1D — port state sequence (left to right)</div>
+    <div class="stp-timeline-strip">
+      <div class="stp-state stp-block" style="flex:2;border-radius:4px 0 0 4px">
+        <div class="stp-state-name">Blocking</div>
+        <div class="stp-state-dur">20s (Max Age)</div>
+        <div class="stp-state-detail">No forwarding<br>No MAC learning</div>
+      </div>
+      <div class="stp-arrow">→</div>
+      <div class="stp-state stp-listen" style="flex:1.5">
+        <div class="stp-state-name">Listening</div>
+        <div class="stp-state-dur">15s (Fwd Delay)</div>
+        <div class="stp-state-detail">BPDUs yes<br>MACs no</div>
+      </div>
+      <div class="stp-arrow">→</div>
+      <div class="stp-state stp-learn" style="flex:1.5">
+        <div class="stp-state-name">Learning</div>
+        <div class="stp-state-dur">15s (Fwd Delay)</div>
+        <div class="stp-state-detail">BPDUs yes<br>MACs yes</div>
+      </div>
+      <div class="stp-arrow">→</div>
+      <div class="stp-state stp-fwd" style="flex:2;border-radius:0 4px 4px 0">
+        <div class="stp-state-name">Forwarding</div>
+        <div class="stp-state-dur">Ongoing</div>
+        <div class="stp-state-detail">Full operation</div>
+      </div>
+    </div>
+    <div class="stp-convergence-note" style="margin-top:4px">Total: 30–50 seconds → reason RSTP (802.1w) was developed</div>
 
-  <div class="callout callout-blue">
-    <div class="callout-title">STP Convergence Time</div>
-    802.1D STP takes <strong>30–50 seconds</strong> to converge after a topology change (20s Max Age + 15s Listening + 15s Learning). This is why RSTP was developed.
+    <div style="font-size:11px;font-weight:600;color:var(--text);margin:14px 0 8px">RSTP (802.1w) — state consolidation</div>
+    <div class="stp-rstp-map">
+      <div class="stp-rstp-col">
+        <div class="stp-rstp-col-label">STP 802.1D — 5 states</div>
+        <div class="stp-state stp-block" style="border-radius:4px;padding:4px 8px;font-size:10px;margin-bottom:2px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Blocking</span></div>
+        <div class="stp-state stp-listen" style="border-radius:4px;padding:4px 8px;font-size:10px;margin-bottom:2px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Listening</span></div>
+        <div class="stp-disabled-state" style="margin-bottom:2px">Disabled</div>
+        <div class="stp-state stp-learn" style="border-radius:4px;padding:4px 8px;font-size:10px;margin-bottom:2px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Learning</span></div>
+        <div class="stp-state stp-fwd" style="border-radius:4px;padding:4px 8px;font-size:10px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Forwarding</span></div>
+      </div>
+      <div class="stp-rstp-arrow">→</div>
+      <div class="stp-rstp-col">
+        <div class="stp-rstp-col-label">RSTP 802.1w — 3 states</div>
+        <div class="stp-rstp-disc-block" style="margin-bottom:2px;padding:16px 8px;text-align:center">Discarding<br><span style="font-size:11px;color:var(--text);font-weight:400">= Blocking + Listening + Disabled</span></div>
+        <div class="stp-state stp-learn" style="border-radius:4px;padding:4px 8px;font-size:10px;margin-bottom:2px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Learning</span></div>
+        <div class="stp-state stp-fwd" style="border-radius:4px;padding:4px 8px;font-size:10px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Forwarding</span> <span style="font-size:10px;color:var(--text)">(&lt;1s total)</span></div>
+      </div>
+    </div>
   </div>
 
   <h4>STP Port Roles</h4>
@@ -161,19 +194,46 @@
     </table>
   </div>
 
+  <!-- C7: STP Security Feature Flip Cards -->
   <h3>STP Security Features</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Feature</th><th>Purpose</th><th>Applied Where</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>PortFast</strong></td><td>Skips Listening/Learning states — port goes directly to Forwarding. Only for access ports (no switches connected).</td><td>Access ports to end devices</td></tr>
-        <tr><td><strong>BPDU Guard</strong></td><td>Shuts down port if a BPDU is received — prevents rogue switches from altering STP topology.</td><td>PortFast-enabled ports</td></tr>
-        <tr><td><strong>Root Guard</strong></td><td>Prevents a connected switch from becoming root bridge — port goes to root-inconsistent state if it receives a superior BPDU.</td><td>Ports facing non-root switches</td></tr>
-        <tr><td><strong>Loop Guard</strong></td><td>Prevents a port from transitioning to forwarding if BPDUs stop arriving — catches unidirectional link failures.</td><td>Non-designated ports</td></tr>
-      </tbody>
-    </table>
+  <p style="font-size:12px;color:var(--text);margin-bottom:8px">Click any card to see what threat it protects against and the exam trap.</p>
+  <div class="stp-sec-grid">
+    <div class="stp-sec-card flip-card" tabindex="0" role="button" aria-expanded="false">
+      <div class="stp-sec-front flip-front">
+        <div class="stp-sec-tag" style="background:rgba(34,197,94,.10);color:var(--green);border:.5px solid var(--green-border)">Access ports only</div>
+        <div class="stp-sec-name">PortFast</div>
+        <div class="stp-sec-oneliner">Skips Listening and Learning — port goes directly to Forwarding</div>
+        <span class="flip-hint">click to flip ↩</span>
+      </div>
+      <div class="stp-sec-back flip-back"><strong>Protects:</strong> Slow convergence on end-device ports (PCs, printers). <strong>Trigger:</strong> Admin enables it. <strong>Result:</strong> Port forwards immediately — no 30s wait. <strong>⚠ Exam:</strong> Never enable on a port connected to another switch — causes STP loop.</div>
+    </div>
+    <div class="stp-sec-card flip-card" tabindex="0" role="button" aria-expanded="false">
+      <div class="stp-sec-front flip-front">
+        <div class="stp-sec-tag" style="background:var(--red-bg);color:var(--red);border:.5px solid rgba(239,68,68,.2)">PortFast-enabled ports</div>
+        <div class="stp-sec-name">BPDU Guard</div>
+        <div class="stp-sec-oneliner">Shuts port down (err-disabled) if a BPDU is received</div>
+        <span class="flip-hint">click to flip ↩</span>
+      </div>
+      <div class="stp-sec-back flip-back"><strong>Protects:</strong> Rogue switch connecting to access port and altering STP topology. <strong>Trigger:</strong> Any BPDU received on the port. <strong>Result:</strong> Port goes to err-disabled state immediately. <strong>⚠ Exam:</strong> Paired with PortFast — BPDUs should never arrive on an access port.</div>
+    </div>
+    <div class="stp-sec-card flip-card" tabindex="0" role="button" aria-expanded="false">
+      <div class="stp-sec-front flip-front">
+        <div class="stp-sec-tag" style="background:var(--blue-bg);color:var(--blue);border:.5px solid var(--blue-border)">Ports facing non-root switches</div>
+        <div class="stp-sec-name">Root Guard</div>
+        <div class="stp-sec-oneliner">Prevents a connected switch from becoming root bridge</div>
+        <span class="flip-hint">click to flip ↩</span>
+      </div>
+      <div class="stp-sec-back flip-back"><strong>Protects:</strong> Unauthorized switch claiming root bridge via superior BPDU. <strong>Trigger:</strong> Superior BPDU received. <strong>Result:</strong> Port goes to root-inconsistent state (not err-disabled — recovers automatically). <strong>⚠ Exam:</strong> Root Guard ≠ BPDU Guard. Root Guard recovers automatically; BPDU Guard requires manual recovery.</div>
+    </div>
+    <div class="stp-sec-card flip-card" tabindex="0" role="button" aria-expanded="false">
+      <div class="stp-sec-front flip-front">
+        <div class="stp-sec-tag" style="background:var(--purple-bg);color:var(--purple);border:.5px solid var(--purple-border)">Non-designated ports</div>
+        <div class="stp-sec-name">Loop Guard</div>
+        <div class="stp-sec-oneliner">Prevents port from transitioning to forwarding if BPDUs stop arriving</div>
+        <span class="flip-hint">click to flip ↩</span>
+      </div>
+      <div class="stp-sec-back flip-back"><strong>Protects:</strong> Unidirectional link failures (port stops receiving BPDUs but link appears up). <strong>Trigger:</strong> BPDU timeout on a blocking port. <strong>Result:</strong> Port goes to loop-inconsistent state instead of erroneously forwarding. <strong>⚠ Exam:</strong> Solves a different problem than Root Guard — targets unidirectional link failures specifically.</div>
+    </div>
   </div>
 
   <h3>EtherChannel / LACP</h3>
