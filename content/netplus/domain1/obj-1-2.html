@@ -136,7 +136,7 @@
               <div class="ids-ips-arrow">↓ ← tap (copy of traffic)</div>
               <div class="ids-ips-node">Internal Network</div>
             </div>
-            <div class="ids-ips-node ids-ips-sensor">IDS Sensor<br><span style="font-size:0.72rem;font-weight:400">sees a COPY via SPAN port</span></div>
+            <div class="ids-ips-node ids-ips-sensor">IDS Sensor<br><span class="ids-ips-node-note">sees a COPY via SPAN port</span></div>
             <div class="ids-ips-note">Out-of-band. Detects and alerts only — <strong>cannot block</strong>. No single point of failure.</div>
           </div>
         </div>
@@ -179,7 +179,7 @@
             <div class="ids-ips-flow">
               <div class="ids-ips-node">Internet / WAN</div>
               <div class="ids-ips-arrow">↓</div>
-              <div class="ids-ips-node ids-ips-block">IPS (inline)<br><span style="font-size:0.72rem;font-weight:400">all traffic passes through</span></div>
+              <div class="ids-ips-node ids-ips-block">IPS (inline)<br><span class="ids-ips-node-note">all traffic passes through</span></div>
               <div class="ids-ips-arrow">↓ or ✕ blocked</div>
               <div class="ids-ips-node">Internal Network</div>
             </div>
@@ -232,7 +232,7 @@
   </div>
 
   <div class="callout callout-amber">
-    <div class="callout-title">⚠ Exam Traps</div>
+    <div class="callout-title">Exam Traps</div>
     <ul>
       <li>IDS = out-of-band/SPAN port (passive). IPS = inline (active). This distinction is heavily tested.</li>
       <li>A WAP is NOT a router — it's only a Layer 2 device unless it's a combined router/WAP.</li>

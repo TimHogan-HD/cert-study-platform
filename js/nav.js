@@ -354,8 +354,48 @@ function initFragmentComponents(path) {
   initChecklist();
   initBinaryBits();
   initIDSIPSFlips();
+  initOSIFlips();
+  initArchFlips();
   initGuidedSubnetting();
   injectDomainSubNav(path);
+}
+
+/* ── OSI layer expand cards ──────────────────────────────────── */
+function initOSIFlips() {
+  document.querySelectorAll('.osi-flip-card').forEach(card => {
+    if (card._osiFlipFn) card.removeEventListener('click', card._osiFlipFn);
+    if (card._osiKeyFn)  card.removeEventListener('keydown', card._osiKeyFn);
+
+    const toggle = () => {
+      const open = card.classList.toggle('is-open');
+      card.setAttribute('aria-expanded', open ? 'true' : 'false');
+      const chevron = card.querySelector('.osi-card-chevron');
+      if (chevron) chevron.textContent = open ? '▴' : '▾';
+    };
+
+    card._osiFlipFn = () => toggle();
+    card._osiKeyFn  = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } };
+    card.addEventListener('click', card._osiFlipFn);
+    card.addEventListener('keydown', card._osiKeyFn);
+  });
+}
+
+/* ── Architecture flip cards ─────────────────────────────────── */
+function initArchFlips() {
+  document.querySelectorAll('.arch-flip-card').forEach(card => {
+    if (card._archFlipFn) card.removeEventListener('click', card._archFlipFn);
+    if (card._archKeyFn)  card.removeEventListener('keydown', card._archKeyFn);
+
+    const toggle = () => {
+      const flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+    };
+
+    card._archFlipFn = () => toggle();
+    card._archKeyFn  = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } };
+    card.addEventListener('click', card._archFlipFn);
+    card.addEventListener('keydown', card._archKeyFn);
+  });
 }
 
 /* ── IDS/IPS flip cards ──────────────────────────────────────── */

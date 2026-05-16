@@ -28,7 +28,11 @@
   --red-border: rgba(239,68,68,0.2);
   --purple: #a855f7;
   --purple-bg: rgba(168,85,247,0.1);
+  --purple-bg2: rgba(168,85,247,0.07);
+  --purple-bg3: rgba(168,85,247,0.04);
   --purple-border: rgba(168,85,247,0.25);
+  --purple-border2: rgba(168,85,247,0.6);
+  --purple-border3: rgba(168,85,247,0.35);
   --teal: #14b8a6;
   --teal-bg: rgba(20,184,166,0.1);
   --teal-border: rgba(20,184,166,0.25);

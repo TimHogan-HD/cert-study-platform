@@ -30,7 +30,7 @@
 
   <!-- C10-A: IPv6 Address Anatomy Bar -->
   <h4>IPv6 Address Anatomy — 128 bits, 8 groups of 16</h4>
-  <p style="font-size:0.85rem;color:var(--text);margin-bottom:0.5rem">Full example: <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>. Groups 1–4 = Network Prefix (64 bits); Groups 5–8 = Interface ID / IID (64 bits).</p>
+  <p class="section-note">Full example: <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>. Groups 1–4 = Network Prefix (64 bits); Groups 5–8 = Interface ID / IID (64 bits).</p>
   <div class="ipv6-anatomy">
     <div class="ipv6-group ipv6-group-prefix">
       <div class="ipv6-group-label">Group 1</div>
@@ -66,8 +66,8 @@
     </div>
   </div>
   <div class="ipv6-anatomy-legend">
-    <span><span class="ip-v2-legend-dot" style="background:rgba(59,130,246,0.5)"></span>Network Prefix (groups 1–4, 64 bits)</span>
-    <span><span class="ip-v2-legend-dot" style="background:rgba(20,184,166,0.5)"></span>Interface ID / IID (groups 5–8, 64 bits)</span>
+    <span><span class="ip-v2-legend-dot" data-color="net"></span>Network Prefix (groups 1–4, 64 bits)</span>
+    <span><span class="ip-v2-legend-dot" data-color="host"></span>Interface ID / IID (groups 5–8, 64 bits)</span>
   </div>
 
   <h3>IPv6 Address Format &amp; Shortening Rules</h3>
@@ -118,17 +118,17 @@
         <div class="ipv6-shorten-groups">
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">2001</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">0</span>db8</span><span class="ipv6-shorten-grp-sub">1 dropped</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span class="ipv6-digit-dropped">0</span>db8</span><span class="ipv6-shorten-grp-sub">1 dropped</span></span>
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">85a3</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span class="ipv6-digit-dropped">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span class="ipv6-digit-dropped">000</span>0</span><span class="ipv6-shorten-grp-sub">3 dropped</span></span>
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">8a2e</span></span>
           <span class="ipv6-shorten-sep">:</span>
-          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span style="text-decoration:line-through;opacity:.5">0</span>370</span><span class="ipv6-shorten-grp-sub">1 dropped</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-zero-trimmed"><span class="ipv6-shorten-grp-val"><span class="ipv6-digit-dropped">0</span>370</span><span class="ipv6-shorten-grp-sub">1 dropped</span></span>
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">7334</span></span>
         </div>
@@ -154,7 +154,7 @@
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">db8</span></span>
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">85a3</span></span>
-          <span class="ipv6-shorten-grp ipv6-shorten-collapsed"><span class="ipv6-shorten-grp-val">::</span><span class="ipv6-shorten-grp-sub" style="opacity:1;font-size:0.55rem">:0:0:</span></span>
+          <span class="ipv6-shorten-grp ipv6-shorten-collapsed"><span class="ipv6-shorten-grp-val">::</span><span class="ipv6-shorten-grp-sub ipv6-shorten-grp-sub-expanded">:0:0:</span></span>
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">8a2e</span></span>
           <span class="ipv6-shorten-sep">:</span>
           <span class="ipv6-shorten-grp ipv6-shorten-normal"><span class="ipv6-shorten-grp-val">370</span></span>
@@ -272,37 +272,37 @@
       <div class="ipv6-mcast-cell"><span class="ipv6-mcast-used">RIPng routers</span><span class="ipv6-mcast-desc">RIPng (RIP for IPv6) uses this instead of the IPv4 224.0.0.9. Distance-vector routing updates sent here on UDP port 521.</span></div>
     </div>
   </div>
-  <p style="font-size:0.74rem;color:var(--muted);margin-top:0.4rem">All <code>ff02::</code> addresses are link-local scope — they never cross a router. The <code>ff</code> prefix marks any address as multicast; the second byte encodes scope (<code>02</code> = link-local, <code>05</code> = site-local, <code>0e</code> = global).</p>
+  <p class="guide-note">All <code>ff02::</code> addresses are link-local scope — they never cross a router. The <code>ff</code> prefix marks any address as multicast; the second byte encodes scope (<code>02</code> = link-local, <code>05</code> = site-local, <code>0e</code> = global).</p>
 
   <h3>IPv6 Address Configuration Methods</h3>
   <div class="ipv6-config-grid">
     <div class="ipv6-config-card">
-      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem">
+      <div class="ipv6-config-card-header">
         <strong>SLAAC</strong>
         <span class="ipv6-config-badge ipv6-config-badge-stateless">Stateless</span>
       </div>
-      <p style="font-size:0.85rem;margin:0">Host uses Router Advertisement (RA) to learn the network prefix, then generates its own Interface ID via EUI-64 or a random value. <strong>No DHCP server required.</strong></p>
+      <p class="section-note">Host uses Router Advertisement (RA) to learn the network prefix, then generates its own Interface ID via EUI-64 or a random value. <strong>No DHCP server required.</strong></p>
     </div>
     <div class="ipv6-config-card">
-      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem">
+      <div class="ipv6-config-card-header">
         <strong>DHCPv6 Stateful</strong>
         <span class="ipv6-config-badge ipv6-config-badge-stateful">Stateful</span>
       </div>
-      <p style="font-size:0.85rem;margin:0">DHCPv6 server assigns a full IPv6 address <em>and</em> options (DNS, etc.). Server tracks leases — analogous to IPv4 DHCP.</p>
+      <p class="section-note">DHCPv6 server assigns a full IPv6 address <em>and</em> options (DNS, etc.). Server tracks leases — analogous to IPv4 DHCP.</p>
     </div>
     <div class="ipv6-config-card">
-      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem">
+      <div class="ipv6-config-card-header">
         <strong>DHCPv6 Stateless</strong>
         <span class="ipv6-config-badge ipv6-config-badge-stateless">Hybrid</span>
       </div>
-      <p style="font-size:0.85rem;margin:0">SLAAC assigns the IP address; DHCPv6 provides only options such as DNS server addresses. Server tracks no leases.</p>
+      <p class="section-note">SLAAC assigns the IP address; DHCPv6 provides only options such as DNS server addresses. Server tracks no leases.</p>
     </div>
     <div class="ipv6-config-card">
-      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem">
+      <div class="ipv6-config-card-header">
         <strong>Manual / EUI-64</strong>
         <span class="ipv6-config-badge ipv6-config-badge-manual">Admin</span>
       </div>
-      <p style="font-size:0.85rem;margin:0"><strong>Manual:</strong> admin statically assigns the full address — used for routers and servers. <strong>EUI-64:</strong> IID derived from 48-bit MAC (insert <code>fffe</code>, flip 7th bit).</p>
+      <p class="section-note"><strong>Manual:</strong> admin statically assigns the full address — used for routers and servers. <strong>EUI-64:</strong> IID derived from 48-bit MAC (insert <code>fffe</code>, flip 7th bit).</p>
     </div>
   </div>
 
@@ -394,7 +394,7 @@
   </div>
 
   <div class="callout callout-amber">
-    <div class="callout-title">⚠ Exam Traps</div>
+    <div class="callout-title">Exam Traps</div>
     <ul>
       <li>IPv6 has <strong>NO BROADCAST</strong>. Multicast replaces broadcast completely.</li>
       <li>fe80::/10 = link-local (auto-configured, NOT routable). Every IPv6 interface gets one automatically.</li>
