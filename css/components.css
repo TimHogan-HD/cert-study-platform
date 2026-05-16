@@ -2484,9 +2484,9 @@ td code { font-size: 0.8rem; }
 .nat-field:last-child { border-right: none; }
 .nat-field-label { font-size: 10px; color: var(--text); margin-bottom: 2px; text-transform: uppercase; letter-spacing: .04em; font-family: inherit; }
 .nat-field-val { font-size: 11px; font-weight: 600; }
-.nat-src { background: rgba(59,130,246,.08); color: #60a5fa; }
-.nat-dst { background: rgba(20,184,166,.08); color: #2dd4bf; }
-.nat-src-translated { background: rgba(34,197,94,.08); color: #4ade80; }
+.nat-src { background: rgba(59,130,246,.08); color: var(--blue); }
+.nat-dst { background: rgba(20,184,166,.08); color: var(--teal); }
+.nat-src-translated { background: rgba(34,197,94,.08); color: var(--green); }
 .nat-sep { flex: 0 0 auto; padding: 0 6px; color: var(--hint); font-size: 12px; }
 .nat-arrow-row { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 3px 0; font-size: 10px; color: var(--text); }
 .nat-term-row { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -2654,8 +2654,8 @@ td code { font-size: 0.8rem; }
 .dc-rack-u { height: 8px; border-radius: 2px; background: rgba(255,255,255,.08); border: .5px solid rgba(255,255,255,.1); }
 .dc-rack-u.server { background: rgba(20,184,166,.25); border-color: rgba(20,184,166,.4); }
 .dc-label { font-size: 10px; font-weight: 700; text-align: center; }
-.dc-cold .dc-label { color: #60a5fa; }
-.dc-hot  .dc-label { color: #f87171; }
+.dc-cold .dc-label { color: var(--blue); }
+.dc-hot  .dc-label { color: var(--red); }
 .dc-arrow { font-size: 20px; text-align: center; }
 .dc-mid { flex: 0 0 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; background: var(--surface3); }
 .dc-mid-label { font-size: 10px; color: var(--text); writing-mode: vertical-rl; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
