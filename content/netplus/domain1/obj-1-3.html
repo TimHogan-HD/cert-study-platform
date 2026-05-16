@@ -3,6 +3,11 @@
   <h2>1.3 Cloud Concepts &amp; Connectivity</h2>
   <p>Cloud computing delivers shared, on-demand infrastructure and services over a network. N10-009 tests service models, deployment types, virtualization concepts, and cloud-specific networking constructs.</p>
 
+  <div class="callout callout-blue">
+    <div class="callout-title">KEY DISTINCTION</div>
+    <strong>DHCP lease</strong> = address assigned automatically for a finite duration; the client can end up with a different address next time. <strong>Static (reservation)</strong> = a specific MAC always gets the same IP from the DHCP pool. <strong>Manual static</strong> = configured directly on the host, no DHCP involvement at all. Reservations are the right answer for printers and servers that need DNS-stable addresses.
+  </div>
+
   <h3>Cloud Concepts &amp; Connectivity</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -146,8 +151,8 @@
         <tr><th>Control</th><th>Type</th><th>Stateful?</th><th>Scope</th><th>Notes</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>AWS Security Group / Azure NSG</strong></td><td>Virtual firewall</td><td>Yes (stateful)</td><td>Per-instance / per-NIC</td><td>Return traffic automatically allowed; rules apply to specific resources</td></tr>
-        <tr><td><strong>AWS <abbr title="Network Access Control List">NACL</abbr> / OCI Security List</strong></td><td>Subnet ACL</td><td>No (stateless)</td><td>Per-subnet</td><td>Must explicitly allow both inbound AND outbound for each flow</td></tr>
+        <tr data-exam-weight="high"><td><strong>AWS Security Group / Azure NSG</strong></td><td>Virtual firewall</td><td>Yes (stateful)</td><td>Per-instance / per-NIC</td><td>Return traffic automatically allowed; rules apply to specific resources</td></tr>
+        <tr data-exam-weight="high"><td><strong>AWS <abbr title="Network Access Control List">NACL</abbr> / OCI Security List</strong></td><td>Subnet ACL</td><td>No (stateless)</td><td>Per-subnet</td><td>Must explicitly allow both inbound AND outbound for each flow</td></tr>
         <tr><td><strong>Internet Gateway</strong></td><td>VPC attachment</td><td>N/A</td><td>VPC-level</td><td>Bidirectional public internet access for resources with public IPs</td></tr>
         <tr><td><strong>NAT Gateway / NAT Instance</strong></td><td>Address translation</td><td>Yes</td><td>VPC-level</td><td>Outbound-only internet for private subnet instances — no inbound initiated connections</td></tr>
       </tbody>
