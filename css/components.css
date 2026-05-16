@@ -1776,8 +1776,8 @@ td code { font-size: 0.8rem; }
 .osi-flip-card:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 .osi-flip-card:hover { filter: brightness(1.05); }
 .osi-flip-card[data-layer="7"] { background: var(--purple-bg); border-left-color: var(--purple); }
-.osi-flip-card[data-layer="6"] { background: rgba(168,85,247,0.07); border-left-color: rgba(168,85,247,0.6); }
-.osi-flip-card[data-layer="5"] { background: rgba(168,85,247,0.04); border-left-color: rgba(168,85,247,0.35); }
+.osi-flip-card[data-layer="6"] { background: var(--purple-bg2); border-left-color: var(--purple-border2); }
+.osi-flip-card[data-layer="5"] { background: var(--purple-bg3); border-left-color: var(--purple-border3); }
 .osi-flip-card[data-layer="4"] { background: var(--blue-bg); border-left-color: var(--blue); }
 .osi-flip-card[data-layer="3"] { background: var(--teal-bg); border-left-color: var(--teal); }
 .osi-flip-card[data-layer="2"] { background: var(--amber-bg); border-left-color: var(--amber); }
@@ -2438,6 +2438,7 @@ td code { font-size: 0.8rem; }
 .binary-and-mask  { color: var(--blue); opacity: 0.7; }
 .binary-and-divider { height: 1px; background: var(--border2); margin: 0.3rem 0; }
 .binary-and-result  { color: var(--green); }
+.binary-dim { opacity: 0.4; }
 
 /* ── IP v2 footer value labels ───────────────────────────────────── */
 .ip-v2-footer-val              { font-weight: 700; font-size: 0.82rem; }
