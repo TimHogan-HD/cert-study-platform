@@ -1,7 +1,7 @@
 <div class="obj-section" id="obj-1-8">
   <div class="section-eyebrow">Objective 1.8</div>
-  <h2>IPv6 Addressing</h2>
-  <p>IPv6 is no longer a "bonus" topic — it's a full part of the N10-009 exam. Know address types, shortening rules, and transition mechanisms.</p>
+  <h2>1.8 Modern Network Environments</h2>
+  <p>IPv6 addressing, software-defined networking, and modern WAN/security architectures are all tested on N10-009. This section covers IPv6 address types and shortening rules, then SDN, SD-WAN, VXLAN, ZTA, SASE, and IaC concepts.</p>
 
   <h3>IPv4 vs IPv6 Comparison</h3>
   <div class="table-wrap">
@@ -323,6 +323,11 @@
 
   <h3>Evolving Network Environments</h3>
 
+  <div class="callout callout-blue">
+    <div class="callout-title"><abbr title="Software-Defined Networking">SDN</abbr> — Software-Defined Networking</div>
+    <p><strong>SDN</strong> separates the <strong>control plane</strong> (the logic that decides where traffic goes) from the <strong>data plane</strong> (the hardware that actually forwards packets). The control plane moves to a centralized SDN controller; network devices become programmable forwarding elements. Full SDN architecture coverage is in Phase 6 of this section.</p>
+  </div>
+
   <div class="table-wrap">
     <table class="table--reference">
       <thead>
@@ -419,6 +424,7 @@
       <li>No broadcast in IPv6 — multicast replaces it</li>
       <li>SLAAC = auto-config from Router Advertisement, no DHCP needed</li>
       <li>Dual stack = running IPv4 and IPv6 simultaneously on same interface</li>
+      <li>SDN = separates control plane (decisions) from data plane (forwarding) via centralized controller</li>
       <li>SD-WAN = app-aware routing, transport-agnostic, centralized policy, ZTP</li>
       <li>VXLAN = L2 over L3, UDP 4789, 24-bit VNI (16M segments), RFC 7348</li>
       <li>ZTA = never trust always verify, microsegmentation, least privilege; NIST 800-207</li>
