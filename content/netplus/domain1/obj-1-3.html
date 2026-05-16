@@ -1,422 +1,183 @@
 <div class="obj-section" id="obj-1-3">
   <div class="section-eyebrow">Objective 1.3</div>
-  <h2>Network Topologies &amp; Types</h2>
-  <p>Topology describes how devices are physically and logically connected. Physical topology is how cables are run; logical topology is how data flows.</p>
+  <h2>1.3 Cloud Concepts &amp; Connectivity</h2>
+  <p>Cloud computing delivers shared, on-demand infrastructure and services over a network. N10-009 tests service models, deployment types, virtualization concepts, and cloud-specific networking constructs.</p>
 
-  <h3>Topology Diagrams</h3>
-  <div class="topology-grid">
-
-    <!-- Star -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- center switch -->
-        <circle cx="80" cy="65" r="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2"/>
-        <text x="80" y="69" text-anchor="middle" font-size="8" fill="var(--blue)" font-weight="600">SW</text>
-        <!-- spokes -->
-        <line x1="80" y1="53" x2="80" y2="22" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="80" y1="77" x2="80" y2="108" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="68" y1="60" x2="32" y2="42" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="92" y1="60" x2="128" y2="42" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="68" y1="70" x2="32" y2="88" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="92" y1="70" x2="128" y2="88" stroke="var(--border2)" stroke-width="1.5"/>
-        <!-- nodes -->
-        <circle cx="80" cy="16" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="80" cy="114" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="26" cy="38" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="134" cy="38" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="26" cy="92" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="134" cy="92" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-      </svg>
-      <div class="topology-diagram-label">Star</div>
-      <div class="topology-diagram-sub">Central switch/hub</div>
-    </div>
-
-    <!-- Bus -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- bus cable -->
-        <line x1="14" y1="65" x2="146" y2="65" stroke="var(--blue)" stroke-width="2.5"/>
-        <!-- terminators -->
-        <rect x="10" y="58" width="6" height="14" rx="2" fill="var(--blue)" opacity="0.5"/>
-        <rect x="144" y="58" width="6" height="14" rx="2" fill="var(--blue)" opacity="0.5"/>
-        <!-- drops -->
-        <line x1="38" y1="65" x2="38" y2="35" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="70" y1="65" x2="70" y2="35" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="102" y1="65" x2="102" y2="35" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="38" y1="65" x2="38" y2="95" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="70" y1="65" x2="70" y2="95" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="102" y1="65" x2="102" y2="95" stroke="var(--border2)" stroke-width="1.5"/>
-        <!-- nodes top -->
-        <circle cx="38" cy="28" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="70" cy="28" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="102" cy="28" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <!-- nodes bottom -->
-        <circle cx="38" cy="102" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="70" cy="102" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="102" cy="102" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-      </svg>
-      <div class="topology-diagram-label">Bus</div>
-      <div class="topology-diagram-sub">Shared cable + terminators</div>
-    </div>
-
-    <!-- Ring -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- ring path -->
-        <circle cx="80" cy="65" r="42" stroke="var(--border2)" stroke-width="1.5" stroke-dasharray="0"/>
-        <!-- nodes at compass points -->
-        <circle cx="80" cy="23" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="122" cy="65" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="80" cy="107" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="38" cy="65" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <!-- arrows showing data direction -->
-        <path d="M 118 46 A 42 42 0 0 1 122 65" stroke="var(--blue)" stroke-width="2" fill="none" marker-end="url(#arr)"/>
-        <defs>
-          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-            <path d="M0,0 L6,3 L0,6 Z" fill="var(--blue)"/>
-          </marker>
-        </defs>
-      </svg>
-      <div class="topology-diagram-label">Ring</div>
-      <div class="topology-diagram-sub">Unidirectional token passing</div>
-    </div>
-
-    <!-- Full Mesh -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- 5-node full mesh: every node connects to every other -->
-        <!-- positions: top(80,20), TR(130,50), BR(110,105), BL(50,105), TL(30,50) -->
-        <!-- all 10 connections -->
-        <line x1="80" y1="20" x2="130" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="20" x2="110" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="20" x2="50" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="20" x2="30" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="130" y1="50" x2="110" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="130" y1="50" x2="50" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="130" y1="50" x2="30" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="110" y1="105" x2="50" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="110" y1="105" x2="30" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="50" y1="105" x2="30" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <!-- nodes -->
-        <circle cx="80" cy="20" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="130" cy="50" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="110" cy="105" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="50" cy="105" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="30" cy="50" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-      </svg>
-      <div class="topology-diagram-label">Full Mesh</div>
-      <div class="topology-diagram-sub">n(n−1)/2 connections</div>
-    </div>
-
-    <!-- Partial Mesh -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- same 5 nodes, only some connected -->
-        <line x1="80" y1="20" x2="130" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="20" x2="30" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="130" y1="50" x2="110" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="30" y1="50" x2="50" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="110" y1="105" x2="50" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="20" x2="110" y2="105" stroke="var(--border2)" stroke-width="1.2"/>
-        <!-- missing connections shown as dashed -->
-        <line x1="130" y1="50" x2="30" y2="50" stroke="var(--hint)" stroke-width="1" stroke-dasharray="3,3"/>
-        <line x1="130" y1="50" x2="50" y2="105" stroke="var(--hint)" stroke-width="1" stroke-dasharray="3,3"/>
-        <!-- nodes -->
-        <circle cx="80" cy="20" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="130" cy="50" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="110" cy="105" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="50" cy="105" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-        <circle cx="30" cy="50" r="7" fill="var(--surface3)" stroke="var(--blue)" stroke-width="1.5"/>
-      </svg>
-      <div class="topology-diagram-label">Partial Mesh</div>
-      <div class="topology-diagram-sub">Some redundant paths</div>
-    </div>
-
-    <!-- Hub-and-Spoke (WAN) -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- hub -->
-        <circle cx="80" cy="65" r="14" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2"/>
-        <text x="80" y="69" text-anchor="middle" font-size="8" fill="var(--blue)" font-weight="600">HQ</text>
-        <!-- spokes to branches -->
-        <line x1="80" y1="51" x2="80" y2="18" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="92" y1="58" x2="132" y2="38" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="92" y1="72" x2="132" y2="92" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="80" y1="79" x2="80" y2="112" stroke="var(--border2)" stroke-width="1.5"/>
-        <line x1="68" y1="58" x2="28" y2="38" stroke="var(--border2)" stroke-width="1.5"/>
-        <!-- branch nodes -->
-        <circle cx="80" cy="12" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="138" cy="34" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="138" cy="96" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="80" cy="118" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <circle cx="22" cy="34" r="7" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-      </svg>
-      <div class="topology-diagram-label">Hub-and-Spoke</div>
-      <div class="topology-diagram-sub">WAN — branches via HQ</div>
-    </div>
-
-  </div>
-
-  <h3>LAN Topologies</h3>
-  <div class="table-wrap">
-    <table class="table--comparison">
-      <thead>
-        <tr><th>Topology</th><th>Description</th><th>Advantages</th><th>Disadvantages</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Star</strong></td>
-          <td>All devices connect to a central switch/hub</td>
-          <td>Easy troubleshoot; one device failure doesn't affect others</td>
-          <td>Central switch = single point of failure</td>
-        </tr>
-        <tr>
-          <td><strong>Bus</strong></td>
-          <td>All devices on one shared cable (terminated at both ends)</td>
-          <td>Simple, cheap, minimal cabling</td>
-          <td>Collision-prone; cable break kills entire network. Legacy (10BASE-2 coax).</td>
-        </tr>
-        <tr>
-          <td><strong>Ring</strong></td>
-          <td>Devices connected in a circle; data travels in one direction</td>
-          <td>Predictable performance; no collisions with token passing</td>
-          <td>Single break disrupts entire ring (unless dual-ring / FDDI)</td>
-        </tr>
-        <tr>
-          <td><strong>Mesh (Full)</strong></td>
-          <td>Every device connects to every other device</td>
-          <td>Maximum redundancy; no single point of failure</td>
-          <td>Expensive; # connections = n(n-1)/2; complex management</td>
-        </tr>
-        <tr>
-          <td><strong>Mesh (Partial)</strong></td>
-          <td>Some but not all devices have redundant paths</td>
-          <td>Balance of cost and redundancy</td>
-          <td>Some paths remain single points of failure</td>
-        </tr>
-        <tr>
-          <td><strong>Hybrid</strong></td>
-          <td>Combination of topologies (star-bus, star-ring)</td>
-          <td>Flexible; most modern networks are hybrid</td>
-          <td>Complex design and troubleshooting</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>WAN Topology Types</h3>
-
-  <div class="wan-diagram-grid">
-
-    <!-- Point-to-Point -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 90" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="8" y="30" width="44" height="28" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5"/>
-        <text x="30" y="42" text-anchor="middle" font-size="7" fill="var(--blue)" font-weight="700">Site A</text>
-        <text x="30" y="52" text-anchor="middle" font-size="6" fill="var(--blue)">HQ</text>
-        <rect x="108" y="30" width="44" height="28" rx="4" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
-        <text x="130" y="42" text-anchor="middle" font-size="7" fill="var(--teal)" font-weight="700">Site B</text>
-        <text x="130" y="52" text-anchor="middle" font-size="6" fill="var(--teal)">Branch</text>
-        <!-- Dedicated link -->
-        <line x1="52" y1="44" x2="108" y2="44" stroke="var(--border2)" stroke-width="2.5"/>
-        <text x="80" y="38" text-anchor="middle" font-size="5.5" fill="var(--hint)">Dedicated</text>
-        <text x="80" y="57" text-anchor="middle" font-size="5.5" fill="var(--hint)">T1 / fiber / MPLS</text>
-      </svg>
-      <div class="topology-diagram-label">Point-to-Point</div>
-      <div class="topology-diagram-sub">Dedicated link between 2 sites</div>
-    </div>
-
-    <!-- Hub-and-Spoke -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Hub -->
-        <rect x="55" y="50" width="50" height="28" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5"/>
-        <text x="80" y="62" text-anchor="middle" font-size="7" fill="var(--blue)" font-weight="700">Hub</text>
-        <text x="80" y="72" text-anchor="middle" font-size="6" fill="var(--blue)">HQ / Core</text>
-        <!-- Spokes -->
-        <circle cx="80" cy="16" r="10" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <text x="80" y="19" text-anchor="middle" font-size="5.5" fill="var(--text)">Branch</text>
-        <circle cx="20" cy="64" r="10" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <text x="20" y="67" text-anchor="middle" font-size="5.5" fill="var(--text)">Branch</text>
-        <circle cx="140" cy="64" r="10" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <text x="140" y="67" text-anchor="middle" font-size="5.5" fill="var(--text)">Branch</text>
-        <circle cx="80" cy="116" r="10" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5"/>
-        <text x="80" y="119" text-anchor="middle" font-size="5.5" fill="var(--text)">Branch</text>
-        <!-- Spoke lines -->
-        <line x1="80" y1="26" x2="80" y2="50" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="30" y1="64" x2="55" y2="64" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="130" y1="64" x2="105" y2="64" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="80" y1="106" x2="80" y2="78" stroke="var(--border2)" stroke-width="1.2"/>
-      </svg>
-      <div class="topology-diagram-label">Hub-and-Spoke</div>
-      <div class="topology-diagram-sub">Branches via central hub</div>
-    </div>
-
-    <!-- Full Mesh WAN -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- 4 sites -->
-        <rect x="10" y="20" width="40" height="22" rx="4" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5"/>
-        <text x="30" y="34" text-anchor="middle" font-size="6.5" fill="var(--purple)" font-weight="700">Site A</text>
-        <rect x="110" y="20" width="40" height="22" rx="4" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5"/>
-        <text x="130" y="34" text-anchor="middle" font-size="6.5" fill="var(--purple)" font-weight="700">Site B</text>
-        <rect x="10" y="88" width="40" height="22" rx="4" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5"/>
-        <text x="30" y="102" text-anchor="middle" font-size="6.5" fill="var(--purple)" font-weight="700">Site C</text>
-        <rect x="110" y="88" width="40" height="22" rx="4" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5"/>
-        <text x="130" y="102" text-anchor="middle" font-size="6.5" fill="var(--purple)" font-weight="700">Site D</text>
-        <!-- All connections -->
-        <line x1="50" y1="31" x2="110" y2="31" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="30" y1="42" x2="30" y2="88" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="130" y1="42" x2="130" y2="88" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="50" y1="99" x2="110" y2="99" stroke="var(--border2)" stroke-width="1.2"/>
-        <!-- Diagonals -->
-        <line x1="50" y1="42" x2="110" y2="88" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="110" y1="42" x2="50" y2="88" stroke="var(--border2)" stroke-width="1.2"/>
-        <text x="80" y="122" text-anchor="middle" font-size="5.5" fill="var(--hint)">n(n−1)/2 = 6 links</text>
-      </svg>
-      <div class="topology-diagram-label">Full Mesh WAN</div>
-      <div class="topology-diagram-sub">Every site ↔ every site</div>
-    </div>
-
-    <!-- MPLS / SD-WAN -->
-    <div class="topology-diagram">
-      <svg viewBox="0 0 160 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Provider cloud -->
-        <ellipse cx="80" cy="65" rx="42" ry="28" fill="var(--surface3)" stroke="var(--border2)" stroke-width="1.5" stroke-dasharray="4 2"/>
-        <text x="80" y="61" text-anchor="middle" font-size="6.5" fill="var(--muted)" font-weight="700">Provider</text>
-        <text x="80" y="71" text-anchor="middle" font-size="5.5" fill="var(--hint)">MPLS / SD-WAN</text>
-        <!-- Customer sites -->
-        <rect x="4" y="12" width="36" height="18" rx="3" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
-        <text x="22" y="23" text-anchor="middle" font-size="6" fill="var(--teal)" font-weight="700">HQ</text>
-        <rect x="120" y="12" width="36" height="18" rx="3" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
-        <text x="138" y="23" text-anchor="middle" font-size="6" fill="var(--teal)" font-weight="700">Branch 1</text>
-        <rect x="4" y="100" width="36" height="18" rx="3" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
-        <text x="22" y="111" text-anchor="middle" font-size="6" fill="var(--teal)" font-weight="700">Branch 2</text>
-        <rect x="120" y="100" width="36" height="18" rx="3" fill="var(--teal-bg)" stroke="var(--teal)" stroke-width="1.5"/>
-        <text x="138" y="111" text-anchor="middle" font-size="6" fill="var(--teal)" font-weight="700">Branch 3</text>
-        <!-- Lines into cloud -->
-        <line x1="40" y1="24" x2="42" y2="46" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="120" y1="24" x2="118" y2="46" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="40" y1="106" x2="42" y2="84" stroke="var(--border2)" stroke-width="1.2"/>
-        <line x1="120" y1="106" x2="118" y2="84" stroke="var(--border2)" stroke-width="1.2"/>
-      </svg>
-      <div class="topology-diagram-label">MPLS / SD-WAN</div>
-      <div class="topology-diagram-sub">Provider-managed cloud fabric</div>
-    </div>
-
-  </div>
-
-  <div class="table-wrap">
-    <table class="table--comparison">
-      <thead>
-        <tr><th>WAN Type</th><th>Description</th><th>Use Case</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Point-to-Point</strong></td><td>Dedicated link between two sites</td><td>Branch to HQ connection, T1/E1 leased lines, fiber</td></tr>
-        <tr><td><strong>Hub-and-Spoke</strong></td><td>Central hub site connects to multiple spoke sites</td><td>Cost-effective for many branches; spokes can't communicate without going through hub</td></tr>
-        <tr><td><strong>Full Mesh WAN</strong></td><td>Every site connects to every other site</td><td>Maximum redundancy; very expensive for many sites</td></tr>
-        <tr><td><strong>MPLS</strong></td><td>Multi-Protocol Label Switching — traffic-engineered WAN</td><td>Enterprise WAN; supports QoS; provider-managed</td></tr>
-        <tr><td><strong>SD-WAN</strong></td><td>Software-defined WAN abstraction over multiple transports</td><td>Modern replacement for MPLS; uses broadband + LTE + MPLS intelligently</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>Network Types by Scope</h3>
-
-  <div class="scope-diagram-wrap">
-    <svg viewBox="0 -40 480 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Network scope diagram from PAN to WAN">
-      <!-- Concentric arcs, centre at (240, 220), spreading upward -->
-      <!-- WAN — outermost -->
-      <path d="M 10,200 A 230,230 0 0,1 470,200" stroke="var(--purple)" stroke-width="2" fill="var(--purple-bg)" opacity="0.5"/>
-      <!-- MAN -->
-      <path d="M 50,200 A 190,190 0 0,1 430,200" stroke="var(--blue)" stroke-width="2" fill="var(--bg)" opacity="0.85"/>
-      <!-- CAN -->
-      <path d="M 95,200 A 145,145 0 0,1 385,200" stroke="var(--teal)" stroke-width="2" fill="var(--bg)" opacity="0.85"/>
-      <!-- LAN -->
-      <path d="M 145,200 A 95,95 0 0,1 335,200" stroke="var(--green)" stroke-width="2" fill="var(--bg)" opacity="0.85"/>
-      <!-- PAN — innermost -->
-      <path d="M 195,200 A 45,45 0 0,1 285,200" stroke="var(--amber)" stroke-width="2" fill="var(--bg)" opacity="0.85"/>
-
-      <!-- Center person icon -->
-      <circle cx="240" cy="196" r="6" fill="var(--amber)" opacity="0.8"/>
-      <line x1="240" y1="202" x2="240" y2="216" stroke="var(--amber)" stroke-width="2" opacity="0.8"/>
-
-      <!-- Labels on the arcs -->
-      <!-- PAN -->
-      <text x="240" y="162" text-anchor="middle" font-size="11" font-weight="700" fill="var(--amber)">PAN</text>
-      <text x="240" y="174" text-anchor="middle" font-size="8.5" fill="var(--muted)">~10 m · Bluetooth</text>
-
-      <!-- LAN -->
-      <text x="158" y="148" text-anchor="middle" font-size="11" font-weight="700" fill="var(--green)">LAN</text>
-      <text x="155" y="160" text-anchor="middle" font-size="8" fill="var(--muted)">Building</text>
-
-      <!-- CAN -->
-      <text x="108" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="var(--teal)">CAN</text>
-      <text x="108" y="134" text-anchor="middle" font-size="8" fill="var(--muted)">Campus</text>
-
-      <!-- MAN -->
-      <text x="62" y="100" text-anchor="middle" font-size="11" font-weight="700" fill="var(--blue)">MAN</text>
-      <text x="62" y="112" text-anchor="middle" font-size="8" fill="var(--muted)">City</text>
-
-      <!-- WAN -->
-      <text x="26" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="var(--purple)">WAN</text>
-      <text x="26" y="84" text-anchor="middle" font-size="8" fill="var(--muted)">Global</text>
-
-      <!-- Right-side labels -->
-      <text x="322" y="148" text-anchor="middle" font-size="11" font-weight="700" fill="var(--green)">WLAN</text>
-      <text x="322" y="160" text-anchor="middle" font-size="8" fill="var(--muted)">Wi-Fi</text>
-      <text x="372" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="var(--teal)">CAN</text>
-      <text x="418" y="100" text-anchor="middle" font-size="11" font-weight="700" fill="var(--blue)">MAN</text>
-      <text x="454" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="var(--purple)">WAN</text>
-    </svg>
-  </div>
-
+  <h3>Cloud Concepts &amp; Connectivity</h3>
   <div class="table-wrap">
     <table class="table--reference">
       <thead>
-        <tr><th>Type</th><th>Scope</th><th>Examples</th></tr>
+        <tr><th>Model</th><th>What Customer Manages</th><th>Examples</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>PAN</strong> (Personal Area Network)</td><td>~10m</td><td>Bluetooth headset to phone, USB to laptop</td></tr>
-        <tr><td><strong>LAN</strong> (Local Area Network)</td><td>Building / floor</td><td>Office Ethernet network, home Wi-Fi</td></tr>
-        <tr><td><strong>WLAN</strong> (Wireless LAN)</td><td>Building / campus</td><td>Wi-Fi network, 802.11</td></tr>
-        <tr><td><strong>CAN</strong> (Campus Area Network)</td><td>Multiple buildings</td><td>University campus, corporate campus</td></tr>
-        <tr><td><strong>MAN</strong> (Metropolitan Area Network)</td><td>City / metro area</td><td>City fiber ring, cable TV infrastructure</td></tr>
-        <tr><td><strong>WAN</strong> (Wide Area Network)</td><td>Country / global</td><td>Internet, MPLS across states, T1 between cities</td></tr>
-        <tr><td><strong>SAN</strong> (Storage Area Network)</td><td>Data center</td><td>iSCSI, Fibre Channel — high-speed storage access</td></tr>
-        <tr><td><strong>SOHO</strong> (Small Office / Home Office)</td><td>Small local network</td><td>Home router with switch+WAP, small business</td></tr>
+        <tr><td><strong>IaaS</strong> (<abbr title="Infrastructure as a Service — provider manages physical hardware and virtualization; customer manages OS and above">Infrastructure as a Service</abbr>)</td><td>OS, middleware, runtime, apps, data</td><td>AWS EC2, Azure VMs, Google Compute Engine</td></tr>
+        <tr><td><strong>PaaS</strong> (<abbr title="Platform as a Service — provider manages everything up through the runtime; customer manages apps and data">Platform as a Service</abbr>)</td><td>Apps and data only</td><td>Azure App Service, Google App Engine, Heroku</td></tr>
+        <tr><td><strong>SaaS</strong> (<abbr title="Software as a Service — provider manages everything; customer just uses the application">Software as a Service</abbr>)</td><td>Nothing — just uses the app</td><td>Microsoft 365, Salesforce, Google Workspace</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Shared Responsibility Model</h4>
+  <p>In every cloud model, responsibility for security and management is <strong>split between the customer and the cloud provider</strong>. As you move from IaaS → PaaS → SaaS, the provider takes on more layers.</p>
+
+  <div class="sr-diagram">
+    <div class="sr-grid">
+      <!-- Header row -->
+      <div class="sr-cell sr-header">Layer</div>
+      <div class="sr-cell sr-header">IaaS</div>
+      <div class="sr-cell sr-header">PaaS</div>
+      <div class="sr-cell sr-header">SaaS</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Applications</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Data</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Runtime</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Middleware</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Operating System</div>
+      <div class="sr-cell sr-customer">Customer</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Virtualization</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Servers</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Storage</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Networking</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <!-- Data row -->
+      <div class="sr-cell sr-label">Data Center</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+      <div class="sr-cell sr-provider">Provider</div>
+    </div>
+    <div class="sr-legend">
+      <div class="sr-legend-item"><div class="sr-swatch sr-swatch-customer"></div>Customer responsibility</div>
+      <div class="sr-legend-item"><div class="sr-swatch sr-swatch-provider"></div>Provider responsibility</div>
+    </div>
+  </div>
+
+  <h3>Cloud Deployment Models</h3>
+  <div class="cloud-deploy-grid">
+    <div class="cloud-deploy-card cloud-deploy-card-public">
+      <div class="cloud-deploy-title">Public Cloud <span class="cloud-deploy-badge cloud-deploy-badge-public">Shared</span></div>
+      <div class="cloud-deploy-desc">Shared infrastructure owned and operated by a Cloud Service Provider. Resources shared among many customers via multitenancy — you pay for what you use.</div>
+      <div class="cloud-deploy-example">AWS, Microsoft Azure, Google Cloud Platform</div>
+    </div>
+    <div class="cloud-deploy-card cloud-deploy-card-private">
+      <div class="cloud-deploy-title">Private Cloud <span class="cloud-deploy-badge cloud-deploy-badge-private">Dedicated</span></div>
+      <div class="cloud-deploy-desc">Cloud infrastructure dedicated to one organization. On-premises or hosted privately — greater control, compliance, and security at higher cost.</div>
+      <div class="cloud-deploy-example">VMware vSphere, OpenStack, AWS Outposts</div>
+    </div>
+    <div class="cloud-deploy-card cloud-deploy-card-hybrid">
+      <div class="cloud-deploy-title">Hybrid Cloud <span class="cloud-deploy-badge cloud-deploy-badge-hybrid">Mixed</span></div>
+      <div class="cloud-deploy-desc">Combination of public and private. Workloads move between environments based on policy — sensitive data on-premises, burst capacity in public cloud.</div>
+      <div class="cloud-deploy-example">Azure Arc, AWS Direct Connect to on-prem datacenter</div>
+    </div>
+    <div class="cloud-deploy-card cloud-deploy-card-multi">
+      <div class="cloud-deploy-title">Multi-Cloud <span class="cloud-deploy-badge cloud-deploy-badge-multi">Multiple CSPs</span></div>
+      <div class="cloud-deploy-desc">Using multiple public CSPs simultaneously to avoid vendor lock-in, optimize costs, or leverage regional presence. Adds operational complexity.</div>
+      <div class="cloud-deploy-example">AWS + Azure + GCP simultaneously</div>
+    </div>
+    <div class="cloud-deploy-card cloud-deploy-card-community">
+      <div class="cloud-deploy-title">Community Cloud <span class="cloud-deploy-badge cloud-deploy-badge-community">Shared Sector</span></div>
+      <div class="cloud-deploy-desc">Infrastructure shared by several organizations with common concerns — regulatory, compliance, or mission. More controlled than public, less costly than each running private.</div>
+      <div class="cloud-deploy-example">Government clouds (FedRAMP/GovCloud), healthcare consortiums</div>
+    </div>
+  </div>
+
+  <h3>Network Virtualization</h3>
+  <ul>
+    <li><strong>NFV (Network Functions Virtualization)</strong> — Replace physical appliances (routers, firewalls) with software running on commodity hardware.</li>
+    <li><strong>Virtual NIC / VNIC</strong> — Software network interface for VMs; connects to virtual switch.</li>
+    <li><strong>vSwitch (Virtual Switch)</strong> — Software switch within a hypervisor (VMware vSwitch, Hyper-V vSwitch). Connects VMs to each other and to physical NICs.</li>
+  </ul>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">Exam Traps</div>
+    <ul>
+      <li>IaaS = you manage OS and up. PaaS = you manage apps and data only. SaaS = nothing to manage.</li>
+      <li>SDN separates <strong>control plane</strong> from <strong>data plane</strong> — know both terms. Full SDN coverage is in section 1.8.</li>
+    </ul>
+  </div>
+
+  <h3>Cloud Networking Deep Dive</h3>
+
+  <div class="callout callout-blue">
+    <div class="callout-title"><abbr title="Network Functions Virtualization">NFV</abbr> — Network Functions Virtualization</div>
+    <p>Replaces dedicated physical appliances (firewalls, load balancers, routers, WAN optimizers) with software running on commodity x86 servers or in cloud VMs. Enables faster deployment, elastic scaling, and lower CapEx. Cloud providers offer NFV-based services natively — e.g., virtual firewalls, virtual load balancers — as virtual appliances alongside IaaS instances.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title"><abbr title="Virtual Private Cloud">VPC</abbr> — Virtual Private Cloud</div>
+    <p>An isolated logical network within a public cloud provider's infrastructure. Defined by a <abbr title="Classless Inter-Domain Routing">CIDR</abbr> block (e.g., 10.0.0.0/16). Subdivided into subnets (public and private). Connectivity options: VPC peering (direct VPC-to-VPC), Transit Gateway (hub-and-spoke between many VPCs), VPN Gateway, or Direct Connect/ExpressRoute. <strong>AWS-specific:</strong> new AWS accounts include a <em>default VPC</em> in each region; other providers use different defaults and terminology.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Control</th><th>Type</th><th>Stateful?</th><th>Scope</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>AWS Security Group / Azure NSG</strong></td><td>Virtual firewall</td><td>Yes (stateful)</td><td>Per-instance / per-NIC</td><td>Return traffic automatically allowed; rules apply to specific resources</td></tr>
+        <tr><td><strong>AWS <abbr title="Network Access Control List">NACL</abbr> / OCI Security List</strong></td><td>Subnet ACL</td><td>No (stateless)</td><td>Per-subnet</td><td>Must explicitly allow both inbound AND outbound for each flow</td></tr>
+        <tr><td><strong>Internet Gateway</strong></td><td>VPC attachment</td><td>N/A</td><td>VPC-level</td><td>Bidirectional public internet access for resources with public IPs</td></tr>
+        <tr><td><strong>NAT Gateway / NAT Instance</strong></td><td>Address translation</td><td>Yes</td><td>VPC-level</td><td>Outbound-only internet for private subnet instances — no inbound initiated connections</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="callout callout-blue">
-    <div class="callout-title">KEY DISTINCTION</div>
-    <strong>What breaks when one device fails?</strong> <strong>Bus:</strong> a single break splits the network in two. <strong>Ring:</strong> one failed node breaks the whole loop (unless dual-ring). <strong>Star:</strong> only the failed node loses connectivity — the rest keep working. This is why star is the dominant LAN topology.
+    <div class="callout-title">Scalability vs Elasticity</div>
+    <p><strong>Scalability</strong> = the ability to add capacity (scale up/out) to handle more load. <strong>Elasticity</strong> = automatic <em>bidirectional</em> scaling — resources are provisioned when demand rises and de-provisioned when demand falls. Cloud infrastructure is elastic; traditional on-premises infrastructure is merely scalable (you provision for peak, waste capacity at off-peak).</p>
   </div>
 
-  <div class="callout callout-amber">
-    <div class="callout-title">Exam Traps</div>
-    <ul>
-      <li>Star topology = most common physical LAN topology today. The "hub" in the center of a star is now a <em>switch</em>.</li>
-      <li>Bus topology is obsolete but still tested. Know it uses terminators at both cable ends.</li>
-      <li>Full mesh connections: a network of 6 devices needs 6×5/2 = 15 connections.</li>
-      <li>SOHO routers combine router + switch + WAP — they span multiple OSI layers.</li>
-    </ul>
+  <div class="callout callout-blue">
+    <div class="callout-title">Multitenancy</div>
+    <p>Multiple customers (tenants) share the same physical infrastructure while being logically isolated from one another. Logical isolation is enforced through hypervisors, VPCs, VLANs, and IAM policies. Multitenancy is the economic foundation of public cloud — shared infrastructure reduces per-tenant cost.</p>
   </div>
 
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 1.3</div>
     <ul>
-      <li>Star = most common LAN; central device failure = total outage</li>
-      <li>Bus = legacy coax, terminators at ends; cable break = full outage</li>
-      <li>Full mesh connections = n(n-1)/2</li>
-      <li>WAN types: point-to-point, hub-and-spoke, full mesh, MPLS, SD-WAN</li>
-      <li>SAN = storage network (Fibre Channel / iSCSI), not a LAN</li>
+      <li>IaaS = VMs | PaaS = platforms | SaaS = apps (decreasing customer control)</li>
+      <li>NFV = physical appliances replaced by software on commodity x86 or cloud VMs</li>
+      <li>VPC = isolated logical cloud network; CIDR block, subnets, peering</li>
+      <li>Security Group/NSG = stateful, per-instance | NACL = stateless, per-subnet</li>
+      <li>Elasticity = auto bidirectional scaling (up AND down); Scalability = capacity to grow</li>
+      <li>Multitenancy = shared physical, logically isolated — foundation of public cloud economics</li>
     </ul>
   </div>
 
   <div class="ai-explain-area">
-    <button class="ai-explain-btn" data-topic="network topology types and WAN architectures">✦ Explain Differently</button>
+    <button class="ai-explain-btn" data-topic="cloud computing models IaaS PaaS SaaS and network virtualization concepts">✦ Explain Differently</button>
   </div>
 </div>
 
