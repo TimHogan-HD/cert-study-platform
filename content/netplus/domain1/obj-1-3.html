@@ -128,8 +128,13 @@
   <div class="callout callout-amber">
     <div class="callout-title">Exam Traps</div>
     <ul>
-      <li>IaaS = you manage OS and up. PaaS = you manage apps and data only. SaaS = nothing to manage.</li>
-      <li>SDN separates <strong>control plane</strong> from <strong>data plane</strong> — know both terms. Full SDN coverage is in section 1.8.</li>
+      <li>IaaS = you manage OS and up. PaaS = you manage apps and data only. SaaS = nothing to manage. Misidentifying which layer the customer owns is a common distractor.</li>
+      <li><strong>Shared responsibility ≠ shared equally</strong> — the provider always owns the physical data center and hypervisor layer; the customer always owns their data and access control.</li>
+      <li><strong>Security Group / NSG = stateful</strong> (return traffic auto-allowed) vs <strong>NACL = stateless</strong> (must explicitly allow inbound AND outbound). Stateful/stateless is a frequent exam distinction.</li>
+      <li><strong>Elasticity ≠ Scalability</strong> — elasticity is bidirectional (auto scale up AND down); scalability is capacity to grow. Cloud is elastic; traditional on-prem is merely scalable.</li>
+      <li><strong>VPC peering is not transitive</strong> — if VPC A peers with B and B peers with C, A cannot reach C without a direct peer or Transit Gateway.</li>
+      <li><strong>NFV replaces dedicated hardware</strong> with software on commodity x86 — it does not require specialized ASICs or proprietary hardware.</li>
+      <li>SDN separates <strong>control plane</strong> (decisions) from <strong>data plane</strong> (forwarding) via a centralized controller — see section 1.8 for full southbound/northbound API coverage.</li>
     </ul>
   </div>
 
