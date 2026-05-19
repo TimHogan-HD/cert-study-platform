@@ -1,7 +1,7 @@
 <div class="obj-section" id="obj-1-8">
   <div class="section-eyebrow">Objective 1.8</div>
   <h2>1.8 Modern Network Environments</h2>
-  <p>IPv6 addressing, software-defined networking, and modern WAN/security architectures are all tested on N10-009. This section covers IPv6 address types and shortening rules, then SDN, SD-WAN, VXLAN, ZTA, SASE, and IaC concepts.</p>
+  <p>IPv6 addressing, software-defined networking, and modern WAN/security architectures are all tested on N10-009. IPv4's 32-bit address space (~4.3 billion addresses) was formally exhausted by <abbr title="Internet Assigned Numbers Authority">IANA</abbr> in February 2011 — the primary driver behind IPv6 adoption. This section covers IPv6 address types and shortening rules, then SDN, SD-WAN, VXLAN, ZTA, SASE, and IaC concepts.</p>
 
   <h3>IPv4 vs IPv6 Comparison</h3>
   <div class="table-wrap">
@@ -13,6 +13,7 @@
         <tr><td>Address length</td><td>32 bits (4 octets)</td><td>128 bits (8 groups of 16 bits)</td></tr>
         <tr><td>Address format</td><td>Dotted decimal: 192.168.1.1</td><td>Hex colon notation: 2001:0db8:85a3::8a2e:0370:7334</td></tr>
         <tr><td>Total addresses</td><td>~4.3 billion</td><td>~3.4 × 10^38 (340 undecillion)</td></tr>
+        <tr><td>Address exhaustion</td><td>IANA pool exhausted Feb 2011; regional pools depleted 2011–2019</td><td>Not a concern — exhaustion is the primary reason IPv6 exists</td></tr>
         <tr><td>Broadcast</td><td>Yes</td><td>No broadcast — uses multicast instead</td></tr>
         <tr><td>Fragmentation</td><td>Routers can fragment</td><td>Only source endpoint fragments (Path MTU Discovery)</td></tr>
         <tr><td>Header</td><td>Variable length (20–60 bytes)</td><td>Fixed 40-byte header (simpler, faster)</td></tr>
@@ -325,7 +326,11 @@
 
   <div class="callout callout-blue">
     <div class="callout-title"><abbr title="Software-Defined Networking">SDN</abbr> — Software-Defined Networking</div>
-    <p><strong>SDN</strong> separates the <strong>control plane</strong> (the logic that decides where traffic goes) from the <strong>data plane</strong> (the hardware that actually forwards packets). The control plane moves to a centralized SDN controller; network devices become programmable forwarding elements. Full SDN architecture coverage is in Phase 6 of this section.</p>
+    <p><strong>SDN</strong> separates the <strong>control plane</strong> (the logic that decides where traffic goes) from the <strong>data plane</strong> (the hardware that actually forwards packets). The control plane moves to a centralized <strong>SDN controller</strong>; network devices become programmable forwarding elements.</p>
+    <ul>
+      <li><strong>Southbound API</strong> — interface between the SDN controller and the network devices (data plane). <strong><abbr title="OpenFlow">OpenFlow</abbr></strong> is the most common southbound protocol; it instructs switches on exactly how to forward each flow via flow tables.</li>
+      <li><strong>Northbound API</strong> — interface between the SDN controller and applications or orchestration systems above it. Typically a <abbr title="Representational State Transfer">REST</abbr> API that lets network apps request bandwidth, policies, or routing changes programmatically.</li>
+    </ul>
   </div>
 
   <div class="table-wrap">
@@ -362,6 +367,7 @@
         <tr><td><strong>Policy-based authentication</strong></td><td>Access decisions based on identity, device posture, location, and resource sensitivity — not just credentials</td></tr>
         <tr><td><strong>Least privilege</strong></td><td>Users and systems get minimum access required for their role — no standing admin rights</td></tr>
         <tr><td><strong>Microsegmentation</strong></td><td>Workloads isolated individually; lateral movement blocked even inside the network perimeter</td></tr>
+        <tr><td><strong>Explicit authorization</strong></td><td>Every access request requires continuous, per-session authorization — authenticated identity alone is not sufficient; permission must be granted per resource, per session</td></tr>
       </tbody>
     </table>
   </div>
@@ -394,6 +400,9 @@
         <tr><td><strong>Source / version control</strong></td><td>Network configs stored in Git; every change tracked, attributed, and reversible</td></tr>
         <tr><td><strong>Branching</strong></td><td>Separate development and production config branches; changes tested before merging</td></tr>
         <tr><td><strong>Conflict identification</strong></td><td>Version control surfaces merge conflicts when two engineers change the same config simultaneously</td></tr>
+        <tr><td><strong>Reusable tasks / roles</strong></td><td>Common config steps (hardening, VLAN setup, NTP) packaged as reusable modules or roles — applied consistently across many devices without duplication</td></tr>
+        <tr><td><strong>Dynamic inventories</strong></td><td>Target device list generated automatically from a <abbr title="Configuration Management Database">CMDB</abbr>, cloud API, or discovery tool — adapts as infrastructure scales without manual host-file updates</td></tr>
+        <tr><td><strong>Central repository</strong></td><td>Single authoritative source for all infrastructure configs and playbooks — prevents shadow configs and ensures every change goes through version control and peer review</td></tr>
       </tbody>
     </table>
   </div>
@@ -411,6 +420,9 @@
       <li><strong>ZTA = "never trust, always verify"</strong> — NIST SP 800-207 is the reference. Microsegmentation is a key ZTA mechanism.</li>
       <li><strong>SASE = SD-WAN + security stack</strong>; SSE = security only (no WAN). Both cloud-delivered.</li>
       <li>IaC detects <strong>configuration drift</strong> — when running config diverges from defined template/golden config.</li>
+      <li><strong>IPv4 exhaustion</strong> = IANA Feb 2011 — this is the primary reason IPv6 was developed. Know this framing for "why IPv6?" questions.</li>
+      <li><strong>SDN southbound API</strong> = controller ↔ network device (OpenFlow); <strong>northbound API</strong> = controller ↔ application (REST). South = down to hardware; north = up to software.</li>
+      <li><strong>ZTA: authorization ≠ authentication</strong> — you must be authorized per session/resource; passing authentication is not enough by itself.</li>
     </ul>
   </div>
 
@@ -424,12 +436,13 @@
       <li>No broadcast in IPv6 — multicast replaces it</li>
       <li>SLAAC = auto-config from Router Advertisement, no DHCP needed</li>
       <li>Dual stack = running IPv4 and IPv6 simultaneously on same interface</li>
-      <li>SDN = separates control plane (decisions) from data plane (forwarding) via centralized controller</li>
+      <li>SDN = separates control plane (decisions) from data plane (forwarding) via centralized controller | southbound (OpenFlow) = controller↔device | northbound (REST) = controller↔app</li>
       <li>SD-WAN = app-aware routing, transport-agnostic, centralized policy, ZTP</li>
       <li>VXLAN = L2 over L3, UDP 4789, 24-bit VNI (16M segments), RFC 7348</li>
-      <li>ZTA = never trust always verify, microsegmentation, least privilege; NIST 800-207</li>
+      <li>ZTA = never trust always verify, microsegmentation, least privilege, explicit per-session authorization; NIST 800-207</li>
       <li>SASE = SD-WAN + SWG + CASB + ZTNA + FWaaS | SSE = security-only subset</li>
-      <li>IaC = version-controlled configs, detects drift, enables ZTP/Golden Config</li>
+      <li>IaC = version-controlled configs, detects drift, reusable roles, dynamic inventories, central repository</li>
+      <li>IPv4 exhaustion (IANA Feb 2011) = primary driver for IPv6 adoption</li>
     </ul>
   </div>
 
