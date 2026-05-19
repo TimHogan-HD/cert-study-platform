@@ -1,6 +1,6 @@
 <div class="obj-section" id="obj-1-4">
   <div class="section-eyebrow">Objective 1.4</div>
-  <h2>Ports &amp; Protocols</h2>
+  <h2>1.4 Ports, Protocols &amp; Traffic Types</h2>
   <p>Memorize the port table. You <em>will</em> see port number questions on the exam. Focus especially on the ones with non-obvious transports or common confusions.</p>
 
   <div class="concept-visual">
@@ -94,6 +94,11 @@
         </colgroup>
         <thead><tr><th>Port</th><th>Protocol</th><th>Summary</th></tr></thead>
         <tbody>
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip SFTP row to see an example" role="button" aria-expanded="false">
+            <td>22</td>
+            <td><abbr title="SSH File Transfer Protocol — file transfer over an encrypted SSH session">SFTP</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">SSH File Transfer Protocol — rides over SSH on port 22. Always encrypted. Contrast: FTP (20/21) is cleartext.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An admin uses an SFTP client to securely copy config backups from a Linux server on port 22.</span></span></td>
+          </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip FTP data row to see an example" role="button" aria-expanded="false">
             <td>20</td>
             <td><abbr title="File Transfer Protocol — data channel">FTP</abbr> Data <span class="proto-transport">TCP</span></td>
@@ -135,8 +140,8 @@
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip SMTP submission row to see an example" role="button" aria-expanded="false">
             <td>587</td>
-            <td>SMTP Submission <span class="proto-transport">TCP</span></td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Authenticated client-to-server submission. Preferred over port 25 for sending.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Your mail app sends your message to your company mail server on port 587.</span></span></td>
+            <td><abbr title="SMTP Secure — authenticated client submission via STARTTLS">SMTPS</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Authenticated client-to-server submission via STARTTLS. Preferred over port 25 for client sending.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Your mail app sends your message to your company mail server on SMTPS port 587.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip POP3 row to see an example" role="button" aria-expanded="false">
             <td>110</td>
@@ -377,12 +382,51 @@
 
   </div>
 
+  <h3>IP Protocol Types</h3>
+  <p>These are <strong>Layer 3 IP protocol numbers</strong> — the value in the IP header's <em>Protocol</em> field that identifies which upper-layer protocol the payload belongs to. Distinct from TCP/UDP port numbers.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Protocol #</th><th>Name</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td><abbr title="Internet Control Message Protocol">ICMP</abbr></td><td>Diagnostic and error reporting — ping, traceroute. No ports; operates directly at Layer 3. Not routable as a transport.</td></tr>
+        <tr><td><strong>6</strong></td><td>TCP</td><td>Reliable, connection-oriented transport. 3-way handshake, sequencing, retransmission.</td></tr>
+        <tr><td><strong>17</strong></td><td>UDP</td><td>Fast, connectionless transport. No handshake, no guaranteed delivery.</td></tr>
+        <tr><td><strong>47</strong></td><td><abbr title="Generic Routing Encapsulation">GRE</abbr></td><td>Encapsulates other protocols inside IP tunnels. Used in site-to-site VPNs and PPTP. No built-in encryption.</td></tr>
+        <tr><td><strong>50</strong></td><td><abbr title="Encapsulating Security Payload">ESP</abbr></td><td>IPSec component — encrypts <em>and</em> authenticates the packet payload. Most commonly used IPSec mode.</td></tr>
+        <tr><td><strong>51</strong></td><td><abbr title="Authentication Header">AH</abbr></td><td>IPSec component — authenticates the packet but does <em>not</em> encrypt. AH alone ≠ confidentiality.</td></tr>
+        <tr><td><strong>UDP 500</strong></td><td><abbr title="Internet Key Exchange">IKE</abbr> / ISAKMP</td><td>IPSec key exchange and <abbr title="Security Association">SA</abbr> negotiation. Uses UDP port 500; UDP 4500 for NAT traversal.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Traffic Flow Types</h3>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Type</th><th>Direction</th><th>Description</th><th>Examples</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Unicast</strong></td><td>One → One</td><td>Single source to a single destination. The vast majority of internet traffic.</td><td>HTTP/HTTPS browsing, SSH sessions, email delivery</td></tr>
+        <tr><td><strong>Multicast</strong></td><td>One → Group</td><td>Single source to a subscribed group of receivers. Hosts join groups via <abbr title="Internet Group Management Protocol">IGMP</abbr>. Efficient — one stream, many recipients.</td><td>IPTV, OSPF/EIGRP routing updates (224.0.0.x), video conferencing</td></tr>
+        <tr><td><strong>Broadcast</strong></td><td>One → All</td><td>Single source to all hosts in the broadcast domain. Contained by routers — does not cross Layer 3 boundaries.</td><td>ARP requests, DHCP Discover</td></tr>
+        <tr><td><strong>Anycast</strong></td><td>One → Nearest</td><td>Multiple nodes share the same address; traffic routes to the topologically nearest one. Required in IPv6.</td><td>DNS root servers, CDN edge nodes, IPv6 router discovery</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Multicast vs Broadcast</div>
+    <p><strong>Broadcast</strong> goes to <em>every</em> host in the subnet whether they want it or not. <strong>Multicast</strong> goes only to hosts that have explicitly joined the group via IGMP. IPv6 eliminates broadcast entirely — it uses multicast and anycast instead.</p>
+  </div>
+
   <!-- Flashcard Deck -->
   <h3>Flashcard Drill: Ports</h3>
   <div class="flashcard-deck">
     <div class="deck-nav">
       <button class="prev-btn">← Prev</button>
-      <span class="card-counter">1 / 25</span>
+      <span class="card-counter">1 / 26</span>
       <button class="next-btn">Next →</button>
       <button class="shuffle-btn">Shuffle</button>
     </div>
@@ -395,6 +439,16 @@
           <div class="fc-port">Port 20 (data) / 21 (control)</div>
           <div class="fc-transport">TCP</div>
           <div class="fc-desc">20 = active mode data. 21 = commands/control. Passive mode negotiates ephemeral port over 21.</div>
+        </div>
+      </div>
+    </div>
+    <div class="flashcard" tabindex="0">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">SFTP<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-back">
+          <div class="fc-port">Port 22</div>
+          <div class="fc-transport">TCP</div>
+          <div class="fc-desc">SSH File Transfer Protocol — rides over SSH. Always encrypted. Contrast: FTP (20/21) is cleartext; FTPS adds TLS to FTP.</div>
         </div>
       </div>
     </div>
@@ -420,11 +474,11 @@
     </div>
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
-        <div class="flashcard-front">SMTP / Submission<div class="flashcard-hint">Click to flip</div></div>
+        <div class="flashcard-front">SMTP / SMTPS<div class="flashcard-hint">Click to flip</div></div>
         <div class="flashcard-back">
-          <div class="fc-port">Port 25 (SMTP) / 587 (Submission)</div>
+          <div class="fc-port">Port 25 (SMTP) / 587 (SMTPS)</div>
           <div class="fc-transport">TCP</div>
-          <div class="fc-desc">25 = server-to-server relay. 587 = authenticated client-to-server submission (preferred).</div>
+          <div class="fc-desc">25 = server-to-server relay. 587 = SMTPS — authenticated client submission via STARTTLS (preferred for clients).</div>
         </div>
       </div>
     </div>
@@ -648,6 +702,9 @@
       <li>SNMP trap direction: <strong>agent sends trap TO manager on port 162</strong>. Manager polls agent on 161.</li>
       <li>FTP has TWO ports: 20 (data) and 21 (control). Many questions test whether you know both.</li>
       <li>IMAP (143) keeps mail on server. POP3 (110) downloads and deletes — important for multi-device scenarios.</li>
+      <li>SFTP uses port <strong>22</strong> — it is SSH-based file transfer, not FTP. FTP is 20/21 and cleartext; SFTP is always encrypted.</li>
+      <li>ESP (50) encrypts <em>and</em> authenticates. AH (51) authenticates only — <strong>AH provides no confidentiality</strong>.</li>
+      <li>Broadcast is confined to the subnet — routers do not forward it. Multicast requires IGMP group membership. Anycast routes to the <em>nearest</em> node, not all nodes.</li>
     </ul>
   </div>
 
@@ -659,6 +716,9 @@
       <li>RADIUS: 1812/1813 UDP | TACACS+: 49 TCP (full encryption)</li>
       <li>RDP=3389 TCP | LDAP=389 / LDAPS=636 TCP | NTP=123 UDP | Syslog=514 UDP</li>
       <li>TCP = reliable, connection-oriented | UDP = fast, connectionless</li>
+      <li>SFTP=22 TCP (SSH-based, always encrypted) | FTP=20/21 TCP (cleartext) | SMTPS=587 TCP (STARTTLS)</li>
+      <li>IP protocol numbers: ICMP=1 | TCP=6 | UDP=17 | GRE=47 | ESP=50 | AH=51 | IKE=UDP 500</li>
+      <li>Unicast=one→one | Multicast=one→group (IGMP) | Broadcast=one→all-in-subnet | Anycast=one→nearest</li>
     </ul>
   </div>
 
