@@ -1,6 +1,6 @@
 <div class="obj-section" id="obj-1-5">
   <div class="section-eyebrow">Objective 1.5</div>
-  <h2>Cables &amp; Media Types</h2>
+  <h2>1.5 Cables, Media &amp; Transceivers</h2>
 
   <h3>Copper Twisted Pair (UTP/STP)</h3>
   <div class="table-wrap">
@@ -22,6 +22,43 @@
   <div class="callout callout-amber">
     <div class="callout-title">REMEMBER THIS</div>
     <strong>Cat 6A</strong> = 10 GbE up to the full 100m run. <strong>Cat 6</strong> = 10 GbE only to 55m. <strong>Cat 5e</strong> = 1 GbE max. If a question pairs "10 Gbps" with "100 meters", the answer is Cat 6A.
+  </div>
+
+  <h3>T568A &amp; T568B Wiring Standards</h3>
+  <p>TIA/EIA-568 defines two pinout patterns for RJ45 connectors. Either standard works — the choice must be <em>consistent</em> throughout the installation.</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Standard</th><th>Pins 1–2</th><th>Pins 3–6</th><th>When to Use</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>T568B</strong></td><td>Orange/White, Orange</td><td>Green/White, Green</td><td>De-facto commercial standard in North America — more widely deployed.</td></tr>
+        <tr><td><strong>T568A</strong></td><td>Green/White, Green</td><td>Orange/White, Orange</td><td>Required for U.S. government installations; common in some international standards.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-blue">
+    <div class="callout-title">Straight-Through vs Crossover Cables</div>
+    <p><strong>Straight-through:</strong> both ends use the same wiring standard. Connects unlike devices (PC → switch, switch → router). <strong>Crossover:</strong> one end T568A, the other T568B — connects like devices (switch → switch, PC → PC). Modern switches with <abbr title="Auto Medium-Dependent Interface Crossover">Auto-MDIX</abbr> detect and compensate, so crossover cables are rarely needed today.</p>
+  </div>
+
+  <h3>Coaxial Cable</h3>
+  <p>A central copper conductor surrounded by insulation, a braided metal shield, and an outer jacket. The shield reduces interference. Used for cable TV, legacy Ethernet, and CCTV.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Type</th><th>Impedance</th><th>Connector</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>RG-6</strong></td><td>75 Ω</td><td>F-type (threaded)</td><td>Cable TV, satellite dish, cable modem. Standard residential/commercial coax today.</td></tr>
+        <tr><td><strong>RG-59</strong></td><td>75 Ω</td><td>F-type or BNC</td><td>Older analog CCTV/video. Lower shielding than RG-6 — largely replaced.</td></tr>
+        <tr><td><strong>RG-58</strong></td><td>50 Ω</td><td>BNC (bayonet)</td><td>Legacy 10BASE2 (Thinnet) Ethernet. Rarely seen today.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-blue">
+    <div class="callout-title">F-type vs BNC</div>
+    <p><strong>F-type:</strong> threaded screw-on connector used on RG-6 for cable TV and satellite. <strong><abbr title="Bayonet Neill–Concelman">BNC</abbr>:</strong> quarter-turn bayonet lock used on RG-58 for legacy Ethernet and test equipment. Different connector always signals a different use case.</p>
   </div>
 
   <h3>Fiber Optic</h3>
@@ -74,6 +111,26 @@
     </table>
   </div>
 
+  <h3>802.3 Ethernet Standards</h3>
+  <p>IEEE 802.3 defines wired Ethernet. The naming convention is <strong>speed-BASE-medium</strong>: e.g., 1000BASE-T = 1 Gbps, baseband, twisted pair.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Standard</th><th>Speed</th><th>Medium</th><th>Max Distance</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>10BASE-T</strong></td><td>10 Mbps</td><td>Cat 3+ UTP</td><td>100m</td><td>Legacy Ethernet. Obsolete.</td></tr>
+        <tr><td><strong>100BASE-TX</strong></td><td>100 Mbps</td><td>Cat 5 UTP</td><td>100m</td><td>Fast Ethernet — still common in older installs.</td></tr>
+        <tr><td><strong>1000BASE-T</strong></td><td>1 Gbps</td><td>Cat 5e/6 UTP</td><td>100m</td><td>GbE over copper — the baseline for modern desktops.</td></tr>
+        <tr><td><strong>1000BASE-SX</strong></td><td>1 Gbps</td><td>MMF</td><td>550m</td><td>GbE, short-range multimode fiber.</td></tr>
+        <tr><td><strong>1000BASE-LX</strong></td><td>1 Gbps</td><td>SMF or MMF</td><td>5km (SMF)</td><td>GbE, long-range fiber — SMF for inter-building runs.</td></tr>
+        <tr><td><strong>10GBASE-T</strong></td><td>10 Gbps</td><td>Cat 6A UTP</td><td>100m</td><td>10GbE over copper — requires Cat 6A for full 100m run.</td></tr>
+        <tr><td><strong>10GBASE-SR</strong></td><td>10 Gbps</td><td>MMF</td><td>300m</td><td>10GbE short-range multimode. Very common in data centers.</td></tr>
+        <tr><td><strong>10GBASE-LR</strong></td><td>10 Gbps</td><td>SMF</td><td>10km</td><td>10GbE long-range single-mode.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3>Transceiver Types</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -86,6 +143,8 @@
         <tr><td><strong>QSFP</strong> (Quad SFP)</td><td>40 Gbps (4×10G)</td><td>Data center switches; can be broken out to 4×SFP+</td></tr>
         <tr><td><strong>QSFP28</strong></td><td>100 Gbps (4×25G)</td><td>Spine-leaf data center fabric; high-density 100GbE</td></tr>
         <tr><td><strong>GBIC</strong> (older)</td><td>Up to 1 Gbps</td><td>Legacy — replaced by SFP. Larger form factor.</td></tr>
+        <tr><td><strong>FC Transceiver</strong> (<abbr title="Fiber Channel">FC</abbr> SFP/SFP+)</td><td>8G / 16G / 32G FC</td><td>Storage Area Networks (<abbr title="Storage Area Network">SAN</abbr>). Carries Fiber Channel protocol — not Ethernet. Requires FC switch infrastructure.</td></tr>
+        <tr><td><strong>DAC Cable</strong> (<abbr title="Direct Attach Copper">DAC</abbr>)</td><td>10G / 25G / 40G / 100G</td><td>Twinaxial copper cable with SFP+/QSFP plugs pre-attached at both ends. ≤7m runs. No separate transceiver module — significantly cheaper than fiber for short data center links.</td></tr>
       </tbody>
     </table>
   </div>
@@ -123,8 +182,107 @@
       <li>Plenum cable is required in air-handling spaces — not just "expensive cable." Fire codes mandate it.</li>
       <li>SMF = yellow jacket (usually). MMF = orange (OM2/OM3) or aqua (OM4). But cable color can vary — know the specs.</li>
       <li>RJ45 ≠ RJ11. RJ45 = 8 pins (Ethernet). RJ11 = 6 pins (telephone).</li>
-      <li>LC connector is small (pushed by SFP ports). SC is square/larger. ST is round with a bayonet twist.</li>
+      <li>LC connector is small (used by SFP ports). SC is square/larger. ST is round with a bayonet twist.</li>
+      <li>T568B is the commercial standard. A <strong>crossover cable = T568A on one end, T568B on the other</strong>. Straight-through uses the same standard on both ends.</li>
+      <li>BNC = coaxial connector for legacy Ethernet (RG-58 / 10BASE2). F-type = coaxial for cable TV/satellite (RG-6). Different connectors, different use cases.</li>
+      <li>DAC (Direct Attach Copper) = twinaxial cable with SFP+ ends, max ~7 meters. Much cheaper than fiber for short data center runs.</li>
+      <li>802.11ac (Wi-Fi 5) is <strong>5 GHz only</strong>. 802.11n (Wi-Fi 4) was the first dual-band standard (2.4 GHz and 5 GHz).</li>
     </ul>
+  </div>
+
+  <h3>Wireless LAN Standards (802.11)</h3>
+  <div class="std-cards-wrap">
+    <div class="std-card s-a">
+      <div class="std-left">
+        <div class="std-name">802.11a</div>
+        <div class="std-wifi">Wi-Fi</div>
+        <div class="std-year">1999</div>
+      </div>
+      <div class="std-right">
+        <div class="std-field"><div class="std-field-label">Frequency</div><div class="std-field-val">5 GHz</div></div>
+        <div class="std-field"><div class="std-field-label">Max Speed</div><div class="std-field-val">54 Mbps</div></div>
+        <div class="std-field"><div class="std-field-label">Modulation</div><div class="std-field-val">OFDM</div></div>
+        <div class="std-notes">5 GHz only — less interference than 2.4 GHz but shorter range. Rarely deployed today.</div>
+      </div>
+    </div>
+    <div class="std-card s-b">
+      <div class="std-left">
+        <div class="std-name">802.11b</div>
+        <div class="std-wifi">Wi-Fi</div>
+        <div class="std-year">1999</div>
+      </div>
+      <div class="std-right">
+        <div class="std-field"><div class="std-field-label">Frequency</div><div class="std-field-val">2.4 GHz</div></div>
+        <div class="std-field"><div class="std-field-label">Max Speed</div><div class="std-field-val">11 Mbps</div></div>
+        <div class="std-field"><div class="std-field-label">Modulation</div><div class="std-field-val">DSSS</div></div>
+        <div class="std-notes">First widely adopted Wi-Fi standard. Slow; high interference at crowded 2.4 GHz band. Legacy only.</div>
+      </div>
+    </div>
+    <div class="std-card s-g">
+      <div class="std-left">
+        <div class="std-name">802.11g</div>
+        <div class="std-wifi">Wi-Fi</div>
+        <div class="std-year">2003</div>
+      </div>
+      <div class="std-right">
+        <div class="std-field"><div class="std-field-label">Frequency</div><div class="std-field-val">2.4 GHz</div></div>
+        <div class="std-field"><div class="std-field-label">Max Speed</div><div class="std-field-val">54 Mbps</div></div>
+        <div class="std-field"><div class="std-field-label">Modulation</div><div class="std-field-val">OFDM</div></div>
+        <div class="std-notes">Backward compatible with 802.11b. Improved speed at 2.4 GHz using OFDM. Still single-band.</div>
+      </div>
+    </div>
+    <div class="std-card s-n">
+      <div class="std-left">
+        <div class="std-name">802.11n</div>
+        <div class="std-wifi">Wi-Fi 4</div>
+        <div class="std-year">2009</div>
+      </div>
+      <div class="std-right">
+        <div class="std-field"><div class="std-field-label">Frequency</div><div class="std-field-val">2.4 / 5 GHz</div></div>
+        <div class="std-field"><div class="std-field-label">Max Speed</div><div class="std-field-val">600 Mbps</div></div>
+        <div class="std-field"><div class="std-field-label">Technology</div><div class="std-field-val">MIMO</div></div>
+        <div class="std-notes">First dual-band standard. Introduced MIMO (multiple antennas). Channel bonding up to 40 MHz.</div>
+      </div>
+    </div>
+    <div class="std-card s-ac">
+      <div class="std-left">
+        <div class="std-name">802.11ac</div>
+        <div class="std-wifi">Wi-Fi 5</div>
+        <div class="std-year">2013</div>
+      </div>
+      <div class="std-right">
+        <div class="std-field"><div class="std-field-label">Frequency</div><div class="std-field-val">5 GHz only</div></div>
+        <div class="std-field"><div class="std-field-label">Max Speed</div><div class="std-field-val">3.5 Gbps</div></div>
+        <div class="std-field"><div class="std-field-label">Technology</div><div class="std-field-val">MU-MIMO</div></div>
+        <div class="std-notes">5 GHz only — no 2.4 GHz. MU-MIMO allows simultaneous transmission to multiple clients. Up to 160 MHz channels, 8 spatial streams.</div>
+      </div>
+    </div>
+    <div class="std-card s-ax">
+      <div class="std-left">
+        <div class="std-name">802.11ax</div>
+        <div class="std-wifi">Wi-Fi 6 / 6E</div>
+        <div class="std-year">2019 / 2021</div>
+      </div>
+      <div class="std-right">
+        <div class="std-field"><div class="std-field-label">Frequency</div><div class="std-field-val">2.4 / 5 / 6 GHz</div></div>
+        <div class="std-field"><div class="std-field-label">Max Speed</div><div class="std-field-val">9.6 Gbps</div></div>
+        <div class="std-field"><div class="std-field-label">Technology</div><div class="std-field-val">OFDMA</div></div>
+        <div class="std-notes">Designed for high-density environments. OFDMA subdivides channels for simultaneous multi-client access. Wi-Fi 6E extends into the uncrowded 6 GHz band.</div>
+      </div>
+    </div>
+    <div class="std-card s-be">
+      <div class="std-left">
+        <div class="std-name">802.11be</div>
+        <div class="std-wifi">Wi-Fi 7</div>
+        <div class="std-year">2024</div>
+      </div>
+      <div class="std-right">
+        <div class="std-field"><div class="std-field-label">Frequency</div><div class="std-field-val">2.4 / 5 / 6 GHz</div></div>
+        <div class="std-field"><div class="std-field-label">Max Speed</div><div class="std-field-val">46 Gbps</div></div>
+        <div class="std-field"><div class="std-field-label">Technology</div><div class="std-field-val">MLO</div></div>
+        <div class="std-notes">Multi-Link Operation (MLO) uses multiple bands simultaneously. 320 MHz channels. Emerging standard — unlikely to appear heavily on current N10-009 exams.</div>
+      </div>
+    </div>
   </div>
 
   <h3>Wireless WAN and Satellite Transmission Media</h3>
@@ -162,6 +320,11 @@
       <li>SFP = 1G | SFP+ = 10G | QSFP = 40G | QSFP28 = 100G</li>
       <li>GEO satellite ≈ 600 ms RTT — disqualifies VoIP | LEO (Starlink) ≈ 20–40 ms — usable</li>
       <li>4G/5G cellular = valid SD-WAN transport option</li>
+      <li>T568B = commercial standard | T568A = government | Crossover = T568A↔T568B | Auto-MDIX eliminates need for crossover cables</li>
+      <li>RG-6 + F-type = cable TV/satellite | RG-58 + BNC = legacy 10BASE2 Ethernet</li>
+      <li>802.3: 100BASE-TX = 100M Cat5 | 1000BASE-T = 1G Cat5e | 10GBASE-T = 10G Cat6A | 10GBASE-SR = 10G MMF (300m)</li>
+      <li>DAC = twinaxial + SFP+ ends, ≤7m, no module needed | FC transceiver = SAN storage (not Ethernet)</li>
+      <li>802.11n = Wi-Fi 4, first dual-band | 802.11ac = Wi-Fi 5, 5 GHz only, MU-MIMO | 802.11ax = Wi-Fi 6, OFDMA | 802.11be = Wi-Fi 7, MLO</li>
     </ul>
   </div>
 
