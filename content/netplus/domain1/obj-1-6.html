@@ -593,6 +593,34 @@
 
   </div>
 
+  <h3>Traffic Flow Patterns</h3>
+  <p>Network architects classify data center traffic by its direction. The dominant flow pattern determines which architecture is the right fit.</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Pattern</th><th>Direction</th><th>Description</th><th>Optimized By</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>North-South</strong></td>
+          <td>Client ↔ Server</td>
+          <td>Traffic crossing the data center perimeter — users reaching servers, servers reaching the internet. Passes through firewalls, load balancers, and internet gateways.</td>
+          <td><strong>Three-tier</strong> — hierarchical design; traffic flows vertically through Core → Distribution → Access layers.</td>
+        </tr>
+        <tr>
+          <td><strong>East-West</strong></td>
+          <td>Server ↔ Server</td>
+          <td>Lateral traffic staying inside the data center — microservices calling each other, storage replication, VM live migration. Never leaves the fabric.</td>
+          <td><strong>Spine-Leaf</strong> — every leaf connects to every spine; any server reaches any other server in exactly two hops with equal latency.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-blue">
+    <div class="callout-title">Why the Shift to Spine-Leaf</div>
+    <p>Traditional three-tier was designed when the bottleneck was the internet uplink (north-south). Modern cloud-native and microservices applications generate <strong>far more east-west traffic</strong> — often 80 %+ of data center traffic is server-to-server. Spine-leaf exists to handle this: consistent two-hop latency regardless of which servers communicate, with horizontal scalability by simply adding spine or leaf switches.</p>
+  </div>
+
   <div class="callout callout-blue">
     <div class="callout-title">KEY DISTINCTION</div>
     <strong>What breaks when one device fails?</strong> <strong>Bus:</strong> a single break splits the network in two. <strong>Ring:</strong> one failed node breaks the whole loop (unless dual-ring). <strong>Star:</strong> only the failed node loses connectivity — the rest keep working. This is why star is the dominant LAN topology.
@@ -620,6 +648,8 @@
       <li>Three-tier: Core (speed) → Distribution (policy) → Access (endpoints)</li>
       <li>Collapsed Core: Core+Dist merged — two-tier design for smaller networks</li>
       <li>Spine-leaf: data center, every leaf connects to every spine, equal latency</li>
+      <li>North-south = client↔server traffic crossing the perimeter | East-west = server↔server lateral traffic inside the DC</li>
+      <li>Three-tier optimizes north-south | Spine-leaf optimizes east-west (2 hops, equal latency, horizontal scale)</li>
     </ul>
   </div>
 

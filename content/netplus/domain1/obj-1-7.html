@@ -1,6 +1,6 @@
 <div class="obj-section" id="obj-1-7">
   <div class="section-eyebrow">Objective 1.7</div>
-  <h2>IPv4 Addressing &amp; Subnetting</h2>
+  <h2>1.7 IPv4 Addressing &amp; Subnetting</h2>
   <p>Subnetting is guaranteed to appear on the exam — as a standard question AND as a PBQ. Master it.</p>
 
   <h3>What Is an IP Address?</h3>
@@ -151,9 +151,9 @@
   <h3>Special IPv4 Addresses</h3>
   <div class="special-addr-grid">
     <div class="special-addr-card special-addr-card-loopback">
-      <div class="special-addr-addr">127.0.0.1 <span class="addr-sub">(127.0.0.0/8)</span></div>
+      <div class="special-addr-addr">127.0.0.1 / <strong>localhost</strong> <span class="addr-sub">(127.0.0.0/8)</span></div>
       <div class="special-addr-name">Loopback</div>
-      <div class="special-addr-desc">Tests the local IP stack without sending traffic on the network. Never routed. <code>ping 127.0.0.1</code> always succeeds if TCP/IP is functioning.</div>
+      <div class="special-addr-desc">Tests the local IP stack without sending traffic on the network. Never routed. <code>ping 127.0.0.1</code> always succeeds if TCP/IP is functioning. <strong>localhost</strong> is the well-known hostname alias for 127.0.0.1 — defined in the OS hosts file on every platform (<code>ping localhost</code> = <code>ping 127.0.0.1</code>).</div>
     </div>
     <div class="special-addr-card special-addr-card-apipa">
       <div class="special-addr-addr">169.254.0.0/16</div>
@@ -655,6 +655,33 @@
 
   <div class="ss-exam-tip"><strong>Exam strategy:</strong> Spend the first 60–90 seconds writing both charts on scratch paper before answering a single question. Once they're on paper, every subnetting question is a lookup. The only math you do is +1 and −1. <strong>Practice until writing the charts takes under 60 seconds.</strong> The method works for /16–/30 — for /8 Class A questions, the magic number or powers of 2 is faster.</div>
 
+  <h3><abbr title="Variable Length Subnet Masking">VLSM</abbr> — Variable Length Subnet Masking</h3>
+  <p><strong>VLSM</strong> allows different subnets within the same network to use <em>different</em> prefix lengths — allocating only the address space each subnet actually needs. This is how modern networks are designed.</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th></th><th>FLSM (Fixed Length)</th><th>VLSM (Variable Length)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Subnet sizes</td><td>All subnets use the same prefix</td><td>Each subnet gets its own prefix sized to fit</td></tr>
+        <tr><td>Address efficiency</td><td>Wasteful — everything sized to the largest need</td><td>Efficient — small subnets for small segments</td></tr>
+        <tr><td>Routing protocol</td><td>Works with classful RIPv1 (no mask in updates)</td><td>Requires classless: RIPv2, OSPF, EIGRP, BGP</td></tr>
+        <tr><td>Example</td><td>All subnets /26 regardless of actual host count</td><td>/24 for 200 hosts, /27 for 25 hosts, /30 for P2P link</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-blue">
+    <div class="callout-title">VLSM in Practice — The PBQ Scenario</div>
+    <p>When a PBQ asks you to subnet 10.0.0.0/8 for departments needing 200, 100, 50, 25, and 10 hosts, you are applying VLSM. <strong>Always work largest to smallest</strong> to prevent ranges from overlapping:</p>
+    <ul>
+      <li>200 hosts → /24 (254 usable) → 10.0.0.0/24</li>
+      <li>100 hosts → /25 (126 usable) → 10.0.1.0/25</li>
+      <li>50 hosts → /26 (62 usable) → 10.0.1.128/26</li>
+      <li>25 hosts → /27 (30 usable) → 10.0.1.192/27</li>
+      <li>10 hosts → /28 (14 usable) → 10.0.1.224/28</li>
+    </ul>
+  </div>
+
   <h3>Guided Subnetting Practice</h3>
   <div id="subnet-guide" class="subnet-guide">
     <p class="sg-intro">Select a method below. A problem appears, and you work through each step — the guide explains what to do but won't calculate for you. Enter your answers, then check them at the end.</p>
@@ -707,6 +734,8 @@
       <li>169.254.x.x = APIPA — the device couldn't reach a DHCP server. Check DHCP service and connectivity.</li>
       <li>/30 = 4 addresses, 2 usable — most efficient for point-to-point links between routers.</li>
       <li>The question might give an IP like 192.168.10.77/28 and ask "what network is this host on?" — must find the network address by ANDing with the mask.</li>
+      <li><strong>localhost</strong> = 127.0.0.1. <code>ping localhost</code> and <code>ping 127.0.0.1</code> are identical — both test the local IP stack without sending traffic on the wire.</li>
+      <li>VLSM requires a <strong>classless</strong> routing protocol. RIPv1 is classful — it does not carry the subnet mask in its updates and therefore cannot support VLSM.</li>
     </ul>
   </div>
 
@@ -718,6 +747,8 @@
       <li>APIPA = 169.254.x.x = DHCP failed</li>
       <li>/24 = 254 hosts | /25 = 126 | /26 = 62 | /27 = 30 | /28 = 14 | /29 = 6 | /30 = 2</li>
       <li>Usable hosts = 2^(32-prefix) - 2</li>
+      <li>localhost = 127.0.0.1 (loopback alias) — always responds if TCP/IP stack is functional</li>
+      <li>VLSM = different subnet sizes within one network | requires classless routing (RIPv2, OSPF, EIGRP, BGP) | always subnet largest-to-smallest</li>
     </ul>
   </div>
 
