@@ -1,6 +1,23 @@
 <div class="obj-section" id="obj-3-2">
   <div class="section-eyebrow">Objective 3.2</div>
-  <h2>Network Monitoring Tools</h2>
+  <h2>3.2 Network Monitoring Technologies</h2>
+
+  <h3>Performance Metrics to Monitor</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Metric</th><th>Definition</th><th>Issue When…</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Bandwidth</strong></td><td>Maximum data rate of a link (bps)</td><td>Utilization consistently &gt;80% — risk of congestion</td></tr>
+        <tr><td><strong>Throughput</strong></td><td>Actual data transfer rate achieved</td><td>Far below bandwidth — indicates loss, errors, or protocol overhead</td></tr>
+        <tr><td><strong>Latency</strong></td><td>Time for data to travel from source to destination (ms)</td><td>&gt;150ms one-way — VoIP quality degrades; &gt;100ms round-trip may affect interactive apps</td></tr>
+        <tr><td><strong>Jitter</strong></td><td>Variation in packet delay (ms)</td><td>&gt;30ms — VoIP and streaming audio/video suffer</td></tr>
+        <tr><td><strong>Packet Loss</strong></td><td>Percentage of packets that don't arrive</td><td>&gt;1% — noticeable performance issues; &gt;5% VoIP is unusable</td></tr>
+        <tr><td><strong>Error Rate</strong></td><td>Ratio of errored frames to total frames</td><td>Any significant errors — indicates physical layer issues</td></tr>
+      </tbody>
+    </table>
+  </div>
 
   <h3>SNMP (Simple Network Management Protocol)</h3>
   <div class="table-wrap">
@@ -99,6 +116,7 @@
       <li>Syslog severity 0 = Emergency (most severe). 7 = Debug (least severe). <strong>Lower number = worse problem.</strong></li>
       <li>SNMPv3 is the only version with authentication AND encryption. SNMPv1/v2c = community strings (cleartext).</li>
       <li>NMS ≠ SIEM. NMS focuses on device performance. SIEM focuses on security events and correlation.</li>
+      <li>Bandwidth ≠ throughput. Bandwidth is the link capacity; throughput is what you actually get.</li>
     </ul>
   </div>
 
@@ -123,30 +141,6 @@
     </table>
   </div>
 
-  <h3>In-Band vs Out-of-Band Management</h3>
-  <div class="table-wrap">
-    <table class="table--comparison">
-      <thead>
-        <tr><th>Method</th><th>Path</th><th>Availability</th><th>Use Case</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>In-Band Management</strong></td><td>Shares production network (Ethernet, IP)</td><td>Unavailable if production network is down</td><td>Day-to-day SSH/HTTPS management via standard interfaces</td></tr>
-        <tr><td><strong>Out-of-Band (<abbr title="Out-of-Band">OOB</abbr>) Management</strong></td><td>Dedicated separate network (console server, cellular modem, management VLAN on separate NIC)</td><td>Available even when production interfaces are down</td><td>Emergency access during outages, firmware updates, initial config</td></tr>
-        <tr><td><strong>Console Port</strong></td><td>Direct serial/USB connection to device</td><td>Always available (no network dependency)</td><td>Ultimate OOB; initial configuration; recovery mode access</td></tr>
-        <tr><td><strong>Jump Box / Bastion Host</strong></td><td>Intermediate server in management network; admins SSH here first</td><td>Management network dependent</td><td>Centralized auditable choke point for all device access; logs all admin sessions</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-amber">
-    <div class="callout-title">⚠ OOB and Jump Box Exam Traps</div>
-    <ul>
-      <li><strong>OOB is the only way</strong> to access a device when production interfaces are completely unreachable.</li>
-      <li><strong>Console port = ultimate OOB</strong> — works even if the OS is partially broken or the NIC is failed.</li>
-      <li><strong>Jump box = bastion host</strong> — admins never SSH directly to production devices; all sessions go through the jump box for centralized logging and access control.</li>
-    </ul>
-  </div>
-
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 3.2</div>
     <ul>
@@ -156,16 +150,15 @@
       <li>NetFlow = active flow export | sFlow = passive sampling | IPFIX = open standard of NetFlow</li>
       <li>SIEM = security event correlation | NMS = network performance management</li>
       <li>SPAN = same switch | RSPAN = across switches (VLAN) | ERSPAN = across L3 (GRE) | TAP = passive hardware</li>
-      <li>OOB = separate path, works when production is down | Console = ultimate OOB</li>
-      <li>Jump box = bastion host; all admin access through it for centralized logging</li>
+      <li>Jitter = packet delay variation — bad for VoIP | Latency = total one-way delay</li>
     </ul>
   </div>
 
   <div class="ai-explain-area">
-    <button class="ai-explain-btn" data-topic="SNMP monitoring and syslog severity levels">✦ Explain Differently</button>
+    <button class="ai-explain-btn" data-topic="SNMP monitoring, syslog severity levels, and network performance metrics">✦ Explain Differently</button>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════
-     OBJ 3.3 — DHCP, DNS & NTP
+     OBJ 3.3 — Disaster Recovery Concepts
      ═══════════════════════════════════════════ -->
