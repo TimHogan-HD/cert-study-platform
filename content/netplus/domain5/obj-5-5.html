@@ -2,7 +2,7 @@
   <div class="section-eyebrow">Objective 5.5</div>
   <h2>5.5 Tools &amp; Protocols</h2>
 
-  <p>Official objective 5.5 is <em>"Given a scenario, use the appropriate tool or protocol to solve networking issues."</em> Most of the underlying material is already covered in 5.2 and 5.3 — this section indexes it by tool category.</p>
+  <p>Official objective 5.5 is <em>"Given a scenario, use the appropriate tool or protocol to solve networking issues."</em> Most of the underlying material is already covered in 5.2 and 5.3 — this section indexes it by tool category, and gives full treatment to the items 5.5 adds that appear nowhere else: the protocol analyzer, the speed tester, the discovery protocols, and the device <code>show</code> commands.</p>
 
   <div class="callout callout-blue">
     <div class="callout-title">Where the Tool Coverage Lives</div>
@@ -10,33 +10,293 @@
       <li><strong>5.2 Cable &amp; Physical Issues</strong> — physical tools: cable tester, <abbr title="Time-Domain Reflectometer">TDR</abbr>, <abbr title="Optical Time-Domain Reflectometer">OTDR</abbr>, toner probe (fox and hound), visual fault locator, multimeter, loopback plug.</li>
       <li><strong>5.3 Network Issues</strong> — command-line tools: <code>ping</code>, <code>traceroute</code>, <code>nslookup</code>, <code>netstat</code>, <code>arp</code>, <code>route</code>, <code>nmap</code>, <code>pathping</code>, <code>iperf3</code>, <code>tcpdump</code>, Wireshark, and the Cisco <code>show</code> commands.</li>
     </ul>
-    <p>Work through both sections when preparing for objective 5.5.</p>
+    <p>Work through both sections when preparing for objective 5.5. The entries below marked <em>→ 5.2</em> or <em>→ 5.3</em> are deliberately compact — the full treatment is in the linked section, not repeated here.</p>
   </div>
 
   <h3>Software Tools</h3>
-  <!-- GAP: protocol analyzer — see content remediation plan -->
-  <!-- GAP: command line — see content remediation plan -->
-  <!-- GAP: speed tester — see content remediation plan -->
+
+  <p>The command-line tools in the official 5.5 list are covered in depth in 5.3, including annotated output for each. Use this table to confirm you can pick the right tool from a scenario description; go to 5.3 for the output reading.</p>
+
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Tool</th><th>Picks it when the scenario says…</th><th>Depth</th></tr></thead>
+      <tbody>
+        <tr><td><code>ping</code></td><td>"Is the host reachable?" — Layer 3 reachability, packet loss, round-trip time</td><td>→ 5.3</td></tr>
+        <tr><td><code>traceroute</code> / <code>tracert</code></td><td>"Where along the path does it break?" — hop-by-hop path discovery</td><td>→ 5.3</td></tr>
+        <tr><td><code>nslookup</code></td><td>"Does the name resolve?" — DNS query from any OS</td><td>→ 5.3</td></tr>
+        <tr><td><code>dig</code></td><td>"Show me the full DNS answer" — TTL, authority section, Linux/Mac</td><td>→ 5.3</td></tr>
+        <tr><td><code>tcpdump</code></td><td>"Capture packets, no GUI available" — CLI capture on a Linux host or server</td><td>→ 5.3</td></tr>
+        <tr><td><code>netstat</code></td><td>"What is listening / connected on this host?" — sockets, ports, routing table</td><td>→ 5.3</td></tr>
+        <tr><td><code>ip</code> / <code>ifconfig</code> / <code>ipconfig</code></td><td>"What is this host's own configuration?" — address, mask, gateway, <abbr title="Domain Name System">DNS</abbr></td><td>→ 5.3</td></tr>
+        <tr><td><code>arp</code></td><td>"Which MAC is behind this IP?" — local ARP cache, duplicate-IP detection</td><td>→ 5.3</td></tr>
+        <tr><td>Nmap</td><td>"What hosts and ports exist on this subnet?" — discovery and port scanning</td><td>→ 5.3</td></tr>
+        <tr><td>Protocol analyzer</td><td>"Prove what is actually on the wire" — full packet decode</td><td>Below</td></tr>
+        <tr><td>Speed tester</td><td>"Are we getting the throughput we pay for?" — measured bandwidth</td><td>Below</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Protocol Analyzer</h4>
+
+  <p>A protocol analyzer captures frames off the wire and decodes them layer by layer. Wireshark is the reference implementation; <code>tcpdump</code> is the command-line equivalent that writes the same <code>.pcap</code> format. The analyzer is the tool of last resort in a troubleshooting flow — you reach for it when the symptom and the configuration disagree and you need to see what is actually being transmitted.</p>
+
+  <div class="callout callout-purple">
+    <div class="callout-title">Capture Filter vs. Display Filter — The Exam Distinction</div>
+    <p><strong>Capture filter</strong> is applied <em>before</em> packets are written. It uses <abbr title="Berkeley Packet Filter">BPF</abbr> syntax (<code>host 10.1.1.5</code>, <code>tcp port 443</code>) and is the same syntax <code>tcpdump</code> takes. Anything it excludes is gone permanently — it was never recorded.</p>
+    <p><strong>Display filter</strong> is applied <em>after</em> capture, to what is already saved. It uses Wireshark's own syntax (<code>ip.addr == 10.1.1.5</code>, <code>tcp.port == 443</code>, <code>http.response.code == 404</code>) and is non-destructive — clear the filter and the full capture is still there.</p>
+    <p><strong>Practical rule:</strong> capture filter on a busy link to keep the file manageable; display filter for everything else. If you are not sure what you are looking for yet, capture wide and filter on display.</p>
+  </div>
+
+  <p><strong>Following a stream</strong> reassembles one conversation out of the capture. In Wireshark, right-click a packet → <em>Follow</em> → <em>TCP Stream</em> shows the entire session's payload in order, with each side colour-coded, and automatically sets a display filter for that stream. This is how you read a plaintext protocol exchange — an HTTP request and response, an FTP login, an SMTP conversation — without reading packet-by-packet.</p>
+
+  <h4>Speed Tester</h4>
+
+  <p>A speed tester measures achieved throughput over a path. Browser-based testers (the ones an <abbr title="Internet Service Provider">ISP</abbr> or a user will run) open several parallel connections to a nearby internet server and report download, upload, and latency. CLI equivalents exist for headless hosts and for scripted/scheduled measurement.</p>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">Speed Tester vs. <code>iperf3</code> — What Each One Actually Measures</div>
+    <p><strong>Speed test to an internet server</strong> measures the <em>whole path</em>: the client NIC, the LAN, the firewall, the WAN link, the ISP's network, and the peering to the test server. A poor result proves something on that path is slow — it does not tell you which hop.</p>
+    <p><strong><code>iperf3</code></strong> measures <em>point-to-point between two endpoints you control</em>: you run <code>iperf3 -s</code> on one and <code>iperf3 -c</code> on the other. Because you choose both ends, you can bisect the path — test across the LAN first, then across the WAN, and the segment where the number drops is the bottleneck.</p>
+    <p><strong>Exam framing:</strong> "verify the circuit delivers the contracted bandwidth" → speed tester against the provider. "Isolate which segment is slow" → <code>iperf3</code> between controlled endpoints. See 5.3 for <code>iperf3</code> syntax.</p>
+  </div>
 
   <h3>Basic Networking Device Commands</h3>
-  <!-- GAP: show mac-address-table — see content remediation plan -->
-  <!-- GAP: show route — see content remediation plan -->
-  <!-- GAP: show interface — see content remediation plan -->
-  <!-- GAP: show config — see content remediation plan -->
-  <!-- GAP: show arp — see content remediation plan -->
-  <!-- GAP: show vlan — see content remediation plan -->
-  <!-- GAP: show power — see content remediation plan -->
+
+  <p>CompTIA lists these commands using generic names that do not always match Cisco <abbr title="Internetwork Operating System">IOS</abbr> syntax exactly. <strong>The exam will use CompTIA's spelling</strong> — learn that as the primary form, and know the Cisco variant you will actually type on a real device.</p>
+
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Official name</th><th>Common Cisco form</th><th>What it answers</th><th>Depth</th></tr></thead>
+      <tbody>
+        <tr><td><code>show mac-address-table</code></td><td><code>show mac address-table</code></td><td>Which port is this MAC on?</td><td>→ 5.3 PBQ</td></tr>
+        <tr><td><code>show arp</code></td><td><code>show ip arp</code></td><td>Which MAC belongs to this IP?</td><td>→ 5.3 PBQ</td></tr>
+        <tr><td><code>show vlan</code></td><td><code>show vlan brief</code></td><td>Which VLAN is this port in?</td><td>→ 5.3 PBQ</td></tr>
+        <tr><td><code>show route</code></td><td><code>show ip route</code></td><td>How does this device reach that network?</td><td>Below</td></tr>
+        <tr><td><code>show interface</code></td><td><code>show interfaces</code> / <code>show ip interface brief</code></td><td>Is the port up, at what speed/duplex, with what errors?</td><td>Below</td></tr>
+        <tr><td><code>show config</code></td><td><code>show running-config</code> / <code>show startup-config</code></td><td>What is this device actually configured to do?</td><td>Below</td></tr>
+        <tr><td><code>show power</code></td><td><code>show power inline</code></td><td>How much PoE is allocated and how much is left?</td><td>Below</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 5.5 lists <em>the seven command names in the left column</em>. The Cisco forms in the second column are not enumerated by CompTIA. They are shown because every terminal example on this platform — and every real device you will touch — uses the Cisco syntax, and a candidate who has only memorised one spelling will stall on the other.</p>
+
+  <h4><code>show route</code> — the routing table</h4>
+
+  <p>Answers "does this device know a path to the destination, and which one will it use?" Read it when traffic to one network fails while everything else works. The first letter on each line is the source of the route — <code>C</code> connected, <code>S</code> static, <code>O</code> OSPF, <code>D</code> EIGRP, <code>B</code> BGP — and <code>S*</code> marks the candidate default route.</p>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — show ip route</span></div>
+    <pre class="terminal-body"><span class="tpc">Router1#</span> show ip route
+Codes: C - connected, S - static, O - OSPF, D - EIGRP, B - BGP
+       * - candidate default
+
+<span class="ts">S*   0.0.0.0/0 [1/0] via 203.0.113.1</span>           <span class="tn">← default route present ✓</span>
+C    10.1.1.0/24 is directly connected, GigabitEthernet0/0
+O    <span class="th">10.1.20.0/24 [110/2] via 10.1.1.2</span>, GigabitEthernet0/0
+S    192.168.50.0/24 [1/0] via 10.1.1.9
+<span class="tn"># [110/2] = [administrative distance / metric]</span>
+<span class="tn"># No entry for a destination + no default route = packet is dropped</span></pre>
+  </div>
+
+  <h4><code>show interface</code> — port state and counters</h4>
+
+  <p>Answers "is this port working, and working correctly?" Two lines carry most of the diagnostic value: the up/down line and the error counters. Note the two halves of the status line mean different things — <em>interface is up</em> is Layer 1 (a signal is present) and <em>line protocol is up</em> is Layer 2 (keepalives are being exchanged). Layer 1 up with Layer 2 down points at an encapsulation or keepalive mismatch, not a cable fault.</p>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — show interfaces</span></div>
+    <pre class="terminal-body"><span class="tpc">Switch1#</span> show interfaces GigabitEthernet0/3
+<span class="ts">GigabitEthernet0/3 is up, line protocol is up</span>   <span class="tn">← L1 up, L2 up = healthy</span>
+  Hardware is Gigabit Ethernet, address is 0050.7966.6800
+  MTU 1500 bytes, BW 1000000 Kbit/sec
+  <span class="th">Full-duplex, 1000Mb/s</span>, media type is 10/100/1000BaseTX
+  5 minute input rate 4210000 bits/sec, 620 packets/sec
+     <span class="th">0 runts, 0 giants</span>, 0 throttles
+     <span class="th">0 CRC</span>, 0 frame, 0 overrun, 0 ignored
+     0 output errors, 0 collisions, 0 late collision
+<span class="tn"># Counters at zero and full-duplex = no physical or duplex problem here</span>
+<span class="tn"># Incrementing CRC + runts + late collisions = duplex mismatch — see 5.2</span>
+<span class="tn"># "up / line protocol down" = L1 fine, L2 broken (encapsulation, keepalives)</span></pre>
+  </div>
+
+  <h4><code>show config</code> — running vs. startup</h4>
+
+  <p>Answers "what is this device configured to do?" — and, critically, whether that configuration will survive a reboot. IOS keeps two copies: the <strong>running configuration</strong> in RAM, which is live and lost on power cycle, and the <strong>startup configuration</strong> in NVRAM, which is what loads at boot. An unsaved change works perfectly until the device restarts, at which point the fault reappears with no apparent cause.</p>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — running vs startup config</span></div>
+    <pre class="terminal-body"><span class="tpc">Switch1#</span> show running-config          <span class="tn">← live config in RAM</span>
+<span class="tpc">Switch1#</span> show startup-config          <span class="tn">← config in NVRAM, loads at boot</span>
+
+<span class="tpc">Switch1#</span> show running-config interface GigabitEthernet0/3
+interface GigabitEthernet0/3
+ <span class="th">switchport access vlan 10</span>
+ switchport mode access
+ spanning-tree portfast
+
+<span class="tpc">Switch1#</span> copy running-config startup-config   <span class="tn">← save, or the change dies at reboot</span>
+<span class="ts">[OK]</span>
+<span class="tn"># "The fix worked, then the problem came back after a reboot" = never saved</span></pre>
+  </div>
+
+  <h4><code>show power</code> — PoE allocation and budget</h4>
+
+  <p>Answers "why will this powered device not come up?" The switch has a fixed <abbr title="Power Sourcing Equipment">PSE</abbr> budget shared across all ports; once it is consumed, further devices simply do not power on even though the ports are physically fine. Compare <em>Available</em> against <em>Used</em> first, then check the per-port class. The budget mechanics and the 802.3af/at/bt power levels are covered in 2.4 — here the use is purely diagnostic.</p>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — show power inline</span></div>
+    <pre class="terminal-body"><span class="tpc">Switch1#</span> show power inline
+Module   Available     Used     Remaining
+              (Watts)  (Watts)  (Watts)
+------   ---------     ----     ---------
+1           <span class="th">370.0</span>      <span class="th">368.4</span>       <span class="te">1.6</span>      <span class="tn">← budget effectively exhausted</span>
+
+Interface Admin  Oper       Power  Device            Class
+--------- ------ ---------- ------ ----------------- -----
+Gi0/1     auto   on          15.4  IP Phone 7841     2
+Gi0/2     auto   on          30.0  AIR-AP2802I       4
+Gi0/9     auto   <span class="te">off</span>          0.0  <span class="te">n/a</span>               n/a   <span class="tn">← no power left to allocate</span>
+<span class="tn"># Port is fine; the switch has nothing left to give. Symptom looks like a dead port.</span>
+<span class="tn"># Fix: redistribute devices, raise the budget, or add an external injector</span></pre>
+  </div>
 
   <h3>Discovery Protocols</h3>
-  <!-- GAP: CDP (Cisco Discovery Protocol) — see content remediation plan -->
-  <!-- GAP: LLDP (Link Layer Discovery Protocol) — see content remediation plan -->
+
+  <p>Discovery protocols let a device tell you what is plugged into it. They are the fastest way to map an undocumented network and to answer "what is on the other end of this cable?" without walking the cable — which makes them a natural fit for the network-discovery workflow in 5.3.</p>
+
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead><tr><th>Attribute</th><th>CDP</th><th>LLDP</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Full name</strong></td><td><abbr title="Cisco Discovery Protocol">CDP</abbr> — Cisco Discovery Protocol</td><td><abbr title="Link Layer Discovery Protocol">LLDP</abbr> — Link Layer Discovery Protocol</td></tr>
+        <tr><td><strong>Standard</strong></td><td>Cisco proprietary</td><td>IEEE 802.1AB — vendor-neutral</td></tr>
+        <tr><td><strong>Layer</strong></td><td>Layer 2</td><td>Layer 2</td></tr>
+        <tr><td><strong>Advertisement interval</strong></td><td>60 seconds (default)</td><td>30 seconds (default)</td></tr>
+        <tr><td><strong>Holdtime</strong></td><td>180 seconds (default)</td><td>120 seconds (default)</td></tr>
+        <tr><td><strong>Scope</strong></td><td>Directly connected neighbours only</td><td>Directly connected neighbours only</td></tr>
+        <tr><td><strong>Use when</strong></td><td>All-Cisco environment</td><td>Mixed-vendor environment</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-title">The Operational Point That Gets Missed</div>
+    <p><strong>Discovery protocols show only <em>directly connected</em> devices.</strong> CDP and LLDP frames are consumed by the first device that receives them — a switch does not forward them onward. A router connected to a switch will therefore list <em>that switch</em> and nothing beyond it, no matter how many devices hang off it.</p>
+    <p>This is the most common real-world misunderstanding of these protocols and a likely exam item. To map a multi-switch topology you walk it hop by hop: run <code>show cdp neighbors</code>, connect to a neighbour it reports, run it again there, and repeat. Each run adds one tier.</p>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — show cdp neighbors</span></div>
+    <pre class="terminal-body"><span class="tpc">Switch1#</span> show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone
+
+Device ID    Local Intrfce   Holdtme  Capability  Platform    Port ID
+<span class="th">Switch2</span>      <span class="th">Gig 0/1</span>          142         S I     WS-C2960    <span class="th">Gig 0/24</span>
+Router1      Gig 0/2          173        R S I    ISR4331     Gig 0/0/0
+AP-Floor2    Gig 0/5          165         H       AIR-AP2802  Gig 0
+<span class="tn"># Device ID    = neighbour's hostname</span>
+<span class="tn"># Local Intrfce = MY port it is plugged into</span>
+<span class="tn"># Port ID      = THEIR port at the far end — the two are easy to transpose</span>
+<span class="tn"># Holdtme      = seconds left before the entry ages out (CDP default 180)</span>
+<span class="tn"># Only these three appear — anything behind Switch2 is invisible from here</span></pre>
+  </div>
+
+  <p><code>show cdp neighbors detail</code> adds the two fields the summary omits and that you usually actually want — the neighbour's <strong>IP address</strong> and its <strong>IOS version</strong>. The IP address is what makes this a discovery tool rather than a cabling report: it gives you the address to connect to for the next hop of the walk.</p>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — show cdp neighbors detail</span></div>
+    <pre class="terminal-body"><span class="tpc">Switch1#</span> show cdp neighbors detail
+-------------------------
+Device ID: <span class="th">Switch2</span>
+Entry address(es):
+  <span class="th">IP address: 10.1.1.22</span>                  <span class="tn">← not shown in the summary output</span>
+Platform: cisco WS-C2960,  Capabilities: Switch IGMP
+Interface: GigabitEthernet0/1,  Port ID (outgoing port): GigabitEthernet0/24
+Holdtime : 142 sec
+
+<span class="th">Version :</span>
+Cisco IOS Software, C2960 Software, Version 15.0(2)SE11    <span class="tn">← IOS version</span>
+<span class="tn"># Next step of the walk: ssh 10.1.1.22, then run show cdp neighbors there</span>
+
+<span class="tpc">Switch1#</span> show lldp neighbors        <span class="tn">← same idea, vendor-neutral</span>
+<span class="tpc">Switch1#</span> no cdp run                 <span class="tn">← disable globally (security hardening)</span></pre>
+  </div>
+
+  <div class="callout callout-purple">
+    <div class="callout-title">LLDP-MED Is Not LLDP</div>
+    <p><strong>LLDP-MED</strong> (<abbr title="Media Endpoint Discovery">MED</abbr> — Media Endpoint Discovery) is an <em>extension</em> to LLDP for voice and media endpoints, not a synonym for it. It adds what an IP phone specifically needs: automatic <strong>voice VLAN</strong> assignment, fine-grained <strong>PoE power negotiation</strong> beyond the basic classes, and <strong>location information</strong> for E911 emergency calling.</p>
+    <p>A switch can run plain LLDP and still not hand a phone its voice VLAN — that requires LLDP-MED. Treat "LLDP is enabled, so the phone will configure itself" as a false statement.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">Security Trade-off</div>
+    <p>Discovery protocols advertise hostname, platform model, IOS version, and port — useful to you, and equally useful to an attacker with access to a port. Common hardening practice is to disable them on untrusted or edge-facing interfaces (<code>no cdp enable</code> per interface, <code>no cdp run</code> globally) while leaving them on between infrastructure devices.</p>
+  </div>
 
   <h3>Hardware Tools</h3>
-  <!-- GAP: toner probe — see content remediation plan -->
-  <!-- GAP: cable tester — see content remediation plan -->
-  <!-- GAP: taps — see content remediation plan -->
-  <!-- GAP: Wi-Fi analyzer — see content remediation plan -->
-  <!-- GAP: visual fault locator — see content remediation plan -->
+
+  <p>Four of the five hardware tools in the official 5.5 list have full treatments in 5.2, including what each one outputs and which media it works on. They are indexed here for scenario matching only.</p>
+
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Tool</th><th>Reach for it when…</th><th>Depth</th></tr></thead>
+      <tbody>
+        <tr><td>Toner probe</td><td>You need to find which of 300 unlabelled cables in the closet is the one at the desk</td><td>→ 5.2</td></tr>
+        <tr><td>Cable tester</td><td>You suspect an open, a short, or a miswired pair in a copper run</td><td>→ 5.2</td></tr>
+        <tr><td>Wi-Fi analyzer</td><td>You need channel usage, signal strength, or co-channel interference data</td><td>→ 5.2, 5.4</td></tr>
+        <tr><td>Visual fault locator</td><td>You need to find a break or sharp bend in a fiber strand visually</td><td>→ 5.2</td></tr>
+        <tr><td>Taps</td><td>You need a full, reliable copy of traffic for capture or an IDS</td><td>Below</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Taps</h4>
+
+  <p>A <strong>network tap</strong> (Test Access Point) is a physical device inserted inline on a cable. It passes traffic through unchanged and copies every frame out a monitor port. Because the copying is done in hardware on the cable itself, the tap sees everything on that link and cannot be turned off, reconfigured, or overloaded by the switch.</p>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Tap vs. <abbr title="Switched Port Analyzer">SPAN</abbr> — Hardware vs. Software</div>
+    <p><strong>Tap — passive hardware.</strong> Inline on the physical cable. Copies at line rate including errored frames and Layer 1 problems. No switch CPU or backplane involvement. Requires physically breaking the link to install, so it means downtime to deploy and it monitors exactly one link.</p>
+    <p><strong>SPAN / port mirroring — switch software.</strong> Configured on the switch to copy traffic from chosen ports or VLANs to a monitor port. Deployed instantly with no cabling change and can mirror many sources. But it is a software function competing for switch resources: under heavy load the switch will <em>drop mirrored frames first</em>, it normally discards errored frames and other Layer 1 artefacts, and an attacker with switch access can disable it.</p>
+    <p><strong>Exam framing:</strong> "must not miss a single frame", "evidence-grade capture", or "cannot be disabled by an attacker" → tap. "Add monitoring without downtime" or "mirror several VLANs" → SPAN. Traffic mirroring configuration is covered in 3.2.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Exam Traps</div>
+    <ul>
+      <li>CDP and LLDP show <strong>directly connected devices only</strong> — a neighbour's neighbours are never listed. Walk the topology hop by hop.</li>
+      <li>LLDP-MED ≠ LLDP. Plain LLDP does not assign a voice VLAN; LLDP-MED does.</li>
+      <li>CDP is Cisco-proprietary; LLDP is IEEE 802.1AB. In a mixed-vendor scenario the answer is LLDP.</li>
+      <li>In <code>show cdp neighbors</code>, <em>Local Intrfce</em> is your port and <em>Port ID</em> is theirs — reading them backwards inverts the topology you draw.</li>
+      <li><code>show cdp neighbors</code> alone does not give you the neighbour's IP address — you need <code>detail</code>.</li>
+      <li>Capture filter discards permanently before writing; display filter only hides what is already saved.</li>
+      <li>Speed tester measures the whole path to the internet; <code>iperf3</code> measures between two endpoints you control. Only <code>iperf3</code> can bisect a path.</li>
+      <li>A tap is passive hardware and cannot drop frames under load; SPAN is a switch software feature and drops mirrored traffic first when the switch is busy.</li>
+      <li>"Interface is up, line protocol is down" is a Layer 2 problem — not a cable fault.</li>
+      <li>A fix that survives testing but disappears after a reboot was never written to the startup configuration.</li>
+      <li>A PoE port showing <em>off</em> with no fault may simply mean the switch budget is exhausted — check <code>show power inline</code> before replacing the port or the device.</li>
+      <li>CompTIA writes <code>show route</code> and <code>show power</code>; Cisco devices take <code>show ip route</code> and <code>show power inline</code>. Expect CompTIA's spelling in the question.</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-title">✓ Quick Recall</div>
+    <ul>
+      <li>CDP = Cisco proprietary, 60s advertisements, 180s holdtime. LLDP = IEEE 802.1AB, 30s / 120s.</li>
+      <li>Both show directly connected neighbours only.</li>
+      <li><code>show cdp neighbors detail</code> adds neighbour IP address + IOS version.</li>
+      <li>LLDP-MED = voice VLAN + PoE negotiation + E911 location for endpoints.</li>
+      <li>Capture filter = before capture (BPF syntax, destructive). Display filter = after capture (Wireshark syntax, reversible).</li>
+      <li>Follow TCP Stream = reassemble one full conversation.</li>
+      <li>Speed tester = whole path to the internet. <code>iperf3</code> = point-to-point between endpoints you control.</li>
+      <li>Tap = passive hardware, inline, sees everything. SPAN = switch software, flexible, drops first under load.</li>
+      <li><code>show route</code> → is there a path / a default route? <code>show interface</code> → up/up, speed, duplex, counters.</li>
+      <li><code>show config</code> → running (RAM, live) vs startup (NVRAM, boot). Unsaved = lost at reboot.</li>
+      <li><code>show power</code> → PoE available vs used; exhausted budget looks like a dead port.</li>
+      <li>Official vs Cisco: <code>show route</code>/<code>show ip route</code> · <code>show power</code>/<code>show power inline</code> · <code>show mac-address-table</code>/<code>show mac address-table</code>.</li>
+    </ul>
+  </div>
 
   <div class="ai-explain-area">
     <button class="ai-explain-btn" data-topic="choosing the right networking tool or protocol to diagnose an issue">✦ Explain Differently</button>
