@@ -40,7 +40,20 @@
     <p>A <strong>golden config</strong> is the approved, security-hardened baseline for a specific device class (e.g., "all branch routers"). It is version-controlled and serves as the reference state. <abbr title="Infrastructure as Code">IaC</abbr> tools (Ansible, Terraform, NAPALM) continuously compare running configs against the golden config and alert on or remediate <strong>configuration drift</strong> — unauthorized or accidental changes.</p>
   </div>
 
-  <!-- GAP: incident response plan — see content remediation plan -->
+  <h3>Incident Response Steps (Network Context)</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Step</th><th>Action</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>1. <strong>Identify</strong></td><td>Confirm the incident is real; gather evidence</td><td>Confirm traffic anomaly is not a false positive; capture packets</td></tr>
+        <tr><td>2. <strong>Contain</strong></td><td>Limit the blast radius; isolate affected systems</td><td>Shut down switch port; quarantine VLAN; block firewall rule</td></tr>
+        <tr><td>3. <strong>Eradicate</strong></td><td>Remove the threat</td><td>Delete malware, revoke credentials, patch vulnerability</td></tr>
+        <tr><td>4. <strong>Recover</strong></td><td>Restore normal operations safely</td><td>Reimage machine, restore from clean backup, re-enable port</td></tr>
+        <tr><td>5. <strong>Document / Lessons Learned</strong></td><td>Record everything; prevent recurrence</td><td>Update runbook, patch policy, firewall rules</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- GAP: business continuity plan — see content remediation plan -->
   <!-- GAP: system life cycle — see content remediation plan -->
   <!-- GAP: knowledge base article — see content remediation plan -->
@@ -73,6 +86,7 @@
       <li><strong>IPAM ≠ DHCP</strong> — DHCP dynamically assigns addresses; IPAM documents and manages the entire address space across all subnets.</li>
       <li><strong>EOL ≠ EOS</strong> — EOL = no longer sold; <strong>EOS = no longer patched</strong> (the security-critical date). A device can be EOL but still supported.</li>
       <li>Golden configuration = the approved baseline. Configuration drift = deviation from it.</li>
+      <li>Containment (isolate the host) comes before eradication — never skip directly to reimaging without containing first.</li>
     </ul>
   </div>
 
@@ -85,6 +99,7 @@
       <li>IPAM = IP address management (not DHCP) | Heat map = Wi-Fi RSSI visualization</li>
       <li>EOL = no longer sold | EOS = no longer patched (security risk date)</li>
       <li>Golden config = approved baseline; IaC tools detect drift against it</li>
+      <li>Incident response order: Identify → Contain → Eradicate → Recover → Document</li>
     </ul>
   </div>
 
