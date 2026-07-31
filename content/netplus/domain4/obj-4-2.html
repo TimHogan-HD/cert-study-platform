@@ -93,8 +93,8 @@
       </thead>
       <tbody>
         <tr>
-          <td><strong>Evil Twin (Rogue AP)</strong></td>
-          <td>Attacker creates a fake AP with the same SSID as legitimate network. Higher signal strength causes clients to connect to attacker's AP instead.</td>
+          <td><strong>Evil Twin</strong></td>
+          <td>Attacker stands up an AP impersonating a legitimate <abbr title="Service Set Identifier">SSID</abbr>. Higher signal strength causes clients to associate with the attacker's AP instead of the real one, putting the attacker on-path.</td>
           <td>WIDS (Wireless IDS), 802.1X authentication (not just PSK), user education</td>
         </tr>
         <tr>
@@ -116,6 +116,70 @@
     </table>
   </div>
 
+  <h3>Rogue Devices and Services</h3>
+  <p>A <strong>rogue</strong> device or service is one operating on the network without authorization. The category matters on its own because the cause is very often <em>not</em> an attacker — an employee plugging in a personal access point for better coverage, or a lab virtual machine left with a DHCP server enabled, produces the same exposure as a deliberate attack.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Rogue Type</th><th>What It Is</th><th>Impact</th><th>Mitigation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Rogue <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> Server</strong></td>
+          <td>An unauthorized device answering DHCP Discover messages. Because clients accept the <em>first</em> offer to arrive, a rogue server that responds faster than the legitimate one wins the race.</td>
+          <td>Clients receive a wrong default gateway or DNS server — which hands the rogue operator an on-path position — or simply lose connectivity.</td>
+          <td><strong>DHCP snooping</strong>: mark uplinks trusted, access ports untrusted; only trusted ports may send DHCP Offers.</td>
+        </tr>
+        <tr>
+          <td><strong>Rogue <abbr title="Access Point">AP</abbr></strong></td>
+          <td>An unauthorized access point attached to the corporate network — commonly a consumer AP added by a well-meaning employee, often with weak or no encryption.</td>
+          <td>Creates an unmonitored entry point that bypasses the perimeter entirely. The wired network is extended into the car park.</td>
+          <td>Wireless IDS/IPS scanning for unknown BSSIDs, 802.1X on wired ports, port security, periodic site surveys.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Rogue AP vs. Evil Twin — Know the Difference</div>
+    <p>These are related but not the same attack, and the exam separates them.</p>
+    <ul>
+      <li><strong>Rogue AP</strong> — an unauthorized AP <em>physically attached to your network</em>. Usually not malicious in origin; the danger is the unmanaged backdoor into the wired LAN. It does not need to impersonate anything.</li>
+      <li><strong>Evil Twin</strong> — an attacker-operated AP that <em>impersonates a legitimate SSID</em> to lure clients. It is typically <em>not</em> connected to your network at all; it only needs to look like it is.</li>
+    </ul>
+    <p>Shorthand: a rogue AP is a <strong>connection</strong> problem (something unauthorized joined the network), an evil twin is an <strong>impersonation</strong> problem (something is pretending to be the network). An evil twin run on hardware that is also plugged into the LAN is both at once.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-Reference — Objective 5.3</div>
+    <p>Rogue devices are treated here as attack categories. The <em>troubleshooting</em> side — the symptoms a rogue DHCP server produces, the <code>ipconfig /all</code> and <code>show ip dhcp snooping binding</code> output that identifies it, and how to trace the offending MAC back to a physical port — is covered in <strong>5.3 Network Troubleshooting</strong> under "Rogue DHCP Server Scenario."</p>
+  </div>
+
+  <h3>Malware</h3>
+  <p>Net+ tests <em>recognition</em> of malware types and their network impact, not malware analysis. Know what each one is in a sentence and what it looks like on the wire.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Type</th><th>What Distinguishes It</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Virus</strong></td><td>Attaches to a host file or program and requires a user to execute it in order to spread.</td></tr>
+        <tr><td><strong>Worm</strong></td><td>Self-replicating and self-propagating — spreads across the network with no user action, which is why worms drive traffic spikes.</td></tr>
+        <tr><td><strong>Trojan</strong></td><td>Disguised as legitimate software; the user installs it willingly. Often the delivery vehicle for a backdoor.</td></tr>
+        <tr><td><strong>Ransomware</strong></td><td>Encrypts data and demands payment. An availability attack — hence the CIA mapping to <em>A</em>.</td></tr>
+        <tr><td><strong>Spyware</strong></td><td>Covertly collects user activity and data, then exfiltrates it to the operator.</td></tr>
+        <tr><td><strong>Rootkit</strong></td><td>Hides at OS or firmware level to conceal its own presence and maintain privileged access. Hardest to detect from the host itself.</td></tr>
+        <tr><td><strong>Keylogger</strong></td><td>Records keystrokes to capture credentials. Exists as both software and inline hardware.</td></tr>
+        <tr><td><strong>Botnet Client</strong></td><td>Turns the host into a remotely controlled node used for DDoS, spam, or crypto-mining.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">The Net+ Angle — Network-Observable Indicators</div>
+    <p>You are far more likely to be asked how malware <em>presents on the network</em> than how it works internally. Watch for <strong>unusual outbound traffic</strong> to unfamiliar destinations, <strong>C2 beaconing</strong> (regular, low-volume connections on a fixed interval — the regularity is the tell), <strong>lateral movement</strong> as a host suddenly scans or authenticates to peers it never touched before, and <strong>traffic on unexpected ports</strong>. These are the same indicators of compromise covered in <strong>5.3 Network Troubleshooting</strong>, approached there from the diagnostic side.</p>
+  </div>
+
   <h3>Social Engineering Attacks</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -130,6 +194,7 @@
         <tr><td><strong>Tailgating / Piggybacking</strong></td><td>Attacker physically follows authorized person through a secured door without badging in.</td><td>Mantraps, security awareness, badge-only access with enforcement</td></tr>
         <tr><td><strong>Shoulder Surfing</strong></td><td>Observing someone's screen or keyboard to steal passwords or information.</td><td>Privacy screens, lock-screen policy, awareness training</td></tr>
         <tr><td><strong>Pretexting</strong></td><td>Creating a fabricated scenario (pretext) to manipulate victims into revealing information or taking actions.</td><td>Identity verification procedures, awareness training</td></tr>
+        <tr><td><strong>Dumpster Diving</strong></td><td>Recovering sensitive information from discarded physical materials — printed configs, network diagrams, password notes, decommissioned drives.</td><td>Shredding, secure disposal policy, locked and controlled waste collection, media sanitisation before disposal</td></tr>
       </tbody>
     </table>
   </div>
@@ -145,6 +210,8 @@
         <div class="match-item" data-match="atk-dns">DNS Poisoning</div>
         <div class="match-item" data-match="atk-evil">Evil Twin AP</div>
         <div class="match-item" data-match="atk-wps">WPS Attack</div>
+        <div class="match-item" data-match="atk-dhcp">Rogue DHCP Server</div>
+        <div class="match-item" data-match="atk-dumpster">Dumpster Diving</div>
       </div>
       <div class="match-col">
         <div class="match-target" data-id="atk-arp">Dynamic ARP Inspection (DAI)</div>
@@ -152,10 +219,12 @@
         <div class="match-target" data-id="atk-dns">DNSSEC</div>
         <div class="match-target" data-id="atk-evil">802.1X + WIDS</div>
         <div class="match-target" data-id="atk-wps">Disable WPS</div>
+        <div class="match-target" data-id="atk-dhcp">DHCP Snooping</div>
+        <div class="match-target" data-id="atk-dumpster">Shredding &amp; secure disposal</div>
       </div>
     </div>
     <div class="match-footer">
-      <span class="match-score">0 / 5 matched</span>
+      <span class="match-score">0 / 7 matched</span>
       <button class="reset-btn">Reset</button>
     </div>
   </div>
@@ -168,6 +237,10 @@
       <li>VLAN hopping via native VLAN (double-tagging) only works in ONE direction — attacker can send traffic to target VLAN but cannot receive responses directly.</li>
       <li>Evil twin = fake AP with same SSID. Deauth attack = forces disconnect. These are different attacks but often combined.</li>
       <li>DNSSEC = signs DNS records with cryptographic signatures. Prevents cache poisoning.</li>
+      <li><strong>Rogue AP ≠ evil twin.</strong> Rogue AP = unauthorized AP <em>attached to your network</em>, usually by an employee, no impersonation required. Evil twin = attacker-operated AP <em>impersonating your SSID</em>, usually not attached to your network at all.</li>
+      <li>Rogue DHCP wins because clients accept the <strong>first</strong> offer received — it does not need to defeat the real server, only to beat it.</li>
+      <li>Worm spreads by itself; a virus needs a user to run the infected file. If a scenario has no user interaction, it is a worm.</li>
+      <li>Ransomware attacks <strong>availability</strong>, not confidentiality — the data is still there, just inaccessible.</li>
     </ul>
   </div>
 
@@ -178,6 +251,12 @@
       <li>DNS poisoning → DNSSEC | Evil twin → 802.1X + WIDS | WPS → disable WPS</li>
       <li>DoS = single source | DDoS = botnet (distributed) | Amplification = spoofed source + large responses</li>
       <li>On-path (MITM) = attacker between two parties | ARP spoofing is a common on-path technique</li>
+      <li>Rogue AP = unauthorized AP on your network | Evil twin = attacker AP impersonating your SSID</li>
+      <li>Rogue DHCP → DHCP snooping (trusted vs. untrusted ports) | troubleshooting walkthrough in 5.3</li>
+      <li>Virus needs a user | Worm self-propagates | Trojan is disguised | Ransomware = availability attack</li>
+      <li>Rootkit hides itself | Keylogger captures credentials | Botnet client = remote-controlled host</li>
+      <li>Malware on the wire: odd outbound traffic, regular C2 beaconing, lateral movement, unexpected ports</li>
+      <li>Dumpster diving → shredding and secure disposal</li>
     </ul>
   </div>
 

@@ -40,6 +40,27 @@
     </table>
   </div>
 
+  <h3>Security Zones — Trusted vs. Untrusted</h3>
+  <p>Underneath any specific perimeter design sits a simple model: every firewall interface belongs to a <strong>zone</strong>, each zone carries a trust level, and rules are written <em>between zones</em> rather than between individual hosts.</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Zone</th><th>Trust Level</th><th>What Lives There</th><th>Default Posture</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Untrusted</strong></td><td>None</td><td>The internet, and any network outside your administrative control</td><td>Deny inbound by default; assume every host is hostile</td></tr>
+        <tr><td><strong>Screened Subnet (DMZ)</strong></td><td>Partial</td><td>Public-facing servers that must be reachable from outside — web, mail, external DNS</td><td>Reachable from untrusted on specific ports; tightly restricted toward trusted</td></tr>
+        <tr><td><strong>Trusted</strong></td><td>Full (traditionally)</td><td>The internal corporate LAN — workstations, file servers, internal applications</td><td>Never reachable directly from untrusted</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The controlling principle is that traffic flows from higher trust to lower trust more freely than the reverse. A trusted workstation may open a session to the internet; the internet may not open a session to that workstation. The screened subnet exists precisely because some servers must be reachable from the untrusted side — putting them in a middle zone means that compromising a public web server does not hand the attacker the internal LAN.</p>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Zero Trust Revises "Trusted"</div>
+    <p>This model assigns trust by <em>location</em> — being on the internal LAN implies trust. Zero trust (<strong>4.1 Security Concepts</strong>) rejects that assumption outright and re-verifies every request regardless of origin. Know the classic model, because zone terminology and firewall rule design are still built on it, but recognise that "internal, therefore trusted" is exactly what modern designs are moving away from.</p>
+  </div>
+
   <h3>DMZ Architecture</h3>
   <p>The DMZ (Demilitarized Zone) is a network segment between the internet and the internal network. Public-facing servers (web, email, DNS) sit in the DMZ — isolated from internal systems.</p>
   <ul>
@@ -54,6 +75,29 @@
     <p>CompTIA N10-009 uses the term <strong>"screened subnet"</strong> as the official synonym for DMZ. Both terms describe the same architecture: a network segment isolated between two firewall boundaries (or a three-legged firewall) where public-facing servers reside. If the exam uses "screened subnet," it means DMZ. The terms are interchangeable — know both.</p>
     <p>Exam trap: UTM = all-in-one for SMB; NGFW = enterprise-grade deep packet inspection. Both operate at L7, but NGFW is more capable and scales better for enterprise.</p>
   </div>
+
+  <h3>Device Hardening</h3>
+  <p>Hardening reduces the <strong>attack surface</strong> — the set of things an attacker can reach and attempt to use. Every live port and every listening service is one more thing that must be defended.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Technique</th><th>What to Do</th><th>Why It Matters</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Disable Unused Ports and Services</strong></td>
+          <td>Administratively shut down switch ports with nothing attached (<code>shutdown</code>), and turn off services a device does not need — Telnet, HTTP management, unused routing protocols, discovery protocols on edge-facing interfaces.</td>
+          <td>An enabled port in an unlocked meeting room is network access for anyone with a patch cable. A listening service is a remotely reachable target whether or not it is patched.</td>
+        </tr>
+        <tr>
+          <td><strong>Change Default Passwords</strong></td>
+          <td>Replace vendor default credentials on every device before it goes into service — switches, routers, APs, cameras, printers, IoT.</td>
+          <td>Defaults are published in vendor documentation and collected into public lists. This is among the most reliably successful real-world compromise vectors, and it requires no exploit at all.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The two are halves of the same idea: disabling unused ports and services closes the paths you are not using, and changing default passwords closes the one that ships open. Note that <em>disabling</em> an unused port is stronger than relying on port security alone — port security governs who may use an enabled port, whereas hardening removes the port from play entirely.</p>
 
   <h3>Switch Security Features</h3>
   <div class="table-wrap">
@@ -87,8 +131,19 @@
           <td>Requires authentication before granting network access at the port level. Port blocked until credentials verified by RADIUS.</td>
           <td>Unauthorized device access to the network</td>
         </tr>
+        <tr>
+          <td><strong>MAC Filtering</strong></td>
+          <td>Permits or denies devices by hardware address against an allowlist. Configured on switch ports, and very commonly on wireless APs.</td>
+          <td>Casual unauthorized devices only — see the caveat below</td>
+        </tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ MAC Filtering Is Not Access Control</div>
+    <p>A MAC address is neither secret nor verified. It travels in cleartext in the header of every single frame, so an attacker need only observe the wire or the air briefly to harvest a permitted address, then set their own interface to it with one command. Filtering also scales badly — every new or replaced device means a manual list edit.</p>
+    <p>MAC filtering raises the effort marginally and is <strong>not a substitute for 802.1X</strong>, which authenticates the device or user cryptographically before the port forwards any traffic at all. When a scenario asks for genuine network access control, the answer is 802.1X; MAC filtering is the distractor.</p>
   </div>
 
   <h3>ACLs (Access Control Lists)</h3>
@@ -113,6 +168,46 @@
   </div>
   <p>ACL placement: Standard ACLs = place close to destination. Extended ACLs = place close to source (filter early, reduce unnecessary traffic).</p>
 
+  <h3>URL Filtering vs. Content Filtering</h3>
+  <p>ACLs filter on addresses and ports. These two act higher up the stack, and what separates them is <em>what they examine</em>.</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Property</th><th>URL Filtering</th><th>Content Filtering</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Acts On</strong></td><td>The destination — the web address itself, or the category it belongs to</td><td>The payload — what the traffic is actually carrying</td></tr>
+        <tr><td><strong>Question It Answers</strong></td><td><em>Where is this going?</em></td><td><em>What is being carried?</em></td></tr>
+        <tr><td><strong>Typical Decision</strong></td><td>Block a category such as gambling or social media, or a specific named site, by reputation or classification</td><td>Block executables, scripts, or attachments by file type; strip malicious content; catch data matching a sensitive pattern</td></tr>
+        <tr><td><strong>Where It Runs</strong></td><td>NGFW, UTM, secure web gateway, proxy</td><td>NGFW, UTM, email security gateway, <abbr title="Data Loss Prevention">DLP</abbr></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>They are complementary rather than alternatives. URL filtering will not stop a malicious executable downloaded from an <em>allowed</em> site, and content filtering will not stop a user reaching a site that is simply against policy. Both need TLS inspection to be useful against HTTPS traffic, since neither can act on what it cannot decrypt.</p>
+
+  <h3>Key Management</h3>
+  <p>Encryption is only ever as strong as the handling of its keys. An attacker who obtains a key has no need to break the algorithm — <abbr title="Advanced Encryption Standard">AES</abbr>-256 with a leaked key provides exactly no confidentiality. Key management is the lifecycle that prevents that.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Stage</th><th>What It Involves</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Generation</strong></td><td>Create the key at sufficient length from a cryptographically secure random source. Predictable generation is a break regardless of key size.</td></tr>
+        <tr><td><strong>Distribution</strong></td><td>Deliver the key to the parties that need it without exposing it in transit — asymmetric key exchange, or an out-of-band channel.</td></tr>
+        <tr><td><strong>Storage</strong></td><td>Protect the key at rest in an <abbr title="Hardware Security Module">HSM</abbr>, <abbr title="Trusted Platform Module">TPM</abbr>, or dedicated key vault — never a config file or a source-code repository.</td></tr>
+        <tr><td><strong>Rotation</strong></td><td>Replace keys on a schedule. Limits how much data any single compromised key exposes, and shortens how long a stolen key stays useful.</td></tr>
+        <tr><td><strong>Revocation</strong></td><td>Invalidate a key ahead of its natural expiry when it is compromised or the holder's access ends. CRL and OCSP do this for certificates.</td></tr>
+        <tr><td><strong>Destruction</strong></td><td>Securely destroy retired keys and every copy, so that recovered media cannot be used to decrypt archived data.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-Reference — Objective 4.1</div>
+    <p>The <abbr title="Public Key Infrastructure">PKI</abbr> components implementing several of these stages — certificate authorities, CRL, and OCSP — are covered in <strong>4.1 Security Concepts</strong>. PKI is the most visible key-management system on a network: issuance is generation and distribution, expiry and reissue are rotation, and CRL/OCSP is revocation.</p>
+  </div>
+
   <h3>Other Security Tools</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -120,13 +215,12 @@
         <tr><th>Tool</th><th>Purpose</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Honeypot</strong></td><td>Decoy system designed to attract and detect attackers. Provides early warning and intelligence on attack techniques.</td></tr>
-        <tr><td><strong>Honeynet</strong></td><td>Network of honeypots simulating a complete environment. More realistic and provides more intelligence than single honeypot.</td></tr>
         <tr><td><strong>Vulnerability Scanner</strong></td><td>Automated tool that scans systems for known vulnerabilities without exploiting them. (e.g., Nessus, Qualys, OpenVAS).</td></tr>
         <tr><td><strong>Penetration Testing</strong></td><td>Authorized simulated attack to identify vulnerabilities that can actually be exploited. More comprehensive than scanning.</td></tr>
       </tbody>
     </table>
   </div>
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 4.3 lists <em>device hardening, network access control, key management, security rules,</em> and <em>zones</em>. <strong>Vulnerability scanners</strong> and <strong>penetration testing</strong> are enumerated under neither 4.3 nor 4.1. CompTIA states its lists are non-exhaustive, and the scanning-versus-pen-testing distinction is commonly tested and needed to answer assessment scenarios, so they are kept here.</p>
 
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
@@ -134,19 +228,27 @@
       <li>IDS = out-of-band (SPAN port), alerts only. IPS = inline, can block. This is the most important distinction.</li>
       <li>DHCP snooping must be configured BEFORE DAI — DAI uses the DHCP snooping binding table.</li>
       <li>Standard ACL = source IP only. Extended ACL = src + dst + port. Place standard ACLs near destination.</li>
-      <li>Honeypots are designed to attract attackers — they are NOT production systems. They intentionally have fake vulnerabilities.</li>
       <li>Vulnerability scanning ≠ penetration testing. Scanning finds potential vulnerabilities. Pen testing exploits them.</li>
+      <li><strong>MAC filtering is trivially spoofable</strong> — MACs are cleartext in every frame header. It is never the right answer when a question asks for real network access control; that is 802.1X.</li>
+      <li><strong>URL filtering acts on the destination; content filtering acts on the payload.</strong> "Where is it going?" vs. "What is it carrying?" Neither works on HTTPS without TLS inspection.</li>
+      <li>Disabling an unused port beats relying on port security for it — port security controls who may use an <em>enabled</em> port; disabling removes it entirely.</li>
+      <li>Key rotation limits exposure; key revocation handles compromise before expiry. A strong algorithm with a leaked key protects nothing.</li>
+      <li>Zones are about trust direction: higher trust may initiate toward lower trust, not the reverse. The screened subnet is the controlled middle, not a third "safe" network.</li>
     </ul>
   </div>
 
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 4.3</div>
     <ul>
+      <li><strong>Device hardening:</strong> disable unused ports and services | change default passwords before deployment</li>
+      <li><strong>NAC:</strong> 802.1X = real authentication | port security = MAC limits per port | MAC filtering = allowlist, spoofable</li>
+      <li><strong>Key management:</strong> generation → distribution → storage → rotation → revocation → destruction</li>
+      <li><strong>Security rules:</strong> ACLs = addresses/ports | URL filtering = destination | content filtering = payload</li>
+      <li><strong>Zones:</strong> untrusted (internet) → screened subnet/DMZ (public servers) → trusted (internal LAN)</li>
       <li>IDS = passive, SPAN port, alert only | IPS = inline, blocks traffic</li>
       <li>NGFW = DPI + IPS + app awareness + SSL inspection</li>
-      <li>Port security = MAC limits | DHCP snooping = rogue DHCP prevention | DAI = ARP protection (needs snooping)</li>
+      <li>DHCP snooping = rogue DHCP prevention | DAI = ARP protection (needs snooping first)</li>
       <li>Standard ACL = source IP only | Extended ACL = src+dst+port</li>
-      <li>DMZ = public-facing servers isolated between internet and internal network</li>
     </ul>
   </div>
 
