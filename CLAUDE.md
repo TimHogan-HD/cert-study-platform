@@ -69,13 +69,27 @@ Light mode is handled by `[data-theme="light"]` overrides on the same token name
 
 ### Interactive Components
 
-| Module | Init function | Triggered by |
-|--------|--------------|--------------|
-| `js/flashcards.js` | `initFlashcards()`, `initMatching()` | `.flashcard-deck`, `.matching-game` present in loaded fragment |
-| `js/subnetting.js` | `initSubnetting()` | `#subnet-form` present in loaded fragment |
-| `js/ai-explain.js` | `initAIExplain()` | `.ai-explain-btn` present in loaded fragment |
+**`initFragmentComponents(path)` (`js/nav.js:292`) is the single entry point.** It runs after every fragment swap and calls all of the following unconditionally. Adding a new interactive component means adding its `init*` call there — nothing self-registers.
 
-All `init*` functions are no-ops if their target elements are absent, so they're always called unconditionally after a fragment load.
+Only four components live in their own modules; **the other nine are defined inside `nav.js` itself**, which is easy to miss when looking for a component's implementation.
+
+| Init function | Defined in | Triggered by |
+|---|---|---|
+| `initSubnetting()` | `js/subnetting.js` | `#subnet-form` |
+| `initFlashcards(path)` | `js/flashcards.js` | `.flashcard-deck` / `.flashcard` |
+| `initMatching()` | `js/flashcards.js` | `.matching-game` |
+| `initAIExplain()` | `js/ai-explain.js` | `.ai-explain-btn` |
+| `initProtocolRefFlips()` | `js/nav.js` | `.protocol-ref-row` |
+| `initDayTabs()` | `js/nav.js` | `.cram-day-tabs` / `.cram-day-btn` |
+| `initChecklist()` | `js/nav.js` | `.checklist[data-store]` |
+| `initBinaryBits()` | `js/nav.js` | `#bit-grid`, `#bit-total`, `.binary-bit-cell` |
+| `initIDSIPSFlips()` | `js/nav.js` | `.ids-ips-flip-card` (delegates to `initFlipCards`) |
+| `initOSIFlips()` | `js/nav.js` | `.osi-flip-card` |
+| `initArchFlips()` | `js/nav.js` | `.arch-flip-card` |
+| `initFlipCards(sel, hintSel)` | `js/nav.js` | generic flip helper; called directly for `.flip-card` |
+| `initGuidedSubnetting()` | `js/nav.js` | `#subnet-guide`, `#sg-body` |
+
+All `init*` functions are no-ops if their target elements are absent, so they're always called unconditionally after a fragment load. **If you edit a fragment containing any selector above, re-test that component in a browser** — a broken handler is invisible in a text diff.
 
 ### State Persistence
 
@@ -86,6 +100,9 @@ All `init*` functions are no-ops if their target elements are absent, so they're
 | `csp-ai-calls` | localStorage | rate-limit counter (max 20) |
 | `csp-accordion-{path}-{idx}` | sessionStorage | accordion open states |
 | `csp-deck-{path}-{deckIdx}` | sessionStorage | flashcard position |
+| whatever `data-store` says | localStorage | checklist tick state, as a JSON object |
+
+**Note the exception:** `.checklist[data-store]` uses its `data-store` attribute value verbatim as the storage key, so these keys are *not* `csp-` prefixed (`az900v2-cloud`, `az900v2-arch`, …). New checklists should keep following the existing `data-store` values in their own content area rather than inventing a parallel scheme.
 
 ### API (`api/explain.js`)
 
@@ -119,16 +136,29 @@ Vercel serverless function. Accepts `POST /api/explain` with JSON body `{ topic:
 
   The note explains why content **stays** — it is never a justification for deleting content. Say what the objective does list, name what is not enumerated, and give the reason for including it. Do not restyle the component per-page; it is deliberately quieter than a `.callout`.
 
-## Working From Handoff Plans
+## Finishing Work
 
-Content remediation is driven by handoff documents. **They have been wrong repeatedly, in a consistent direction:** they infer gaps by comparing an objectives list against older notes instead of reading the live files, so they call for content that already exists.
+**Every unit of work ends with the same sequence. Run it automatically — do not stop to ask whether to review, and do not stop to ask whether to merge.**
 
-- **Audit the live file before implementing any plan item — including items the plan states are missing.** Three consecutive revisions of the Domain 1 plan specified adding content that was already present: cellular, satellite, RJ11, NAT64, and in v3 the IPv4 address-class table, which the plan described as lacking Class E when all five classes were already there.
-- **If an item turns out to be already covered, stop and report rather than duplicating it.** Extend what exists. Building a parallel component next to an equivalent one is the systemic failure mode on this platform — it is what produced the aggregate/per-objective drift that had to be cleaned up.
-- **A grep hit is not coverage.** Matches are often `<!-- GAP: -->` placeholder comments. Extract the surrounding context and read it before concluding a topic is present or absent.
-- **Cross-reference, do not copy.** The official objectives deliberately list the same topic under several objectives. Choose one authoritative location and point at it from the others.
-- **Never reintroduce** `data-exam-weight`, `exam-star`, or the aggregate `content/netplus/domainN.html` files. All three were deliberately removed.
-- **Depth is proportional to exam weight** — Domain 5 is 24% of the exam, Domain 4 is 14%.
+1. **Self-review the diff.** `git fetch origin main && git diff origin/main...HEAD`. Read every hunk as if it were someone else's pull request. Confirm the change is scoped to what was actually asked, that nothing unrelated crept in, and that there are no debug leftovers, stale comments, or duplicated content.
+2. **Verify** — work the Verification checklist below. Render the affected routes, check both themes and ~390px, re-test any interactive component whose fragment you touched, balance-check the tags.
+3. **Fix whatever the review and verification turned up, then re-review the result.** Never carry a known defect into a PR.
+4. **Commit and push** to the working branch.
+5. **Open a PR** if one is not already open for that branch.
+6. **Wait for CI to be green.**
+7. **Double-check.** Re-read the pushed diff one last time against the original request. Confirm every acceptance criterion is actually met, and that the PR body describes what shipped rather than what was planned.
+8. **Merge to `main`,** then report what shipped.
+
+Steps 1–3 are a real review, not a formality: the two defects that reached a PR in this repo — a flex container that shattered a paragraph into columns, and a plan item implemented against a stale description of the file — would both have been caught by reading the diff and rendering the page.
+
+### Stop and ask instead of merging when
+
+Ordinary content and component work merges automatically. Hold and ask first only if:
+
+- CI is red, or a render check shows a regression you cannot confidently fix
+- The change **deletes content, renames files, or changes routes** — the structural layout is settled and reversing a bad route change is expensive
+- The review surfaced a decision that is genuinely the user's: a handoff-plan item that appears wrong, a scope question, or contradictory sources
+- The change touches credential or CORS handling in `api/explain.js`
 
 ## Verification
 
@@ -141,3 +171,24 @@ There is no build, lint, or test step, so nothing catches a mistake automaticall
 - **Diff against `origin/main`, not `main`.** The local `main` ref goes stale fast; `git diff main...HEAD` can make an 8-line change look like a 5,000-line rewrite. Use `git fetch origin main && git diff origin/main...HEAD`.
 - **Check `study-plans.html` when content moves between objectives.** It contains `inline-nav` links into specific objective pages. These will not 404 — they will silently land on the wrong page.
 - **Non-`main` branches do not trigger Vercel auto-deploy.** Check the deployment timestamp in the Vercel dashboard before concluding a change did not take effect.
+
+## Working From Handoff Plans
+
+Content remediation is driven by handoff documents. **They have been wrong repeatedly, in a consistent direction:** they infer gaps by comparing an objectives list against older notes instead of reading the live files, so they call for content that already exists.
+
+- **Audit the live file before implementing any plan item — including items the plan states are missing.** Three consecutive revisions of the Domain 1 plan specified adding content that was already present: cellular, satellite, RJ11, NAT64, and in v3 the IPv4 address-class table, which the plan described as lacking Class E when all five classes were already there.
+- **If an item turns out to be already covered, stop and report rather than duplicating it.** Extend what exists. Building a parallel component next to an equivalent one is the systemic failure mode on this platform — it is what produced the aggregate/per-objective drift that had to be cleaned up.
+- **A grep hit is not coverage.** Matches are often `<!-- GAP: -->` placeholder comments. Extract the surrounding context and read it before concluding a topic is present or absent.
+- **Cross-reference, do not copy.** The official objectives deliberately list the same topic under several objectives. Choose one authoritative location and point at it from the others.
+- **Never reintroduce** `data-exam-weight`, `exam-star`, or the aggregate `content/netplus/domainN.html` files. All three were deliberately removed.
+- **Depth is proportional to exam weight** — Domain 5 is 24% of the exam, Domain 4 is 14%.
+
+**Remaining work is marked in place.** `<!-- GAP: topic — see content remediation plan -->` comments sit at the exact insertion point for content that is genuinely missing. They are the authoritative to-do list, and they are the reason a plain grep gives false positives — the topic name appears in the file while the content does not. Current placement:
+
+| File | GAPs | Topics |
+|---|---|---|
+| `content/netplus/domain5/obj-5-5.html` | 17 | `show` commands, CDP/LLDP, protocol analyzer, cable tester, toner probe, Wi-Fi analyzer, taps, visual fault locator |
+| `content/netplus/domain3/obj-3-1.html` | 5 | business continuity plan, system life cycle, knowledge base article, MOU, clean-desk policy |
+| `content/netplus/domain3/obj-3-3.html` | 3 | active-active vs active-passive, tabletop exercises, validation tests |
+
+Delete a GAP comment only when you have replaced it with the content it names.
