@@ -63,6 +63,10 @@ Light mode is handled by `[data-theme="light"]` overrides on the same token name
 
 **`css/components.css`** contains all component styles. New visual components (diagrams, interactive widgets) are appended here. Use `data-*` attribute selectors for variants (e.g., `[data-layer="7"]`, `[data-group="web"]`) to avoid proliferating modifier classes.
 
+**Never put `display: flex` on a container whose content is prose.** Flex promotes every contiguous text run *and* every inline element (`<strong>`, `<abbr>`, `<code>`) to its own flex item, so a sentence renders as vertical strips. This shipped once in `.note-nonexhaustive` and was invisible in the diff. Use normal inline flow with an `inline-block` lead-in badge instead. Flex is for laying out block children — cards, rows, grids — not for putting a label beside a sentence.
+
+**Check who else uses a class before changing it.** Run `grep -rl 'class-name' content/` first. `obj-1-5.html` and `obj-2-3.html` share `.std-*`, so restyling either breaks the other. Changing a grid component's `grid-template-columns` is a three-part edit: the header rule, the row rule, **and** the mobile `@media` block — plus every row's cell count in the markup. A mismatch between cell count and column count silently reflows the whole table.
+
 ### Interactive Components
 
 | Module | Init function | Triggered by |
@@ -114,3 +118,26 @@ Vercel serverless function. Accepts `POST /api/explain` with JSON body `{ topic:
   ```
 
   The note explains why content **stays** — it is never a justification for deleting content. Say what the objective does list, name what is not enumerated, and give the reason for including it. Do not restyle the component per-page; it is deliberately quieter than a `.callout`.
+
+## Working From Handoff Plans
+
+Content remediation is driven by handoff documents. **They have been wrong repeatedly, in a consistent direction:** they infer gaps by comparing an objectives list against older notes instead of reading the live files, so they call for content that already exists.
+
+- **Audit the live file before implementing any plan item — including items the plan states are missing.** Three consecutive revisions of the Domain 1 plan specified adding content that was already present: cellular, satellite, RJ11, NAT64, and in v3 the IPv4 address-class table, which the plan described as lacking Class E when all five classes were already there.
+- **If an item turns out to be already covered, stop and report rather than duplicating it.** Extend what exists. Building a parallel component next to an equivalent one is the systemic failure mode on this platform — it is what produced the aggregate/per-objective drift that had to be cleaned up.
+- **A grep hit is not coverage.** Matches are often `<!-- GAP: -->` placeholder comments. Extract the surrounding context and read it before concluding a topic is present or absent.
+- **Cross-reference, do not copy.** The official objectives deliberately list the same topic under several objectives. Choose one authoritative location and point at it from the others.
+- **Never reintroduce** `data-exam-weight`, `exam-star`, or the aggregate `content/netplus/domainN.html` files. All three were deliberately removed.
+- **Depth is proportional to exam weight** — Domain 5 is 24% of the exam, Domain 4 is 14%.
+
+## Verification
+
+There is no build, lint, or test step, so nothing catches a mistake automatically. Before committing:
+
+- **Render the page in a browser — do not review by diff alone.** Serve the repo, open the affected route, and look at it. Layout bugs (broken flex, mismatched grid columns, wrapped table rows) do not appear in a text diff. A headless screenshot via Playwright works well when no display is available; Chromium is preinstalled in the Claude Code web environment at `/opt/pw-browsers` — never run `playwright install`.
+- **Check both themes and mobile.** Toggle `data-theme` between `dark` and `light` on `<html>`, and check at ~390px width. Confirm readable text resolves to `--text` in both themes, not `--muted` or `--hint`.
+- **Re-test interactive components after editing their file.** The DNS matching game (`obj-3-4`), the attack-mitigation matching game (`obj-4-2`), and every flashcard deck are wired up after each fragment swap. A broken game is easy to miss in a diff.
+- **Balance-check the fragment.** `<div>`/`</div>` and `<p>`/`</p>` counts must match — an unbalanced fragment corrupts the whole page once injected.
+- **Diff against `origin/main`, not `main`.** The local `main` ref goes stale fast; `git diff main...HEAD` can make an 8-line change look like a 5,000-line rewrite. Use `git fetch origin main && git diff origin/main...HEAD`.
+- **Check `study-plans.html` when content moves between objectives.** It contains `inline-nav` links into specific objective pages. These will not 404 — they will silently land on the wrong page.
+- **Non-`main` branches do not trigger Vercel auto-deploy.** Check the deployment timestamp in the Vercel dashboard before concluding a change did not take effect.
