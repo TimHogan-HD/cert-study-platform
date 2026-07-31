@@ -368,7 +368,7 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
       <li><strong>A hosts file entry overrides DNS.</strong> The client checks cache, then hosts file, then DNS — so one machine resolving a name "wrong" while others are fine is a hosts file problem, not a DNS server problem.</li>
       <li><strong>SLAAC is stateless</strong> — the router advertises a /64 prefix and the host builds its own address. Nothing tracks the assignment. Only <em>stateful</em> DHCPv6 keeps a record of who has which address.</li>
       <li>DHCPv6 uses UDP 546/547, not the IPv4 DHCP ports 67/68.</li>
-      <li>Zone transfers use <strong>TCP</strong> 53; ordinary queries use UDP 53. A secondary is still authoritative — "non-authoritative" means the answer came from a resolver's cache, not from a secondary.</li>
+      <li><strong>A secondary name server is still authoritative.</strong> "Non-authoritative" means the answer came from a resolver's cache — not that it came from a secondary rather than the primary.</li>
     </ul>
   </div>
 
