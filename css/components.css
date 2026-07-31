@@ -2502,10 +2502,11 @@ td code { font-size: 0.8rem; }
                .flip- .wsec- .ant- .std-card- .mdf- .dc-
 ══════════════════════════════════════════════════════════════ */
 
-/* ── AD vs Metric decision flow ─────────────────────────────── */
+/* ── Route selection decision flow ──────────────────────────── */
 .decision-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
 .decision-box { border-radius: 8px; padding: 8px 16px; text-align: center; font-size: 12px; font-weight: 600; border: .5px solid; min-width: 180px; }
 .dec-question { background: var(--surface3); color: var(--text); border-color: var(--border2); font-weight: 400; font-size: 11px; }
+.dec-prefix { background: var(--purple-bg); color: var(--purple); border-color: var(--purple-border); }
 .dec-ad { background: var(--blue-bg); color: var(--blue); border-color: var(--blue-border); }
 .dec-metric { background: var(--teal-bg); color: var(--teal); border-color: var(--teal-border); }
 .dec-winner { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
