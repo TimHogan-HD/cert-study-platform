@@ -1,156 +1,44 @@
 <div class="obj-section" id="obj-5-5">
   <div class="section-eyebrow">Objective 5.5</div>
-  <h2>Security Troubleshooting</h2>
+  <h2>5.5 Tools &amp; Protocols</h2>
+
+  <p>Official objective 5.5 is <em>"Given a scenario, use the appropriate tool or protocol to solve networking issues."</em> Most of the underlying material is already covered in 5.2 and 5.3 — this section indexes it by tool category.</p>
 
   <div class="callout callout-blue">
-    <div class="callout-title">Study Navigation Note — Official N10-009 Objective 5.5</div>
-    <p>The official CompTIA N10-009 objective 5.5 is: <em>"Use the appropriate tool or protocol to solve networking issues."</em> That content is covered in this guide at:</p>
+    <div class="callout-title">Where the Tool Coverage Lives</div>
     <ul>
-      <li><strong>Section 5.3</strong> — CLI tools (ping, traceroute, nslookup, nmap, iperf3, pathping, tcpdump, Wireshark, show commands)</li>
-      <li><strong>Section 5.2</strong> — Physical tools (cable tester, TDR, OTDR, toner probe/fox and hound, VFL, multimeter, loopback plug)</li>
+      <li><strong>5.2 Cable &amp; Physical Issues</strong> — physical tools: cable tester, <abbr title="Time-Domain Reflectometer">TDR</abbr>, <abbr title="Optical Time-Domain Reflectometer">OTDR</abbr>, toner probe (fox and hound), visual fault locator, multimeter, loopback plug.</li>
+      <li><strong>5.3 Network Issues</strong> — command-line tools: <code>ping</code>, <code>traceroute</code>, <code>nslookup</code>, <code>netstat</code>, <code>arp</code>, <code>route</code>, <code>nmap</code>, <code>pathping</code>, <code>iperf3</code>, <code>tcpdump</code>, Wireshark, and the Cisco <code>show</code> commands.</li>
     </ul>
-    <p>Study both 5.2 and 5.3 when preparing for exam objective 5.5. <strong>This section (5.5 in our guide) covers security troubleshooting symptoms</strong> — indicators of compromise, incident response, and network attacks — which is complementary exam content tested across multiple objectives.</p>
+    <p>Work through both sections when preparing for objective 5.5.</p>
   </div>
 
-  <p>Security issues often masquerade as network problems. Recognizing the indicators of compromise and knowing the correct response sequence are both exam-tested.</p>
+  <h3>Software Tools</h3>
+  <!-- GAP: protocol analyzer — see content remediation plan -->
+  <!-- GAP: command line — see content remediation plan -->
+  <!-- GAP: speed tester — see content remediation plan -->
 
-  <h3>Indicators of Compromise (IoC)</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead><tr><th>Symptom</th><th>Possible Cause</th><th>Investigative Step</th></tr></thead>
-      <tbody>
-        <tr><td>Unusual outbound traffic spikes</td><td>Malware C2, data exfiltration, botnet participation</td><td>NetFlow analysis; check destination IPs against threat feeds; inspect DNS queries</td></tr>
-        <tr><td>Unexpected open ports on a server</td><td>Backdoor, malware listener, misconfiguration</td><td><code>netstat -an</code>; compare against baseline; port scan with nmap</td></tr>
-        <tr><td>Unknown devices on network</td><td>Rogue devices, unauthorized BYOD, network intrusion</td><td>ARP scan / nmap discovery; compare against DHCP lease table and asset inventory</td></tr>
-        <tr><td>Users locked out of accounts</td><td>Brute force attack, credential stuffing, attacker locking accounts</td><td>Check auth logs / SIEM; review failed login events; verify source IPs</td></tr>
-        <tr><td>Duplicate IP addresses</td><td>Rogue DHCP server, static IP conflict, IP spoofing</td><td><code>arp -a</code>; DHCP server logs; enable DHCP snooping</td></tr>
-        <tr><td>SSL/TLS certificate errors</td><td>Expired certificate, MITM attack, certificate mismatch</td><td>Inspect certificate details; check validity dates; verify CA chain</td></tr>
-        <tr><td>ARP table poisoning indicators</td><td>ARP spoofing attack — MAC for gateway changed</td><td><code>arp -a</code>; compare gateway MAC to known-good; enable Dynamic ARP Inspection</td></tr>
-        <tr><td>Unexpected DNS responses</td><td>DNS poisoning, rogue DNS server, DHCP option 6 hijacked</td><td><code>nslookup</code> against multiple servers; compare results; verify DHCP option 6</td></tr>
-        <tr><td>Performance degradation without explanation</td><td>DoS attack, crypto-mining malware, scanning activity</td><td>NetFlow; top talkers; check CPU/memory on devices; look for scanning patterns</td></tr>
-      </tbody>
-    </table>
+  <h3>Basic Networking Device Commands</h3>
+  <!-- GAP: show mac-address-table — see content remediation plan -->
+  <!-- GAP: show route — see content remediation plan -->
+  <!-- GAP: show interface — see content remediation plan -->
+  <!-- GAP: show config — see content remediation plan -->
+  <!-- GAP: show arp — see content remediation plan -->
+  <!-- GAP: show vlan — see content remediation plan -->
+  <!-- GAP: show power — see content remediation plan -->
+
+  <h3>Discovery Protocols</h3>
+  <!-- GAP: CDP (Cisco Discovery Protocol) — see content remediation plan -->
+  <!-- GAP: LLDP (Link Layer Discovery Protocol) — see content remediation plan -->
+
+  <h3>Hardware Tools</h3>
+  <!-- GAP: toner probe — see content remediation plan -->
+  <!-- GAP: cable tester — see content remediation plan -->
+  <!-- GAP: taps — see content remediation plan -->
+  <!-- GAP: Wi-Fi analyzer — see content remediation plan -->
+  <!-- GAP: visual fault locator — see content remediation plan -->
+
+  <div class="ai-explain-area">
+    <button class="ai-explain-btn" data-topic="choosing the right networking tool or protocol to diagnose an issue">✦ Explain Differently</button>
   </div>
-
-  <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — unexpected open ports (IoC)</span></div>
-    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> netstat -an | findstr LISTENING
-TCP    0.0.0.0:22      0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← SSH (expected on this server)</span>
-TCP    0.0.0.0:80      0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← HTTP (expected)</span>
-TCP    0.0.0.0:443     0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← HTTPS (expected)</span>
-TCP    0.0.0.0:<span class="te">4444</span>    0.0.0.0:0    <span class="te">LISTENING</span>   <span class="tn">← NOT expected — investigate immediately</span>
-TCP    0.0.0.0:3389    0.0.0.0:0    <span class="ts">LISTENING</span>   <span class="tn">← RDP</span>
-<span class="tn"># Port 4444 = common Metasploit/reverse shell default port</span>
-<span class="tn"># Baseline: document expected open ports. Any unlisted port = potential backdoor</span>
-<span class="tn"># Follow up: identify the process listening on 4444 with "netstat -anb" (Windows)</span></pre>
-  </div>
-
-  <h3>Incident Response Steps (Network Context)</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead><tr><th>Step</th><th>Action</th><th>Example</th></tr></thead>
-      <tbody>
-        <tr><td>1. <strong>Identify</strong></td><td>Confirm the incident is real; gather evidence</td><td>Confirm traffic anomaly is not a false positive; capture packets</td></tr>
-        <tr><td>2. <strong>Contain</strong></td><td>Limit the blast radius; isolate affected systems</td><td>Shut down switch port; quarantine VLAN; block firewall rule</td></tr>
-        <tr><td>3. <strong>Eradicate</strong></td><td>Remove the threat</td><td>Delete malware, revoke credentials, patch vulnerability</td></tr>
-        <tr><td>4. <strong>Recover</strong></td><td>Restore normal operations safely</td><td>Reimage machine, restore from clean backup, re-enable port</td></tr>
-        <tr><td>5. <strong>Document / Lessons Learned</strong></td><td>Record everything; prevent recurrence</td><td>Update runbook, patch policy, firewall rules</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>Rogue DHCP Server Scenario</h3>
-  <div class="callout callout-blue">
-    <div class="callout-title">Symptoms &amp; Response</div>
-    <p><strong>Symptom:</strong> Some clients receive wrong default gateway or wrong DNS server; internet stops working for affected machines; <code>ipconfig /all</code> shows unexpected gateway IP.</p>
-    <p><strong>Cause:</strong> A rogue DHCP server (unauthorized device, misconfigured VM, or attacker device) is responding to DHCP Discover before the legitimate server.</p>
-    <p><strong>Fix:</strong> Enable <strong>DHCP snooping</strong> on the switch — marks only specific trusted ports as allowed to send DHCP Offers/Acks. Untrusted ports that send DHCP Offers are shut down.</p>
-    <p><strong>Locate rogue server:</strong> Check DHCP lease logs; use <code>show ip dhcp snooping binding</code> on the switch; trace MAC of rogue server to physical port.</p>
-  </div>
-
-  <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Rogue DHCP — victim ipconfig &amp; switch snooping</span></div>
-    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> ipconfig /all
-Ethernet adapter Ethernet:
-   IPv4 Address. . . : 192.168.1.105
-   Subnet Mask . . . : 255.255.255.0
-   <span class="te">Default Gateway . : 10.0.0.99</span>     <span class="tn">← WRONG — legitimate GW is 192.168.1.1</span>
-   <span class="te">DHCP Server . . . : 10.0.0.99</span>     <span class="tn">← rogue DHCP server address</span>
-   <span class="te">DNS Servers . . . : 10.0.0.99</span>     <span class="tn">← attacker controlling DNS = hijack risk</span>
-<span class="tn"># All traffic and DNS queries may be routed through the attacker's device</span>
-
-<span class="tpc">Switch1#</span> show ip dhcp snooping binding
-MacAddress         IpAddress     Lease(sec)  Type  VLAN  Interface
------------------  ------------  ----------  ----  ----  ---------
-aa:bb:cc:11:22:33  192.168.1.105   86400     dhcp  10    Fa0/3
-cc:dd:ee:44:55:66  192.168.1.106   86400     dhcp  10    Fa0/4
-<span class="te">aa:bb:cc:99:00:11</span>  <span class="te">10.0.0.99</span>       86400     dhcp  10    <span class="te">Fa0/12</span>  <span class="tn">← rogue device</span>
-<span class="tn"># MAC aa:bb:cc:99:00:11 on Fa0/12 — physically locate and disconnect</span>
-<span class="tn"># Enable DHCP snooping: only trusted ports (uplinks) can send DHCP Offers/Acks</span></pre>
-  </div>
-
-  <h3>ARP Poisoning Scenario</h3>
-  <div class="callout callout-blue">
-    <div class="callout-title">Symptoms &amp; Response</div>
-    <p><strong>Symptom:</strong> Legitimate users experience intermittent connectivity or certificate errors; attacker is intercepting traffic between victim and gateway.</p>
-    <p><strong>Detect:</strong> <code>arp -a</code> on victim shows gateway IP mapped to an unexpected MAC address. Two hosts claim the same IP in ARP table.</p>
-    <p><strong>Fix:</strong> Enable <strong>Dynamic ARP Inspection (DAI)</strong> — validates ARP packets against DHCP snooping binding table. Forged ARP replies are dropped.</p>
-  </div>
-
-  <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">ARP Poisoning — detecting spoofed gateway MAC</span></div>
-    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> arp -a
-Interface: 192.168.1.50 --- 0x3
-  Internet Address      Physical Address        Type
-  <span class="th">192.168.1.1</span>           <span class="te">aa-bb-cc-11-22-33</span>      dynamic   <span class="tn">← gateway</span>
-  <span class="th">192.168.1.200</span>         <span class="te">aa-bb-cc-11-22-33</span>      dynamic   <span class="tn">← attacker's IP</span>
-  192.168.1.100         dd-ee-ff-44-55-66      dynamic
-<span class="tn"># Gateway (.1) and attacker (.200) share the SAME MAC aa-bb-cc-11-22-33</span>
-<span class="tn"># Attacker sent forged ARP replies claiming to be the gateway</span>
-<span class="tn"># Traffic from .50 destined for the internet is intercepted (MITM)</span>
-
-<span class="tn"># Compare to known-good gateway MAC (from switch's MAC address table):</span>
-<span class="tpc">Switch1#</span> show mac address-table | include <span class="th">Gi0/0</span>
-10  <span class="ts">cc-dd-ee-77-88-99</span>  DYNAMIC  Gi0/0   <span class="tn">← real gateway MAC on uplink</span>
-<span class="tn"># Gateway's true MAC is cc-dd-ee-77-88-99 — NOT aa-bb-cc-11-22-33</span>
-<span class="tn"># Enable DAI (Dynamic ARP Inspection) to drop forged ARP replies automatically</span></pre>
-  </div>
-
-  <h3>Social Engineering Indicators</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead><tr><th>Type</th><th>Indicator</th><th>Mitigation</th></tr></thead>
-      <tbody>
-        <tr><td>Phishing</td><td>Unexpected email with urgent request, mismatched sender domain, suspicious link</td><td>Email filtering, user training, MFA</td></tr>
-        <tr><td>Vishing</td><td>Unsolicited call requesting credentials, impersonating IT support</td><td>Verification procedures, callback policy, user training</td></tr>
-        <tr><td>Tailgating</td><td>Unauthorized person follows authorized user through secure door</td><td>Mantraps, security awareness, badge-only access with enforcement</td></tr>
-        <tr><td>Shoulder surfing</td><td>Attacker observes screen/keyboard in public or open office</td><td>Privacy screens, lock-screen policy, awareness training</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-amber">
-    <div class="callout-title">⚠ Exam Traps</div>
-    <ul>
-      <li>DHCP snooping prevents rogue DHCP; DAI prevents ARP poisoning — these are different mitigations for different attacks</li>
-      <li>Certificate errors can indicate MITM — don't just click "proceed anyway" in a troubleshooting context</li>
-      <li>An ARP table with two entries sharing the same IP is a strong indicator of ARP spoofing — not always a misconfiguration</li>
-      <li>Containment (isolate the host) comes before eradication — never skip directly to reimaging without containing first</li>
-    </ul>
-  </div>
-
-  <div class="callout callout-green">
-    <div class="callout-title">✓ Quick Recall</div>
-    <ul>
-      <li>Rogue DHCP → DHCP snooping</li>
-      <li>ARP poisoning → Dynamic ARP Inspection (DAI)</li>
-      <li>Certificate error + traffic misdirection → suspect MITM</li>
-      <li>Unknown open port → check with <code>netstat -an</code></li>
-      <li>APIPA + DHCP failure → check DHCP snooping isn't blocking legitimate server</li>
-      <li>Incident response order: Identify → Contain → Eradicate → Recover → Document</li>
-      <li>Duplicate IP in ARP table = ARP poisoning suspect, not just config error</li>
-    </ul>
-  </div>
-
-  <button class="ai-explain-btn" data-topic="network security troubleshooting: ARP poisoning, rogue DHCP, and indicators of compromise">✦ Explain Differently</button>
 </div>

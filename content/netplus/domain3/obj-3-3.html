@@ -1,369 +1,146 @@
 <div class="obj-section" id="obj-3-3">
   <div class="section-eyebrow">Objective 3.3</div>
-  <h2>DHCP, DNS &amp; NTP</h2>
+  <h2>3.3 Disaster Recovery Concepts</h2>
 
-  <h3>DHCP — DORA Process</h3>
-  <p>DHCP automates IP address assignment. The DORA process is the four-step handshake:</p>
-
-  <div class="concept-visual">
-    <div class="concept-visual-title">DORA Sequence — DHCP Handshake</div>
-    <svg viewBox="0 0 520 230" width="520" height="230" font-family="system-ui,sans-serif" font-size="13" xmlns="http://www.w3.org/2000/svg">
-      <style>text { fill: var(--text); }</style>
-      <defs>
-        <marker id="dora-arr-blue" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--blue)"/>
-        </marker>
-        <marker id="dora-arr-green" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--green)"/>
-        </marker>
-        <marker id="dora-arr-amber" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--amber)"/>
-        </marker>
-        <marker id="dora-arr-purple" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" style="fill: var(--purple)"/>
-        </marker>
-      </defs>
-      <!-- Column headers -->
-      <text x="90" y="22" text-anchor="middle" font-weight="700" style="fill: var(--blue)">CLIENT</text>
-      <text x="430" y="22" text-anchor="middle" font-weight="700" style="fill: var(--green)">DHCP SERVER</text>
-      <!-- Lifelines -->
-      <line x1="90" y1="30" x2="90" y2="220" style="stroke: var(--hint)" stroke-width="1.5" stroke-dasharray="4 3"/>
-      <line x1="430" y1="30" x2="430" y2="220" style="stroke: var(--hint)" stroke-width="1.5" stroke-dasharray="4 3"/>
-      <!-- D: Discover -->
-      <line x1="100" y1="60" x2="420" y2="60" style="stroke: var(--blue)" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#dora-arr-blue)"/>
-      <text x="255" y="53" text-anchor="middle" style="fill: var(--blue)" font-size="12">D — Discover (broadcast)</text>
-      <!-- O: Offer -->
-      <line x1="420" y1="105" x2="100" y2="105" style="stroke: var(--green)" stroke-width="2" marker-end="url(#dora-arr-green)"/>
-      <text x="255" y="98" text-anchor="middle" style="fill: var(--green)" font-size="12">O — Offer (unicast, IP proposal)</text>
-      <!-- R: Request -->
-      <line x1="100" y1="150" x2="420" y2="150" style="stroke: var(--amber)" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#dora-arr-amber)"/>
-      <text x="255" y="143" text-anchor="middle" style="fill: var(--amber)" font-size="12">R — Request (broadcast, accept offer)</text>
-      <!-- A: Acknowledge -->
-      <line x1="420" y1="195" x2="100" y2="195" style="stroke: var(--purple)" stroke-width="2" marker-end="url(#dora-arr-purple)"/>
-      <text x="255" y="188" text-anchor="middle" style="fill: var(--purple)" font-size="12">A — Acknowledge (lease confirmed)</text>
-    </svg>
-  </div>
-
-  <div class="steps">
-    <div class="step-box">
-      <div class="step-num">D</div>
-      <div class="step-content">
-        <div class="step-title">Discover (Client → Broadcast)</div>
-        <div class="step-desc">Client has no IP. Sends broadcast (255.255.255.255) from 0.0.0.0. Asks "Is there a DHCP server?" Src port: 68, Dst port: 67.</div>
-      </div>
-    </div>
-    <div class="step-box">
-      <div class="step-num">O</div>
-      <div class="step-content">
-        <div class="step-title">Offer (Server → Broadcast/Unicast)</div>
-        <div class="step-desc">DHCP server responds with an IP address offer — IP, mask, gateway, DNS, lease time. Can be broadcast (client has no IP yet) or unicast.</div>
-      </div>
-    </div>
-    <div class="step-box">
-      <div class="step-num">R</div>
-      <div class="step-content">
-        <div class="step-title">Request (Client → Broadcast)</div>
-        <div class="step-desc">Client accepts the offer. Sends broadcast request so all servers know which offer was accepted (multiple servers may have offered).</div>
-      </div>
-    </div>
-    <div class="step-box">
-      <div class="step-num">A</div>
-      <div class="step-content">
-        <div class="step-title">Acknowledge (Server → Client)</div>
-        <div class="step-desc">Server confirms the lease. Client can now use the assigned IP address. Lease timer starts.</div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="callout callout-amber">
-    <div class="callout-title">REMEMBER THIS</div>
-    <strong>DORA</strong> — Discover, Offer, Request, Acknowledge — is the four-step DHCP exchange. Common DNS records: <strong>A</strong> = IPv4, <strong>AAAA</strong> = IPv6, <strong>CNAME</strong> = alias, <strong>MX</strong> = mail server, <strong>PTR</strong> = reverse lookup, <strong>TXT</strong> = SPF/DKIM/verification.
-  </div>
-  <h3>DHCP Options</h3>
+  <h3>RPO vs RTO — Most Tested DR Terms</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table class="table--comparison">
       <thead>
-        <tr><th>Option Code</th><th>Description</th></tr>
+        <tr><th>Term</th><th>Definition</th><th>Simple Question</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>3</strong></td><td>Default Gateway (router)</td></tr>
-        <tr><td><strong>6</strong></td><td>DNS Server address(es)</td></tr>
-        <tr><td><strong>15</strong></td><td>Domain Name (e.g., company.local)</td></tr>
-        <tr><td><strong>51</strong></td><td>Lease Time (seconds)</td></tr>
-        <tr><td><strong>66</strong></td><td>TFTP Server Name (for booting PXE clients)</td></tr>
-        <tr><td><strong>67</strong></td><td>Bootfile Name (used with TFTP for PXE)</td></tr>
+        <tr>
+          <td><strong>RPO</strong><br>(Recovery Point Objective)</td>
+          <td>Maximum acceptable data loss, measured in time. How old can the restored data be?</td>
+          <td>"How much data can we afford to lose?" → If RPO = 4 hours, backups must run every 4 hours.</td>
+        </tr>
+        <tr>
+          <td><strong>RTO</strong><br>(Recovery Time Objective)</td>
+          <td>Maximum acceptable downtime. How quickly must systems be restored?</td>
+          <td>"How long can we be down?" → If RTO = 1 hour, systems must be back up within 1 hour of failure.</td>
+        </tr>
+        <tr>
+          <td><strong>MTTR</strong><br>(Mean Time to Repair)</td>
+          <td>Average time to restore a failed system/component.</td>
+          <td>Lower MTTR = faster recovery capability.</td>
+        </tr>
+        <tr>
+          <td><strong>MTBF</strong><br>(Mean Time Between Failures)</td>
+          <td>Average time between system failures.</td>
+          <td>Higher MTBF = more reliable system. Used in hardware specs.</td>
+        </tr>
       </tbody>
     </table>
   </div>
 
-  <h3>DHCP Relay (IP Helper)</h3>
-  <p>DHCP uses broadcasts — routers don't forward broadcasts between subnets. A <strong>DHCP Relay Agent</strong> (configured with <code>ip helper-address</code> on the router) forwards DHCP broadcasts from clients to the DHCP server as unicast, enabling one DHCP server to serve multiple subnets.</p>
-
-  <h3>DNS Record Types</h3>
+  <h3>Backup Types</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table class="table--comparison">
       <thead>
-        <tr><th>Record Type</th><th>Purpose</th><th>Example</th></tr>
+        <tr><th>Type</th><th>What's Backed Up</th><th>Archive Bit After</th><th>Restore Time</th><th>Storage</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>A</strong></td><td>Maps hostname to IPv4 address</td><td>www.example.com → 93.184.216.34</td></tr>
-        <tr><td><strong>AAAA</strong></td><td>Maps hostname to IPv6 address</td><td>www.example.com → 2606:2800:220:1:248:1893:25c8:1946</td></tr>
-        <tr><td><strong>CNAME</strong></td><td>Canonical Name — alias for another hostname</td><td>mail.example.com → example.com (CNAME = pointer)</td></tr>
-        <tr><td><strong>MX</strong></td><td>Mail Exchange — specifies mail servers for a domain, with priority</td><td>example.com MX 10 mail1.example.com</td></tr>
-        <tr><td><strong>PTR</strong></td><td>Pointer — maps IP address to hostname (reverse DNS)</td><td>34.216.184.93.in-addr.arpa → www.example.com</td></tr>
-        <tr><td><strong>TXT</strong></td><td>Text record — SPF, DKIM, DMARC, domain verification</td><td>v=spf1 include:example.com ~all</td></tr>
-        <tr><td><strong>NS</strong></td><td>Name Server — identifies authoritative DNS servers for a zone</td><td>example.com NS ns1.example.com</td></tr>
-        <tr><td><strong>SOA</strong></td><td>Start of Authority — primary NS, admin email, serial, timers for the zone</td><td>Zone housekeeping information</td></tr>
-        <tr><td><strong>SRV</strong></td><td>Service record — location of specific services (VoIP, LDAP, etc.)</td><td>_sip._tcp.example.com SRV 10 5 5060 sip.example.com</td></tr>
+        <tr>
+          <td><strong>Full</strong></td>
+          <td>All data, regardless of change</td>
+          <td>Cleared</td>
+          <td>Fastest (1 backup set)</td>
+          <td>Most space</td>
+        </tr>
+        <tr>
+          <td><strong>Incremental</strong></td>
+          <td>Only data changed since last backup (full or incremental)</td>
+          <td>Cleared</td>
+          <td>Slowest (need full + all incrementals)</td>
+          <td>Least space</td>
+        </tr>
+        <tr>
+          <td><strong>Differential</strong></td>
+          <td>All data changed since last full backup</td>
+          <td>NOT cleared</td>
+          <td>Medium (need full + latest differential)</td>
+          <td>Grows over time until next full</td>
+        </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Matching game for DNS -->
-  <h3>Practice: DNS Record → Purpose</h3>
-  <div class="matching-game">
-    <div class="match-instructions">Click a record type, then click its purpose.</div>
-    <div class="match-columns">
-      <div class="match-col">
-        <div class="match-item" data-match="dns-a">A Record</div>
-        <div class="match-item" data-match="dns-aaaa">AAAA Record</div>
-        <div class="match-item" data-match="dns-mx">MX Record</div>
-        <div class="match-item" data-match="dns-ptr">PTR Record</div>
-        <div class="match-item" data-match="dns-cname">CNAME Record</div>
-        <div class="match-item" data-match="dns-txt">TXT Record</div>
-      </div>
-      <div class="match-col">
-        <div class="match-target" data-id="dns-a">Hostname → IPv4 address</div>
-        <div class="match-target" data-id="dns-aaaa">Hostname → IPv6 address</div>
-        <div class="match-target" data-id="dns-mx">Specifies mail servers for domain</div>
-        <div class="match-target" data-id="dns-ptr">IP address → Hostname (reverse lookup)</div>
-        <div class="match-target" data-id="dns-cname">Alias — points to another hostname</div>
-        <div class="match-target" data-id="dns-txt">SPF, DKIM, domain verification</div>
-      </div>
-    </div>
-    <div class="match-footer">
-      <span class="match-score">0 / 6 matched</span>
-      <button class="reset-btn">Reset</button>
-    </div>
-  </div>
-
-  <h3>DNS Hierarchy</h3>
-  <ol>
-    <li><strong>Root DNS Servers:</strong> 13 logical root server sets (a.root-servers.net through m.root-servers.net). Know where top-level domains (TLDs) are.</li>
-    <li><strong>TLD Name Servers:</strong> Manage .com, .org, .net, country codes (.uk, .de).</li>
-    <li><strong>Authoritative Name Servers:</strong> Hold actual DNS records for a domain. Final authority.</li>
-    <li><strong>Recursive Resolver:</strong> Your ISP or internal DNS server. Queries on behalf of clients, caches results (TTL-based).</li>
-  </ol>
-
-  <h3>DNS Troubleshooting Commands</h3>
+  <h3>Disaster Recovery Site Types</h3>
   <div class="table-wrap">
-    <table class="table--reference">
+    <table class="table--comparison">
       <thead>
-        <tr><th>Command</th><th>Platform</th><th>Use</th></tr>
+        <tr><th>Site Type</th><th>Description</th><th>RTO</th><th>Cost</th></tr>
       </thead>
       <tbody>
-        <tr><td><code>nslookup hostname</code></td><td>Windows/Linux</td><td>Query DNS for a hostname or IP. Basic resolution test.</td></tr>
-        <tr><td><code>nslookup -type=MX domain.com</code></td><td>Windows/Linux</td><td>Query specific record type.</td></tr>
-        <tr><td><code>dig hostname</code></td><td>Linux/macOS</td><td>More detailed DNS query output including TTL, authority.</td></tr>
-        <tr><td><code>dig @8.8.8.8 hostname</code></td><td>Linux</td><td>Query specific DNS server (bypass local resolver).</td></tr>
+        <tr>
+          <td><strong>Hot Site</strong></td>
+          <td>Fully operational duplicate — live systems, real-time data replication. Just redirect traffic.</td>
+          <td>Minutes to hours</td>
+          <td>Very high</td>
+        </tr>
+        <tr>
+          <td><strong>Warm Site</strong></td>
+          <td>Partially equipped — hardware present, data restored from backups. Some configuration needed.</td>
+          <td>Hours to days</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td><strong>Cold Site</strong></td>
+          <td>Just a space with power/connectivity — no hardware or data. Must provision everything.</td>
+          <td>Days to weeks</td>
+          <td>Lowest</td>
+        </tr>
+        <tr>
+          <td><strong>Cloud DR</strong></td>
+          <td>Cloud-based failover — spin up cloud resources in another region on-demand.</td>
+          <td>Minutes to hours (with automation)</td>
+          <td>Pay-as-you-go</td>
+        </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — nslookup</span></div>
-    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> nslookup example.com
-Server:  corp-dns.corp.local
-Address: 192.168.1.53
+  <h3>High Availability Concepts</h3>
+  <ul>
+    <li><strong>Redundancy:</strong> Duplicate critical components — dual power supplies, redundant network links, multiple ISPs.</li>
+    <li><strong>Failover:</strong> Automatic switch to backup system when primary fails (active-passive). Or both active simultaneously (active-active).</li>
+    <li><strong>Load Balancing:</strong> Distributes traffic across multiple servers — improves performance AND provides failover if one server dies.</li>
+    <li><strong>NIC Teaming / Bonding:</strong> Multiple NICs combined for bandwidth and redundancy. If one NIC fails, traffic continues on others.</li>
+    <li><strong>UPS:</strong> Uninterruptible Power Supply — provides battery backup to bridge power outages and allow graceful shutdown.</li>
+    <li><strong>Generator:</strong> Long-term power backup for extended outages (hours to days).</li>
+  </ul>
 
-<span class="tn">Non-authoritative answer:</span>    <span class="tn">← from cache, not the zone's own server</span>
-Name:    <span class="th">example.com</span>
-Address: <span class="th">93.184.216.34</span>
+  <!-- GAP: active-active vs active-passive — see content remediation plan -->
 
-<span class="tpw">PS C:\&gt;</span> nslookup -type=MX example.com
-Server:  corp-dns.corp.local
-Address: 192.168.1.53
-
-example.com  mail exchanger = <span class="th">10</span>  mail1.example.com.  <span class="tn">← priority 10 (primary)</span>
-example.com  mail exchanger = <span class="th">20</span>  mail2.example.com.  <span class="tn">← priority 20 (backup)</span>
-<span class="tn"># Lower MX priority number = higher priority. 10 is attempted before 20</span>
-<span class="tn"># Use -type=NS for nameservers, -type=PTR for reverse lookup, -type=TXT for SPF</span></pre>
-  </div>
-
-  <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — Resolve-DnsName</span></div>
-    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com
-
-Name                            Type  TTL   Section  IPAddress
-----                            ----  ---   -------  ---------
-example.com                     A     <span class="th">3599</span>  Answer   <span class="th">93.184.216.34</span>
-<span class="tn"># TTL=3599s — how long this record is cached before re-querying</span>
-
-<span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com -Type MX
-
-Name         Type  TTL   Section  NameExchange        Preference
-----         ----  ---   -------  ------------        ----------
-example.com  MX    3600  Answer   mail1.example.com   <span class="th">10</span>
-example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
-<span class="tn"># Lower Preference = higher priority. 10 is tried before 20</span>
-
-<span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com -Server 8.8.8.8  <span class="tn">← bypass local resolver</span>
-<span class="tn"># If local fails but -Server 8.8.8.8 works → internal DNS server is the problem</span>
-<span class="tn"># If both fail → domain doesn't exist, or DNS traffic is being blocked</span></pre>
-  </div>
-
-  <h3>NTP (Network Time Protocol)</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Stratum</th><th>Source</th><th>Examples</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Stratum 0</strong></td><td>Reference clock (not on network)</td><td>Atomic clocks, GPS receivers, CDMA</td></tr>
-        <tr><td><strong>Stratum 1</strong></td><td>Directly connected to Stratum 0</td><td>time.nist.gov — authoritative NTP servers</td></tr>
-        <tr><td><strong>Stratum 2</strong></td><td>Synced from Stratum 1</td><td>pool.ntp.org servers, enterprise NTP servers</td></tr>
-        <tr><td><strong>Stratum 3+</strong></td><td>Cascaded from higher stratum</td><td>Local network NTP servers, endpoint clients</td></tr>
-        <tr><td><strong>Stratum 16</strong></td><td>Unsynchronized</td><td>Device has lost sync — clock is unreliable</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">NTP and Kerberos</div>
-    Kerberos authentication (used in Active Directory) requires all devices to be within <strong>5 minutes</strong> of each other in clock time. If NTP fails and clocks drift more than 5 minutes, Kerberos tickets will be rejected and users can't authenticate. NTP is security-critical.
-  </div>
+  <!-- GAP: tabletop exercises — see content remediation plan -->
+  <!-- GAP: validation tests — see content remediation plan -->
 
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
-      <li>DHCP uses <strong>broadcasts</strong> — routers don't forward broadcasts. You need a DHCP relay (ip helper-address) for multi-subnet DHCP.</li>
-      <li>PTR record = reverse DNS. A record = forward (name → IP). These are commonly confused.</li>
-      <li>CNAME cannot point to an IP address directly — it points to another hostname (which then resolves via an A record).</li>
-      <li>MX records have <strong>priority</strong> values — lower number = higher priority. Multiple MX records for redundancy.</li>
-      <li>DNS uses UDP for queries ≤512 bytes and TCP for zone transfers or larger responses.</li>
-      <li>NTP stratum 0 = hardware clock (not on network). Stratum 1 = first server on the network.</li>
-    </ul>
-  </div>
-
-  <h3>How DNS Resolution Works</h3>
-  <div class="table-wrap">
-    <table class="table--comparison">
-      <thead>
-        <tr><th>Query Type</th><th>Who Does the Work</th><th>Response</th></tr>
-      </thead>
-      <tbody>
-        <tr data-exam-weight="high"><td><strong>Recursive</strong></td><td>Resolver does all the work on behalf of the client</td><td>Returns the final answer (IP address) or an error — client gets a complete response</td></tr>
-        <tr data-exam-weight="high"><td><strong>Iterative</strong></td><td>Each server gives the best answer it can (a referral or the answer)</td><td>Resolver queries root → TLD → authoritative servers in sequence, following referrals</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="steps-list">
-    <div class="step-item">
-      <div class="step-num">1</div>
-      <div class="step-body"><strong>Client → Recursive Resolver:</strong> Client sends recursive query to its configured DNS resolver (e.g., ISP resolver or 8.8.8.8)</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">2</div>
-      <div class="step-body"><strong>Resolver checks cache:</strong> If the answer is cached (TTL not expired), it returns immediately. Otherwise, resolution begins.</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">3</div>
-      <div class="step-body"><strong>Resolver → Root Server (iterative):</strong> "Who handles .com?" Root server refers resolver to the .com TLD name servers.</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">4</div>
-      <div class="step-body"><strong>Resolver → TLD Server (iterative):</strong> "Who handles example.com?" TLD server refers resolver to example.com's authoritative name servers.</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">5</div>
-      <div class="step-body"><strong>Resolver → Authoritative Server (iterative):</strong> "What is the IP for www.example.com?" Authoritative server returns the A record.</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">6</div>
-      <div class="step-body"><strong>Resolver → Client:</strong> Returns the answer and caches it for the record's TTL duration.</div>
-    </div>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">Authoritative vs Non-Authoritative Responses</div>
-    <p>An <strong>authoritative</strong> response comes directly from the zone's name server — it's the definitive source. A <strong>non-authoritative</strong> response comes from a resolver's cache. In <code>dig</code> output, the <code>aa</code> flag indicates an authoritative answer. Use <code>dig +trace example.com</code> to see the full iterative resolution chain.</p>
-    <p>Reverse DNS: PTR records map IP → hostname, stored in <code>in-addr.arpa</code> zones. Mail servers use reverse DNS to detect spam — a sending IP with no PTR record is suspicious.</p>
-  </div>
-
-  <h3>DNS Security and Privacy Extensions</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Technology</th><th>Port</th><th>Protocol</th><th>Purpose</th><th>What It Protects Against</th></tr>
-      </thead>
-      <tbody>
-        <tr data-exam-weight="high"><td><strong><abbr title="DNS Security Extensions">DNSSEC</abbr></strong></td><td>53 UDP/TCP</td><td>Digital signatures (RRSIG records)</td><td>Integrity — signs DNS records so resolvers can verify they haven't been tampered with</td><td>Cache poisoning / DNS spoofing (does NOT encrypt queries)</td></tr>
-        <tr data-exam-weight="high"><td><strong><abbr title="DNS over TLS">DoT</abbr></strong></td><td><strong>853</strong> TCP</td><td>DNS inside TLS tunnel</td><td>Privacy — encrypts DNS queries between client and resolver</td><td>Eavesdropping on DNS queries; easily distinguishable (port 853)</td></tr>
-        <tr data-exam-weight="high"><td><strong><abbr title="DNS over HTTPS">DoH</abbr></strong></td><td><strong>443</strong> TCP</td><td>DNS inside HTTPS</td><td>Privacy — encrypts DNS queries; blends with HTTPS traffic</td><td>Eavesdropping; harder for enterprises to block/inspect than DoT</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-blue">
-    <div class="callout-title">DNSSEC vs DoT vs DoH — The Key Distinction</div>
-    <p><strong>DNSSEC</strong> = <em>integrity</em>. It signs DNS records with cryptographic signatures so you know the answer hasn't been forged. It does <strong>NOT encrypt</strong> queries — anyone can still see what you're resolving.<br>
-    <strong>DoT / DoH</strong> = <em>privacy</em>. They encrypt the DNS query and response in transit. They do NOT validate the content of DNS records (that's DNSSEC's job).<br>
-    These are complementary, not alternatives — DNSSEC + DoT together provides both integrity and privacy.</p>
-  </div>
-
-  <div class="callout callout-amber">
-    <div class="callout-title">⚠ DNS Security Exam Traps</div>
-    <ul>
-      <li><strong>DNSSEC does NOT encrypt</strong> — it signs records for integrity verification. Queries are still visible in cleartext.</li>
-      <li><strong>DoT = port 853</strong>; DoH = port 443. DoH uses the HTTPS port intentionally to blend with web traffic.</li>
-      <li>DoH is harder for enterprise security tools to block/inspect because it looks like HTTPS traffic.</li>
-    </ul>
-  </div>
-
-  <h3>Time Protocol Comparison</h3>
-  <div class="table-wrap">
-    <table class="table--reference">
-      <thead>
-        <tr><th>Protocol</th><th>Standard</th><th>Port</th><th>Accuracy</th><th>Use Case</th></tr>
-      </thead>
-      <tbody>
-        <tr data-exam-weight="high"><td><strong>NTP</strong></td><td>RFC 5905</td><td>123 UDP</td><td>~1–50 ms</td><td>General enterprise time sync; all network devices, servers</td></tr>
-        <tr data-exam-weight="high"><td><strong>PTP</strong> (IEEE 1588)</td><td>IEEE 1588-2019</td><td>319/320 UDP</td><td>Sub-microsecond</td><td>Financial trading, 5G RAN synchronization, industrial automation, broadcast media</td></tr>
-        <tr><td><strong>NTS</strong></td><td>RFC 8915</td><td>4460 TCP</td><td>Same as NTP</td><td>Authenticated NTP — prevents time spoofing and MITM against NTP</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout callout-amber">
-    <div class="callout-title">⚠ Time Protocol Exam Traps</div>
-    <ul>
-      <li>Use <strong>PTP when NTP is not precise enough</strong> — financial trading, 5G, and industrial control require sub-microsecond accuracy.</li>
-      <li><strong>NTS = NTP + security</strong> — it's not a new time protocol; it adds authentication to NTP to prevent spoofing.</li>
-      <li>Know port numbers: NTP = 123 UDP | PTP = 319/320 UDP | NTS = 4460 TCP.</li>
+      <li><strong>RPO = data loss tolerance.</strong> "We can't lose more than 2 hours of data" → RPO = 2 hours. Backup frequency must match.</li>
+      <li><strong>RTO = downtime tolerance.</strong> "Systems must be back up within 4 hours" → RTO = 4 hours.</li>
+      <li>Differential grows larger each day (until next full). Incremental stays small (only daily changes).</li>
+      <li>Restore from incremental = full + EVERY incremental. Differential = full + LATEST differential only.</li>
+      <li>Hot site costs the most. Cold site costs the least. RTO inversely correlates with cost.</li>
     </ul>
   </div>
 
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 3.3</div>
     <ul>
-      <li>DHCP DORA: Discover (broadcast) → Offer → Request (broadcast) → Acknowledge</li>
-      <li>DHCP options: 3=gateway, 6=DNS, 15=domain, 51=lease time, 66=TFTP, 67=bootfile</li>
-      <li>ip helper-address = DHCP relay for cross-subnet DHCP</li>
-      <li>A=IPv4 | AAAA=IPv6 | MX=mail | PTR=reverse | CNAME=alias | TXT=SPF/DKIM</li>
-      <li>NTP: Stratum 0=atomic clock → 1=primary server → 2=secondary → 16=unsynchronized</li>
-      <li>DNS resolution: Client → Recursive Resolver → Root → TLD → Authoritative (iterative steps)</li>
-      <li>DNSSEC = integrity (signs records, no encryption) | DoT = privacy port 853 | DoH = privacy port 443</li>
-      <li>PTP = sub-microsecond (financial/5G/industrial) | NTS = authenticated NTP (RFC 8915, port 4460)</li>
+      <li>RPO = how much data can be lost (backup frequency) | RTO = how fast to recover (downtime tolerance)</li>
+      <li>Full = all data | Incremental = changes since last backup (fast backup) | Differential = changes since last full</li>
+      <li>Hot site = live systems, minutes to recover | Warm = hours | Cold = days</li>
+      <li>MTBF = reliability (time between failures) | MTTR = recovery speed</li>
     </ul>
   </div>
 
   <div class="ai-explain-area">
-    <button class="ai-explain-btn" data-topic="DHCP DORA process and DNS record types">✦ Explain Differently</button>
+    <button class="ai-explain-btn" data-topic="disaster recovery RPO vs RTO, backup types, and hot/warm/cold sites">✦ Explain Differently</button>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════
-     OBJ 3.4 — Remote Access & AAA
+     OBJ 3.4 — IPv4 & IPv6 Network Services
      ═══════════════════════════════════════════ -->

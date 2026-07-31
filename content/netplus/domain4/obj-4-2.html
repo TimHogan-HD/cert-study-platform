@@ -1,7 +1,6 @@
 <div class="obj-section" id="obj-4-2">
   <div class="section-eyebrow">Objective 4.2</div>
   <h2>Network Attack Types</h2>
-  <p class="section-sub exam-star-note"><span class="exam-star">★</span> = highest exam priority row.</p>
 
   <h3>Layer 2 Attacks</h3>
   <div class="table-wrap">
@@ -71,7 +70,7 @@
           <td>Injects false DNS records into resolver cache. Clients resolve legitimate names to attacker's IP — fake website, credential theft.</td>
           <td>DNSSEC (signed DNS records), secure recursive resolvers, short TTL</td>
         </tr>
-        <tr data-exam-weight="high">
+        <tr>
           <td><strong>On-Path (MITM)</strong></td>
           <td>Attacker positions between two communicating parties (via ARP spoofing, rogue WAP, etc.) — reads and/or modifies traffic.</td>
           <td>Encryption (TLS/HTTPS), certificate validation, VPN, MFA, HTTPS Strict Transport Security (HSTS)</td>
@@ -85,10 +84,6 @@
     </table>
   </div>
 
-  <div class="callout callout-blue">
-    <div class="callout-title">KEY DISTINCTION</div>
-    <strong>IDS</strong> sits on a SPAN/mirror port — it sees a copy of traffic, can alert, but <em>cannot block</em>. <strong>IPS</strong> sits inline — every packet flows through it, so it can drop/reset connections. If an IPS fails, it can take the network with it; if an IDS fails, you just lose visibility.
-  </div>
 
   <h3>Wireless Attacks</h3>
   <div class="table-wrap">
@@ -125,16 +120,16 @@
   <div class="table-wrap">
     <table class="table--reference">
       <thead>
-        <tr><th>Attack</th><th>Description</th></tr>
+        <tr><th>Attack</th><th>Description</th><th>Mitigation</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>Phishing</strong></td><td>Mass fraudulent email appearing legitimate — tricks recipients into clicking links or providing credentials.</td></tr>
-        <tr><td><strong>Spear Phishing</strong></td><td>Targeted phishing at specific individuals using personalized information. Higher success rate than generic phishing.</td></tr>
-        <tr><td><strong>Vishing</strong></td><td>Voice phishing — phone call from attacker pretending to be IT support, bank, etc.</td></tr>
-        <tr><td><strong>Smishing</strong></td><td>SMS/text phishing — malicious links or fake requests via text message.</td></tr>
-        <tr><td><strong>Tailgating / Piggybacking</strong></td><td>Attacker physically follows authorized person through a secured door without badging in.</td></tr>
-        <tr><td><strong>Shoulder Surfing</strong></td><td>Observing someone's screen or keyboard to steal passwords or information.</td></tr>
-        <tr><td><strong>Pretexting</strong></td><td>Creating a fabricated scenario (pretext) to manipulate victims into revealing information or taking actions.</td></tr>
+        <tr><td><strong>Phishing</strong></td><td>Mass fraudulent email appearing legitimate — tricks recipients into clicking links or providing credentials.</td><td>Email filtering, user training, MFA</td></tr>
+        <tr><td><strong>Spear Phishing</strong></td><td>Targeted phishing at specific individuals using personalized information. Higher success rate than generic phishing.</td><td>Email filtering, targeted user training, MFA</td></tr>
+        <tr><td><strong>Vishing</strong></td><td>Voice phishing — phone call from attacker pretending to be IT support, bank, etc.</td><td>Verification procedures, callback policy, user training</td></tr>
+        <tr><td><strong>Smishing</strong></td><td>SMS/text phishing — malicious links or fake requests via text message.</td><td>SMS filtering, user training, never act on links sent by text</td></tr>
+        <tr><td><strong>Tailgating / Piggybacking</strong></td><td>Attacker physically follows authorized person through a secured door without badging in.</td><td>Mantraps, security awareness, badge-only access with enforcement</td></tr>
+        <tr><td><strong>Shoulder Surfing</strong></td><td>Observing someone's screen or keyboard to steal passwords or information.</td><td>Privacy screens, lock-screen policy, awareness training</td></tr>
+        <tr><td><strong>Pretexting</strong></td><td>Creating a fabricated scenario (pretext) to manipulate victims into revealing information or taking actions.</td><td>Identity verification procedures, awareness training</td></tr>
       </tbody>
     </table>
   </div>

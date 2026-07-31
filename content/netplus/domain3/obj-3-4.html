@@ -1,159 +1,369 @@
 <div class="obj-section" id="obj-3-4">
   <div class="section-eyebrow">Objective 3.4</div>
-  <h2>Remote Access &amp; AAA</h2>
+  <h2>3.4 IPv4 &amp; IPv6 Network Services</h2>
 
-  <h3>VPN Types</h3>
-  <div class="table-wrap">
-    <table class="table--comparison">
-      <thead>
-        <tr><th>Type</th><th>Description</th><th>Use Case</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Site-to-Site VPN</strong></td>
-          <td>Permanent tunnel between two network sites (typically router-to-router). All traffic between sites traverses encrypted tunnel.</td>
-          <td>Branch office to HQ connectivity; replaces dedicated WAN circuits.</td>
-        </tr>
-        <tr>
-          <td><strong>Client-to-Site (Remote Access VPN)</strong></td>
-          <td>Individual user connects VPN client to corporate network over internet. Full tunnel = all traffic goes through VPN. Split tunnel = only corporate traffic goes through VPN.</td>
-          <td>Remote workers, WFH employees.</td>
-        </tr>
-        <tr>
-          <td><strong>SSL/TLS VPN</strong></td>
-          <td>Uses HTTPS (port 443) — traverses firewalls easily. Browser-based or thin client. (Also called SSTP, OpenVPN).</td>
-          <td>Clientless access to web apps, easy deployment through NAT/firewalls.</td>
-        </tr>
-        <tr>
-          <td><strong>IPsec VPN</strong></td>
-          <td>IP Security — encrypts/authenticates at Layer 3. Uses IKE for key exchange.</td>
-          <td>Site-to-site and client-to-site. Most common enterprise VPN protocol.</td>
-        </tr>
-      </tbody>
-    </table>
+  <h3>DHCP — DORA Process</h3>
+  <p>DHCP automates IP address assignment. The DORA process is the four-step handshake:</p>
+
+  <div class="concept-visual">
+    <div class="concept-visual-title">DORA Sequence — DHCP Handshake</div>
+    <svg viewBox="0 0 520 230" width="520" height="230" font-family="system-ui,sans-serif" font-size="13" xmlns="http://www.w3.org/2000/svg">
+      <style>text { fill: var(--text); }</style>
+      <defs>
+        <marker id="dora-arr-blue" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" style="fill: var(--blue)"/>
+        </marker>
+        <marker id="dora-arr-green" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" style="fill: var(--green)"/>
+        </marker>
+        <marker id="dora-arr-amber" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" style="fill: var(--amber)"/>
+        </marker>
+        <marker id="dora-arr-purple" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" style="fill: var(--purple)"/>
+        </marker>
+      </defs>
+      <!-- Column headers -->
+      <text x="90" y="22" text-anchor="middle" font-weight="700" style="fill: var(--blue)">CLIENT</text>
+      <text x="430" y="22" text-anchor="middle" font-weight="700" style="fill: var(--green)">DHCP SERVER</text>
+      <!-- Lifelines -->
+      <line x1="90" y1="30" x2="90" y2="220" style="stroke: var(--hint)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <line x1="430" y1="30" x2="430" y2="220" style="stroke: var(--hint)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <!-- D: Discover -->
+      <line x1="100" y1="60" x2="420" y2="60" style="stroke: var(--blue)" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#dora-arr-blue)"/>
+      <text x="255" y="53" text-anchor="middle" style="fill: var(--blue)" font-size="12">D — Discover (broadcast)</text>
+      <!-- O: Offer -->
+      <line x1="420" y1="105" x2="100" y2="105" style="stroke: var(--green)" stroke-width="2" marker-end="url(#dora-arr-green)"/>
+      <text x="255" y="98" text-anchor="middle" style="fill: var(--green)" font-size="12">O — Offer (unicast, IP proposal)</text>
+      <!-- R: Request -->
+      <line x1="100" y1="150" x2="420" y2="150" style="stroke: var(--amber)" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#dora-arr-amber)"/>
+      <text x="255" y="143" text-anchor="middle" style="fill: var(--amber)" font-size="12">R — Request (broadcast, accept offer)</text>
+      <!-- A: Acknowledge -->
+      <line x1="420" y1="195" x2="100" y2="195" style="stroke: var(--purple)" stroke-width="2" marker-end="url(#dora-arr-purple)"/>
+      <text x="255" y="188" text-anchor="middle" style="fill: var(--purple)" font-size="12">A — Acknowledge (lease confirmed)</text>
+    </svg>
   </div>
 
-  <h3>IPsec Components</h3>
+  <div class="steps">
+    <div class="step-box">
+      <div class="step-num">D</div>
+      <div class="step-content">
+        <div class="step-title">Discover (Client → Broadcast)</div>
+        <div class="step-desc">Client has no IP. Sends broadcast (255.255.255.255) from 0.0.0.0. Asks "Is there a DHCP server?" Src port: 68, Dst port: 67.</div>
+      </div>
+    </div>
+    <div class="step-box">
+      <div class="step-num">O</div>
+      <div class="step-content">
+        <div class="step-title">Offer (Server → Broadcast/Unicast)</div>
+        <div class="step-desc">DHCP server responds with an IP address offer — IP, mask, gateway, DNS, lease time. Can be broadcast (client has no IP yet) or unicast.</div>
+      </div>
+    </div>
+    <div class="step-box">
+      <div class="step-num">R</div>
+      <div class="step-content">
+        <div class="step-title">Request (Client → Broadcast)</div>
+        <div class="step-desc">Client accepts the offer. Sends broadcast request so all servers know which offer was accepted (multiple servers may have offered).</div>
+      </div>
+    </div>
+    <div class="step-box">
+      <div class="step-num">A</div>
+      <div class="step-content">
+        <div class="step-title">Acknowledge (Server → Client)</div>
+        <div class="step-desc">Server confirms the lease. Client can now use the assigned IP address. Lease timer starts.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>DORA</strong> — Discover, Offer, Request, Acknowledge — is the four-step DHCP exchange. Common DNS records: <strong>A</strong> = IPv4, <strong>AAAA</strong> = IPv6, <strong>CNAME</strong> = alias, <strong>MX</strong> = mail server, <strong>PTR</strong> = reverse lookup, <strong>TXT</strong> = SPF/DKIM/verification.
+  </div>
+  <h3>DHCP Options</h3>
   <div class="table-wrap">
     <table class="table--reference">
       <thead>
-        <tr><th>Component</th><th>Function</th></tr>
+        <tr><th>Option Code</th><th>Description</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>AH</strong> (Authentication Header)</td><td>Provides authentication and integrity only. NO encryption. Protocol number 51. Not widely used alone.</td></tr>
-        <tr><td><strong>ESP</strong> (Encapsulating Security Payload)</td><td>Provides authentication, integrity, AND encryption. Protocol number 50. Most common IPsec component.</td></tr>
-        <tr><td><strong>IKE</strong> (Internet Key Exchange)</td><td>Negotiates security associations (SAs) and establishes shared keys. IKEv1 (older) and IKEv2 (current, more efficient). Uses UDP port 500 (phase 1) and UDP 4500 (NAT traversal).</td></tr>
-        <tr><td><strong>Tunnel Mode</strong></td><td>Entire IP packet is encrypted and encapsulated in new IP packet. Used for site-to-site VPNs.</td></tr>
-        <tr><td><strong>Transport Mode</strong></td><td>Only the payload is encrypted; original IP header preserved. Used for host-to-host encryption (e.g., L2TP over IPsec).</td></tr>
+        <tr><td><strong>3</strong></td><td>Default Gateway (router)</td></tr>
+        <tr><td><strong>6</strong></td><td>DNS Server address(es)</td></tr>
+        <tr><td><strong>15</strong></td><td>Domain Name (e.g., company.local)</td></tr>
+        <tr><td><strong>51</strong></td><td>Lease Time (seconds)</td></tr>
+        <tr><td><strong>66</strong></td><td>TFTP Server Name (for booting PXE clients)</td></tr>
+        <tr><td><strong>67</strong></td><td>Bootfile Name (used with TFTP for PXE)</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h3>RADIUS vs TACACS+</h3>
-  <div class="table-wrap">
-    <table class="table--comparison">
-      <thead>
-        <tr><th>Feature</th><th>RADIUS</th><th>TACACS+</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Transport</strong></td><td>UDP</td><td>TCP</td></tr>
-        <tr><td><strong>Port</strong></td><td>1812 (auth), 1813 (accounting)</td><td>49</td></tr>
-        <tr><td><strong>Encryption</strong></td><td>Encrypts only the password field</td><td>Encrypts the entire packet payload</td></tr>
-        <tr><td><strong>AAA Separation</strong></td><td>Combines Authentication + Authorization</td><td>Separates Authentication, Authorization, Accounting independently</td></tr>
-        <tr><td><strong>Origin</strong></td><td>Open standard (RFC 2865/2866)</td><td>Cisco proprietary (+ extensions)</td></tr>
-        <tr><td><strong>Best For</strong></td><td>Network access (Wi-Fi, VPN, 802.1X)</td><td>Network device administration (router/switch management)</td></tr>
-        <tr><td><strong>Accountability</strong></td><td>Limited — combined auth/authz</td><td>Granular per-command authorization and accounting</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <h3>DHCP Relay (IP Helper)</h3>
+  <p>DHCP uses broadcasts — routers don't forward broadcasts between subnets. A <strong>DHCP Relay Agent</strong> (configured with <code>ip helper-address</code> on the router) forwards DHCP broadcasts from clients to the DHCP server as unicast, enabling one DHCP server to serve multiple subnets.</p>
 
-  <h3>802.1X Network Access Control</h3>
+  <h3>DNS Record Types</h3>
   <div class="table-wrap">
     <table class="table--reference">
       <thead>
-        <tr><th>Role</th><th>Component</th><th>Examples</th></tr>
+        <tr><th>Record Type</th><th>Purpose</th><th>Example</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Supplicant</strong></td><td>The client device requesting access</td><td>Laptop, phone, workstation — runs 802.1X client software</td></tr>
-        <tr><td><strong>Authenticator</strong></td><td>The network device that enforces access control</td><td>Switch port or WAP — forwards EAP messages, enforces allow/deny</td></tr>
-        <tr><td><strong>Authentication Server</strong></td><td>Validates credentials and sends accept/reject</td><td>RADIUS server (FreeRADIUS, Cisco ISE, Microsoft NPS)</td></tr>
+        <tr><td><strong>A</strong></td><td>Maps hostname to IPv4 address</td><td>www.example.com → 93.184.216.34</td></tr>
+        <tr><td><strong>AAAA</strong></td><td>Maps hostname to IPv6 address</td><td>www.example.com → 2606:2800:220:1:248:1893:25c8:1946</td></tr>
+        <tr><td><strong>CNAME</strong></td><td>Canonical Name — alias for another hostname</td><td>mail.example.com → example.com (CNAME = pointer)</td></tr>
+        <tr><td><strong>MX</strong></td><td>Mail Exchange — specifies mail servers for a domain, with priority</td><td>example.com MX 10 mail1.example.com</td></tr>
+        <tr><td><strong>PTR</strong></td><td>Pointer — maps IP address to hostname (reverse DNS)</td><td>34.216.184.93.in-addr.arpa → www.example.com</td></tr>
+        <tr><td><strong>TXT</strong></td><td>Text record — SPF, DKIM, DMARC, domain verification</td><td>v=spf1 include:example.com ~all</td></tr>
+        <tr><td><strong>NS</strong></td><td>Name Server — identifies authoritative DNS servers for a zone</td><td>example.com NS ns1.example.com</td></tr>
+        <tr><td><strong>SOA</strong></td><td>Start of Authority — primary NS, admin email, serial, timers for the zone</td><td>Zone housekeeping information</td></tr>
+        <tr><td><strong>SRV</strong></td><td>Service record — location of specific services (VoIP, LDAP, etc.)</td><td>_sip._tcp.example.com SRV 10 5 5060 sip.example.com</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h3>Remote Access Protocols</h3>
+  <!-- Matching game for DNS -->
+  <h3>Practice: DNS Record → Purpose</h3>
+  <div class="matching-game">
+    <div class="match-instructions">Click a record type, then click its purpose.</div>
+    <div class="match-columns">
+      <div class="match-col">
+        <div class="match-item" data-match="dns-a">A Record</div>
+        <div class="match-item" data-match="dns-aaaa">AAAA Record</div>
+        <div class="match-item" data-match="dns-mx">MX Record</div>
+        <div class="match-item" data-match="dns-ptr">PTR Record</div>
+        <div class="match-item" data-match="dns-cname">CNAME Record</div>
+        <div class="match-item" data-match="dns-txt">TXT Record</div>
+      </div>
+      <div class="match-col">
+        <div class="match-target" data-id="dns-a">Hostname → IPv4 address</div>
+        <div class="match-target" data-id="dns-aaaa">Hostname → IPv6 address</div>
+        <div class="match-target" data-id="dns-mx">Specifies mail servers for domain</div>
+        <div class="match-target" data-id="dns-ptr">IP address → Hostname (reverse lookup)</div>
+        <div class="match-target" data-id="dns-cname">Alias — points to another hostname</div>
+        <div class="match-target" data-id="dns-txt">SPF, DKIM, domain verification</div>
+      </div>
+    </div>
+    <div class="match-footer">
+      <span class="match-score">0 / 6 matched</span>
+      <button class="reset-btn">Reset</button>
+    </div>
+  </div>
+
+  <h3>DNS Hierarchy</h3>
+  <ol>
+    <li><strong>Root DNS Servers:</strong> 13 logical root server sets (a.root-servers.net through m.root-servers.net). Know where top-level domains (TLDs) are.</li>
+    <li><strong>TLD Name Servers:</strong> Manage .com, .org, .net, country codes (.uk, .de).</li>
+    <li><strong>Authoritative Name Servers:</strong> Hold actual DNS records for a domain. Final authority.</li>
+    <li><strong>Recursive Resolver:</strong> Your ISP or internal DNS server. Queries on behalf of clients, caches results (TTL-based).</li>
+  </ol>
+
+  <h3>DNS Troubleshooting Commands</h3>
   <div class="table-wrap">
     <table class="table--reference">
       <thead>
-        <tr><th>Protocol</th><th>Port</th><th>Use</th><th>Security</th></tr>
+        <tr><th>Command</th><th>Platform</th><th>Use</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>SSH</strong></td><td>22 TCP</td><td>Encrypted CLI remote access to routers, switches, Linux</td><td>Encrypted, key-based or password auth</td></tr>
-        <tr><td><strong>Telnet</strong></td><td>23 TCP</td><td>Legacy CLI remote access</td><td>Cleartext — never use in production</td></tr>
-        <tr><td><strong>RDP</strong></td><td>3389 TCP</td><td>Windows remote desktop GUI</td><td>Encrypted, but often targeted by attackers (BlueKeep)</td></tr>
-        <tr><td><strong>VNC</strong></td><td>5900 TCP</td><td>Cross-platform remote desktop</td><td>Security varies — use with SSH tunnel</td></tr>
+        <tr><td><code>nslookup hostname</code></td><td>Windows/Linux</td><td>Query DNS for a hostname or IP. Basic resolution test.</td></tr>
+        <tr><td><code>nslookup -type=MX domain.com</code></td><td>Windows/Linux</td><td>Query specific record type.</td></tr>
+        <tr><td><code>dig hostname</code></td><td>Linux/macOS</td><td>More detailed DNS query output including TTL, authority.</td></tr>
+        <tr><td><code>dig @8.8.8.8 hostname</code></td><td>Linux</td><td>Query specific DNS server (bypass local resolver).</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — nslookup</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> nslookup example.com
+Server:  corp-dns.corp.local
+Address: 192.168.1.53
+
+<span class="tn">Non-authoritative answer:</span>    <span class="tn">← from cache, not the zone's own server</span>
+Name:    <span class="th">example.com</span>
+Address: <span class="th">93.184.216.34</span>
+
+<span class="tpw">PS C:\&gt;</span> nslookup -type=MX example.com
+Server:  corp-dns.corp.local
+Address: 192.168.1.53
+
+example.com  mail exchanger = <span class="th">10</span>  mail1.example.com.  <span class="tn">← priority 10 (primary)</span>
+example.com  mail exchanger = <span class="th">20</span>  mail2.example.com.  <span class="tn">← priority 20 (backup)</span>
+<span class="tn"># Lower MX priority number = higher priority. 10 is attempted before 20</span>
+<span class="tn"># Use -type=NS for nameservers, -type=PTR for reverse lookup, -type=TXT for SPF</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">PowerShell — Resolve-DnsName</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com
+
+Name                            Type  TTL   Section  IPAddress
+----                            ----  ---   -------  ---------
+example.com                     A     <span class="th">3599</span>  Answer   <span class="th">93.184.216.34</span>
+<span class="tn"># TTL=3599s — how long this record is cached before re-querying</span>
+
+<span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com -Type MX
+
+Name         Type  TTL   Section  NameExchange        Preference
+----         ----  ---   -------  ------------        ----------
+example.com  MX    3600  Answer   mail1.example.com   <span class="th">10</span>
+example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
+<span class="tn"># Lower Preference = higher priority. 10 is tried before 20</span>
+
+<span class="tpw">PS C:\&gt;</span> Resolve-DnsName example.com -Server 8.8.8.8  <span class="tn">← bypass local resolver</span>
+<span class="tn"># If local fails but -Server 8.8.8.8 works → internal DNS server is the problem</span>
+<span class="tn"># If both fail → domain doesn't exist, or DNS traffic is being blocked</span></pre>
+  </div>
+
+  <h3>NTP (Network Time Protocol)</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Stratum</th><th>Source</th><th>Examples</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Stratum 0</strong></td><td>Reference clock (not on network)</td><td>Atomic clocks, GPS receivers, CDMA</td></tr>
+        <tr><td><strong>Stratum 1</strong></td><td>Directly connected to Stratum 0</td><td>time.nist.gov — authoritative NTP servers</td></tr>
+        <tr><td><strong>Stratum 2</strong></td><td>Synced from Stratum 1</td><td>pool.ntp.org servers, enterprise NTP servers</td></tr>
+        <tr><td><strong>Stratum 3+</strong></td><td>Cascaded from higher stratum</td><td>Local network NTP servers, endpoint clients</td></tr>
+        <tr><td><strong>Stratum 16</strong></td><td>Unsynchronized</td><td>Device has lost sync — clock is unreliable</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">NTP and Kerberos</div>
+    Kerberos authentication (used in Active Directory) requires all devices to be within <strong>5 minutes</strong> of each other in clock time. If NTP fails and clocks drift more than 5 minutes, Kerberos tickets will be rejected and users can't authenticate. NTP is security-critical.
   </div>
 
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
-      <li>RADIUS = UDP | TACACS+ = TCP. This is the #1 most-tested RADIUS/TACACS+ fact.</li>
-      <li>TACACS+ encrypts the <em>entire</em> packet. RADIUS encrypts only the <em>password</em>.</li>
-      <li>TACACS+ is for device (router/switch) management. RADIUS is for network access (Wi-Fi, VPN).</li>
-      <li>IPsec ESP provides encryption. IPsec AH does NOT encrypt — it only authenticates.</li>
-      <li>802.1X supplicant = client. Authenticator = switch/WAP. Authentication server = RADIUS.</li>
+      <li>DHCP uses <strong>broadcasts</strong> — routers don't forward broadcasts. You need a DHCP relay (ip helper-address) for multi-subnet DHCP.</li>
+      <li>PTR record = reverse DNS. A record = forward (name → IP). These are commonly confused.</li>
+      <li>CNAME cannot point to an IP address directly — it points to another hostname (which then resolves via an A record).</li>
+      <li>MX records have <strong>priority</strong> values — lower number = higher priority. Multiple MX records for redundancy.</li>
+      <li>DNS uses UDP for queries ≤512 bytes and TCP for zone transfers or larger responses.</li>
+      <li>NTP stratum 0 = hardware clock (not on network). Stratum 1 = first server on the network.</li>
     </ul>
   </div>
 
-  <h3>Access Management Methods</h3>
+  <h3>How DNS Resolution Works</h3>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Query Type</th><th>Who Does the Work</th><th>Response</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Recursive</strong></td><td>Resolver does all the work on behalf of the client</td><td>Returns the final answer (IP address) or an error — client gets a complete response</td></tr>
+        <tr><td><strong>Iterative</strong></td><td>Each server gives the best answer it can (a referral or the answer)</td><td>Resolver queries root → TLD → authoritative servers in sequence, following referrals</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="steps-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-body"><strong>Client → Recursive Resolver:</strong> Client sends recursive query to its configured DNS resolver (e.g., ISP resolver or 8.8.8.8)</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-body"><strong>Resolver checks cache:</strong> If the answer is cached (TTL not expired), it returns immediately. Otherwise, resolution begins.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-body"><strong>Resolver → Root Server (iterative):</strong> "Who handles .com?" Root server refers resolver to the .com TLD name servers.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-body"><strong>Resolver → TLD Server (iterative):</strong> "Who handles example.com?" TLD server refers resolver to example.com's authoritative name servers.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-body"><strong>Resolver → Authoritative Server (iterative):</strong> "What is the IP for www.example.com?" Authoritative server returns the A record.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">6</div>
+      <div class="step-body"><strong>Resolver → Client:</strong> Returns the answer and caches it for the record's TTL duration.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Authoritative vs Non-Authoritative Responses</div>
+    <p>An <strong>authoritative</strong> response comes directly from the zone's name server — it's the definitive source. A <strong>non-authoritative</strong> response comes from a resolver's cache. In <code>dig</code> output, the <code>aa</code> flag indicates an authoritative answer. Use <code>dig +trace example.com</code> to see the full iterative resolution chain.</p>
+    <p>Reverse DNS: PTR records map IP → hostname, stored in <code>in-addr.arpa</code> zones. Mail servers use reverse DNS to detect spam — a sending IP with no PTR record is suspicious.</p>
+  </div>
+
+  <h3>DNS Security and Privacy Extensions</h3>
   <div class="table-wrap">
     <table class="table--reference">
       <thead>
-        <tr><th>Method</th><th>Protocol</th><th>Authentication</th><th>Use Case / Notes</th></tr>
+        <tr><th>Technology</th><th>Port</th><th>Protocol</th><th>Purpose</th><th>What It Protects Against</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>GUI / Web-Based</strong></td><td>HTTPS (443)</td><td>Username/password; certificate</td><td>Browser-based management interface; use HTTPS only — HTTP exposes credentials</td></tr>
-        <tr data-exam-weight="high"><td><strong>SSH</strong></td><td>TCP 22</td><td>Username/password or public key</td><td>Encrypted CLI; key-based authentication preferred over passwords; replaces Telnet</td></tr>
-        <tr><td><strong>API</strong></td><td>REST (HTTPS), NETCONF (830 TCP), RESTCONF (443)</td><td>Token, certificate, OAuth</td><td>Programmatic management; used by IaC tools (Ansible, Terraform); NETCONF = XML, RESTCONF = REST</td></tr>
-        <tr data-exam-weight="high"><td><strong>Console Port</strong></td><td>Serial / USB (direct)</td><td>Username/password (if configured)</td><td>Physical connection; always accessible regardless of network state; initial config and recovery mode</td></tr>
-        <tr data-exam-weight="high"><td><strong>Jump Box / Bastion Host</strong></td><td>SSH to jump box; then SSH to device</td><td>MFA + SSH keys recommended</td><td>Admins SSH to jump box first; jump box SSH to target device; all sessions logged centrally</td></tr>
-        <tr><td><strong>In-Band Management</strong></td><td>Shares production interfaces/VLAN</td><td>As above</td><td>Normal operations; unavailable if production network fails</td></tr>
-        <tr><td><strong>OOB Management</strong></td><td>Dedicated console server, cellular modem, OOBM VLAN on separate NIC</td><td>As above</td><td>Emergency access path; survives production network failure; physically separate from data plane</td></tr>
+        <tr><td><strong><abbr title="DNS Security Extensions">DNSSEC</abbr></strong></td><td>53 UDP/TCP</td><td>Digital signatures (RRSIG records)</td><td>Integrity — signs DNS records so resolvers can verify they haven't been tampered with</td><td>Cache poisoning / DNS spoofing (does NOT encrypt queries)</td></tr>
+        <tr><td><strong><abbr title="DNS over TLS">DoT</abbr></strong></td><td><strong>853</strong> TCP</td><td>DNS inside TLS tunnel</td><td>Privacy — encrypts DNS queries between client and resolver</td><td>Eavesdropping on DNS queries; easily distinguishable (port 853)</td></tr>
+        <tr><td><strong><abbr title="DNS over HTTPS">DoH</abbr></strong></td><td><strong>443</strong> TCP</td><td>DNS inside HTTPS</td><td>Privacy — encrypts DNS queries; blends with HTTPS traffic</td><td>Eavesdropping; harder for enterprises to block/inspect than DoT</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">DNSSEC vs DoT vs DoH — The Key Distinction</div>
+    <p><strong>DNSSEC</strong> = <em>integrity</em>. It signs DNS records with cryptographic signatures so you know the answer hasn't been forged. It does <strong>NOT encrypt</strong> queries — anyone can still see what you're resolving.<br>
+    <strong>DoT / DoH</strong> = <em>privacy</em>. They encrypt the DNS query and response in transit. They do NOT validate the content of DNS records (that's DNSSEC's job).<br>
+    These are complementary, not alternatives — DNSSEC + DoT together provides both integrity and privacy.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ DNS Security Exam Traps</div>
+    <ul>
+      <li><strong>DNSSEC does NOT encrypt</strong> — it signs records for integrity verification. Queries are still visible in cleartext.</li>
+      <li><strong>DoT = port 853</strong>; DoH = port 443. DoH uses the HTTPS port intentionally to blend with web traffic.</li>
+      <li>DoH is harder for enterprise security tools to block/inspect because it looks like HTTPS traffic.</li>
+    </ul>
+  </div>
+
+  <h3>Time Protocol Comparison</h3>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Protocol</th><th>Standard</th><th>Port</th><th>Accuracy</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>NTP</strong></td><td>RFC 5905</td><td>123 UDP</td><td>~1–50 ms</td><td>General enterprise time sync; all network devices, servers</td></tr>
+        <tr><td><strong>PTP</strong> (IEEE 1588)</td><td>IEEE 1588-2019</td><td>319/320 UDP</td><td>Sub-microsecond</td><td>Financial trading, 5G RAN synchronization, industrial automation, broadcast media</td></tr>
+        <tr><td><strong>NTS</strong></td><td>RFC 8915</td><td>4460 TCP</td><td>Same as NTP</td><td>Authenticated NTP — prevents time spoofing and MITM against NTP</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="callout callout-amber">
-    <div class="callout-title">⚠ Access Methods Exam Traps</div>
+    <div class="callout-title">⚠ Time Protocol Exam Traps</div>
     <ul>
-      <li><strong>Jump box = bastion host</strong> — same concept, different names. Admins never SSH directly to production devices.</li>
-      <li><strong>OOB = separate path that survives production failure</strong>. If the question mentions "can't reach the device over the network," the answer is OOB or console.</li>
-      <li>Telnet (23) = unencrypted, never use. SSH (22) = encrypted, required for production.</li>
-      <li>NETCONF uses port 830 TCP; RESTCONF uses 443 (HTTPS).</li>
+      <li>Use <strong>PTP when NTP is not precise enough</strong> — financial trading, 5G, and industrial control require sub-microsecond accuracy.</li>
+      <li><strong>NTS = NTP + security</strong> — it's not a new time protocol; it adds authentication to NTP to prevent spoofing.</li>
+      <li>Know port numbers: NTP = 123 UDP | PTP = 319/320 UDP | NTS = 4460 TCP.</li>
     </ul>
   </div>
 
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 3.4</div>
     <ul>
-      <li>RADIUS: UDP 1812/1813, encrypts only password, combines Auth+Authz</li>
-      <li>TACACS+: TCP 49, full packet encryption, separates AAA functions</li>
-      <li>IPsec: AH=auth only | ESP=auth+encryption | IKE=key exchange</li>
-      <li>802.1X: Supplicant (client) → Authenticator (switch/WAP) → Authentication Server (RADIUS)</li>
-      <li>Site-to-site VPN = router-to-router | Remote access VPN = client-to-site</li>
-      <li>Jump box = bastion host; all admin access goes through it first</li>
-      <li>OOB = separate management path; survives production network failure</li>
-      <li>Console = ultimate OOB; direct serial/USB; always accessible</li>
+      <li>DHCP DORA: Discover (broadcast) → Offer → Request (broadcast) → Acknowledge</li>
+      <li>DHCP options: 3=gateway, 6=DNS, 15=domain, 51=lease time, 66=TFTP, 67=bootfile</li>
+      <li>ip helper-address = DHCP relay for cross-subnet DHCP</li>
+      <li>A=IPv4 | AAAA=IPv6 | MX=mail | PTR=reverse | CNAME=alias | TXT=SPF/DKIM</li>
+      <li>NTP: Stratum 0=atomic clock → 1=primary server → 2=secondary → 16=unsynchronized</li>
+      <li>DNS resolution: Client → Recursive Resolver → Root → TLD → Authoritative (iterative steps)</li>
+      <li>DNSSEC = integrity (signs records, no encryption) | DoT = privacy port 853 | DoH = privacy port 443</li>
+      <li>PTP = sub-microsecond (financial/5G/industrial) | NTS = authenticated NTP (RFC 8915, port 4460)</li>
     </ul>
   </div>
 
   <div class="ai-explain-area">
-    <button class="ai-explain-btn" data-topic="RADIUS vs TACACS+ AAA protocols">✦ Explain Differently</button>
+    <button class="ai-explain-btn" data-topic="DHCP DORA process and DNS record types">✦ Explain Differently</button>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════
-     OBJ 3.5 — Policies & Disaster Recovery
+     OBJ 3.5 — Network Access & Management Methods
      ═══════════════════════════════════════════ -->
