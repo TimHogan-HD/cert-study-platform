@@ -47,12 +47,20 @@
         <tr><td><strong>MDF</strong> (Main Distribution Frame)</td><td>Central point of a structured cabling system. Where ISP connection enters and connects to core switches.</td></tr>
         <tr><td><strong>IDF</strong> (Intermediate Distribution Frame)</td><td>Connects floor-level access switches to the MDF via backbone cabling. One per floor or area.</td></tr>
         <tr><td><strong>Patch Panel</strong></td><td>Passive device that organizes and routes cable connections. Front = patch cords to switches; back = runs to wall jacks.</td></tr>
+        <tr><td><strong>Fiber Distribution Panel</strong></td><td>The fiber equivalent of a patch panel — terminates incoming fiber backbone runs and presents them as connectorized ports (LC, SC) for patching to switch optics. Houses the fusion splices or pigtails and protects the fiber's minimum bend radius. Typically where the MDF-to-IDF backbone lands.</td></tr>
+        <tr><td><strong>Lockable Rack / Cabinet</strong></td><td>An enclosure with locking front and rear doors and side panels. A physical access control — anyone who can touch a switch can reset it, mirror a port, or attach a rogue device, so restricting physical access is a security measure, not merely tidiness.</td></tr>
         <tr><td><strong>66 Block</strong></td><td>Older punchdown block — used for analog voice (telephone). Not recommended for Cat 5e+ data.</td></tr>
         <tr><td><strong>110 Block</strong></td><td>Modern punchdown block — supports Cat 5e and above for data. Preferred for structured cabling.</td></tr>
         <tr><td><strong>Cable Tray</strong></td><td>Support structure that runs cable horizontally (horizontal cabling) in ceilings or under raised floors.</td></tr>
         <tr><td><strong>Conduit</strong></td><td>Protective tube for cables — EMI shielding, physical protection, and NEC compliance in exposed areas.</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Lockable enclosures as a security control</div>
+    <p>Locking racks and cabinets matter most where the equipment is not already behind a controlled door. An MDF in a badge-access room is protected by the room; an <abbr title="Intermediate Distribution Frame">IDF</abbr> in a shared floor closet, a switch in a retail back office, or a rack in a leased colocation cage is not — and those are exactly the places a locking enclosure earns its keep. In multi-tenant facilities the cabinet lock is often the <em>only</em> boundary between your hardware and another tenant's staff.</p>
+    <p>This is one layer of a broader topic: physical security controls, including badge readers, mantraps, cameras, and asset tracking, are covered in <strong>Objective 4.1</strong>.</p>
   </div>
 
   <h3>Power over Ethernet (PoE) Standards</h3>
@@ -185,6 +193,173 @@
     </ul>
   </div>
 
+  <h3>Power</h3>
+  <p>Network equipment is only as available as the power feeding it. Objective 2.4 enumerates five power components, and the distinction the exam leans on hardest is <em>how the three UPS types route the load</em>.</p>
+
+  <h4>UPS Types</h4>
+  <p>All three deliver battery-backed power. What separates them is whether the load is normally fed from the mains or through the inverter — which determines how long the gap is when utility power fails.</p>
+  <div class="ups-grid">
+    <div class="ups-card" data-ups="standby">
+      <div class="ups-name">Standby</div>
+      <div class="ups-alt">also called offline</div>
+      <div class="ups-path">
+        <span class="ups-hop" data-live="mains">Mains</span>
+        <span class="ups-hop-sep">→</span>
+        <span class="ups-hop">Transfer switch</span>
+        <span class="ups-hop-sep">→</span>
+        <span class="ups-hop">Load</span>
+      </div>
+      <div class="ups-field"><span class="ups-field-label">Normal</span> Load runs straight off the mains. The inverter and battery sit idle.</div>
+      <div class="ups-field"><span class="ups-field-label">On failure</span> A transfer switch flips the load over to the inverter — a brief but real gap of a few milliseconds.</div>
+      <div class="ups-field"><span class="ups-field-label">Fits</span> Desktops and single workstations. Cheapest of the three.</div>
+    </div>
+    <div class="ups-card" data-ups="line">
+      <div class="ups-name">Line-Interactive</div>
+      <div class="ups-alt">inverter always wired</div>
+      <div class="ups-path">
+        <span class="ups-hop" data-live="mains">Mains</span>
+        <span class="ups-hop-sep">→</span>
+        <span class="ups-hop">AVR + inverter</span>
+        <span class="ups-hop-sep">→</span>
+        <span class="ups-hop">Load</span>
+      </div>
+      <div class="ups-field"><span class="ups-field-label">Normal</span> The inverter is permanently connected to the output, and automatic voltage regulation corrects sags and surges <em>without</em> touching the battery.</div>
+      <div class="ups-field"><span class="ups-field-label">On failure</span> Draws from the battery only on an actual outage. Transition is smoother than standby.</div>
+      <div class="ups-field"><span class="ups-field-label">Fits</span> Wiring closets and small server rooms — the usual choice for an IDF.</div>
+    </div>
+    <div class="ups-card" data-ups="online">
+      <div class="ups-name">Online</div>
+      <div class="ups-alt">double-conversion</div>
+      <div class="ups-path">
+        <span class="ups-hop">Mains</span>
+        <span class="ups-hop-sep">→</span>
+        <span class="ups-hop">Rectifier</span>
+        <span class="ups-hop-sep">→</span>
+        <span class="ups-hop" data-live="battery">DC bus + battery</span>
+        <span class="ups-hop-sep">→</span>
+        <span class="ups-hop">Inverter</span>
+        <span class="ups-hop-sep">→</span>
+        <span class="ups-hop">Load</span>
+      </div>
+      <div class="ups-field"><span class="ups-field-label">Normal</span> AC is converted to DC and back to AC continuously. The load is <strong>always</strong> fed from the inverter, never directly from the mains.</div>
+      <div class="ups-field"><span class="ups-field-label">On failure</span> <strong>Zero transfer time</strong> — nothing switches, the rectifier simply stops contributing and the battery carries the DC bus.</div>
+      <div class="ups-field"><span class="ups-field-label">Fits</span> Data centres and anything intolerant of a power gap. Most expensive; the constant conversion costs efficiency.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>A UPS is a bridge, not a backup.</strong> Its runtime is measured in minutes — enough to ride out a brief sag, trigger a graceful shutdown of servers, or hold the load for the 10–30 seconds a generator needs to start and stabilise. It is <em>not</em> a solution for an extended outage. The exam pairing to remember: the <strong>UPS covers the gap until the generator takes over</strong>, and the generator then runs for as long as it has fuel. Naming terminology varies — "online" and "double-conversion" are the same thing, and "standby" is often written "offline."
+  </div>
+
+  <h4>Power Distribution and Capacity</h4>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Component</th><th>What it does</th><th>Key detail</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><abbr title="Power Distribution Unit">PDU</abbr></strong><br>Power Distribution Unit</td>
+          <td>Takes one high-capacity input feed and distributes it to many outlets across a rack.</td>
+          <td>A <strong>basic</strong> PDU is essentially a rack-mount power strip. A <strong>managed</strong> (intelligent) PDU adds per-outlet current monitoring and remote switching, so a hung device can be power-cycled without anyone visiting the site, and actual draw can be measured rather than estimated.</td>
+        </tr>
+        <tr>
+          <td><strong>Power load</strong></td>
+          <td>The total current every device in a rack draws, measured against the capacity of the circuit feeding it.</td>
+          <td>Must be calculated <em>before</em> populating a rack, not after. Overloading trips the breaker and drops everything on that circuit at once. Plan to the <strong>80% rule</strong> — a circuit carrying a continuous load should be loaded to no more than 80% of its rating, so a 20 A circuit is budgeted at 16 A. Remember that a redundant dual-feed rack must survive on one feed, so each side needs headroom for the whole load.</td>
+        </tr>
+        <tr>
+          <td><strong>Voltage</strong></td>
+          <td>Common feeds are 120 V for general-purpose outlets and 208/240 V for higher-density racks.</td>
+          <td>Higher voltage delivers the same wattage at <em>lower current</em>, which means less heat lost in the conductors, more equipment per circuit, and thinner cabling. Server power supplies are also typically a little more efficient at 208–240 V. This is why data centres standardise on 208 V while an office closet runs on 120 V.</td>
+        </tr>
+        <tr>
+          <td><strong>Generator</strong></td>
+          <td>An engine-driven source that supplies the facility for extended outages.</td>
+          <td>Takes seconds to start and stabilise, which is precisely the gap the UPS exists to cover. Runtime is limited by fuel on site and resupply, not by batteries. Requires periodic load testing — a generator that has never been tested under real load is an assumption, not a control.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Environmental Factors</h3>
+  <p>Equipment rooms fail from their environment as often as from their wiring. Three factors are enumerated: humidity, temperature, and fire suppression.</p>
+
+  <h4>Humidity</h4>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Condition</th><th>Risk</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Too low</strong> — below roughly 20% RH</td><td><strong>Electrostatic discharge.</strong> Dry air lets static charge build on people and equipment instead of dissipating. A discharge that a technician cannot even feel is enough to damage a circuit board — and the damage is frequently latent, degrading a component that fails weeks later rather than immediately.</td></tr>
+        <tr><td><strong>Too high</strong> — above roughly 60% RH</td><td><strong>Condensation and corrosion.</strong> Moisture forms on cool surfaces, corroding contacts and connector pins over time and risking short circuits.</td></tr>
+        <tr><td><strong>Target</strong></td><td>Data centres are commonly held around <strong>40–60% relative humidity</strong> — comfortably clear of the ESD floor and the condensation ceiling.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-red">
+    <div class="callout-title">Exam trap — the direction matters</div>
+    <p><strong>Low</strong> humidity causes electrostatic discharge, not high. The instinct to associate "moisture" with "electrical problems" points the wrong way here, and the exam tests exactly that reversal. If a scenario mentions dry air, winter heating, or a static shock felt on a door handle, the answer is ESD — and the remedy is to <em>raise</em> humidity, along with the usual antistatic wrist strap and mat.</p>
+  </div>
+
+  <h4>Temperature</h4>
+  <p>ASHRAE's recommended envelope for data centre equipment intake air is roughly <strong>18–27 °C (64–81 °F)</strong>, with wider allowable ranges defined per equipment class. The practical points:</p>
+  <ul>
+    <li><strong>Too hot</strong> — components throttle to protect themselves, lifespan shortens, and past a threshold devices perform an emergency <strong>thermal shutdown</strong>. An entire rack dropping offline with no configuration change and no power event is a classic cooling failure.</li>
+    <li><strong>Too cold</strong> — mostly wasted money, but running below the dew point risks condensation, and very dry cold air brings the ESD problem above.</li>
+    <li><strong>Airflow beats raw setpoint.</strong> A room can sit at the correct average temperature while a single rack cooks, which is why the hot/cold aisle arrangement and containment described earlier matter more than simply turning the thermostat down. Blanking panels in unused rack units stop hot exhaust from recirculating to the intakes.</li>
+  </ul>
+
+  <h4>Fire Suppression</h4>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>System</th><th>How it works</th><th>Where it fits</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Clean agent</strong><br><span style="font-size:11px">(FM-200, Novec 1230, inert gases)</span></td>
+          <td>Floods the room with a gas that interrupts combustion by absorbing heat or breaking the reaction chain. Leaves <strong>no residue</strong> and does not conduct.</td>
+          <td><strong>The data centre standard.</strong> The only category that suppresses a fire without destroying the energised electronics it is protecting. Replaced Halon, which was phased out as ozone-depleting.</td>
+        </tr>
+        <tr>
+          <td><strong>Wet pipe</strong></td>
+          <td>Pipes are permanently charged with water. Heat opens an individual sprinkler head and water flows immediately from that head only.</td>
+          <td>Cheapest and most common in ordinary occupied buildings. Poor fit above equipment — a burst pipe or a single accidental head activation soaks the hardware.</td>
+        </tr>
+        <tr>
+          <td><strong>Dry pipe</strong></td>
+          <td>Pipes hold pressurised air instead of water; water enters only after a head opens. Slight delay before discharge.</td>
+          <td>Unheated or freeze-prone spaces — parking structures, warehouses, exterior risers — where standing water in the pipe would freeze and burst it.</td>
+        </tr>
+        <tr>
+          <td><strong>Pre-action</strong></td>
+          <td>Requires <strong>two independent events</strong>: a detector must trip to charge the pipes, <em>and then</em> a sprinkler head must open before any water is released.</td>
+          <td>Rooms where a water system is mandated but accidental discharge would be catastrophic. The double interlock is what makes it acceptable near equipment.</td>
+        </tr>
+        <tr>
+          <td><strong>Deluge</strong></td>
+          <td>All heads are open with no individual fusible link. When triggered, the system discharges over the <em>entire</em> protected area at once.</td>
+          <td>High-hazard areas with rapid fire spread — fuel handling, chemical storage, transformer rooms. Never appropriate for an equipment room.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">⚠ Power &amp; Environmental Exam Traps</div>
+    <ul>
+      <li><strong>Low humidity causes ESD, not high humidity.</strong> Below roughly 20% RH is the static risk; above roughly 60% brings condensation and corrosion. Do not reverse them.</li>
+      <li><strong>Clean agent is the answer for rooms full of energised electronics.</strong> It leaves no residue. Any water-based system — wet, dry, pre-action, deluge — damages what it is protecting; pre-action merely makes accidental discharge much less likely.</li>
+      <li><strong>A UPS bridges, it does not back up.</strong> Minutes of runtime for graceful shutdown or generator start. If a question describes an outage lasting hours, the answer involves a generator.</li>
+      <li><strong>Online (double-conversion) is the only UPS type with zero transfer time,</strong> because the load never leaves the inverter. Standby has a real switching gap; line-interactive narrows it but does not eliminate it.</li>
+      <li>Deluge opens <em>every</em> head at once; pre-action needs <em>two</em> triggers. Dry pipe exists for freezing conditions, not for protecting electronics.</li>
+      <li>Higher voltage (208/240 V) means lower current for the same wattage — less conductor heat and more equipment per circuit.</li>
+    </ul>
+  </div>
+
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 2.4</div>
     <ul>
@@ -196,6 +371,15 @@
       <li>Cold aisle = server intakes face in | Hot aisle = server exhausts face in</li>
       <li>1U = 1.75 inches | Standard rack = 42U</li>
       <li>Hot spot = missing blanking panel or misaligned airflow direction</li>
+      <li>Fiber distribution panel = patch panel for fiber; lockable rack = physical access control (see 4.1)</li>
+      <li>UPS types: Standby (offline, load on mains, real transfer gap) | Line-interactive (inverter always wired, AVR fixes sags without battery) | Online (double-conversion, load always on inverter, <strong>zero transfer time</strong>)</li>
+      <li>UPS = minutes, bridges to graceful shutdown or generator start | Generator = extended outage, limited by fuel</li>
+      <li>PDU = distributes one feed to many outlets; managed PDU adds per-outlet metering and remote power cycling</li>
+      <li>Power load: calculate before populating a rack; budget to 80% of circuit rating</li>
+      <li>Voltage: 208/240V = lower current for same wattage = less heat, more density than 120V</li>
+      <li><strong>Humidity below ~20% RH = ESD risk</strong> | above ~60% = condensation/corrosion | target 40–60%</li>
+      <li>Temperature: ASHRAE recommended intake roughly 18–27 °C (64–81 °F); too hot = throttling and thermal shutdown</li>
+      <li>Fire suppression: <strong>Clean agent = data centre choice</strong> (no residue) | Wet pipe = water always in pipes | Dry pipe = freeze-prone areas | Pre-action = two triggers required | Deluge = all heads open, high-hazard only</li>
     </ul>
   </div>
 
