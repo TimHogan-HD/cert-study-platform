@@ -210,8 +210,55 @@ Active Connections
         <tr><td>Missing route</td><td>Can't reach specific network; others work fine</td><td>Route not redistributed, summarized away, or filtered</td><td><code>show ip route [destination]</code></td></tr>
         <tr><td>DNS failure</td><td>Names don't resolve; IPs work</td><td>DNS server down, wrong DNS configured, poisoned cache</td><td><code>nslookup</code>; <code>ipconfig /flushdns</code></td></tr>
         <tr><td>Broadcast storm</td><td>Extreme network slowness; switch CPU maxed</td><td>STP failure causing a loop; broadcast traffic floods</td><td>Check STP topology; <code>show spanning-tree</code></td></tr>
+        <tr><td>Incorrect default gateway</td><td>Local subnet works perfectly; nothing off-subnet is reachable</td><td>Wrong gateway pushed by DHCP, static typo, or a gateway address that is not on the host's own subnet</td><td><code>ipconfig /all</code>; ping the gateway, then ping a remote host</td></tr>
+        <tr><td>Incorrect IP address</td><td>Host reaches nothing, or is reachable from some subnets but not its own</td><td>Static address configured in the wrong subnet, or a duplicate of an address already in use</td><td><code>ipconfig /all</code>; compare against the addressing plan</td></tr>
+        <tr><td>Incorrect subnet mask</td><td>Some destinations reachable, others not — inconsistent and confusing</td><td>Mask too long or too short, so the host misjudges which destinations are local and ARPs instead of routing (or the reverse)</td><td><code>ipconfig /all</code>; confirm the mask matches every other host on the segment</td></tr>
+        <tr><td>Blocked by ACL</td><td>Ping succeeds but an application fails, or one protocol works while another does not</td><td>An unintended <abbr title="Access Control List">ACL</abbr> match, or the implicit deny at the end of the list catching traffic nobody permitted</td><td><code>show access-lists</code> — check hit counters to see which line is matching; <code>show ip interface</code> for direction</td></tr>
+        <tr><td>Missing default route</td><td>All internal networks reachable; nothing on the internet is</td><td>No 0.0.0.0/0 in the table — removed by a change, or a failed dynamic route never replaced</td><td><code>show ip route</code>; look for <code>S*</code> and the gateway of last resort</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <h3>Switching Issues</h3>
+  <p>Spanning Tree faults present as performance and stability problems, not as obvious switch errors. The mechanics of STP — how the root bridge is elected, what each port role does, and the state timers — are covered in <strong>2.2</strong>. This section is the diagnostic view: what the failure looks like from the network, and which command confirms it.</p>
+
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Symptom</th><th>What is happening</th><th>Diagnostic action</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Broadcast storm</strong> — network unusable, switch CPU pinned at 100%, link LEDs on all ports flashing in unison</td><td>A Layer 2 loop with no STP blocking it. Broadcast frames have no TTL, so they circulate until the switch is saturated.</td><td><code>show spanning-tree</code> — is STP running on the VLAN at all? Look for a link added recently, or a small unmanaged switch plugged in by a user.</td></tr>
+        <tr><td><strong>MAC address flapping</strong> — log messages showing a MAC moving between two ports repeatedly</td><td>The same frame is arriving on two ports because a loop is delivering it by two paths. This is the clearest single confirmation of a loop.</td><td>Read the log entry — it names both ports. The loop is on the path between them. <code>show mac address-table</code> shows the entry changing port.</td></tr>
+        <tr><td><strong>Unexpected root bridge</strong> — traffic taking a slow or illogical path; a change in performance after new hardware was added</td><td>A switch with a lower priority (or a lower MAC at equal priority) won the election. Often a cheap access switch left at the default priority of 32768.</td><td><code>show spanning-tree</code> — the root bridge's ID and the local bridge ID are both shown. If "This bridge is the root" appears on an access switch, that is the fault. Set priority explicitly on the intended root.</td></tr>
+        <tr><td><strong>Port in an unexpected role or state</strong> — one link idle while another is congested</td><td>A port sitting in <em>blocking</em>/<em>discarding</em> is doing its job — STP chose the other path. The problem is usually that it chose the path you did not want, because of cost or priority.</td><td><code>show spanning-tree</code> lists role and state per port. Confirm which is root port and which is designated, then adjust cost or priority rather than disabling STP.</td></tr>
+        <tr><td><strong>Slow to pass traffic after link-up</strong> — a host times out on boot, or fails to get a DHCP lease</td><td>The port is walking through listening and learning before forwarding — roughly 30 seconds on classic STP.</td><td>Enable PortFast on access ports (with BPDU Guard). See 2.2 for the pairing.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-title">Never Fix a Loop by Disabling STP</div>
+    <p>A broadcast storm makes the switch's management interface unresponsive, and disabling spanning tree makes the symptom appear to change — which is why it is a tempting wrong answer. It removes the only mechanism preventing the loop. Break the loop physically (unplug the redundant link) to restore control, then find why STP was not blocking it: STP disabled on the VLAN, a mismatched STP mode between vendors, or a device that does not participate in STP at all.</p>
+  </div>
+
+  <h3>Address Pool Exhaustion</h3>
+  <p>A DHCP scope has a finite number of leasable addresses. When they are all committed, the server stops answering new clients — while every device that already holds a lease continues working normally. The result is a fault that appears to affect only new arrivals.</p>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Symptoms, Causes, Resolution</div>
+    <p><strong>Symptom:</strong> New devices fail to get an address and fall back to <strong>APIPA (169.254.x.x)</strong> — the same signature as a dead DHCP server, described in the APIPA section above. The distinguishing detail is that existing clients are unaffected, and the problem tracks arrivals rather than time. It shows up first in high-turnover areas: guest Wi-Fi, conference rooms, lobbies.</p>
+    <p><strong>Causes:</strong> a scope sized for fewer hosts than the subnet now carries; a <strong>lease time too long</strong> for a transient population, so addresses stay reserved for hours after a device has left; too many addresses withheld by exclusion ranges or reservations; or rogue and unauthorised devices quietly consuming leases.</p>
+    <p><strong>Confirm it:</strong> check the DHCP server's scope statistics for percentage in use. At or near 100% with pending discovers in the log is conclusive.</p>
+    <p><strong>Resolve it:</strong> shorten the lease duration — the fastest fix for a guest or conference network, and often the only one needed. Otherwise enlarge the scope (which may mean re-subnetting to a shorter prefix), reclaim addresses held by exclusions, or split the population across an additional subnet.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">Distinguishing the Three APIPA Causes</div>
+    <p>All three end with a client on 169.254.x.x, and the exam expects you to separate them by <em>who</em> is affected:</p>
+    <ul>
+      <li><strong>DHCP server down or unreachable</strong> — everyone renewing fails, gradually, as leases expire.</li>
+      <li><strong>DHCP relay (<code>ip helper-address</code>) missing or wrong</strong> — one whole VLAN fails while others are fine.</li>
+      <li><strong>Address pool exhausted</strong> — only new devices fail; everything already leased keeps working.</li>
+    </ul>
   </div>
 
   <h3>Security Symptoms in a Troubleshooting Context</h3>
@@ -369,6 +416,14 @@ Internet  <span class="th">10.10.10.50</span>   12   <span class="th">0050.7966.
       <li>DHCP snooping prevents rogue DHCP; DAI prevents ARP poisoning — these are different mitigations for different attacks</li>
       <li>Certificate errors can indicate MITM — don't just click "proceed anyway" in a troubleshooting context</li>
       <li>An ARP table with two entries sharing the same IP is a strong indicator of ARP spoofing — not always a misconfiguration</li>
+      <li>APIPA has three distinct causes — server down (everyone, gradually), relay missing (one VLAN), pool exhausted (new devices only). The question tells you which by who is affected.</li>
+      <li>Address pool exhaustion is fixed fastest by <em>shortening the lease</em>, not by enlarging the scope — enlarging may require re-subnetting</li>
+      <li>Never resolve a broadcast storm by disabling STP — break the loop physically, then find why STP was not blocking</li>
+      <li>A port in blocking/discarding is STP working correctly, not a fault — the fault is if it blocked the link you wanted used</li>
+      <li>An unexpected root bridge is usually a cheap switch left at the default priority 32768, winning on lowest MAC</li>
+      <li>MAC address flapping between two ports is the clearest confirmation of a Layer 2 loop</li>
+      <li>Wrong subnet mask causes <em>inconsistent</em> reachability — some destinations work, others do not. A wrong gateway breaks all off-subnet traffic uniformly.</li>
+      <li>Ping works but the application fails → suspect an ACL, including the implicit deny at the end of the list</li>
     </ul>
   </div>
 
@@ -391,6 +446,14 @@ Internet  <span class="th">10.10.10.50</span>   12   <span class="th">0050.7966.
       <li>Unknown open port → check with <code>netstat -an</code></li>
       <li>APIPA + DHCP failure → check DHCP snooping isn't blocking legitimate server</li>
       <li>Duplicate IP in ARP table = ARP poisoning suspect, not just config error</li>
+      <li>Only new devices get APIPA → address pool exhausted. Everyone → server down. One VLAN → relay/helper missing.</li>
+      <li>Pool exhaustion fix order: shorten lease → reclaim exclusions → enlarge scope</li>
+      <li>Loop symptoms: broadcast storm + MAC flapping + switch CPU spike</li>
+      <li>Unexpected root bridge → <code>show spanning-tree</code> → set priority on the intended root</li>
+      <li>Local works / off-subnet fails = wrong default gateway</li>
+      <li>Inconsistent reachability = wrong subnet mask</li>
+      <li>No internet, internal fine = missing default route (<code>S*</code> absent)</li>
+      <li>Ping OK but app fails = ACL (check hit counters, remember the implicit deny)</li>
     </ul>
   </div>
 

@@ -20,11 +20,11 @@
   <div class="steps-list">
     <div class="step-item">
       <div class="step-num">1</div>
-      <div class="step-body"><strong>Identify the problem</strong><br>Gather information, question users, identify symptoms, duplicate the issue, check event logs</div>
+      <div class="step-body"><strong>Identify the problem</strong><br>Gather information, question users, identify symptoms, determine if anything has changed, duplicate the problem if possible, approach multiple problems individually</div>
     </div>
     <div class="step-item">
       <div class="step-num">2</div>
-      <div class="step-body"><strong>Establish a theory of probable cause</strong><br>Question the obvious, consider multiple approaches, start with simplest explanation (Occam's razor)</div>
+      <div class="step-body"><strong>Establish a theory of probable cause</strong><br>Question the obvious; consider multiple approaches — top-to-bottom/bottom-to-top OSI model, divide and conquer. Start with the simplest explanation (Occam's razor)</div>
     </div>
     <div class="step-item">
       <div class="step-num">3</div>
@@ -44,8 +44,16 @@
     </div>
     <div class="step-item">
       <div class="step-num">7</div>
-      <div class="step-body"><strong>Document findings, actions, and outcomes</strong><br>Update tickets, knowledge base, runbooks. Documentation is always the last step</div>
+      <div class="step-body"><strong>Document findings, actions, outcomes, and lessons learned throughout the process</strong><br>Update tickets, knowledge base, runbooks. Documentation is always the last step</div>
     </div>
+  </div>
+
+  <div class="callout callout-purple">
+    <div class="callout-title">Step 1 — The Three Sub-Steps Candidates Skip</div>
+    <p><strong>Determine if anything has changed.</strong> This is an enumerated part of step 1, not a later step. Most faults follow a change — a patch, a config push, a new device, a cable moved. Asking "what changed?" early is what makes step 2 quick.</p>
+    <p><strong>Duplicate the problem, if possible.</strong> "If possible" is part of the official wording. An intermittent fault you cannot reproduce is not a dead end — you proceed with the evidence you have rather than stalling here.</p>
+    <p><strong>Approach multiple problems individually.</strong> If a user reports three symptoms, they may be three separate faults or one root cause. Treat each as its own thread until proven related — bundling them is how a single root cause gets missed.</p>
+    <p>Checking event logs is part of gathering information in practice, but CompTIA does not enumerate it as a sub-step. Do it — just do not expect it as an answer option.</p>
   </div>
 
   <h3>Troubleshooting Approaches</h3>
@@ -62,6 +70,8 @@
       </tbody>
     </table>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Step 2 of objective 5.1 lists <em>top-to-bottom/bottom-to-top OSI model</em> and <em>divide and conquer</em> as its two sub-approaches. <strong>Follow the path</strong>, <strong>compare configurations</strong>, and <strong>swap components</strong> are not enumerated. They are kept because they are standard practice, they appear in the scenario walkthroughs below, and a question can describe one of them without naming it — but if a question asks which approaches CompTIA lists, the answer is only the first three rows.</p>
 
   <h3>Scenario Walkthrough 1: User Can't Access Shared Drive</h3>
   <div class="callout callout-blue">
@@ -176,6 +186,10 @@ Sending 5, 100-byte ICMP Echos to 8.8.8.8, timeout is 2 seconds:
       <li>"Document" is always the last step (step 7), even if you think you should document earlier</li>
       <li>If theory doesn't confirm in step 3, you go back to step 2 — not skip to step 5</li>
       <li>Escalation happens in step 5, not before establishing a theory</li>
+      <li>"Determine if anything has changed" belongs to step 1 — it is part of identifying the problem, not a separate later step</li>
+      <li>"Approach multiple problems individually" is also step 1. Several simultaneous symptoms are treated as separate problems until proven otherwise — do not assume one root cause.</li>
+      <li>Step 1 says "duplicate the problem, <em>if possible</em>" — being unable to reproduce an intermittent fault does not stop you progressing to step 2</li>
+      <li>Step 7 includes <em>lessons learned throughout the process</em> — an answer that stops at "findings, actions, and outcomes" is the incomplete one</li>
     </ul>
   </div>
 
@@ -188,8 +202,9 @@ Sending 5, 100-byte ICMP Echos to 8.8.8.8, timeout is 2 seconds:
       <li>Step 4: Plan of action (with potential effects)</li>
       <li>Step 5: Implement or escalate</li>
       <li>Step 6: Verify + preventive measures</li>
-      <li>Step 7: Document</li>
+      <li>Step 7: Document findings, actions, outcomes, <strong>and lessons learned throughout the process</strong></li>
       <li>Documentation = always last</li>
+      <li>Step 1 in full: gather information · question users · identify symptoms · determine if anything has changed · duplicate the problem if possible · approach multiple problems individually</li>
       <li>Three approaches: top-down (L7→L1), bottom-up (L1→L7), divide and conquer (start middle)</li>
     </ul>
   </div>
