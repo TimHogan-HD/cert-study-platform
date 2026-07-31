@@ -100,6 +100,79 @@
   <h3>DHCP Relay (IP Helper)</h3>
   <p>DHCP uses broadcasts — routers don't forward broadcasts between subnets. A <strong>DHCP Relay Agent</strong> (configured with <code>ip helper-address</code> on the router) forwards DHCP broadcasts from clients to the DHCP server as unicast, enabling one DHCP server to serve multiple subnets.</p>
 
+  <h3>DHCP Scope, Reservations &amp; Exclusions</h3>
+  <p>A <strong>scope</strong> is the pool of addresses a DHCP server offers for one subnet. Everything else here is a rule about which addresses inside that pool the server may hand out, and to whom.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Setting</th><th>What it does</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Scope</strong></td><td>Defines the address range, mask, gateway, and options served to one subnet. A server can host many scopes, one per subnet</td><td>192.168.10.100 – 192.168.10.200 for VLAN 10</td></tr>
+        <tr><td><strong>Exclusion</strong></td><td>Addresses <em>inside</em> the scope range that the server must never hand out — carved out for statically-addressed infrastructure</td><td>Exclude 192.168.10.100 – 192.168.10.110 for switches and printers configured by hand</td></tr>
+        <tr><td><strong>Reservation</strong></td><td>Binds a specific MAC address to a specific IP inside the scope. The client still performs DORA and still holds a lease — it just always receives the same address</td><td>Reserve 192.168.10.150 for the label printer's MAC</td></tr>
+        <tr><td><strong>Lease Time</strong></td><td>How long a client may keep the address before renewing. Short leases suit guest and BYOD networks with high turnover; long leases reduce DHCP traffic on stable networks</td><td>8 days on a corporate LAN, 2 hours on guest Wi-Fi</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-purple">
+    <div class="callout-title">Reservation vs. Exclusion vs. Host-Side Static — A Classic Exam Item</div>
+    <p>All three end with a device holding a consistent IP address, which is exactly why they are confusable. The difference is <em>who knows about the assignment</em>:</p>
+    <ul>
+      <li><strong>Reservation</strong> — configured on the <em>DHCP server</em>. The device is still a DHCP client and still leases the address. Change the address centrally and the device picks it up on renewal. Best practice for printers and APs.</li>
+      <li><strong>Exclusion</strong> — configured on the <em>DHCP server</em>, but assigns nothing. It only stops the server from leasing addresses you have assigned by hand elsewhere.</li>
+      <li><strong>Host-side static</strong> — configured on the <em>device</em>. The DHCP server has no knowledge of it. If that address is not also excluded from the scope, the server can lease it to another host and cause an <strong>address conflict</strong>.</li>
+    </ul>
+    <p>The exam-relevant pairing: a host-side static address needs a matching exclusion. A reservation needs neither, because the server is already the one making the assignment.</p>
+  </div>
+
+  <h3>IPv6 Address Assignment — SLAAC vs. DHCPv6</h3>
+  <p>IPv6 hosts can configure themselves without any server at all. <strong><abbr title="Stateless Address Autoconfiguration">SLAAC</abbr></strong> — stateless address autoconfiguration — is how that works, and it is the mechanism with no IPv4 equivalent.</p>
+
+  <div class="steps-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-body"><strong>Host joins the link</strong> and forms a link-local address (<code>fe80::/10</code>) so it can communicate before it has a routable address.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-body"><strong>Router Solicitation:</strong> the host multicasts an <abbr title="Internet Control Message Protocol version 6">ICMPv6</abbr> <strong>RS</strong> asking any router on the link to identify itself, rather than waiting for the next scheduled announcement.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-body"><strong>Router Advertisement:</strong> the router replies with an <strong>RA</strong> carrying the <strong>/64 prefix</strong> for the link, the default gateway, and flags describing how the host should configure itself.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-body"><strong>Host builds its own address:</strong> it appends a self-generated 64-bit interface identifier to the advertised prefix — historically <abbr title="Extended Unique Identifier">EUI-64</abbr> derived from the MAC address, now usually a randomized value for privacy.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-body"><strong>Duplicate Address Detection:</strong> the host checks that nobody else is already using the address before it starts using it.</div>
+    </div>
+  </div>
+
+  <p>The router hands out a <em>prefix</em>, not an address, and keeps no record of which host took what. That is what makes SLAAC <strong>stateless</strong>.</p>
+
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Method</th><th>Who assigns the address</th><th>Server keeps state?</th><th>Typical use</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>SLAAC</strong></td><td>The host builds it from the RA prefix</td><td>No — no server involved at all</td><td>Default IPv6 behaviour; simple networks needing no per-host tracking</td></tr>
+        <tr><td><strong>Stateless DHCPv6</strong></td><td>The host builds it via SLAAC; DHCPv6 supplies only the extra information</td><td>No address state — it hands out DNS servers and domain search lists only</td><td>SLAAC networks that still need DNS configuration pushed centrally</td></tr>
+        <tr><td><strong>Stateful DHCPv6</strong></td><td>The DHCPv6 server assigns the address, as DHCP does for IPv4</td><td>Yes — it tracks which host holds which address</td><td>Enterprises needing address logging, auditing, or fixed assignments</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">The RA Flags That Decide</div>
+    <p>The Router Advertisement tells hosts which of the three modes to use. The <strong>M flag</strong> (Managed) set to 1 means "get your address from stateful DHCPv6." The <strong>O flag</strong> (Other) set to 1 means "build your own address, but ask DHCPv6 for DNS and other settings" — stateless DHCPv6. Both flags clear means pure SLAAC. DHCPv6 itself uses <strong>UDP 546</strong> on the client and <strong>UDP 547</strong> on the server — not 67/68, which are IPv4 DHCP.</p>
+  </div>
+
   <h3>DNS Record Types</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -119,6 +192,8 @@
       </tbody>
     </table>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 3.4 lists <em>A, AAAA, CNAME, MX, TXT, NS,</em> and <em>PTR</em> as record types. <strong>SOA</strong> and <strong>SRV</strong> are not enumerated. CompTIA states its lists are non-exhaustive, and both are routinely tested — SOA carries the zone's serial number and timers that drive zone transfers, and SRV is how Active Directory clients locate domain controllers — so they are kept here.</p>
 
   <!-- Matching game for DNS -->
   <h3>Practice: DNS Record → Purpose</h3>
@@ -155,6 +230,52 @@
     <li><strong>Authoritative Name Servers:</strong> Hold actual DNS records for a domain. Final authority.</li>
     <li><strong>Recursive Resolver:</strong> Your ISP or internal DNS server. Queries on behalf of clients, caches results (TTL-based).</li>
   </ol>
+
+  <h3>DNS Zones</h3>
+  <p>A <strong>zone</strong> is the portion of the DNS namespace a given server is responsible for. Zones come in two directions and two roles.</p>
+
+  <h4>Forward vs. Reverse Zones</h4>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Zone Type</th><th>Answers</th><th>Records</th><th>Naming</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Forward Lookup Zone</strong></td><td>"What is the IP for this name?" — the direction almost all traffic uses</td><td>A, AAAA, CNAME, MX, TXT, NS, SRV</td><td>Named for the domain itself: <code>example.com</code></td></tr>
+        <tr><td><strong>Reverse Lookup Zone</strong></td><td>"What name owns this IP?" — used by logging, mail filtering, and troubleshooting</td><td><strong>PTR</strong> records</td><td>Special <code>in-addr.arpa</code> (IPv4) or <code>ip6.arpa</code> (IPv6) namespace, with the address written backwards — see the reverse DNS note below</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Primary vs. Secondary Name Servers</h4>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Role</th><th>Zone copy</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Primary</strong> (master)</td><td>Holds the read-write master copy — all edits are made here</td><td>The single source of truth for the zone. Its <strong>SOA</strong> serial number increments on every change</td></tr>
+        <tr><td><strong>Secondary</strong> (slave)</td><td>Holds a read-only replica received from the primary</td><td>Redundancy and load distribution. Both are <em>authoritative</em> — a secondary's answer is just as authoritative as the primary's</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>A <strong>zone transfer</strong> is how the secondary gets its copy. The secondary polls the primary's SOA serial number; if it has increased, the secondary requests the zone. A full transfer is <strong>AXFR</strong>, an incremental one <strong>IXFR</strong>. Zone transfers use <strong>TCP port 53</strong> — not UDP — because reliability matters more than speed for a bulk copy. Servers restrict which hosts may request a transfer, since an unrestricted one hands an attacker a complete map of the network.</p>
+
+  <h3>Local Resolution — The Hosts File</h3>
+  <p>Before a client sends a single DNS query, it resolves locally. The order is <strong>local cache → hosts file → DNS server</strong>, so a hosts file entry <em>overrides DNS entirely</em> — the query is never sent, and no amount of fixing the DNS server will change the answer.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Platform</th><th>Location</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Windows</strong></td><td><code>C:\Windows\System32\drivers\etc\hosts</code></td></tr>
+        <tr><td><strong>Linux / macOS</strong></td><td><code>/etc/hosts</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>This makes the hosts file useful for testing a cutover before changing public DNS — and a favourite persistence trick for malware, which adds entries redirecting security-vendor domains to <code>127.0.0.1</code>. If one machine resolves a name differently from every other machine on the network, check its hosts file before suspecting DNS.</p>
 
   <h3>DNS Troubleshooting Commands</h3>
   <div class="table-wrap">
@@ -243,6 +364,11 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
       <li>MX records have <strong>priority</strong> values — lower number = higher priority. Multiple MX records for redundancy.</li>
       <li>DNS uses UDP for queries ≤512 bytes and TCP for zone transfers or larger responses.</li>
       <li>NTP stratum 0 = hardware clock (not on network). Stratum 1 = first server on the network.</li>
+      <li><strong>Reservation ≠ exclusion.</strong> A reservation <em>assigns</em> an address to a MAC from the server; an exclusion only <em>withholds</em> addresses so they can be assigned by hand. A host-side static address needs a matching exclusion or you risk an address conflict.</li>
+      <li><strong>A hosts file entry overrides DNS.</strong> The client checks cache, then hosts file, then DNS — so one machine resolving a name "wrong" while others are fine is a hosts file problem, not a DNS server problem.</li>
+      <li><strong>SLAAC is stateless</strong> — the router advertises a /64 prefix and the host builds its own address. Nothing tracks the assignment. Only <em>stateful</em> DHCPv6 keeps a record of who has which address.</li>
+      <li>DHCPv6 uses UDP 546/547, not the IPv4 DHCP ports 67/68.</li>
+      <li>Zone transfers use <strong>TCP</strong> 53; ordinary queries use UDP 53. A secondary is still authoritative — "non-authoritative" means the answer came from a resolver's cache, not from a secondary.</li>
     </ul>
   </div>
 
@@ -351,6 +477,13 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
       <li>DHCP DORA: Discover (broadcast) → Offer → Request (broadcast) → Acknowledge</li>
       <li>DHCP options: 3=gateway, 6=DNS, 15=domain, 51=lease time, 66=TFTP, 67=bootfile</li>
       <li>ip helper-address = DHCP relay for cross-subnet DHCP</li>
+      <li>Scope = address pool per subnet | Exclusion = withheld from the pool | Reservation = MAC-to-IP binding</li>
+      <li>SLAAC = host builds its address from the RA /64 prefix (stateless) | Stateful DHCPv6 = server assigns and tracks</li>
+      <li>RA flags: M=1 → stateful DHCPv6 | O=1 → stateless DHCPv6 (DNS only) | both clear → pure SLAAC</li>
+      <li>DHCPv6 ports = UDP 546 (client) / 547 (server)</li>
+      <li>Forward zone = name → IP | Reverse zone = IP → name via PTR in in-addr.arpa / ip6.arpa</li>
+      <li>Primary = read-write master | Secondary = read-only replica, both authoritative | Zone transfer = AXFR/IXFR over TCP 53</li>
+      <li>Resolution order: local cache → hosts file → DNS server (hosts file wins)</li>
       <li>A=IPv4 | AAAA=IPv6 | MX=mail | PTR=reverse | CNAME=alias | TXT=SPF/DKIM</li>
       <li>NTP: Stratum 0=atomic clock → 1=primary server → 2=secondary → 16=unsynchronized</li>
       <li>DNS resolution: Client → Recursive Resolver → Root → TLD → Authoritative (iterative steps)</li>
@@ -360,7 +493,7 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
   </div>
 
   <div class="ai-explain-area">
-    <button class="ai-explain-btn" data-topic="DHCP DORA process and DNS record types">✦ Explain Differently</button>
+    <button class="ai-explain-btn" data-topic="DHCP DORA process, DHCP scope and reservations, SLAAC vs DHCPv6, and DNS record types and zones">✦ Explain Differently</button>
   </div>
 </div>
 
