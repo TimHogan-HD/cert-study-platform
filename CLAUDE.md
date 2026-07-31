@@ -21,6 +21,8 @@ npx vercel dev
 
 There are no lint, test, or type-check scripts.
 
+**`tools/shot.js`** is the one dev utility — a render check that serves the repo and screenshots a route in dark, light, and mobile (see Verification). It is not a build step: the site remains plain static files with no runtime dependencies, and nothing under `tools/` is served or shipped. It needs Playwright available to node (`npm i -g playwright`) and is skippable if you can just open the page yourself.
+
 ## Architecture
 
 ### Single-Page Application Shell
@@ -164,8 +166,15 @@ Ordinary content and component work merges automatically. Hold and ask first onl
 
 There is no build, lint, or test step, so nothing catches a mistake automatically. Before committing:
 
-- **Render the page in a browser — do not review by diff alone.** Serve the repo, open the affected route, and look at it. Layout bugs (broken flex, mismatched grid columns, wrapped table rows) do not appear in a text diff. A headless screenshot via Playwright works well when no display is available; Chromium is preinstalled in the Claude Code web environment at `/opt/pw-browsers` — never run `playwright install`.
-- **Check both themes and mobile.** Toggle `data-theme` between `dark` and `light` on `<html>`, and check at ~390px width. Confirm readable text resolves to `--text` in both themes, not `--muted` or `--hint`.
+- **Render the page — do not review by diff alone.** Layout bugs (broken flex, mismatched grid columns, wrapped table rows) do not appear in a text diff. Use `tools/shot.js`, which serves the repo and captures the route in dark, light, and mobile in one command:
+
+  ```bash
+  node tools/shot.js netplus/domain1/obj-1-7 .addr-class-wrap   # one component
+  node tools/shot.js netplus/domain1/obj-1-7                    # whole page
+  ```
+
+  Then **look at the PNGs** it writes to `tools/shots/` (gitignored) — running it is not the check, reading it is. With a selector it also prints the element's computed text and background colour, so the `--text` rule below is verifiable at a glance; it exits non-zero if the selector is missing. It needs Playwright available to node (`npm i -g playwright`). Chromium is preinstalled in the Claude Code web environment at `/opt/pw-browsers` — never run `playwright install`.
+- **Check both themes and mobile.** `shot.js` covers all three. Confirm readable text resolves to `--text` in both themes, not `--muted` or `--hint`.
 - **Re-test interactive components after editing their file.** The DNS matching game (`obj-3-4`), the attack-mitigation matching game (`obj-4-2`), and every flashcard deck are wired up after each fragment swap. A broken game is easy to miss in a diff.
 - **Balance-check the fragment.** `<div>`/`</div>` and `<p>`/`</p>` counts must match — an unbalanced fragment corrupts the whole page once injected.
 - **Diff against `origin/main`, not `main`.** The local `main` ref goes stale fast; `git diff main...HEAD` can make an 8-line change look like a 5,000-line rewrite. Use `git fetch origin main && git diff origin/main...HEAD`.
