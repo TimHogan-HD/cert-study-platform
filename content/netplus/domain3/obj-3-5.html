@@ -152,6 +152,12 @@
     </table>
   </div>
 
+  <h4>EAP and EAPoL — What 802.1X Actually Carries</h4>
+  <p><strong><abbr title="Extensible Authentication Protocol">EAP</abbr></strong> is not an authentication method. It is a <em>framework</em> — an envelope that carries whatever method the two ends agree on, which is why 802.1X can authenticate a certificate, a password, or a token without the switch understanding any of them. The methods themselves are the EAP <em>types</em>: <strong>EAP-TLS</strong> (certificates on both sides — strongest, and the reason it needs a PKI), <strong>PEAP</strong> (a TLS tunnel from the server's certificate alone, with a password authenticated inside it), and <strong>EAP-TTLS</strong> (similar tunnelling, broader legacy method support). "We use EAP" says nothing about how strong the authentication is; the type does.</p>
+  <p><strong><abbr title="EAP over LAN">EAPoL</abbr></strong> is how those EAP messages travel across the wired or wireless LAN between supplicant and authenticator, before the supplicant has an IP address at all. The authenticator then unwraps each EAP message and re-sends it to the RADIUS server inside a RADIUS packet — so <strong>EAPoL runs supplicant → authenticator, and RADIUS runs authenticator → authentication server</strong>. The EAP conversation is end-to-end between supplicant and server; only its transport changes in the middle.</p>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 3.5 lists <em>VPN types, remote access protocols,</em> and <em>access management methods</em>. <strong>EAP</strong> and <strong>EAPoL</strong> are not enumerated in any bullet, but both appear in the official N10-009 acronym list, and 802.1X — which is enumerated under 4.1 — cannot be explained without them.</p>
+
   <div class="callout callout-blue">
     <div class="callout-title">Cross-Reference — Objective 4.1</div>
     <p>RADIUS, TACACS+, and 802.1X are officially <abbr title="Authentication, Authorization, and Accounting">AAA</abbr> topics under objective 4.1. They are kept here with the remote-access material because the comparison table is heavily exam-weighted — see <strong>4.1 Security Concepts</strong> for the wider AAA context.</p>
