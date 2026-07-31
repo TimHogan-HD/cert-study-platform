@@ -253,8 +253,8 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
         <tr><th>Query Type</th><th>Who Does the Work</th><th>Response</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>Recursive</strong></td><td>Resolver does all the work on behalf of the client</td><td>Returns the final answer (IP address) or an error — client gets a complete response</td></tr>
-        <tr data-exam-weight="high"><td><strong>Iterative</strong></td><td>Each server gives the best answer it can (a referral or the answer)</td><td>Resolver queries root → TLD → authoritative servers in sequence, following referrals</td></tr>
+        <tr><td><strong>Recursive</strong></td><td>Resolver does all the work on behalf of the client</td><td>Returns the final answer (IP address) or an error — client gets a complete response</td></tr>
+        <tr><td><strong>Iterative</strong></td><td>Each server gives the best answer it can (a referral or the answer)</td><td>Resolver queries root → TLD → authoritative servers in sequence, following referrals</td></tr>
       </tbody>
     </table>
   </div>
@@ -299,9 +299,9 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
         <tr><th>Technology</th><th>Port</th><th>Protocol</th><th>Purpose</th><th>What It Protects Against</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong><abbr title="DNS Security Extensions">DNSSEC</abbr></strong></td><td>53 UDP/TCP</td><td>Digital signatures (RRSIG records)</td><td>Integrity — signs DNS records so resolvers can verify they haven't been tampered with</td><td>Cache poisoning / DNS spoofing (does NOT encrypt queries)</td></tr>
-        <tr data-exam-weight="high"><td><strong><abbr title="DNS over TLS">DoT</abbr></strong></td><td><strong>853</strong> TCP</td><td>DNS inside TLS tunnel</td><td>Privacy — encrypts DNS queries between client and resolver</td><td>Eavesdropping on DNS queries; easily distinguishable (port 853)</td></tr>
-        <tr data-exam-weight="high"><td><strong><abbr title="DNS over HTTPS">DoH</abbr></strong></td><td><strong>443</strong> TCP</td><td>DNS inside HTTPS</td><td>Privacy — encrypts DNS queries; blends with HTTPS traffic</td><td>Eavesdropping; harder for enterprises to block/inspect than DoT</td></tr>
+        <tr><td><strong><abbr title="DNS Security Extensions">DNSSEC</abbr></strong></td><td>53 UDP/TCP</td><td>Digital signatures (RRSIG records)</td><td>Integrity — signs DNS records so resolvers can verify they haven't been tampered with</td><td>Cache poisoning / DNS spoofing (does NOT encrypt queries)</td></tr>
+        <tr><td><strong><abbr title="DNS over TLS">DoT</abbr></strong></td><td><strong>853</strong> TCP</td><td>DNS inside TLS tunnel</td><td>Privacy — encrypts DNS queries between client and resolver</td><td>Eavesdropping on DNS queries; easily distinguishable (port 853)</td></tr>
+        <tr><td><strong><abbr title="DNS over HTTPS">DoH</abbr></strong></td><td><strong>443</strong> TCP</td><td>DNS inside HTTPS</td><td>Privacy — encrypts DNS queries; blends with HTTPS traffic</td><td>Eavesdropping; harder for enterprises to block/inspect than DoT</td></tr>
       </tbody>
     </table>
   </div>
@@ -329,8 +329,8 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
         <tr><th>Protocol</th><th>Standard</th><th>Port</th><th>Accuracy</th><th>Use Case</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>NTP</strong></td><td>RFC 5905</td><td>123 UDP</td><td>~1–50 ms</td><td>General enterprise time sync; all network devices, servers</td></tr>
-        <tr data-exam-weight="high"><td><strong>PTP</strong> (IEEE 1588)</td><td>IEEE 1588-2019</td><td>319/320 UDP</td><td>Sub-microsecond</td><td>Financial trading, 5G RAN synchronization, industrial automation, broadcast media</td></tr>
+        <tr><td><strong>NTP</strong></td><td>RFC 5905</td><td>123 UDP</td><td>~1–50 ms</td><td>General enterprise time sync; all network devices, servers</td></tr>
+        <tr><td><strong>PTP</strong> (IEEE 1588)</td><td>IEEE 1588-2019</td><td>319/320 UDP</td><td>Sub-microsecond</td><td>Financial trading, 5G RAN synchronization, industrial automation, broadcast media</td></tr>
         <tr><td><strong>NTS</strong></td><td>RFC 8915</td><td>4460 TCP</td><td>Same as NTP</td><td>Authenticated NTP — prevents time spoofing and MITM against NTP</td></tr>
       </tbody>
     </table>

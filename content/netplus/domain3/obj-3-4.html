@@ -115,10 +115,10 @@
       </thead>
       <tbody>
         <tr><td><strong>GUI / Web-Based</strong></td><td>HTTPS (443)</td><td>Username/password; certificate</td><td>Browser-based management interface; use HTTPS only — HTTP exposes credentials</td></tr>
-        <tr data-exam-weight="high"><td><strong>SSH</strong></td><td>TCP 22</td><td>Username/password or public key</td><td>Encrypted CLI; key-based authentication preferred over passwords; replaces Telnet</td></tr>
+        <tr><td><strong>SSH</strong></td><td>TCP 22</td><td>Username/password or public key</td><td>Encrypted CLI; key-based authentication preferred over passwords; replaces Telnet</td></tr>
         <tr><td><strong>API</strong></td><td>REST (HTTPS), NETCONF (830 TCP), RESTCONF (443)</td><td>Token, certificate, OAuth</td><td>Programmatic management; used by IaC tools (Ansible, Terraform); NETCONF = XML, RESTCONF = REST</td></tr>
-        <tr data-exam-weight="high"><td><strong>Console Port</strong></td><td>Serial / USB (direct)</td><td>Username/password (if configured)</td><td>Physical connection; always accessible regardless of network state; initial config and recovery mode</td></tr>
-        <tr data-exam-weight="high"><td><strong>Jump Box / Bastion Host</strong></td><td>SSH to jump box; then SSH to device</td><td>MFA + SSH keys recommended</td><td>Admins SSH to jump box first; jump box SSH to target device; all sessions logged centrally</td></tr>
+        <tr><td><strong>Console Port</strong></td><td>Serial / USB (direct)</td><td>Username/password (if configured)</td><td>Physical connection; always accessible regardless of network state; initial config and recovery mode</td></tr>
+        <tr><td><strong>Jump Box / Bastion Host</strong></td><td>SSH to jump box; then SSH to device</td><td>MFA + SSH keys recommended</td><td>Admins SSH to jump box first; jump box SSH to target device; all sessions logged centrally</td></tr>
         <tr><td><strong>In-Band Management</strong></td><td>Shares production interfaces/VLAN</td><td>As above</td><td>Normal operations; unavailable if production network fails</td></tr>
         <tr><td><strong>OOB Management</strong></td><td>Dedicated console server, cellular modem, OOBM VLAN on separate NIC</td><td>As above</td><td>Emergency access path; survives production network failure; physically separate from data plane</td></tr>
       </tbody>

@@ -115,10 +115,10 @@
         <tr><th>Method</th><th>Scope</th><th>Transport</th><th>Use Case</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>SPAN</strong> (local)</td><td>Same switch</td><td>Switched port</td><td>Capture traffic between ports on one switch; analyzer plugged in locally</td></tr>
+        <tr><td><strong>SPAN</strong> (local)</td><td>Same switch</td><td>Switched port</td><td>Capture traffic between ports on one switch; analyzer plugged in locally</td></tr>
         <tr><td><strong>RSPAN</strong> (Remote SPAN)</td><td>Across switches via VLAN</td><td>Dedicated RSPAN VLAN</td><td>Analyzer on a different switch; mirror traffic sent across trunk using a reserved VLAN</td></tr>
         <tr><td><strong>ERSPAN</strong> (Encapsulated RSPAN)</td><td>Across Layer 3 boundaries</td><td>GRE tunnel</td><td>Analyzer in a different subnet or data center; mirror traffic encapsulated in GRE over IP</td></tr>
-        <tr data-exam-weight="high"><td><strong>Network TAP</strong></td><td>Inline on a cable</td><td>Passive optical/electrical</td><td>Hardware tap inserted into fiber or copper — passively copies all traffic; no switch involvement; cannot be disabled by software</td></tr>
+        <tr><td><strong>Network TAP</strong></td><td>Inline on a cable</td><td>Passive optical/electrical</td><td>Hardware tap inserted into fiber or copper — passively copies all traffic; no switch involvement; cannot be disabled by software</td></tr>
       </tbody>
     </table>
   </div>
@@ -131,7 +131,7 @@
       </thead>
       <tbody>
         <tr><td><strong>In-Band Management</strong></td><td>Shares production network (Ethernet, IP)</td><td>Unavailable if production network is down</td><td>Day-to-day SSH/HTTPS management via standard interfaces</td></tr>
-        <tr data-exam-weight="high"><td><strong>Out-of-Band (<abbr title="Out-of-Band">OOB</abbr>) Management</strong></td><td>Dedicated separate network (console server, cellular modem, management VLAN on separate NIC)</td><td>Available even when production interfaces are down</td><td>Emergency access during outages, firmware updates, initial config</td></tr>
+        <tr><td><strong>Out-of-Band (<abbr title="Out-of-Band">OOB</abbr>) Management</strong></td><td>Dedicated separate network (console server, cellular modem, management VLAN on separate NIC)</td><td>Available even when production interfaces are down</td><td>Emergency access during outages, firmware updates, initial config</td></tr>
         <tr><td><strong>Console Port</strong></td><td>Direct serial/USB connection to device</td><td>Always available (no network dependency)</td><td>Ultimate OOB; initial configuration; recovery mode access</td></tr>
         <tr><td><strong>Jump Box / Bastion Host</strong></td><td>Intermediate server in management network; admins SSH here first</td><td>Management network dependent</td><td>Centralized auditable choke point for all device access; logs all admin sessions</td></tr>
       </tbody>

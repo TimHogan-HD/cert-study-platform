@@ -192,10 +192,10 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
         <tr><th>Term</th><th>Description</th><th>Key Detail</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong><abbr title="Network Address Translation">NAT</abbr></strong></td><td>Translates private IP addresses to public IP addresses at the router/firewall</td><td>Hides internal addressing; required because IPv4 public space is exhausted</td></tr>
-        <tr data-exam-weight="high"><td><strong>Static NAT</strong></td><td>One-to-one mapping of a private IP to a specific public IP — permanent</td><td>Used for inbound servers (web, mail) that must be reachable from internet with fixed public IP</td></tr>
+        <tr><td><strong><abbr title="Network Address Translation">NAT</abbr></strong></td><td>Translates private IP addresses to public IP addresses at the router/firewall</td><td>Hides internal addressing; required because IPv4 public space is exhausted</td></tr>
+        <tr><td><strong>Static NAT</strong></td><td>One-to-one mapping of a private IP to a specific public IP — permanent</td><td>Used for inbound servers (web, mail) that must be reachable from internet with fixed public IP</td></tr>
         <tr><td><strong>Dynamic NAT</strong></td><td>Pool of public IPs assigned on demand to outbound connections</td><td>Not one-to-one; pool exhaustion = no outbound access</td></tr>
-        <tr data-exam-weight="high"><td><strong><abbr title="Port Address Translation">PAT</abbr> / NAT Overload</strong></td><td>Many private IPs share a single public IP — differentiated by unique source port numbers</td><td>The most common NAT type; allows thousands of hosts to share one public IP</td></tr>
+        <tr><td><strong><abbr title="Port Address Translation">PAT</abbr> / NAT Overload</strong></td><td>Many private IPs share a single public IP — differentiated by unique source port numbers</td><td>The most common NAT type; allows thousands of hosts to share one public IP</td></tr>
       </tbody>
     </table>
   </div>
@@ -273,8 +273,8 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
         <tr><th>Protocol</th><th>Standard</th><th>Roles</th><th>Key Detail</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>HSRP</strong></td><td>Cisco proprietary</td><td>Active / Standby</td><td>Higher priority = Active (default 100); <code>preempt</code> allows higher priority to reclaim Active role; virtual IP + virtual MAC</td></tr>
-        <tr data-exam-weight="high"><td><strong>VRRP</strong></td><td>Open standard (RFC 5798)</td><td>Master / Backup</td><td>Higher priority = Master; vendor-agnostic; virtual IP may be one router's real IP</td></tr>
+        <tr><td><strong>HSRP</strong></td><td>Cisco proprietary</td><td>Active / Standby</td><td>Higher priority = Active (default 100); <code>preempt</code> allows higher priority to reclaim Active role; virtual IP + virtual MAC</td></tr>
+        <tr><td><strong>VRRP</strong></td><td>Open standard (RFC 5798)</td><td>Master / Backup</td><td>Higher priority = Master; vendor-agnostic; virtual IP may be one router's real IP</td></tr>
         <tr><td><strong>GLBP</strong></td><td>Cisco proprietary</td><td>AVG + up to 4 AVFs</td><td>Load balances across multiple gateways simultaneously; <abbr title="Active Virtual Gateway">AVG</abbr> assigns virtual MACs to <abbr title="Active Virtual Forwarder">AVF</abbr>s</td></tr>
       </tbody>
     </table>

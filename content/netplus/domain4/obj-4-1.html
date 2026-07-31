@@ -160,12 +160,12 @@
         <tr><th>Technology</th><th>Description</th><th>Key Detail</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong><abbr title="Single Sign-On">SSO</abbr></strong></td><td>One authentication event grants access to multiple systems</td><td>SSO is an outcome/goal; SAML, OAuth, OIDC are protocols that implement SSO</td></tr>
-        <tr data-exam-weight="high"><td><strong><abbr title="Security Assertion Markup Language">SAML</abbr></strong></td><td>XML-based protocol for exchanging authentication/authorization data between IdP and SP</td><td>IdP (Identity Provider) authenticates; SP (Service Provider) grants access; common in enterprise SSO</td></tr>
+        <tr><td><strong><abbr title="Single Sign-On">SSO</abbr></strong></td><td>One authentication event grants access to multiple systems</td><td>SSO is an outcome/goal; SAML, OAuth, OIDC are protocols that implement SSO</td></tr>
+        <tr><td><strong><abbr title="Security Assertion Markup Language">SAML</abbr></strong></td><td>XML-based protocol for exchanging authentication/authorization data between IdP and SP</td><td>IdP (Identity Provider) authenticates; SP (Service Provider) grants access; common in enterprise SSO</td></tr>
         <tr><td><strong><abbr title="Lightweight Directory Access Protocol">LDAP</abbr></strong></td><td>Protocol for accessing directory services (user accounts, groups)</td><td>Port 389 (LDAP unencrypted) / 636 (LDAPS over TLS); Microsoft AD uses LDAP</td></tr>
         <tr><td><strong><abbr title="Role-Based Access Control">RBAC</abbr></strong></td><td>Access permissions assigned based on job role, not individual identity</td><td>Simplifies management; "least privilege" applied at role level; contrast with ABAC (attribute-based)</td></tr>
         <tr><td><strong><abbr title="Time-based One-Time Password">TOTP</abbr></strong></td><td>Time-based OTP generated from shared secret + current timestamp (RFC 6238)</td><td>Changes every 30 seconds; used in authenticator apps (Google Authenticator, Duo); second factor</td></tr>
-        <tr data-exam-weight="high"><td><strong>Geofencing</strong></td><td>Location-based access control — denies or restricts access based on geographic location</td><td>Uses GPS, IP geolocation, or cellular data; "accessing from unexpected country" triggers block or MFA challenge</td></tr>
+        <tr><td><strong>Geofencing</strong></td><td>Location-based access control — denies or restricts access based on geographic location</td><td>Uses GPS, IP geolocation, or cellular data; "accessing from unexpected country" triggers block or MFA challenge</td></tr>
       </tbody>
     </table>
   </div>
@@ -187,10 +187,10 @@
         <tr><th>Term</th><th>Definition</th><th>Example</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>Threat</strong></td><td>A potential cause of harm — an actor or event that could exploit a vulnerability</td><td>A hacker attempting SQL injection; a ransomware gang</td></tr>
-        <tr data-exam-weight="high"><td><strong>Vulnerability</strong></td><td>A weakness in a system, configuration, or process that can be exploited</td><td>Unpatched OS, default password, open port</td></tr>
-        <tr data-exam-weight="high"><td><strong>Exploit</strong></td><td>The tool, technique, or code that takes advantage of a vulnerability</td><td>Metasploit module, phishing email, buffer overflow code</td></tr>
-        <tr data-exam-weight="high"><td><strong>Risk</strong></td><td>The probability that a threat will successfully exploit a vulnerability × the impact</td><td>Risk = Threat × Vulnerability × Impact</td></tr>
+        <tr><td><strong>Threat</strong></td><td>A potential cause of harm — an actor or event that could exploit a vulnerability</td><td>A hacker attempting SQL injection; a ransomware gang</td></tr>
+        <tr><td><strong>Vulnerability</strong></td><td>A weakness in a system, configuration, or process that can be exploited</td><td>Unpatched OS, default password, open port</td></tr>
+        <tr><td><strong>Exploit</strong></td><td>The tool, technique, or code that takes advantage of a vulnerability</td><td>Metasploit module, phishing email, buffer overflow code</td></tr>
+        <tr><td><strong>Risk</strong></td><td>The probability that a threat will successfully exploit a vulnerability × the impact</td><td>Risk = Threat × Vulnerability × Impact</td></tr>
       </tbody>
     </table>
   </div>
@@ -207,8 +207,8 @@
         <tr><th>Framework</th><th>Applies To</th><th>Key Network Requirements</th></tr>
       </thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>PCI DSS</strong></td><td>Any org handling credit card data</td><td><abbr title="Cardholder Data Environment">CDE</abbr> must be segmented from non-CDE; encrypted transmission; access logging; quarterly vulnerability scans</td></tr>
-        <tr data-exam-weight="high"><td><strong>GDPR</strong></td><td>Any org processing EU personal data</td><td>Data locality (EU data may not leave EU without safeguards); 72-hour breach notification; right to erasure</td></tr>
+        <tr><td><strong>PCI DSS</strong></td><td>Any org handling credit card data</td><td><abbr title="Cardholder Data Environment">CDE</abbr> must be segmented from non-CDE; encrypted transmission; access logging; quarterly vulnerability scans</td></tr>
+        <tr><td><strong>GDPR</strong></td><td>Any org processing EU personal data</td><td>Data locality (EU data may not leave EU without safeguards); 72-hour breach notification; right to erasure</td></tr>
         <tr><td><strong>Data Locality</strong></td><td>Various national regulations</td><td>Data must physically reside in specific country/region; drives private cloud or in-country cloud region selection</td></tr>
       </tbody>
     </table>
@@ -232,7 +232,7 @@
       <tbody>
         <tr><td><strong>Cameras / CCTV</strong></td><td>Detective</td><td>Records events for evidence and forensic investigation; deters opportunistic attackers</td></tr>
         <tr><td><strong>Locks / Badge / Cipher</strong></td><td>Preventive</td><td>Restricts physical access to facilities, server rooms, and equipment racks</td></tr>
-        <tr data-exam-weight="high"><td><strong>Mantrap / Access Control Vestibule</strong></td><td>Preventive</td><td>Two-door entry — first door must close before second opens; prevents tailgating/piggybacking</td></tr>
+        <tr><td><strong>Mantrap / Access Control Vestibule</strong></td><td>Preventive</td><td>Two-door entry — first door must close before second opens; prevents tailgating/piggybacking</td></tr>
         <tr><td><strong>Badge / Smart Card</strong></td><td>Preventive + Detective</td><td>Access control + audit log of who entered/exited and when</td></tr>
       </tbody>
     </table>
@@ -246,7 +246,7 @@
       </thead>
       <tbody>
         <tr><td><strong>IoT / IIoT Devices</strong></td><td>Limited patching capability, vulnerable firmware, diverse protocols</td><td>Separate VLAN + strict ACLs; deny internet access unless required; monitor with IDS</td></tr>
-        <tr data-exam-weight="high"><td><strong>OT / ICS / SCADA</strong></td><td>Uptime-critical; patches rarely applied; legacy protocols (Modbus, DNP3)</td><td>Air gap or data diode (one-way data transfer); if connected, strict DMZ; monitor passively only</td></tr>
+        <tr><td><strong>OT / ICS / SCADA</strong></td><td>Uptime-critical; patches rarely applied; legacy protocols (Modbus, DNP3)</td><td>Air gap or data diode (one-way data transfer); if connected, strict DMZ; monitor passively only</td></tr>
         <tr><td><strong>Guest Network</strong></td><td>Untrusted devices; internet access only</td><td>Isolated SSID; separate VLAN; no access to corporate resources; captive portal optional</td></tr>
         <tr><td><strong>BYOD</strong></td><td>Personal devices, unknown patch level</td><td>MDM enrollment or quarantine VLAN with limited access; NAC posture check before granting access</td></tr>
       </tbody>

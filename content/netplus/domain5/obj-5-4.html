@@ -8,8 +8,8 @@
     <table class="table--reference">
       <thead><tr><th>Issue</th><th>Symptom</th><th>Diagnostic Tool</th><th>Fix</th></tr></thead>
       <tbody>
-        <tr data-exam-weight="high"><td><strong>Bandwidth saturation / congestion</strong></td><td>High latency under load; downloads slow all traffic</td><td>NetFlow; <code>show interface</code> (output drops); <code>iperf3</code></td><td>QoS policy; upgrade link; traffic shaping; offload to secondary ISP</td></tr>
-        <tr data-exam-weight="high"><td><strong>Bottleneck</strong></td><td>One hop is consistently slow; fast before and after</td><td><code>traceroute</code> + <code>show interfaces [interface]</code> (check speed/duplex lines)</td><td>Upgrade that link; redistribute load; check for duplex mismatch at bottleneck</td></tr>
+        <tr><td><strong>Bandwidth saturation / congestion</strong></td><td>High latency under load; downloads slow all traffic</td><td>NetFlow; <code>show interface</code> (output drops); <code>iperf3</code></td><td>QoS policy; upgrade link; traffic shaping; offload to secondary ISP</td></tr>
+        <tr><td><strong>Bottleneck</strong></td><td>One hop is consistently slow; fast before and after</td><td><code>traceroute</code> + <code>show interfaces [interface]</code> (check speed/duplex lines)</td><td>Upgrade that link; redistribute load; check for duplex mismatch at bottleneck</td></tr>
         <tr><td><strong>High latency</strong></td><td>Slow interactive sessions (SSH, RDP, web); VoIP choppy</td><td><code>ping</code> RTT; <code>pathping</code> per-hop latency</td><td>Check for routing loops; reduce queue depth; prioritize with QoS</td></tr>
         <tr><td><strong>Packet loss</strong></td><td>TCP retransmissions; file transfers stall; VoIP gaps</td><td><code>show interface</code> errors and drops; <code>ping</code> extended</td><td>Replace cable; check for CRC errors (physical layer); verify duplex; check queue drops</td></tr>
         <tr><td><strong>Jitter</strong></td><td>Inconsistent VoIP quality; variable response times</td><td>QoS monitoring; VoIP call statistics on UCM/controller</td><td>Enable QoS; prioritize RTP traffic (DSCP EF); reduce network load at congested links</td></tr>
@@ -106,7 +106,7 @@
           <td>RF interference; AP firmware bug; client driver issue; deauth attack</td>
           <td>Check deauth reason codes in controller logs; update AP firmware; investigate interference sources</td>
         </tr>
-        <tr data-exam-weight="high">
+        <tr>
           <td><strong>Roaming failure</strong></td>
           <td>Drops when moving between AP coverage areas; sticky client can't roam; call drops</td>
           <td>802.11r not configured; RSSI threshold too low; band steering disabled</td>
