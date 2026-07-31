@@ -32,6 +32,38 @@
 .callout-teal  { background: var(--teal-bg);   border-color: var(--teal);   }
 .callout-teal  .callout-title { color: var(--teal); }
 
+/* ---------- Non-Exhaustive Note ------------------------------ */
+/* Flags content kept on the platform that the official CompTIA objectives
+   do not enumerate. CompTIA states its lists are non-exhaustive, so the note
+   justifies why the content stays — it is a footnote, not a teaching point,
+   and is deliberately quieter than a callout. */
+/* Inline flow, not flex — the note body contains <strong>/<abbr>, and flex
+   would promote each text run and inline element to its own column. */
+.note-nonexhaustive {
+  margin: 0.6rem 0 0.9rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px dashed var(--amber-border);
+  border-radius: var(--radius);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 0.79rem;
+  line-height: 1.6;
+}
+.note-nonexhaustive-tag {
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding: 0.12rem 0.42rem;
+  border: 1px solid var(--amber-border);
+  border-radius: var(--radius);
+  background: var(--amber-bg);
+  color: var(--amber);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
 /* ---------- Tables ----------------------------------------- */
 .table-wrap {
   overflow-x: auto;
