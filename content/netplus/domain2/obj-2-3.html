@@ -73,8 +73,48 @@
 
   <div class="callout callout-amber">
     <div class="callout-title">REMEMBER THIS</div>
-    <strong>2.4 GHz</strong> = longer range, better wall penetration, but only 3 non-overlapping channels (1, 6, 11) and more interference. <strong>5 GHz</strong> = higher throughput, more non-overlapping channels (~24), but shorter range. <strong>6 GHz</strong> (Wi-Fi 6E) = cleanest spectrum, shortest range.
+    <strong>2.4 GHz</strong> = longer range, better wall penetration, but only 3 non-overlapping channels (1, 6, 11) and more interference. <strong>5 GHz</strong> = higher throughput and far more non-overlapping channels — <strong>25 at 20 MHz in the US, of which only 9 avoid DFS</strong> — but shorter range. <strong>6 GHz</strong> (Wi-Fi 6E) = cleanest spectrum, shortest range. Channel counts fall as channel width rises and vary by regulatory domain.
   </div>
+  <h3>Wireless Network Types</h3>
+  <p>Four topologies are officially enumerated. The discriminator on the exam is almost always <em>whether an access point is involved</em> and <em>how many endpoints the link serves</em>.</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Type</th><th>AP required?</th><th>How it works</th><th>Typical use</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Infrastructure</strong></td>
+          <td>Yes</td>
+          <td>All clients associate to an AP, which relays every frame. Even two clients on the same AP talk <em>through</em> it, never directly.</td>
+          <td>The default for virtually all business and home Wi-Fi.</td>
+        </tr>
+        <tr>
+          <td><strong>Ad hoc</strong> (IBSS)</td>
+          <td>No</td>
+          <td>Clients talk directly peer-to-peer with no AP and no central coordination. Every device is an equal participant.</td>
+          <td>Quick temporary file transfer, device-to-device links where no infrastructure exists.</td>
+        </tr>
+        <tr>
+          <td><strong>Mesh</strong></td>
+          <td>Yes — multiple</td>
+          <td>APs interconnect wirelessly and relay traffic for each other. Only some nodes need a wired uplink; the rest backhaul over the air, and traffic self-heals around a failed node.</td>
+          <td>Large or hard-to-cable areas — warehouses, campuses, outdoor coverage, whole-home Wi-Fi.</td>
+        </tr>
+        <tr>
+          <td><strong>Point to point</strong></td>
+          <td>Two endpoints</td>
+          <td>A dedicated wireless link joining exactly two locations, usually with high-gain directional antennas aimed at each other.</td>
+          <td>Building-to-building bridging where trenching fiber is impractical.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-blue">
+    <div class="callout-title">Distinguishing the four</div>
+    <p><strong>Infrastructure vs ad hoc</strong> is the presence of an AP. <strong>Mesh vs infrastructure</strong> is whether the APs backhaul to each other wirelessly instead of each having its own wired uplink. <strong>Point to point vs everything else</strong> is that it serves two fixed sites rather than a population of roaming clients — a point-to-multipoint variant fans one hub out to several remote sites. Directional antenna selection for point-to-point links is covered in the antenna section below.</p>
+  </div>
+
   <!-- C8: Wireless Security Evolution Strip (replaces table) -->
   <h3>Wireless Security Standards</h3>
   <div class="wsec-strip">
@@ -117,6 +157,30 @@
     WPA3 uses <strong>SAE (Simultaneous Authentication of Equals)</strong> instead of the WPA2 PSK 4-way handshake. SAE prevents offline dictionary attacks — even if someone captures the handshake, they can't crack the password offline.
   </div>
 
+  <h3>Authentication Methods — PSK vs Enterprise</h3>
+  <p>WPA2 and WPA3 each ship in two modes. The encryption is identical; what differs is <strong>how a client proves it is allowed on the network</strong>.</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th></th><th><abbr title="Pre-Shared Key">PSK</abbr> — Personal</th><th>Enterprise — 802.1X</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Credential</strong></td><td>One passphrase shared by every user and device</td><td>Per-user credentials — username/password or a client certificate</td></tr>
+        <tr><td><strong>Infrastructure</strong></td><td>None — the key is configured on the AP</td><td>Requires a <abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> server; the AP only relays the exchange</td></tr>
+        <tr><td><strong>Revoking one user</strong></td><td>Impossible without changing the key on every device</td><td>Disable that one account; nobody else is affected</td></tr>
+        <tr><td><strong>Per-user policy</strong></td><td>No — everyone gets identical access</td><td>Yes — RADIUS can return a VLAN assignment or ACL per user</td></tr>
+        <tr><td><strong>Attribution</strong></td><td>Logs show a device, not a person</td><td>Every session ties to a named identity</td></tr>
+        <tr><td><strong>Fits</strong></td><td>Home and small office</td><td>Business networks of any real size</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Why Enterprise solves what PSK cannot</div>
+    <p>A pre-shared key is a <strong>shared secret</strong>, and shared secrets leak. Once one employee's laptop is compromised or one departing staff member remembers the passphrase, the key is effectively public — and rotating it means touching every device on the network at once.</p>
+    <p>Enterprise mode also blunts the <strong>evil twin</strong> attack. With PSK there is nothing tying the network name to a legitimate operator, so a rogue AP broadcasting the same SSID looks identical to the real one. Under 802.1X the authentication is mutual: the client validates the RADIUS server's certificate before releasing its credentials, so a rogue AP with no valid certificate fails the exchange. That protection depends on clients being configured to actually validate the server certificate rather than blindly trusting it.</p>
+  </div>
+
   <h3>Wireless Channels</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -129,8 +193,8 @@
           <td>Each channel is 22 MHz wide; channels 1, 6, 11 don't overlap. Use these in high-density deployments.</td>
         </tr>
         <tr>
-          <td>5 GHz</td><td>25+ (US varies)</td><td>Many (each 20 MHz wide)</td>
-          <td>More non-overlapping channels. Short range vs 2.4 GHz. DFS channels avoid radar interference.</td>
+          <td>5 GHz</td><td>25 (US, at 20 MHz)</td><td>25 — all of them</td>
+          <td>Every 20 MHz channel is non-overlapping, but <strong>only 9 are DFS-free</strong> (U-NII-1: 36–48 and U-NII-3: 149–165). The other 16 require DFS radar avoidance. Widening channels consumes this budget fast.</td>
         </tr>
         <tr>
           <td>6 GHz</td><td>59 (Wi-Fi 6E)</td><td>Many</td>
@@ -184,12 +248,90 @@
     </div>
   </div>
 
+  <h3>Channel Width</h3>
+  <p>Channels can be bonded together into wider ones. Doubling the width roughly doubles throughput — and simultaneously halves the number of channels available and doubles the noise the radio takes in.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Width</th><th>Available in</th><th>Trade-off</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>20 MHz</strong></td><td>All bands — the baseline</td><td>Lowest throughput, highest channel count, most resilient in dense deployments.</td></tr>
+        <tr><td><strong>40 MHz</strong></td><td>802.11n onward (5/6 GHz; technically possible in 2.4 GHz)</td><td>Two bonded channels. In 5 GHz the US non-DFS budget drops from 9 usable channels to 4.</td></tr>
+        <tr><td><strong>80 MHz</strong></td><td>802.11ac onward (5/6 GHz)</td><td>Common default on modern APs. Non-DFS choices collapse to two.</td></tr>
+        <tr><td><strong>160 MHz</strong></td><td>802.11ac/ax (5/6 GHz)</td><td>High peak throughput, but in 5 GHz it is nearly impossible to use without DFS channels.</td></tr>
+        <tr><td><strong>320 MHz</strong></td><td>802.11be / Wi-Fi 7 — <strong>6 GHz only</strong></td><td>Only the 6 GHz band has enough contiguous clean spectrum to support it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>Wide channels are impractical in 2.4 GHz.</strong> The entire band is about 72 MHz wide and already holds only three non-overlapping 20 MHz channels. A single 40 MHz channel consumes roughly two of the three, leaving no room for neighbouring APs and guaranteeing co-channel interference. Wide channels belong in 5 GHz and especially 6 GHz. The same logic applies in reverse in dense environments: when many APs must coexist, <em>narrowing</em> to 20 MHz gives more usable channels and often produces better real-world performance than a wider channel fighting its neighbours.
+  </div>
+
+  <h3>Regulatory Impacts — 802.11h, DFS and TPC</h3>
+  <p>Wi-Fi shares the 5 GHz band with incumbent users — most importantly weather, military, and aviation <strong>radar</strong>. <strong>802.11h</strong> is the amendment that makes this coexistence legal, and it defines two mechanisms:</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Mechanism</th><th>What it does</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><abbr title="Dynamic Frequency Selection">DFS</abbr></strong><br>Dynamic Frequency Selection</td>
+          <td>The AP listens for radar before using a protected channel, and keeps listening while operating. On detecting a radar pattern it must vacate the channel immediately and stay off it for 30 minutes. Bringing up a DFS channel requires a Channel Availability Check — typically 60 seconds of silent listening before any client can associate.</td>
+        </tr>
+        <tr>
+          <td><strong><abbr title="Transmit Power Control">TPC</abbr></strong><br>Transmit Power Control</td>
+          <td>The AP uses only as much transmit power as the link actually needs, rather than always running at maximum. This caps interference with incumbent users and, as a side effect, reduces cell overlap between your own APs.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-title">Regulatory domains — why channel availability differs by country</div>
+    <p><strong>There is no single global channel plan.</strong> Each country's regulator decides which frequencies are permitted, at what power, indoors or outdoors, and which require DFS. 2.4 GHz already shows this — the US allows channels 1–11 while much of Europe allows 1–13 — and the variation is far wider at 5 GHz.</p>
+    <p>Practically, this means an AP has a <strong>regulatory domain</strong> setting that must match its physical location. Set it wrong and the AP either refuses to use channels that are legal locally, or transmits on channels and power levels that are not — which is a compliance violation, not merely a misconfiguration. It also explains a support pattern worth recognising: a client device bought abroad may be unable to see an SSID on a channel its own regulatory profile does not permit.</p>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">DFS in practice</div>
+    A DFS radar event looks like an outage to users: the AP changes channel with little warning and clients briefly drop. Intermittent, unexplained disconnects on 5 GHz that correlate with nearby airport or weather radar are a classic DFS symptom — and the usual fix is to pin the AP to the nine non-DFS channels, accepting fewer channels in exchange for stability.
+  </div>
+
+  <h3>Band Steering</h3>
+  <p><strong>Band steering</strong> is an AP feature that nudges dual-band-capable clients off the crowded 2.4 GHz band and onto 5 GHz. Left alone, many clients default to whichever signal is strongest — usually 2.4 GHz, because it travels further — and pile onto the band with only three non-overlapping channels while the far roomier 5 GHz radio sits idle.</p>
+  <p>The AP achieves this by selectively withholding responses: it delays or ignores the client's probe requests on 2.4 GHz while answering immediately on 5 GHz, so the client concludes 5 GHz is the better option and associates there. It is a nudge rather than a rule — a client that only supports 2.4 GHz, or one that has roamed to the edge of coverage where 5 GHz has faded, still connects on 2.4 GHz.</p>
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-reference</div>
+    <p>Band steering also appears in <strong>Objective 5.4</strong> as a remedy for wireless performance problems — specifically for the <em>sticky client</em> that clings to a distant or congested radio instead of roaming. This section is the definition; 5.4 covers applying it during troubleshooting.</p>
+  </div>
+
   <h3>Wireless Architecture Types</h3>
   <ul>
-    <li><strong>Standalone AP (Fat AP):</strong> Self-contained — manages its own SSID, security, and radio. Simple deployment, no controller needed. Difficult to manage at scale.</li>
-    <li><strong>Controller-Based (Thin AP):</strong> APs are "thin" — just radios. All management, SSID config, and roaming handled by a central Wireless LAN Controller (WLC). Best for enterprise.</li>
+    <li><strong>Autonomous AP</strong> — also called <em>standalone</em> or <em>fat</em> AP: Self-contained — holds its own SSID, security, and radio configuration on board. Simple deployment, no controller needed. Difficult to manage at scale, because every change must be repeated on every AP.</li>
+    <li><strong>Lightweight AP</strong> — also called <em>controller-based</em> or <em>thin</em> AP: The AP is little more than a radio. All management, SSID config, RF optimisation, and roaming are handled by a central <abbr title="Wireless LAN Controller">WLC</abbr>. Best for enterprise. A lightweight AP cannot function without its controller.</li>
     <li><strong>Cloud-Managed:</strong> APs managed from cloud portal (e.g., Cisco Meraki, Ubiquiti UniFi). Zero-touch provisioning, centralized visibility.</li>
   </ul>
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-reference</div>
+    <p><strong>Autonomous</strong> and <strong>lightweight</strong> are the terms the official objectives use; <em>fat/thin</em> and <em>standalone/controller-based</em> are the same distinction under vendor naming, and the exam may use any of them. The full treatment of the WLC and the autonomous-vs-lightweight split — including why a lightweight AP is inoperable without its controller — is in <strong>Objective 1.2</strong> under networking devices.</p>
+  </div>
+
+  <h3>Guest Networks and Captive Portals</h3>
+  <p>A <strong>guest network</strong> is a separate SSID for visitors and untrusted devices, mapped to its own VLAN with a route to the internet and no route to internal resources. Configuring one has three parts:</p>
+  <ul>
+    <li><strong>Separate SSID and VLAN</strong> — the guest SSID is bound to a dedicated VLAN whose gateway ACL permits internet-bound traffic only. Guests never share a broadcast domain with corporate devices.</li>
+    <li><strong>Client isolation</strong> — sometimes called AP or peer-to-peer isolation. Prevents guest devices from reaching <em>each other</em> over the wireless link, so one compromised laptop cannot scan the phone next to it.</li>
+    <li><strong>Bandwidth limits</strong> — per-client or per-SSID rate limiting keeps guest traffic from starving the business network.</li>
+  </ul>
+  <p>A <strong>captive portal</strong> is the web page a guest is redirected to before being granted access — used to present terms of use, collect an email or room number, or accept a voucher code. Until the user completes it, the AP holds the client in a restricted state where DNS and HTTP are intercepted and everything else is blocked.</p>
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-reference</div>
+    <p>This section covers the <em>configuration</em> side. Guest networks as a <strong>segmentation and zone</strong> decision — where the guest zone sits relative to trusted and screened subnets — belong to <strong>Objective 4.1</strong>. <strong>Troubleshooting</strong> a portal that fails to appear, most often because HTTPS enforcement or DNS-over-HTTPS defeats the redirect, is covered in <strong>Objective 5.4</strong>.</p>
+  </div>
 
   <h3>Key Wireless Terms</h3>
   <div class="table-wrap">
@@ -202,6 +344,7 @@
         <tr><td><strong>BSSID</strong></td><td>Basic SSID — MAC address of a single AP. Identifies a specific radio/AP.</td></tr>
         <tr><td><strong>BSS</strong></td><td>Basic Service Set — single AP with associated clients.</td></tr>
         <tr><td><strong>ESS</strong></td><td>Extended Service Set — multiple APs sharing same SSID for seamless roaming.</td></tr>
+        <tr><td><strong>ESSID</strong></td><td>Extended SSID — the network name shared by every AP in an <strong>ESS</strong>. In practice ESSID and SSID name the same string, and the terms are used interchangeably; ESSID simply makes explicit that the name spans multiple APs rather than one. Contrast with <strong>BSSID</strong>, which is the MAC address of one individual radio.</td></tr>
         <tr><td><strong>MIMO</strong></td><td>Multiple Input Multiple Output — multiple antennas for simultaneous streams. 802.11n introduced it.</td></tr>
         <tr><td><strong>MU-MIMO</strong></td><td>Multi-User MIMO — AP transmits to multiple clients simultaneously. 802.11ac (downlink), 802.11ax (uplink + downlink).</td></tr>
         <tr><td><strong>OFDMA</strong></td><td>Orthogonal Frequency Division Multiple Access — divides channel into subcarriers for multiple clients simultaneously. Wi-Fi 6/6E.</td></tr>
@@ -252,7 +395,7 @@
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
         <div class="flashcard-front">2.4 GHz Non-Overlapping Channels<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back"><strong>Channels 1, 6, and 11</strong><br>Only 3 non-overlapping channels in 2.4 GHz band (US)<br>5 GHz has many more non-overlapping channels</div>
+        <div class="flashcard-back"><strong>Channels 1, 6, and 11</strong><br>Only 3 non-overlapping channels in 2.4 GHz band (US)<br>5 GHz has 25 non-overlapping 20 MHz channels (US) — but only 9 are DFS-free</div>
       </div>
     </div>
   </div>
@@ -265,6 +408,11 @@
       <li>2.4 GHz has only 3 non-overlapping channels (1, 6, 11). This causes interference issues in dense areas.</li>
       <li>WEP is completely broken. Even WPA (TKIP) is weak. WPA2 (AES/CCMP) minimum for modern networks.</li>
       <li>SAE is a WPA3 feature that prevents offline dictionary attacks against captured handshakes.</li>
+      <li><strong>PSK vs Enterprise is about authentication, not encryption.</strong> WPA2-Personal and WPA2-Enterprise both use AES/CCMP. The difference is a shared passphrase versus per-user 802.1X credentials validated by a RADIUS server. If a question asks how to revoke one user's access or assign a VLAN per user, the answer is Enterprise.</li>
+      <li><strong>DFS channel availability varies by regulatory domain.</strong> There is no universal 5 GHz channel plan — the AP's regulatory setting must match its country. A DFS radar detection forces an immediate channel change and a 30-minute lockout, which users experience as a random dropout.</li>
+      <li>Wider channels mean fewer of them. 40 MHz in 2.4 GHz consumes two of the three non-overlapping channels — effectively unusable. 320 MHz exists only in 6 GHz.</li>
+      <li>Band steering pushes dual-band clients to 5 GHz; it does not force them. A 2.4 GHz-only client is unaffected.</li>
+      <li><strong>Ad hoc is the only one of the four network types with no AP.</strong> Mesh still uses APs — they simply backhaul to each other wirelessly instead of each needing a wired uplink.</li>
     </ul>
   </div>
 
@@ -337,7 +485,15 @@
       <li>802.11a = 5GHz/54Mbps (1999) | 802.11b = 2.4GHz/11Mbps | 802.11g = 2.4GHz/54Mbps</li>
       <li>802.11n = first dual-band (2.4+5), MIMO | 802.11ac = 5GHz only, MU-MIMO</li>
       <li>802.11ax (Wi-Fi 6) = OFDMA, dual-band; Wi-Fi 6E adds 6 GHz</li>
-      <li>2.4GHz non-overlapping: 1, 6, 11 (only 3)</li>
+      <li>2.4GHz non-overlapping: 1, 6, 11 (only 3) | 5 GHz: 25 at 20 MHz (US), only 9 DFS-free</li>
+      <li>Network types: Infrastructure (AP) | Ad hoc (no AP, peer-to-peer) | Mesh (APs backhaul wirelessly) | Point to point (two sites, directional)</li>
+      <li>PSK = one shared passphrase, no server | Enterprise = 802.1X + RADIUS, per-user credentials, revocable</li>
+      <li>Channel width: 20/40/80/160 MHz; 320 MHz is 6 GHz only — wider = more throughput, fewer channels, more noise</li>
+      <li>802.11h = DFS (vacate on radar, 30-min lockout) + TPC (use minimum necessary power)</li>
+      <li>Band steering = nudge dual-band clients from 2.4 GHz onto 5 GHz</li>
+      <li>Autonomous (fat) AP = standalone config on board | Lightweight (thin) AP = needs a WLC</li>
+      <li>ESSID = network name across an ESS | BSSID = MAC of one AP radio</li>
+      <li>Guest network = separate SSID + VLAN, internet only, client isolation; captive portal = pre-access web page</li>
       <li>WPA3 SAE = no offline dictionary attacks | WPA2 AES/CCMP = current minimum standard</li>
       <li>Omnidirectional = 360° | Yagi = narrow beam, P2P | Patch = sector | Parabolic = very narrow, long-distance</li>
       <li>dBi = gain relative to isotropic; higher gain = more focused, not more power</li>
