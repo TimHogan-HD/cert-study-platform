@@ -81,6 +81,53 @@
     <strong>Default VLAN = VLAN 1</strong> (cannot be deleted on Cisco IOS). <strong>Native VLAN</strong> on a trunk carries untagged frames — must match on both ends or you get VLAN hopping risk. <strong>Voice VLAN</strong> rides alongside data on access ports for IP phones (typically tagged with 802.1p priority).
   </div>
 
+  <h3>The VLAN Database</h3>
+  <p>VLAN definitions do not live in the running configuration. A switch keeps them in a separate <strong>VLAN database</strong> — on Cisco IOS this is a file called <code>vlan.dat</code> stored in flash memory. The running-config records only <em>which VLAN a port belongs to</em>; the VLAN itself is defined elsewhere.</p>
+
+  <div class="callout callout-red">
+    <div class="callout-title">Why this matters — the config-restore trap</div>
+    <p>Because <code>vlan.dat</code> is separate from the running-config, <strong>restoring a configuration backup does not restore your VLANs.</strong> A switch rebuilt from a saved config comes up with access ports assigned to VLANs that no longer exist — the ports go inactive and the attached hosts lose connectivity, even though the config file looks completely correct. Erasing the startup-config with <code>erase startup-config</code> also leaves <code>vlan.dat</code> untouched; a genuine reset to factory defaults requires <code>delete flash:vlan.dat</code> as a separate step.</p>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — the VLAN database is a separate file</span></div>
+    <pre class="terminal-body"><span class="tpc">Switch1#</span> show flash:
+Directory of flash:/
+    1  -rw-    24582138          c2960-lanbasek9-mz.150-2.SE11.bin
+    2  -rw-        <span class="th">1915</span>          <span class="th">vlan.dat</span>          <span class="tn">← VLAN database — NOT in running-config</span>
+
+<span class="tpc">Switch1#</span> show running-config | include vlan
+ switchport access vlan 10        <span class="tn"># port membership IS in running-config</span>
+ switchport trunk native vlan 99
+<span class="tn"># ...but the definition of VLAN 10 itself is not here — it lives in vlan.dat</span>
+
+<span class="tpc">Switch1#</span> erase startup-config
+Erasing the nvram filesystem... <span class="ts">[OK]</span>
+<span class="te">! vlan.dat still present — VLANs survive this</span>
+
+<span class="tpc">Switch1#</span> delete flash:vlan.dat     <span class="tn">← required for a true factory reset</span></pre>
+  </div>
+
+  <h4><abbr title="VLAN Trunking Protocol">VTP</abbr> — Propagating the Database</h4>
+  <p><abbr title="VLAN Trunking Protocol">VTP</abbr> is a Cisco protocol that synchronises the VLAN database across all switches in a shared VTP domain, so a VLAN created once on a server-mode switch appears everywhere. Every database change increments a <strong>configuration revision number</strong>, and switches accept any update carrying a <em>higher</em> revision number than their own.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>VTP Mode</th><th>Can create/delete VLANs?</th><th>Behaviour</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Server</strong></td><td>Yes</td><td>Default mode. Creates, modifies, and deletes VLANs; advertises the database to the domain.</td></tr>
+        <tr><td><strong>Client</strong></td><td>No</td><td>Receives and applies the database from servers; forwards advertisements but cannot make local changes.</td></tr>
+        <tr><td><strong>Transparent</strong></td><td>Yes — locally only</td><td>Keeps its own independent database, forwards advertisements without applying them. Revision number stays 0.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-title">REMEMBER THIS</div>
+    <strong>The classic VTP disaster:</strong> a switch removed from the network, used in a lab, then plugged back in arrives with a <em>higher</em> revision number than the production domain. Its stale database propagates and overwrites every switch in the domain — deleting production VLANs network-wide. This is why a switch should always be set to <strong>transparent mode</strong> (or have its revision reset) before being reintroduced. Note that revision number, not VTP mode, decides the winner: a <em>client</em> with a higher revision number will still overwrite a server.
+  </div>
+
   <h3>802.1Q Trunk Tagging</h3>
   <p>802.1Q adds a 4-byte tag inside the Ethernet frame after the source MAC address:</p>
   <ul>
@@ -244,6 +291,62 @@
     <li><strong>Static (mode on)</strong> — Forces EtherChannel without negotiation.</li>
   </ul>
 
+  <h3>Interface Configuration — Speed and Duplex</h3>
+  <p>Every switch port has a <strong>speed</strong> and a <strong>duplex</strong> setting. Both default to auto-negotiation, where the two ends exchange capabilities and agree on the highest common denominator.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Setting</th><th>Values</th><th>Configuration</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Speed</strong></td>
+          <td>10 / 100 / 1000 / 10000 Mbps, or <code>auto</code></td>
+          <td><code>speed auto</code><br><code>speed 1000</code></td>
+        </tr>
+        <tr>
+          <td><strong>Duplex</strong></td>
+          <td><strong>Full</strong> — send and receive simultaneously, no collisions.<br><strong>Half</strong> — one direction at a time, uses CSMA/CD, collisions are normal.</td>
+          <td><code>duplex auto</code><br><code>duplex full</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-title">The Auto/Hardcode Mismatch</div>
+    <p>Auto-negotiation only works when <strong>both</strong> ends are set to auto. If one end is hardcoded and the other is left on auto, the auto side can still detect the correct <em>speed</em> by sensing the signal — but it has no way to detect duplex, so it falls back to <strong>half duplex</strong>. The result is a link that comes up successfully at the right speed with one end full and the other half: a duplex mismatch that degrades badly under load while looking healthy in <code>show interface status</code>.</p>
+    <p>The fix is to be consistent: set both ends to auto, or hardcode both ends to the same values. Never mix the two.</p>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-reference — diagnosing a duplex mismatch</div>
+    <p>This section covers duplex as a <em>configuration</em> task. The <em>symptoms</em> of a mismatch — late collisions, runts, and incrementing CRC errors on the half-duplex side — are a troubleshooting topic covered in <strong>Objective 5.2</strong>. Interface error counter definitions also appear in <strong>Objective 2.4</strong>.</p>
+  </div>
+
+  <h3>MTU and Jumbo Frames</h3>
+  <p><abbr title="Maximum Transmission Unit">MTU</abbr> (Maximum Transmission Unit) is the largest payload a single frame can carry. The Ethernet default is <strong>1500 bytes</strong> — that is the IP packet size, not counting the 18-byte Ethernet header and trailer, which is why a standard full-size Ethernet frame is 1518 bytes on the wire.</p>
+  <p>When a packet exceeds the MTU of the next link, one of two things happens: it is <strong>fragmented</strong> into smaller pieces, or — if the Don't Fragment bit is set, and always in IPv6 — it is <strong>dropped</strong> and an ICMP "fragmentation needed" message is returned to the sender. <strong>Path MTU Discovery</strong> relies on exactly those ICMP messages to find the smallest MTU along a path. If a firewall blocks ICMP, PMTUD silently fails and large packets vanish while small ones (like pings) succeed — the classic "web pages hang but the server responds to ping" symptom.</p>
+
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th></th><th>Standard Frame</th><th>Jumbo Frame</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>MTU (payload)</strong></td><td>1500 bytes</td><td>Typically 9000 bytes</td></tr>
+        <tr><td><strong>Frame size on wire</strong></td><td>1518 bytes</td><td>~9018 bytes</td></tr>
+        <tr><td><strong>Overhead per byte moved</strong></td><td>Higher — more frames, more headers, more CPU interrupts</td><td>Lower — one header serves six times the data</td></tr>
+        <tr><td><strong>Where used</strong></td><td>Everywhere by default; required across the internet</td><td>Storage networks (iSCSI, NFS, FCoE), data centre east-west traffic, backup and replication networks</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-title">Jumbo Frames Require End-to-End Support</div>
+    <p><strong>Every device in the path must support and be configured for jumbo frames</strong> — both hosts, every switch, and every router in between. There is no negotiation. A single device left at the 1500-byte default will drop the oversized frames it receives, counting them as <strong>giants</strong>, or force fragmentation that erases the entire performance benefit. This is why jumbo frames are confined to controlled environments like a storage VLAN or a data centre fabric, and never enabled on paths that traverse the internet.</p>
+  </div>
+
   <div class="pbq-prep">
     <div class="pbq-prep-title">🎯 PBQ Prep — VLAN &amp; Network Discovery</div>
     <p>Common PBQ: "A user in VLAN 20 can't reach the server in VLAN 30. Using the switch CLI, diagnose the problem."</p>
@@ -310,6 +413,10 @@ Gi0/2        <span class="th">Altn</span>   <span class="te">BLK</span>   4     
       <li>PortFast should ONLY be on access ports. Enabling on a trunk port = potential STP loop.</li>
       <li>RSTP replaces Blocking + Listening + Disabled with a single "Discarding" state — question might test which RSTP states exist.</li>
       <li>Root bridge = switch with <strong>lowest</strong> Bridge ID (bridge priority + MAC). Default priority = 32768; lower wins.</li>
+      <li><strong>Jumbo frames must be supported by every device in the path.</strong> One switch left at 1500 bytes drops them as giants. There is no negotiation and no partial deployment.</li>
+      <li><strong>The VLAN database is separate from the running-config.</strong> Restoring a config backup does not restore VLANs — <code>vlan.dat</code> must be handled separately. <code>erase startup-config</code> does not remove it.</li>
+      <li>A VTP switch with a <strong>higher revision number</strong> overwrites the domain — including a client overwriting a server. Reset the revision (or use transparent mode) before reintroducing an old switch.</li>
+      <li>Hardcoding one end of a link and leaving the other on auto gives you the <strong>correct speed but half duplex</strong> on the auto side. The link comes up; the mismatch is silent until load exposes it.</li>
     </ul>
   </div>
 
@@ -322,6 +429,12 @@ Gi0/2        <span class="th">Altn</span>   <span class="te">BLK</span>   4     
       <li>RSTP: Discarding → Learning → Forwarding (&lt;1s)</li>
       <li>Root bridge = lowest Bridge ID | Root port = lowest cost path to root</li>
       <li>PortFast + BPDU Guard = safe access port config; BPDU Guard shuts port if switch connects</li>
+      <li>VLAN database = <code>vlan.dat</code> in flash, separate from running-config; survives <code>erase startup-config</code></li>
+      <li>VTP modes: Server (create/advertise) | Client (receive only) | Transparent (local only, revision stays 0)</li>
+      <li>VTP: highest configuration revision number wins — even a client can overwrite a server</li>
+      <li>MTU default = 1500 bytes payload (1518-byte frame) | Jumbo = 9000 bytes</li>
+      <li>Jumbo frames need path-wide support — one non-jumbo device drops them as giants</li>
+      <li>Auto on one end + hardcoded on the other = right speed, half duplex, silent mismatch</li>
     </ul>
   </div>
 
