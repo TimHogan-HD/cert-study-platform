@@ -185,6 +185,10 @@
   </div>
   <p>They are complementary rather than alternatives. URL filtering will not stop a malicious executable downloaded from an <em>allowed</em> site, and content filtering will not stop a user reaching a site that is simply against policy. Both need TLS inspection to be useful against HTTPS traffic, since neither can act on what it cannot decrypt.</p>
 
+  <p><strong><abbr title="Data Loss Prevention">DLP</abbr></strong> is content filtering pointed the other way. Content filtering inspects what is coming <em>in</em> and asks whether it is dangerous; DLP inspects what is going <em>out</em> and asks whether it is allowed to leave. It matches payloads against patterns for sensitive data — card numbers, national insurance or social security numbers, tagged documents — and then blocks, quarantines, or alerts on the transfer. It sits wherever data exits: email gateway, web proxy, cloud storage connector, and endpoint agents for USB copies. The exam framing is exfiltration: a question about a user emailing a customer list to a personal address is a DLP question, not a firewall one, because the traffic itself is permitted and only its <em>content</em> makes it a violation.</p>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 4.3 lists <em>device hardening, network access control, key management, security rules,</em> and <em>zones</em>. <strong>DLP</strong> is not enumerated, but it appears in the official N10-009 acronym list and is the outbound counterpart to the content filtering above, so it is defined here rather than in a section of its own.</p>
+
   <h3>Key Management</h3>
   <p>Encryption is only ever as strong as the handling of its keys. An attacker who obtains a key has no need to break the algorithm — <abbr title="Advanced Encryption Standard">AES</abbr>-256 with a leaked key provides exactly no confidentiality. Key management is the lifecycle that prevents that.</p>
   <div class="table-wrap">
@@ -231,6 +235,7 @@
       <li>Vulnerability scanning ≠ penetration testing. Scanning finds potential vulnerabilities. Pen testing exploits them.</li>
       <li><strong>MAC filtering is trivially spoofable</strong> — MACs are cleartext in every frame header. It is never the right answer when a question asks for real network access control; that is 802.1X.</li>
       <li><strong>URL filtering acts on the destination; content filtering acts on the payload.</strong> "Where is it going?" vs. "What is it carrying?" Neither works on HTTPS without TLS inspection.</li>
+      <li><strong>DLP is about data leaving.</strong> If the traffic is permitted and only its content makes it a violation — a customer list emailed out, a file copied to USB — the answer is DLP, not a firewall rule.</li>
       <li>Disabling an unused port beats relying on port security for it — port security controls who may use an <em>enabled</em> port; disabling removes it entirely.</li>
       <li>Key rotation limits exposure; key revocation handles compromise before expiry. A strong algorithm with a leaked key protects nothing.</li>
       <li>Zones are about trust direction: higher trust may initiate toward lower trust, not the reverse. The screened subnet is the controlled middle, not a third "safe" network.</li>

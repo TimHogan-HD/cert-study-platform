@@ -56,6 +56,10 @@
     </table>
   </div>
 
+  <p><strong><abbr title="Stream Control Transmission Protocol">SCTP</abbr></strong> is a third transport protocol (IP protocol number <strong>132</strong>) that takes reliability and sequencing from TCP but delivers whole <em>messages</em> rather than a byte stream. Two features set it apart: <strong>multi-streaming</strong>, so a loss on one stream does not stall the others, and <strong>multi-homing</strong>, where one association spans several IP addresses on each endpoint and fails over between them. It carries telecom signalling — <abbr title="Signalling System No. 7">SS7</abbr> over IP and Diameter — rather than general application traffic.</p>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.4 enumerates <em>TCP</em> and <em>UDP</em> as the transport protocols. <strong>SCTP</strong> is not enumerated, but it appears in the official N10-009 acronym list, and the only thing likely to be asked of it is that it is a transport protocol alongside the other two.</p>
+
   <h3>Port &amp; Protocol Reference — By Category</h3>
   <p id="protocol-flip-help" class="protocol-ref-help">Select a row (click, Enter, or Space) to flip the summary and view a real-world example.</p>
   <div class="port-groups">
@@ -109,6 +113,11 @@
             <td>FTP Control <span class="proto-transport">TCP</span></td>
             <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Command/control channel. Passive mode negotiates ephemeral port over 21.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An admin logs in to an old FTP server on port 21 to run file transfer commands.</span></span></td>
           </tr>
+          <tr class="protocol-ref-row" tabindex="0" aria-label="Flip FTPS row to see an example" role="button" aria-expanded="false">
+            <td>989/990</td>
+            <td><abbr title="File Transfer Protocol Secure — FTP wrapped in TLS">FTPS</abbr> <span class="proto-transport">TCP</span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">FTP with TLS added — still two channels (990 control, 989 data). Not SFTP: different protocol, different port, different security layer.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A partner uploads files to a hardened FTP server over FTPS:990, so the login and the file are both encrypted by TLS.</span></span></td>
+          </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip TFTP row to see an example" role="button" aria-expanded="false">
             <td>69</td>
             <td><abbr title="Trivial File Transfer Protocol — no authentication">TFTP</abbr> <span class="proto-transport">UDP</span></td>
@@ -121,6 +130,7 @@
           </tr>
         </tbody>
       </table></div>
+      <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.4 enumerates <em>FTP (20/21)</em>, <em>SFTP (22)</em>, <em>TFTP (69)</em>, and <em>SMB (445)</em> in its port list. <strong>FTPS</strong> is not enumerated, but it appears in the official N10-009 acronym list, and mistaking it for SFTP is the classic trap this table exists to prevent.</p>
     </div>
 
     <div class="port-group" data-group="email">
@@ -704,6 +714,7 @@
       <li>FTP has TWO ports: 20 (data) and 21 (control). Many questions test whether you know both.</li>
       <li>IMAP (143) keeps mail on server. POP3 (110) downloads and deletes — important for multi-device scenarios.</li>
       <li>SFTP uses port <strong>22</strong> — it is SSH-based file transfer, not FTP. FTP is 20/21 and cleartext; SFTP is always encrypted.</li>
+      <li><strong>SFTP ≠ FTPS.</strong> SFTP is file transfer inside an SSH session on port 22 — one connection, no FTP in it at all. FTPS is ordinary FTP wrapped in TLS on 989/990, keeping FTP's two-channel behaviour. Same goal, unrelated protocols.</li>
       <li>ESP (50) encrypts <em>and</em> authenticates. AH (51) authenticates only — <strong>AH provides no confidentiality</strong>.</li>
       <li>Broadcast is confined to the subnet — routers do not forward it. Multicast requires IGMP group membership. Anycast routes to the <em>nearest</em> node, not all nodes.</li>
     </ul>

@@ -44,6 +44,10 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
 <span class="tn"># C = directly connected (AD 0)  S = static (AD 1)  O = OSPF (AD 110)</span></pre>
   </div>
 
+  <p>That is <em>one</em> routing table, which is all a router normally holds. <strong><abbr title="Virtual Routing and Forwarding">VRF</abbr></strong> lets a single physical router hold several completely independent ones, with each interface assigned to exactly one of them. Traffic in one cannot reach another without an explicit route leak, and because the tables never see each other, two customers can both use 10.0.0.0/8 on the same box. VRF is to routing what a VLAN is to switching — one device, several separate networks — and it is what makes a provider's <abbr title="Multiprotocol Label Switching">MPLS</abbr> L3VPN possible.</p>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.1 lists <em>static and dynamic routing, route selection, address translation,</em> and <em>FHRP</em>. <strong>VRF</strong> is not enumerated, but it appears in the official N10-009 acronym list and is a one-line concept once routing tables are understood, so it sits here rather than in a section of its own.</p>
+
   <!-- C1: Route Selection Decision Flow -->
   <h3>Route Selection — Prefix Length, AD, Metric</h3>
   <p>When a router must choose how to forward a packet, three criteria are applied <strong>in a fixed order</strong>. Getting the order right matters more than memorising any single value.</p>

@@ -18,9 +18,12 @@
         <tr><td><strong>IaaS</strong> (<abbr title="Infrastructure as a Service — provider manages physical hardware and virtualization; customer manages OS and above">Infrastructure as a Service</abbr>)</td><td>OS, middleware, runtime, apps, data</td><td>AWS EC2, Azure VMs, Google Compute Engine</td></tr>
         <tr><td><strong>PaaS</strong> (<abbr title="Platform as a Service — provider manages everything up through the runtime; customer manages apps and data">Platform as a Service</abbr>)</td><td>Apps and data only</td><td>Azure App Service, Google App Engine, Heroku</td></tr>
         <tr><td><strong>SaaS</strong> (<abbr title="Software as a Service — provider manages everything; customer just uses the application">Software as a Service</abbr>)</td><td>Nothing — just uses the app</td><td>Microsoft 365, Salesforce, Google Workspace</td></tr>
+        <tr><td><strong>NaaS</strong> (<abbr title="Network as a Service — provider owns and operates the network hardware; customer subscribes to connectivity and network functions">Network as a Service</abbr>)</td><td>Policy and configuration — never the underlying routers, switches, or circuits</td><td>Cloud-managed SD-WAN, vendor-managed LAN/WAN, cloud-hosted VPN and firewall services</td></tr>
       </tbody>
     </table>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.3 lists <em>IaaS</em>, <em>PaaS</em>, and <em>SaaS</em> as the service models. <strong>NaaS</strong> is not enumerated, but it appears in the official N10-009 acronym list and is the fourth model in the same family — the networking equivalent of IaaS, where the customer buys connectivity as a subscription instead of owning the hardware.</p>
 
   <h4>Shared Responsibility Model</h4>
   <p>In every cloud model, responsibility for security and management is <strong>split between the customer and the cloud provider</strong>. As you move from IaaS → PaaS → SaaS, the provider takes on more layers.</p>
