@@ -279,9 +279,16 @@
           <td>An engine-driven source that supplies the facility for extended outages.</td>
           <td>Takes seconds to start and stabilise, which is precisely the gap the UPS exists to cover. Runtime is limited by fuel on site and resupply, not by batteries. Requires periodic load testing — a generator that has never been tested under real load is an assumption, not a control.</td>
         </tr>
+        <tr>
+          <td><strong><abbr title="Power Supply Unit">PSU</abbr></strong><br>Power Supply Unit</td>
+          <td>The module inside a switch, router, or server that converts incoming AC to the DC rails the hardware runs on.</td>
+          <td>The last single point of failure in an otherwise redundant power path — a rack on two feeds still drops if the one PSU in the switch dies. Enterprise gear takes <strong>dual, hot-swappable PSUs</strong>, each cabled to a <em>different</em> PDU and feed, so either a supply or a whole feed can fail with no outage. Cabling both PSUs to the same PDU is the common mistake: it buys hardware redundancy and no feed redundancy at all.</td>
+        </tr>
       </tbody>
     </table>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.4 enumerates <em>UPS, PDU, power load, voltage,</em> and <em>generator</em> under power. <strong>PSU</strong> is not enumerated, but it appears in the official N10-009 acronym list and is the component every one of those five ultimately feeds, so it is covered here with the rest of the power path.</p>
 
   <h3>Environmental Factors</h3>
   <p>Equipment rooms fail from their environment as often as from their wiring. Three factors are enumerated: humidity, temperature, and fire suppression.</p>

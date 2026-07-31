@@ -28,6 +28,10 @@
     </table>
   </div>
 
+  <p>A router normally holds <em>one</em> routing table. <strong><abbr title="Virtual Routing and Forwarding">VRF</abbr></strong> lets a single physical router hold several completely independent ones, with each interface assigned to exactly one <abbr title="Virtual Routing and Forwarding">VRF</abbr>. Traffic in one cannot reach another without an explicit route leak, and because the tables never see each other, two customers can both use 10.0.0.0/8 on the same box. It is to routing what a VLAN is to switching — one device, several separate networks — and it is what makes a provider's <abbr title="Multiprotocol Label Switching">MPLS</abbr> L3VPN possible.</p>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.1 lists <em>static and dynamic routing, route selection, address translation,</em> and <em>FHRP</em>. <strong>VRF</strong> is not enumerated, but it appears in the official N10-009 acronym list and is a one-line concept once routing tables are understood, so it sits here rather than in a section of its own.</p>
+
   <div class="terminal">
     <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — show ip route</span></div>
     <pre class="terminal-body"><span class="tpc">Router#</span> show ip route
