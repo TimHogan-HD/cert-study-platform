@@ -119,6 +119,34 @@
     </table>
   </div>
 
+  <h3>Encryption in Transit vs. at Rest</h3>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>State</th><th>What It Protects</th><th>How It Is Done</th><th>Threat It Answers</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Data in Transit</strong></td>
+          <td>Data moving across a network — client to server, site to site, or host to cloud</td>
+          <td><abbr title="Transport Layer Security">TLS</abbr>/HTTPS, IPsec, SSH, WPA3, site-to-site VPN</td>
+          <td>Eavesdropping and on-path modification while packets are on the wire</td>
+        </tr>
+        <tr>
+          <td><strong>Data at Rest</strong></td>
+          <td>Data stored on a disk, array, backup tape, or database</td>
+          <td>Full-disk encryption (BitLocker, LUKS), self-encrypting drives, database and backup encryption (AES)</td>
+          <td>Theft or loss of the physical media, and unauthorized access to stored files</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">The Two Are Not Substitutes</div>
+    <p>Protecting one state says nothing about the other. A laptop with full-disk encryption still leaks credentials over an unencrypted HTTP session, and a TLS-protected web application still exposes its database if the drive is stolen. When a question describes stolen backup tapes or a lost laptop, the control is <strong>encryption at rest</strong>; when it describes packet capture or a hostile Wi-Fi network, it is <strong>encryption in transit</strong>.</p>
+  </div>
+
   <h3>Hashing Algorithms</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -145,6 +173,24 @@
     <li><strong>Intermediate CA:</strong> Signed by root CA; issues end-entity certificates. Allows root CA to stay offline.</li>
   </ul>
 
+  <h3>Self-Signed vs. CA-Issued Certificates</h3>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Property</th><th>Self-Signed</th><th>CA-Issued</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Signed By</strong></td><td>Its own private key — subject and issuer are the same entity</td><td>A Certificate Authority whose root is already trusted by the client</td></tr>
+        <tr><td><strong>Trust</strong></td><td>None by default — the client has no reason to trust the issuer</td><td>Chains up to a root in the OS or browser trust store</td></tr>
+        <tr><td><strong>Client Behaviour</strong></td><td>Certificate warning until manually trusted or imported</td><td>Connects silently</td></tr>
+        <tr><td><strong>Revocation</strong></td><td>No <abbr title="Certificate Revocation List">CRL</abbr> or <abbr title="Online Certificate Status Protocol">OCSP</abbr> — nothing to revoke against</td><td>Revocable via CRL or OCSP</td></tr>
+        <tr><td><strong>Cost / Effort</strong></td><td>Free, issued instantly with one command</td><td>Validation process; free (Let's Encrypt) through paid (EV certificates)</td></tr>
+        <tr><td><strong>Appropriate Use</strong></td><td>Lab and internal test systems; device management interfaces on an isolated network</td><td>Anything public-facing, and anything a user or partner must trust</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>A self-signed certificate provides the <em>same encryption</em> as a CA-issued one — the cipher suite and key length have nothing to do with who signed it. What it does not provide is <strong>identity assurance</strong>: nothing stops an attacker generating a self-signed certificate carrying your domain name. That is the entire reason for the browser warning, and why clicking through it on a public site defeats the point of TLS. Root CA certificates are also self-signed; the difference is that they are distributed in advance through the OS or browser trust store, so their trust is established out-of-band rather than by the certificate itself.</p>
+
   <h3>Zero Trust Security Model</h3>
   <ul>
     <li>"Never trust, always verify" — no implicit trust based on network location.</li>
@@ -152,6 +198,27 @@
     <li>Least privilege: users and devices get minimum permissions needed.</li>
     <li>Microsegmentation: divide network into small segments with strict access controls between them.</li>
   </ul>
+
+  <h3>AAA — Authentication, Authorization, Accounting</h3>
+  <p><abbr title="Authentication, Authorization, and Accounting">AAA</abbr> is the model that every access-control system implements. The three A's answer three different questions, in order:</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Stage</th><th>Question It Answers</th><th>In Practice</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Authentication</strong></td><td><em>Who are you?</em></td><td>Verify the claimed identity — password, certificate, biometric, token. Proves the claim and grants nothing.</td></tr>
+        <tr><td><strong>Authorization</strong></td><td><em>What may you do?</em></td><td>Apply permissions to the now-known identity — RBAC role, VLAN assignment, privilege level, ACL.</td></tr>
+        <tr><td><strong>Accounting</strong></td><td><em>What did you do?</em></td><td>Log the session — commands entered, bytes transferred, connect and disconnect times. Feeds audit and billing.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Authentication without authorization gets you through the door with no permissions; authorization without authentication hands permissions to an unverified party. Accounting is the leg most often forgotten, and it is the one a question is asking about when it describes needing a record of <em>who did what, and when</em>.</p>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-Reference — Objective 3.5</div>
+    <p>The two AAA protocols, <strong>RADIUS</strong> and <strong>TACACS+</strong>, are compared in full in <strong>3.5 Remote Access &amp; Security</strong> alongside 802.1X. The consequence of the model to carry into that table: <strong>TACACS+ separates all three functions</strong>, so it can authorize an individual command on a router and log that command by itself, while <strong>RADIUS combines authentication and authorization</strong> into a single accept/reject exchange and keeps only accounting separate. That separation is why TACACS+ is the answer for device administration and RADIUS is the answer for network access.</p>
+  </div>
 
   <h3>Identity and Access Management</h3>
   <div class="table-wrap">
@@ -238,6 +305,29 @@
     </table>
   </div>
 
+  <h3>Deception Technologies</h3>
+  <p>Deception technologies are decoys deployed in order to be attacked. They hold no production data and have no legitimate users, and that is exactly what makes them useful: <strong>any</strong> interaction with one is suspicious by definition, so they generate almost no false positives.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead>
+        <tr><th>Technology</th><th>What It Is</th><th>What It Gives You</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Honeypot</strong></td>
+          <td>A single decoy system left deliberately exposed and made to look like an attractive target — often running intentionally weak or outdated services.</td>
+          <td>Early warning that an attacker is already inside, plus a record of the techniques and tooling being used against you.</td>
+        </tr>
+        <tr>
+          <td><strong>Honeynet</strong></td>
+          <td>An entire decoy network of honeypots — servers, workstations, and plausible traffic between them — simulating a complete environment.</td>
+          <td>The same intelligence at greater depth. An attacker who moves laterally through a honeynet reveals far more of the attack chain than one probing a single host.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Both are <strong>detective</strong> controls, not preventive ones. A honeypot blocks nothing — it watches, records, and buys time.</p>
+
   <h3>Network Segmentation by Device/User Type</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -265,6 +355,10 @@
       <li>MFA requires different factor TYPES. Two passwords ≠ MFA.</li>
       <li>Asymmetric encryption is slow — not used for bulk data. TLS uses asymmetric for handshake then switches to symmetric.</li>
       <li>MD5 is broken for security purposes. SHA-256 is the current standard.</li>
+      <li><strong>Honeypots are decoys, NOT production systems.</strong> They intentionally carry fake vulnerabilities and hold no real data. A honeypot detects — it never blocks.</li>
+      <li><strong>TACACS+ separates all three AAA functions; RADIUS does not</strong> — RADIUS combines authentication and authorization. This is why TACACS+ can authorize individual commands.</li>
+      <li>Self-signed and CA-issued certificates give the <em>same</em> encryption strength. Only the CA-issued one gives identity assurance.</li>
+      <li>Encryption at rest and encryption in transit are separate controls — solving one does not solve the other.</li>
     </ul>
   </div>
 
@@ -276,6 +370,11 @@
       <li>Symmetric = same key, fast (AES) | Asymmetric = key pair, slow (RSA)</li>
       <li>SHA-256 = current hash standard | MD5/SHA-1 = deprecated/broken</li>
       <li>Zero trust = never trust, always verify; least privilege everywhere</li>
+      <li>AAA: Authentication (who are you) | Authorization (what may you do) | Accounting (what did you do)</li>
+      <li>TACACS+ separates all three A's | RADIUS combines authentication + authorization → see 3.5</li>
+      <li>In transit = TLS/IPsec/VPN | At rest = full-disk, database, and backup encryption</li>
+      <li>Self-signed = same crypto, no identity assurance, no revocation | CA-issued = chains to a trusted root</li>
+      <li>Deception: honeypot = one decoy host | honeynet = a whole decoy network. Both detective, never preventive</li>
       <li>SSO = outcome; SAML = protocol that enables it | Geofencing = location-based access control</li>
       <li>Threat × Vulnerability = Risk | Patching removes vulnerability, not threat</li>
       <li>PCI DSS = CDE segmentation required | GDPR = data locality, 72-hr breach notice</li>

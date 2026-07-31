@@ -120,13 +120,12 @@
         <tr><th>Tool</th><th>Purpose</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Honeypot</strong></td><td>Decoy system designed to attract and detect attackers. Provides early warning and intelligence on attack techniques.</td></tr>
-        <tr><td><strong>Honeynet</strong></td><td>Network of honeypots simulating a complete environment. More realistic and provides more intelligence than single honeypot.</td></tr>
         <tr><td><strong>Vulnerability Scanner</strong></td><td>Automated tool that scans systems for known vulnerabilities without exploiting them. (e.g., Nessus, Qualys, OpenVAS).</td></tr>
         <tr><td><strong>Penetration Testing</strong></td><td>Authorized simulated attack to identify vulnerabilities that can actually be exploited. More comprehensive than scanning.</td></tr>
       </tbody>
     </table>
   </div>
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 4.3 lists <em>device hardening, network access control, key management, security rules,</em> and <em>zones</em>. <strong>Vulnerability scanners</strong> and <strong>penetration testing</strong> are enumerated under neither 4.3 nor 4.1. CompTIA states its lists are non-exhaustive, and the scanning-versus-pen-testing distinction is commonly tested and needed to answer assessment scenarios, so they are kept here.</p>
 
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
@@ -134,7 +133,6 @@
       <li>IDS = out-of-band (SPAN port), alerts only. IPS = inline, can block. This is the most important distinction.</li>
       <li>DHCP snooping must be configured BEFORE DAI — DAI uses the DHCP snooping binding table.</li>
       <li>Standard ACL = source IP only. Extended ACL = src + dst + port. Place standard ACLs near destination.</li>
-      <li>Honeypots are designed to attract attackers — they are NOT production systems. They intentionally have fake vulnerabilities.</li>
       <li>Vulnerability scanning ≠ penetration testing. Scanning finds potential vulnerabilities. Pen testing exploits them.</li>
     </ul>
   </div>
