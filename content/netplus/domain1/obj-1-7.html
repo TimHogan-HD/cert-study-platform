@@ -109,17 +109,19 @@
   <h3>IP Address Classes</h3>
   <div class="addr-class-wrap">
     <div class="addr-class-head">
-      <span>Class</span><span>First Octet</span><span>Default Mask</span><span>Private Range (RFC 1918)</span><span>Notes</span>
+      <span>Class</span><span>Leading Bits</span><span>First Octet</span><span>Default Mask</span><span>Private Range (RFC 1918)</span><span>Notes</span>
     </div>
     <div class="addr-class-row" data-class="a">
       <div class="addr-class-cell"><span class="addr-class-badge addr-class-a">A</span></div>
+      <div class="addr-class-cell addr-class-mono">0</div>
       <div class="addr-class-cell addr-class-mono">1–126</div>
       <div class="addr-class-cell addr-class-mono">/8 (255.0.0.0)</div>
       <div class="addr-class-cell addr-class-mono">10.0.0.0 – 10.255.255.255</div>
-      <div class="addr-class-cell">Large networks; 16M hosts per network. 127.x.x.x = loopback (reserved).</div>
+      <div class="addr-class-cell">Large networks; 16M hosts per network. The 127 block is carved out for loopback, so the usable span stops at 126.</div>
     </div>
     <div class="addr-class-row" data-class="b">
       <div class="addr-class-cell"><span class="addr-class-badge addr-class-b">B</span></div>
+      <div class="addr-class-cell addr-class-mono">10</div>
       <div class="addr-class-cell addr-class-mono">128–191</div>
       <div class="addr-class-cell addr-class-mono">/16 (255.255.0.0)</div>
       <div class="addr-class-cell addr-class-mono">172.16.0.0 – 172.31.255.255</div>
@@ -127,6 +129,7 @@
     </div>
     <div class="addr-class-row" data-class="c">
       <div class="addr-class-cell"><span class="addr-class-badge addr-class-c">C</span></div>
+      <div class="addr-class-cell addr-class-mono">110</div>
       <div class="addr-class-cell addr-class-mono">192–223</div>
       <div class="addr-class-cell addr-class-mono">/24 (255.255.255.0)</div>
       <div class="addr-class-cell addr-class-mono">192.168.0.0 – 192.168.255.255</div>
@@ -134,18 +137,25 @@
     </div>
     <div class="addr-class-row" data-class="d">
       <div class="addr-class-cell"><span class="addr-class-badge addr-class-d">D</span></div>
+      <div class="addr-class-cell addr-class-mono">1110</div>
       <div class="addr-class-cell addr-class-mono">224–239</div>
       <div class="addr-class-cell">N/A</div>
       <div class="addr-class-cell">N/A</div>
-      <div class="addr-class-cell">Multicast only. OSPF=224.0.0.5/6, RIP=224.0.0.9, PIM=224.0.0.13.</div>
+      <div class="addr-class-cell">Multicast only — the whole block is <code>224.0.0.0/4</code>. OSPF=224.0.0.5/6, RIP=224.0.0.9, PIM=224.0.0.13.</div>
     </div>
     <div class="addr-class-row" data-class="e">
       <div class="addr-class-cell"><span class="addr-class-badge addr-class-e">E</span></div>
+      <div class="addr-class-cell addr-class-mono">1111</div>
       <div class="addr-class-cell addr-class-mono">240–255</div>
       <div class="addr-class-cell">N/A</div>
       <div class="addr-class-cell">N/A</div>
-      <div class="addr-class-cell">Reserved / experimental. Not used in production.</div>
+      <div class="addr-class-cell">Experimental — the whole block is <code>240.0.0.0/4</code>. Study material calls it "experimental" or "reserved" interchangeably; both name the same block. Not used in production.</div>
     </div>
+  </div>
+  <p class="guide-note">The <strong>leading bits</strong> are what actually define a class — a router reading the first bits of the address knows the class before it reads anything else. The first-octet ranges are just those bit patterns expressed in decimal.</p>
+  <div class="callout callout-amber">
+    <div class="callout-title">Where Did 127 Go?</div>
+    Class A's first-octet span is quoted as <strong>1–126</strong> and Class B starts at <strong>128</strong> — the missing <code>127</code> is not a typo. <code>127.0.0.0/8</code> sits inside the Class A bit pattern but is reserved for loopback, so it is excluded from the usable Class A range. See <strong>Special IPv4 Addresses</strong> below for what loopback does.
   </div>
 
   <h3>Special IPv4 Addresses</h3>
@@ -174,6 +184,7 @@
   <p class="guide-note">Also note: <code>224.0.0.0/4</code> = multicast range (Class D). <code>x.x.x.255</code> = directed broadcast to a specific subnet.</p>
 
   <h3>CIDR Subnet Reference</h3>
+  <p class="section-note"><strong>Classful addressing and CIDR are separate topics, and the exam tests them separately.</strong> Classes are a legacy scheme fixed at /8, /16, and /24; CIDR replaced it, letting a prefix land on any bit boundary. The Class A/B/C tags below mark only the three prefixes that happen to coincide with the old default masks — a /26 has no class at all.</p>
   <div class="cidr-grid-wrap">
     <div class="cidr-grid-head">
       <span>Prefix</span><span>Subnet Mask</span><span>Total Addr</span><span>Usable</span><span>Common Use</span>
@@ -736,13 +747,16 @@
       <li>The question might give an IP like 192.168.10.77/28 and ask "what network is this host on?" — must find the network address by ANDing with the mask.</li>
       <li><strong>localhost</strong> = 127.0.0.1. <code>ping localhost</code> and <code>ping 127.0.0.1</code> are identical — both test the local IP stack without sending traffic on the wire.</li>
       <li>VLSM requires a <strong>classless</strong> routing protocol. RIPv1 is classful — it does not carry the subnet mask in its updates and therefore cannot support VLSM.</li>
+      <li><strong>127 is inside the Class A bit pattern but is not a usable Class A address.</strong> Class A is 1–126 because <code>127.0.0.0/8</code> is reserved for loopback. If a question offers 127.0.0.1 as a valid host address on a Class A network, that is the trap.</li>
+      <li>Class D (224–239) and Class E (240–255) have <strong>no default subnet mask</strong> — they are not assigned to hosts, so "what is the default mask for Class D?" has no valid answer among /8, /16, /24.</li>
     </ul>
   </div>
 
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 1.7</div>
     <ul>
-      <li>Class A: 1–126, /8 | Class B: 128–191, /16 | Class C: 192–223, /24</li>
+      <li>Class A: 1–126, /8 | B: 128–191, /16 | C: 192–223, /24 | D: 224–239 multicast | E: 240–255 experimental/reserved</li>
+      <li>Leading bits: A=0, B=10, C=110, D=1110, E=1111 | 127 = loopback, which is why A stops at 126</li>
       <li>Private: 10.x.x.x, 172.16–31.x.x, 192.168.x.x</li>
       <li>APIPA = 169.254.x.x = DHCP failed</li>
       <li>/24 = 254 hosts | /25 = 126 | /26 = 62 | /27 = 30 | /28 = 14 | /29 = 6 | /30 = 2</li>

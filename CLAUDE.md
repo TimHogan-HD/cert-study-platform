@@ -107,3 +107,10 @@ Vercel serverless function. Accepts `POST /api/explain` with JSON body `{ topic:
 - **Acronyms:** Wrap first use of each acronym in `<abbr title="Full expansion">ABBR</abbr>`.
 - **Tables:** Always wrap in `<div class="table-wrap">` for horizontal scroll on mobile.
 - **Accordions:** `<div class="accordion-header">` followed by `<div class="accordion-body">` — toggled by `nav.js`.
+- **Non-exhaustive notes:** Content may be included that the official CompTIA objectives do not enumerate — CompTIA states its lists are non-exhaustive — but every such item must carry a visible student-facing note. Place one note per affected section, immediately after the table or block it applies to:
+
+  ```html
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective X.Y lists <em>…what is listed…</em>. <strong>Foo</strong> and <strong>bar</strong> are not enumerated. …why they are kept…</p>
+  ```
+
+  The note explains why content **stays** — it is never a justification for deleting content. Say what the objective does list, name what is not enumerated, and give the reason for including it. Do not restyle the component per-page; it is deliberately quieter than a `.callout`.

@@ -32,6 +32,38 @@
 .callout-teal  { background: var(--teal-bg);   border-color: var(--teal);   }
 .callout-teal  .callout-title { color: var(--teal); }
 
+/* ---------- Non-Exhaustive Note ------------------------------ */
+/* Flags content kept on the platform that the official CompTIA objectives
+   do not enumerate. CompTIA states its lists are non-exhaustive, so the note
+   justifies why the content stays — it is a footnote, not a teaching point,
+   and is deliberately quieter than a callout. */
+/* Inline flow, not flex — the note body contains <strong>/<abbr>, and flex
+   would promote each text run and inline element to its own column. */
+.note-nonexhaustive {
+  margin: 0.6rem 0 0.9rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px dashed var(--amber-border);
+  border-radius: var(--radius);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 0.79rem;
+  line-height: 1.6;
+}
+.note-nonexhaustive-tag {
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding: 0.12rem 0.42rem;
+  border: 1px solid var(--amber-border);
+  border-radius: var(--radius);
+  background: var(--amber-bg);
+  color: var(--amber);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
 /* ---------- Tables ----------------------------------------- */
 .table-wrap {
   overflow-x: auto;
@@ -2082,10 +2114,10 @@ td code { font-size: 0.8rem; }
 
 /* ── IPv4 address classes table ────────────────────── */
 .addr-class-wrap { border: 1px solid var(--border2); border-radius: var(--radius-lg); overflow: hidden; margin: 0.75rem 0; }
-.addr-class-head { display: grid; grid-template-columns: 2.8rem 5.5rem 7rem 1fr 1fr; background: var(--surface3); border-bottom: 1px solid var(--border2); }
+.addr-class-head { display: grid; grid-template-columns: 2.8rem 4.4rem 5.5rem 7rem 1fr 1fr; background: var(--surface3); border-bottom: 1px solid var(--border2); }
 .addr-class-head span { padding: 0.38rem 0.65rem; font-size: 0.64rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); border-right: 1px solid var(--border2); }
 .addr-class-head span:last-child { border-right: none; }
-.addr-class-row { display: grid; grid-template-columns: 2.8rem 5.5rem 7rem 1fr 1fr; border-top: 1px solid var(--border2); align-items: center; }
+.addr-class-row { display: grid; grid-template-columns: 2.8rem 4.4rem 5.5rem 7rem 1fr 1fr; border-top: 1px solid var(--border2); align-items: center; }
 .addr-class-row:nth-child(even) { background: var(--surface2); }
 .addr-class-row.addr-class-dim { opacity: 0.65; }
 .addr-class-cell { padding: 0.5rem 0.65rem; font-size: 0.8rem; border-right: 1px solid var(--border2); }
@@ -2097,7 +2129,12 @@ td code { font-size: 0.8rem; }
 .addr-class-d { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
 .addr-class-e { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
 .addr-class-mono { font-family: monospace; font-size: 0.76rem; }
-@media (max-width: 600px) { .addr-class-head, .addr-class-row { grid-template-columns: 2.5rem 1fr 1fr; } .addr-class-head span:nth-child(3), .addr-class-cell:nth-child(3) { display: none; } }
+@media (max-width: 600px) {
+  /* Drop leading bits (2) and default mask (4) — the four remaining cells fit one row. */
+  .addr-class-head, .addr-class-row { grid-template-columns: 2.4rem 4.2rem 1fr 1fr; }
+  .addr-class-head span:nth-child(2), .addr-class-cell:nth-child(2),
+  .addr-class-head span:nth-child(4), .addr-class-cell:nth-child(4) { display: none; }
+}
 
 /* ── Special IPv4 address cards ────────────────────── */
 .special-addr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin: 0.75rem 0; }
