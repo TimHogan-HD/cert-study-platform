@@ -145,8 +145,15 @@
         <div class="device-card-desc">Block-level storage over a dedicated network</div>
         <div class="device-card-detail"><strong><abbr title="Storage Area Network">SAN</abbr>:</strong> a dedicated high-speed network that provides block-level storage to servers. Servers treat a SAN <abbr title="Logical Unit Number">LUN</abbr> as a locally attached disk — the OS formats and mounts it directly. Protocols: <strong>Fibre Channel (FC)</strong>, <strong>iSCSI</strong> (FC over IP), <strong>FCoE</strong>. Not accessible as a file share.</div>
       </div>
+      <div class="device-card">
+        <div class="device-card-name">DAS</div>
+        <div class="device-card-desc">Block-level storage cabled to one host</div>
+        <div class="device-card-detail"><strong><abbr title="Direct-Attached Storage">DAS</abbr>:</strong> disks connected straight to a single server over <strong>SAS</strong>, <strong>SATA</strong>, or USB, with no network in the path. Block-level like a SAN, but usable only by the host it is cabled to — there is no fabric and no sharing. Cheapest and lowest-latency of the three; the storage becomes unreachable if that one server fails.</div>
+      </div>
     </div>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.2 lists <em>NAS</em> and <em>SAN</em> under storage. <strong>DAS</strong> is not enumerated, but it appears in the official N10-009 acronym list and is the baseline the other two are defined against — a scenario asking which option provides <em>no</em> shared access is answered by DAS.</p>
 
   <h3>IDS vs IPS — Traffic Flow</h3>
   <div class="ids-ips-diagram">
