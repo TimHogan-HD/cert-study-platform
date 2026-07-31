@@ -103,17 +103,86 @@
   <h3>High Availability Concepts</h3>
   <ul>
     <li><strong>Redundancy:</strong> Duplicate critical components — dual power supplies, redundant network links, multiple ISPs.</li>
-    <li><strong>Failover:</strong> Automatic switch to backup system when primary fails (active-passive). Or both active simultaneously (active-active).</li>
+    <li><strong>Failover:</strong> Automatic switch to a backup system when the primary fails — see the active-active vs active-passive comparison below.</li>
     <li><strong>Load Balancing:</strong> Distributes traffic across multiple servers — improves performance AND provides failover if one server dies.</li>
     <li><strong>NIC Teaming / Bonding:</strong> Multiple NICs combined for bandwidth and redundancy. If one NIC fails, traffic continues on others.</li>
     <li><strong>UPS:</strong> Uninterruptible Power Supply — provides battery backup to bridge power outages and allow graceful shutdown.</li>
     <li><strong>Generator:</strong> Long-term power backup for extended outages (hours to days).</li>
   </ul>
 
-  <!-- GAP: active-active vs active-passive — see content remediation plan -->
+  <h4>Active-Active vs. Active-Passive</h4>
+  <p>Both designs survive the loss of a node. The difference is what the second node is doing before the failure — and what you lose when the failure happens.</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Aspect</th><th>Active-Active</th><th>Active-Passive</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Normal operation</strong></td>
+          <td>All nodes carry traffic simultaneously</td>
+          <td>One node carries all traffic; the standby sits idle</td>
+        </tr>
+        <tr>
+          <td><strong>Usable capacity</strong></td>
+          <td>Aggregate of all nodes — you get what you paid for</td>
+          <td>Capacity of one node; the standby's capacity is bought and unused</td>
+        </tr>
+        <tr>
+          <td><strong>Effect of a failure</strong></td>
+          <td>Availability is preserved but <em>capacity drops</em>. Size each node so the survivors can absorb the load, or a failure becomes an overload</td>
+          <td>Availability is preserved and capacity is unchanged — the standby was sized to take the whole load</td>
+        </tr>
+        <tr>
+          <td><strong>Failover behaviour</strong></td>
+          <td>Often seamless — traffic is already distributed, so sessions on surviving nodes are untouched</td>
+          <td>Brief interruption while the standby detects the failure and assumes the role</td>
+        </tr>
+        <tr>
+          <td><strong>Complexity</strong></td>
+          <td>Higher — requires load distribution and state synchronization between active nodes</td>
+          <td>Lower — simpler to configure, test, and reason about</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <!-- GAP: tabletop exercises — see content remediation plan -->
-  <!-- GAP: validation tests — see content remediation plan -->
+  <div class="callout callout-blue">
+    <div class="callout-title">Where You Have Already Seen This — FHRP</div>
+    <p>The first hop redundancy protocols in <strong>2.1</strong> are these two models applied to default gateways. <strong>HSRP</strong> (Active/Standby) and <strong>VRRP</strong> (Master/Backup) are <em>active-passive</em> — one router owns the virtual IP and the other waits. <strong>GLBP</strong> is effectively <em>active-active</em> — the <abbr title="Active Virtual Gateway">AVG</abbr> hands out virtual MACs so multiple forwarders carry traffic at the same time. Same trade-off, different layer.</p>
+  </div>
+
+  <h3>Disaster Recovery Testing</h3>
+  <p>A DR plan that has never been exercised is an assumption, not a capability. The exam distinguishes two testing types, and the line between them is <strong>discussion vs. execution</strong>.</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Aspect</th><th>Tabletop Exercise</th><th>Validation Test</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>What happens</strong></td>
+          <td>Stakeholders talk through a scenario in a room — "the primary data centre has lost power, walk me through what you do"</td>
+          <td>The failover is actually performed — services are cut over to the DR site and verified</td>
+        </tr>
+        <tr>
+          <td><strong>Systems touched</strong></td>
+          <td>None. No configuration changes, no failover, no production risk</td>
+          <td>Real systems. Carries genuine risk, so it is scheduled in a maintenance window</td>
+        </tr>
+        <tr>
+          <td><strong>What it proves</strong></td>
+          <td>That the <em>plan and the people</em> hold up — roles are clear, contact lists are current, gaps in the documented procedure surface</td>
+          <td>That the <em>technology</em> works — the backups restore, the standby hardware comes up, RTO and RPO are actually achievable</td>
+        </tr>
+        <tr>
+          <td><strong>Cost and frequency</strong></td>
+          <td>Cheap and low-disruption, so it can run often</td>
+          <td>Expensive and disruptive, so it runs far less frequently</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
@@ -123,6 +192,9 @@
       <li>Differential grows larger each day (until next full). Incremental stays small (only daily changes).</li>
       <li>Restore from incremental = full + EVERY incremental. Differential = full + LATEST differential only.</li>
       <li>Hot site costs the most. Cold site costs the least. RTO inversely correlates with cost.</li>
+      <li><strong>Tabletop = discussion, validation = execution.</strong> If the question says nobody touched a system and the team walked through a scenario, it is a tabletop exercise — no matter how realistic the scenario was.</li>
+      <li>Active-active does not mean "more available" than active-passive — both survive a node loss. Active-active loses <em>capacity</em> on failure; active-passive wastes capacity while idle.</li>
+      <li>A tabletop exercise cannot prove RTO or RPO are achievable — only a validation test does that.</li>
     </ul>
   </div>
 
@@ -133,6 +205,10 @@
       <li>Full = all data | Incremental = changes since last backup (fast backup) | Differential = changes since last full</li>
       <li>Hot site = live systems, minutes to recover | Warm = hours | Cold = days</li>
       <li>MTBF = reliability (time between failures) | MTTR = recovery speed</li>
+      <li>Active-active = all nodes serve traffic, aggregate capacity, failure cuts capacity</li>
+      <li>Active-passive = standby idle until failover, simpler, capacity unchanged on failure</li>
+      <li>FHRP mapping (2.1): HSRP and VRRP = active-passive | GLBP = active-active</li>
+      <li>Tabletop = discussion-based walkthrough, no systems touched | Validation test = real failover executed</li>
     </ul>
   </div>
 
