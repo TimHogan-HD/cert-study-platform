@@ -60,8 +60,88 @@
         <tr><td>NEXT (Near-End Crosstalk)</td><td>High error rates, especially at high speeds</td><td>Cable tester with NEXT measurement</td></tr>
         <tr><td>EMI interference</td><td>Intermittent errors near electrical equipment</td><td>Move cable; use STP or fiber in high-EMI areas</td></tr>
         <tr><td>Bent/kinked fiber</td><td>High optical loss; OTDR shows loss spike at bend</td><td>OTDR; visual inspection; VFL shows red glow at bend</td></tr>
+        <tr><td><strong>TX/RX transposed</strong></td><td>No link light at all; both ends appear dead</td><td>Each end is transmitting into the other's transmit strand. Swap the pair at one end. On fiber this is a manual fix; on copper, auto-MDI-X usually hides it — a link that works between two modern switches but fails to older gear points here.</td></tr>
+        <tr><td><strong>Improper termination</strong></td><td>Link comes up but errors accumulate; fails certification; degrades at higher speeds</td><td>Wiremap and NEXT test. Causes: pairs untwisted too far back at the jack, T568A on one end and T568B on the other, or a poor punchdown. Re-terminate both ends to the same standard.</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <h3>Incorrect Cable Selection</h3>
+  <p>A cable can be terminated perfectly and still be the wrong cable. These faults present as "it works, but not at the speed or distance it should" — the link trains at a lower rate, or fails only on the longest runs. Full media specifications are in <strong>1.5 Cables, Media &amp; Transceivers</strong>; the table below is the diagnostic view.</p>
+
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Wrong choice</th><th>What you see</th><th>Correct choice</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Category too low</strong> (Cat 5 / Cat 5e where 10G is needed)</td><td>Link negotiates at 1 Gbps instead of 10; or 10G link is unstable with CRC errors</td><td>Cat 6 reaches 10G only to 55m — Cat 6A for 10G across a full 100m run. Cat 5e tops out at 1 Gbps.</td></tr>
+        <tr><td><strong>Category beyond the need</strong> (Cat 7 / Cat 8 in general cabling)</td><td>Works, but cost and bend radius problems; Cat 7 uses non-standard connectors in some builds</td><td>Cat 8 is a short-reach data-centre cable — 40 Gbps to 30m only. It is not a longer-distance upgrade.</td></tr>
+        <tr><td><strong>UTP in a high-EMI path</strong></td><td>Intermittent CRC errors near motors, fluorescent ballasts, lift shafts, or power runs</td><td><abbr title="Shielded Twisted Pair">STP</abbr> — shielded, with the shield bonded to ground at the terminations. Ungrounded shielding is no better than <abbr title="Unshielded Twisted Pair">UTP</abbr> and can act as an antenna. Fiber removes the problem entirely.</td></tr>
+        <tr><td><strong>Single-mode vs. multimode mismatch</strong></td><td>No link, or very high loss — an <abbr title="Single-Mode Fiber">SMF</abbr> patch lead into a <abbr title="Multimode Fiber">MMF</abbr> run, or the reverse</td><td>Match fiber type end to end, and match the transceiver to the fiber. MMF for in-building runs, SMF for long distance.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Port Status</h3>
+  <p>A port that is not passing traffic is not necessarily faulty. Three states look similar from the user's side and have completely different causes — one is a protection mechanism firing, one is deliberate, one is a configuration mismatch. Distinguishing them is the exam-tested point.</p>
+
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead><tr><th>State</th><th>Cause</th><th>Recovery</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Error disabled</strong><br>(err-disabled)</td>
+          <td>A protection mechanism shut the port down: BPDU Guard receiving a BPDU on an access port, a port-security violation, or repeated link flapping.</td>
+          <td>Not automatic. <code>shutdown</code> then <code>no shutdown</code> on the interface, or configure errdisable recovery timers to re-enable it after an interval. Fix the underlying cause first or it will trip again.</td>
+        </tr>
+        <tr>
+          <td><strong>Administratively down</strong></td>
+          <td>Someone shut the port deliberately with <code>shutdown</code>. This is a configuration state, not a fault — the port is doing exactly what it was told.</td>
+          <td><code>no shutdown</code>. Check change records before re-enabling: a port shut on purpose usually had a reason.</td>
+        </tr>
+        <tr>
+          <td><strong>Suspended</strong></td>
+          <td>Most often an EtherChannel member port whose configuration does not match the rest of the bundle — mismatched speed, duplex, VLAN, or channel mode. Also seen on a VLAN suspended in the VLAN database.</td>
+          <td>Align the member port's configuration with the bundle. The port is healthy; it is being excluded for inconsistency.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Reading the Difference</div>
+    <p><code>show interface</code> distinguishes all three in its first line. <strong>"administratively down, line protocol is down"</strong> means someone shut it. <strong>"err-disabled"</strong> appears as the interface status in <code>show interface status</code>. A plain <strong>"down, line protocol is down"</strong> with no qualifier is the actual physical fault — cable, transceiver, or far-end device.</p>
+    <p>The security mechanisms that trigger err-disabled — BPDU Guard, Root Guard, port security — are covered in <strong>2.2</strong>. Note the distinction made there: BPDU Guard puts the port in err-disabled and requires manual recovery, while Root Guard uses root-inconsistent state and recovers on its own.</p>
+  </div>
+
+  <h3>Hardware Issues</h3>
+
+  <h4>Power over Ethernet</h4>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Fault</th><th>Symptom</th><th>Diagnosis</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Power budget exceeded</strong></td><td>A newly connected device will not power on at all, while every existing device keeps working. The port looks dead.</td><td><code>show power inline</code> — compare total budget against allocated. The switch's <abbr title="Power Sourcing Equipment">PSE</abbr> budget is shared across all ports and is exhausted. Redistribute devices, add a second PoE switch, or use an external injector. Budget mechanics and per-standard wattage are in <strong>2.4</strong>.</td></tr>
+        <tr><td><strong>Incorrect PoE standard</strong></td><td>Device powers on then reboots in a loop, boots into a reduced-function mode, or behaves erratically under load.</td><td>A device expecting 802.3bt or 802.3at is on a port supplying only 802.3af. It negotiates the lower class and gets insufficient power. Check the port's supported standard and the device's class in <code>show power inline</code>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Transceivers</h4>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Fault</th><th>Symptom</th><th>Diagnosis</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Transceiver mismatch</strong></td><td>No link, or a link that comes up and immediately drops</td><td>The two ends do not match: single-mode transceiver against multimode fiber, different wavelengths (850nm vs 1310nm), or different speeds (SFP vs SFP+). Both ends of a fiber link must use the same optic type at the same wavelength.</td></tr>
+        <tr><td><strong>Unsupported / incompatible module</strong></td><td>Port stays down; the switch logs an unrecognised or unsupported transceiver</td><td>Many vendors accept only coded modules. The optic may be electrically fine and still be refused. Check the compatibility matrix.</td></tr>
+        <tr><td><strong>Signal strength too low</strong></td><td>High CRC error count, intermittent drops, link failing only on the longest runs</td><td>Measure received power in <strong>dBm</strong> with an optical power meter and compare against the transceiver's receive sensitivity. Causes: dirty or scratched connector, tight bend, splice loss, or a run beyond the optic's rated distance. Clean the endfaces first — contamination is the most common cause.</td></tr>
+        <tr><td><strong>Signal strength too high</strong></td><td>Errors on a very short link, sometimes worse than on a long one</td><td>A long-reach optic over a few metres over-drives the far-end receiver past its saturation point. Fit an inline optical attenuator or use a short-reach optic.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">dBm — Reading Optical Power</div>
+    <p>Optical power is negative in dBm: <strong>closer to zero is stronger</strong>. −3 dBm is a strong signal, −20 dBm is weak, and a typical multimode receiver bottoms out around −17 dBm. Each 3 dB of loss halves the power. If the measured level sits below the transceiver's rated receive sensitivity, the link will error or fail — that is the number to compare against, not an absolute threshold.</p>
   </div>
 
   <div class="callout callout-amber pbq-prep">
@@ -84,6 +164,13 @@
       <li>Late collisions are not the same as normal collisions — late = duplex mismatch</li>
       <li>Toner probe finds a cable; loopback plug tests a port — different tools, different purposes</li>
       <li>Light meter measures power (dBm); OTDR measures loss profile along the length — both are fiber tools</li>
+      <li>Err-disabled and administratively down are not the same thing — err-disabled is a protection mechanism firing, administratively down is someone typing <code>shutdown</code>. Neither is a cable fault.</li>
+      <li>Err-disabled does not clear itself — it needs <code>shutdown</code>/<code>no shutdown</code> or a recovery timer. Root Guard's root-inconsistent state <em>does</em> clear itself.</li>
+      <li>A transceiver mismatch and a dirty connector both show as errors — mismatch usually means no link at all, contamination means a link that is up but erroring</li>
+      <li>A PoE device that will not power on may be hitting the switch's total budget, not a dead port — check <code>show power inline</code> before swapping hardware</li>
+      <li>Optical power is negative dBm: closer to zero is stronger. Too <em>much</em> power on a short link is a real fault, not just too little.</li>
+      <li>Cat 8 is not "better Cat 6A for long runs" — it is 40 Gbps to 30m only, for data-centre use</li>
+      <li>STP only helps if its shield is properly bonded to ground; an ungrounded shield can make interference worse</li>
     </ul>
   </div>
 
@@ -96,6 +183,12 @@
       <li>Plenum cable required in air-handling spaces (FEP/Teflon jacket)</li>
       <li>Cat6 = 10G at 55m; Cat6A = 10G at 100m</li>
       <li>Fiber between buildings = electrical isolation (no ground loop)</li>
+      <li>Three port states: err-disabled (protection fired) · administratively down (deliberate <code>shutdown</code>) · suspended (EtherChannel config mismatch)</li>
+      <li>Err-disabled recovery = <code>shutdown</code> / <code>no shutdown</code>, or errdisable recovery timer</li>
+      <li>PoE device won't power on → <code>show power inline</code> → budget exhausted or wrong standard (802.3bt device on an 802.3af port)</li>
+      <li>Transceiver mismatch = no link. Low signal (dBm) = link up but erroring. Clean the connector first.</li>
+      <li>TX/RX transposed = no link at all; improper termination = link up with accumulating errors</li>
+      <li>Cat 6 = 10G/55m · Cat 6A = 10G/100m · Cat 8 = 40G/30m only</li>
     </ul>
   </div>
 
