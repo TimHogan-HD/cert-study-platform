@@ -19,6 +19,19 @@
     </table>
   </div>
 
+  <h4>Anomaly Alerting &amp; Notification</h4>
+  <p>Collecting metrics is only half of it — a metric nobody looks at catches nothing. The baseline established in <strong>3.1</strong> is what makes alerting possible: it defines "normal" so the monitoring system can flag deviation from it and notify someone.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Concept</th><th>What it does</th><th>Exam notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Threshold Alert</strong></td><td>Fires when a metric crosses a fixed value — WAN utilization above 80%, CPU above 90%</td><td>Simple and predictable. Poorly chosen thresholds are the main source of alert fatigue</td></tr>
+        <tr><td><strong>Anomaly Alert</strong></td><td>Fires when current behaviour deviates from the <em>baseline</em> for that time and day, even if no fixed threshold is crossed</td><td>Catches what thresholds miss — 40% utilization at 3&nbsp;a.m. is normal at noon but anomalous overnight</td></tr>
+        <tr><td><strong>Notification</strong></td><td>Delivers the alert to a human or system — email, SMS, chat webhook, or a ticket raised automatically</td><td>Alerts are usually tiered by severity so a Sunday-night page is reserved for genuine emergencies</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3>SNMP (Simple Network Management Protocol)</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -109,6 +122,23 @@
     </table>
   </div>
 
+  <h3><abbr title="Application Programming Interface">API</abbr> Integration</h3>
+  <p>SNMP polling is the traditional method; modern platforms increasingly pull device state through an <abbr title="Application Programming Interface">API</abbr> instead. Rather than walking a <abbr title="Management Information Base">MIB</abbr> for numeric <abbr title="Object Identifier">OID</abbr>s, the monitoring system requests structured data — usually JSON or XML — directly from the device or from a cloud controller.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Interface</th><th>What it is</th><th>Why it is used</th></tr></thead>
+      <tbody>
+        <tr><td><strong><abbr title="Representational State Transfer">REST</abbr> API</strong></td><td>HTTPS requests returning JSON; the standard interface for cloud-managed wireless, SD-WAN, and firewall platforms</td><td>Easy to consume from scripts and dashboards; authenticated with a token rather than a community string</td></tr>
+        <tr><td><strong><abbr title="Network Configuration Protocol">NETCONF</abbr></strong></td><td>XML-based protocol over SSH for retrieving and changing device configuration</td><td>Transaction-based — a config change either fully applies or rolls back, unlike a partial CLI paste</td></tr>
+        <tr><td><strong><abbr title="RESTful Network Configuration Protocol">RESTCONF</abbr></strong></td><td>REST-style HTTPS interface to the same <abbr title="Yet Another Next Generation">YANG</abbr> data models NETCONF uses</td><td>Combines NETCONF's structured models with ordinary REST tooling</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-blue">
+    <div class="callout-title">Why This Matters Beyond Monitoring</div>
+    <p>API access is what makes <strong>automation</strong> and <abbr title="Infrastructure as Code">IaC</abbr> possible. The same interface that reports interface state can push configuration, so a monitoring system that detects drift from the golden config (<strong>3.1</strong>) can also remediate it. SNMP was designed primarily to read; APIs read and write. This section covers the API as a <em>monitoring</em> method; see <strong>3.5</strong> for the API as an administrative <em>access</em> method, with its port numbers.</p>
+  </div>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
@@ -117,6 +147,9 @@
       <li>SNMPv3 is the only version with authentication AND encryption. SNMPv1/v2c = community strings (cleartext).</li>
       <li>NMS ≠ SIEM. NMS focuses on device performance. SIEM focuses on security events and correlation.</li>
       <li>Bandwidth ≠ throughput. Bandwidth is the link capacity; throughput is what you actually get.</li>
+      <li><strong>Method ≠ solution</strong> — a method is <em>how</em> you collect (SNMP, flow, packet capture, API); a solution is <em>what it answers</em> (discovery, traffic, performance, availability, configuration). One method can feed several solutions.</li>
+      <li><strong>Threshold ≠ anomaly</strong> — a threshold alert fires on a fixed number; an anomaly alert fires on deviation from the baseline. Anomaly detection catches problems that never cross a threshold.</li>
+      <li>Ad hoc discovery is run on demand by a person; scheduled discovery runs on a recurring interval. Only scheduled discovery keeps the asset inventory current.</li>
     </ul>
   </div>
 
@@ -141,6 +174,32 @@
     </table>
   </div>
 
+  <h3>Monitoring Solutions</h3>
+  <p>Objective 3.2 splits into <strong>methods</strong> and <strong>solutions</strong>. Everything above is a method — <em>how</em> data is gathered (SNMP, flow, syslog, packet capture, mirroring, APIs). A solution is <em>what question the monitoring answers</em>. The same method feeds several solutions: SNMP data can serve availability monitoring and performance monitoring at once.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Solution</th><th>Question it answers</th><th>Typical tooling</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Network Discovery</strong></td><td>"What is actually on the network?" — finds devices, addresses, and how they interconnect, building the topology and feeding the asset inventory</td><td>Nmap, SNMP sweeps, <abbr title="Link Layer Discovery Protocol">LLDP</abbr>/<abbr title="Cisco Discovery Protocol">CDP</abbr> neighbour data, NMS auto-discovery</td></tr>
+        <tr><td><strong>Traffic Analysis</strong></td><td>"Who is talking to whom, and what is consuming the bandwidth?" — top talkers, application mix, unexpected flows</td><td>NetFlow/IPFIX/sFlow collectors, packet analyzers via SPAN or TAP</td></tr>
+        <tr><td><strong>Performance Monitoring</strong></td><td>"Is it fast enough?" — latency, jitter, loss, throughput, and utilization measured against the baseline</td><td>NMS polling, synthetic probes, <abbr title="Internet Protocol Service Level Agreement">IP SLA</abbr></td></tr>
+        <tr><td><strong>Availability Monitoring</strong></td><td>"Is it up?" — reachability and uptime of devices, links, and services, and the source of most alerting</td><td>ICMP/port checks, SNMP traps, service health checks</td></tr>
+        <tr><td><strong>Configuration Monitoring</strong></td><td>"Has anything changed that should not have?" — detects <strong>configuration drift</strong> from the approved baseline and flags unauthorized changes</td><td>Config backup and comparison tools, IaC platforms auditing against the <strong>golden configuration</strong> (see <strong>3.1</strong>)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Network Discovery: Ad Hoc vs. Scheduled</h4>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Mode</th><th>How it runs</th><th>When you use it</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ad Hoc</strong></td><td>Run on demand, by a person, against a chosen target range</td><td>Investigating a specific problem or verifying a change — "what is on this VLAN right now?" A point-in-time snapshot</td></tr>
+        <tr><td><strong>Scheduled</strong></td><td>Runs automatically on a recurring interval — nightly or weekly sweeps</td><td>Keeping the asset inventory and topology current, and catching rogue or unexpected devices that appear between sweeps</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="callout callout-green quick-recall">
     <div class="callout-title">Quick Recall — 3.2</div>
     <ul>
@@ -151,6 +210,11 @@
       <li>SIEM = security event correlation | NMS = network performance management</li>
       <li>SPAN = same switch | RSPAN = across switches (VLAN) | ERSPAN = across L3 (GRE) | TAP = passive hardware</li>
       <li>Jitter = packet delay variation — bad for VoIP | Latency = total one-way delay</li>
+      <li>Five solutions: network discovery | traffic analysis | performance | availability | configuration monitoring</li>
+      <li>Discovery: ad hoc = on-demand scan | scheduled = recurring inventory sweep</li>
+      <li>Configuration monitoring = drift detection against the golden config (3.1)</li>
+      <li>API integration: REST (JSON over HTTPS) | NETCONF (XML over SSH) | RESTCONF — read <em>and</em> write, unlike SNMP</li>
+      <li>Threshold alert = fixed value crossed | Anomaly alert = deviation from baseline</li>
     </ul>
   </div>
 

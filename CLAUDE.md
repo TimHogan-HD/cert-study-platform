@@ -194,11 +194,15 @@ Content remediation is driven by handoff documents. **They have been wrong repea
 
 **Remaining work is marked in place.** `<!-- GAP: topic — see content remediation plan -->` comments sit at the exact insertion point for content that is genuinely missing. They are the authoritative to-do list, and they are the reason a plain grep gives false positives — the topic name appears in the file while the content does not. Current placement:
 
-| File | GAPs | Topics |
-|---|---|---|
-| `content/netplus/domain3/obj-3-1.html` | 5 | business continuity plan, system life cycle, knowledge base article, MOU, clean-desk policy |
-| `content/netplus/domain3/obj-3-3.html` | 3 | active-active vs active-passive, tabletop exercises, validation tests |
+**No GAP comments remain in the repo** (`grep -rn 'GAP:' content/` returns nothing). Both files that carried them are done:
 
-Domain 5 is complete — `obj-5-5.html`'s 17 GAPs were closed by populating the section, and 5.1–5.3 were closed against the Domain 5 handoff v2.
+| File | GAPs | Status |
+|---|---|---|
+| `content/netplus/domain3/obj-3-1.html` | 5 | Closed. BCP, system life cycle, knowledge base article, and MOU were filled; clean-desk policy was dropped as out of scope — it appears in neither the objectives nor the v6.0 acronym list |
+| `content/netplus/domain3/obj-3-3.html` | 3 | Closed — active-active vs active-passive, tabletop exercises, validation tests |
+
+Domain 5 is complete — `obj-5-5.html`'s 17 GAPs were closed by populating the section, and 5.1–5.3 were closed against the Domain 5 handoff v2. Domain 3 is complete against the Domain 3 handoff v3 (all five phases).
+
+Remaining domains have handoff plans but no GAP markers, so the plans themselves are the to-do list — audit the live file before implementing any item.
 
 Delete a GAP comment only when you have replaced it with the content it names.
