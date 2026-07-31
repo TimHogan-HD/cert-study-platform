@@ -196,8 +196,9 @@ Content remediation is driven by handoff documents. **They have been wrong repea
 
 | File | GAPs | Topics |
 |---|---|---|
-| `content/netplus/domain5/obj-5-5.html` | 17 | `show` commands, CDP/LLDP, protocol analyzer, cable tester, toner probe, Wi-Fi analyzer, taps, visual fault locator |
 | `content/netplus/domain3/obj-3-1.html` | 5 | business continuity plan, system life cycle, knowledge base article, MOU, clean-desk policy |
 | `content/netplus/domain3/obj-3-3.html` | 3 | active-active vs active-passive, tabletop exercises, validation tests |
+
+Domain 5 is complete — `obj-5-5.html`'s 17 GAPs were closed by populating the section, and 5.1–5.3 were closed against the Domain 5 handoff v2.
 
 Delete a GAP comment only when you have replaced it with the content it names.
