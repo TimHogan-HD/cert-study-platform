@@ -16,7 +16,7 @@
         </tr>
         <tr>
           <td><strong>Client-to-Site (Remote Access VPN)</strong></td>
-          <td>Individual user connects VPN client to corporate network over internet. Full tunnel = all traffic goes through VPN. Split tunnel = only corporate traffic goes through VPN.</td>
+          <td>Individual user connects to the corporate network over the internet — with an installed client, or clientless through a browser. See the detail below for split vs full tunnel.</td>
           <td>Remote workers, WFH employees.</td>
         </tr>
         <tr>
@@ -31,6 +31,77 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <h3>Client-to-Site VPN Detail</h3>
+
+  <h4>Client-Based vs. Clientless</h4>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Aspect</th><th>Client-Based VPN</th><th>Clientless VPN</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>What the user runs</strong></td>
+          <td>A dedicated VPN client installed on the device (AnyConnect, GlobalProtect, native IPsec/IKEv2 client)</td>
+          <td>Nothing — just a browser. The <abbr title="Transport Layer Security">TLS</abbr> session to the VPN portal <em>is</em> the tunnel</td>
+        </tr>
+        <tr>
+          <td><strong>What the user reaches</strong></td>
+          <td>The network. The device gets an IP on the corporate network and can reach any permitted resource and protocol</td>
+          <td>Only what the portal publishes — typically web applications, plus file shares or RDP proxied through the browser</td>
+        </tr>
+        <tr>
+          <td><strong>Deployment</strong></td>
+          <td>Software must be installed, updated, and supported on every endpoint</td>
+          <td>Nothing to deploy — works from an unmanaged or third-party machine</td>
+        </tr>
+        <tr>
+          <td><strong>Typical use</strong></td>
+          <td>Managed corporate laptops needing full access</td>
+          <td>Contractors, kiosks, or personal devices needing access to a handful of internal web apps</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Clientless VPNs run over <strong>HTTPS on port 443</strong>, which is why they traverse restrictive firewalls and hotel or captive-portal networks that block IPsec.</p>
+
+  <h4>Split Tunnel vs. Full Tunnel</h4>
+  <p>This applies to client-based VPNs and decides one thing: which of the user's traffic is forced through the tunnel.</p>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Aspect</th><th>Full Tunnel</th><th>Split Tunnel</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Traffic through the tunnel</strong></td>
+          <td><em>All</em> traffic, including internet browsing, which exits via the corporate network</td>
+          <td>Only traffic destined for corporate subnets. Internet traffic goes direct from the user's local connection</td>
+        </tr>
+        <tr>
+          <td><strong>Security</strong></td>
+          <td>Stronger — every packet passes corporate filtering, inspection, and logging, so policy applies off-site exactly as on-site</td>
+          <td>Weaker — internet traffic bypasses corporate inspection entirely. A compromised host can reach the internet and the corporate network at once, bridging the two</td>
+        </tr>
+        <tr>
+          <td><strong>Performance and cost</strong></td>
+          <td>Concentrates all remote traffic on the VPN concentrator and corporate internet link — the bottleneck at scale. Adds latency to cloud services by backhauling them</td>
+          <td>Far less load on the concentrator; cloud and streaming traffic takes the direct path, so it feels faster to the user</td>
+        </tr>
+        <tr>
+          <td><strong>Typical use</strong></td>
+          <td>Regulated environments and any case where full visibility of user traffic is required</td>
+          <td>Large remote workforces using SaaS heavily, where backhauling video calls would saturate the link</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-purple">
+    <div class="callout-title">The Trade-off in One Line</div>
+    <p><strong>Full tunnel buys inspection at the cost of bandwidth; split tunnel buys performance at the cost of visibility.</strong> Exam scenarios usually signal which is wanted: mentions of <em>compliance, monitoring, content filtering,</em> or <em>inspecting all user traffic</em> point to full tunnel. Mentions of <em>VPN concentrator saturation, slow video calls,</em> or <em>backhauling cloud traffic</em> point to split tunnel.</p>
   </div>
 
   <h3>IPsec Components</h3>
@@ -109,6 +180,8 @@
       <li>TACACS+ is for device (router/switch) management. RADIUS is for network access (Wi-Fi, VPN).</li>
       <li>IPsec ESP provides encryption. IPsec AH does NOT encrypt — it only authenticates.</li>
       <li>802.1X supplicant = client. Authenticator = switch/WAP. Authentication server = RADIUS.</li>
+      <li><strong>Split vs full tunnel is a trade-off, not a right answer.</strong> Full tunnel inspects everything but concentrates all remote traffic on the VPN concentrator; split tunnel is faster and lighter but leaves internet traffic uninspected.</li>
+      <li><strong>Clientless ≠ split tunnel.</strong> Clientless is about whether software is installed (browser/TLS portal); split vs full is about which traffic is routed through the tunnel.</li>
     </ul>
   </div>
 
@@ -149,6 +222,8 @@
       <li>IPsec: AH=auth only | ESP=auth+encryption | IKE=key exchange</li>
       <li>802.1X: Supplicant (client) → Authenticator (switch/WAP) → Authentication Server (RADIUS)</li>
       <li>Site-to-site VPN = router-to-router | Remote access VPN = client-to-site</li>
+      <li>Clientless VPN = browser/TLS portal on 443, no installed client, reaches published apps only</li>
+      <li>Full tunnel = all traffic via corporate (inspection, but a bottleneck) | Split tunnel = corporate traffic only (fast, but uninspected internet)</li>
       <li>Jump box = bastion host; all admin access goes through it first</li>
       <li>OOB = separate management path; survives production network failure</li>
       <li>Console = ultimate OOB; direct serial/USB; always accessible</li>
