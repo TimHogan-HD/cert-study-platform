@@ -240,6 +240,20 @@ const SCENARIOS = {
       await slot.click();
       assert(!(await slot.getAttribute('data-value')) && await chip.isVisible(), 'chip not returned');
     }],
+    ['a real pass is recorded, a revealed one is not', async p => {
+      const q = p.locator('.pbq[data-pbq="ip-addressing-1"]');
+      await q.locator('.pbq-reveal').click();
+      await q.locator('.pbq-check').click();
+      assert(await q.locator('.pbq-status').count() === 0, 'revealed answers counted as a pass');
+      const solo = p.locator('.pbq[data-pbq="ip-addressing-2"]');
+      for (const s of await solo.locator('select.pbq-field').all()) await s.selectOption(await s.getAttribute('data-answer'));
+      await solo.locator('.pbq-check').click();
+      assert(/Passed/.test(await solo.locator('.pbq-status').textContent()), 'pass badge not shown');
+      await p.evaluate(() => { location.hash = '#/netplus/pbq/overview'; });
+      await routeIs(p, 'netplus/pbq/overview');
+      const card = p.locator('.quicknav-card[data-path="netplus/pbq/ip-addressing"] .pbq-progress');
+      assert(await card.textContent() === '1 / 2 passed', `overview shows "${await card.textContent()}"`);
+    }],
     ['host field accepts any usable address but not the gateway', async p => {
       const q = p.locator('.pbq').first();
       const host = q.locator('.pbq-field[data-check="host"]');
