@@ -44,7 +44,7 @@ Files under `content/` are plain HTML fragments (no `<html>`, `<head>`, or `<bod
 
 ### CSS Architecture
 
-**`css/base.css`** defines all design tokens as CSS custom properties on `:root`. Always use these tokens — never hardcode colours or spacing.
+**`css/base.css`** defines all design tokens as CSS custom properties on `:root`. Always use these tokens for colour — never hardcode a colour value. There are no spacing tokens; match the rem-based spacing of neighbouring components.
 
 Key tokens: `--bg`, `--surface`, `--surface2`, `--surface3` (backgrounds); `--text`, `--muted`, `--hint` (text); `--blue/green/amber/red/purple/teal` with `-bg` and `-border` variants; `--radius`, `--radius-lg`.
 
@@ -94,15 +94,17 @@ Storage keys are `csp-` prefixed, with one exception: `.checklist[data-store]` u
 - Background: true near-black (`#0d0d0d` or similar) — not `#1a1a1a` grey soup
 - Body text: high-contrast white or near-white (`#f0f0f0`+) — use `--text`, never `--muted` for content users must read
 - Accent colors: fully saturated and visually punchy — every accent must be distinct and immediately recognizable
-- `--muted` (`#888`) is for genuinely secondary/decorative text only (timestamps, separators, "click to flip" hints) — never for labels, values, notes, or anything a student needs to read
+- `--muted` (`#888` dark, `#495057` light) is for genuinely secondary/decorative text only (timestamps, separators, "click to flip" hints) — never for labels, values, notes, or anything a student needs to read
 - Never use `opacity` to fade readable text — use an explicit color token instead
+
+Much of the existing CSS predates these rules: `components.css` still has ~120 hardcoded hex/`rgba()` colours, `--muted` on body copy, and opacity-faded text. Don't copy a nearby rule as precedent without checking it against the rules above.
 
 ## Content Conventions
 
 - **Terminals:** Use `.terminal` + `.terminal-bar` + `.terminal-body`. Host-side prompts use `<span class="tpw">PS C:\&gt;</span>` (PowerShell). Cisco IOS prompts use `<span class="tpc">Switch1#</span>`. Syntax classes: `.th` (highlight), `.ts` (success), `.te` (error), `.tn` (annotation/comment).
-- **Callouts:** `<div class="callout callout-{blue|amber|green|red|purple}">` with a `<div class="callout-title">` child.
+- **Callouts:** `<div class="callout callout-{blue|teal|amber|green|red|purple}">` with a `<div class="callout-title">` child.
 - **Acronyms:** Wrap first use of each acronym in `<abbr title="Full expansion">ABBR</abbr>`.
-- **Tables:** Always wrap in `<div class="table-wrap">` for horizontal scroll on mobile.
+- **Tables:** Always wrap in `<div class="table-wrap">` for horizontal scroll on mobile. The AZ-900 page uses the equivalent `.cmp-wrap`; don't introduce another wrapper class.
 - **Accordions:** `<div class="accordion-header">` followed by `<div class="accordion-body">` — toggled by `nav.js`.
 - **Non-exhaustive notes:** Content may be included that the official CompTIA objectives do not enumerate — CompTIA states its lists are non-exhaustive — but every such item must carry a visible student-facing note. Place one note per affected section, immediately after the table or block it applies to:
 
@@ -156,4 +158,4 @@ There is no build, lint, or test step, so nothing catches a mistake automaticall
 - **Balance-check the fragment.** `<div>`/`</div>` and `<p>`/`</p>` counts must match — an unbalanced fragment corrupts the whole page once injected.
 - **Diff against `origin/main`, not `main`.** The local `main` ref goes stale fast; `git diff main...HEAD` can make an 8-line change look like a 5,000-line rewrite. Use `git fetch origin main && git diff origin/main...HEAD`.
 - **Check `study-plans.html` when content moves between objectives.** It contains `inline-nav` links into specific objective pages. These will not 404 — they will silently land on the wrong page.
-- **Non-`main` branches do not trigger Vercel auto-deploy.** Check the deployment timestamp in the Vercel dashboard before concluding a change did not take effect.
+- **Only `main` deploys to production.** Branches get Vercel preview deployments (linked from the PR's Vercel check), not production. Check the production deployment's timestamp before concluding a change did not take effect.
