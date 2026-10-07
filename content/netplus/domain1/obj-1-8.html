@@ -275,6 +275,8 @@
   </div>
   <p class="guide-note">All <code>ff02::</code> addresses are link-local scope — they never cross a router. The <code>ff</code> prefix marks any address as multicast; the second byte encodes scope (<code>02</code> = link-local, <code>05</code> = site-local, <code>0e</code> = global).</p>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.8 lists IPv6 <em>mitigating address exhaustion</em> and <em>compatibility requirements</em> (tunneling, dual stack, NAT64). The <strong>address types</strong> (global unicast, link-local, unique local, multicast, anycast) and the <strong>well-known multicast groups</strong> above are not enumerated. CompTIA states its lists are non-exhaustive, and they are kept because IPv6 addresses cannot be read or troubleshot without them.</p>
+
   <h3>IPv6 Address Configuration Methods</h3>
   <div class="ipv6-config-grid">
     <div class="ipv6-config-card">
@@ -332,6 +334,8 @@
       <li><strong>Northbound API</strong> — interface between the SDN controller and applications or orchestration systems above it. Typically a <abbr title="Representational State Transfer">REST</abbr> API that lets network apps request bandwidth, policies, or routing changes programmatically.</li>
     </ul>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.8 lists SDN and SD-WAN with <em>application aware, zero-touch provisioning, transport agnostic,</em> and <em>central policy management</em>. The <strong>control/data plane split</strong>, <strong>northbound and southbound APIs</strong>, and <strong>OpenFlow</strong> are not enumerated. CompTIA states its lists are non-exhaustive, and they are kept because they explain what "software-defined" means.</p>
 
   <div class="table-wrap">
     <table class="table--reference">

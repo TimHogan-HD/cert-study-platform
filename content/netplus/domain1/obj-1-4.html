@@ -58,7 +58,7 @@
 
   <p><strong><abbr title="Stream Control Transmission Protocol">SCTP</abbr></strong> is a third transport protocol (<abbr title="Internet Protocol v4/v6">IP</abbr> protocol number <strong>132</strong>) that takes reliability and sequencing from TCP but delivers whole <em>messages</em> rather than a byte stream. Two features set it apart: <strong>multi-streaming</strong>, so a loss on one stream does not stall the others, and <strong>multi-homing</strong>, where one association spans several IP addresses on each endpoint and fails over between them. It carries telecom signalling — <abbr title="Signalling System No. 7">SS7</abbr> over IP and Diameter — rather than general application traffic.</p>
 
-  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.4 enumerates <em>TCP</em> and <em>UDP</em> as the transport protocols. <strong>SCTP</strong> is not enumerated, but it appears in the official N10-009 acronym list, and the only thing likely to be asked of it is that it is a transport protocol alongside the other two.</p>
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.4 enumerates <em>TCP</em> and <em>UDP</em> as the transport protocols. <strong>SCTP</strong> is not enumerated and is not in the N10-009 acronym list. CompTIA states its lists are non-exhaustive, and SCTP is kept as one line of context: it is a third transport protocol, so "TCP and UDP are the only transports" is not quite true.</p>
 
   <h3>Port &amp; Protocol Reference — By Category</h3>
   <p id="protocol-flip-help" class="protocol-ref-help">Select a row (click, Enter, or Space) to flip the summary and view a real-world example.</p>
@@ -130,7 +130,7 @@
           </tr>
         </tbody>
       </table></div>
-      <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.4 enumerates <em>FTP (20/21)</em>, <em>SFTP (22)</em>, <em>TFTP (69)</em>, and <em>SMB (445)</em> in its port list. <strong>FTPS</strong> is not enumerated, but it appears in the official N10-009 acronym list, and mistaking it for SFTP is the classic trap this table exists to prevent.</p>
+      <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.4 enumerates <em>FTP (20/21)</em>, <em>SFTP (22)</em>, <em>TFTP (69)</em>, and <em>SMB (445)</em> in its port list. <strong>FTPS</strong> is not enumerated and is not in the N10-009 acronym list. CompTIA states its lists are non-exhaustive, and FTPS is kept because mistaking it for SFTP is the classic trap this table exists to prevent.</p>
     </div>
 
     <div class="port-group" data-group="email">
@@ -293,6 +293,8 @@
           </tr>
         </tbody>
       </table></div>
+
+      <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.4 lists <em>LDAP (389)</em> and <em>LDAPS (636)</em> from this group. The port numbers for <strong>Kerberos (88)</strong>, <strong>TACACS+ (49)</strong>, and <strong>RADIUS (1812/1813)</strong> are not enumerated; RADIUS and TACACS+ are named under objective 4.1 without ports. CompTIA states its lists are non-exhaustive, and these ports are kept because firewall-rule scenarios for AAA traffic need them.</p>
     </div>
 
     <div class="port-group" data-group="mgmt">
@@ -346,6 +348,8 @@
           </tr>
         </tbody>
       </table></div>
+
+      <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.4 lists <em>SIP (5060/5061)</em> from this group. <strong>H.323 (1720)</strong> is not enumerated. CompTIA states its lists are non-exhaustive, and H.323 is kept as the legacy VoIP signaling protocol that SIP is most often compared with.</p>
     </div>
 
     <div class="port-group" data-group="routing">
@@ -370,6 +374,8 @@
           </tr>
         </tbody>
       </table></div>
+
+      <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.4's port list includes no routing protocols. <strong>BGP (179)</strong> and <strong>RIP (520)</strong> are not enumerated as ports; BGP is named under objective 2.1, and RIP is not named anywhere in N10-009. CompTIA states its lists are non-exhaustive, and both are kept because BGP's use of TCP and RIP's use of UDP are a common transport-layer contrast.</p>
     </div>
 
     <div class="port-group" data-group="db">

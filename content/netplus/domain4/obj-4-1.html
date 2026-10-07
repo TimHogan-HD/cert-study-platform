@@ -119,6 +119,8 @@
     </table>
   </div>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 4.1 lists <em>encryption</em> with <em>data in transit</em> and <em>data at rest</em>. <strong>Symmetric</strong>, <strong>asymmetric</strong>, and <strong>hybrid</strong> encryption and the named algorithms are not enumerated. CompTIA states its lists are non-exhaustive, and they are kept because certificates and <abbr title="Public Key Infrastructure">PKI</abbr>, which 4.1 does list, are built on asymmetric keys.</p>
+
   <h3>Encryption in Transit vs. at Rest</h3>
   <div class="table-wrap">
     <table class="table--comparison">
@@ -163,6 +165,8 @@
     </table>
   </div>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 4.1 does not enumerate hashing. <strong>MD5</strong>, <strong>SHA-1</strong>, <strong>SHA-256</strong>, and <strong>SHA-3</strong> are not listed. CompTIA states its lists are non-exhaustive, and hashing is kept because it is how integrity, the I in the CIA triad, is checked.</p>
+
   <h3><abbr title="Public Key Infrastructure">PKI</abbr> — Public Key Infrastructure</h3>
   <ul>
     <li><strong>CA (Certificate Authority):</strong> Trusted entity that issues and signs digital certificates. (e.g., DigiCert, Let's Encrypt, internal enterprise CA).</li>
@@ -199,6 +203,11 @@
     <li>Microsegmentation: divide network into small segments with strict access controls between them.</li>
   </ul>
 
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-reference — Objective 1.8</div>
+    <p>Zero trust architecture is enumerated under objective 1.8, with policy-based authentication, authorization, and least privilege access. It is summarized here because it changes how the security concepts in 4.1 are applied.</p>
+  </div>
+
   <h3><abbr title="Authentication, Authorization, and Accounting">AAA</abbr> — Authentication, Authorization, Accounting</h3>
   <p><abbr title="Authentication, Authorization, and Accounting">AAA</abbr> is the model that every access-control system implements. The three A's answer three different questions, in order:</p>
   <div class="table-wrap">
@@ -217,7 +226,7 @@
 
   <div class="callout callout-blue">
     <div class="callout-title">Cross-Reference — Objective 3.5</div>
-    <p>The two AAA protocols, <strong><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr></strong> and <strong>TACACS+</strong>, are compared in full in <strong>3.5 Remote Access &amp; Security</strong> alongside 802.1X. The consequence of the model to carry into that table: <strong>TACACS+ separates all three functions</strong>, so it can authorize an individual command on a router and log that command by itself, while <strong>RADIUS combines authentication and authorization</strong> into a single accept/reject exchange and keeps only accounting separate. That separation is why TACACS+ is the answer for device administration and RADIUS is the answer for network access.</p>
+    <p>The two AAA protocols, <strong><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr></strong> and <strong>TACACS+</strong>, are compared in full in <strong>3.5 Network Access &amp; Management Methods</strong> alongside 802.1X. The consequence of the model to carry into that table: <strong>TACACS+ separates all three functions</strong>, so it can authorize an individual command on a router and log that command by itself, while <strong>RADIUS combines authentication and authorization</strong> into a single accept/reject exchange and keeps only accounting separate. That separation is why TACACS+ is the answer for device administration and RADIUS is the answer for network access.</p>
   </div>
 
   <h3>Identity and Access Management</h3>
@@ -246,6 +255,8 @@
       <li>LDAP port 389 = unencrypted; LDAPS port 636 = encrypted over TLS.</li>
     </ul>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 4.1 lists <em>role-based access control</em> under authorization. <strong>ABAC</strong> is not enumerated. CompTIA states its lists are non-exhaustive, and it is kept as the contrast that makes RBAC easy to recognize in a scenario.</p>
 
   <h3>Security Terminology — Know the Distinctions</h3>
   <div class="table-wrap">

@@ -120,6 +120,11 @@
     </table>
   </div>
 
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-reference — Objective 1.4</div>
+    <p>IPsec, AH, ESP, and IKE are enumerated under objective 1.4 (protocols and traffic types). They are taught here because they are what site-to-site and client-to-site VPNs run on.</p>
+  </div>
+
   <h3><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> vs TACACS+</h3>
   <div class="table-wrap">
     <table class="table--comparison">
@@ -156,11 +161,11 @@
   <p><strong><abbr title="Extensible Authentication Protocol">EAP</abbr></strong> is not an authentication method. It is a <em>framework</em> — an envelope that carries whatever method the two ends agree on, which is why 802.1X can authenticate a certificate, a password, or a token without the switch understanding any of them. The methods themselves are the EAP <em>types</em>: <strong>EAP-TLS</strong> (certificates on both sides — strongest, and the reason it needs a <abbr title="Public Key Infrastructure">PKI</abbr>), <strong>PEAP</strong> (a TLS tunnel from the server's certificate alone, with a password authenticated inside it), and <strong>EAP-TTLS</strong> (similar tunnelling, broader legacy method support). "We use EAP" says nothing about how strong the authentication is; the type does.</p>
   <p><strong><abbr title="EAP over LAN">EAPoL</abbr></strong> is how those EAP messages travel across the wired or wireless LAN between supplicant and authenticator, before the supplicant has an IP address at all. The authenticator then unwraps each EAP message and re-sends it to the RADIUS server inside a RADIUS packet — so <strong>EAPoL runs supplicant → authenticator, and RADIUS runs authenticator → authentication server</strong>. The EAP conversation is end-to-end between supplicant and server; only its transport changes in the middle.</p>
 
-  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 3.5 lists <em>VPN types, remote access protocols,</em> and <em>access management methods</em>. <strong>EAP</strong> and <strong>EAPoL</strong> are not enumerated in any bullet, but both appear in the official N10-009 acronym list, and 802.1X — which is enumerated under 4.1 — cannot be explained without them.</p>
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 3.5 lists <em>VPN types, remote access protocols,</em> and <em>access management methods</em>. <strong>EAP</strong> and <strong>EAPoL</strong> are not enumerated in any bullet. EAPoL appears in the N10-009 acronym list; EAP does not. Both are kept because 802.1X, which is enumerated under 4.3, cannot be explained without them.</p>
 
   <div class="callout callout-blue">
-    <div class="callout-title">Cross-Reference — Objective 4.1</div>
-    <p>RADIUS, TACACS+, and 802.1X are officially <abbr title="Authentication, Authorization, and Accounting">AAA</abbr> topics under objective 4.1. They are kept here with the remote-access material because the comparison table is heavily exam-weighted — see <strong>4.1 Security Concepts</strong> for the wider AAA context.</p>
+    <div class="callout-title">Cross-Reference — Objectives 4.1 and 4.3</div>
+    <p>RADIUS and TACACS+ are officially <abbr title="Authentication, Authorization, and Accounting">AAA</abbr> topics under objective 4.1, and 802.1X is enumerated under 4.3 (network access control). They are kept here with the remote-access material because the comparison table is heavily exam-weighted — see <strong>4.1 Security Concepts</strong> for the wider AAA context and <strong>4.3</strong> for 802.1X as a NAC control.</p>
   </div>
 
   <h3>Remote Access Protocols</h3>
@@ -177,6 +182,8 @@
       </tbody>
     </table>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 3.5 lists <em>SSH, GUI, <abbr title="Application Programming Interface">API</abbr>,</em> and <em>console</em> as connection methods; Telnet and RDP appear in objective 1.4's port list. <strong>VNC</strong> is not enumerated. CompTIA states its lists are non-exhaustive, and it is kept as the cross-platform alternative to RDP.</p>
 
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>

@@ -82,6 +82,8 @@
     </table>
   </div>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> These command-line tools are enumerated under objective 5.5, not 5.3; they are taught here because 5.3's service faults are diagnosed with them. <strong>route</strong>, <strong>pathping</strong>, and <strong>iperf3</strong> are not enumerated in N10-009. CompTIA states its lists are non-exhaustive, and they are kept because they show the routing table, per-hop loss, and throughput that ping and traceroute alone do not.</p>
+
   <div class="callout callout-amber">
     <div class="callout-title">REMEMBER THIS</div>
     <strong>ipconfig / ifconfig / ip a</strong> — show local interface config. <strong>ping</strong> — basic L3 reachability. <strong>tracert / traceroute</strong> — hop-by-hop path. <strong>nslookup / dig</strong> — DNS resolution. <strong>netstat / ss</strong> — open ports and connections. <strong>arp -a</strong> — local ARP cache.
@@ -219,6 +221,8 @@ Active Connections
     </table>
   </div>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 5.3 lists <em>incorrect VLAN assignment, ACLs, route selection, address pool exhaustion, incorrect default gateway, incorrect IP address</em> (including duplicates), and <em>incorrect subnet mask</em>. <strong>Routing loops</strong>, <strong>asymmetric routing</strong>, <strong>MTU mismatch</strong>, and <strong>DNS failure</strong> are not enumerated in 5.3. CompTIA states its lists are non-exhaustive, and they are kept because each one causes symptoms that look like the listed faults.</p>
+
   <h3>Switching Issues</h3>
   <p>Spanning Tree faults present as performance and stability problems, not as obvious switch errors. The mechanics of STP — how the root bridge is elected, what each port role does, and the state timers — are covered in <strong>2.2</strong>. This section is the diagnostic view: what the failure looks like from the network, and which command confirms it.</p>
 
@@ -263,6 +267,8 @@ Active Connections
 
   <h3>Security Symptoms in a Troubleshooting Context</h3>
   <p>Security issues often masquerade as network problems. Recognizing the indicators of compromise is exam-tested, and the symptoms below sit alongside the duplicate-IP and DHCP failures already covered above.</p>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 5.3 covers network-service faults and does not list security symptoms. The <strong>indicators of compromise</strong> and the <strong>rogue DHCP</strong> and <strong>ARP poisoning</strong> scenarios below are not enumerated in 5.3; the underlying attacks are listed under objective 4.2. CompTIA states its lists are non-exhaustive, and the section is kept because these attacks produce the same symptoms as the misconfigurations above, such as wrong gateways and duplicate addresses.</p>
 
   <h3>Indicators of Compromise (IoC)</h3>
   <div class="table-wrap">
