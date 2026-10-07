@@ -172,6 +172,19 @@
     </table>
   </div>
 
+  <h4>Cloud Connectivity Options — VPN vs. Direct Connect</h4>
+  <div class="table-wrap">
+    <table class="table--comparison">
+      <thead>
+        <tr><th>Option</th><th>How it works</th><th>Performance</th><th>Cost and setup</th><th>Choose it when</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>VPN</strong></td><td>An IPsec tunnel from the on-premises firewall or router to the provider's VPN gateway, carried over the public internet</td><td>Bandwidth and latency vary with the internet path</td><td>Cheap; configured in minutes</td><td>Getting started, small or bursty traffic, a backup path for a direct link</td></tr>
+        <tr><td><strong>Direct Connect</strong></td><td>A dedicated private circuit from the data center (or a colocation facility) straight into the provider's network — AWS Direct Connect, Azure ExpressRoute, Google Cloud Interconnect</td><td>Predictable bandwidth and latency; traffic never touches the internet</td><td>Monthly port and circuit fees; weeks to provision</td><td>Large, steady data transfer or latency-sensitive workloads. It is private but not encrypted by default — add IPsec or MACsec if the data requires it</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="callout callout-blue">
     <div class="callout-title">Scalability vs Elasticity</div>
     <p><strong>Scalability</strong> = the ability to add capacity (scale up/out) to handle more load. <strong>Elasticity</strong> = automatic <em>bidirectional</em> scaling — resources are provisioned when demand rises and de-provisioned when demand falls. Cloud infrastructure is elastic; traditional on-premises infrastructure is merely scalable (you provision for peak, waste capacity at off-peak).</p>

@@ -206,6 +206,25 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
     <li><strong>Metric:</strong> OSPF cost = <code>100 Mbps / link bandwidth</code>. Lower cost = preferred path.</li>
   </ul>
 
+  <h3>EIGRP Key Concepts</h3>
+  <ul>
+    <li><strong>DUAL:</strong> EIGRP's Diffusing Update Algorithm keeps a loop-free backup route ready before it is needed, which is why EIGRP converges almost instantly.</li>
+    <li><strong>Successor:</strong> the best route to a destination — the one installed in the routing table.</li>
+    <li><strong>Feasible successor:</strong> a backup route kept in the topology table. It qualifies only if the neighbor's own distance to the destination (reported distance) is lower than the current best total distance (feasible distance), which guarantees it does not loop back through this router. If the successor fails, the feasible successor is used at once, with no recalculation.</li>
+    <li><strong>Three tables:</strong> neighbor table (adjacent EIGRP routers), topology table (every route learned, including feasible successors), and routing table (successors only).</li>
+    <li><strong>Updates:</strong> hellos every 5 seconds on a LAN keep neighbors alive. Routing updates are partial and sent only when something changes — never the full table on a timer.</li>
+    <li><strong>Metric:</strong> bandwidth and delay by default. EIGRP can also load-balance across paths with <em>unequal</em> cost (the <code>variance</code> command), which OSPF cannot.</li>
+  </ul>
+
+  <h3>BGP Key Concepts</h3>
+  <ul>
+    <li><strong>Autonomous system (AS):</strong> a network under one administrative control, identified by an AS number (ASN). Public ASNs are assigned by the regional internet registries; 64512–65534 are private, like RFC 1918 addresses.</li>
+    <li><strong>Peering:</strong> BGP neighbors are configured by hand and connect over <strong><abbr title="Transmission Control Protocol">TCP</abbr> port 179</strong>. Unlike OSPF and EIGRP, BGP does not discover neighbors automatically.</li>
+    <li><strong>eBGP vs. iBGP:</strong> eBGP runs between different autonomous systems (an enterprise and its <abbr title="Internet Service Provider">ISP</abbr>, or two ISPs); iBGP carries those routes between routers inside one AS.</li>
+    <li><strong>Path selection:</strong> BGP picks routes by policy attributes, not speed. The best-known is <strong>AS path</strong> — the list of autonomous systems a route has crossed; a shorter path is preferred, and seeing its own ASN in the path tells a router the route would loop.</li>
+    <li><strong>When it is the answer:</strong> an organization connecting to two ISPs for redundancy (multihoming) and advertising its own public prefix, or any routing between ISPs. BGP converges slowly by design, because the global table holds around a million IPv4 prefixes and stability matters more than speed.</li>
+  </ul>
+
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Exam Traps</div>
     <ul>
