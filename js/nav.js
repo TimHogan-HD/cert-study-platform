@@ -9,6 +9,8 @@ import { initDayTabs } from './components/day-tabs.js';
 import { initChecklist } from './components/checklist.js';
 import { initBinaryBits } from './components/binary-bits.js';
 import { initGuidedSubnetting } from './components/guided-subnetting.js';
+import { ALIASES } from './catalog.js';
+import { renderSidebar, showCert, certFor } from './sidebar.js';
 
 /* Every interactive component, initialised after each fragment swap. Each init is a
    no-op when its markup is absent; the ones that persist per-page state take the path. */
@@ -16,6 +18,8 @@ const COMPONENTS = [
   initAccordions, initToggleGroups, initFlashcards, initMatching, initAIExplain, initFlips,
   initDayTabs, initChecklist, initBinaryBits, initGuidedSubnetting,
 ];
+
+renderSidebar(document.querySelector('.sidebar'));
 
 const CONTENT_ROOT = './content';
 const fragmentCache = new Map();
@@ -52,6 +56,8 @@ function closeSidebar() {
 }
 
 async function loadFragment(path, anchor, { push = true } = {}) {
+  path = ALIASES[path] || path;
+  showCert(path.split('/')[0]);
   /* Tear down scroll-spy from previous page */
   if (scrollSpyObserver) { scrollSpyObserver.disconnect(); scrollSpyObserver = null; }
   /* Remove domain sub-nav bar from previous page */
@@ -130,12 +136,11 @@ function updateActiveNav(path, anchor) {
 /* ── Breadcrumb ─────────────────────────────────────────────── */
 function injectBreadcrumb(path) {
   if (!path || path === 'home') return;
-  const certMap = { netplus: 'Net+ N10-009', secplus: 'Sec+ SY0-701', az104: 'AZ-104' };
   const parts = path.split('/');
   const certKey = parts[0];
   const crumbs = [];
 
-  crumbs.push(certMap[certKey] || certKey);
+  crumbs.push(certFor(certKey)?.crumb || certKey);
 
   const navEl = document.querySelector(`[data-path="${path}"]`);
   if (navEl) {
@@ -327,17 +332,7 @@ function initFragmentComponents(path) {
 
 /* ── Cert switching (called from home screen cards) ─────────── */
 function switchCert(cert) {
-  const sidebars = {
-    netplus: document.getElementById('sidebar-netplus'),
-    secplus: document.getElementById('sidebar-secplus'),
-    az104: document.getElementById('sidebar-az104'),
-  };
-  Object.keys(sidebars).forEach(k => {
-    if (sidebars[k]) sidebars[k].style.display = k === cert ? 'block' : 'none';
-  });
-  if (cert === 'netplus') loadFragment('netplus/overview');
-  else if (cert === 'secplus') loadFragment('secplus/stub');
-  else if (cert === 'az104') loadFragment('az104/stub');
+  loadFragment(certFor(cert).home);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
