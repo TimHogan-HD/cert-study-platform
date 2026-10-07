@@ -58,24 +58,24 @@ Light mode is handled by `[data-theme="light"]` overrides on the same token name
 
 ### Interactive Components
 
-**`initFragmentComponents(path)` in `js/nav.js` is the single entry point.** It runs after every fragment swap and calls all of the following unconditionally. Adding a new interactive component means adding its `init*` call there — nothing self-registers.
+**`initFragmentComponents(path)` in `js/nav.js` is the single entry point.** It runs after every fragment swap and calls each function in the `COMPONENTS` array at the top of `nav.js`. Adding an interactive component means writing `js/components/<name>.js`, adding its init to `COMPONENTS`, and adding a scenario to `tools/smoke.js` — nothing self-registers. Each init runs in its own `try`/`catch`, so a throwing component logs an error instead of blanking the page.
 
-Only three components live in their own modules; **the other nine are defined inside `nav.js` itself**, which is easy to miss when looking for a component's implementation.
+Every fragment swap replaces the DOM, so inits attach listeners to fresh elements and never need to remove old ones.
 
-| Init function | Defined in | Triggered by |
+| Init function | Module | Triggered by |
 |---|---|---|
-| `initFlashcards(path)` | `js/flashcards.js` | `.flashcard-deck` / `.flashcard` |
-| `initMatching()` | `js/flashcards.js` | `.matching-game` |
-| `initAIExplain()` | `js/ai-explain.js` | `.ai-explain-btn` |
-| `initProtocolRefFlips()` | `js/nav.js` | `.protocol-ref-row` |
-| `initDayTabs()` | `js/nav.js` | `.cram-day-tabs` / `.cram-day-btn` |
-| `initChecklist()` | `js/nav.js` | `.checklist[data-store]` |
-| `initBinaryBits()` | `js/nav.js` | `#bit-grid`, `#bit-total`, `.binary-bit-cell` |
-| `initIDSIPSFlips()` | `js/nav.js` | `.ids-ips-flip-card` (delegates to `initFlipCards`) |
-| `initOSIFlips()` | `js/nav.js` | `.osi-flip-card` |
-| `initArchFlips()` | `js/nav.js` | `.arch-flip-card` |
-| `initFlipCards(sel, hintSel)` | `js/nav.js` | generic flip helper; called directly for `.flip-card` |
-| `initGuidedSubnetting()` | `js/nav.js` | `#subnet-guide`, `#sg-body` |
+| `initAccordions(path)` | `components/accordions.js` | `.accordion-header` + next-sibling `.accordion-body` |
+| `initToggleGroups()` | `components/toggle-groups.js` | `.toggle-group .toggle-btn[data-target]` |
+| `initFlashcards(path)` | `components/flashcards.js` | `.flashcard-deck` / `.flashcard` |
+| `initMatching()` | `components/matching.js` | `.matching-game` |
+| `initAIExplain()` | `components/ai-explain.js` | `.ai-explain-btn` |
+| `initFlips()` | `components/flips.js` | `.osi-flip-card`, `.arch-flip-card`, `.flip-card`, `.ids-ips-flip-card`, `.protocol-ref-row` — one `VARIANTS` row each |
+| `initDayTabs()` | `components/day-tabs.js` | `.cram-day-tabs` / `.cram-day-btn` |
+| `initChecklist()` | `components/checklist.js` | `.checklist[data-store]` |
+| `initBinaryBits()` | `components/binary-bits.js` | `#bit-grid`, `#bit-total`, `.binary-bit-cell` |
+| `initGuidedSubnetting()` | `components/guided-subnetting.js` | `#subnet-guide`, `#sg-body` |
+
+Links inside fragments (`.inline-nav`, `.quicknav-card`, `.cert-home-card`) call the router, so they are wired in `initFragmentComponents` itself.
 
 All `init*` functions are no-ops if their target elements are absent, so they're always called unconditionally after a fragment load. **If you edit a fragment containing any selector above, re-test that component in a browser** — a broken handler is invisible in a text diff.
 

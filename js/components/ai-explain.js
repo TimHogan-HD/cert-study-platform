@@ -4,8 +4,7 @@ const AI_CALL_LIMIT = 20;
 
 export function initAIExplain() {
   document.querySelectorAll('.ai-explain-btn').forEach(btn => {
-    btn.removeEventListener('click', btn._explainFn);
-    btn._explainFn = async () => {
+    btn.addEventListener('click', async () => {
       const calls = parseInt(localStorage.getItem(AI_CALL_KEY) || '0', 10);
       if (calls >= AI_CALL_LIMIT) {
         showAIOutput(btn,
@@ -39,8 +38,7 @@ export function initAIExplain() {
         btn.disabled = false;
         btn.textContent = '✦ Explain Differently';
       }
-    };
-    btn.addEventListener('click', btn._explainFn);
+    });
   });
 }
 
