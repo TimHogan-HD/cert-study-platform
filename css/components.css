@@ -107,7 +107,6 @@ td code { font-size: 0.8rem; }
 .table--comparison thead th { color: var(--blue); border-bottom-color: var(--blue-border); }
 .table--comparison tbody td:first-child { font-weight: 600; min-width: 130px; }
 
-
 /* ---------- Section Headers --------------------------------- */
 .section-eyebrow {
   font-size: 0.72rem;
@@ -406,82 +405,6 @@ td code { font-size: 0.8rem; }
 }
 .reset-btn:hover { background: var(--surface3); color: var(--text); }
 
-/* ---------- Subnetting Calculator -------------------------- */
-.subnet-calc { margin: 1rem 0; }
-.subnet-inputs {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.75rem;
-}
-.subnet-inputs input[type="text"] {
-  padding: 0.5rem 0.75rem;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  color: var(--text);
-  font-size: 0.9rem;
-  font-family: 'SF Mono', monospace;
-  width: 160px;
-  transition: border-color 0.15s;
-}
-.subnet-inputs input[type="number"] {
-  padding: 0.5rem 0.6rem;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  color: var(--text);
-  font-size: 0.9rem;
-  font-family: 'SF Mono', monospace;
-  width: 70px;
-  transition: border-color 0.15s;
-}
-.subnet-inputs input:focus {
-  outline: none;
-  border-color: var(--blue);
-  box-shadow: 0 0 0 2px var(--blue-bg);
-}
-.subnet-inputs span { color: var(--muted); font-weight: 600; font-family: monospace; }
-.subnet-inputs button, .subnet-hosts-mode button {
-  padding: 0.5rem 1.1rem;
-  background: var(--blue);
-  border: none;
-  border-radius: var(--radius);
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-.subnet-inputs button:hover, .subnet-hosts-mode button:hover { opacity: 0.85; }
-.subnet-hosts-mode {
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--border);
-}
-.subnet-hosts-mode h4 { margin-bottom: 0.6rem; color: var(--muted); }
-.subnet-hosts-mode form {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.subnet-hosts-mode input[type="number"] {
-  padding: 0.5rem 0.75rem;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  color: var(--text);
-  font-size: 0.9rem;
-  width: 180px;
-}
-.subnet-hosts-mode input:focus {
-  outline: none;
-  border-color: var(--blue);
-}
-#hosts-result { margin-top: 0.75rem; font-size: 0.9rem; }
-
 /* ---------- AI Explain ------------------------------------- */
 .ai-explain-area {
   display: flex;
@@ -571,36 +494,6 @@ td code { font-size: 0.8rem; }
 }
 
 /* ---------- Study Plan Cards ------------------------------ */
-.study-plans-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
-  margin: 1rem 0;
-}
-.plan-card {
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem;
-  position: relative;
-}
-.plan-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
-}
-.plan-card-title {
-  font-weight: 700;
-  font-size: 1.05rem;
-}
-.plan-intensity {
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.2rem 0.6rem;
-  border-radius: 20px;
-}
-.plan-card-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.85rem; }
 .plan-week {
   background: var(--surface3);
   border-radius: var(--radius);
@@ -608,23 +501,6 @@ td code { font-size: 0.8rem; }
   margin: 0.4rem 0;
   font-size: 0.82rem;
 }
-.plan-week-label {
-  font-weight: 600;
-  font-size: 0.78rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.25rem;
-}
-.plan-day {
-  font-size: 0.8rem;
-  color: var(--muted);
-  padding: 0.2rem 0;
-  border-top: 1px solid var(--border);
-  margin-top: 0.25rem;
-}
-.plan-day:first-child { border-top: none; margin-top: 0; }
-.plan-day strong { color: var(--text); }
 
 /* ---------- Badge ----------------------------------------- */
 .badge {
@@ -638,31 +514,9 @@ td code { font-size: 0.8rem; }
 }
 .badge-blue   { background: var(--blue-bg);   color: var(--blue);   border: 1px solid var(--blue-border); }
 .badge-amber  { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-border); }
-.badge-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
-.badge-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
-.badge-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
-.badge-teal   { background: var(--teal-bg);   color: var(--teal);   border: 1px solid var(--teal-border); }
 
 /* ---------- Coming Soon Overlay --------------------------- */
 .coming-soon-page { text-align: center; padding: 4rem 2rem; }
-.coming-soon-icon { font-size: 4rem; margin-bottom: 1rem; }
-.coming-soon-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
-.coming-soon-sub { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; }
-.coming-soon-domains { max-width: 600px; margin: 0 auto; }
-.notify-btn {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 0.65rem 1.5rem;
-  background: var(--blue-bg);
-  border: 1px solid var(--blue-border);
-  border-radius: var(--radius);
-  color: var(--blue);
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.15s;
-}
-.notify-btn:hover { background: var(--blue-bg2); }
 
 /* ---------- Reading Progress Bar -------------------------- */
 #reading-progress {
@@ -833,19 +687,6 @@ td code { font-size: 0.8rem; }
 .quicknav-title { font-size: 0.88rem; font-weight: 600; margin-top: 0.2rem; line-height: 1.3; }
 .quicknav-pct { font-size: 0.78rem; color: var(--muted); margin-top: 0.25rem; }
 
-/* ---------- Misc utility ----------------------------------- */
-.text-muted { color: var(--muted); }
-.text-blue  { color: var(--blue); }
-.text-green { color: var(--green); }
-.text-amber { color: var(--amber); }
-.text-red   { color: var(--red); }
-.text-purple { color: var(--purple); }
-.text-teal  { color: var(--teal); }
-.mono { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; }
-.mb-0 { margin-bottom: 0; }
-.mt-1 { margin-top: 1rem; }
-.mt-2 { margin-top: 2rem; }
-
 /* ---------- Step boxes (for methodology) ----------------- */
 .steps { display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
 .step-box {
@@ -876,27 +717,6 @@ td code { font-size: 0.8rem; }
 .step-content { flex: 1; }
 .step-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
 .step-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
-
-/* ---------- Protocol PBQ scenario ------------------------ */
-.pbq-scenario {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  padding: 1rem;
-  margin: 0.75rem 0;
-}
-.pbq-scenario pre {
-  background: #0a0a0a;
-  color: #22c55e;
-  border-color: var(--border);
-  font-size: 0.8rem;
-  padding: 0.75rem;
-  border-radius: 6px;
-}
-[data-theme="light"] .pbq-scenario pre {
-  background: #1e293b;
-  color: #4ade80;
-}
 
 /* ---------- Steps List (5.1 Troubleshooting) ------------- */
 .steps-list { display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0; }
@@ -1019,10 +839,7 @@ td code { font-size: 0.8rem; }
   .exam-card { grid-template-columns: 1fr 1fr; }
   .domain-quicknav { grid-template-columns: 1fr 1fr; }
   .flashcard { height: 220px; }
-  .study-plans-grid { grid-template-columns: 1fr; }
   .domain-bar-label { width: 130px; font-size: 0.75rem; }
-  .subnet-inputs { flex-direction: column; align-items: flex-start; }
-  .subnet-inputs input[type="text"] { width: 100%; }
   /* Prev/Next footer stacks on small screens */
   .obj-nav-footer { flex-direction: column; gap: 0.6rem; }
   .obj-nav-btn { max-width: 100%; width: 100%; }
@@ -1283,7 +1100,6 @@ td code { font-size: 0.8rem; }
   border-radius: 0;
 }
 /* prompt colours */
-.tp  { color: #7ee787; }  /* unix $ / # prompt */
 .tpw { color: #79c0ff; }  /* windows C:\> prompt */
 .tpc { color: #ffa657; }  /* cisco Router# prompt */
 /* output colours */
@@ -1291,53 +1107,6 @@ td code { font-size: 0.8rem; }
 .ts  { color: #7ee787; }  /* success / good */
 .te  { color: #f47067; }  /* error / bad */
 .tn  { color: #6e7681; }  /* annotation comment */
-
-/* ── OSI Layer Stack ─────────────────────────────────────── */
-.osi-stack { display: flex; flex-direction: column; gap: 3px; margin: 1rem 0 1.5rem; }
-.osi-layer {
-  display: grid;
-  grid-template-columns: 2.2rem 8.5rem 6rem 1fr 1fr;
-  align-items: center;
-  gap: 0.5rem 0.75rem;
-  padding: 0.55rem 0.85rem;
-  border-radius: 6px;
-  border-left: 4px solid transparent;
-  transition: filter 0.15s;
-}
-.osi-layer:hover { filter: brightness(1.12); }
-.osi-layer[data-layer="7"] { background: rgba(13,110,253,0.12); border-left-color: #0d6efd; }
-.osi-layer[data-layer="6"] { background: rgba(111,66,193,0.12); border-left-color: #6f42c1; }
-.osi-layer[data-layer="5"] { background: rgba(13,202,240,0.10); border-left-color: #0dcaf0; }
-.osi-layer[data-layer="4"] { background: rgba(255,166,87,0.12); border-left-color: #ffa657; }
-.osi-layer[data-layer="3"] { background: rgba(126,231,135,0.10); border-left-color: #7ee787; }
-.osi-layer[data-layer="2"] { background: rgba(254,188,46,0.10); border-left-color: #febc2e; }
-.osi-layer[data-layer="1"] { background: rgba(244,112,103,0.12); border-left-color: #f47067; }
-.osi-layer-num  { font-weight: 700; font-size: 1rem; opacity: 0.55; text-align: center; }
-.osi-layer-name { font-weight: 700; font-size: 0.9rem; }
-.osi-layer-pdu  { font-size: 0.75rem; color: var(--muted); }
-.osi-layer-proto { font-size: 0.78rem; color: var(--muted); }
-.osi-layer-proto abbr { text-decoration: underline dotted rgba(255,255,255,0.3); cursor: help; }
-.osi-layer-devices { font-size: 0.78rem; color: var(--muted); }
-.osi-stack-header {
-  display: grid;
-  grid-template-columns: 2.2rem 8.5rem 6rem 1fr 1fr;
-  gap: 0.5rem 0.75rem;
-  padding: 0.25rem 0.85rem 0.4rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  margin-bottom: 2px;
-}
-@media (max-width: 700px) {
-  .osi-layer, .osi-stack-header {
-    grid-template-columns: 1.8rem 1fr;
-  }
-  .osi-layer-pdu, .osi-layer-devices, .osi-stack-header span:nth-child(n+3) { display: none; }
-  .osi-layer-proto { grid-column: 2; }
-}
 
 /* ── Port Group Tables ───────────────────────────────────── */
 .port-groups { display: flex; flex-direction: column; gap: 1.25rem; margin: 1rem 0; }
@@ -1523,52 +1292,6 @@ td code { font-size: 0.8rem; }
 .sr-swatch-customer { background: var(--blue); }
 .sr-swatch-provider  { background: var(--green); }
 
-/* ── IP Addressing Explainer ────────────────────────────── */
-.ip-explainer { margin: 1.25rem 0; }
-.ip-explainer-caption { margin: 0 0 0.5rem; font-size: 0.85rem; color: var(--muted); }
-.ip-anatomy {
-  display: flex;
-  align-items: stretch;
-  border-radius: 8px;
-  overflow: hidden;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.85rem;
-  margin: 0.75rem 0;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-.ip-octet {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-.ip-octet-value {
-  padding: 0.55rem 0;
-  font-weight: 700;
-  font-size: 1.1rem;
-  border-right: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04);
-}
-.ip-octet:last-child .ip-octet-value { border-right: none; }
-.ip-octet-bin {
-  padding: 0.3rem 0.2rem;
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  border-right: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.15);
-}
-.ip-octet:last-child .ip-octet-bin { border-right: none; }
-.ip-octet.net-octet .ip-octet-value { background: rgba(13,110,253,0.18); color: #79c0ff; }
-.ip-octet.net-octet .ip-octet-bin   { background: rgba(13,110,253,0.10); }
-.ip-octet.host-octet .ip-octet-value { background: rgba(255,166,87,0.15); color: #ffa657; }
-.ip-octet.host-octet .ip-octet-bin   { background: rgba(255,166,87,0.08); }
-.ip-anatomy-legend { display: flex; gap: 1.5rem; font-size: 0.75rem; margin-top: 0.5rem; }
-.ip-anatomy-legend span { display: flex; align-items: center; gap: 0.35rem; }
-.ip-anatomy-legend span::before { content:''; width:10px; height:10px; border-radius:2px; display:inline-block; }
-.ip-anatomy-legend .net-legend::before  { background: rgba(13,110,253,0.5); }
-.ip-anatomy-legend .host-legend::before { background: rgba(255,166,87,0.5); }
-
 /* ── AZ-900 Cram Day Tabs ────────────────────────────────────── */
 .cram-day-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 1rem 0 0; }
 .cram-day-btn {
@@ -1628,11 +1351,6 @@ td code { font-size: 0.8rem; }
 .trap-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); margin-bottom: 0.2rem; display: block; }
 .trap-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.15rem; }
 .trap-body  { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
-
-/* ── Fact Rows ───────────────────────────────────────────────── */
-.fact-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0.55rem 0.875rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 4px; font-size: 0.82rem; }
-.fact-key { color: var(--muted); flex: 1; }
-.fact-val { font-weight: 600; white-space: nowrap; }
 
 /* ── Resource Hierarchy Visual ───────────────────────────────── */
 .hierarchy { display: flex; flex-direction: column; gap: 6px; }
@@ -1703,7 +1421,6 @@ td code { font-size: 0.8rem; }
 .pill-blue   { background: var(--blue-bg);   color: var(--blue);   border: 1px solid var(--blue-border); }
 .pill-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
 .pill-amber  { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-border); }
-.pill-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
 .pill-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
 .pill-teal   { background: var(--teal-bg);   color: var(--teal);   border: 1px solid var(--teal-border); }
 
@@ -1770,37 +1487,6 @@ td code { font-size: 0.8rem; }
    All classes prefixed to avoid conflicts with existing styles.
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── C1: OSI Stack v2 ────────────────────────────────────────── */
-.osi-v2 { display: flex; flex-direction: column; gap: 3px; margin: 1rem 0 1.25rem; }
-.osi-v2-header { display: grid; grid-template-columns: 2.2rem 9rem 7rem 1fr 1fr; gap: 0; padding: 0.2rem 0.85rem; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); }
-.osi-v2-row { display: grid; grid-template-columns: 2.2rem 9rem 7rem 1fr 1fr; gap: 0 0.6rem; padding: 0.55rem 0.85rem; border-left: 4px solid transparent; border-radius: 6px; align-items: center; }
-.osi-v2-row[data-layer="7"] { background: var(--purple-bg); border-left-color: var(--purple); }
-.osi-v2-row[data-layer="6"] { background: rgba(168,85,247,0.07); border-left-color: rgba(168,85,247,0.6); }
-.osi-v2-row[data-layer="5"] { background: rgba(168,85,247,0.04); border-left-color: rgba(168,85,247,0.35); }
-.osi-v2-row[data-layer="4"] { background: var(--blue-bg); border-left-color: var(--blue); }
-.osi-v2-row[data-layer="3"] { background: var(--teal-bg); border-left-color: var(--teal); }
-.osi-v2-row[data-layer="2"] { background: var(--amber-bg); border-left-color: var(--amber); }
-.osi-v2-row[data-layer="1"] { background: var(--red-bg); border-left-color: var(--red); }
-.osi-v2-num { font-weight: 700; font-size: 0.85rem; text-align: center; }
-.osi-v2-name { font-weight: 700; font-size: 0.9rem; }
-.osi-v2-pdu { font-size: 0.75rem; color: var(--text); }
-.osi-v2-proto { font-size: 0.75rem; color: var(--text); }
-.osi-v2-devices { font-size: 0.75rem; color: var(--text); }
-.osi-v2-encap-strip { display: flex; border-radius: var(--radius); overflow: hidden; margin-top: 0.75rem; font-size: 0.72rem; text-align: center; }
-.osi-v2-encap-cell { flex: 1; padding: 0.4rem 0.3rem; font-size: 0.7rem; font-weight: 600; line-height: 1.3; }
-.encap-l7 { background: var(--purple-bg); color: var(--purple); }
-.encap-l4 { background: var(--blue-bg); color: var(--blue); }
-.encap-l3 { background: var(--teal-bg); color: var(--teal); }
-.encap-l2 { background: var(--amber-bg); color: var(--amber); }
-.encap-l1 { background: var(--red-bg); color: var(--red); }
-@media (max-width: 700px) {
-  .osi-v2-header { grid-template-columns: 2rem 1fr; }
-  .osi-v2-header span:nth-child(n+3) { display: none; }
-  .osi-v2-row { grid-template-columns: 2rem 1fr; }
-  .osi-v2-pdu, .osi-v2-proto, .osi-v2-devices { display: none; }
-  .osi-v2-encap-cell { font-size: 0.62rem; padding: 0.35rem 0.1rem; }
-}
-
 /* ── OSI Flip Cards ──────────────────────────────────────────────── */
 .osi-card-stack { display: flex; flex-direction: column; gap: 3px; margin: 1rem 0 1.25rem; }
 .osi-card-stack-header { display: grid; grid-template-columns: 2.2rem 9rem 6.5rem 1fr 1fr 1.5rem; gap: 0 0.6rem; padding: 0.2rem 0.85rem; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); }
@@ -1837,7 +1523,6 @@ td code { font-size: 0.8rem; }
 }
 
 /* ── Encapsulation build graphic ─────────────────────────────────── */
-.encap-build { margin: 1.25rem 0 0.5rem; display: flex; flex-direction: column; gap: 3px; }
 .encap-build-row { display: flex; align-items: stretch; gap: 2px; border-radius: 5px; overflow: hidden; }
 .encap-hdr { flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; padding: 0.3rem 0.45rem; text-align: center; line-height: 1.2; white-space: nowrap; }
 .encap-payload { flex: 1; display: flex; align-items: center; padding: 0.3rem 0.5rem; font-size: 0.67rem; color: var(--muted); font-style: italic; }
@@ -1846,15 +1531,10 @@ td code { font-size: 0.8rem; }
 .encap-hdr-ip   { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-border); }
 .encap-hdr-eth  { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
 .encap-hdr-bits { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
-.encap-payload-app  { background: var(--purple-bg); border: 1px solid var(--purple-border); }
 .encap-payload-tcp  { background: var(--blue-bg); border: 1px solid var(--blue-border); color: var(--text); font-style: normal; font-size: 0.64rem; }
 .encap-payload-ip   { background: var(--teal-bg); border: 1px solid var(--teal-border); color: var(--text); font-style: normal; font-size: 0.64rem; }
 .encap-payload-eth  { background: var(--amber-bg); border: 1px solid var(--amber-border); color: var(--text); font-style: normal; font-size: 0.64rem; }
-.encap-arrow { font-size: 0.65rem; color: var(--hint); padding: 0 0.25rem; align-self: center; flex-shrink: 0; }
 .encap-layer-label { font-size: 0.62rem; color: var(--hint); width: 4.5rem; flex-shrink: 0; text-align: right; padding-right: 0.5rem; align-self: center; }
-.encap-build-wrap { display: flex; gap: 0; align-items: stretch; }
-.encap-build-labels { display: flex; flex-direction: column; gap: 3px; justify-content: stretch; }
-.encap-build-label { font-size: 0.6rem; color: var(--hint); text-align: right; padding-right: 0.5rem; display: flex; align-items: center; justify-content: flex-end; }
 
 /* ── Encapsulation dual-column (obj-1-1) ─────────────────────────── */
 .encap-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 0 0.75rem; margin: 1rem 0 1.25rem; }
@@ -1885,23 +1565,6 @@ td code { font-size: 0.8rem; }
 .wan-diagram-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 0.85rem; margin: 1rem 0; }
 .scope-diagram-wrap { margin: 1rem 0; display: flex; justify-content: center; }
 .scope-diagram-wrap svg { width: 100%; max-width: 480px; height: auto; }
-
-/* ── C2: TCP/IP ↔ OSI Bracket ────────────────────────────────── */
-.tcpip-bracket { display: flex; gap: 0.5rem; align-items: stretch; margin: 1rem 0 1.5rem; }
-.tcpip-col { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
-.tcpip-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); text-align: center; padding-bottom: 0.3rem; }
-.tcpip-block { display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 6px; font-weight: 600; padding: 0.5rem 0.85rem; text-align: center; border: 1px solid transparent; }
-.tcpip-block-app { flex: 3; background: var(--purple-bg); border-color: var(--purple-border); color: var(--purple); }
-.tcpip-block-transport { flex: 1; background: var(--blue-bg); border-color: var(--blue-border); color: var(--blue); }
-.tcpip-block-internet { flex: 1; background: var(--teal-bg); border-color: var(--teal-border); color: var(--teal); }
-.tcpip-block-netaccess { flex: 2; background: var(--amber-bg); border-color: var(--amber-border); color: var(--amber); }
-.tcpip-connector { flex-shrink: 0; width: 2rem; }
-.tcpip-osi-col { display: flex; flex-direction: column; gap: 3px; flex: 1; }
-@media (max-width: 600px) {
-  .tcpip-bracket { flex-direction: column; }
-  .tcpip-connector { display: none; }
-  .tcpip-osi-col { margin-top: 0.5rem; }
-}
 
 /* ── C3: Device Cards by Layer ───────────────────────────────── */
 .device-layer-group { margin-bottom: 1.25rem; }
@@ -1986,29 +1649,6 @@ td code { font-size: 0.8rem; }
 .ip-v2-legend-dot[data-color="net"]  { background: var(--blue); }
 .ip-v2-legend-dot[data-color="host"] { background: var(--teal); }
 
-/* ── C7: CIDR Table Enhancements ─────────────────────────────── */
-.cidr-row-highlight { background: var(--blue-bg) !important; }
-.cidr-row-highlight td { font-weight: 600; }
-.cidr-footer-note { font-size: 0.78rem; color: var(--muted); padding: 0.5rem 1rem; background: var(--surface2); border-top: 1px solid var(--border); border-radius: 0 0 var(--radius) var(--radius); line-height: 1.5; }
-
-/* ── C8: Subnet Methods ──────────────────────────────────────── */
-.subnet-methods-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin: 1rem 0; }
-.subnet-method-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.85rem 1rem; transition: border-color 0.15s; }
-.subnet-method-card:hover { border-color: var(--blue-border); }
-.subnet-method-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
-.subnet-method-tag { font-size: 0.64rem; font-weight: 700; text-transform: uppercase; padding: 0.1rem 0.4rem; border-radius: 20px; margin-left: 0.35rem; vertical-align: middle; background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); display: inline-block; }
-.subnet-method-desc { font-size: 0.8rem; color: var(--text); line-height: 1.55; }
-.subnet-method-example { font-family: var(--mono, monospace); font-size: 0.75rem; background: var(--surface3); border-radius: 4px; padding: 0.4rem 0.6rem; margin-top: 0.4rem; color: var(--text); line-height: 1.6; }
-.subnet-chart { display: grid; gap: 2px 8px; font-size: 0.75rem; margin: 0.5rem 0; font-family: var(--mono, monospace); }
-.subnet-chart-4col { grid-template-columns: auto auto auto auto; }
-.subnet-chart-3col { grid-template-columns: auto auto auto; }
-.subnet-chart-header { font-weight: 700; color: var(--muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; font-family: inherit; }
-.subnet-chart-highlight { color: var(--amber); font-weight: 700; }
-.subnet-attribution { font-size: 0.72rem; color: var(--muted); margin-top: 0.4rem; font-style: italic; }
-@media (max-width: 480px) {
-  .subnet-methods-grid { grid-template-columns: 1fr; }
-}
-
 /* ── C9: Binary Conversion Explainer ─────────────────────────── */
 .binary-bit-header { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; margin-bottom: 2px; }
 .binary-bit-label { text-align: center; font-size: 0.68rem; font-weight: 700; color: var(--muted); font-family: var(--mono, monospace); }
@@ -2040,23 +1680,10 @@ td code { font-size: 0.8rem; }
   .ipv6-group-label { font-size: 0.55rem; }
 }
 
-/* C10-B: Shortening Rules */
-.ipv6-rules { display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0; }
-.ipv6-rule { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.85rem 1rem; }
-.ipv6-rule-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.45rem; }
-.ipv6-rule-num { width: 26px; height: 26px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; color: var(--blue); flex-shrink: 0; }
-.ipv6-rule-title { font-weight: 700; font-size: 0.88rem; }
-.ipv6-rule-before { font-family: var(--mono, monospace); font-size: 0.8rem; color: var(--text); margin-bottom: 0.2rem; }
-.ipv6-rule-after { font-family: var(--mono, monospace); font-size: 0.8rem; color: var(--teal); font-weight: 600; }
-
 /* C10-C: Address Type Rows */
 .ipv6-types-header { display: grid; grid-template-columns: 8rem 8.5rem 1fr 6.5rem; gap: 0.5rem 0.75rem; padding: 0.3rem 0.85rem; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); border-bottom: 1px solid var(--border); margin-bottom: 3px; }
 .ipv6-types { display: flex; flex-direction: column; gap: 3px; margin: 0 0 1rem; }
 .ipv6-type-row { display: grid; grid-template-columns: 8rem 8.5rem 1fr 6.5rem; gap: 0.5rem 0.75rem; padding: 0.5rem 0.85rem; border-radius: 6px; border-left: 4px solid transparent; align-items: center; }
-.ipv6-type-name   { font-weight: 700; font-size: 0.82rem; }
-.ipv6-type-prefix { font-family: var(--mono, monospace); font-size: 0.75rem; color: var(--text); }
-.ipv6-type-desc   { font-size: 0.78rem; color: var(--text); line-height: 1.4; }
-.ipv6-type-equiv  { font-size: 0.72rem; color: var(--muted); }
 .ipv6-type-global      { background: var(--blue-bg);   border-left-color: var(--blue);   }
 .ipv6-type-linklocal   { background: var(--teal-bg);   border-left-color: var(--teal);   }
 .ipv6-type-ula         { background: var(--green-bg);  border-left-color: var(--green);  }
@@ -2069,19 +1696,16 @@ td code { font-size: 0.8rem; }
   .ipv6-types-header { grid-template-columns: 7rem 7rem 1fr; }
   .ipv6-types-header span:last-child { display: none; }
   .ipv6-type-row { grid-template-columns: 7rem 7rem 1fr; }
-  .ipv6-type-equiv { display: none; }
 }
 
 /* C10-D: Config Method Cards */
 .ipv6-config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
 .ipv6-config-card { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.85rem 1rem; }
 .ipv6-config-card-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-.ipv6-config-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
 .ipv6-config-badge { font-size: 0.64rem; font-weight: 700; text-transform: uppercase; padding: 0.1rem 0.4rem; border-radius: 20px; display: inline-block; margin-left: 0.35rem; vertical-align: middle; }
 .ipv6-config-badge-stateless { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-border); }
 .ipv6-config-badge-stateful  { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
 .ipv6-config-badge-manual    { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
-.ipv6-config-desc { font-size: 0.8rem; color: var(--text); line-height: 1.5; }
 @media (max-width: 480px) {
   .ipv6-config-grid { grid-template-columns: 1fr; }
 }
@@ -2097,7 +1721,6 @@ td code { font-size: 0.8rem; }
 .tcpip-comparison td { border: 1px solid var(--border2); vertical-align: middle; padding: 0; }
 .tcpip-layer { font-weight: 700; font-size: 0.88rem; text-align: center; padding: 0.6rem 0.75rem; }
 .tcpip-protocols { font-size: 0.72rem; color: var(--muted); padding: 0.4rem 0.65rem; }
-.tcpip-arrow-cell { text-align: center; color: var(--hint); font-size: 0.82rem; padding: 0.35rem 0.4rem; background: var(--surface3); }
 .osi-num-cell { text-align: center; font-weight: 700; font-size: 0.82rem; padding: 0.35rem 0.4rem; }
 .osi-name-cell { padding: 0.35rem 0.65rem; font-size: 0.82rem; font-weight: 500; }
 .tcpip-app { background: var(--purple-bg); color: var(--purple); }
@@ -2119,7 +1742,6 @@ td code { font-size: 0.8rem; }
 .addr-class-head span:last-child { border-right: none; }
 .addr-class-row { display: grid; grid-template-columns: 2.8rem 4.4rem 5.5rem 7rem 1fr 1fr; border-top: 1px solid var(--border2); align-items: center; }
 .addr-class-row:nth-child(even) { background: var(--surface2); }
-.addr-class-row.addr-class-dim { opacity: 0.65; }
 .addr-class-cell { padding: 0.5rem 0.65rem; font-size: 0.8rem; border-right: 1px solid var(--border2); }
 .addr-class-cell:last-child { border-right: none; color: var(--text); font-size: 0.76rem; }
 .addr-class-badge { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; border-radius: var(--radius); font-size: 0.78rem; font-weight: 700; }
@@ -2180,7 +1802,6 @@ td code { font-size: 0.8rem; }
 .method-tag-fast { background: var(--green-bg); color: var(--green); }
 .method-tag-reliable { background: var(--blue-bg); color: var(--blue); }
 .method-tag-visual { background: var(--purple-bg); color: var(--purple); }
-.method-tag-pbq { background: var(--amber-bg); color: var(--amber); }
 .method-body { padding: 0.85rem 0.9rem; display: flex; flex-wrap: wrap; gap: 0.85rem; }
 .method-body > div { flex: 1 1 280px; min-width: 0; }
 .method-col-label { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.4rem; }
@@ -2218,7 +1839,6 @@ td code { font-size: 0.8rem; }
 .mask-derive-table tr:last-child td { border-bottom: none; }
 .mask-derive-table td:first-child { color: var(--blue); font-weight: 700; }
 .mask-derive-table td:last-child { color: var(--green); font-weight: 700; }
-.mask-derive-caption { font-size: 0.74rem; color: var(--muted); font-style: italic; }
 .mda-wrap { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1rem; padding: 0.75rem 0.9rem; background: var(--surface3); border-radius: var(--radius); }
 .mda-row { display: flex; align-items: flex-start; gap: 0.5rem; }
 .mda-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); min-width: 4.5rem; flex-shrink: 0; padding-top: 0.25rem; }
@@ -2274,7 +1894,6 @@ td code { font-size: 0.8rem; }
 .ss-ex-n { font-size: 0.62rem; font-weight: 700; color: var(--muted); text-align: center; }
 .ss-ex-label { font-size: 0.7rem; color: var(--muted); }
 .ss-ex-val { font-family: monospace; color: var(--text); font-weight: 500; font-size: 0.78rem; }
-.ss-ex-note { font-size: 0.68rem; color: var(--muted); font-style: italic; grid-column: 2 / -1; margin-top: -0.2rem; }
 .ss-answer-row { margin-top: 0.4rem; padding: 0.5rem 0.75rem; background: var(--green-bg); border: 1px solid var(--green-border); border-radius: var(--radius); display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
 .ss-ans-label { color: var(--muted); font-size: 0.62rem; margin-bottom: 0.08rem; }
 .ss-ans-val { font-family: monospace; font-weight: 700; color: var(--green); font-size: 0.78rem; }
@@ -2302,9 +1921,7 @@ td code { font-size: 0.8rem; }
 .ipv6-shorten-note { font-size: 0.72rem; color: var(--text); line-height: 1.6; }
 .ipv6-shorten-note strong { color: var(--text); }
 .ipv6-shorten-connector { display: flex; align-items: center; justify-content: center; height: 1.25rem; background: var(--surface3); border-bottom: 1px solid var(--border2); }
-.ipv6-shorten-result { margin-top: 0.65rem; font-size: 0.72rem; color: var(--muted); padding: 0.5rem 0.75rem; background: var(--surface2); border-radius: var(--radius); border: 1px solid var(--border2); line-height: 1.6; }
 .ipv6-shorten-result-val { font-family: monospace; font-weight: 700; color: var(--text); }
-.ipv6-shorten-result-purple { font-family: monospace; font-weight: 700; color: var(--purple); }
 
 /* ── TCP/IP comparison table — polish ────────────────────────── */
 /* Specificity bump needed: .tcpip-comparison td {padding:0} (0-1-1) beats bare class rules (0-1-0) */
@@ -2401,7 +2018,6 @@ td code { font-size: 0.8rem; }
 .ipv6-mcast-row-ospf       { border-left-color: var(--green); }
 .ipv6-mcast-row-dhcp       { border-left-color: var(--purple); }
 .ipv6-mcast-row-rip        { border-left-color: var(--amber); }
-.ipv6-mcast-row-pim        { border-left-color: var(--red); }
 .ipv6-mcast-cell { padding: 0.55rem 0.7rem; font-size: 0.8rem; border-right: 1px solid var(--border2); }
 .ipv6-mcast-cell:last-child { border-right: none; }
 .ipv6-mcast-addr { font-family: monospace; font-weight: 700; color: var(--blue); font-size: 0.82rem; }
