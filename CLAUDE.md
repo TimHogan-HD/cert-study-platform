@@ -19,24 +19,11 @@ Open `http://localhost:8080`. Changes to HTML/CSS/JS are reflected on next page 
 npx vercel dev
 ```
 
-There are no lint, test, or type-check scripts.
-
 **`tools/shot.js`** is the one dev utility — a render check that serves the repo and screenshots a route in dark, light, and mobile (see Verification). It is not a build step: the site remains plain static files with no runtime dependencies, and nothing under `tools/` is served or shipped. It needs Playwright available to node (`npm i -g playwright`) and is skippable if you can just open the page yourself.
 
 ## Architecture
 
-### Single-Page Application Shell
-
-`index.html` is the only real HTML page. It contains the header, sidebar, and an empty `#content-area` div. All other content is loaded dynamically as HTML fragments via `fetch()`.
-
 ### Hash-Based Router (`js/nav.js`)
-
-`nav.js` is the central orchestrator. It handles:
-
-- **Fragment loading:** A URL like `#/netplus/domain1/obj-1-1` causes a `fetch('./content/netplus/domain1/obj-1-1.html')` whose response is injected into `#content-area`. Loaded fragments are cached in a `Map` for the session.
-- **Component initialization:** After every fragment load, `nav.js` calls `initSubnetting()`, `initFlashcards()`, `initMatching()`, and `initAIExplain()` from the other JS modules — this is why all interactive components must be initialized imperatively, not via DOMContentLoaded.
-- **Sidebar state:** Domain collapsibles, desktop collapse toggle, mobile hamburger, and scroll-spy sub-nav are all managed here.
-- **Injected chrome:** Breadcrumb, prev/next footer nav, and sticky domain sub-nav are injected by `nav.js` after the fragment loads — they are not present in the fragment files themselves.
 
 Navigation is driven by `[data-path]` attributes on sidebar links. Adding a new page requires a `data-path` entry in the sidebar HTML in `index.html` and a corresponding file under `content/`.
 
@@ -71,7 +58,7 @@ Light mode is handled by `[data-theme="light"]` overrides on the same token name
 
 ### Interactive Components
 
-**`initFragmentComponents(path)` (`js/nav.js:292`) is the single entry point.** It runs after every fragment swap and calls all of the following unconditionally. Adding a new interactive component means adding its `init*` call there — nothing self-registers.
+**`initFragmentComponents(path)` in `js/nav.js` is the single entry point.** It runs after every fragment swap and calls all of the following unconditionally. Adding a new interactive component means adding its `init*` call there — nothing self-registers.
 
 Only four components live in their own modules; **the other nine are defined inside `nav.js` itself**, which is easy to miss when looking for a component's implementation.
 
@@ -95,26 +82,13 @@ All `init*` functions are no-ops if their target elements are absent, so they're
 
 ### State Persistence
 
-| Key | Storage | Purpose |
-|-----|---------|---------|
-| `csp-theme` | localStorage | dark / light preference |
-| `csp-sidebar-collapsed` | localStorage | desktop sidebar collapse (1/0) |
-| `csp-ai-calls` | localStorage | rate-limit counter (max 20) |
-| `csp-accordion-{path}-{idx}` | sessionStorage | accordion open states |
-| `csp-deck-{path}-{deckIdx}` | sessionStorage | flashcard position |
-| whatever `data-store` says | localStorage | checklist tick state, as a JSON object |
-
-**Note the exception:** `.checklist[data-store]` uses its `data-store` attribute value verbatim as the storage key, so these keys are *not* `csp-` prefixed (`az900v2-cloud`, `az900v2-arch`, …). New checklists should keep following the existing `data-store` values in their own content area rather than inventing a parallel scheme.
-
-### API (`api/explain.js`)
-
-Vercel serverless function. Accepts `POST /api/explain` with JSON body `{ topic: string }`. Calls `claude-sonnet-4-20250514` with `max_tokens: 300`. Requires `ANTHROPIC_API_KEY` env var; optionally `ALLOWED_ORIGIN` for CORS.
+Storage keys are `csp-` prefixed, with one exception: `.checklist[data-store]` uses its `data-store` attribute value verbatim as the storage key, so these keys are *not* `csp-` prefixed (`az900v2-cloud`, `az900v2-arch`, …). New checklists should keep following the existing `data-store` values in their own content area rather than inventing a parallel scheme.
 
 ## Design Philosophy
 
-**Avoid generic fonts.** Do not use Inter, Roboto, or Space Grotesk. Choose a font with actual character.
+**Avoid generic fonts.** Body text uses the system UI stack defined in `css/base.css`. Do not introduce Inter, Roboto, or Space Grotesk; if a component needs a display font, choose one with actual character.
 
-**No cookie-cutter component patterns.** Avoid the default AI design aesthetic: no washed-out muted palettes, no grey-on-grey, no low-contrast milky tones.
+**No cookie-cutter component patterns.** No washed-out muted palettes, no grey-on-grey, no low-contrast milky tones. In new components, also avoid the stock defaults: italic accent words in headlines, numbered "01 / 02 / 03" section labels, monospace labels, and pill-shaped buttons.
 
 **Contrast and color rules:**
 - Background: true near-black (`#0d0d0d` or similar) — not `#1a1a1a` grey soup
@@ -137,6 +111,9 @@ Vercel serverless function. Accepts `POST /api/explain` with JSON body `{ topic:
   ```
 
   The note explains why content **stays** — it is never a justification for deleting content. Say what the objective does list, name what is not enumerated, and give the reason for including it. Do not restyle the component per-page; it is deliberately quieter than a `.callout`.
+- **Never reintroduce** `data-exam-weight`, `exam-star`, or the aggregate `content/netplus/domainN.html` files. All three were deliberately removed.
+- **Depth is proportional to exam weight** — Domain 5 is 24% of the exam, Domain 4 is 14%.
+- **Implementing a handoff plan?** Load the `handoff-plans` skill first — the plans have been wrong repeatedly.
 
 ## Finishing Work
 
@@ -173,36 +150,10 @@ There is no build, lint, or test step, so nothing catches a mistake automaticall
   node tools/shot.js netplus/domain1/obj-1-7                    # whole page
   ```
 
-  Then **look at the PNGs** it writes to `tools/shots/` (gitignored) — running it is not the check, reading it is. With a selector it also prints the element's computed text and background colour, so the `--text` rule below is verifiable at a glance; it exits non-zero if the selector is missing. It needs Playwright available to node (`npm i -g playwright`). Chromium is preinstalled in the Claude Code web environment at `/opt/pw-browsers` — never run `playwright install`.
+  Then **look at the PNGs** it writes to `tools/shots/` (gitignored) — running it is not the check, reading it is. With a selector it also prints the element's computed text and background colour, so the `--text` rule below is verifiable at a glance; it exits non-zero if the selector is missing. It needs Playwright available to node (`npm i -g playwright`). In the Claude Code web environment, Chromium is preinstalled at `/opt/pw-browsers` — don't run `playwright install` there.
 - **Check both themes and mobile.** `shot.js` covers all three. Confirm readable text resolves to `--text` in both themes, not `--muted` or `--hint`.
 - **Re-test interactive components after editing their file.** The DNS matching game (`obj-3-4`), the attack-mitigation matching game (`obj-4-2`), and every flashcard deck are wired up after each fragment swap. A broken game is easy to miss in a diff.
 - **Balance-check the fragment.** `<div>`/`</div>` and `<p>`/`</p>` counts must match — an unbalanced fragment corrupts the whole page once injected.
 - **Diff against `origin/main`, not `main`.** The local `main` ref goes stale fast; `git diff main...HEAD` can make an 8-line change look like a 5,000-line rewrite. Use `git fetch origin main && git diff origin/main...HEAD`.
 - **Check `study-plans.html` when content moves between objectives.** It contains `inline-nav` links into specific objective pages. These will not 404 — they will silently land on the wrong page.
 - **Non-`main` branches do not trigger Vercel auto-deploy.** Check the deployment timestamp in the Vercel dashboard before concluding a change did not take effect.
-
-## Working From Handoff Plans
-
-Content remediation is driven by handoff documents. **They have been wrong repeatedly, in a consistent direction:** they infer gaps by comparing an objectives list against older notes instead of reading the live files, so they call for content that already exists.
-
-- **Audit the live file before implementing any plan item — including items the plan states are missing.** Three consecutive revisions of the Domain 1 plan specified adding content that was already present: cellular, satellite, RJ11, NAT64, and in v3 the IPv4 address-class table, which the plan described as lacking Class E when all five classes were already there.
-- **If an item turns out to be already covered, stop and report rather than duplicating it.** Extend what exists. Building a parallel component next to an equivalent one is the systemic failure mode on this platform — it is what produced the aggregate/per-objective drift that had to be cleaned up.
-- **A grep hit is not coverage.** Matches are often `<!-- GAP: -->` placeholder comments. Extract the surrounding context and read it before concluding a topic is present or absent.
-- **Cross-reference, do not copy.** The official objectives deliberately list the same topic under several objectives. Choose one authoritative location and point at it from the others.
-- **Never reintroduce** `data-exam-weight`, `exam-star`, or the aggregate `content/netplus/domainN.html` files. All three were deliberately removed.
-- **Depth is proportional to exam weight** — Domain 5 is 24% of the exam, Domain 4 is 14%.
-
-**Remaining work is marked in place.** `<!-- GAP: topic — see content remediation plan -->` comments sit at the exact insertion point for content that is genuinely missing. They are the authoritative to-do list, and they are the reason a plain grep gives false positives — the topic name appears in the file while the content does not. Current placement:
-
-**No GAP comments remain in the repo** (`grep -rn 'GAP:' content/` returns nothing). Both files that carried them are done:
-
-| File | GAPs | Status |
-|---|---|---|
-| `content/netplus/domain3/obj-3-1.html` | 5 | Closed. BCP, system life cycle, knowledge base article, and MOU were filled; clean-desk policy was dropped as out of scope — it appears in neither the objectives nor the v6.0 acronym list |
-| `content/netplus/domain3/obj-3-3.html` | 3 | Closed — active-active vs active-passive, tabletop exercises, validation tests |
-
-Domain 5 is complete — `obj-5-5.html`'s 17 GAPs were closed by populating the section, and 5.1–5.3 were closed against the Domain 5 handoff v2. Domain 3 is complete against the Domain 3 handoff v3 (all five phases).
-
-Remaining domains have handoff plans but no GAP markers, so the plans themselves are the to-do list — audit the live file before implementing any item.
-
-Delete a GAP comment only when you have replaced it with the content it names.
