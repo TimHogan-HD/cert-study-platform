@@ -247,6 +247,24 @@ const SCENARIOS = {
   'netplus/pbq/firewall-rules': [
     ['generated packet traces grade consistently', p => generatedScenariosGrade(p, 'firewall-rules-3')],
   ],
+  'netplus/pbq/exam': [
+    ['exam draws PBQs, hides checking, and grades on submit', async p => {
+      await p.selectOption('.exam-count', '3');
+      await p.click('.exam-begin');
+      await p.locator('.exam-stage .pbq').nth(2).waitFor({ state: 'attached' });
+      assert(await p.locator('.exam-stage .pbq:visible').count() === 1, 'more than one PBQ shown at once');
+      assert(!(await p.locator('.exam-stage .pbq-check').first().isVisible()), 'Check button visible during the exam');
+      const pages = await p.locator('.exam-stage .pbq').evaluateAll(els => els.map(e => e.dataset.pbq.replace(/-\d+$/, '')));
+      assert(new Set(pages).size === 3, `PBQs not from three different labs: ${pages}`);
+      await p.click('.exam-next');
+      assert(await p.locator('.exam-nav button.current').textContent() === '2', 'Next did not move to question 2');
+      await p.click('.exam-submit');
+      const score = await p.locator('.exam-score').textContent();
+      assert(/^\d+%$/.test(score), `no score shown: "${score}"`);
+      assert(await p.locator('.exam-stage .pbq-explain:visible').count() === 3, 'explanations not shown for review');
+      assert(!(await p.locator('.exam-bar').isVisible()), 'exam bar still shown after submit');
+    }],
+  ],
   'netplus/pbq/ip-addressing': [
     ['generated VLSM scenarios grade consistently and return placed chips', async p => {
       const q = p.locator('.pbq[data-pbq="ip-addressing-1"]');

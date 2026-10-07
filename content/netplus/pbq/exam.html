@@ -1,0 +1,34 @@
+<div class="section-eyebrow">PBQ Lab</div>
+<h1 class="section-title">PBQ Exam Mode</h1>
+<p class="section-sub">A timed set of random PBQs with no checking until you submit. The closest thing here to the start of the real exam.</p>
+
+<ul class="pbq-howto">
+  <li><strong>Each PBQ comes from a different lab.</strong> Addressing, routing, and firewall PBQs get fresh numbers every time.</li>
+  <li><strong>One clock for the whole set.</strong> It adds up each PBQ's exam pace, and the exam submits itself when time runs out.</li>
+  <li><strong>No Check or Show answers buttons.</strong> Move between PBQs with the numbers or Previous and Next, and flag any you want to come back to.</li>
+  <li><strong>Submit to see your score,</strong> then review every PBQ with its wrong fields marked and its explanation.</li>
+</ul>
+
+<div class="pbq-exam" data-pages="cli-troubleshooting ip-addressing routing switch-vlans firewall-rules wireless cabling-placement tools ports-methodology">
+  <div class="lab-panel exam-setup">
+    <div class="lab-panel-row">
+      <label><span class="pbq-label">Number of PBQs</span>
+        <select class="lab-input exam-count"><option>3</option><option selected>4</option><option>5</option><option>6</option></select>
+      </label>
+      <button type="button" class="exam-begin">Start exam</button>
+    </div>
+    <p class="sc-error exam-error"></p>
+  </div>
+  <div class="exam-bar" hidden>
+    <span class="exam-clock"></span>
+    <div class="exam-nav"></div>
+    <div class="exam-bar-actions">
+      <button type="button" class="exam-prev">← Previous</button>
+      <button type="button" class="exam-next">Next →</button>
+      <button type="button" class="exam-flag">Flag for review</button>
+      <button type="button" class="exam-submit">Submit exam</button>
+    </div>
+  </div>
+  <div class="exam-results lab-panel" hidden></div>
+  <div class="exam-stage"></div>
+</div>

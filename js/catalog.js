@@ -73,6 +73,7 @@ export const CERTS = [
           ['netplus/pbq/cabling-placement', 'Cabling & Device Placement'],
           ['netplus/pbq/tools', 'Tools & Cable Faults'],
           ['netplus/pbq/ports-methodology', 'Ports & Methodology'],
+          ['netplus/pbq/exam', 'Exam Mode'],
         ],
       },
     ],
