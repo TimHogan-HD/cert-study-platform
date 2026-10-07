@@ -3,9 +3,14 @@
 <p class="section-sub">Build a rule table from written requirements, put rules in the order that makes them work, and trace packets through a finished policy.</p>
 
 <div class="callout callout-blue">
-  <div class="callout-title">How a rule table is read</div>
-  The firewall compares each packet with the rules from the top down and acts on the <strong>first</strong> match. Nothing below that rule is checked. Anything that matches no rule hits the implicit deny at the end. So specific rules go above general ones, and a deny meant to override a permit has to sit above it.
+  <div class="callout-title">How a firewall reads its rules</div>
+  <ul>
+    <li>It checks rules <strong>from the top down</strong> and acts on the <strong>first</strong> rule that matches. Rules below it are never checked.</li>
+    <li>A packet that matches nothing is <strong>denied</strong> by the hidden rule at the end.</li>
+    <li>So specific rules go above general ones, and a deny that overrides a permit must sit above it.</li>
+  </ul>
 </div>
+<p>All three PBQs on this page use this network:</p>
 
 <div class="pbq-flow">
   <div class="pbq-node"><strong>Internet</strong>Any address</div>
@@ -25,7 +30,8 @@
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>Configure the firewall using the network above so that:</p>
+      <p>Fill in the five rules so the firewall does exactly what is listed below. Rule 1 is checked first.</p>
+      <div class="pbq-brief-label">Requirements</div>
       <ol>
         <li>Anyone on the internet can reach the public website on the web server, over an encrypted connection only.</li>
         <li>Mail servers on the internet can deliver email to the mail server.</li>
@@ -33,7 +39,7 @@
         <li>Only the admin workstation can open encrypted remote command-line sessions to any DMZ server.</li>
         <li>All other traffic is blocked.</li>
       </ol>
-      <p>Rule 1 is evaluated first.</p>
+      <p class="pbq-hint">Each requirement becomes one rule, in the same order.</p>
     </div>
 
     <div class="table-wrap">
@@ -97,7 +103,14 @@
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>Workstation <strong>10.0.1.66</strong> is beaconing to a command-and-control server and must lose all network access through the firewall immediately. Every other LAN host must keep web browsing and DNS lookups. Everything else stays blocked.</p>
+      <p>PC <strong>10.0.1.66</strong> is infected and is calling out to an attacker's server.</p>
+      <div class="pbq-brief-label">Requirements</div>
+      <ul>
+        <li>10.0.1.66 loses all access through the firewall.</li>
+        <li>Every other LAN PC keeps web browsing and DNS lookups.</li>
+        <li>Everything else stays blocked.</li>
+      </ul>
+      <div class="pbq-brief-label">Your task</div>
       <p>Drag the four rules into an order that meets every requirement.</p>
     </div>
 
@@ -137,7 +150,8 @@
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>The firewall below is in production. For each packet, select the number of the rule that decides what happens to it.</p>
+      <div class="pbq-brief-label">Your task</div>
+      <p>For each packet, find the first rule in the top table that matches it, and select that rule's number.</p>
     </div>
 
     <div class="table-wrap">

@@ -10,15 +10,23 @@
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>You have been given <strong>192.168.50.0/24</strong> for a new branch. Router R1 has three LAN interfaces and one point-to-point WAN link to the head office router.</p>
+      <p>A new branch office has been given <strong>192.168.50.0/24</strong>. Its router R1 has three LANs and one WAN link to head office.</p>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Drag a subnet onto each of R1's four interfaces.</li>
+        <li>Type R1's address on each interface.</li>
+        <li>Configure one Engineering PC and answer two questions about Management.</li>
+      </ol>
+      <div class="pbq-brief-label">Rules</div>
       <ul>
         <li>Give each segment the <strong>smallest subnet</strong> that holds its hosts.</li>
-        <li>Allocate from the start of the block, <strong>largest segment first</strong>, with no gaps.</li>
-        <li>Each LAN's default gateway is R1's interface, and it uses the <strong>first usable address</strong> in the subnet. R1 also takes the first usable address on the WAN link.</li>
+        <li>Hand out subnets <strong>largest segment first</strong>, starting at 192.168.50.0, with no gaps.</li>
+        <li>R1 always takes the <strong>first usable address</strong> in each subnet. On the LANs, that address is the default gateway.</li>
       </ul>
+      <p class="pbq-hint">Stuck? The <a href="#" class="inline-nav" data-path="netplus/pbq/subnet-calculator" data-anchor="sc-vlsm">subnet planner</a> explains the method.</p>
     </div>
 
-    <div class="pbq-step">Step 1. Drag a subnet onto each segment. Some subnets are not used.</div>
+    <div class="pbq-step">Steps 1 and 2. Subnet and router address for each interface. Four of the subnets are not used.</div>
     <div class="pbq-bank">
       <div class="pbq-bank-label">Subnets</div>
       <button type="button" class="pbq-chip" data-value="0-25">192.168.50.0/25</button>
@@ -66,7 +74,7 @@
       </div>
     </div>
 
-    <div class="pbq-step">Step 2. Configure an Engineering workstation and answer about Management.</div>
+    <div class="pbq-step">Step 3. One Engineering PC, and the Management subnet</div>
     <div class="pbq-cards">
       <div class="pbq-card">
         <div class="pbq-card-title">ENG-PC14</div>
@@ -120,8 +128,17 @@
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>The finance VLAN uses <strong>172.16.8.0/22</strong> with a default gateway of <strong>172.16.8.1</strong>. Several users report they cannot reach anything off their subnet. The settings below were collected from each workstation.</p>
-      <p>For each host, select the setting that is wrong, or <em>None</em> if the host is configured correctly.</p>
+      <p>Several finance users cannot reach anything outside their own subnet. You collected each PC's settings in the table below.</p>
+      <div class="pbq-brief-label">What you know</div>
+      <ul>
+        <li>The finance VLAN is <strong>172.16.8.0/22</strong>.</li>
+        <li>Its default gateway is <strong>172.16.8.1</strong>.</li>
+      </ul>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Work out the first and last address of 172.16.8.0/22.</li>
+        <li>For each PC, pick the setting that is wrong, or <em>None</em> if it is correct.</li>
+      </ol>
     </div>
 
     <div class="table-wrap">

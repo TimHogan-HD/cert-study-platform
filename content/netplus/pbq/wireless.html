@@ -10,7 +10,13 @@
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>Three access points cover one long office floor, west to east, and each one's coverage overlaps its neighbour's. Configure them so that:</p>
+      <p>Three access points sit in a row along one office floor. Each one's coverage overlaps the <abbr title="Access Point">AP</abbr> next to it.</p>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Fill in the four settings on each AP.</li>
+        <li>Fill in the authentication server that all three APs use.</li>
+      </ol>
+      <div class="pbq-brief-label">Requirements</div>
       <ul>
         <li>Employees can walk the length of the floor without reconnecting. The employee network name is <strong>CORP-STAFF</strong>.</li>
         <li>Each employee signs in with their own directory credentials, which are checked by the <abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> server at <strong>10.1.1.20</strong>.</li>
@@ -93,7 +99,12 @@
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>The help desk has escalated six wireless tickets. Drag the most likely cause onto each one. Two causes are not used.</p>
+      <p>The help desk has escalated six wireless tickets, and a new AP needs a channel.</p>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Drag the most likely cause onto each ticket. Two causes are not used.</li>
+        <li>Read the Wi-Fi analyzer results and pick a channel for the new AP.</li>
+      </ol>
     </div>
 
     <div class="pbq-bank">
@@ -108,6 +119,7 @@
       <button type="button" class="pbq-chip" data-value="mtu">MTU mismatch</button>
     </div>
 
+    <div class="pbq-step">Step 1. Tickets</div>
     <div class="pbq-rows">
       <div class="pbq-row"><div class="pbq-row-text">Handheld scanners drop off the network when staff walk to the far aisles of the warehouse. A survey there reads −84 dBm.</div><button type="button" class="pbq-slot" data-answer="coverage">Drop cause</button></div>
       <div class="pbq-row"><div class="pbq-row-text">Laptops in the break room lose their 2.4 GHz connection whenever someone runs the microwave.</div><button type="button" class="pbq-slot" data-answer="interference">Drop cause</button></div>
@@ -117,7 +129,7 @@
       <div class="pbq-row"><div class="pbq-row-text">Two APs at opposite ends of a hallway both use channel 6 at full power. Clients in the middle see constant retransmissions.</div><button type="button" class="pbq-slot" data-answer="overlap">Drop cause</button></div>
     </div>
 
-    <div class="pbq-step">A new AP is going into the storeroom. A Wi-Fi analyzer there shows these 2.4 GHz networks:</div>
+    <div class="pbq-step">Step 2. A new AP is going into the storeroom. A Wi-Fi analyzer there shows these 2.4 GHz networks:</div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>SSID</th><th>Channel</th><th>Signal</th></tr></thead>

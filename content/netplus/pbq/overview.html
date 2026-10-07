@@ -1,45 +1,14 @@
 <div class="section-eyebrow">PBQ Lab</div>
 <h1 class="section-title">How Performance-Based Questions Work</h1>
-<p class="section-sub">Hands-on practice for the simulation questions that open the Network+ exam. Every lab in this section is interactive and graded.</p>
+<p class="section-sub">Graded, hands-on practice for the simulation questions at the start of the Network+ exam.</p>
 
-<h2>What a PBQ looks like</h2>
-<p>A performance-based question puts a task in front of you instead of four answer choices. You might type commands into a simulated switch console, drag cable types onto a building diagram, fill in a firewall rule table, or assign subnets to router interfaces. Most PBQs have several fields, and each field is its own decision.</p>
-<p>They usually appear at the start of the exam, before the multiple-choice questions. You can flag a PBQ, move on, and return to it later. CompTIA does not publish how PBQs are scored, so treat every field as if it counts on its own and never leave one blank.</p>
-
-<div class="callout callout-amber">
-  <div class="callout-title">Time budget</div>
-  You get 90 minutes for up to 90 questions. A PBQ can easily eat 8 to 10 minutes. Read the whole task, fill in what you are sure of, and if the rest is not falling into place after about 5 minutes, flag it and come back once the multiple-choice questions are done.
-</div>
-
-<h2>A method that works on every PBQ</h2>
-<ol>
-  <li><strong>Read every requirement before you touch anything.</strong> PBQs hide constraints in the scenario text: "use the smallest subnet", "only the admin workstation", "users must roam between access points". Each one usually maps to exactly one field.</li>
-  <li><strong>Inventory what you have.</strong> Count the fields, the drag items, and the devices you can console into. If there are more drag items than slots, some are distractors. If an item can be used more than once, the instructions say so.</li>
-  <li><strong>Gather evidence before you answer.</strong> In a CLI simulation, run every command you are offered on every device. The answer is usually in the output of the command you did not think you needed.</li>
-  <li><strong>Answer the certain fields first,</strong> then use them to narrow the uncertain ones. A known subnet tells you the gateway; a known VLAN tells you the trunk.</li>
-  <li><strong>Re-read the requirements against your answers</strong> before you click Next. Most lost points are a requirement you read once and forgot.</li>
-</ol>
-
-<h2>How these labs work</h2>
-<div class="table-wrap">
-  <table>
-    <thead><tr><th>Control</th><th>What it does</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Drag items</strong></td><td>Drag a blue item onto a dashed slot. On a phone or with a keyboard, tap the item and then tap the slot. Tap a filled slot to empty it.</td></tr>
-      <tr><td><strong>Console</strong></td><td>Click a device tab, type a command, press Enter. <code>help</code> lists the commands that device accepts. Cisco devices accept abbreviations, so <code>sh ip int br</code> works. The up arrow recalls earlier commands.</td></tr>
-      <tr><td><strong>Timer</strong></td><td>Starts when you first touch a field and turns amber when you pass a realistic exam pace for that question. It never stops you.</td></tr>
-      <tr><td><strong>Check answers</strong></td><td>Marks each field green or red and shows the explanation. Fix the red fields and check again as often as you like.</td></tr>
-      <tr><td><strong>Show answers / Reset</strong></td><td>Fills in every answer, or clears the question so you can attempt it again from memory.</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<h2>The labs</h2>
+<h2>Pick a lab</h2>
+<p>New to PBQs? Start with the subnet drill and the first console simulation.</p>
 <div class="domain-quicknav">
   <a class="quicknav-card" href="#" data-path="netplus/pbq/subnet-calculator">
     <div class="quicknav-domain">Tool + drill</div>
     <div class="quicknav-title">Subnet Calculator &amp; Drill</div>
-    <div class="quicknav-pct">Calculator, VLSM planner, and a timed subnetting drill</div>
+    <div class="quicknav-pct">Calculator that shows its working, a timed drill, and a subnet planner</div>
   </a>
   <a class="quicknav-card" href="#" data-path="netplus/pbq/cli-troubleshooting">
     <div class="quicknav-domain">4 simulations</div>
@@ -76,4 +45,42 @@
     <div class="quicknav-title">Ports &amp; Methodology</div>
     <div class="quicknav-pct">Port numbers, secure replacements, and the 7 troubleshooting steps</div>
   </a>
+</div>
+
+<h2>What a PBQ is</h2>
+<ul class="pbq-howto">
+  <li><strong>A task instead of four answer choices.</strong> You type into a switch console, drag cables onto a diagram, fill in a firewall table, or assign subnets to a router.</li>
+  <li><strong>Several fields per question.</strong> Each field is its own decision, so treat every one as if it is scored separately. Never leave one blank.</li>
+  <li><strong>They usually come first in the exam.</strong> You can flag one, move on, and come back.</li>
+</ul>
+
+<div class="callout callout-amber">
+  <div class="callout-title">Time budget</div>
+  <ul>
+    <li>90 minutes for up to 90 questions. One PBQ can take 8 to 10 minutes.</li>
+    <li>Fill in what you are sure of. If the rest isn't coming after about 5 minutes, flag it and come back after the multiple-choice questions.</li>
+  </ul>
+</div>
+
+<h2>Five steps for any PBQ</h2>
+<ol class="pbq-howto">
+  <li><strong>Read every requirement first.</strong> Phrases like "smallest subnet" or "only the admin workstation" each decide one field.</li>
+  <li><strong>Count what you have.</strong> More drag items than slots means some are distractors.</li>
+  <li><strong>Gather evidence before answering.</strong> In a console, run every command on every device.</li>
+  <li><strong>Answer the sure fields first.</strong> A known subnet gives you the gateway. A known VLAN gives you the trunk.</li>
+  <li><strong>Re-check every requirement</strong> against your answers before moving on.</li>
+</ol>
+
+<h2>Controls in these labs</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Control</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Drag items</strong></td><td>Drag a blue item onto a dashed box. On a phone, tap the item, then tap the box. Tap a filled box to empty it.</td></tr>
+      <tr><td><strong>Console</strong></td><td>Pick a device tab, type a command, press Enter. <code>help</code> lists the commands. The up arrow repeats earlier ones.</td></tr>
+      <tr><td><strong>Timer</strong></td><td>Starts when you touch a field. Turns amber when you pass exam pace. It never stops you.</td></tr>
+      <tr><td><strong>Check answers</strong></td><td>Marks each field green or red and shows the explanation.</td></tr>
+      <tr><td><strong>Show answers / Reset</strong></td><td>Fills in every answer, or clears the question to try again.</td></tr>
+    </tbody>
+  </table>
 </div>

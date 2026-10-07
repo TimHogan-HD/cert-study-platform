@@ -10,7 +10,14 @@
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>SW-FL2 is a new access switch. Configure each port for the device connected to it, using these VLANs:</p>
+      <p>SW-FL2 is a new access switch. Configure each port for the device plugged into it.</p>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>For each port, choose <strong>Access</strong> (one device, one VLAN) or <strong>Trunk</strong> (carries several VLANs).</li>
+        <li>Choose its VLAN. For a trunk, that is the native (untagged) VLAN.</li>
+        <li>Choose a voice VLAN only where there is a phone.</li>
+      </ol>
+      <div class="pbq-brief-label">VLANs</div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>VLAN</th><th>Name</th><th>Use</th></tr></thead>
@@ -24,7 +31,6 @@
           </tbody>
         </table>
       </div>
-      <p>For a trunk, the VLAN column is its native VLAN. For an access port, it is the access VLAN.</p>
     </div>
 
     <div class="table-wrap">
@@ -86,8 +92,18 @@
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>After last night's change window, nobody can print to the printers in Building 2, which are on VLAN 30. Staff PCs in Building 2 (VLAN 10) still work, and printers in Building 1 work. SW-DIST in Building 1 connects to SW-BLDG2 over a trunk.</p>
-      <p>Find the problem and choose the command that fixes it without breaking anything else.</p>
+      <p>Since last night's change window, nobody can print to the Building 2 printers.</p>
+      <div class="pbq-brief-label">What you know</div>
+      <ul>
+        <li>Printers are on VLAN 30. Building 1 printers still work.</li>
+        <li>Building 2 staff PCs, on VLAN 10, still work.</li>
+        <li>SW-DIST in Building 1 connects to SW-BLDG2 with a trunk.</li>
+      </ul>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Compare the trunk on both switches.</li>
+        <li>Pick the cause, the fix, and how to check the fix. The fix must not break anything else.</li>
+      </ol>
     </div>
 
     <div class="terminal pbq-term">

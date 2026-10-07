@@ -171,8 +171,10 @@ const SCENARIOS = {
     ['calculator recomputes as you type', async p => {
       await p.fill('.sc-ip', '10.0.0.200');
       await p.fill('.sc-prefix', '255.255.255.224');
-      const text = await p.locator('.sc-results').textContent();
+      const text = await p.locator('.sc-out').textContent();
       assert(text.includes('10.0.0.192/27') && text.includes('10.0.0.223'), `wrong subnet: ${text}`);
+      assert(text.includes('256 − 224 = 32'), 'magic number working not shown');
+      assert(await p.locator('.sc-out .ip-v2-cell-split').count() === 3, 'split octet not marked in the binary view');
     }],
     ['VLSM planner allocates largest first', async p => {
       const text = await p.locator('.vlsm-out').textContent();
