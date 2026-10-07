@@ -75,6 +75,8 @@ Every fragment swap replaces the DOM, so inits attach listeners to fresh element
 | `initBinaryBits()` | `components/binary-bits.js` | `#bit-grid`, `#bit-total`, `.binary-bit-cell` |
 | `initGuidedSubnetting()` | `components/guided-subnetting.js` | `#subnet-guide`, `#sg-body` |
 | `initPbq()` | `components/pbq.js` | `.pbq` holding `.pbq-field` / `.pbq-slot` + `.pbq-bank` — graded by `data-check` (a `CHECKS` key) against `data-answer` |
+| `initPbqProgress()` | `components/pbq.js` | `[data-pbqs]` cards on the PBQ overview; passes are stored by each `.pbq`'s `data-pbq` id |
+| `initPbqGenerators()` | `components/pbq-generators.js` | `.pbq[data-generator]` — a `GENERATORS` entry rewrites the PBQ's `data-gen` hooks |
 | `initPbqTerminals()` | `components/pbq-terminal.js` | `.pbq-term` with one `.pbq-term-host` per device, each answering its `<template data-cmd>` children |
 | `initSubnetTools()` | `components/subnet-calc.js` | `.subnet-calc`, `.vlsm`, `.subnet-drill` |
 

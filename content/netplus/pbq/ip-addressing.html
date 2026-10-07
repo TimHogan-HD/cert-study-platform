@@ -3,14 +3,14 @@
 <p class="section-sub">Carve an address block into subnets for a router, then find the hosts that were configured wrong.</p>
 
 <!-- ── PBQ 1: VLSM design ───────────────────────────────────── -->
-<div class="pbq" data-pbq="ip-addressing-1" data-minutes="8">
+<div class="pbq" data-pbq="ip-addressing-1" data-generator="vlsm" data-minutes="8">
   <div class="pbq-head">
     <div><div class="pbq-kicker">PBQ 1 · Subnet design</div><h2>Address a branch office router</h2></div>
     <span class="pbq-timer"></span>
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>A new branch office has been given <strong>192.168.50.0/24</strong>. Its router R1 has three LANs and one WAN link to head office.</p>
+      <p>A new branch office has been given <strong data-gen="block">192.168.50.0/24</strong>. Its router R1 has three LANs and one WAN link to head office.</p>
       <div class="pbq-brief-label">Your task</div>
       <ol>
         <li>Drag a subnet onto each of R1's four interfaces.</li>
@@ -20,7 +20,7 @@
       <div class="pbq-brief-label">Rules</div>
       <ul>
         <li>Give each segment the <strong>smallest subnet</strong> that holds its hosts.</li>
-        <li>Hand out subnets <strong>largest segment first</strong>, starting at 192.168.50.0, with no gaps.</li>
+        <li>Hand out subnets <strong>largest segment first</strong>, starting at <span data-gen="start">192.168.50.0</span>, with no gaps.</li>
         <li>R1 always takes the <strong>first usable address</strong> in each subnet. On the LANs, that address is the default gateway.</li>
       </ul>
       <p class="pbq-hint">Stuck? The <a href="#" class="inline-nav" data-path="netplus/pbq/subnet-calculator" data-anchor="sc-vlsm">subnet planner</a> explains the method.</p>
@@ -29,48 +29,48 @@
     <div class="pbq-step">Steps 1 and 2. Subnet and router address for each interface. Four of the subnets are not used.</div>
     <div class="pbq-bank">
       <div class="pbq-bank-label">Subnets</div>
-      <button type="button" class="pbq-chip" data-value="0-25">192.168.50.0/25</button>
-      <button type="button" class="pbq-chip" data-value="96-29">192.168.50.96/29</button>
-      <button type="button" class="pbq-chip" data-value="64-27">192.168.50.64/27</button>
-      <button type="button" class="pbq-chip" data-value="112-30">192.168.50.112/30</button>
-      <button type="button" class="pbq-chip" data-value="0-26">192.168.50.0/26</button>
-      <button type="button" class="pbq-chip" data-value="64-28">192.168.50.64/28</button>
-      <button type="button" class="pbq-chip" data-value="112-29">192.168.50.112/29</button>
-      <button type="button" class="pbq-chip" data-value="96-28">192.168.50.96/28</button>
+      <button type="button" class="pbq-chip" data-gen="chip" data-value="0-25">192.168.50.0/25</button>
+      <button type="button" class="pbq-chip" data-gen="chip" data-value="96-29">192.168.50.96/29</button>
+      <button type="button" class="pbq-chip" data-gen="chip" data-value="64-27">192.168.50.64/27</button>
+      <button type="button" class="pbq-chip" data-gen="chip" data-value="112-30">192.168.50.112/30</button>
+      <button type="button" class="pbq-chip" data-gen="chip" data-value="0-26">192.168.50.0/26</button>
+      <button type="button" class="pbq-chip" data-gen="chip" data-value="64-28">192.168.50.64/28</button>
+      <button type="button" class="pbq-chip" data-gen="chip" data-value="112-29">192.168.50.112/29</button>
+      <button type="button" class="pbq-chip" data-gen="chip" data-value="96-28">192.168.50.96/28</button>
     </div>
 
     <div class="pbq-cards">
       <div class="pbq-card">
         <div class="pbq-card-title">R1 Gi0/0 · Sales</div>
-        <div class="pbq-card-sub">60 hosts</div>
+        <div class="pbq-card-sub" data-gen="hosts-sales">60 hosts</div>
         <span class="pbq-label">Subnet</span>
-        <button type="button" class="pbq-slot" data-answer="0-26">Drop subnet</button>
+        <button type="button" class="pbq-slot" data-gen="slot-sales" data-answer="0-26">Drop subnet</button>
         <label class="pbq-label">Default gateway (R1 Gi0/0)</label>
-        <input class="lab-input pbq-field" data-check="ip" data-answer="192.168.50.1" spellcheck="false" autocomplete="off">
+        <input class="lab-input pbq-field" data-gen="gw-sales" data-check="ip" data-answer="192.168.50.1" spellcheck="false" autocomplete="off">
       </div>
       <div class="pbq-card">
         <div class="pbq-card-title">R1 Gi0/1 · Engineering</div>
-        <div class="pbq-card-sub">28 hosts</div>
+        <div class="pbq-card-sub" data-gen="hosts-eng">28 hosts</div>
         <span class="pbq-label">Subnet</span>
-        <button type="button" class="pbq-slot" data-answer="64-27">Drop subnet</button>
+        <button type="button" class="pbq-slot" data-gen="slot-eng" data-answer="64-27">Drop subnet</button>
         <label class="pbq-label">Default gateway (R1 Gi0/1)</label>
-        <input class="lab-input pbq-field" data-check="ip" data-answer="192.168.50.65" spellcheck="false" autocomplete="off">
+        <input class="lab-input pbq-field" data-gen="gw-eng" data-check="ip" data-answer="192.168.50.65" spellcheck="false" autocomplete="off">
       </div>
       <div class="pbq-card">
         <div class="pbq-card-title">R1 Gi0/2 · Management</div>
-        <div class="pbq-card-sub">12 hosts</div>
+        <div class="pbq-card-sub" data-gen="hosts-mgmt">12 hosts</div>
         <span class="pbq-label">Subnet</span>
-        <button type="button" class="pbq-slot" data-answer="96-28">Drop subnet</button>
+        <button type="button" class="pbq-slot" data-gen="slot-mgmt" data-answer="96-28">Drop subnet</button>
         <label class="pbq-label">Default gateway (R1 Gi0/2)</label>
-        <input class="lab-input pbq-field" data-check="ip" data-answer="192.168.50.97" spellcheck="false" autocomplete="off">
+        <input class="lab-input pbq-field" data-gen="gw-mgmt" data-check="ip" data-answer="192.168.50.97" spellcheck="false" autocomplete="off">
       </div>
       <div class="pbq-card">
         <div class="pbq-card-title">R1 S0/0/0 · WAN to head office</div>
         <div class="pbq-card-sub">2 hosts (R1 and the head office router)</div>
         <span class="pbq-label">Subnet</span>
-        <button type="button" class="pbq-slot" data-answer="112-30">Drop subnet</button>
+        <button type="button" class="pbq-slot" data-gen="slot-wan" data-answer="112-30">Drop subnet</button>
         <label class="pbq-label">R1 S0/0/0 address</label>
-        <input class="lab-input pbq-field" data-check="ip" data-answer="192.168.50.113" spellcheck="false" autocomplete="off">
+        <input class="lab-input pbq-field" data-gen="gw-wan" data-check="ip" data-answer="192.168.50.113" spellcheck="false" autocomplete="off">
       </div>
     </div>
 
@@ -80,17 +80,17 @@
         <div class="pbq-card-title">ENG-PC14</div>
         <div class="pbq-card-sub">Any valid host address works</div>
         <label class="pbq-label">IPv4 address</label>
-        <input class="lab-input pbq-field" data-check="host" data-net="192.168.50.64/27" data-not="192.168.50.65" data-show="192.168.50.70" spellcheck="false" autocomplete="off">
+        <input class="lab-input pbq-field" data-gen="pc-ip" data-check="host" data-net="192.168.50.64/27" data-not="192.168.50.65" data-show="192.168.50.70" spellcheck="false" autocomplete="off">
         <label class="pbq-label">Subnet mask (dotted decimal or /prefix)</label>
-        <input class="lab-input pbq-field" data-check="mask" data-answer="255.255.255.224" spellcheck="false" autocomplete="off">
+        <input class="lab-input pbq-field" data-gen="pc-mask" data-check="mask" data-answer="255.255.255.224" spellcheck="false" autocomplete="off">
       </div>
       <div class="pbq-card">
         <div class="pbq-card-title">Management subnet</div>
         <div class="pbq-card-sub">&nbsp;</div>
         <label class="pbq-label">Broadcast address</label>
-        <input class="lab-input pbq-field" data-check="ip" data-answer="192.168.50.111" spellcheck="false" autocomplete="off">
+        <input class="lab-input pbq-field" data-gen="mgmt-bc" data-check="ip" data-answer="192.168.50.111" spellcheck="false" autocomplete="off">
         <label class="pbq-label">Last usable host address</label>
-        <input class="lab-input pbq-field" data-check="ip" data-answer="192.168.50.110" spellcheck="false" autocomplete="off">
+        <input class="lab-input pbq-field" data-gen="mgmt-last" data-check="ip" data-answer="192.168.50.110" spellcheck="false" autocomplete="off">
       </div>
     </div>
 
@@ -98,6 +98,7 @@
     <div class="pbq-result" hidden></div>
     <div class="pbq-explain" hidden>
       <div class="pbq-explain-title">Explanation</div>
+      <div data-gen="explain">
       <div class="table-wrap">
         <table>
           <thead><tr><th>Segment</th><th>Hosts</th><th>Smallest fit</th><th>Subnet</th><th>Usable range</th><th>Broadcast</th></tr></thead>
@@ -115,13 +116,14 @@
         <li><strong>The distractors</strong> are the right start with the wrong size: 192.168.50.64/28 holds only 14 hosts, 192.168.50.96/29 only 6, and 192.168.50.112/29 holds the WAN link but wastes 4 addresses.</li>
         <li><strong>ENG-PC14</strong> can use any address from .66 to .94. .65 is the gateway, .64 is the network address, and .95 is the broadcast. The mask for /27 is 255.255.255.224.</li>
       </ul>
-      <p>Check your plan in the <a href="#" class="inline-nav" data-path="netplus/pbq/subnet-calculator">VLSM planner</a>: its default segments are this question.</p>
+      </div>
+      <p>Type this question's hosts into the <a href="#" class="inline-nav" data-path="netplus/pbq/subnet-calculator" data-anchor="sc-vlsm">subnet planner</a> to see the same plan with its working.</p>
     </div>
   </div>
 </div>
 
 <!-- ── PBQ 2: misconfigured hosts ───────────────────────────── -->
-<div class="pbq" data-pbq="ip-addressing-2" data-minutes="6">
+<div class="pbq" data-pbq="ip-addressing-2" data-generator="misconfig" data-minutes="6">
   <div class="pbq-head">
     <div><div class="pbq-kicker">PBQ 2 · Troubleshoot addressing</div><h2>Find the misconfigured hosts</h2></div>
     <span class="pbq-timer"></span>
@@ -131,12 +133,12 @@
       <p>Several finance users cannot reach anything outside their own subnet. You collected each PC's settings in the table below.</p>
       <div class="pbq-brief-label">What you know</div>
       <ul>
-        <li>The finance VLAN is <strong>172.16.8.0/22</strong>.</li>
-        <li>Its default gateway is <strong>172.16.8.1</strong>.</li>
+        <li>The finance VLAN is <strong data-gen="net">172.16.8.0/22</strong>.</li>
+        <li>Its default gateway is <strong data-gen="gateway">172.16.8.1</strong>.</li>
       </ul>
       <div class="pbq-brief-label">Your task</div>
       <ol>
-        <li>Work out the first and last address of 172.16.8.0/22.</li>
+        <li>Work out the first and last address of <span data-gen="net">172.16.8.0/22</span>.</li>
         <li>For each PC, pick the setting that is wrong, or <em>None</em> if it is correct.</li>
       </ol>
     </div>
@@ -145,17 +147,17 @@
       <table>
         <thead><tr><th>Host</th><th>IPv4 address</th><th>Subnet mask</th><th>Default gateway</th><th>Wrong setting</th></tr></thead>
         <tbody>
-          <tr><td class="pbq-fixed">FIN-01</td><td><code>172.16.11.200</code></td><td><code>255.255.252.0</code></td><td><code>172.16.8.1</code></td>
+          <tr data-gen="row"><td class="pbq-fixed">FIN-01</td><td><code data-gen="ip">172.16.11.200</code></td><td><code data-gen="mask">255.255.252.0</code></td><td><code data-gen="gw">172.16.8.1</code></td>
             <td><select class="lab-input pbq-field" data-answer="None"><option value="">Select…</option><option>None</option><option>IP address</option><option>Subnet mask</option><option>Default gateway</option></select></td></tr>
-          <tr><td class="pbq-fixed">FIN-02</td><td><code>172.16.11.255</code></td><td><code>255.255.252.0</code></td><td><code>172.16.8.1</code></td>
+          <tr data-gen="row"><td class="pbq-fixed">FIN-02</td><td><code data-gen="ip">172.16.11.255</code></td><td><code data-gen="mask">255.255.252.0</code></td><td><code data-gen="gw">172.16.8.1</code></td>
             <td><select class="lab-input pbq-field" data-answer="IP address"><option value="">Select…</option><option>None</option><option>IP address</option><option>Subnet mask</option><option>Default gateway</option></select></td></tr>
-          <tr><td class="pbq-fixed">FIN-03</td><td><code>172.16.9.40</code></td><td><code>255.255.255.0</code></td><td><code>172.16.8.1</code></td>
+          <tr data-gen="row"><td class="pbq-fixed">FIN-03</td><td><code data-gen="ip">172.16.9.40</code></td><td><code data-gen="mask">255.255.255.0</code></td><td><code data-gen="gw">172.16.8.1</code></td>
             <td><select class="lab-input pbq-field" data-answer="Subnet mask"><option value="">Select…</option><option>None</option><option>IP address</option><option>Subnet mask</option><option>Default gateway</option></select></td></tr>
-          <tr><td class="pbq-fixed">FIN-04</td><td><code>172.16.10.17</code></td><td><code>255.255.252.0</code></td><td><code>172.16.10.1</code></td>
+          <tr data-gen="row"><td class="pbq-fixed">FIN-04</td><td><code data-gen="ip">172.16.10.17</code></td><td><code data-gen="mask">255.255.252.0</code></td><td><code data-gen="gw">172.16.10.1</code></td>
             <td><select class="lab-input pbq-field" data-answer="Default gateway"><option value="">Select…</option><option>None</option><option>IP address</option><option>Subnet mask</option><option>Default gateway</option></select></td></tr>
-          <tr><td class="pbq-fixed">FIN-05</td><td><code>172.16.10.0</code></td><td><code>255.255.252.0</code></td><td><code>172.16.8.1</code></td>
+          <tr data-gen="row"><td class="pbq-fixed">FIN-05</td><td><code data-gen="ip">172.16.10.0</code></td><td><code data-gen="mask">255.255.252.0</code></td><td><code data-gen="gw">172.16.8.1</code></td>
             <td><select class="lab-input pbq-field" data-answer="None"><option value="">Select…</option><option>None</option><option>IP address</option><option>Subnet mask</option><option>Default gateway</option></select></td></tr>
-          <tr><td class="pbq-fixed">FIN-06</td><td><code>172.16.12.5</code></td><td><code>255.255.252.0</code></td><td><code>172.16.8.1</code></td>
+          <tr data-gen="row"><td class="pbq-fixed">FIN-06</td><td><code data-gen="ip">172.16.12.5</code></td><td><code data-gen="mask">255.255.252.0</code></td><td><code data-gen="gw">172.16.8.1</code></td>
             <td><select class="lab-input pbq-field" data-answer="IP address"><option value="">Select…</option><option>None</option><option>IP address</option><option>Subnet mask</option><option>Default gateway</option></select></td></tr>
         </tbody>
       </table>
@@ -165,6 +167,7 @@
     <div class="pbq-result" hidden></div>
     <div class="pbq-explain" hidden>
       <div class="pbq-explain-title">Explanation</div>
+      <div data-gen="explain">
       <p>A /22 has a block size of 4 in the third octet, so 172.16.8.0/22 runs from <code>172.16.8.0</code> (network) to <code>172.16.11.255</code> (broadcast). Usable hosts are 172.16.8.1 through 172.16.11.254.</p>
       <ul>
         <li><strong>FIN-01</strong> is correct. 172.16.11.200 is inside the range.</li>
@@ -174,6 +177,7 @@
         <li><strong>FIN-05</strong> is correct, and it is the trap. 172.16.10.0 ends in .0, but in a /22 it is an ordinary host address. Only 172.16.8.0 is the network address.</li>
         <li><strong>FIN-06</strong> is in 172.16.12.0/22, the next block, so it is on a different subnet from its gateway.</li>
       </ul>
+      </div>
     </div>
   </div>
 </div>

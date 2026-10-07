@@ -52,6 +52,20 @@ async function matchOnePair(page, game) {
   assert(/^1 \//.test(await g.locator('.match-score').textContent()), `${game}: score did not reach 1`);
 }
 
+/* Generate several scenarios; the revealed answers must always grade as all correct. */
+async function generatedScenariosGrade(page, id) {
+  const q = page.locator(`.pbq[data-pbq="${id}"]`);
+  for (let i = 0; i < 5; i++) {
+    const before = await q.locator('[data-gen="explain"]').innerHTML();
+    await q.locator('.pbq-new').click();
+    assert(await q.locator('[data-gen="explain"]').innerHTML() !== before, `${id}: explanation not regenerated`);
+    await q.locator('.pbq-reveal').click();
+    await q.locator('.pbq-check').click();
+    const result = await q.locator('.pbq-result').textContent();
+    assert(/^All /.test(result), `${id} scenario ${i + 1}: ${result}`);
+  }
+}
+
 const SCENARIOS = {
   home: [
     ['cert card opens the Net+ overview', async p => {
@@ -221,6 +235,7 @@ const SCENARIOS = {
     }],
   ],
   'netplus/pbq/routing': [
+    ['generated route lookups grade consistently', p => generatedScenariosGrade(p, 'routing-2')],
     ['console handles piped show commands', async p => {
       const term = p.locator('.pbq-term').first();
       await term.locator('.pbq-term-tab', { hasText: 'R1' }).click();
@@ -229,7 +244,19 @@ const SCENARIOS = {
       assert((await term.locator('.pbq-term-out:visible').textContent()).includes('ip route 172.20.4.0'), 'piped command not answered');
     }],
   ],
+  'netplus/pbq/firewall-rules': [
+    ['generated packet traces grade consistently', p => generatedScenariosGrade(p, 'firewall-rules-3')],
+  ],
   'netplus/pbq/ip-addressing': [
+    ['generated VLSM scenarios grade consistently and return placed chips', async p => {
+      const q = p.locator('.pbq[data-pbq="ip-addressing-1"]');
+      await q.locator('.pbq-chip').first().click();
+      await q.locator('.pbq-slot').first().click();
+      await generatedScenariosGrade(p, 'ip-addressing-1');
+      await q.locator('.pbq-new').click();
+      assert(await q.locator('.pbq-chip:visible').count() === 8, 'a chip stayed hidden after New scenario');
+    }],
+    ['generated misconfiguration scenarios grade consistently', p => generatedScenariosGrade(p, 'ip-addressing-2')],
     ['chips place by click and return when cleared', async p => {
       const q = p.locator('.pbq').first();
       const chip = q.locator('.pbq-chip[data-value="0-26"]');
