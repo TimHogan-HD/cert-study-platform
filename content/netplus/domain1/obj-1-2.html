@@ -143,7 +143,7 @@
       <div class="device-card">
         <div class="device-card-name"><abbr title="Storage Area Network">SAN</abbr></div>
         <div class="device-card-desc">Block-level storage over a dedicated network</div>
-        <div class="device-card-detail"><strong><abbr title="Storage Area Network">SAN</abbr>:</strong> a dedicated high-speed network that provides block-level storage to servers. Servers treat a SAN <abbr title="Logical Unit Number">LUN</abbr> as a locally attached disk — the OS formats and mounts it directly. Protocols: <strong>Fibre Channel (<abbr title="Fiber Channel">FC</abbr>)</strong>, <strong>iSCSI</strong> (FC over IP), <strong>FCoE</strong>. Not accessible as a file share.</div>
+        <div class="device-card-detail"><strong><abbr title="Storage Area Network">SAN</abbr>:</strong> a dedicated high-speed network that provides block-level storage to servers. Servers treat a SAN <abbr title="Logical Unit Number">LUN</abbr> as a locally attached disk — the OS formats and mounts it directly. Protocols: <strong>Fibre Channel (<abbr title="Fibre Channel">FC</abbr>)</strong>, <strong>iSCSI</strong> (SCSI commands over TCP/IP, no FC involved), <strong>FCoE</strong> (FC frames over Ethernet). Not accessible as a file share.</div>
       </div>
       <div class="device-card">
         <div class="device-card-name"><abbr title="Direct-Attached Storage">DAS</abbr></div>
@@ -296,7 +296,7 @@
       <tbody>
         <tr><td><strong>QoS / <abbr title="Differentiated Services Code Point">DSCP</abbr></strong></td><td>L3</td><td>IP header <abbr title="Differentiated Services Code Point">DSCP</abbr> field (6-bit) marks packet priority</td><td>EF (Expedited Forwarding) = VoIP, DSCP 46; AF = Assured Forwarding; BE = Best Effort (default, 0)</td></tr>
         <tr><td><strong>CoS</strong></td><td>L2</td><td>802.1p 3-bit field in 802.1Q VLAN tag marks priority</td><td>0–7; only present on tagged (trunk) frames; lost at L3 boundary</td></tr>
-        <tr><td><strong>Traffic Shaping</strong></td><td>L3–L4</td><td>Buffers excess traffic to smooth bursts — adds latency but no drops</td><td>Smooth, compliant with contracted rate; introduces delay</td></tr>
+        <tr><td><strong>Traffic Shaping</strong></td><td>L3–L4</td><td>Buffers excess traffic to smooth bursts — adds latency; drops only when the buffer overflows</td><td>Smooth, compliant with contracted rate; introduces delay</td></tr>
         <tr><td><strong>Traffic Policing</strong></td><td>L3–L4</td><td>Drops or re-marks packets that exceed a defined rate — no buffering</td><td>Bursty drops; typically at <abbr title="Internet Service Provider">ISP</abbr> edge or WAN handoff</td></tr>
         <tr><td><strong>Queuing</strong></td><td>L3</td><td>Scheduler determines order packets leave interface</td><td><abbr title="Priority Queuing">PQ</abbr> = strict priority; <abbr title="Weighted Fair Queuing">WFQ</abbr> = bandwidth share; <abbr title="Class-Based WFQ">CBWFQ</abbr> = class-defined bandwidth</td></tr>
       </tbody>
@@ -329,7 +329,3 @@
     <button class="ai-explain-btn" data-topic="IDS vs IPS placement and function">✦ Explain Differently</button>
   </div>
 </div>
-
-<!-- ═══════════════════════════════════════════
-     OBJ 1.3 — Network Topologies
-     ═══════════════════════════════════════════ -->

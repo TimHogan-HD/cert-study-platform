@@ -43,7 +43,7 @@
   <div class="callout callout-blue">
     <div class="callout-title">Duplex Mismatch Pattern</div>
     <p><strong>Situation:</strong> One side of link is full-duplex, other side is half-duplex (or auto-negotiate mismatch).</p>
-    <p><strong>Symptoms:</strong> Late collisions, runts, CRC errors on the half-duplex side; intermittent slowness; performance degrades under load.</p>
+    <p><strong>Symptoms:</strong> Late collisions on the half-duplex side; CRC errors and runts on the full-duplex side; intermittent slowness; performance degrades under load.</p>
     <p><strong>Fix:</strong> Hard-code both ends to matching duplex and speed, or let both auto-negotiate (both sides must be set to auto).</p>
     <p><strong>Key rule:</strong> If one side is hardcoded and the other is auto, the auto side will negotiate speed correctly but default to <em>half-duplex</em> — causing a mismatch even though the link is up.</p>
   </div>
@@ -56,7 +56,7 @@
         <tr><td>Open circuit</td><td>No link light; no connectivity</td><td>Cable tester shows open on affected pair(s)</td></tr>
         <tr><td>Short circuit</td><td>No link light or intermittent</td><td>Cable tester shows short between pairs</td></tr>
         <tr><td>Crossed pairs</td><td>No link (if wrong pairs); intermittent</td><td>Cable tester shows incorrect pin mapping</td></tr>
-        <tr><td>Attenuation</td><td>High error rates, poor performance over long runs</td><td>TDR measures signal loss; OTDR for fiber</td></tr>
+        <tr><td>Attenuation</td><td>High error rates, poor performance over long runs</td><td>Cable certifier measures attenuation (dB loss); TDR/OTDR locate the fault and its distance</td></tr>
         <tr><td>NEXT (Near-End Crosstalk)</td><td>High error rates, especially at high speeds</td><td>Cable tester with NEXT measurement</td></tr>
         <tr><td>EMI interference</td><td>Intermittent errors near electrical equipment</td><td>Move cable; use <abbr title="Shielded Twisted Pair">STP</abbr> or fiber in high-EMI areas</td></tr>
         <tr><td>Bent/kinked fiber</td><td>High optical loss; OTDR shows loss spike at bend</td><td>OTDR; visual inspection; VFL shows red glow at bend</td></tr>

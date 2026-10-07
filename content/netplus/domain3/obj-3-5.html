@@ -21,7 +21,7 @@
         </tr>
         <tr>
           <td><strong>SSL/<abbr title="Transport Layer Security">TLS</abbr> VPN</strong></td>
-          <td>Uses <abbr title="HTTP Secure">HTTPS</abbr> (port 443) — traverses firewalls easily. Browser-based or thin client. (Also called SSTP, OpenVPN).</td>
+          <td>Uses <abbr title="HTTP Secure">HTTPS</abbr> (port 443) — traverses firewalls easily. Browser-based or thin client. SSTP and OpenVPN are TLS-based VPN protocols in the same family.</td>
           <td>Clientless access to web apps, easy deployment through <abbr title="Network Address Translation">NAT</abbr>/firewalls.</td>
         </tr>
         <tr>
@@ -131,7 +131,7 @@
         <tr><td><strong>Port</strong></td><td>1812 (auth), 1813 (accounting)</td><td>49</td></tr>
         <tr><td><strong>Encryption</strong></td><td>Encrypts only the password field</td><td>Encrypts the entire packet payload</td></tr>
         <tr><td><strong><abbr title="Authentication, Authorization, and Accounting">AAA</abbr> Separation</strong></td><td>Combines Authentication + Authorization</td><td>Separates Authentication, Authorization, Accounting independently</td></tr>
-        <tr><td><strong>Origin</strong></td><td>Open standard (<abbr title="Request for Comments">RFC</abbr> 2865/2866)</td><td>Cisco proprietary (+ extensions)</td></tr>
+        <tr><td><strong>Origin</strong></td><td>Open standard (<abbr title="Request for Comments">RFC</abbr> 2865/2866)</td><td>Cisco-developed; published as RFC 8907 (2020)</td></tr>
         <tr><td><strong>Best For</strong></td><td>Network access (Wi-Fi, VPN, 802.1X)</td><td>Network device administration (router/switch management)</td></tr>
         <tr><td><strong>Accountability</strong></td><td>Limited — combined auth/authz</td><td>Granular per-command authorization and accounting</td></tr>
       </tbody>

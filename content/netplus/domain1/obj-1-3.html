@@ -160,7 +160,8 @@
       </thead>
       <tbody>
         <tr><td><strong>AWS Security Group / Azure NSG</strong></td><td>Virtual firewall</td><td>Yes (stateful)</td><td>Per-instance / per-NIC</td><td>Return traffic automatically allowed; rules apply to specific resources</td></tr>
-        <tr><td><strong>AWS <abbr title="Network Access Control List">NACL</abbr> / OCI Security List</strong></td><td>Subnet <abbr title="Access Control List">ACL</abbr></td><td>No (stateless)</td><td>Per-subnet</td><td>Must explicitly allow both inbound AND outbound for each flow</td></tr>
+        <tr><td><strong>AWS <abbr title="Network Access Control List">NACL</abbr></strong></td><td>Subnet <abbr title="Access Control List">ACL</abbr></td><td>No (stateless)</td><td>Per-subnet</td><td>Must explicitly allow both inbound AND outbound for each flow</td></tr>
+        <tr><td><strong>OCI Security List</strong></td><td>Subnet rule set</td><td>Per rule (stateful by default)</td><td>Per-subnet</td><td>Each rule is marked stateful or stateless; stateless rules need a matching return rule</td></tr>
         <tr><td><strong>Internet Gateway</strong></td><td>VPC attachment</td><td>N/A</td><td>VPC-level</td><td>Bidirectional public internet access for resources with public IPs</td></tr>
         <tr><td><strong><abbr title="Network Address Translation">NAT</abbr> Gateway / NAT Instance</strong></td><td>Address translation</td><td>Yes</td><td>VPC-level</td><td>Outbound-only internet for private subnet instances — no inbound initiated connections</td></tr>
       </tbody>

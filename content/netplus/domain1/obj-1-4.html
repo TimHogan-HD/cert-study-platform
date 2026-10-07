@@ -401,11 +401,11 @@
         <tr><th>Protocol #</th><th>Name</th><th>Notes</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>1</strong></td><td><abbr title="Internet Control Message Protocol">ICMP</abbr></td><td>Diagnostic and error reporting — ping, traceroute. No ports; operates directly at Layer 3. Not routable as a transport.</td></tr>
+        <tr><td><strong>1</strong></td><td><abbr title="Internet Control Message Protocol">ICMP</abbr></td><td>Diagnostic and error reporting — ping, traceroute. No ports; carried directly inside IP (Layer 3) rather than over TCP or UDP.</td></tr>
         <tr><td><strong>6</strong></td><td>TCP</td><td>Reliable, connection-oriented transport. 3-way handshake, sequencing, retransmission.</td></tr>
         <tr><td><strong>17</strong></td><td>UDP</td><td>Fast, connectionless transport. No handshake, no guaranteed delivery.</td></tr>
         <tr><td><strong>47</strong></td><td><abbr title="Generic Routing Encapsulation">GRE</abbr></td><td>Encapsulates other protocols inside IP tunnels. Used in site-to-site VPNs and <abbr title="Point-to-Point Tunneling Protocol">PPTP</abbr>. No built-in encryption.</td></tr>
-        <tr><td><strong>50</strong></td><td><abbr title="Encapsulating Security Payload">ESP</abbr></td><td>IPSec component — encrypts <em>and</em> authenticates the packet payload. Most commonly used IPSec mode.</td></tr>
+        <tr><td><strong>50</strong></td><td><abbr title="Encapsulating Security Payload">ESP</abbr></td><td>IPSec protocol — encrypts <em>and</em> authenticates the packet payload. The IPSec protocol used in almost every deployment (either mode, tunnel or transport).</td></tr>
         <tr><td><strong>51</strong></td><td><abbr title="Authentication Header">AH</abbr></td><td>IPSec component — authenticates the packet but does <em>not</em> encrypt. AH alone ≠ confidentiality.</td></tr>
         <tr><td><strong>UDP 500</strong></td><td><abbr title="Internet Key Exchange">IKE</abbr> / ISAKMP</td><td>IPSec key exchange and <abbr title="Security Association">SA</abbr> negotiation. Uses UDP port 500; UDP 4500 for <abbr title="Network Address Translation">NAT</abbr> traversal.</td></tr>
       </tbody>
@@ -422,7 +422,7 @@
         <tr><td><strong>Unicast</strong></td><td>One → One</td><td>Single source to a single destination. The vast majority of internet traffic.</td><td>HTTP/HTTPS browsing, SSH sessions, email delivery</td></tr>
         <tr><td><strong>Multicast</strong></td><td>One → Group</td><td>Single source to a subscribed group of receivers. Hosts join groups via <abbr title="Internet Group Management Protocol">IGMP</abbr>. Efficient — one stream, many recipients.</td><td>IPTV, OSPF/EIGRP routing updates (224.0.0.x), video conferencing</td></tr>
         <tr><td><strong>Broadcast</strong></td><td>One → All</td><td>Single source to all hosts in the broadcast domain. Contained by routers — does not cross Layer 3 boundaries.</td><td><abbr title="Address Resolution Protocol">ARP</abbr> requests, DHCP Discover</td></tr>
-        <tr><td><strong>Anycast</strong></td><td>One → Nearest</td><td>Multiple nodes share the same address; traffic routes to the topologically nearest one. Required in IPv6.</td><td>DNS root servers, <abbr title="Content Delivery Network">CDN</abbr> edge nodes, IPv6 router discovery</td></tr>
+        <tr><td><strong>Anycast</strong></td><td>One → Nearest</td><td>Multiple nodes share the same address; traffic routes to the topologically nearest one. Required in IPv6.</td><td>DNS root servers, <abbr title="Content Delivery Network">CDN</abbr> edge nodes, IPv6 subnet-router anycast address</td></tr>
       </tbody>
     </table>
   </div>

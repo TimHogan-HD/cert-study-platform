@@ -99,14 +99,14 @@
           <td>Same key to encrypt and decrypt</td>
           <td>Fast</td>
           <td>Bulk data encryption (VPN tunnels, disk encryption)</td>
-          <td>AES, DES, 3DES, ChaCha20</td>
+          <td>AES, ChaCha20 (current); DES, 3DES (deprecated — do not use)</td>
         </tr>
         <tr>
           <td><strong>Asymmetric</strong></td>
-          <td>Public key to encrypt; private key to decrypt</td>
+          <td>Key pair: public key encrypts or verifies; private key decrypts or signs</td>
           <td>Slow (computationally expensive)</td>
           <td>Key exchange, digital signatures, TLS handshake</td>
-          <td>RSA, ECC, DH (Diffie-Hellman), DSA</td>
+          <td>RSA, ECC; DH (Diffie-Hellman) for key exchange only; DSA for signatures only</td>
         </tr>
         <tr>
           <td><strong>Hybrid</strong></td>
@@ -155,7 +155,7 @@
       </thead>
       <tbody>
         <tr><td><strong>MD5</strong></td><td>128-bit</td><td>Broken — don't use for security</td><td>Legacy checksums, file integrity (non-security)</td></tr>
-        <tr><td><strong>SHA-1</strong></td><td>160-bit</td><td>Deprecated — vulnerabilities found</td><td>Legacy certificates (being phased out)</td></tr>
+        <tr><td><strong>SHA-1</strong></td><td>160-bit</td><td>Deprecated — practical collisions demonstrated (2017)</td><td>Legacy only; no longer trusted for certificates</td></tr>
         <tr><td><strong>SHA-256</strong></td><td>256-bit</td><td>Current standard</td><td>TLS certificates, code signing, blockchain</td></tr>
         <tr><td><strong>SHA-3</strong></td><td>224–512-bit</td><td>Current (different algorithm from SHA-2)</td><td>High-security applications</td></tr>
         <tr><td><strong>bcrypt/Argon2</strong></td><td>Varies</td><td>Recommended for passwords</td><td>Password storage — includes salt, work factor</td></tr>
@@ -274,7 +274,7 @@
         <tr><th>Framework</th><th>Applies To</th><th>Key Network Requirements</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>PCI DSS</strong></td><td>Any org handling credit card data</td><td><abbr title="Cardholder Data Environment">CDE</abbr> must be segmented from non-CDE; encrypted transmission; access logging; quarterly vulnerability scans</td></tr>
+        <tr><td><strong>PCI DSS</strong></td><td>Any org handling credit card data</td><td>Segmenting the <abbr title="Cardholder Data Environment">CDE</abbr> from non-CDE systems is not mandatory but shrinks audit scope (and must be tested if relied on); encrypted transmission; access logging; quarterly vulnerability scans</td></tr>
         <tr><td><strong>GDPR</strong></td><td>Any org processing EU personal data</td><td>Data locality (EU data may not leave EU without safeguards); 72-hour breach notification; right to erasure</td></tr>
         <tr><td><strong>Data Locality</strong></td><td>Various national regulations</td><td>Data must physically reside in specific country/region; drives private cloud or in-country cloud region selection</td></tr>
       </tbody>
@@ -284,7 +284,7 @@
   <div class="callout callout-amber">
     <div class="callout-title">⚠ Compliance Exam Traps</div>
     <ul>
-      <li><strong>PCI DSS requires CDE segmentation</strong> — the cardholder data environment must be isolated; flat network = non-compliant.</li>
+      <li><strong>PCI DSS segmentation reduces scope</strong> — segmentation is not itself a requirement, but on a flat network every connected system is in scope for the assessment. Isolating the cardholder data environment is how organizations make compliance manageable.</li>
       <li><strong>GDPR affects cloud region choice</strong> — EU customer data processed by a US company must comply with GDPR; data locality may require choosing an EU cloud region.</li>
       <li>Data locality = reason why a company might choose private cloud or a specific geographic cloud region.</li>
     </ul>
@@ -380,7 +380,7 @@
       <li>Deception: honeypot = one decoy host | honeynet = a whole decoy network. Both detective, never preventive</li>
       <li>SSO = outcome; SAML = protocol that enables it | Geofencing = location-based access control</li>
       <li>Threat × Vulnerability = Risk | Patching removes vulnerability, not threat</li>
-      <li>PCI DSS = CDE segmentation required | GDPR = data locality, 72-hr breach notice</li>
+      <li>PCI DSS = CDE segmentation shrinks audit scope | GDPR = data locality, 72-hr breach notice</li>
       <li>OT/ICS/SCADA = Availability is #1 priority (inverse of standard IT CIA order)</li>
       <li>Mantrap/vestibule = prevents tailgating (two doors, one at a time)</li>
     </ul>

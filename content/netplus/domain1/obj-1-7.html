@@ -178,10 +178,10 @@
     <div class="special-addr-card special-addr-card-broadcast">
       <div class="special-addr-addr">255.255.255.255</div>
       <div class="special-addr-name">Limited Broadcast</div>
-      <div class="special-addr-desc">Sent to all hosts in the local subnet. Not routed by any router. Directed broadcast (<code>x.x.x.255</code>) targets a specific subnet; mostly blocked by routers to prevent Smurf attacks.</div>
+      <div class="special-addr-desc">Sent to all hosts in the local subnet. Not routed by any router. Directed broadcast (the last address of a subnet, e.g. <code>192.168.1.63</code> for <code>192.168.1.0/26</code>) targets a specific subnet; mostly blocked by routers to prevent Smurf attacks.</div>
     </div>
   </div>
-  <p class="guide-note">Also note: <code>224.0.0.0/4</code> = multicast range (Class D). <code>x.x.x.255</code> = directed broadcast to a specific subnet.</p>
+  <p class="guide-note">Also note: <code>224.0.0.0/4</code> = multicast range (Class D). The last address of any subnet = directed broadcast to that subnet (<code>.255</code> only for a /24).</p>
 
   <h3>CIDR Subnet Reference</h3>
   <p class="section-note"><strong>Classful addressing and CIDR are separate topics, and the exam tests them separately.</strong> Classes are a legacy scheme fixed at /8, /16, and /24; CIDR replaced it, letting a prefix land on any bit boundary. The Class A/B/C tags below mark only the three prefixes that happen to coincide with the old default masks — a /26 has no class at all.</p>
