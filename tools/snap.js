@@ -72,7 +72,7 @@ async function take(outDir, root, only) {
   fs.mkdirSync(outDir, { recursive: true });
   const server = await serve(root);
   const base = `http://127.0.0.1:${server.address().port}`;
-  const list = ['home', ...routes(root).filter(r => r !== 'home')].filter(r => !only || r.includes(only));
+  const list = (await routes(root)).filter(r => !only || r.includes(only));
   const jobs = list.flatMap(route => VARIANTS.map(v => ({ route, v })));
   const errors = [];
   const shoot = async (browser, { route, v }) => {

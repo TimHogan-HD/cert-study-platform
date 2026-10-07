@@ -168,6 +168,14 @@ const SCENARIOS = {
   'netplus/domain3/obj-3-4': [['DNS matching game pairs', p => matchOnePair(p, '.matching-game')]],
   'netplus/domain4/obj-4-2': [['attack matching game pairs', p => matchOnePair(p, '.matching-game')]],
   'az104/stub': [
+    ['old route resolves and shows its own sidebar', async p => {
+      await routeIs(p, 'az104/az900-cram');
+      assert(await p.locator('#sidebar-az104').isVisible(), 'AZ sidebar not shown');
+      assert(!(await p.locator('#sidebar-netplus').isVisible()), 'Net+ sidebar still shown');
+      assert(await p.locator('#sidebar-az104 .obj-link.active').count() === 1, 'AZ page not highlighted');
+    }],
+  ],
+  'az104/az900-cram': [
     ['day tab switches panel', async p => {
       const group = p.locator('.cram-day-group').first();
       await group.locator('.cram-day-btn').nth(1).click();

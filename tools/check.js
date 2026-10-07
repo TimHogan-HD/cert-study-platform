@@ -213,6 +213,15 @@ for (const f of content) {
   }
 }
 
+/* ── 9. Every catalog route and alias has a page ── */
+(async () => {
+  const { ROUTES, ALIASES } = await import(require('url').pathToFileURL(path.join(ROOT, 'js', 'catalog.js')).href);
+  for (const r of [...ROUTES, ...Object.values(ALIASES)]) {
+    if (!fs.existsSync(path.join(ROOT, 'content', `${r}.html`))) report('js/catalog.js', 0, 'nav', `route "${r}" has no content/${r}.html`);
+  }
+  const orphans = content.map(f => f.slice('content/'.length, -'.html'.length)).filter(r => !ROUTES.includes(r));
+  for (const r of orphans) report(`content/${r}.html`, 0, 'nav', 'page is not in js/catalog.js, so nothing links to it');
+
 /* ── Report ── */
 if (fixed.length) console.log(`Fixed:\n  ${fixed.join('\n  ')}\n`);
 const byRule = {};
@@ -223,3 +232,4 @@ for (const [rule, ps] of Object.entries(byRule)) {
 }
 console.log(problems.length ? `\n${problems.length} problem(s).` : 'All checks passed.');
 process.exit(problems.length ? 1 : 0);
+})();

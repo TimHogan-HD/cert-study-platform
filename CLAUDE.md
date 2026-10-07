@@ -25,7 +25,7 @@ npx vercel dev
 
 ### Hash-Based Router (`js/nav.js`)
 
-Navigation is driven by `[data-path]` attributes on sidebar links. Adding a new page requires a `data-path` entry in the sidebar HTML in `index.html` and a corresponding file under `content/`.
+**`js/catalog.js` is the list of every page.** `js/sidebar.js` renders each cert's sidebar from it (the `<aside>` in `index.html` is empty), breadcrumbs take the cert name from it, and the tools read its `ROUTES` to find every page. Adding a page means a catalog entry plus a file under `content/`; `check.js` fails on a route with no file or a file with no route. A renamed route keeps its old path working through `ALIASES`. Opening any route shows that cert's sidebar, so prev/next and breadcrumbs work on deep links.
 
 ### Content Fragments
 

@@ -9,6 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { createRequire } = require('module');
 const { execSync } = require('child_process');
+const { pathToFileURL } = require('url');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -108,10 +109,12 @@ async function open(browser, base, route, theme, viewport, initScript, onError) 
   return page;
 }
 
-/* Every route the sidebar can reach, in sidebar order. */
-function routes(root) {
+/* Every routable page. Checkouts from before js/catalog.js listed them in index.html. */
+async function routes(root) {
+  const catalog = path.join(root, 'js', 'catalog.js');
+  if (fs.existsSync(catalog)) return (await import(pathToFileURL(catalog).href)).ROUTES;
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-  return [...new Set([...html.matchAll(/data-path="([^"]+)"/g)].map(m => m[1]))];
+  return ['home', ...new Set([...html.matchAll(/data-path="([^"]+)"/g)].map(m => m[1]))];
 }
 
 module.exports = { loadPlaywright, serve, open, routes };
