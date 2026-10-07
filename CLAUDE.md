@@ -127,6 +127,10 @@ Much of the existing CSS predates these rules: `components.css` still has ~120 h
 
 Use subagents whenever you judge they help (broad searches, parallel independent work, independent review, research). No need to ask first. Keep small, contained edits inline.
 
+Per-role subagent models for pstack skills:
+
+@~/.claude/pstack-models.md
+
 ## Finishing Work
 
 **Every unit of work ends with the same sequence. Run it automatically — do not stop to ask whether to review, and do not stop to ask whether to merge.**
