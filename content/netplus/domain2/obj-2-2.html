@@ -162,51 +162,51 @@ Erasing the nvram filesystem... <span class="ts">[OK]</span>
 
   <!-- C6: STP State Timeline + RSTP Mapping -->
   <h4>STP Port States (802.1D)</h4>
-  <div style="background:var(--surface2);border:.5px solid var(--border2);border-radius:10px;padding:16px;margin:8px 0">
-    <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:8px">802.1D — port state sequence (left to right)</div>
+  <div class="concept-visual">
+    <div class="concept-visual-sub">802.1D — port state sequence (left to right)</div>
     <div class="stp-timeline-strip">
-      <div class="stp-state stp-block" style="flex:2;border-radius:4px 0 0 4px">
+      <div class="stp-state stp-block">
         <div class="stp-state-name">Blocking</div>
         <div class="stp-state-dur">20s (Max Age)</div>
         <div class="stp-state-detail">No forwarding<br>No MAC learning</div>
       </div>
       <div class="stp-arrow">→</div>
-      <div class="stp-state stp-listen" style="flex:1.5">
+      <div class="stp-state stp-listen">
         <div class="stp-state-name">Listening</div>
         <div class="stp-state-dur">15s (Fwd Delay)</div>
         <div class="stp-state-detail">BPDUs yes<br>MACs no</div>
       </div>
       <div class="stp-arrow">→</div>
-      <div class="stp-state stp-learn" style="flex:1.5">
+      <div class="stp-state stp-learn">
         <div class="stp-state-name">Learning</div>
         <div class="stp-state-dur">15s (Fwd Delay)</div>
         <div class="stp-state-detail">BPDUs yes<br>MACs yes</div>
       </div>
       <div class="stp-arrow">→</div>
-      <div class="stp-state stp-fwd" style="flex:2;border-radius:0 4px 4px 0">
+      <div class="stp-state stp-fwd">
         <div class="stp-state-name">Forwarding</div>
         <div class="stp-state-dur">Ongoing</div>
         <div class="stp-state-detail">Full operation</div>
       </div>
     </div>
-    <div class="stp-convergence-note" style="margin-top:4px">Total: 30–50 seconds → reason RSTP (802.1w) was developed</div>
+    <div class="stp-convergence-note">Total: 30–50 seconds → reason RSTP (802.1w) was developed</div>
 
-    <div style="font-size:11px;font-weight:600;color:var(--text);margin:14px 0 8px">RSTP (802.1w) — state consolidation</div>
+    <div class="concept-visual-sub">RSTP (802.1w) — state consolidation</div>
     <div class="stp-rstp-map">
       <div class="stp-rstp-col">
         <div class="stp-rstp-col-label">STP 802.1D — 5 states</div>
-        <div class="stp-state stp-block" style="border-radius:4px;padding:4px 8px;font-size:10px;margin-bottom:2px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Blocking</span></div>
-        <div class="stp-state stp-listen" style="border-radius:4px;padding:4px 8px;font-size:10px;margin-bottom:2px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Listening</span></div>
-        <div class="stp-disabled-state" style="margin-bottom:2px">Disabled</div>
-        <div class="stp-state stp-learn" style="border-radius:4px;padding:4px 8px;font-size:10px;margin-bottom:2px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Learning</span></div>
-        <div class="stp-state stp-fwd" style="border-radius:4px;padding:4px 8px;font-size:10px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Forwarding</span></div>
+        <div class="stp-state stp-block"><span class="stp-state-name">Blocking</span></div>
+        <div class="stp-state stp-listen"><span class="stp-state-name">Listening</span></div>
+        <div class="stp-disabled-state">Disabled</div>
+        <div class="stp-state stp-learn"><span class="stp-state-name">Learning</span></div>
+        <div class="stp-state stp-fwd"><span class="stp-state-name">Forwarding</span></div>
       </div>
       <div class="stp-rstp-arrow">→</div>
       <div class="stp-rstp-col">
         <div class="stp-rstp-col-label">RSTP 802.1w — 3 states</div>
-        <div class="stp-rstp-disc-block" style="margin-bottom:2px;padding:16px 8px;text-align:center">Discarding<br><span style="font-size:11px;color:var(--text);font-weight:400">= Blocking + Listening + Disabled</span></div>
-        <div class="stp-state stp-learn" style="border-radius:4px;padding:4px 8px;font-size:10px;margin-bottom:2px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Learning</span></div>
-        <div class="stp-state stp-fwd" style="border-radius:4px;padding:4px 8px;font-size:10px;justify-content:flex-start;flex-direction:row;gap:6px"><span class="stp-state-name" style="margin-bottom:0">Forwarding</span> <span style="font-size:10px;color:var(--text)">(&lt;1s total)</span></div>
+        <div class="stp-rstp-disc-block">Discarding<br><span class="stp-rstp-disc-sub">= Blocking + Listening + Disabled</span></div>
+        <div class="stp-state stp-learn"><span class="stp-state-name">Learning</span></div>
+        <div class="stp-state stp-fwd"><span class="stp-state-name">Forwarding</span> <span class="stp-rstp-total">(&lt;1s total)</span></div>
       </div>
     </div>
   </div>
@@ -243,11 +243,11 @@ Erasing the nvram filesystem... <span class="ts">[OK]</span>
 
   <!-- C7: STP Security Feature Flip Cards -->
   <h3>STP Security Features</h3>
-  <p style="font-size:12px;color:var(--text);margin-bottom:8px">Click any card to see what threat it protects against and the exam trap.</p>
+  <p class="stp-sec-intro">Click any card to see what threat it protects against and the exam trap.</p>
   <div class="stp-sec-grid">
     <div class="stp-sec-card flip-card" tabindex="0" role="button" aria-expanded="false">
       <div class="stp-sec-front flip-front">
-        <div class="stp-sec-tag" style="background:rgba(34,197,94,.10);color:var(--green);border:.5px solid var(--green-border)">Access ports only</div>
+        <div class="stp-sec-tag" data-tone="green">Access ports only</div>
         <div class="stp-sec-name">PortFast</div>
         <div class="stp-sec-oneliner">Skips Listening and Learning — port goes directly to Forwarding</div>
         <span class="flip-hint">click to flip ↩</span>
@@ -256,7 +256,7 @@ Erasing the nvram filesystem... <span class="ts">[OK]</span>
     </div>
     <div class="stp-sec-card flip-card" tabindex="0" role="button" aria-expanded="false">
       <div class="stp-sec-front flip-front">
-        <div class="stp-sec-tag" style="background:var(--red-bg);color:var(--red);border:.5px solid rgba(239,68,68,.2)">PortFast-enabled ports</div>
+        <div class="stp-sec-tag" data-tone="red">PortFast-enabled ports</div>
         <div class="stp-sec-name">BPDU Guard</div>
         <div class="stp-sec-oneliner">Shuts port down (err-disabled) if a BPDU is received</div>
         <span class="flip-hint">click to flip ↩</span>
@@ -265,7 +265,7 @@ Erasing the nvram filesystem... <span class="ts">[OK]</span>
     </div>
     <div class="stp-sec-card flip-card" tabindex="0" role="button" aria-expanded="false">
       <div class="stp-sec-front flip-front">
-        <div class="stp-sec-tag" style="background:var(--blue-bg);color:var(--blue);border:.5px solid var(--blue-border)">Ports facing non-root switches</div>
+        <div class="stp-sec-tag" data-tone="blue">Ports facing non-root switches</div>
         <div class="stp-sec-name">Root Guard</div>
         <div class="stp-sec-oneliner">Prevents a connected switch from becoming root bridge</div>
         <span class="flip-hint">click to flip ↩</span>
@@ -274,7 +274,7 @@ Erasing the nvram filesystem... <span class="ts">[OK]</span>
     </div>
     <div class="stp-sec-card flip-card" tabindex="0" role="button" aria-expanded="false">
       <div class="stp-sec-front flip-front">
-        <div class="stp-sec-tag" style="background:var(--purple-bg);color:var(--purple);border:.5px solid var(--purple-border)">Non-designated ports</div>
+        <div class="stp-sec-tag" data-tone="purple">Non-designated ports</div>
         <div class="stp-sec-name">Loop Guard</div>
         <div class="stp-sec-oneliner">Prevents port from transitioning to forwarding if BPDUs stop arriving</div>
         <span class="flip-hint">click to flip ↩</span>
