@@ -1,0 +1,152 @@
+<div class="section-eyebrow">PBQ Lab · Objectives 2.3, 5.4</div>
+<h1 class="section-title">Wireless AP Configuration</h1>
+<p class="section-sub">Configure three access points from a list of requirements, then match wireless complaints to their causes.</p>
+
+<!-- ── PBQ 1: configure the APs ─────────────────────────────── -->
+<div class="pbq" data-minutes="8">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 1 · Wireless configuration</div><h2>Configure the office access points</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>Three access points cover one long office floor, west to east, and each one's coverage overlaps its neighbour's. Configure them so that:</p>
+      <ul>
+        <li>Employees can walk the length of the floor without reconnecting. The employee network name is <strong>CORP-STAFF</strong>.</li>
+        <li>Each employee signs in with their own directory credentials, which are checked by the <abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> server at <strong>10.1.1.20</strong>.</li>
+        <li>The APs use the strongest security they support. All three support WPA3.</li>
+        <li>The 2.4 GHz radios of neighbouring APs do not overlap, and the floor gets the largest possible number of non-overlapping channels.</li>
+      </ul>
+    </div>
+
+    <div class="pbq-flow">
+      <div class="pbq-node"><strong>AP-West</strong>Reception</div>
+      <span class="pbq-arrow">↔</span>
+      <div class="pbq-node"><strong>AP-Center</strong>Open office</div>
+      <span class="pbq-arrow">↔</span>
+      <div class="pbq-node"><strong>AP-East</strong>Meeting rooms</div>
+    </div>
+
+    <div class="pbq-cards">
+      <div class="pbq-card">
+        <div class="pbq-card-title">AP-West</div>
+        <label class="pbq-label"><abbr title="Service Set Identifier">SSID</abbr></label>
+        <input class="lab-input pbq-field" data-answer="CORP-STAFF" spellcheck="false" autocomplete="off">
+        <label class="pbq-label">Security</label>
+        <select class="lab-input pbq-field" data-answer="WPA3-Enterprise"><option value="">Select…</option><option>Open</option><option>WEP</option><option>WPA2-Personal</option><option>WPA2-Enterprise</option><option>WPA3-Personal</option><option>WPA3-Enterprise</option></select>
+        <label class="pbq-label">2.4 GHz channel</label>
+        <select class="lab-input pbq-field" data-check="distinct" data-group="ch24" data-answer="1|6|11" data-show="1"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select>
+        <label class="pbq-label">Channel width</label>
+        <select class="lab-input pbq-field" data-answer="20 MHz"><option value="">Select…</option><option>20 MHz</option><option>40 MHz</option></select>
+      </div>
+      <div class="pbq-card">
+        <div class="pbq-card-title">AP-Center</div>
+        <label class="pbq-label">SSID</label>
+        <input class="lab-input pbq-field" data-answer="CORP-STAFF" spellcheck="false" autocomplete="off">
+        <label class="pbq-label">Security</label>
+        <select class="lab-input pbq-field" data-answer="WPA3-Enterprise"><option value="">Select…</option><option>Open</option><option>WEP</option><option>WPA2-Personal</option><option>WPA2-Enterprise</option><option>WPA3-Personal</option><option>WPA3-Enterprise</option></select>
+        <label class="pbq-label">2.4 GHz channel</label>
+        <select class="lab-input pbq-field" data-check="distinct" data-group="ch24" data-answer="1|6|11" data-show="6"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select>
+        <label class="pbq-label">Channel width</label>
+        <select class="lab-input pbq-field" data-answer="20 MHz"><option value="">Select…</option><option>20 MHz</option><option>40 MHz</option></select>
+      </div>
+      <div class="pbq-card">
+        <div class="pbq-card-title">AP-East</div>
+        <label class="pbq-label">SSID</label>
+        <input class="lab-input pbq-field" data-answer="CORP-STAFF" spellcheck="false" autocomplete="off">
+        <label class="pbq-label">Security</label>
+        <select class="lab-input pbq-field" data-answer="WPA3-Enterprise"><option value="">Select…</option><option>Open</option><option>WEP</option><option>WPA2-Personal</option><option>WPA2-Enterprise</option><option>WPA3-Personal</option><option>WPA3-Enterprise</option></select>
+        <label class="pbq-label">2.4 GHz channel</label>
+        <select class="lab-input pbq-field" data-check="distinct" data-group="ch24" data-answer="1|6|11" data-show="11"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select>
+        <label class="pbq-label">Channel width</label>
+        <select class="lab-input pbq-field" data-answer="20 MHz"><option value="">Select…</option><option>20 MHz</option><option>40 MHz</option></select>
+      </div>
+      <div class="pbq-card">
+        <div class="pbq-card-title">Authentication server (all APs)</div>
+        <label class="pbq-label">RADIUS server address</label>
+        <input class="lab-input pbq-field" data-check="ip" data-answer="10.1.1.20" spellcheck="false" autocomplete="off">
+        <label class="pbq-label">RADIUS authentication port</label>
+        <select class="lab-input pbq-field" data-answer="1812"><option value="">Select…</option><option>49</option><option>389</option><option>1812</option><option>1813</option></select>
+      </div>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>Same SSID everywhere:</strong> clients roam between APs that advertise the same SSID with the same security settings. A different name on one <abbr title="Access Point">AP</abbr> forces users to reconnect by hand. A real SSID is case-sensitive, so type it exactly. This lab accepts any capitalisation.</li>
+        <li><strong>WPA3-Enterprise:</strong> "their own credentials, checked by a RADIUS server" means 802.1X, which is the Enterprise mode. Personal mode uses one shared passphrase. WPA3 is stronger than WPA2, and WEP and Open are never the answer when security is a requirement.</li>
+        <li><strong>Channels 1, 6, and 11:</strong> in the 2.4 GHz band these are the only three channels that do not overlap (in North America). Each AP needs a different one. Any arrangement of the three is correct, because each AP overlaps only its neighbours.</li>
+        <li><strong>20 MHz:</strong> a 40 MHz channel in 2.4 GHz uses most of the band, leaving room for only one non-overlapping channel. Wider channels belong in 5 GHz and 6 GHz.</li>
+        <li><strong>Port 1812</strong> is RADIUS authentication. 1813 is RADIUS accounting, 49 is TACACS+, and 389 is <abbr title="Lightweight Directory Access Protocol">LDAP</abbr>.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── PBQ 2: wireless troubleshooting ──────────────────────── -->
+<div class="pbq" data-minutes="6">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 2 · Wireless troubleshooting</div><h2>Diagnose the wireless complaints</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>The help desk has escalated six wireless tickets. Drag the most likely cause onto each one. Two causes are not used.</p>
+    </div>
+
+    <div class="pbq-bank">
+      <div class="pbq-bank-label">Causes</div>
+      <button type="button" class="pbq-chip" data-value="overlap">Channel overlap</button>
+      <button type="button" class="pbq-chip" data-value="dhcp">DHCP scope exhausted</button>
+      <button type="button" class="pbq-chip" data-value="coverage">Insufficient coverage</button>
+      <button type="button" class="pbq-chip" data-value="eviltwin">Evil twin</button>
+      <button type="button" class="pbq-chip" data-value="legacy">AP set to a legacy 802.11 mode</button>
+      <button type="button" class="pbq-chip" data-value="interference">Non-Wi-Fi interference</button>
+      <button type="button" class="pbq-chip" data-value="roaming">Roaming misconfiguration</button>
+      <button type="button" class="pbq-chip" data-value="mtu">MTU mismatch</button>
+    </div>
+
+    <div class="pbq-rows">
+      <div class="pbq-row"><div class="pbq-row-text">Handheld scanners drop off the network when staff walk to the far aisles of the warehouse. A survey there reads −84 dBm.</div><button type="button" class="pbq-slot" data-answer="coverage">Drop cause</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Laptops in the break room lose their 2.4 GHz connection whenever someone runs the microwave.</div><button type="button" class="pbq-slot" data-answer="interference">Drop cause</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Users see a second network named CORP-STAFF with a strong signal near the parking lot. Its BSSID is not one of the company's APs.</div><button type="button" class="pbq-slot" data-answer="eviltwin">Drop cause</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Users must reconnect by hand every time they walk from the open office into the meeting rooms. AP-East was recently replaced and now advertises CORP-STAFF-2.</div><button type="button" class="pbq-slot" data-answer="roaming">Drop cause</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">New Wi-Fi 6 laptops never connect faster than 54 Mbps on one AP, even standing next to it. The other APs give them several hundred Mbps.</div><button type="button" class="pbq-slot" data-answer="legacy">Drop cause</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Two APs at opposite ends of a hallway both use channel 6 at full power. Clients in the middle see constant retransmissions.</div><button type="button" class="pbq-slot" data-answer="overlap">Drop cause</button></div>
+    </div>
+
+    <div class="pbq-step">A new AP is going into the storeroom. A Wi-Fi analyzer there shows these 2.4 GHz networks:</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>SSID</th><th>Channel</th><th>Signal</th></tr></thead>
+        <tbody>
+          <tr><td>CORP-STAFF</td><td>1</td><td>−48 dBm</td></tr>
+          <tr><td>NEIGHBOR-GUEST</td><td>4</td><td>−71 dBm</td></tr>
+          <tr><td>CORP-STAFF</td><td>6</td><td>−52 dBm</td></tr>
+          <tr><td>PRINTER-DIRECT</td><td>11</td><td>−86 dBm</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pbq-qs">
+      <label class="pbq-label">Best 2.4 GHz channel for the new AP</label>
+      <select class="lab-input pbq-field" data-answer="11"><option value="">Select…</option><option>1</option><option>3</option><option>6</option><option>9</option><option>11</option></select>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>−84 dBm</strong> is below the roughly −67 dBm that most designs aim for. The fix is more APs or better placement, so that is insufficient coverage.</li>
+        <li><strong>Microwave ovens</strong> radiate at about 2.45 GHz. That is interference from a device that is not Wi-Fi. Moving clients to 5 GHz avoids it.</li>
+        <li><strong>The same SSID from an unknown BSSID</strong> is an evil twin: a rogue AP impersonating the real network to capture logins. Enterprise authentication with server certificate validation defeats it.</li>
+        <li><strong>A different SSID on one AP</strong> breaks seamless roaming. That is a roaming misconfiguration.</li>
+        <li><strong>54 Mbps is the 802.11a/g ceiling,</strong> so that AP is running a legacy mode.</li>
+        <li><strong>Two APs on the same channel</strong> that can hear each other share the airtime and collide: channel overlap, also called co-channel interference. Change one channel or lower the transmit power.</li>
+        <li><strong>The analyzer:</strong> channel 11 carries only a faint −86 dBm network. Channels 1 and 6 carry the company's own strong APs. Channels 3 and 9 overlap their neighbours and are never good choices.</li>
+      </ul>
+    </div>
+  </div>
+</div>

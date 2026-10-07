@@ -167,6 +167,99 @@ const SCENARIOS = {
   ],
   'netplus/domain3/obj-3-4': [['DNS matching game pairs', p => matchOnePair(p, '.matching-game')]],
   'netplus/domain4/obj-4-2': [['attack matching game pairs', p => matchOnePair(p, '.matching-game')]],
+  'netplus/pbq/subnet-calculator': [
+    ['calculator recomputes as you type', async p => {
+      await p.fill('.sc-ip', '10.0.0.200');
+      await p.fill('.sc-prefix', '255.255.255.224');
+      const text = await p.locator('.sc-results').textContent();
+      assert(text.includes('10.0.0.192/27') && text.includes('10.0.0.223'), `wrong subnet: ${text}`);
+    }],
+    ['VLSM planner allocates largest first', async p => {
+      const text = await p.locator('.vlsm-out').textContent();
+      assert(text.includes('192.168.50.0/26') && text.includes('192.168.50.112/30'), `unexpected plan: ${text}`);
+      await p.click('.vlsm-add');
+      await p.locator('.vlsm-row').last().locator('.vlsm-hosts').fill('500');
+      assert(/Does not fit/.test(await p.locator('.vlsm-out').textContent()), 'oversized segment not flagged');
+    }],
+    ['drill grades a correct answer', async p => {
+      const want = await p.evaluate(async () => {
+        const m = await import('/js/ipv4.js');
+        const [ip, prefix] = document.querySelector('.drill-q').textContent.split('/');
+        const s = m.subnet(m.parseIp(ip), +prefix);
+        return { network: m.fmtIp(s.network), broadcast: m.fmtIp(s.broadcast), first: m.fmtIp(s.first), last: m.fmtIp(s.last), hosts: String(s.usable) };
+      });
+      for (const [key, value] of Object.entries(want)) await p.fill(`.drill-field[data-key="${key}"]`, value);
+      await p.click('.subnet-drill .pbq-check');
+      assert(/^Correct/.test(await p.locator('.drill-status').textContent()), 'correct answer not accepted');
+    }],
+  ],
+  'netplus/pbq/cli-troubleshooting': [
+    ['console answers abbreviated IOS commands per host', async p => {
+      const term = p.locator('.pbq-term').first();
+      await term.locator('.pbq-term-tab', { hasText: 'SW2' }).click();
+      await term.locator('.pbq-term-line input').fill('sh mac add');
+      await term.locator('.pbq-term-line input').press('Enter');
+      const out = await term.locator('.pbq-term-out:visible').textContent();
+      assert(out.includes('00a0.c914.7e21') && out.includes('Fa0/14'), 'show mac address-table output missing');
+      await term.locator('.pbq-term-line input').fill('show bogus');
+      await term.locator('.pbq-term-line input').press('Enter');
+      assert((await term.locator('.pbq-term-out:visible').textContent()).includes('% Invalid input'), 'unknown command not rejected');
+    }],
+    ['PBQ grades, reveals and resets', async p => {
+      const q = p.locator('.pbq').first();
+      await q.locator('select').first().selectOption('00a0.c914.7e12');
+      await q.locator('.pbq-check').click();
+      assert(await q.locator('select').first().getAttribute('data-state') === 'wrong', 'wrong answer not marked');
+      assert(await q.locator('.pbq-explain').isVisible(), 'explanation not shown after check');
+      await q.locator('.pbq-reveal').click();
+      await q.locator('.pbq-check').click();
+      assert(/^All 4 correct/.test(await q.locator('.pbq-result').textContent()), 'revealed answers do not pass');
+      await q.locator('.pbq-reset').click();
+      assert(await q.locator('select').first().inputValue() === '' && await q.locator('.pbq-result').isHidden(), 'reset did not clear');
+    }],
+  ],
+  'netplus/pbq/ip-addressing': [
+    ['chips place by click and return when cleared', async p => {
+      const q = p.locator('.pbq').first();
+      const chip = q.locator('.pbq-chip[data-value="0-26"]');
+      const slot = q.locator('.pbq-slot').first();
+      await chip.click();
+      await slot.click();
+      assert(await slot.getAttribute('data-value') === '0-26' && await chip.isHidden(), 'chip not placed');
+      await slot.click();
+      assert(!(await slot.getAttribute('data-value')) && await chip.isVisible(), 'chip not returned');
+    }],
+    ['host field accepts any usable address but not the gateway', async p => {
+      const q = p.locator('.pbq').first();
+      const host = q.locator('.pbq-field[data-check="host"]');
+      await host.fill('192.168.50.90');
+      await q.locator('.pbq-check').click();
+      assert(await host.getAttribute('data-state') === 'right', 'valid host rejected');
+      await host.fill('192.168.50.65');
+      await q.locator('.pbq-check').click();
+      assert(await host.getAttribute('data-state') === 'wrong', 'gateway accepted as a host');
+    }],
+  ],
+  'netplus/pbq/wireless': [
+    ['channels must be distinct non-overlapping', async p => {
+      const q = p.locator('.pbq').first();
+      const ch = q.locator('.pbq-field[data-group="ch24"]');
+      for (const i of [0, 1, 2]) await ch.nth(i).selectOption('6');
+      await q.locator('.pbq-check').click();
+      assert(await ch.nth(0).getAttribute('data-state') === 'wrong', 'duplicate channel accepted');
+      for (const [i, c] of [[0, '11'], [1, '1'], [2, '6']]) await ch.nth(i).selectOption(c);
+      await q.locator('.pbq-check').click();
+      assert(await ch.nth(2).getAttribute('data-state') === 'right', 'valid channel plan rejected');
+    }],
+  ],
+  'netplus/pbq/ports-methodology': [
+    ['chips place by drag and drop', async p => {
+      const q = p.locator('.pbq').first();
+      const slot = q.locator('.pbq-slot').first();
+      await q.locator('.pbq-chip[data-value="22"]').dragTo(slot);
+      assert(await slot.getAttribute('data-value') === '22', 'drag did not place the chip');
+    }],
+  ],
   'az104/stub': [
     ['old route resolves and shows its own sidebar', async p => {
       await routeIs(p, 'az104/az900-cram');

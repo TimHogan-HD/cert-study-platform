@@ -29,7 +29,7 @@ function renderCert(cert, visible) {
     root.append(
       h('button', { className: `domain-toggle${open}`, 'aria-expanded': String(!!d.open) },
         h('span', { text: d.title }),
-        h('span', { className: `domain-pct domain-pct-${i + 1}`, text: `${d.weight}%` }),
+        ...(d.weight ? [h('span', { className: `domain-pct domain-pct-${i + 1}`, text: `${d.weight}%` })] : []),
         h('span', { className: 'toggle-arrow', text: '▶' })),
       h('div', { className: `domain-subnav${open}` },
         ...d.objectives.map(([path, label]) => link({ path, label, className: 'obj-link' }))),

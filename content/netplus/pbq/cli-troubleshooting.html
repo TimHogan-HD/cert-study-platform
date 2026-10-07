@@ -1,0 +1,773 @@
+<div class="section-eyebrow">PBQ Lab · Objectives 5.3, 5.5</div>
+<h1 class="section-title">CLI Troubleshooting Labs</h1>
+<p class="section-sub">Four console simulations. Investigate with the commands each device accepts, then answer the questions underneath.</p>
+
+<div class="callout callout-blue">
+  <div class="callout-title">How to work a console PBQ</div>
+  Run every command on every device before you answer. Type <code>help</code> on a device to list what it accepts. Cisco devices take abbreviations (<code>sh mac add</code>, <code>sh ip int br</code>), and the up arrow recalls your last command. Nothing in the output is highlighted for you, just as in the exam.
+</div>
+
+<!-- ── Lab 1: network discovery ─────────────────────────────── -->
+<div class="pbq" data-minutes="8">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">Simulation 1 · Network discovery</div><h2>Locate a device on the network</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>A print job keeps failing to reach a network printer at <strong>10.10.20.57</strong>. Before you walk over to it, find out exactly where it is plugged in. You have console access to the router R1 and the two switches SW1 and SW2.</p>
+      <p>Identify the printer's MAC address, the switch and port it connects to, and its VLAN.</p>
+    </div>
+
+    <div class="terminal pbq-term">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Console</span></div>
+      <div class="pbq-term-host" data-host="R1" data-os="ios" data-prompt="R1#">
+<template data-cmd="show ip interface brief">
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     unassigned      YES unset  up                    up
+GigabitEthernet0/0.10  10.10.10.1      YES manual up                    up
+GigabitEthernet0/0.20  10.10.20.1      YES manual up                    up
+GigabitEthernet0/0.99  10.10.99.1      YES manual up                    up
+GigabitEthernet0/1     203.0.113.2     YES manual up                    up
+</template>
+<template data-cmd="show arp|show ip arp">
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.10.10.1              -   0019.e8a2.3b01  ARPA   GigabitEthernet0/0.10
+Internet  10.10.10.23             4   0050.56a1.0c17  ARPA   GigabitEthernet0/0.10
+Internet  10.10.20.1              -   0019.e8a2.3b01  ARPA   GigabitEthernet0/0.20
+Internet  10.10.20.41             2   00a0.c914.7e12  ARPA   GigabitEthernet0/0.20
+Internet  10.10.20.57             1   00a0.c914.7e21  ARPA   GigabitEthernet0/0.20
+Internet  10.10.20.75             9   001b.78c2.55a0  ARPA   GigabitEthernet0/0.20
+Internet  10.10.99.1              -   0019.e8a2.3b01  ARPA   GigabitEthernet0/0.99
+Internet  10.10.99.2             12   0019.e8a2.9a40  ARPA   GigabitEthernet0/0.99
+Internet  10.10.99.3             12   0019.e8a2.c7f2  ARPA   GigabitEthernet0/0.99
+</template>
+<template data-cmd="show cdp neighbors">
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+SW1              Gig 0/0           152             S I    WS-C2960  Gig 0/1
+</template>
+<template data-cmd="ping *">
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to {1}, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+</template>
+      </div>
+      <div class="pbq-term-host" data-host="SW1" data-os="ios" data-prompt="SW1#">
+<template data-cmd="show mac address-table">
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+  10    0019.e8a2.3b01    DYNAMIC     Gi0/1
+  10    0050.56a1.0c17    DYNAMIC     Fa0/3
+  20    0019.e8a2.3b01    DYNAMIC     Gi0/1
+  20    001b.78c2.55a0    DYNAMIC     Gi0/2
+  20    00a0.c914.7e12    DYNAMIC     Fa0/12
+  20    00a0.c914.7e21    DYNAMIC     Gi0/2
+  99    0019.e8a2.3b01    DYNAMIC     Gi0/1
+  99    0019.e8a2.c7f2    DYNAMIC     Gi0/2
+Total Mac Addresses for this criterion: 8
+</template>
+<template data-cmd="show vlan brief">
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/13, Fa0/14, Fa0/15, Fa0/16
+                                                Fa0/17, Fa0/18, Fa0/19, Fa0/20
+10   STAFF                            active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                Fa0/5, Fa0/6, Fa0/7, Fa0/8
+20   PRINTERS                         active    Fa0/10, Fa0/11, Fa0/12
+99   MGMT                             active
+</template>
+<template data-cmd="show interfaces trunk">
+Port        Mode         Encapsulation  Status        Native vlan
+Gi0/1       on           802.1q         trunking      99
+Gi0/2       on           802.1q         trunking      99
+
+Port        Vlans allowed on trunk
+Gi0/1       1-4094
+Gi0/2       1-4094
+
+Port        Vlans allowed and active in management domain
+Gi0/1       1,10,20,99
+Gi0/2       1,10,20,99
+</template>
+<template data-cmd="show cdp neighbors">
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+R1               Gig 0/1           161           R B S I  ISR4331   Gig 0/0
+SW2              Gig 0/2           137             S I    WS-C2960  Gig 0/1
+</template>
+      </div>
+      <div class="pbq-term-host" data-host="SW2" data-os="ios" data-prompt="SW2#">
+<template data-cmd="show mac address-table">
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+  20    0019.e8a2.3b01    DYNAMIC     Gi0/1
+  20    001b.78c2.55a0    DYNAMIC     Fa0/9
+  20    00a0.c914.7e21    DYNAMIC     Fa0/14
+  99    0019.e8a2.3b01    DYNAMIC     Gi0/1
+  99    0019.e8a2.9a40    DYNAMIC     Gi0/1
+Total Mac Addresses for this criterion: 5
+</template>
+<template data-cmd="show vlan brief">
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                Fa0/5, Fa0/6, Fa0/7, Fa0/8
+20   PRINTERS                         active    Fa0/9, Fa0/14, Fa0/15
+99   MGMT                             active
+</template>
+<template data-cmd="show interfaces trunk">
+Port        Mode         Encapsulation  Status        Native vlan
+Gi0/1       on           802.1q         trunking      99
+
+Port        Vlans allowed on trunk
+Gi0/1       1-4094
+
+Port        Vlans allowed and active in management domain
+Gi0/1       1,20,99
+</template>
+<template data-cmd="show cdp neighbors">
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+SW1              Gig 0/1           129             S I    WS-C2960  Gig 0/2
+</template>
+      </div>
+    </div>
+
+    <div class="pbq-qs">
+      <label class="pbq-label">1. MAC address of 10.10.20.57</label>
+      <select class="lab-input pbq-field" data-answer="00a0.c914.7e21">
+        <option value="">Select…</option>
+        <option>00a0.c914.7e12</option><option>00a0.c914.7e21</option><option>001b.78c2.55a0</option><option>0019.e8a2.3b01</option>
+      </select>
+      <label class="pbq-label">2. Switch the printer is connected to</label>
+      <select class="lab-input pbq-field" data-answer="SW2">
+        <option value="">Select…</option><option>R1</option><option>SW1</option><option>SW2</option>
+      </select>
+      <label class="pbq-label">3. Switch port</label>
+      <select class="lab-input pbq-field" data-answer="Fa0/14">
+        <option value="">Select…</option><option>Fa0/9</option><option>Fa0/12</option><option>Fa0/14</option><option>Gi0/1</option><option>Gi0/2</option>
+      </select>
+      <label class="pbq-label">4. VLAN</label>
+      <select class="lab-input pbq-field" data-answer="20">
+        <option value="">Select…</option><option>1</option><option>10</option><option>20</option><option>99</option>
+      </select>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ol>
+        <li><strong><abbr title="Internet Protocol v4/v6">IP</abbr> to MAC:</strong> only a Layer 3 device has the <abbr title="Address Resolution Protocol">ARP</abbr> entry. <code>show arp</code> on R1 maps 10.10.20.57 to <code>00a0.c914.7e21</code>. The entry for .41 is <code>00a0.c914.7e12</code>: the last two hex digits are swapped, which is exactly the trap the exam sets.</li>
+        <li><strong>MAC to port on SW1:</strong> <code>show mac address-table</code> on SW1 lists <code>00a0.c914.7e21</code> on <code>Gi0/2</code>. <code>show interfaces trunk</code> shows Gi0/2 is a trunk, so the printer is further downstream. <code>show cdp neighbors</code> says Gi0/2 leads to SW2.</li>
+        <li><strong>MAC to port on SW2:</strong> SW2 learned the MAC on <code>Fa0/14</code>, which is not a trunk. <code>show vlan brief</code> puts Fa0/14 in VLAN 20 (PRINTERS), matching the router subinterface Gi0/0.20 that answered ARP.</li>
+      </ol>
+      <p>The rule to remember: a MAC learned on a trunk port is never the final answer. Follow <abbr title="Cisco Discovery Protocol">CDP</abbr> to the next switch and repeat until the MAC appears on an access port.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── Lab 2: APIPA / wrong VLAN ────────────────────────────── -->
+<div class="pbq" data-minutes="6">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">Simulation 2 · No network access</div><h2>One accounting PC cannot reach anything</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>Yesterday a technician moved workstation ACCT-07 to a different port on the access switch SW-ACC. Today the user cannot reach file shares, email, or the internet. Every other PC in Accounting works. Accounting is VLAN 30 (10.10.30.0/24), and R1 is the <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> server for that VLAN.</p>
+      <p>Investigate from the PC, the access switch, and the router, then identify the cause and the fix.</p>
+    </div>
+
+    <div class="terminal pbq-term">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Console</span></div>
+      <div class="pbq-term-host" data-host="ACCT-07" data-os="windows" data-prompt="PS C:\&gt;">
+<template data-cmd="ipconfig">
+Windows IP Configuration
+
+
+Ethernet adapter Ethernet0:
+
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::4c1d:9e2a:7b10:3f21%12
+   Autoconfiguration IPv4 Address. . : 169.254.33.10
+   Subnet Mask . . . . . . . . . . . : 255.255.0.0
+   Default Gateway . . . . . . . . . :
+</template>
+<template data-cmd="ipconfig /all">
+Windows IP Configuration
+
+   Host Name . . . . . . . . . . . . : ACCT-07
+   Primary Dns Suffix  . . . . . . . :
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+
+Ethernet adapter Ethernet0:
+
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : Intel(R) Ethernet Connection I219-LM
+   Physical Address. . . . . . . . . : 3C-52-82-1A-7F-09
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+   Link-local IPv6 Address . . . . . : fe80::4c1d:9e2a:7b10:3f21%12(Preferred)
+   Autoconfiguration IPv4 Address. . : 169.254.33.10(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.0.0
+   Default Gateway . . . . . . . . . :
+   DNS Servers . . . . . . . . . . . : fec0:0:0:ffff::1%1
+                                       fec0:0:0:ffff::2%1
+</template>
+<template data-cmd="ipconfig /renew">
+Windows IP Configuration
+
+<span class="te">An error occurred while renewing interface Ethernet0 : unable to contact your DHCP server. Request has timed out.</span>
+</template>
+<template data-cmd="ipconfig /release">
+Windows IP Configuration
+
+No operation can be performed on Ethernet0 while it has its media disconnected or has no DHCP lease.
+</template>
+<template data-cmd="ping *">
+Pinging {1} with 32 bytes of data:
+PING: transmit failed. General failure.
+PING: transmit failed. General failure.
+PING: transmit failed. General failure.
+PING: transmit failed. General failure.
+
+Ping statistics for {1}:
+    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
+</template>
+      </div>
+      <div class="pbq-term-host" data-host="SW-ACC" data-os="ios" data-prompt="SW-ACC#">
+<template data-cmd="show vlan brief">
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/7, Fa0/20, Fa0/21, Fa0/22
+                                                Fa0/23, Fa0/24
+30   ACCOUNTING                       active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                Fa0/5, Fa0/6, Fa0/8, Fa0/9
+                                                Fa0/10, Fa0/11, Fa0/12
+99   MGMT                             active
+</template>
+<template data-cmd="show interfaces status">
+Port      Name               Status       Vlan       Duplex  Speed Type
+Fa0/5     ACCT-05            connected    30         a-full  a-100 10/100BaseTX
+Fa0/6     ACCT-06            connected    30         a-full  a-100 10/100BaseTX
+Fa0/7     ACCT-07            connected    1          a-full  a-100 10/100BaseTX
+Fa0/8     ACCT-08            connected    30         a-full  a-100 10/100BaseTX
+Fa0/9     ACCT-09            notconnect   30           auto   auto 10/100BaseTX
+Gi0/1     UPLINK-R1          connected    trunk      a-full a-1000 10/100/1000BaseTX
+</template>
+<template data-cmd="show mac address-table">
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    3c52.821a.7f09    DYNAMIC     Fa0/7
+  30    0019.e8a2.3b01    DYNAMIC     Gi0/1
+  30    3c52.8203.11a4    DYNAMIC     Fa0/5
+  30    3c52.8203.19c0    DYNAMIC     Fa0/6
+  30    3c52.8203.2e77    DYNAMIC     Fa0/8
+Total Mac Addresses for this criterion: 5
+</template>
+<template data-cmd="show running-config interface fa0/7|show running-config interface f0/7|show running-config interface fastethernet0/7">
+Building configuration...
+
+Current configuration : 66 bytes
+!
+interface FastEthernet0/7
+ description ACCT-07
+ switchport mode access
+end
+</template>
+<template data-cmd="show running-config interface fa0/6|show running-config interface f0/6|show running-config interface fastethernet0/6">
+Building configuration...
+
+Current configuration : 93 bytes
+!
+interface FastEthernet0/6
+ description ACCT-06
+ switchport access vlan 30
+ switchport mode access
+end
+</template>
+<template data-cmd="show interfaces trunk">
+Port        Mode         Encapsulation  Status        Native vlan
+Gi0/1       on           802.1q         trunking      99
+
+Port        Vlans allowed on trunk
+Gi0/1       1-4094
+
+Port        Vlans allowed and active in management domain
+Gi0/1       1,30,99
+</template>
+      </div>
+      <div class="pbq-term-host" data-host="R1" data-os="ios" data-prompt="R1#">
+<template data-cmd="show ip interface brief">
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     unassigned      YES unset  up                    up
+GigabitEthernet0/0.30  10.10.30.1      YES manual up                    up
+GigabitEthernet0/0.99  10.10.99.1      YES manual up                    up
+GigabitEthernet0/1     203.0.113.2     YES manual up                    up
+</template>
+<template data-cmd="show ip dhcp pool">
+Pool ACCOUNTING :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0
+ Total addresses                : 254
+ Leased addresses               : 23
+ Pending event                  : none
+ 1 subnet is currently in the pool :
+ Current index        IP address range                    Leased addresses
+ 10.10.30.35          10.10.30.1       - 10.10.30.254      23
+</template>
+<template data-cmd="show ip dhcp binding">
+Bindings from all pools not associated with VRF:
+IP address      Client-ID/              Lease expiration        Type
+                Hardware address
+10.10.30.21     013c.5282.0311.a4       Oct 08 2026 09:14 AM    Automatic
+10.10.30.22     013c.5282.0319.c0       Oct 08 2026 09:15 AM    Automatic
+10.10.30.24     013c.5282.032e.77       Oct 08 2026 09:21 AM    Automatic
+</template>
+      </div>
+    </div>
+
+    <div class="pbq-qs">
+      <label class="pbq-label">1. What does ACCT-07's IPv4 address tell you?</label>
+      <select class="lab-input pbq-field" data-answer="apipa">
+        <option value="">Select…</option>
+        <option value="conflict">It has a duplicate IP address with another host</option>
+        <option value="apipa">It never received a DHCP lease and assigned itself an APIPA address</option>
+        <option value="static">Someone configured a static link-local address on it</option>
+        <option value="ipv6">The network has been moved to IPv6 only</option>
+      </select>
+      <label class="pbq-label">2. Root cause</label>
+      <select class="lab-input pbq-field" data-answer="vlan">
+        <option value="">Select…</option>
+        <option value="pool">The ACCOUNTING DHCP pool is out of addresses</option>
+        <option value="trunk">The uplink trunk to R1 does not carry VLAN 30</option>
+        <option value="vlan">Fa0/7 is an access port in VLAN 1 instead of VLAN 30</option>
+        <option value="cable">The new patch cable on Fa0/7 is faulty</option>
+      </select>
+      <label class="pbq-label">3. Fix</label>
+      <select class="lab-input pbq-field" data-answer="access30">
+        <option value="">Select…</option>
+        <option value="renew">Run ipconfig /renew on ACCT-07 until it gets a lease</option>
+        <option value="helper">Add ip helper-address 10.10.30.1 on R1</option>
+        <option value="access30">On SW-ACC Fa0/7, configure switchport access vlan 30</option>
+        <option value="trunk">On SW-ACC Fa0/7, configure switchport mode trunk</option>
+      </select>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>169.254.x.x with a /16 mask and no gateway</strong> is <abbr title="Automatic Private IP Addressing">APIPA</abbr>. Windows assigns it to itself when DHCP gets no answer. It is a symptom, not a cause, so the next question is why DHCP failed.</li>
+        <li><strong>The pool is not the problem:</strong> <code>show ip dhcp pool</code> shows 23 of 254 addresses leased, and the other PCs got leases.</li>
+        <li><strong>The trunk is not the problem:</strong> it carries VLAN 30, and the PCs on Fa0/5, Fa0/6, and Fa0/8 work through it.</li>
+        <li><strong>The cable is not the problem:</strong> Fa0/7 is connected at 100 Mbps full duplex and the switch learned the PC's MAC on it.</li>
+        <li><strong>The cause:</strong> <code>show vlan brief</code> and <code>show interfaces status</code> both put Fa0/7 in VLAN 1. Its running config has no <code>switchport access vlan</code> line, so it defaults to VLAN 1, where no DHCP server is listening. Compare Fa0/6.</li>
+        <li><strong>The fix</strong> is <code>interface fa0/7</code> then <code>switchport access vlan 30</code>. Then run <code>ipconfig /renew</code> on the PC to verify, which is step 6 of the methodology. Renewing before the fix only repeats the failure.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── Lab 3: DNS ───────────────────────────────────────────── -->
+<div class="pbq" data-minutes="6">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">Simulation 3 · Name resolution</div><h2>Websites will not load on one PC</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>A user on HR-02 says no websites load, internal or external, and the intranet at <strong>intranet.acme.internal</strong> times out. The user at HR-03 on the next desk has no problems. Last month the old <abbr title="Domain Name System">DNS</abbr> server 10.20.9.53 was retired and replaced by 10.20.0.53.</p>
+      <p>Use both PCs to find out what is different about HR-02.</p>
+    </div>
+
+    <div class="terminal pbq-term">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Console</span></div>
+      <div class="pbq-term-host" data-host="HR-02" data-os="windows" data-prompt="PS C:\&gt;">
+<template data-cmd="ipconfig">
+Windows IP Configuration
+
+
+Ethernet adapter Ethernet0:
+
+   Connection-specific DNS Suffix  . :
+   IPv4 Address. . . . . . . . . . . : 10.20.4.62
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.4.1
+</template>
+<template data-cmd="ipconfig /all">
+Windows IP Configuration
+
+   Host Name . . . . . . . . . . . . : HR-02
+   Primary Dns Suffix  . . . . . . . :
+   Node Type . . . . . . . . . . . . : Hybrid
+
+Ethernet adapter Ethernet0:
+
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : Intel(R) Ethernet Connection I219-LM
+   Physical Address. . . . . . . . . : 3C-52-82-4B-11-D0
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 10.20.4.62(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.4.1
+   DNS Servers . . . . . . . . . . . : 10.20.9.53
+</template>
+<template data-cmd="ipconfig /flushdns">
+Windows IP Configuration
+
+Successfully flushed the DNS Resolver Cache.
+</template>
+<template data-cmd="ping 8.8.8.8">
+Pinging 8.8.8.8 with 32 bytes of data:
+Reply from 8.8.8.8: bytes=32 time=14ms TTL=116
+Reply from 8.8.8.8: bytes=32 time=13ms TTL=116
+Reply from 8.8.8.8: bytes=32 time=14ms TTL=116
+Reply from 8.8.8.8: bytes=32 time=15ms TTL=116
+
+Ping statistics for 8.8.8.8:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 13ms, Maximum = 15ms, Average = 14ms
+</template>
+<template data-cmd="ping 10.20.4.1|ping 10.20.0.53|ping 10.20.5.20">
+Pinging {1} with 32 bytes of data:
+Reply from {1}: bytes=32 time&lt;1ms TTL=255
+Reply from {1}: bytes=32 time&lt;1ms TTL=255
+Reply from {1}: bytes=32 time&lt;1ms TTL=255
+Reply from {1}: bytes=32 time&lt;1ms TTL=255
+
+Ping statistics for {1}:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+</template>
+<template data-cmd="ping 10.20.9.53">
+Pinging 10.20.9.53 with 32 bytes of data:
+Request timed out.
+Request timed out.
+Request timed out.
+Request timed out.
+
+Ping statistics for 10.20.9.53:
+    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
+</template>
+<template data-cmd="ping *">
+Ping request could not find host {1}. Please check the name and try again.
+</template>
+<template data-cmd="nslookup *">
+DNS request timed out.
+    timeout was 2 seconds.
+Server:  UnKnown
+Address:  10.20.9.53
+
+DNS request timed out.
+    timeout was 2 seconds.
+*** Request to UnKnown timed-out
+</template>
+<template data-cmd="tracert 8.8.8.8">
+Tracing route to 8.8.8.8 over a maximum of 30 hops
+
+  1    &lt;1 ms    &lt;1 ms    &lt;1 ms  10.20.4.1
+  2     1 ms     1 ms     1 ms  10.20.255.1
+  3     9 ms     8 ms     9 ms  203.0.113.1
+  4    13 ms    14 ms    13 ms  8.8.8.8
+
+Trace complete.
+</template>
+      </div>
+      <div class="pbq-term-host" data-host="HR-03" data-os="windows" data-prompt="PS C:\&gt;">
+<template data-cmd="ipconfig">
+Windows IP Configuration
+
+
+Ethernet adapter Ethernet0:
+
+   Connection-specific DNS Suffix  . : acme.internal
+   IPv4 Address. . . . . . . . . . . : 10.20.4.88
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.4.1
+</template>
+<template data-cmd="ipconfig /all">
+Windows IP Configuration
+
+   Host Name . . . . . . . . . . . . : HR-03
+   Primary Dns Suffix  . . . . . . . :
+   Node Type . . . . . . . . . . . . : Hybrid
+
+Ethernet adapter Ethernet0:
+
+   Connection-specific DNS Suffix  . : acme.internal
+   Description . . . . . . . . . . . : Intel(R) Ethernet Connection I219-LM
+   Physical Address. . . . . . . . . : 3C-52-82-4B-19-2E
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+   IPv4 Address. . . . . . . . . . . : 10.20.4.88(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Lease Obtained. . . . . . . . . . : Wednesday, October 7, 2026 8:02:11 AM
+   Lease Expires . . . . . . . . . . : Thursday, October 8, 2026 8:02:11 AM
+   Default Gateway . . . . . . . . . : 10.20.4.1
+   DHCP Server . . . . . . . . . . . : 10.20.0.10
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+</template>
+<template data-cmd="nslookup intranet.acme.internal">
+Server:  dc01.acme.internal
+Address:  10.20.0.53
+
+Name:    intranet.acme.internal
+Address:  10.20.5.20
+</template>
+<template data-cmd="nslookup *">
+Server:  dc01.acme.internal
+Address:  10.20.0.53
+
+*** dc01.acme.internal can't find {1}: Non-existent domain
+</template>
+<template data-cmd="ping intranet.acme.internal">
+Pinging intranet.acme.internal [10.20.5.20] with 32 bytes of data:
+Reply from 10.20.5.20: bytes=32 time&lt;1ms TTL=127
+Reply from 10.20.5.20: bytes=32 time&lt;1ms TTL=127
+Reply from 10.20.5.20: bytes=32 time&lt;1ms TTL=127
+Reply from 10.20.5.20: bytes=32 time&lt;1ms TTL=127
+
+Ping statistics for 10.20.5.20:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+</template>
+<template data-cmd="ping *">
+Pinging {1} with 32 bytes of data:
+Reply from {1}: bytes=32 time=13ms TTL=116
+Reply from {1}: bytes=32 time=14ms TTL=116
+Reply from {1}: bytes=32 time=13ms TTL=116
+Reply from {1}: bytes=32 time=13ms TTL=116
+
+Ping statistics for {1}:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+</template>
+      </div>
+    </div>
+
+    <div class="pbq-qs">
+      <label class="pbq-label">1. Which result proves HR-02's IP connectivity to the internet is working?</label>
+      <select class="lab-input pbq-field" data-answer="ping">
+        <option value="">Select…</option>
+        <option value="nslookup">nslookup timing out against 10.20.9.53</option>
+        <option value="ping">Replies from ping 8.8.8.8</option>
+        <option value="dhcp">DHCP Enabled: No in ipconfig /all</option>
+        <option value="flush">ipconfig /flushdns succeeding</option>
+      </select>
+      <label class="pbq-label">2. Root cause</label>
+      <select class="lab-input pbq-field" data-answer="staticdns">
+        <option value="">Select…</option>
+        <option value="gateway">HR-02's default gateway is wrong</option>
+        <option value="dnsdown">The DNS server 10.20.0.53 is down</option>
+        <option value="staticdns">HR-02 is statically configured to use the retired DNS server</option>
+        <option value="cache">HR-02's DNS resolver cache is corrupted</option>
+      </select>
+      <label class="pbq-label">3. Fix</label>
+      <select class="lab-input pbq-field" data-answer="auto">
+        <option value="">Select…</option>
+        <option value="flush">Run ipconfig /flushdns on HR-02</option>
+        <option value="auto">Set HR-02's adapter to obtain its IP and DNS settings automatically</option>
+        <option value="gw">Change HR-02's default gateway to 10.20.0.1</option>
+        <option value="restart">Restart the DNS service on 10.20.0.53</option>
+      </select>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>Layer 3 works:</strong> <code>ping 8.8.8.8</code> and <code>tracert 8.8.8.8</code> succeed from HR-02, so the address, mask, gateway, and routing are fine. When an IP address works but a name does not, the problem is name resolution.</li>
+        <li><strong>The difference:</strong> <code>ipconfig /all</code> shows HR-02 has <em>DHCP Enabled: No</em> and a DNS server of 10.20.9.53, the retired server. <code>nslookup</code> times out against it and it does not answer ping. HR-03 gets its settings from DHCP and uses 10.20.0.53, which resolves the intranet name.</li>
+        <li><strong>Why not flush the cache:</strong> flushing only empties cached answers. HR-02 still asks a server that no longer exists.</li>
+        <li><strong>The fix</strong> is to switch HR-02 back to DHCP, which is how the rest of the floor is configured. Typing 10.20.0.53 in by hand also works, but it leaves a static setting that the next server change will break again.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── Lab 4: duplex mismatch ───────────────────────────────── -->
+<div class="pbq" data-minutes="7">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">Simulation 4 · Performance</div><h2>Slow transfers from the third floor</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>Since a core switch was swapped over the weekend, every user on the third floor reports that file copies to the data center crawl and video calls stutter. The floor switch SW-FLOOR3 uplinks to SW-CORE. Nobody has touched SW-FLOOR3.</p>
+      <p>Compare the two ends of the uplink and decide what to change.</p>
+    </div>
+
+    <div class="terminal pbq-term">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Console</span></div>
+      <div class="pbq-term-host" data-host="SW-FLOOR3" data-os="ios" data-prompt="SW-FLOOR3#">
+<template data-cmd="show interfaces status">
+Port      Name               Status       Vlan       Duplex  Speed Type
+Fa0/1     F3-DESK01          connected    10         a-full  a-100 10/100BaseTX
+Fa0/2     F3-DESK02          connected    10         a-full  a-100 10/100BaseTX
+Fa0/3     F3-DESK03          connected    10         a-full  a-100 10/100BaseTX
+Fa0/24    UPLINK-CORE        connected    trunk      a-half  a-100 10/100BaseTX
+</template>
+<template data-cmd="show interfaces fa0/24|show interfaces f0/24|show interfaces fastethernet0/24">
+FastEthernet0/24 is up, line protocol is up (connected)
+  Hardware is Fast Ethernet, address is 0019.e8b1.4418 (bia 0019.e8b1.4418)
+  Description: UPLINK-CORE
+  MTU 1500 bytes, BW 100000 Kbit/sec, DLY 100 usec,
+     reliability 251/255, txload 41/255, rxload 37/255
+  Encapsulation ARPA, loopback not set
+  Half-duplex, 100Mb/s, media type is 10/100BaseTX
+  input flow-control is off, output flow-control is unsupported
+  5 minute input rate 14592000 bits/sec, 1350 packets/sec
+  5 minute output rate 16128000 bits/sec, 1488 packets/sec
+     8834120 packets input, 9182230045 bytes, 0 no buffer
+     Received 41022 broadcasts (38110 multicasts)
+     0 runts, 0 giants, 0 throttles
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored
+     9102881 packets output, 9517700712 bytes, 0 underruns
+     3871 output errors, 21448 collisions, 2 interface resets
+     0 babbles, 3871 late collision, 0 deferred
+</template>
+<template data-cmd="show running-config interface fa0/24|show running-config interface f0/24|show running-config interface fastethernet0/24">
+Building configuration...
+
+Current configuration : 78 bytes
+!
+interface FastEthernet0/24
+ description UPLINK-CORE
+ switchport mode trunk
+end
+</template>
+<template data-cmd="show logging">
+Syslog logging: enabled (0 messages dropped, 0 flushes, 0 overruns)
+    Console logging: level debugging, 412 messages logged
+
+Oct  5 02:14:07: %LINK-3-UPDOWN: Interface FastEthernet0/24, changed state to down
+Oct  5 02:31:52: %LINK-3-UPDOWN: Interface FastEthernet0/24, changed state to up
+Oct  5 02:32:41: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on FastEthernet0/24 (not full duplex), with SW-CORE GigabitEthernet1/0/2 (full duplex).
+Oct  7 08:15:12: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on FastEthernet0/24 (not full duplex), with SW-CORE GigabitEthernet1/0/2 (full duplex).
+</template>
+<template data-cmd="show cdp neighbors">
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+SW-CORE          Fas 0/24          144            R S I   C9300-48  Gig 1/0/2
+</template>
+      </div>
+      <div class="pbq-term-host" data-host="SW-CORE" data-os="ios" data-prompt="SW-CORE#">
+<template data-cmd="show interfaces status">
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi1/0/1   UPLINK-FLOOR2      connected    trunk      a-full a-1000 10/100/1000BaseTX
+Gi1/0/2   UPLINK-FLOOR3      connected    trunk        full    100 10/100/1000BaseTX
+Gi1/0/3   UPLINK-FLOOR4      connected    trunk      a-full a-1000 10/100/1000BaseTX
+</template>
+<template data-cmd="show interfaces gi1/0/2|show interfaces g1/0/2|show interfaces gigabitethernet1/0/2">
+GigabitEthernet1/0/2 is up, line protocol is up (connected)
+  Hardware is Gigabit Ethernet, address is 70b3.17a4.2c82 (bia 70b3.17a4.2c82)
+  Description: UPLINK-FLOOR3
+  MTU 1500 bytes, BW 100000 Kbit/sec, DLY 100 usec,
+     reliability 247/255, txload 38/255, rxload 41/255
+  Encapsulation ARPA, loopback not set
+  Full-duplex, 100Mb/s, media type is 10/100/1000BaseTX
+  input flow-control is off, output flow-control is unsupported
+  5 minute input rate 16110000 bits/sec, 1486 packets/sec
+  5 minute output rate 14601000 bits/sec, 1351 packets/sec
+     9098410 packets input, 9512201950 bytes, 0 no buffer
+     Received 40880 broadcasts (37952 multicasts)
+     287 runts, 0 giants, 0 throttles
+     6120 input errors, 5833 CRC, 0 frame, 0 overrun, 0 ignored
+     8830277 packets output, 9178820114 bytes, 0 underruns
+     0 output errors, 0 collisions, 1 interface resets
+     0 babbles, 0 late collision, 0 deferred
+</template>
+<template data-cmd="show running-config interface gi1/0/2|show running-config interface g1/0/2|show running-config interface gigabitethernet1/0/2">
+Building configuration...
+
+Current configuration : 112 bytes
+!
+interface GigabitEthernet1/0/2
+ description UPLINK-FLOOR3
+ switchport mode trunk
+ speed 100
+ duplex full
+end
+</template>
+<template data-cmd="show logging">
+Syslog logging: enabled (0 messages dropped, 0 flushes, 0 overruns)
+    Console logging: level debugging, 96 messages logged
+
+Oct  5 02:31:50: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/2, changed state to up
+Oct  5 02:32:40: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on GigabitEthernet1/0/2 (not half duplex), with SW-FLOOR3 FastEthernet0/24 (half duplex).
+</template>
+<template data-cmd="show cdp neighbors">
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+SW-FLOOR2        Gig 1/0/1         151             S I    WS-C2960  Gig 0/1
+SW-FLOOR3        Gig 1/0/2         133             S I    WS-C2960  Fas 0/24
+SW-FLOOR4        Gig 1/0/3         140             S I    WS-C2960  Gig 0/1
+</template>
+      </div>
+    </div>
+
+    <div class="pbq-qs">
+      <label class="pbq-label">1. Which counter on the half-duplex side is the signature of this fault?</label>
+      <select class="lab-input pbq-field" data-answer="late">
+        <option value="">Select…</option>
+        <option value="crc">CRC errors</option>
+        <option value="late">Late collisions</option>
+        <option value="giants">Giants</option>
+        <option value="resets">Interface resets</option>
+      </select>
+      <label class="pbq-label">2. Root cause</label>
+      <select class="lab-input pbq-field" data-answer="duplex">
+        <option value="">Select…</option>
+        <option value="cable">A damaged uplink cable is corrupting frames</option>
+        <option value="speed">A speed mismatch: 100 Mbps on one side and 1000 Mbps on the other</option>
+        <option value="duplex">A duplex mismatch: SW-CORE is hard-set to full, so SW-FLOOR3 falls back to half</option>
+        <option value="loop">A switching loop is flooding the uplink</option>
+      </select>
+      <label class="pbq-label">3. Fix</label>
+      <select class="lab-input pbq-field" data-answer="auto">
+        <option value="">Select…</option>
+        <option value="half">On SW-FLOOR3 Fa0/24, configure duplex half to match</option>
+        <option value="cable">Replace the uplink patch cable</option>
+        <option value="auto">On SW-CORE Gi1/0/2, configure speed auto and duplex auto</option>
+        <option value="bounce">Shut down and re-enable SW-CORE Gi1/0/2</option>
+      </select>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>The weekend change:</strong> the new core port was configured with <code>speed 100</code> and <code>duplex full</code>. A port with hard-set speed and duplex stops auto-negotiating. SW-FLOOR3 still auto-negotiates, so it detects the speed from the signal (100 Mbps) but cannot learn the duplex, and the standard fallback is half duplex. <code>show interfaces status</code> shows the result: <code>a-half</code> on the floor switch and a hard-set <code>full</code> on the core.</li>
+        <li><strong>The counters agree:</strong> the half-duplex side records late collisions, because it is still listening for collisions while the full-duplex side transmits whenever it likes. The full-duplex side records CRC errors and runts, which are the frames the half-duplex side cut off part-way through. The syslog <code>%CDP-4-DUPLEX_MISMATCH</code> message says it outright.</li>
+        <li><strong>Why not the cable:</strong> CRC errors alone could mean a bad cable, but a cable fault does not produce late collisions on the other end, and it does not appear on the same night as a configuration change.</li>
+        <li><strong>The fix:</strong> make both ends negotiate (<code>speed auto</code>, <code>duplex auto</code> on SW-CORE Gi1/0/2), or hard-set both ends to the same values. Setting the floor side to half only makes the mismatch official, and bouncing the port renegotiates into the same mismatch.</li>
+      </ul>
+    </div>
+  </div>
+</div>

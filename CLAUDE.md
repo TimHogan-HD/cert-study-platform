@@ -74,6 +74,9 @@ Every fragment swap replaces the DOM, so inits attach listeners to fresh element
 | `initChecklist()` | `components/checklist.js` | `.checklist[data-store]` |
 | `initBinaryBits()` | `components/binary-bits.js` | `#bit-grid`, `#bit-total`, `.binary-bit-cell` |
 | `initGuidedSubnetting()` | `components/guided-subnetting.js` | `#subnet-guide`, `#sg-body` |
+| `initPbq()` | `components/pbq.js` | `.pbq` holding `.pbq-field` / `.pbq-slot` + `.pbq-bank` — graded by `data-check` (a `CHECKS` key) against `data-answer` |
+| `initPbqTerminals()` | `components/pbq-terminal.js` | `.pbq-term` with one `.pbq-term-host` per device, each answering its `<template data-cmd>` children |
+| `initSubnetTools()` | `components/subnet-calc.js` | `.subnet-calc`, `.vlsm`, `.subnet-drill` |
 
 Links inside fragments (`.inline-nav`, `.quicknav-card`, `.cert-home-card`) call the router, so they are wired in `initFragmentComponents` itself.
 
