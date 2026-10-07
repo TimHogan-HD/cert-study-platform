@@ -101,6 +101,7 @@ Much of the existing CSS predates these rules: `components.css` still has ~120 h
 ## Content Conventions
 
 - **Terminals:** Use `.terminal` + `.terminal-bar` + `.terminal-body`. Host-side prompts use `<span class="tpw">PS C:\&gt;</span>` (PowerShell). Cisco IOS prompts use `<span class="tpc">Switch1#</span>`. Syntax classes: `.th` (highlight), `.ts` (success), `.te` (error), `.tn` (annotation/comment).
+- **AI Explain buttons:** every `.ai-explain-btn` needs a `data-topic`. `api/explain.js` answers only the topics listed in `api/topics.js`, so the key can't be used as a general-purpose model; after adding or editing a topic, run `node tools/check.js --fix` to regenerate that list (CI fails until you do).
 - **Callouts:** `<div class="callout callout-{blue|teal|amber|green|red|purple}">` with a `<div class="callout-title">` child.
 - **Acronyms:** Wrap first use of each acronym in `<abbr title="Full expansion">ABBR</abbr>`. `node tools/check.js --fix` wraps any first use it can resolve from the expansions already used in the same certification's pages; an acronym with two meanings there (STP) is reported for you to wrap by hand.
 - **Tables:** Always wrap in `<div class="table-wrap">` for horizontal scroll on mobile. The AZ-900 page uses the equivalent `.cmp-wrap`; don't introduce another wrapper class.
