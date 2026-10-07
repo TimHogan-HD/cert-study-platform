@@ -4,9 +4,9 @@
 
   <!-- C11: MDF/IDF Hierarchy Diagram -->
   <div class="concept-visual">
-    <div class="concept-visual-title">Structured Cabling Hierarchy — MDF → IDF → Access → Endpoints</div>
+    <div class="concept-visual-title">Structured Cabling Hierarchy — MDF → <abbr title="Intermediate Distribution Frame">IDF</abbr> → Access → Endpoints</div>
     <div class="mdf-wrap">
-      <div class="mdf-node mdf-isp">ISP / WAN<div class="mdf-sub">Demarcation point</div></div>
+      <div class="mdf-node mdf-isp"><abbr title="Internet Service Provider">ISP</abbr> / WAN<div class="mdf-sub">Demarcation point</div></div>
       <div class="mdf-line"></div>
       <div class="mdf-node mdf-main">MDF — Main Distribution Frame<div class="mdf-sub">Core switches · ISP handoff · patch panels</div></div>
       <div class="mdf-line"></div>
@@ -19,7 +19,7 @@
           <div class="mdf-endpoints">
             <div class="mdf-node mdf-end">PC</div>
             <div class="mdf-node mdf-end">Phone</div>
-            <div class="mdf-node mdf-end">AP</div>
+            <div class="mdf-node mdf-end"><abbr title="Access Point">AP</abbr></div>
           </div>
         </div>
         <div class="mdf-branch">
@@ -70,7 +70,7 @@
         <tr><th>Standard</th><th>Power Delivered</th><th>Use Case</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>802.3af</strong> (PoE)</td><td>15.4 W (12.95 W at device)</td><td>IP phones, basic WAPs, cameras</td></tr>
+        <tr><td><strong>802.3af</strong> (PoE)</td><td>15.4 W (12.95 W at device)</td><td><abbr title="Internet Protocol v4/v6">IP</abbr> phones, basic <abbr title="Wireless Access Points">WAPs</abbr>, cameras</td></tr>
         <tr><td><strong>802.3at</strong> (PoE+)</td><td>30 W (25.5 W at device)</td><td>Higher-powered WAPs, PTZ cameras, thin clients</td></tr>
         <tr><td><strong>802.3bt</strong> (PoE++ / 4PPoE)</td><td>60–90 W (Type 3: 60W, Type 4: 90W)</td><td>Video conferencing equipment, laptops, small UPS</td></tr>
       </tbody>
@@ -79,7 +79,7 @@
 
   <div class="callout callout-blue">
     <div class="callout-title">PoE Budget</div>
-    Switches have a <strong>total PoE budget</strong> (e.g., 370W for a 24-port switch). If you add too many high-wattage devices, you exhaust the budget and ports stop powering. Always check the PSE (Power Sourcing Equipment) budget before deploying.
+    Switches have a <strong>total PoE budget</strong> (e.g., 370W for a 24-port switch). If you add too many high-wattage devices, you exhaust the budget and ports stop powering. Always check the <abbr title="Power Sourcing Equipment">PSE</abbr> (Power Sourcing Equipment) budget before deploying.
   </div>
 
   <h3>Cable Testing Tools</h3>
@@ -90,8 +90,8 @@
       </thead>
       <tbody>
         <tr><td><strong>Cable Tester (Continuity)</strong></td><td>Verifies each wire is connected correctly end-to-end. Detects opens, shorts, reversed pairs, crossed pairs.</td><td>L1</td></tr>
-        <tr><td><strong>TDR</strong> (Time-Domain Reflectometer)</td><td>Sends pulse and measures reflection — finds location of breaks or faults in copper cable.</td><td>L1</td></tr>
-        <tr><td><strong>OTDR</strong> (Optical TDR)</td><td>Same as TDR but for fiber optic — identifies breaks, splices, connectors and their distance.</td><td>L1</td></tr>
+        <tr><td><strong><abbr title="Time-Domain Reflectometer">TDR</abbr></strong> (Time-Domain Reflectometer)</td><td>Sends pulse and measures reflection — finds location of breaks or faults in copper cable.</td><td>L1</td></tr>
+        <tr><td><strong><abbr title="Optical Time-Domain Reflectometer">OTDR</abbr></strong> (Optical TDR)</td><td>Same as TDR but for fiber optic — identifies breaks, splices, connectors and their distance.</td><td>L1</td></tr>
         <tr><td><strong>Optical Power Meter / Light Meter</strong></td><td>Measures optical signal power (dBm) — determines if fiber has sufficient signal level.</td><td>L1</td></tr>
         <tr><td><strong>Multimeter</strong></td><td>Measures voltage, current, resistance — tests power at outlets, checks for shorts.</td><td>L1</td></tr>
         <tr><td><strong>Toner Probe / Fox &amp; Hound</strong></td><td>Injects tone on one end; probe detects it to trace cable path through walls or patch panels.</td><td>L1</td></tr>
@@ -111,7 +111,7 @@
       <tbody>
         <tr><td><strong>Late Collisions</strong></td><td>Counted on a port; degrade performance</td><td><strong>Duplex mismatch</strong> — one side full-duplex, other half-duplex</td></tr>
         <tr><td><strong>Runts</strong></td><td>Frames shorter than 64 bytes</td><td>Collisions (half-duplex), speed mismatch, corrupted frames</td></tr>
-        <tr><td><strong>Giants</strong></td><td>Frames longer than 1518 bytes (without jumbo frames)</td><td>Misconfigured MTU, jumbo frames on non-jumbo switch, jabber condition</td></tr>
+        <tr><td><strong>Giants</strong></td><td>Frames longer than 1518 bytes (without jumbo frames)</td><td>Misconfigured <abbr title="Maximum Transmission Unit">MTU</abbr>, jumbo frames on non-jumbo switch, jabber condition</td></tr>
         <tr><td><strong>CRC Errors</strong></td><td>Frame has a bad checksum</td><td>Physical layer issues: bad cable, interference, connector issue, duplex mismatch</td></tr>
         <tr><td><strong>Input/Output Errors</strong></td><td>General frame errors</td><td>Physical medium issues</td></tr>
       </tbody>

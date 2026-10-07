@@ -2,8 +2,8 @@
   <div class="section-eyebrow">Objective 3.4</div>
   <h2>3.4 IPv4 &amp; IPv6 Network Services</h2>
 
-  <h3>DHCP — DORA Process</h3>
-  <p>DHCP automates IP address assignment. The DORA process is the four-step handshake:</p>
+  <h3><abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> — <abbr title="Discover-Offer-Request-Acknowledge">DORA</abbr> Process</h3>
+  <p>DHCP automates <abbr title="Internet Protocol v4/v6">IP</abbr> address assignment. The DORA process is the four-step handshake:</p>
 
   <div class="concept-visual">
     <div class="concept-visual-title">DORA Sequence — DHCP Handshake</div>
@@ -56,7 +56,7 @@
       <div class="step-num">O</div>
       <div class="step-content">
         <div class="step-title">Offer (Server → Broadcast/Unicast)</div>
-        <div class="step-desc">DHCP server responds with an IP address offer — IP, mask, gateway, DNS, lease time. Can be broadcast (client has no IP yet) or unicast.</div>
+        <div class="step-desc">DHCP server responds with an IP address offer — IP, mask, gateway, <abbr title="Domain Name System">DNS</abbr>, lease time. Can be broadcast (client has no IP yet) or unicast.</div>
       </div>
     </div>
     <div class="step-box">
@@ -91,7 +91,7 @@
         <tr><td><strong>6</strong></td><td>DNS Server address(es)</td></tr>
         <tr><td><strong>15</strong></td><td>Domain Name (e.g., company.local)</td></tr>
         <tr><td><strong>51</strong></td><td>Lease Time (seconds)</td></tr>
-        <tr><td><strong>66</strong></td><td>TFTP Server Name (for booting PXE clients)</td></tr>
+        <tr><td><strong>66</strong></td><td><abbr title="Trivial File Transfer Protocol — no authentication">TFTP</abbr> Server Name (for booting PXE clients)</td></tr>
         <tr><td><strong>67</strong></td><td>Bootfile Name (used with TFTP for PXE)</td></tr>
       </tbody>
     </table>
@@ -127,7 +127,7 @@
     <p>The exam-relevant pairing: a host-side static address needs a matching exclusion. A reservation needs neither, because the server is already the one making the assignment.</p>
   </div>
 
-  <h3>IPv6 Address Assignment — SLAAC vs. DHCPv6</h3>
+  <h3>IPv6 Address Assignment — <abbr title="Stateless Address Autoconfiguration">SLAAC</abbr> vs. DHCPv6</h3>
   <p>IPv6 hosts can configure themselves without any server at all. <strong><abbr title="Stateless Address Autoconfiguration">SLAAC</abbr></strong> — stateless address autoconfiguration — is how that works, and it is the mechanism with no IPv4 equivalent.</p>
 
   <div class="steps-list">
@@ -170,7 +170,7 @@
 
   <div class="callout callout-blue">
     <div class="callout-title">The RA Flags That Decide</div>
-    <p>The Router Advertisement tells hosts which of the three modes to use. The <strong>M flag</strong> (Managed) set to 1 means "get your address from stateful DHCPv6." The <strong>O flag</strong> (Other) set to 1 means "build your own address, but ask DHCPv6 for DNS and other settings" — stateless DHCPv6. Both flags clear means pure SLAAC. DHCPv6 itself uses <strong>UDP 546</strong> on the client and <strong>UDP 547</strong> on the server — not 67/68, which are IPv4 DHCP.</p>
+    <p>The Router Advertisement tells hosts which of the three modes to use. The <strong>M flag</strong> (Managed) set to 1 means "get your address from stateful DHCPv6." The <strong>O flag</strong> (Other) set to 1 means "build your own address, but ask DHCPv6 for DNS and other settings" — stateless DHCPv6. Both flags clear means pure SLAAC. DHCPv6 itself uses <strong><abbr title="User Datagram Protocol">UDP</abbr> 546</strong> on the client and <strong>UDP 547</strong> on the server — not 67/68, which are IPv4 DHCP.</p>
   </div>
 
   <h3>DNS Record Types</h3>
@@ -188,7 +188,7 @@
         <tr><td><strong>TXT</strong></td><td>Text record — SPF, DKIM, DMARC, domain verification</td><td>v=spf1 include:example.com ~all</td></tr>
         <tr><td><strong>NS</strong></td><td>Name Server — identifies authoritative DNS servers for a zone</td><td>example.com NS ns1.example.com</td></tr>
         <tr><td><strong>SOA</strong></td><td>Start of Authority — primary NS, admin email, serial, timers for the zone</td><td>Zone housekeeping information</td></tr>
-        <tr><td><strong>SRV</strong></td><td>Service record — location of specific services (VoIP, LDAP, etc.)</td><td>_sip._tcp.example.com SRV 10 5 5060 sip.example.com</td></tr>
+        <tr><td><strong>SRV</strong></td><td>Service record — location of specific services (VoIP, <abbr title="Lightweight Directory Access Protocol">LDAP</abbr>, etc.)</td><td>_sip._tcp.example.com SRV 10 5 5060 sip.example.com</td></tr>
       </tbody>
     </table>
   </div>
@@ -228,7 +228,7 @@
     <li><strong>Root DNS Servers:</strong> 13 logical root server sets (a.root-servers.net through m.root-servers.net). Know where top-level domains (TLDs) are.</li>
     <li><strong>TLD Name Servers:</strong> Manage .com, .org, .net, country codes (.uk, .de).</li>
     <li><strong>Authoritative Name Servers:</strong> Hold actual DNS records for a domain. Final authority.</li>
-    <li><strong>Recursive Resolver:</strong> Your ISP or internal DNS server. Queries on behalf of clients, caches results (TTL-based).</li>
+    <li><strong>Recursive Resolver:</strong> Your <abbr title="Internet Service Provider">ISP</abbr> or internal DNS server. Queries on behalf of clients, caches results (TTL-based).</li>
   </ol>
 
   <h3>DNS Zones</h3>
@@ -260,7 +260,7 @@
     </table>
   </div>
 
-  <p>A <strong>zone transfer</strong> is how the secondary gets its copy. The secondary polls the primary's SOA serial number; if it has increased, the secondary requests the zone. A full transfer is <strong>AXFR</strong>, an incremental one <strong>IXFR</strong>. Zone transfers use <strong>TCP port 53</strong> — not UDP — because reliability matters more than speed for a bulk copy. Servers restrict which hosts may request a transfer, since an unrestricted one hands an attacker a complete map of the network.</p>
+  <p>A <strong>zone transfer</strong> is how the secondary gets its copy. The secondary polls the primary's SOA serial number; if it has increased, the secondary requests the zone. A full transfer is <strong>AXFR</strong>, an incremental one <strong>IXFR</strong>. Zone transfers use <strong><abbr title="Transmission Control Protocol">TCP</abbr> port 53</strong> — not UDP — because reliability matters more than speed for a bulk copy. Servers restrict which hosts may request a transfer, since an unrestricted one hands an attacker a complete map of the network.</p>
 
   <h3>Local Resolution — The Hosts File</h3>
   <p>Before a client sends a single DNS query, it resolves locally. The order is <strong>local cache → hosts file → DNS server</strong>, so a hosts file entry <em>overrides DNS entirely</em> — the query is never sent, and no amount of fixing the DNS server will change the answer.</p>
@@ -286,7 +286,7 @@
       <tbody>
         <tr><td><code>nslookup hostname</code></td><td>Windows/Linux</td><td>Query DNS for a hostname or IP. Basic resolution test.</td></tr>
         <tr><td><code>nslookup -type=MX domain.com</code></td><td>Windows/Linux</td><td>Query specific record type.</td></tr>
-        <tr><td><code>dig hostname</code></td><td>Linux/macOS</td><td>More detailed DNS query output including TTL, authority.</td></tr>
+        <tr><td><code>dig hostname</code></td><td>Linux/macOS</td><td>More detailed DNS query output including <abbr title="Time To Live">TTL</abbr>, authority.</td></tr>
         <tr><td><code>dig @8.8.8.8 hostname</code></td><td>Linux</td><td>Query specific DNS server (bypass local resolver).</td></tr>
       </tbody>
     </table>
@@ -334,7 +334,7 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
 <span class="tn"># If both fail → domain doesn't exist, or DNS traffic is being blocked</span></pre>
   </div>
 
-  <h3>NTP (Network Time Protocol)</h3>
+  <h3><abbr title="Network Time Protocol">NTP</abbr> (Network Time Protocol)</h3>
   <div class="table-wrap">
     <table class="table--reference">
       <thead>
@@ -426,8 +426,8 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
       </thead>
       <tbody>
         <tr><td><strong><abbr title="DNS Security Extensions">DNSSEC</abbr></strong></td><td>53 UDP/TCP</td><td>Digital signatures (RRSIG records)</td><td>Integrity — signs DNS records so resolvers can verify they haven't been tampered with</td><td>Cache poisoning / DNS spoofing (does NOT encrypt queries)</td></tr>
-        <tr><td><strong><abbr title="DNS over TLS">DoT</abbr></strong></td><td><strong>853</strong> TCP</td><td>DNS inside TLS tunnel</td><td>Privacy — encrypts DNS queries between client and resolver</td><td>Eavesdropping on DNS queries; easily distinguishable (port 853)</td></tr>
-        <tr><td><strong><abbr title="DNS over HTTPS">DoH</abbr></strong></td><td><strong>443</strong> TCP</td><td>DNS inside HTTPS</td><td>Privacy — encrypts DNS queries; blends with HTTPS traffic</td><td>Eavesdropping; harder for enterprises to block/inspect than DoT</td></tr>
+        <tr><td><strong><abbr title="DNS over TLS">DoT</abbr></strong></td><td><strong>853</strong> TCP</td><td>DNS inside <abbr title="Transport Layer Security">TLS</abbr> tunnel</td><td>Privacy — encrypts DNS queries between client and resolver</td><td>Eavesdropping on DNS queries; easily distinguishable (port 853)</td></tr>
+        <tr><td><strong><abbr title="DNS over HTTPS">DoH</abbr></strong></td><td><strong>443</strong> TCP</td><td>DNS inside <abbr title="HTTP Secure">HTTPS</abbr></td><td>Privacy — encrypts DNS queries; blends with HTTPS traffic</td><td>Eavesdropping; harder for enterprises to block/inspect than DoT</td></tr>
       </tbody>
     </table>
   </div>
@@ -455,7 +455,7 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
         <tr><th>Protocol</th><th>Standard</th><th>Port</th><th>Accuracy</th><th>Use Case</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>NTP</strong></td><td>RFC 5905</td><td>123 UDP</td><td>~1–50 ms</td><td>General enterprise time sync; all network devices, servers</td></tr>
+        <tr><td><strong>NTP</strong></td><td><abbr title="Request for Comments">RFC</abbr> 5905</td><td>123 UDP</td><td>~1–50 ms</td><td>General enterprise time sync; all network devices, servers</td></tr>
         <tr><td><strong>PTP</strong> (IEEE 1588)</td><td>IEEE 1588-2019</td><td>319/320 UDP</td><td>Sub-microsecond</td><td>Financial trading, 5G RAN synchronization, industrial automation, broadcast media</td></tr>
         <tr><td><strong>NTS</strong></td><td>RFC 8915</td><td>4460 TCP</td><td>Same as NTP</td><td>Authenticated NTP — prevents time spoofing and MITM against NTP</td></tr>
       </tbody>

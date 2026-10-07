@@ -301,7 +301,7 @@
         <line x1="40" y1="106" x2="42" y2="84" stroke="var(--border2)" stroke-width="1.2"/>
         <line x1="120" y1="106" x2="118" y2="84" stroke="var(--border2)" stroke-width="1.2"/>
       </svg>
-      <div class="topology-diagram-label">MPLS / SD-WAN</div>
+      <div class="topology-diagram-label"><abbr title="Multiprotocol Label Switching">MPLS</abbr> / SD-WAN</div>
       <div class="topology-diagram-sub">Provider-managed cloud fabric</div>
     </div>
 
@@ -316,8 +316,8 @@
         <tr><td><strong>Point-to-Point</strong></td><td>Dedicated link between two sites</td><td>Branch to HQ connection, T1/E1 leased lines, fiber</td></tr>
         <tr><td><strong>Hub-and-Spoke</strong></td><td>Central hub site connects to multiple spoke sites</td><td>Cost-effective for many branches; spokes can't communicate without going through hub</td></tr>
         <tr><td><strong>Full Mesh WAN</strong></td><td>Every site connects to every other site</td><td>Maximum redundancy; very expensive for many sites</td></tr>
-        <tr><td><strong>MPLS</strong></td><td>Multi-Protocol Label Switching — traffic-engineered WAN</td><td>Enterprise WAN; supports QoS; provider-managed</td></tr>
-        <tr><td><strong>SD-WAN</strong></td><td>Software-defined WAN abstraction over multiple transports</td><td>Modern replacement for MPLS; uses broadband + LTE + MPLS intelligently</td></tr>
+        <tr><td><strong>MPLS</strong></td><td>Multi-Protocol Label Switching — traffic-engineered WAN</td><td>Enterprise WAN; supports <abbr title="Quality of Service">QoS</abbr>; provider-managed</td></tr>
+        <tr><td><strong>SD-WAN</strong></td><td>Software-defined WAN abstraction over multiple transports</td><td>Modern replacement for MPLS; uses broadband + <abbr title="Long-Term Evolution">LTE</abbr> + MPLS intelligently</td></tr>
       </tbody>
     </table>
   </div>
@@ -384,7 +384,7 @@
         <tr><td><strong>CAN</strong> (Campus Area Network)</td><td>Multiple buildings</td><td>University campus, corporate campus</td></tr>
         <tr><td><strong>MAN</strong> (Metropolitan Area Network)</td><td>City / metro area</td><td>City fiber ring, cable TV infrastructure</td></tr>
         <tr><td><strong>WAN</strong> (Wide Area Network)</td><td>Country / global</td><td>Internet, MPLS across states, T1 between cities</td></tr>
-        <tr><td><strong>SAN</strong> (Storage Area Network)</td><td>Data center</td><td>iSCSI, Fibre Channel — high-speed storage access</td></tr>
+        <tr><td><strong><abbr title="Storage Area Network">SAN</abbr></strong> (Storage Area Network)</td><td>Data center</td><td>iSCSI, Fibre Channel — high-speed storage access</td></tr>
         <tr><td><strong>SOHO</strong> (Small Office / Home Office)</td><td>Small local network</td><td>Home router with switch+WAP, small business</td></tr>
       </tbody>
     </table>
@@ -586,8 +586,8 @@
         </div>
         <div class="arch-flip-back">
           <div class="arch-flip-back-title">SOHO</div>
-          <div class="arch-flip-back-tiers">Single router/AP</div>
-          <div class="arch-flip-back-desc">Combined router + switch + WAP in one device. Flat network, NAT to ISP. Used in home offices and very small businesses.</div>
+          <div class="arch-flip-back-tiers">Single router/<abbr title="Access Point">AP</abbr></div>
+          <div class="arch-flip-back-desc">Combined router + switch + WAP in one device. Flat network, <abbr title="Network Address Translation">NAT</abbr> to <abbr title="Internet Service Provider">ISP</abbr>. Used in home offices and very small businesses.</div>
         </div>
       </div>
     </div>

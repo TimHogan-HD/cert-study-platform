@@ -10,8 +10,8 @@
       <tbody>
         <tr>
           <td><code>ping</code></td><td>All</td>
-          <td>Test Layer 3 reachability (ICMP echo)</td>
-          <td>RTT in ms, packet loss %. <code>ping -t</code> (Windows continuous); <code>ping -c 4</code> (Linux count)</td>
+          <td>Test Layer 3 reachability (<abbr title="Internet Control Message Protocol">ICMP</abbr> echo)</td>
+          <td><abbr title="Round-Trip Time">RTT</abbr> in ms, packet loss %. <code>ping -t</code> (Windows continuous); <code>ping -c 4</code> (Linux count)</td>
         </tr>
         <tr>
           <td><code>traceroute</code> / <code>tracert</code></td><td>Linux / Windows</td>
@@ -20,13 +20,13 @@
         </tr>
         <tr>
           <td><code>ipconfig</code> / <code>ifconfig</code></td><td>Windows / Linux</td>
-          <td>Show IP configuration</td>
-          <td><code>ipconfig /all</code>: IP, mask, gateway, DNS, MAC, DHCP server. <code>ipconfig /flushdns</code>: clear DNS cache. <code>ipconfig /renew</code>: force DHCP renew</td>
+          <td>Show <abbr title="Internet Protocol v4/v6">IP</abbr> configuration</td>
+          <td><code>ipconfig /all</code>: IP, mask, gateway, <abbr title="Domain Name System">DNS</abbr>, MAC, <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> server. <code>ipconfig /flushdns</code>: clear DNS cache. <code>ipconfig /renew</code>: force DHCP renew</td>
         </tr>
         <tr>
           <td><code>ip</code></td><td>Linux</td>
           <td>Modern replacement for ifconfig/route</td>
-          <td><code>ip addr show</code>, <code>ip route show</code>, <code>ip neigh show</code> (ARP table)</td>
+          <td><code>ip addr show</code>, <code>ip route show</code>, <code>ip neigh show</code> (<abbr title="Address Resolution Protocol">ARP</abbr> table)</td>
         </tr>
         <tr>
           <td><code>nslookup</code></td><td>All</td>
@@ -36,7 +36,7 @@
         <tr>
           <td><code>dig</code></td><td>Linux/Mac</td>
           <td>Advanced DNS query tool</td>
-          <td><code>dig example.com</code>; shows full DNS response including TTL, authority section. <code>dig +short</code> for brief output</td>
+          <td><code>dig example.com</code>; shows full DNS response including <abbr title="Time To Live">TTL</abbr>, authority section. <code>dig +short</code> for brief output</td>
         </tr>
         <tr>
           <td><code>netstat</code></td><td>All</td>
@@ -66,16 +66,16 @@
         <tr>
           <td><code>tcpdump</code></td><td>Linux</td>
           <td>Capture packets from command line</td>
-          <td><code>tcpdump -i eth0 port 80</code>: capture HTTP on eth0. Write to file: <code>-w capture.pcap</code></td>
+          <td><code>tcpdump -i eth0 port 80</code>: capture <abbr title="HyperText Transfer Protocol">HTTP</abbr> on eth0. Write to file: <code>-w capture.pcap</code></td>
         </tr>
         <tr>
           <td><code>Wireshark</code></td><td>GUI/All</td>
           <td>Graphical packet analyzer</td>
-          <td>Filter: <code>ip.addr == 10.1.1.1</code>; follow TCP stream; decode protocols</td>
+          <td>Filter: <code>ip.addr == 10.1.1.1</code>; follow <abbr title="Transmission Control Protocol">TCP</abbr> stream; decode protocols</td>
         </tr>
         <tr>
           <td><code>iperf3</code></td><td>All (free)</td>
-          <td>Measure actual TCP/UDP throughput between two endpoints</td>
+          <td>Measure actual TCP/<abbr title="User Datagram Protocol">UDP</abbr> throughput between two endpoints</td>
           <td><code>iperf3 -s</code> on server side; <code>iperf3 -c [server-ip]</code> on client. Reports achieved Mbps — use to verify actual link speed vs rated capacity and identify bandwidth bottlenecks</td>
         </tr>
       </tbody>
@@ -189,7 +189,7 @@ Active Connections
 <span class="tn"># netstat -r = routing table  |  netstat -s = per-protocol statistics</span></pre>
   </div>
 
-  <h3>APIPA — Diagnostic Indicator</h3>
+  <h3><abbr title="Automatic Private IP Addressing">APIPA</abbr> — Diagnostic Indicator</h3>
   <div class="callout callout-blue">
     <div class="callout-title">169.254.x.x — What It Means</div>
     <p>If a Windows device self-assigns an address in <strong>169.254.0.0/16</strong> (APIPA — Automatic Private IP Addressing), it means DHCP failed. The device sent DHCP Discover broadcasts but received no Offer within timeout.</p>
@@ -206,14 +206,14 @@ Active Connections
         <tr><td>VLAN mismatch</td><td>Two devices can't communicate even on same switch</td><td>Devices assigned to different VLANs without routing</td><td><code>show vlan</code>; check port assignments</td></tr>
         <tr><td>Routing loop</td><td>Packets loop; TTL exceeded errors; high CPU on routers</td><td>Misconfigured static routes, redistributed routes forming loop</td><td><code>traceroute</code>; <code>show ip route</code></td></tr>
         <tr><td>Asymmetric routing</td><td>TCP sessions fail; one-way audio in VoIP</td><td>Traffic takes different path in each direction</td><td><code>traceroute</code> from both ends; compare paths</td></tr>
-        <tr><td>MTU mismatch</td><td>Large packets fail; small packets work; "black hole" routing</td><td>PMTUD blocked by firewall; VPN adds overhead</td><td><code>ping -f -l 1472</code> (Windows DF-bit test)</td></tr>
+        <tr><td><abbr title="Maximum Transmission Unit">MTU</abbr> mismatch</td><td>Large packets fail; small packets work; "black hole" routing</td><td>PMTUD blocked by firewall; VPN adds overhead</td><td><code>ping -f -l 1472</code> (Windows DF-bit test)</td></tr>
         <tr><td>Missing route</td><td>Can't reach specific network; others work fine</td><td>Route not redistributed, summarized away, or filtered</td><td><code>show ip route [destination]</code></td></tr>
         <tr><td>DNS failure</td><td>Names don't resolve; IPs work</td><td>DNS server down, wrong DNS configured, poisoned cache</td><td><code>nslookup</code>; <code>ipconfig /flushdns</code></td></tr>
-        <tr><td>Broadcast storm</td><td>Extreme network slowness; switch CPU maxed</td><td>STP failure causing a loop; broadcast traffic floods</td><td>Check STP topology; <code>show spanning-tree</code></td></tr>
+        <tr><td>Broadcast storm</td><td>Extreme network slowness; switch CPU maxed</td><td><abbr title="Spanning Tree Protocol">STP</abbr> failure causing a loop; broadcast traffic floods</td><td>Check STP topology; <code>show spanning-tree</code></td></tr>
         <tr><td>Incorrect default gateway</td><td>Local subnet works perfectly; nothing off-subnet is reachable</td><td>Wrong gateway pushed by DHCP, static typo, or a gateway address that is not on the host's own subnet</td><td><code>ipconfig /all</code>; ping the gateway, then ping a remote host</td></tr>
         <tr><td>Incorrect IP address</td><td>Host reaches nothing, or is reachable from some subnets but not its own</td><td>Static address configured in the wrong subnet, or a duplicate of an address already in use</td><td><code>ipconfig /all</code>; compare against the addressing plan</td></tr>
         <tr><td>Incorrect subnet mask</td><td>Some destinations reachable, others not — inconsistent and confusing</td><td>Mask too long or too short, so the host misjudges which destinations are local and ARPs instead of routing (or the reverse)</td><td><code>ipconfig /all</code>; confirm the mask matches every other host on the segment</td></tr>
-        <tr><td>Blocked by ACL</td><td>Ping succeeds but an application fails, or one protocol works while another does not</td><td>An unintended <abbr title="Access Control List">ACL</abbr> match, or the implicit deny at the end of the list catching traffic nobody permitted</td><td><code>show access-lists</code> — check hit counters to see which line is matching; <code>show ip interface</code> for direction</td></tr>
+        <tr><td>Blocked by <abbr title="Access Control List">ACL</abbr></td><td>Ping succeeds but an application fails, or one protocol works while another does not</td><td>An unintended <abbr title="Access Control List">ACL</abbr> match, or the implicit deny at the end of the list catching traffic nobody permitted</td><td><code>show access-lists</code> — check hit counters to see which line is matching; <code>show ip interface</code> for direction</td></tr>
         <tr><td>Missing default route</td><td>All internal networks reachable; nothing on the internet is</td><td>No 0.0.0.0/0 in the table — removed by a change, or a failed dynamic route never replaced</td><td><code>show ip route</code>; look for <code>S*</code> and the gateway of last resort</td></tr>
       </tbody>
     </table>
@@ -274,7 +274,7 @@ Active Connections
         <tr><td>Unknown devices on network</td><td>Rogue devices, unauthorized BYOD, network intrusion</td><td>ARP scan / nmap discovery; compare against DHCP lease table and asset inventory</td></tr>
         <tr><td>Users locked out of accounts</td><td>Brute force attack, credential stuffing, attacker locking accounts</td><td>Check auth logs / SIEM; review failed login events; verify source IPs</td></tr>
         <tr><td>Duplicate IP addresses</td><td>Rogue DHCP server, static IP conflict, IP spoofing</td><td><code>arp -a</code>; DHCP server logs; enable DHCP snooping</td></tr>
-        <tr><td>SSL/TLS certificate errors</td><td>Expired certificate, MITM attack, certificate mismatch</td><td>Inspect certificate details; check validity dates; verify CA chain</td></tr>
+        <tr><td>SSL/<abbr title="Transport Layer Security">TLS</abbr> certificate errors</td><td>Expired certificate, MITM attack, certificate mismatch</td><td>Inspect certificate details; check validity dates; verify CA chain</td></tr>
         <tr><td>ARP table poisoning indicators</td><td>ARP spoofing attack — MAC for gateway changed</td><td><code>arp -a</code>; compare gateway MAC to known-good; enable Dynamic ARP Inspection</td></tr>
         <tr><td>Unexpected DNS responses</td><td>DNS poisoning, rogue DNS server, DHCP option 6 hijacked</td><td><code>nslookup</code> against multiple servers; compare results; verify DHCP option 6</td></tr>
         <tr><td>Performance degradation without explanation</td><td>DoS attack, crypto-mining malware, scanning activity</td><td>NetFlow; top talkers; check CPU/memory on devices; look for scanning patterns</td></tr>
@@ -411,8 +411,8 @@ Internet  <span class="th">10.10.10.50</span>   12   <span class="th">0050.7966.
       <li>APIPA (169.254.x.x) = DHCP failure — not a bad IP address, a diagnostic signal</li>
       <li><code>pathping</code> is Windows only; combines ping + traceroute; shows per-hop loss statistics</li>
       <li><code>show arp</code> on a switch is only populated if the switch has SVIs (Layer 3 switch) or is a router</li>
-      <li><code>show power inline</code> — shows PoE status per port: power class, watts allocated, total budget used vs available. Run this when a PoE device (IP phone, AP, camera) fails to power on.</li>
-      <li><code>iperf3</code> = active throughput test tool; <em>not</em> built into IOS — run on end hosts to verify actual link capacity vs rated speed.</li>
+      <li><code>show power inline</code> — shows PoE status per port: power class, watts allocated, total budget used vs available. Run this when a PoE device (IP phone, <abbr title="Access Point">AP</abbr>, camera) fails to power on.</li>
+      <li><code>iperf3</code> = active throughput test tool; <em>not</em> built into <abbr title="Internetwork Operating System">IOS</abbr> — run on end hosts to verify actual link capacity vs rated speed.</li>
       <li>DHCP snooping prevents rogue DHCP; DAI prevents ARP poisoning — these are different mitigations for different attacks</li>
       <li>Certificate errors can indicate MITM — don't just click "proceed anyway" in a troubleshooting context</li>
       <li>An ARP table with two entries sharing the same IP is a strong indicator of ARP spoofing — not always a misconfiguration</li>

@@ -8,11 +8,11 @@
     <table class="table--reference">
       <thead><tr><th>Issue</th><th>Symptom</th><th>Diagnostic Tool</th><th>Fix</th></tr></thead>
       <tbody>
-        <tr><td><strong>Bandwidth saturation / congestion</strong></td><td>High latency under load; downloads slow all traffic</td><td>NetFlow; <code>show interface</code> (output drops); <code>iperf3</code></td><td>QoS policy; upgrade link; traffic shaping; offload to secondary ISP</td></tr>
+        <tr><td><strong>Bandwidth saturation / congestion</strong></td><td>High latency under load; downloads slow all traffic</td><td>NetFlow; <code>show interface</code> (output drops); <code>iperf3</code></td><td><abbr title="Quality of Service">QoS</abbr> policy; upgrade link; traffic shaping; offload to secondary <abbr title="Internet Service Provider">ISP</abbr></td></tr>
         <tr><td><strong>Bottleneck</strong></td><td>One hop is consistently slow; fast before and after</td><td><code>traceroute</code> + <code>show interfaces [interface]</code> (check speed/duplex lines)</td><td>Upgrade that link; redistribute load; check for duplex mismatch at bottleneck</td></tr>
-        <tr><td><strong>High latency</strong></td><td>Slow interactive sessions (SSH, RDP, web); VoIP choppy</td><td><code>ping</code> RTT; <code>pathping</code> per-hop latency</td><td>Check for routing loops; reduce queue depth; prioritize with QoS</td></tr>
-        <tr><td><strong>Packet loss</strong></td><td>TCP retransmissions; file transfers stall; VoIP gaps</td><td><code>show interface</code> errors and drops; <code>ping</code> extended</td><td>Replace cable; check for CRC errors (physical layer); verify duplex; check queue drops</td></tr>
-        <tr><td><strong>Jitter</strong></td><td>Inconsistent VoIP quality; variable response times</td><td>QoS monitoring; VoIP call statistics on UCM/controller</td><td>Enable QoS; prioritize RTP traffic (DSCP EF); reduce network load at congested links</td></tr>
+        <tr><td><strong>High latency</strong></td><td>Slow interactive sessions (<abbr title="Secure Shell">SSH</abbr>, <abbr title="Remote Desktop Protocol — Windows GUI remote access">RDP</abbr>, web); VoIP choppy</td><td><code>ping</code> <abbr title="Round-Trip Time">RTT</abbr>; <code>pathping</code> per-hop latency</td><td>Check for routing loops; reduce queue depth; prioritize with QoS</td></tr>
+        <tr><td><strong>Packet loss</strong></td><td><abbr title="Transmission Control Protocol">TCP</abbr> retransmissions; file transfers stall; VoIP gaps</td><td><code>show interface</code> errors and drops; <code>ping</code> extended</td><td>Replace cable; check for CRC errors (physical layer); verify duplex; check queue drops</td></tr>
+        <tr><td><strong>Jitter</strong></td><td>Inconsistent VoIP quality; variable response times</td><td>QoS monitoring; VoIP call statistics on UCM/controller</td><td>Enable QoS; prioritize <abbr title="Real-time Transport Protocol">RTP</abbr> traffic (<abbr title="Differentiated Services Code Point">DSCP</abbr> EF); reduce network load at congested links</td></tr>
       </tbody>
     </table>
   </div>
@@ -54,7 +54,7 @@
         </tr>
         <tr>
           <td><strong>Hidden node problem</strong></td>
-          <td>Excessive collisions; two clients can't "hear" each other but both reach the AP</td>
+          <td>Excessive collisions; two clients can't "hear" each other but both reach the <abbr title="Access Point">AP</abbr></td>
           <td>Physical obstacles block direct client-to-client signal</td>
           <td>Enable RTS/CTS (Request to Send / Clear to Send) — forces coordination through AP</td>
         </tr>
@@ -71,13 +71,13 @@
           <td>Wireless site survey; add APs; adjust transmit power</td>
         </tr>
         <tr>
-          <td><strong>Wrong PSK / passphrase</strong></td>
+          <td><strong>Wrong <abbr title="Pre-Shared Key">PSK</abbr> / passphrase</strong></td>
           <td>Authentication failure; "incorrect password" error</td>
           <td>Client configured with wrong pre-shared key</td>
           <td>Re-enter passphrase; verify PSK on AP side</td>
         </tr>
         <tr>
-          <td><strong>RADIUS auth failure</strong></td>
+          <td><strong><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> auth failure</strong></td>
           <td>Authentication fails in 802.1X environment</td>
           <td>Expired certificate, wrong RADIUS secret, NPS misconfiguration</td>
           <td>Check RADIUS logs; verify certificate validity; confirm shared secret matches AP config</td>
@@ -85,14 +85,14 @@
         <tr>
           <td><strong>Evil twin / rogue AP</strong></td>
           <td>Users associate to attacker's AP; credentials stolen</td>
-          <td>Attacker broadcasts same SSID with stronger signal</td>
+          <td>Attacker broadcasts same <abbr title="Service Set Identifier">SSID</abbr> with stronger signal</td>
           <td>802.1X (certificate-based auth); rogue AP detection on wireless controller</td>
         </tr>
         <tr>
           <td><strong>Captive portal issues</strong></td>
-          <td>Browser doesn't redirect to login page; HTTPS sites block redirect</td>
+          <td>Browser doesn't redirect to login page; <abbr title="HTTP Secure">HTTPS</abbr> sites block redirect</td>
           <td>HTTPS enforcement prevents captive portal redirect; DNS-based redirect blocked</td>
-          <td>Modern devices use captive portal detection (HTTP probe to known URL); configure correctly</td>
+          <td>Modern devices use captive portal detection (<abbr title="HyperText Transfer Protocol">HTTP</abbr> probe to known URL); configure correctly</td>
         </tr>
         <tr>
           <td><strong>Antenna placement</strong></td>

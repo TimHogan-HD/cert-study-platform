@@ -4,7 +4,7 @@
   <p>Memorize the port table. You <em>will</em> see port number questions on the exam. Focus especially on the ones with non-obvious transports or common confusions.</p>
 
   <div class="concept-visual">
-    <div class="concept-visual-title">TCP 3-Way Handshake</div>
+    <div class="concept-visual-title"><abbr title="Transmission Control Protocol">TCP</abbr> 3-Way Handshake</div>
     <svg viewBox="0 0 520 200" width="520" height="200" font-family="'SF Mono','Fira Code',monospace" font-size="13" xmlns="http://www.w3.org/2000/svg">
       <style>text { fill: var(--text); }</style>
       <!-- Column headers -->
@@ -40,7 +40,7 @@
     </svg>
   </div>
 
-  <h3>TCP vs UDP</h3>
+  <h3>TCP vs <abbr title="User Datagram Protocol">UDP</abbr></h3>
   <div class="table-wrap">
     <table class="table--comparison">
       <thead>
@@ -51,12 +51,12 @@
         <tr><td>Reliability</td><td>Guaranteed delivery, retransmission of lost packets</td><td>No guarantee; best-effort</td></tr>
         <tr><td>Ordering</td><td>Sequenced — packets arrive in order</td><td>No sequencing</td></tr>
         <tr><td>Speed</td><td>Slower (overhead for acknowledgment)</td><td>Faster (no overhead)</td></tr>
-        <tr><td>Use Cases</td><td>HTTP, HTTPS, FTP, SSH, SMTP, email</td><td>DNS queries, DHCP, SNMP, VoIP, streaming, TFTP</td></tr>
+        <tr><td>Use Cases</td><td><abbr title="HyperText Transfer Protocol">HTTP</abbr>, <abbr title="HTTP Secure">HTTPS</abbr>, <abbr title="File Transfer Protocol">FTP</abbr>, <abbr title="Secure Shell">SSH</abbr>, <abbr title="Simple Mail Transfer Protocol">SMTP</abbr>, email</td><td><abbr title="Domain Name System">DNS</abbr> queries, <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr>, <abbr title="Simple Network Management Protocol">SNMP</abbr>, VoIP, streaming, <abbr title="Trivial File Transfer Protocol — no authentication">TFTP</abbr></td></tr>
       </tbody>
     </table>
   </div>
 
-  <p><strong><abbr title="Stream Control Transmission Protocol">SCTP</abbr></strong> is a third transport protocol (IP protocol number <strong>132</strong>) that takes reliability and sequencing from TCP but delivers whole <em>messages</em> rather than a byte stream. Two features set it apart: <strong>multi-streaming</strong>, so a loss on one stream does not stall the others, and <strong>multi-homing</strong>, where one association spans several IP addresses on each endpoint and fails over between them. It carries telecom signalling — <abbr title="Signalling System No. 7">SS7</abbr> over IP and Diameter — rather than general application traffic.</p>
+  <p><strong><abbr title="Stream Control Transmission Protocol">SCTP</abbr></strong> is a third transport protocol (<abbr title="Internet Protocol v4/v6">IP</abbr> protocol number <strong>132</strong>) that takes reliability and sequencing from TCP but delivers whole <em>messages</em> rather than a byte stream. Two features set it apart: <strong>multi-streaming</strong>, so a loss on one stream does not stall the others, and <strong>multi-homing</strong>, where one association spans several IP addresses on each endpoint and fails over between them. It carries telecom signalling — <abbr title="Signalling System No. 7">SS7</abbr> over IP and Diameter — rather than general application traffic.</p>
 
   <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.4 enumerates <em>TCP</em> and <em>UDP</em> as the transport protocols. <strong>SCTP</strong> is not enumerated, but it appears in the official N10-009 acronym list, and the only thing likely to be asked of it is that it is a transport protocol alongside the other two.</p>
 
@@ -116,7 +116,7 @@
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip FTPS row to see an example" role="button" aria-expanded="false">
             <td>989/990</td>
             <td><abbr title="File Transfer Protocol Secure — FTP wrapped in TLS">FTPS</abbr> <span class="proto-transport">TCP</span></td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">FTP with TLS added — still two channels (990 control, 989 data). Not SFTP: different protocol, different port, different security layer.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A partner uploads files to a hardened FTP server over FTPS:990, so the login and the file are both encrypted by TLS.</span></span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">FTP with <abbr title="Transport Layer Security">TLS</abbr> added — still two channels (990 control, 989 data). Not SFTP: different protocol, different port, different security layer.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A partner uploads files to a hardened FTP server over FTPS:990, so the login and the file are both encrypted by TLS.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip TFTP row to see an example" role="button" aria-expanded="false">
             <td>69</td>
@@ -279,7 +279,7 @@
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip TACACS+ row to see an example" role="button" aria-expanded="false">
             <td>49</td>
             <td><abbr title="Terminal Access Controller Access-Control System Plus — AAA for network devices">TACACS+</abbr> <span class="proto-transport">TCP</span></td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">AAA for network device administration with full packet encryption. In many modern environments, RADIUS-based NAC is more common.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Network admins sign in to routers through a TACACS+ server.</span></span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false"><abbr title="Authentication, Authorization, and Accounting">AAA</abbr> for network device administration with full packet encryption. In many modern environments, RADIUS-based NAC is more common.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> Network admins sign in to routers through a TACACS+ server.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip RADIUS authentication row to see an example" role="button" aria-expanded="false">
             <td>1812</td>
@@ -361,12 +361,12 @@
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip BGP row to see an example" role="button" aria-expanded="false">
             <td>179</td>
             <td><abbr title="Border Gateway Protocol — internet routing between autonomous systems">BGP</abbr> <span class="proto-transport">TCP</span></td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Internet routing between <abbr title="Autonomous Systems — independently managed routing domains">ASes</abbr>. Uses TCP for reliability.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An edge router exchanges internet routes with an ISP over BGP:179.</span></span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Internet routing between <abbr title="Autonomous Systems — independently managed routing domains">ASes</abbr>. Uses TCP for reliability.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> An edge router exchanges internet routes with an <abbr title="Internet Service Provider">ISP</abbr> over BGP:179.</span></span></td>
           </tr>
           <tr class="protocol-ref-row" tabindex="0" aria-label="Flip RIP row to see an example" role="button" aria-expanded="false">
             <td>520</td>
             <td><abbr title="Routing Information Protocol — legacy distance-vector IGP, max 15 hops">RIP</abbr> <span class="proto-transport">UDP</span></td>
-            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy distance-vector routing. Max 15 hops. Mostly replaced by OSPF.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A small legacy router advertises local networks to a neighbor using RIP:520.</span></span></td>
+            <td><span class="protocol-ref-cell-flip"><span class="protocol-ref-face protocol-ref-front" aria-hidden="false">Legacy distance-vector routing. Max 15 hops. Mostly replaced by <abbr title="Open Shortest Path First">OSPF</abbr>.</span><span class="protocol-ref-face protocol-ref-back" aria-hidden="true"><strong>Example:</strong> A small legacy router advertises local networks to a neighbor using RIP:520.</span></span></td>
           </tr>
         </tbody>
       </table></div>
@@ -404,10 +404,10 @@
         <tr><td><strong>1</strong></td><td><abbr title="Internet Control Message Protocol">ICMP</abbr></td><td>Diagnostic and error reporting — ping, traceroute. No ports; operates directly at Layer 3. Not routable as a transport.</td></tr>
         <tr><td><strong>6</strong></td><td>TCP</td><td>Reliable, connection-oriented transport. 3-way handshake, sequencing, retransmission.</td></tr>
         <tr><td><strong>17</strong></td><td>UDP</td><td>Fast, connectionless transport. No handshake, no guaranteed delivery.</td></tr>
-        <tr><td><strong>47</strong></td><td><abbr title="Generic Routing Encapsulation">GRE</abbr></td><td>Encapsulates other protocols inside IP tunnels. Used in site-to-site VPNs and PPTP. No built-in encryption.</td></tr>
+        <tr><td><strong>47</strong></td><td><abbr title="Generic Routing Encapsulation">GRE</abbr></td><td>Encapsulates other protocols inside IP tunnels. Used in site-to-site VPNs and <abbr title="Point-to-Point Tunneling Protocol">PPTP</abbr>. No built-in encryption.</td></tr>
         <tr><td><strong>50</strong></td><td><abbr title="Encapsulating Security Payload">ESP</abbr></td><td>IPSec component — encrypts <em>and</em> authenticates the packet payload. Most commonly used IPSec mode.</td></tr>
         <tr><td><strong>51</strong></td><td><abbr title="Authentication Header">AH</abbr></td><td>IPSec component — authenticates the packet but does <em>not</em> encrypt. AH alone ≠ confidentiality.</td></tr>
-        <tr><td><strong>UDP 500</strong></td><td><abbr title="Internet Key Exchange">IKE</abbr> / ISAKMP</td><td>IPSec key exchange and <abbr title="Security Association">SA</abbr> negotiation. Uses UDP port 500; UDP 4500 for NAT traversal.</td></tr>
+        <tr><td><strong>UDP 500</strong></td><td><abbr title="Internet Key Exchange">IKE</abbr> / ISAKMP</td><td>IPSec key exchange and <abbr title="Security Association">SA</abbr> negotiation. Uses UDP port 500; UDP 4500 for <abbr title="Network Address Translation">NAT</abbr> traversal.</td></tr>
       </tbody>
     </table>
   </div>
@@ -421,8 +421,8 @@
       <tbody>
         <tr><td><strong>Unicast</strong></td><td>One → One</td><td>Single source to a single destination. The vast majority of internet traffic.</td><td>HTTP/HTTPS browsing, SSH sessions, email delivery</td></tr>
         <tr><td><strong>Multicast</strong></td><td>One → Group</td><td>Single source to a subscribed group of receivers. Hosts join groups via <abbr title="Internet Group Management Protocol">IGMP</abbr>. Efficient — one stream, many recipients.</td><td>IPTV, OSPF/EIGRP routing updates (224.0.0.x), video conferencing</td></tr>
-        <tr><td><strong>Broadcast</strong></td><td>One → All</td><td>Single source to all hosts in the broadcast domain. Contained by routers — does not cross Layer 3 boundaries.</td><td>ARP requests, DHCP Discover</td></tr>
-        <tr><td><strong>Anycast</strong></td><td>One → Nearest</td><td>Multiple nodes share the same address; traffic routes to the topologically nearest one. Required in IPv6.</td><td>DNS root servers, CDN edge nodes, IPv6 router discovery</td></tr>
+        <tr><td><strong>Broadcast</strong></td><td>One → All</td><td>Single source to all hosts in the broadcast domain. Contained by routers — does not cross Layer 3 boundaries.</td><td><abbr title="Address Resolution Protocol">ARP</abbr> requests, DHCP Discover</td></tr>
+        <tr><td><strong>Anycast</strong></td><td>One → Nearest</td><td>Multiple nodes share the same address; traffic routes to the topologically nearest one. Required in IPv6.</td><td>DNS root servers, <abbr title="Content Delivery Network">CDN</abbr> edge nodes, IPv6 router discovery</td></tr>
       </tbody>
     </table>
   </div>
@@ -519,7 +519,7 @@
         <div class="flashcard-back">
           <div class="fc-port">Port 69</div>
           <div class="fc-transport">UDP</div>
-          <div class="fc-desc">Trivial FTP — no auth, no directory listing. Used for bootstrapping and IOS firmware updates.</div>
+          <div class="fc-desc">Trivial FTP — no auth, no directory listing. Used for bootstrapping and <abbr title="Internetwork Operating System">IOS</abbr> firmware updates.</div>
         </div>
       </div>
     </div>

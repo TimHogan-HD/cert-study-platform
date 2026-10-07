@@ -118,8 +118,8 @@
           <tr><td class="row-label">Azure Virtual Desktop</td><td>PaaS</td><td>Compute</td><td>Microsoft manages the session host infrastructure; you manage the desktop image and apps</td></tr>
           <tr><td class="row-label">App Service</td><td>PaaS</td><td>Compute</td><td>Microsoft manages OS and runtime; you deploy web/API/mobile app code</td></tr>
           <tr><td class="row-label">Azure Functions</td><td>PaaS / Serverless</td><td>Compute</td><td>Microsoft manages everything; you write function code; billed per execution</td></tr>
-          <tr><td class="row-label">Azure Container Instances (ACI)</td><td>PaaS</td><td>Containers</td><td>Single containers on demand; Microsoft manages host OS; fastest startup</td></tr>
-          <tr><td class="row-label">Azure Kubernetes Service (AKS)</td><td>PaaS</td><td>Containers</td><td>Microsoft manages control plane; you manage node pools and workloads</td></tr>
+          <tr><td class="row-label">Azure Container Instances (<abbr title="Azure Container Instances">ACI</abbr>)</td><td>PaaS</td><td>Containers</td><td>Single containers on demand; Microsoft manages host OS; fastest startup</td></tr>
+          <tr><td class="row-label">Azure Kubernetes Service (<abbr title="Azure Kubernetes Service">AKS</abbr>)</td><td>PaaS</td><td>Containers</td><td>Microsoft manages control plane; you manage node pools and workloads</td></tr>
           <tr><td class="row-label">Azure SQL Database</td><td>PaaS</td><td>Data</td><td>Managed SQL engine; you manage schemas, queries, and data</td></tr>
           <tr><td class="row-label">Azure Database for MySQL</td><td>PaaS</td><td>Data</td><td>Managed MySQL; you manage databases and data only</td></tr>
           <tr><td class="row-label">Azure Database for PostgreSQL</td><td>PaaS</td><td>Data</td><td>Managed PostgreSQL; same model as MySQL</td></tr>
@@ -128,9 +128,9 @@
           <tr><td class="row-label">Azure Data Lake Storage Gen2</td><td>PaaS</td><td>Storage</td><td>Managed hierarchical storage; you manage files and permissions; built on Blob</td></tr>
           <tr><td class="row-label">Azure Blob Storage</td><td>PaaS</td><td>Storage</td><td>Object storage; you manage containers and blobs; Microsoft manages servers</td></tr>
           <tr><td class="row-label">Azure Files</td><td>PaaS</td><td>Storage</td><td>Managed file share; you manage share contents</td></tr>
-          <tr><td class="row-label">Azure Virtual Network (VNet)</td><td>IaaS</td><td>Networking</td><td>Software-defined network you configure; Microsoft runs the physical fabric</td></tr>
+          <tr><td class="row-label">Azure Virtual Network (<abbr title="Virtual Network">VNet</abbr>)</td><td>IaaS</td><td>Networking</td><td>Software-defined network you configure; Microsoft runs the physical fabric</td></tr>
           <tr><td class="row-label">Azure Load Balancer</td><td>PaaS</td><td>Networking</td><td>Layer 4 load balancer; you configure rules; Microsoft manages the service</td></tr>
-          <tr><td class="row-label">Application Gateway</td><td>PaaS</td><td>Networking</td><td>Layer 7 load balancer + WAF; you configure routing rules</td></tr>
+          <tr><td class="row-label">Application Gateway</td><td>PaaS</td><td>Networking</td><td>Layer 7 load balancer + <abbr title="Web Application Firewall">WAF</abbr>; you configure routing rules</td></tr>
           <tr><td class="row-label">Azure Firewall</td><td>PaaS</td><td>Networking</td><td>Managed firewall service; you configure policies; Microsoft runs the engine</td></tr>
           <tr><td class="row-label">Azure DNS</td><td>PaaS</td><td>Networking</td><td>100% SLA managed DNS; you manage zones and records</td></tr>
           <tr><td class="row-label">Azure Event Grid</td><td>PaaS</td><td>Messaging</td><td>Managed pub/sub event routing; you define topics and subscriptions</td></tr>
@@ -138,7 +138,7 @@
           <tr><td class="row-label">Azure Event Hubs</td><td>PaaS</td><td>Messaging</td><td>Managed big data streaming; you configure partitions and consumer groups</td></tr>
           <tr><td class="row-label">Azure Logic Apps</td><td>PaaS / Serverless</td><td>Integration</td><td>Managed workflow engine; you design flows visually</td></tr>
           <tr><td class="row-label">Azure Monitor</td><td>PaaS</td><td>Monitoring</td><td>Managed observability platform; you configure alerts and dashboards</td></tr>
-          <tr><td class="row-label">Entra ID (Azure AD)</td><td>SaaS</td><td>Identity</td><td>Microsoft manages the identity directory; you manage users, groups, and policies</td></tr>
+          <tr><td class="row-label">Entra ID (Azure <abbr title="Active Directory">AD</abbr>)</td><td>SaaS</td><td>Identity</td><td>Microsoft manages the identity directory; you manage users, groups, and policies</td></tr>
           <tr><td class="row-label">Microsoft 365 (Office 365)</td><td>SaaS</td><td>Productivity</td><td>Microsoft manages the entire application stack; you configure users and policies</td></tr>
           <tr><td class="row-label">Dynamics 365</td><td>SaaS</td><td>Business apps</td><td>Microsoft manages CRM/ERP application; you configure and use it</td></tr>
           <tr><td class="row-label">Microsoft Intune</td><td>SaaS</td><td>Device management</td><td>Cloud MDM/MAM; you configure policies; Microsoft manages the service</td></tr>
@@ -228,7 +228,7 @@
           <tr><td class="row-label">Azure Portal</td><td>Web GUI</td><td>ARM</td></tr>
           <tr><td class="row-label">Azure CLI</td><td>Cross-platform CLI</td><td>ARM</td></tr>
           <tr><td class="row-label">Azure PowerShell</td><td>PowerShell module</td><td>ARM</td></tr>
-          <tr><td class="row-label">REST API</td><td>HTTP</td><td>ARM</td></tr>
+          <tr><td class="row-label">REST API</td><td><abbr title="Hypertext Transfer Protocol">HTTP</abbr></td><td>ARM</td></tr>
           <tr><td class="row-label">Terraform</td><td>Multi-cloud IaC</td><td>ARM (via provider)</td></tr>
           <tr><td class="row-label">ARM Templates</td><td>Declarative JSON IaC</td><td>ARM directly</td></tr>
         </tbody>
@@ -252,13 +252,13 @@
           <tr><td class="row-label">Cost</td><td>Lower</td><td>Higher</td></tr>
           <tr><td class="row-label">Compliance</td><td>Not suitable for strict requirements</td><td>Meets regulatory compliance</td></tr>
           <tr><td class="row-label">Best for</td><td>Cost-effective site-to-site or point-to-site</td><td>Compliance, large data transfer, predictable perf</td></tr>
-          <tr><td class="row-label">Maximum reliability</td><td colspan="2" style="text-align:center;font-weight:600">Use both together</td></tr>
+          <tr><td class="row-label">Maximum reliability</td><td colspan="2" class="cmp-merged">Use both together</td></tr>
         </tbody>
       </table></div>
 
-      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Application Gateway ≠ hybrid connectivity</div><div class="trap-body">Application Gateway is a web traffic load balancer with WAF for HTTP/HTTPS apps. It does NOT connect on-premises networks to Azure. For private, low-latency hybrid connectivity → ExpressRoute. For encrypted internet-based connectivity → VPN Gateway.</div></div>
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Application Gateway ≠ hybrid connectivity</div><div class="trap-body">Application Gateway is a web traffic load balancer with WAF for HTTP/<abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr> apps. It does NOT connect on-premises networks to Azure. For private, low-latency hybrid connectivity → ExpressRoute. For encrypted internet-based connectivity → VPN Gateway.</div></div>
 
-      <h3>NSG vs. Azure Firewall</h3>
+      <h3><abbr title="Network Security Group">NSG</abbr> vs. Azure Firewall</h3>
       <div class="cmp-wrap"><table class="cmp-table">
         <thead><tr><th>Attribute</th><th><abbr title="Network Security Group">NSG</abbr></th><th>Azure Firewall</th></tr></thead>
         <tbody>
@@ -335,10 +335,10 @@
 
       <div class="callout callout-blue">
         <div class="callout-title">The Analytics Pipeline: Where Data Lake Fits</div>
-        A typical Azure analytics architecture: (1) <strong>Ingest</strong> — raw data lands in Data Lake Gen2 from databases, IoT devices, event streams, and file exports. This is the "bronze" raw layer. (2) <strong>Transform</strong> — Azure Databricks or Synapse Spark pools read raw data, clean and join it, and write curated "silver" and "gold" layers back to Data Lake. (3) <strong>Serve</strong> — clean aggregated data is loaded into Azure Synapse dedicated SQL pools or Azure SQL Database for reporting, or served directly from Data Lake via Synapse Serverless SQL. This is why Data Lake appears in "big data" and "analytics pipeline" questions — it is the central raw data repository, not a monitoring or logging tool.
+        A typical Azure analytics architecture: (1) <strong>Ingest</strong> — raw data lands in Data Lake Gen2 from databases, <abbr title="Internet of Things">IoT</abbr> devices, event streams, and file exports. This is the "bronze" raw layer. (2) <strong>Transform</strong> — Azure Databricks or Synapse Spark pools read raw data, clean and join it, and write curated "silver" and "gold" layers back to Data Lake. (3) <strong>Serve</strong> — clean aggregated data is loaded into Azure Synapse dedicated SQL pools or Azure SQL Database for reporting, or served directly from Data Lake via Synapse Serverless SQL. This is why Data Lake appears in "big data" and "analytics pipeline" questions — it is the central raw data repository, not a monitoring or logging tool.
       </div>
 
-      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Azure Data Lake = big data storage, not monitoring</div><div class="trap-body">Data Lake is frequently offered as a wrong answer for monitoring and logging questions because it stores large volumes of data. But it has no real-time alerting, no dashboards, and no KQL. To correlate events from multiple Azure resources → Log Analytics. To aggregate resource metrics and trigger alerts → Azure Monitor. Data Lake is for data scientists and analytics engineers, not operations teams.</div></div>
+      <div class="trap"><span class="trap-badge">Exam trap</span><div class="trap-title">Azure Data Lake = big data storage, not monitoring</div><div class="trap-body">Data Lake is frequently offered as a wrong answer for monitoring and logging questions because it stores large volumes of data. But it has no real-time alerting, no dashboards, and no <abbr title="Kusto Query Language">KQL</abbr>. To correlate events from multiple Azure resources → Log Analytics. To aggregate resource metrics and trigger alerts → Azure Monitor. Data Lake is for data scientists and analytics engineers, not operations teams.</div></div>
 
       <h3>Blob Access Tiers</h3>
       <div class="tier-chart">
@@ -483,7 +483,7 @@
         <div class="did-layers">
           <div class="did-layer did-phys"><span class="dl-name">Physical</span><span class="dl-note">Datacenters, hardware — Microsoft's responsibility</span></div>
           <div class="did-layer did-id"><span class="dl-name">Identity &amp; Access</span><span class="dl-note">Entra ID, MFA, Conditional Access, RBAC</span></div>
-          <div class="did-layer did-perim"><span class="dl-name">Perimeter</span><span class="dl-note">DDoS protection, Azure Firewall</span></div>
+          <div class="did-layer did-perim"><span class="dl-name">Perimeter</span><span class="dl-note"><abbr title="Distributed Denial of Service">DDoS</abbr> protection, Azure Firewall</span></div>
           <div class="did-layer did-net"><span class="dl-name">Network</span><span class="dl-note">NSGs, VNet segmentation, VPN</span></div>
           <div class="did-layer did-comp"><span class="dl-name">Compute</span><span class="dl-note">Endpoint protection, OS patching, VM access control</span></div>
           <div class="did-layer did-app"><span class="dl-name">Application</span><span class="dl-note">Secure coding, no secrets in code, <abbr title="Web Application Firewall">WAF</abbr></span></div>
@@ -933,7 +933,7 @@
             </div>
           </div>
 
-          <h4 style="margin-top:1.2rem;">IaaS / PaaS / SaaS — How Much Does Microsoft Manage?</h4>
+          <h4>IaaS / PaaS / SaaS — How Much Does Microsoft Manage?</h4>
           <div class="cmp-wrap"><table class="cmp-table">
             <thead><tr><th>Layer</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr></thead>
             <tbody>
@@ -945,7 +945,7 @@
             </tbody>
           </table></div>
 
-          <div class="cmp-wrap" style="margin-top:0.8rem;"><table class="cmp-table">
+          <div class="cmp-wrap"><table class="cmp-table">
             <thead><tr><th>Azure Service</th><th>Type</th><th>Why</th></tr></thead>
             <tbody>
               <tr><td class="row-label">Azure Virtual Machines</td><td><span class="pill pill-red">IaaS</span></td><td>You manage OS, patching, runtime, app</td></tr>
@@ -1014,7 +1014,7 @@
         <div class="accordion-body">
           <p class="day-list-intro">Azure Monitor is the umbrella — everything else is either a sub-component or an adjacent service. Knowing the hierarchy is what separates correct from close-but-wrong answers.</p>
 
-          <pre style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;font-size:0.82rem;overflow-x:auto;line-height:1.7;">Azure Monitor  ← umbrella; collects ALL metrics and logs from Azure resources
+          <pre class="tree-diagram">Azure Monitor  ← umbrella; collects ALL metrics and logs from Azure resources
 ├── Metrics store     time-series numbers (CPU %, latency ms, request count)
 │    └── Visualized in dashboards, Metrics Explorer
 ├── Alerts            fire when a metric or log query crosses a threshold
@@ -1082,7 +1082,7 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
             </tbody>
           </table></div>
 
-          <h4 style="margin-top:1.2rem;">Blob vs. Data Lake Gen2 — The Relationship</h4>
+          <h4>Blob vs. Data Lake Gen2 — The Relationship</h4>
           <p>Data Lake Storage Gen2 is <strong>not a separate service</strong> — it is Blob Storage with the <strong>hierarchical namespace (HNS) feature enabled</strong> on the storage account.</p>
 
           <div class="cmp-wrap"><table class="cmp-table">
@@ -1135,7 +1135,7 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
             </tbody>
           </table></div>
 
-          <h4 style="margin-top:1.2rem;">Azure Policy Effects</h4>
+          <h4>Azure Policy Effects</h4>
           <div class="cmp-wrap"><table class="cmp-table">
             <thead><tr><th>Effect</th><th>What happens</th><th>Use case</th></tr></thead>
             <tbody>
@@ -1261,7 +1261,7 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
             </tbody>
           </table></div>
 
-          <h4 style="margin-top:1.2rem;">NSG Default Rules — Why Same-VNet Subnets Communicate by Default</h4>
+          <h4>NSG Default Rules — Why Same-VNet Subnets Communicate by Default</h4>
           <div class="cmp-wrap"><table class="cmp-table">
             <thead><tr><th>Priority</th><th>Rule name</th><th>Direction</th><th>Effect</th></tr></thead>
             <tbody>
@@ -1386,7 +1386,7 @@ Azure Data Lake      BIG DATA STORAGE: not a monitoring tool at all</pre>
       </div><!-- /topic accordions -->
 
       <!-- ══ SCENARIO KEYWORD CHEAT SHEET ══ -->
-      <h3 style="margin-top:1.5rem;">Scenario Keyword Cheat Sheet</h3>
+      <h3>Scenario Keyword Cheat Sheet</h3>
       <p class="day-tip">Each category is collapsible. If you see these keywords in a question stem, they strongly signal the answer shown.</p>
 
       <div>

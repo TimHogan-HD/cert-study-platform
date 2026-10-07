@@ -15,24 +15,24 @@
         <tr><th>Type</th><th>Layer</th><th>Capability</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Packet-Filtering</strong></td><td>L3/4</td><td>Stateless. Checks src/dst IP, port, protocol. Simple ACL rules. Fast but limited.</td></tr>
+        <tr><td><strong>Packet-Filtering</strong></td><td>L3/4</td><td>Stateless. Checks src/dst <abbr title="Internet Protocol v4/v6">IP</abbr>, port, protocol. Simple <abbr title="Access Control List">ACL</abbr> rules. Fast but limited.</td></tr>
         <tr><td><strong>Stateful Inspection</strong></td><td>L4</td><td>Tracks connection state. Automatically allows return traffic. More secure than stateless.</td></tr>
-        <tr><td><strong>NGFW (Next-Generation)</strong></td><td>L7</td><td>DPI, application awareness, integrated IPS, SSL inspection, user identity, URL filtering. Gold standard.</td></tr>
+        <tr><td><strong>NGFW (Next-Generation)</strong></td><td>L7</td><td>DPI, application awareness, integrated <abbr title="Intrusion Prevention System">IPS</abbr>, SSL inspection, user identity, URL filtering. Gold standard.</td></tr>
         <tr><td><strong>WAF (Web Application Firewall)</strong></td><td>L7</td><td>Protects web apps specifically. Blocks OWASP Top 10: SQLi, XSS, CSRF, etc.</td></tr>
         <tr><td><strong>Host-based Firewall</strong></td><td>L4/7</td><td>Software firewall on individual host (Windows Firewall, iptables). First and last line of defense per host.</td></tr>
-        <tr><td><strong><abbr title="Unified Threat Management">UTM</abbr></strong></td><td>L3–L7</td><td>All-in-one appliance: firewall + IPS + AV + web filter + email filter + VPN. Common in SMB. Performance tradeoff vs dedicated appliances.</td></tr>
+        <tr><td><strong><abbr title="Unified Threat Management">UTM</abbr></strong></td><td>L3–L7</td><td>All-in-one appliance: firewall + IPS + AV + web filter + email filter + VPN. Common in <abbr title="Server Message Block — Windows file/print sharing">SMB</abbr>. Performance tradeoff vs dedicated appliances.</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h3>IDS vs IPS Placement (Critical)</h3>
+  <h3><abbr title="Intrusion Detection System">IDS</abbr> vs IPS Placement (Critical)</h3>
   <div class="table-wrap">
     <table class="table--comparison">
       <thead>
         <tr><th>Feature</th><th>IDS</th><th>IPS</th></tr>
       </thead>
       <tbody>
-        <tr><td>Placement</td><td>Out-of-band / passive (SPAN/mirror port)</td><td>Inline — traffic flows through it</td></tr>
+        <tr><td>Placement</td><td>Out-of-band / passive (<abbr title="Switched Port Analyzer">SPAN</abbr>/mirror port)</td><td>Inline — traffic flows through it</td></tr>
         <tr><td>Can Block?</td><td>No — alert only</td><td>Yes — can drop/block malicious packets</td></tr>
         <tr><td>Failure Mode</td><td>Fails safely — no impact on traffic</td><td>If fails, can cause outage (fail-open vs fail-closed)</td></tr>
         <tr><td>Latency Impact</td><td>None — out of band</td><td>Adds latency — traffic must be inspected before forwarding</td></tr>
@@ -49,7 +49,7 @@
       </thead>
       <tbody>
         <tr><td><strong>Untrusted</strong></td><td>None</td><td>The internet, and any network outside your administrative control</td><td>Deny inbound by default; assume every host is hostile</td></tr>
-        <tr><td><strong>Screened Subnet (DMZ)</strong></td><td>Partial</td><td>Public-facing servers that must be reachable from outside — web, mail, external DNS</td><td>Reachable from untrusted on specific ports; tightly restricted toward trusted</td></tr>
+        <tr><td><strong>Screened Subnet (DMZ)</strong></td><td>Partial</td><td>Public-facing servers that must be reachable from outside — web, mail, external <abbr title="Domain Name System">DNS</abbr></td><td>Reachable from untrusted on specific ports; tightly restricted toward trusted</td></tr>
         <tr><td><strong>Trusted</strong></td><td>Full (traditionally)</td><td>The internal corporate LAN — workstations, file servers, internal applications</td><td>Never reachable directly from untrusted</td></tr>
       </tbody>
     </table>
@@ -86,7 +86,7 @@
       <tbody>
         <tr>
           <td><strong>Disable Unused Ports and Services</strong></td>
-          <td>Administratively shut down switch ports with nothing attached (<code>shutdown</code>), and turn off services a device does not need — Telnet, HTTP management, unused routing protocols, discovery protocols on edge-facing interfaces.</td>
+          <td>Administratively shut down switch ports with nothing attached (<code>shutdown</code>), and turn off services a device does not need — Telnet, <abbr title="HyperText Transfer Protocol">HTTP</abbr> management, unused routing protocols, discovery protocols on edge-facing interfaces.</td>
           <td>An enabled port in an unlocked meeting room is network access for anyone with a patch cable. A listening service is a remotely reachable target whether or not it is patched.</td>
         </tr>
         <tr>
@@ -112,12 +112,12 @@
           <td>MAC flooding, unauthorized devices connecting to switch ports</td>
         </tr>
         <tr>
-          <td><strong>DHCP Snooping</strong></td>
+          <td><strong><abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> Snooping</strong></td>
           <td>Marks ports as trusted (uplinks) or untrusted (access). Only trusted ports can send DHCP offers/ACKs. Also builds binding table for DAI.</td>
           <td>Rogue DHCP servers, DHCP starvation attacks</td>
         </tr>
         <tr>
-          <td><strong>DAI (Dynamic ARP Inspection)</strong></td>
+          <td><strong>DAI (Dynamic <abbr title="Address Resolution Protocol">ARP</abbr> Inspection)</strong></td>
           <td>Validates ARP packets against DHCP snooping binding table. Drops ARP packets that don't match.</td>
           <td>ARP spoofing/poisoning (requires DHCP snooping first)</td>
         </tr>
@@ -128,7 +128,7 @@
         </tr>
         <tr>
           <td><strong>802.1X NAC</strong></td>
-          <td>Requires authentication before granting network access at the port level. Port blocked until credentials verified by RADIUS.</td>
+          <td>Requires authentication before granting network access at the port level. Port blocked until credentials verified by <abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr>.</td>
           <td>Unauthorized device access to the network</td>
         </tr>
         <tr>
@@ -183,7 +183,7 @@
       </tbody>
     </table>
   </div>
-  <p>They are complementary rather than alternatives. URL filtering will not stop a malicious executable downloaded from an <em>allowed</em> site, and content filtering will not stop a user reaching a site that is simply against policy. Both need TLS inspection to be useful against HTTPS traffic, since neither can act on what it cannot decrypt.</p>
+  <p>They are complementary rather than alternatives. URL filtering will not stop a malicious executable downloaded from an <em>allowed</em> site, and content filtering will not stop a user reaching a site that is simply against policy. Both need <abbr title="Transport Layer Security">TLS</abbr> inspection to be useful against <abbr title="HTTP Secure">HTTPS</abbr> traffic, since neither can act on what it cannot decrypt.</p>
 
   <p><strong><abbr title="Data Loss Prevention">DLP</abbr></strong> is content filtering pointed the other way. Content filtering inspects what is coming <em>in</em> and asks whether it is dangerous; DLP inspects what is going <em>out</em> and asks whether it is allowed to leave. It matches payloads against patterns for sensitive data — card numbers, national insurance or social security numbers, tagged documents — and then blocks, quarantines, or alerts on the transfer. It sits wherever data exits: email gateway, web proxy, cloud storage connector, and endpoint agents for USB copies. The exam framing is exfiltration: a question about a user emailing a customer list to a personal address is a DLP question, not a firewall one, because the traffic itself is permitted and only its <em>content</em> makes it a violation.</p>
 
@@ -201,7 +201,7 @@
         <tr><td><strong>Distribution</strong></td><td>Deliver the key to the parties that need it without exposing it in transit — asymmetric key exchange, or an out-of-band channel.</td></tr>
         <tr><td><strong>Storage</strong></td><td>Protect the key at rest in an <abbr title="Hardware Security Module">HSM</abbr>, <abbr title="Trusted Platform Module">TPM</abbr>, or dedicated key vault — never a config file or a source-code repository.</td></tr>
         <tr><td><strong>Rotation</strong></td><td>Replace keys on a schedule. Limits how much data any single compromised key exposes, and shortens how long a stolen key stays useful.</td></tr>
-        <tr><td><strong>Revocation</strong></td><td>Invalidate a key ahead of its natural expiry when it is compromised or the holder's access ends. CRL and OCSP do this for certificates.</td></tr>
+        <tr><td><strong>Revocation</strong></td><td>Invalidate a key ahead of its natural expiry when it is compromised or the holder's access ends. <abbr title="Certificate Revocation List">CRL</abbr> and <abbr title="Online Certificate Status Protocol">OCSP</abbr> do this for certificates.</td></tr>
         <tr><td><strong>Destruction</strong></td><td>Securely destroy retired keys and every copy, so that recovered media cannot be used to decrypt archived data.</td></tr>
       </tbody>
     </table>

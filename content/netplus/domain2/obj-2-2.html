@@ -1,7 +1,7 @@
 <div class="obj-section" id="obj-2-2">
   <div class="section-eyebrow">Objective 2.2</div>
   <h2>Switching &amp; VLANs</h2>
-  <p>VLANs and STP are among the most-tested topics in Domain 2. Expect both MCQ and PBQ coverage.</p>
+  <p>VLANs and <abbr title="Spanning Tree Protocol">STP</abbr> are among the most-tested topics in Domain 2. Expect both MCQ and PBQ coverage.</p>
 
   <!-- C5: VLAN Segmentation Topology -->
   <div class="concept-visual">
@@ -69,7 +69,7 @@
         </tr>
         <tr>
           <td><strong>Voice VLAN</strong></td>
-          <td>Dedicated VLAN for VoIP traffic. QoS and segmentation for phones.</td>
+          <td>Dedicated VLAN for VoIP traffic. <abbr title="Quality of Service">QoS</abbr> and segmentation for phones.</td>
           <td><code>switchport voice vlan 100</code></td>
         </tr>
       </tbody>
@@ -78,7 +78,7 @@
 
   <div class="callout callout-amber">
     <div class="callout-title">REMEMBER THIS</div>
-    <strong>Default VLAN = VLAN 1</strong> (cannot be deleted on Cisco IOS). <strong>Native VLAN</strong> on a trunk carries untagged frames — must match on both ends or you get VLAN hopping risk. <strong>Voice VLAN</strong> rides alongside data on access ports for IP phones (typically tagged with 802.1p priority).
+    <strong>Default VLAN = VLAN 1</strong> (cannot be deleted on Cisco <abbr title="Internetwork Operating System">IOS</abbr>). <strong>Native VLAN</strong> on a trunk carries untagged frames — must match on both ends or you get VLAN hopping risk. <strong>Voice VLAN</strong> rides alongside data on access ports for <abbr title="Internet Protocol v4/v6">IP</abbr> phones (typically tagged with 802.1p priority).
   </div>
 
   <h3>The VLAN Database</h3>
@@ -324,9 +324,9 @@ Erasing the nvram filesystem... <span class="ts">[OK]</span>
     <p>This section covers duplex as a <em>configuration</em> task. The <em>symptoms</em> of a mismatch — late collisions, runts, and incrementing CRC errors on the half-duplex side — are a troubleshooting topic covered in <strong>Objective 5.2</strong>. Interface error counter definitions also appear in <strong>Objective 2.4</strong>.</p>
   </div>
 
-  <h3>MTU and Jumbo Frames</h3>
+  <h3><abbr title="Maximum Transmission Unit">MTU</abbr> and Jumbo Frames</h3>
   <p><abbr title="Maximum Transmission Unit">MTU</abbr> (Maximum Transmission Unit) is the largest payload a single frame can carry. The Ethernet default is <strong>1500 bytes</strong> — that is the IP packet size, not counting the 18-byte Ethernet header and trailer, which is why a standard full-size Ethernet frame is 1518 bytes on the wire.</p>
-  <p>When a packet exceeds the MTU of the next link, one of two things happens: it is <strong>fragmented</strong> into smaller pieces, or — if the Don't Fragment bit is set, and always in IPv6 — it is <strong>dropped</strong> and an ICMP "fragmentation needed" message is returned to the sender. <strong>Path MTU Discovery</strong> relies on exactly those ICMP messages to find the smallest MTU along a path. If a firewall blocks ICMP, PMTUD silently fails and large packets vanish while small ones (like pings) succeed — the classic "web pages hang but the server responds to ping" symptom.</p>
+  <p>When a packet exceeds the MTU of the next link, one of two things happens: it is <strong>fragmented</strong> into smaller pieces, or — if the Don't Fragment bit is set, and always in IPv6 — it is <strong>dropped</strong> and an <abbr title="Internet Control Message Protocol">ICMP</abbr> "fragmentation needed" message is returned to the sender. <strong>Path MTU Discovery</strong> relies on exactly those ICMP messages to find the smallest MTU along a path. If a firewall blocks ICMP, PMTUD silently fails and large packets vanish while small ones (like pings) succeed — the classic "web pages hang but the server responds to ping" symptom.</p>
 
   <div class="table-wrap">
     <table class="table--comparison">

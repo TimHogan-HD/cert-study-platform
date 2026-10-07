@@ -10,16 +10,16 @@
       </thead>
       <tbody>
         <tr>
-          <td><strong>ARP Spoofing / Poisoning</strong></td>
-          <td>Attacker sends fake ARP replies, associating their MAC with a legitimate IP (e.g., default gateway). Poisons ARP cache of victims.</td>
+          <td><strong><abbr title="Address Resolution Protocol">ARP</abbr> Spoofing / Poisoning</strong></td>
+          <td>Attacker sends fake ARP replies, associating their MAC with a legitimate <abbr title="Internet Protocol v4/v6">IP</abbr> (e.g., default gateway). Poisons ARP cache of victims.</td>
           <td>On-path (MITM) attack — attacker intercepts all traffic meant for gateway. Can eavesdrop, modify, or drop packets.</td>
-          <td>Dynamic ARP Inspection (DAI), static ARP entries, encrypted protocols (HTTPS, SSH)</td>
+          <td>Dynamic ARP Inspection (DAI), static ARP entries, encrypted protocols (<abbr title="HTTP Secure">HTTPS</abbr>, <abbr title="Secure Shell">SSH</abbr>)</td>
         </tr>
         <tr>
           <td><strong>MAC Flooding</strong></td>
           <td>Attacker sends thousands of frames with random source MACs, overflowing the switch's MAC address table.</td>
           <td>Switch enters "fail-open" mode and floods all frames to all ports — effectively acts like a hub. Attacker can capture all traffic.</td>
-          <td>Port Security (MAC address limits per port), DHCP snooping</td>
+          <td>Port Security (MAC address limits per port), <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> snooping</td>
         </tr>
         <tr>
           <td><strong>VLAN Hopping (Switch Spoofing)</strong></td>
@@ -34,7 +34,7 @@
           <td>Change native VLAN to unused VLAN (not VLAN 1), tag the native VLAN explicitly</td>
         </tr>
         <tr>
-          <td><strong>STP Attack</strong></td>
+          <td><strong><abbr title="Spanning Tree Protocol">STP</abbr> Attack</strong></td>
           <td>Attacker sends superior BPDUs to become root bridge — all traffic rerouted through attacker's device.</td>
           <td>On-path attack. Traffic disruption during STP convergence.</td>
           <td>BPDU Guard on access ports, Root Guard on non-core-facing ports</td>
@@ -53,7 +53,7 @@
         <tr>
           <td><strong>DoS (Denial of Service)</strong></td>
           <td>Single attacker sends massive traffic or exploits vulnerability to exhaust resources (bandwidth, CPU, connections).</td>
-          <td>Rate limiting, firewall rules, upstream ISP filtering, traffic scrubbing</td>
+          <td>Rate limiting, firewall rules, upstream <abbr title="Internet Service Provider">ISP</abbr> filtering, traffic scrubbing</td>
         </tr>
         <tr>
           <td><strong>DDoS (Distributed DoS)</strong></td>
@@ -62,18 +62,18 @@
         </tr>
         <tr>
           <td><strong>Reflection/Amplification</strong></td>
-          <td>Attacker sends small request with spoofed source IP (victim's IP) to servers (DNS, NTP, SSDP). Servers send large responses to victim.</td>
+          <td>Attacker sends small request with spoofed source IP (victim's IP) to servers (<abbr title="Domain Name System">DNS</abbr>, <abbr title="Network Time Protocol">NTP</abbr>, SSDP). Servers send large responses to victim.</td>
           <td>BCP38 (source IP validation), disable amplification services, rate limiting on DNS/NTP</td>
         </tr>
         <tr>
           <td><strong>DNS Poisoning / Spoofing</strong></td>
           <td>Injects false DNS records into resolver cache. Clients resolve legitimate names to attacker's IP — fake website, credential theft.</td>
-          <td>DNSSEC (signed DNS records), secure recursive resolvers, short TTL</td>
+          <td><abbr title="DNS Security Extensions">DNSSEC</abbr> (signed DNS records), secure recursive resolvers, short <abbr title="Time To Live">TTL</abbr></td>
         </tr>
         <tr>
           <td><strong>On-Path (MITM)</strong></td>
           <td>Attacker positions between two communicating parties (via ARP spoofing, rogue WAP, etc.) — reads and/or modifies traffic.</td>
-          <td>Encryption (TLS/HTTPS), certificate validation, VPN, MFA, HTTPS Strict Transport Security (HSTS)</td>
+          <td>Encryption (<abbr title="Transport Layer Security">TLS</abbr>/HTTPS), certificate validation, VPN, MFA, HTTPS Strict Transport Security (HSTS)</td>
         </tr>
         <tr>
           <td><strong>IP Spoofing</strong></td>
@@ -94,8 +94,8 @@
       <tbody>
         <tr>
           <td><strong>Evil Twin</strong></td>
-          <td>Attacker stands up an AP impersonating a legitimate <abbr title="Service Set Identifier">SSID</abbr>. Higher signal strength causes clients to associate with the attacker's AP instead of the real one, putting the attacker on-path.</td>
-          <td>WIDS (Wireless IDS), 802.1X authentication (not just PSK), user education</td>
+          <td>Attacker stands up an <abbr title="Access Point">AP</abbr> impersonating a legitimate <abbr title="Service Set Identifier">SSID</abbr>. Higher signal strength causes clients to associate with the attacker's AP instead of the real one, putting the attacker on-path.</td>
+          <td>WIDS (Wireless <abbr title="Intrusion Detection System">IDS</abbr>), 802.1X authentication (not just <abbr title="Pre-Shared Key">PSK</abbr>), user education</td>
         </tr>
         <tr>
           <td><strong>Deauthentication Attack</strong></td>
@@ -134,7 +134,7 @@
           <td><strong>Rogue <abbr title="Access Point">AP</abbr></strong></td>
           <td>An unauthorized access point attached to the corporate network — commonly a consumer AP added by a well-meaning employee, often with weak or no encryption.</td>
           <td>Creates an unmonitored entry point that bypasses the perimeter entirely. The wired network is extended into the car park.</td>
-          <td>Wireless IDS/IPS scanning for unknown BSSIDs, 802.1X on wired ports, port security, periodic site surveys.</td>
+          <td>Wireless IDS/<abbr title="Intrusion Prevention System">IPS</abbr> scanning for unknown BSSIDs, 802.1X on wired ports, port security, periodic site surveys.</td>
         </tr>
       </tbody>
     </table>

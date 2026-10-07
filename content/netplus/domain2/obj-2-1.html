@@ -1,6 +1,6 @@
 <div class="section-eyebrow">Domain 2 · 20% of Exam</div>
 <h1 class="section-title">Network Implementation</h1>
-<p class="section-sub">Routing technologies, switching and VLANs, wireless standards, and physical installation. This domain heavily tests STP, VLAN configuration, and 802.11 standards — all frequent PBQ and MCQ topics.</p>
+<p class="section-sub">Routing technologies, switching and VLANs, wireless standards, and physical installation. This domain heavily tests <abbr title="Spanning Tree Protocol">STP</abbr>, VLAN configuration, and 802.11 standards — all frequent PBQ and MCQ topics.</p>
 
 <!-- ═══════════════════════════════════════════
      OBJ 2.1 — Routing Technologies
@@ -20,9 +20,9 @@
       <tbody>
         <tr><td><strong>Destination Network</strong></td><td>The target network/host</td><td>192.168.10.0/24</td></tr>
         <tr><td><strong>Subnet Mask / Prefix</strong></td><td>Defines network boundary</td><td>/24 = 255.255.255.0</td></tr>
-        <tr><td><strong>Next Hop</strong></td><td>IP of the next router to send traffic to</td><td>10.0.0.1</td></tr>
+        <tr><td><strong>Next Hop</strong></td><td><abbr title="Internet Protocol v4/v6">IP</abbr> of the next router to send traffic to</td><td>10.0.0.1</td></tr>
         <tr><td><strong>Exit Interface</strong></td><td>Which interface to use</td><td>GigabitEthernet0/1</td></tr>
-        <tr><td><strong>Metric</strong></td><td>Cost of the route (lower = preferred within same protocol)</td><td>OSPF cost=100, RIP hops=2</td></tr>
+        <tr><td><strong>Metric</strong></td><td>Cost of the route (lower = preferred within same protocol)</td><td><abbr title="Open Shortest Path First">OSPF</abbr> cost=100, <abbr title="Routing Information Protocol">RIP</abbr> hops=2</td></tr>
         <tr><td><strong>Administrative Distance (AD)</strong></td><td>Trustworthiness of route source (lower = preferred between protocols)</td><td>OSPF=110, RIP=120</td></tr>
       </tbody>
     </table>
@@ -46,7 +46,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
 
   <p>That is <em>one</em> routing table, which is all a router normally holds. <strong><abbr title="Virtual Routing and Forwarding">VRF</abbr></strong> lets a single physical router hold several completely independent ones, with each interface assigned to exactly one of them. Traffic in one cannot reach another without an explicit route leak, and because the tables never see each other, two customers can both use 10.0.0.0/8 on the same box. VRF is to routing what a VLAN is to switching — one device, several separate networks — and it is what makes a provider's <abbr title="Multiprotocol Label Switching">MPLS</abbr> L3VPN possible.</p>
 
-  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.1 lists <em>static and dynamic routing, route selection, address translation,</em> and <em>FHRP</em>. <strong>VRF</strong> is not enumerated, but it appears in the official N10-009 acronym list and is a one-line concept once routing tables are understood, so it sits here rather than in a section of its own.</p>
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.1 lists <em>static and dynamic routing, route selection, address translation,</em> and <em><abbr title="First Hop Redundancy Protocol">FHRP</abbr></em>. <strong>VRF</strong> is not enumerated, but it appears in the official N10-009 acronym list and is a one-line concept once routing tables are understood, so it sits here rather than in a section of its own.</p>
 
   <!-- C1: Route Selection Decision Flow -->
   <h3>Route Selection — Prefix Length, AD, Metric</h3>
@@ -111,7 +111,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
       <tbody>
         <tr><td>Directly Connected</td><td><strong>0</strong></td><td>Can't be more trusted than a cable you're plugged into</td></tr>
         <tr><td>Static Route</td><td><strong>1</strong></td><td>Admin-configured = very trusted</td></tr>
-        <tr><td>eBGP (external BGP)</td><td><strong>20</strong></td><td>Internet's backbone routing protocol</td></tr>
+        <tr><td>eBGP (external <abbr title="Border Gateway Protocol">BGP</abbr>)</td><td><strong>20</strong></td><td>Internet's backbone routing protocol</td></tr>
         <tr><td>EIGRP (internal)</td><td><strong>90</strong></td><td>Cisco's advanced hybrid protocol</td></tr>
         <tr><td>OSPF</td><td><strong>110</strong></td><td>"One-Ten for OSPF"</td></tr>
         <tr><td>IS-IS</td><td><strong>115</strong></td><td>Service provider IGP</td></tr>
@@ -235,7 +235,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
   <!-- C2: NAT Inside/Outside Packet Flow -->
   <div class="concept-visual">
     <div class="concept-visual-title">NAT Terminology — Packet Flow</div>
-    <div class="concept-visual-sub">Outbound packet: 192.168.1.10 → 8.8.8.8 (Google DNS)</div>
+    <div class="concept-visual-sub">Outbound packet: 192.168.1.10 → 8.8.8.8 (Google <abbr title="Domain Name System">DNS</abbr>)</div>
     <div class="nat-flow">
       <div class="nat-row">
         <div class="nat-label">Inside<br>before NAT</div>
@@ -306,8 +306,8 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
       </thead>
       <tbody>
         <tr><td><strong>HSRP</strong></td><td>Cisco proprietary</td><td>Active / Standby</td><td>Higher priority = Active (default 100); <code>preempt</code> allows higher priority to reclaim Active role; virtual IP + virtual MAC</td></tr>
-        <tr><td><strong>VRRP</strong></td><td>Open standard (RFC 5798)</td><td>Master / Backup</td><td>Higher priority = Master; vendor-agnostic; virtual IP may be one router's real IP</td></tr>
-        <tr><td><strong>GLBP</strong></td><td>Cisco proprietary</td><td>AVG + up to 4 AVFs</td><td>Load balances across multiple gateways simultaneously; <abbr title="Active Virtual Gateway">AVG</abbr> assigns virtual MACs to <abbr title="Active Virtual Forwarder">AVF</abbr>s</td></tr>
+        <tr><td><strong>VRRP</strong></td><td>Open standard (<abbr title="Request for Comments">RFC</abbr> 5798)</td><td>Master / Backup</td><td>Higher priority = Master; vendor-agnostic; virtual IP may be one router's real IP</td></tr>
+        <tr><td><strong>GLBP</strong></td><td>Cisco proprietary</td><td><abbr title="Active Virtual Gateway">AVG</abbr> + up to 4 AVFs</td><td>Load balances across multiple gateways simultaneously; <abbr title="Active Virtual Gateway">AVG</abbr> assigns virtual MACs to <abbr title="Active Virtual Forwarder">AVF</abbr>s</td></tr>
       </tbody>
     </table>
   </div>

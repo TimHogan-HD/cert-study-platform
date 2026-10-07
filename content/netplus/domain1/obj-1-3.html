@@ -5,7 +5,7 @@
 
   <div class="callout callout-blue">
     <div class="callout-title">KEY DISTINCTION</div>
-    <strong>DHCP lease</strong> = address assigned automatically for a finite duration; the client can end up with a different address next time. <strong>Static (reservation)</strong> = a specific MAC always gets the same IP from the DHCP pool. <strong>Manual static</strong> = configured directly on the host, no DHCP involvement at all. Reservations are the right answer for printers and servers that need DNS-stable addresses.
+    <strong><abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> lease</strong> = address assigned automatically for a finite duration; the client can end up with a different address next time. <strong>Static (reservation)</strong> = a specific MAC always gets the same <abbr title="Internet Protocol v4/v6">IP</abbr> from the DHCP pool. <strong>Manual static</strong> = configured directly on the host, no DHCP involvement at all. Reservations are the right answer for printers and servers that need DNS-stable addresses.
   </div>
 
   <h3>Cloud Concepts &amp; Connectivity</h3>
@@ -123,9 +123,9 @@
 
   <h3>Network Virtualization</h3>
   <ul>
-    <li><strong>NFV (Network Functions Virtualization)</strong> — Replace physical appliances (routers, firewalls) with software running on commodity hardware.</li>
+    <li><strong><abbr title="Network Functions Virtualization">NFV</abbr> (Network Functions Virtualization)</strong> — Replace physical appliances (routers, firewalls) with software running on commodity hardware.</li>
     <li><strong>Virtual NIC / VNIC</strong> — Software network interface for VMs; connects to virtual switch.</li>
-    <li><strong>vSwitch (Virtual Switch)</strong> — Software switch within a hypervisor (VMware vSwitch, Hyper-V vSwitch). Connects VMs to each other and to physical NICs.</li>
+    <li><strong>vSwitch (Virtual Switch)</strong> — Software switch within a hypervisor (VMware vSwitch, Hyper-V vSwitch). Connects VMs to each other and to physical <abbr title="Network Interface Cards">NICs</abbr>.</li>
   </ul>
 
   <div class="callout callout-amber">
@@ -133,11 +133,11 @@
     <ul>
       <li>IaaS = you manage OS and up. PaaS = you manage apps and data only. SaaS = nothing to manage. Misidentifying which layer the customer owns is a common distractor.</li>
       <li><strong>Shared responsibility ≠ shared equally</strong> — the provider always owns the physical data center and hypervisor layer; the customer always owns their data and access control.</li>
-      <li><strong>Security Group / NSG = stateful</strong> (return traffic auto-allowed) vs <strong>NACL = stateless</strong> (must explicitly allow inbound AND outbound). Stateful/stateless is a frequent exam distinction.</li>
+      <li><strong>Security Group / NSG = stateful</strong> (return traffic auto-allowed) vs <strong><abbr title="Network Access Control List">NACL</abbr> = stateless</strong> (must explicitly allow inbound AND outbound). Stateful/stateless is a frequent exam distinction.</li>
       <li><strong>Elasticity ≠ Scalability</strong> — elasticity is bidirectional (auto scale up AND down); scalability is capacity to grow. Cloud is elastic; traditional on-prem is merely scalable.</li>
-      <li><strong>VPC peering is not transitive</strong> — if VPC A peers with B and B peers with C, A cannot reach C without a direct peer or Transit Gateway.</li>
+      <li><strong><abbr title="Virtual Private Cloud">VPC</abbr> peering is not transitive</strong> — if VPC A peers with B and B peers with C, A cannot reach C without a direct peer or Transit Gateway.</li>
       <li><strong>NFV replaces dedicated hardware</strong> with software on commodity x86 — it does not require specialized ASICs or proprietary hardware.</li>
-      <li>SDN separates <strong>control plane</strong> (decisions) from <strong>data plane</strong> (forwarding) via a centralized controller — see section 1.8 for full southbound/northbound API coverage.</li>
+      <li><abbr title="Software-Defined Networking">SDN</abbr> separates <strong>control plane</strong> (decisions) from <strong>data plane</strong> (forwarding) via a centralized controller — see section 1.8 for full southbound/northbound <abbr title="Application Programming Interface">API</abbr> coverage.</li>
     </ul>
   </div>
 
@@ -160,9 +160,9 @@
       </thead>
       <tbody>
         <tr><td><strong>AWS Security Group / Azure NSG</strong></td><td>Virtual firewall</td><td>Yes (stateful)</td><td>Per-instance / per-NIC</td><td>Return traffic automatically allowed; rules apply to specific resources</td></tr>
-        <tr><td><strong>AWS <abbr title="Network Access Control List">NACL</abbr> / OCI Security List</strong></td><td>Subnet ACL</td><td>No (stateless)</td><td>Per-subnet</td><td>Must explicitly allow both inbound AND outbound for each flow</td></tr>
+        <tr><td><strong>AWS <abbr title="Network Access Control List">NACL</abbr> / OCI Security List</strong></td><td>Subnet <abbr title="Access Control List">ACL</abbr></td><td>No (stateless)</td><td>Per-subnet</td><td>Must explicitly allow both inbound AND outbound for each flow</td></tr>
         <tr><td><strong>Internet Gateway</strong></td><td>VPC attachment</td><td>N/A</td><td>VPC-level</td><td>Bidirectional public internet access for resources with public IPs</td></tr>
-        <tr><td><strong>NAT Gateway / NAT Instance</strong></td><td>Address translation</td><td>Yes</td><td>VPC-level</td><td>Outbound-only internet for private subnet instances — no inbound initiated connections</td></tr>
+        <tr><td><strong><abbr title="Network Address Translation">NAT</abbr> Gateway / NAT Instance</strong></td><td>Address translation</td><td>Yes</td><td>VPC-level</td><td>Outbound-only internet for private subnet instances — no inbound initiated connections</td></tr>
       </tbody>
     </table>
   </div>

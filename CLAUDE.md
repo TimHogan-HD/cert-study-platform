@@ -19,7 +19,7 @@ Open `http://localhost:8080`. Changes to HTML/CSS/JS are reflected on next page 
 npx vercel dev
 ```
 
-**`tools/`** holds two dev utilities. `shot.js` screenshots one route in dark, light, and mobile; `snap.js` screenshots every route and compares two snapshot sets pixel by pixel (see Verification). Neither is a build step: the site remains plain static files with no runtime dependencies, and nothing under `tools/` is served or shipped. Both need Playwright available to node (`npm i -g playwright`).
+**`tools/`** holds the dev utilities. `check.js` checks the content and CSS rules below (balanced tags, table wrappers, first-use `<abbr>`, navigation targets, inline styles, colour tokens); `smoke.js` clicks through every interactive component; `shot.js` screenshots one route in dark, light, and mobile; `snap.js` screenshots every route and compares two snapshot sets pixel by pixel. CI runs `check.js` and `smoke.js` on every PR (`.github/workflows/check.yml`). None of them is a build step: the site remains plain static files with no runtime dependencies, and nothing under `tools/` is served or shipped. All but `check.js` need Playwright available to node (`npm i -g playwright`).
 
 ## Architecture
 
@@ -102,7 +102,7 @@ Much of the existing CSS predates these rules: `components.css` still has ~120 h
 
 - **Terminals:** Use `.terminal` + `.terminal-bar` + `.terminal-body`. Host-side prompts use `<span class="tpw">PS C:\&gt;</span>` (PowerShell). Cisco IOS prompts use `<span class="tpc">Switch1#</span>`. Syntax classes: `.th` (highlight), `.ts` (success), `.te` (error), `.tn` (annotation/comment).
 - **Callouts:** `<div class="callout callout-{blue|teal|amber|green|red|purple}">` with a `<div class="callout-title">` child.
-- **Acronyms:** Wrap first use of each acronym in `<abbr title="Full expansion">ABBR</abbr>`.
+- **Acronyms:** Wrap first use of each acronym in `<abbr title="Full expansion">ABBR</abbr>`. `node tools/check.js --fix` wraps any first use it can resolve from the expansions already used in the same certification's pages; an acronym with two meanings there (STP) is reported for you to wrap by hand.
 - **Tables:** Always wrap in `<div class="table-wrap">` for horizontal scroll on mobile. The AZ-900 page uses the equivalent `.cmp-wrap`; don't introduce another wrapper class.
 - **Accordions:** `<div class="accordion-header">` followed by `<div class="accordion-body">` — toggled by `nav.js`.
 - **Non-exhaustive notes:** Content may be included that the official CompTIA objectives do not enumerate — CompTIA states its lists are non-exhaustive — but every such item must carry a visible student-facing note. Place one note per affected section, immediately after the table or block it applies to:
@@ -142,7 +142,9 @@ Ordinary content and component work merges automatically. Hold and ask first onl
 
 ## Verification
 
-There is no build, lint, or test step, so nothing catches a mistake automatically. Before committing:
+There is no build step, and CI only runs `check.js` and `smoke.js`. Rendering problems are still yours to catch. Before committing:
+
+- **Run `node tools/check.js` and `node tools/smoke.js`.** CI runs both; running them first saves a round trip.
 
 - **Render the page — do not review by diff alone.** Layout bugs (broken flex, mismatched grid columns, wrapped table rows) do not appear in a text diff. Use `tools/shot.js`, which serves the repo and captures the route in dark, light, and mobile in one command:
 
@@ -161,8 +163,7 @@ There is no build, lint, or test step, so nothing catches a mistake automaticall
   node tools/snap.js compare /tmp/snap-main /tmp/snap-head
   ```
 - **Check both themes and mobile.** `shot.js` covers all three. Confirm readable text resolves to `--text` in both themes, not `--muted` or `--hint`.
-- **Re-test interactive components after editing their file.** The DNS matching game (`obj-3-4`), the attack-mitigation matching game (`obj-4-2`), and every flashcard deck are wired up after each fragment swap. A broken game is easy to miss in a diff.
-- **Balance-check the fragment.** `<div>`/`</div>` and `<p>`/`</p>` counts must match — an unbalanced fragment corrupts the whole page once injected.
+- **Keep `smoke.js` covering every interactive component.** It drives each one once (flip, match, toggle, persist, navigate). When you add a component or change what one does, add or update its scenario in `SCENARIOS` — a broken game is easy to miss in a diff, and a component with no scenario is untested.
 - **Diff against `origin/main`, not `main`.** The local `main` ref goes stale fast; `git diff main...HEAD` can make an 8-line change look like a 5,000-line rewrite. Use `git fetch origin main && git diff origin/main...HEAD`.
 - **Check `study-plans.html` when content moves between objectives.** It contains `inline-nav` links into specific objective pages. These will not 404 — they will silently land on the wrong page.
 - **Only `main` deploys to production.** Branches get Vercel preview deployments (linked from the PR's Vercel check), not production. Check the production deployment's timestamp before concluding a change did not take effect.

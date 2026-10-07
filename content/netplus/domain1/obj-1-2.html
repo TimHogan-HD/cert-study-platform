@@ -42,15 +42,15 @@
       <div class="device-card">
         <div class="device-card-name">Load Balancer</div>
         <div class="device-card-desc">Distributes traffic across multiple servers</div>
-        <div class="device-card-detail">L4 = TCP/UDP port-based. L7 = URL/content-aware (cookie, path).</div>
+        <div class="device-card-detail">L4 = <abbr title="Transmission Control Protocol">TCP</abbr>/<abbr title="User Datagram Protocol">UDP</abbr> port-based. L7 = URL/content-aware (cookie, path).</div>
       </div>
       <div class="device-card">
-        <div class="device-card-name">IDS</div>
+        <div class="device-card-name"><abbr title="Intrusion Detection System">IDS</abbr></div>
         <div class="device-card-desc">Monitors traffic for threats — alerts only (passive)</div>
-        <div class="device-card-detail">Out-of-band via SPAN/mirror port. Cannot block traffic.</div>
+        <div class="device-card-detail">Out-of-band via <abbr title="Switched Port Analyzer">SPAN</abbr>/mirror port. Cannot block traffic.</div>
       </div>
       <div class="device-card">
-        <div class="device-card-name">IPS</div>
+        <div class="device-card-name"><abbr title="Intrusion Prevention System">IPS</abbr></div>
         <div class="device-card-desc">Monitors AND blocks malicious traffic (active)</div>
         <div class="device-card-detail">Inline — traffic flows through it. Can drop packets. Single point of failure if it fails.</div>
       </div>
@@ -70,7 +70,7 @@
     <div class="device-layer-cards">
       <div class="device-card">
         <div class="device-card-name">Router</div>
-        <div class="device-card-desc">Routes packets between networks using IP addresses</div>
+        <div class="device-card-desc">Routes packets between networks using <abbr title="Internet Protocol v4/v6">IP</abbr> addresses</div>
         <div class="device-card-detail">Separates broadcast domains. Maintains routing table. Default gateway device.</div>
       </div>
       <div class="device-card">
@@ -105,7 +105,7 @@
       <div class="device-card">
         <div class="device-card-name">Wireless Controller</div>
         <div class="device-card-desc">Centrally manages multiple lightweight APs</div>
-        <div class="device-card-detail"><strong>WLC (Wireless LAN Controller):</strong> manages configuration, firmware, roaming, RF optimization, and security policy for lightweight (thin) APs from one control point. Lightweight APs have no local intelligence — they cannot function without the controller. Contrast with <strong>autonomous (fat) APs</strong>, which operate fully independently with all configuration on-board.</div>
+        <div class="device-card-detail"><strong><abbr title="Wireless LAN Controller">WLC</abbr> (Wireless LAN Controller):</strong> manages configuration, firmware, roaming, RF optimization, and security policy for lightweight (thin) APs from one control point. Lightweight APs have no local intelligence — they cannot function without the controller. Contrast with <strong>autonomous (fat) APs</strong>, which operate fully independently with all configuration on-board.</div>
       </div>
     </div>
   </div>
@@ -136,17 +136,17 @@
     </div>
     <div class="device-layer-cards">
       <div class="device-card">
-        <div class="device-card-name">NAS</div>
+        <div class="device-card-name"><abbr title="Network-Attached Storage">NAS</abbr></div>
         <div class="device-card-desc">File-level shared storage over the network</div>
-        <div class="device-card-detail"><strong><abbr title="Network-Attached Storage">NAS</abbr>:</strong> a storage device connected directly to the network, providing file-level access to multiple clients simultaneously via <strong>NFS</strong> (Linux/Unix) or <strong>SMB/CIFS</strong> (Windows). Functions as a dedicated file server appliance. Any client with network access and permissions can mount the share.</div>
+        <div class="device-card-detail"><strong><abbr title="Network-Attached Storage">NAS</abbr>:</strong> a storage device connected directly to the network, providing file-level access to multiple clients simultaneously via <strong>NFS</strong> (Linux/Unix) or <strong><abbr title="Server Message Block — Windows file/print sharing">SMB</abbr>/CIFS</strong> (Windows). Functions as a dedicated file server appliance. Any client with network access and permissions can mount the share.</div>
       </div>
       <div class="device-card">
-        <div class="device-card-name">SAN</div>
+        <div class="device-card-name"><abbr title="Storage Area Network">SAN</abbr></div>
         <div class="device-card-desc">Block-level storage over a dedicated network</div>
-        <div class="device-card-detail"><strong><abbr title="Storage Area Network">SAN</abbr>:</strong> a dedicated high-speed network that provides block-level storage to servers. Servers treat a SAN <abbr title="Logical Unit Number">LUN</abbr> as a locally attached disk — the OS formats and mounts it directly. Protocols: <strong>Fibre Channel (FC)</strong>, <strong>iSCSI</strong> (FC over IP), <strong>FCoE</strong>. Not accessible as a file share.</div>
+        <div class="device-card-detail"><strong><abbr title="Storage Area Network">SAN</abbr>:</strong> a dedicated high-speed network that provides block-level storage to servers. Servers treat a SAN <abbr title="Logical Unit Number">LUN</abbr> as a locally attached disk — the OS formats and mounts it directly. Protocols: <strong>Fibre Channel (<abbr title="Fiber Channel">FC</abbr>)</strong>, <strong>iSCSI</strong> (FC over IP), <strong>FCoE</strong>. Not accessible as a file share.</div>
       </div>
       <div class="device-card">
-        <div class="device-card-name">DAS</div>
+        <div class="device-card-name"><abbr title="Direct-Attached Storage">DAS</abbr></div>
         <div class="device-card-desc">Block-level storage cabled to one host</div>
         <div class="device-card-detail"><strong><abbr title="Direct-Attached Storage">DAS</abbr>:</strong> disks connected straight to a single server over <strong>SAS</strong>, <strong>SATA</strong>, or USB, with no network in the path. Block-level like a SAN, but usable only by the host it is cabled to — there is no fabric and no sharing. Cheapest and lowest-latency of the three; the storage becomes unreachable if that one server fails.</div>
       </div>
@@ -274,9 +274,9 @@
       <li>IDS = out-of-band/SPAN port (passive). IPS = inline (active). This distinction is heavily tested.</li>
       <li>A WAP is NOT a router — it's only a Layer 2 device unless it's a combined router/WAP.</li>
       <li>Bridges are software-based; switches are hardware-based and faster.</li>
-      <li>A proxy server caches and filters at L7. A NAT device changes IP addresses at L3.</li>
+      <li>A proxy server caches and filters at L7. A <abbr title="Network Address Translation">NAT</abbr> device changes IP addresses at L3.</li>
       <li><strong>NAS = file-level access over the network (NFS/SMB). SAN = block-level access over a dedicated storage network (FC/iSCSI).</strong> A scenario describing shared folder access across a LAN is NAS. A scenario describing a server that needs raw block storage for a database is SAN.</li>
-      <li><strong>Autonomous AP = full intelligence on-board, standalone operation. Lightweight AP = zero local intelligence, requires a WLC.</strong> A scenario about centrally managing dozens of APs is describing a WLC deployment. Lightweight APs cannot function without their controller.</li>
+      <li><strong>Autonomous <abbr title="Access Point">AP</abbr> = full intelligence on-board, standalone operation. Lightweight AP = zero local intelligence, requires a WLC.</strong> A scenario about centrally managing dozens of APs is describing a WLC deployment. Lightweight APs cannot function without their controller.</li>
     </ul>
   </div>
 
@@ -294,10 +294,10 @@
         <tr><th>Mechanism</th><th>Layer</th><th>How It Works</th><th>Key Detail</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>QoS / DSCP</strong></td><td>L3</td><td>IP header <abbr title="Differentiated Services Code Point">DSCP</abbr> field (6-bit) marks packet priority</td><td>EF (Expedited Forwarding) = VoIP, DSCP 46; AF = Assured Forwarding; BE = Best Effort (default, 0)</td></tr>
+        <tr><td><strong>QoS / <abbr title="Differentiated Services Code Point">DSCP</abbr></strong></td><td>L3</td><td>IP header <abbr title="Differentiated Services Code Point">DSCP</abbr> field (6-bit) marks packet priority</td><td>EF (Expedited Forwarding) = VoIP, DSCP 46; AF = Assured Forwarding; BE = Best Effort (default, 0)</td></tr>
         <tr><td><strong>CoS</strong></td><td>L2</td><td>802.1p 3-bit field in 802.1Q VLAN tag marks priority</td><td>0–7; only present on tagged (trunk) frames; lost at L3 boundary</td></tr>
         <tr><td><strong>Traffic Shaping</strong></td><td>L3–L4</td><td>Buffers excess traffic to smooth bursts — adds latency but no drops</td><td>Smooth, compliant with contracted rate; introduces delay</td></tr>
-        <tr><td><strong>Traffic Policing</strong></td><td>L3–L4</td><td>Drops or re-marks packets that exceed a defined rate — no buffering</td><td>Bursty drops; typically at ISP edge or WAN handoff</td></tr>
+        <tr><td><strong>Traffic Policing</strong></td><td>L3–L4</td><td>Drops or re-marks packets that exceed a defined rate — no buffering</td><td>Bursty drops; typically at <abbr title="Internet Service Provider">ISP</abbr> edge or WAN handoff</td></tr>
         <tr><td><strong>Queuing</strong></td><td>L3</td><td>Scheduler determines order packets leave interface</td><td><abbr title="Priority Queuing">PQ</abbr> = strict priority; <abbr title="Weighted Fair Queuing">WFQ</abbr> = bandwidth share; <abbr title="Class-Based WFQ">CBWFQ</abbr> = class-defined bandwidth</td></tr>
       </tbody>
     </table>
@@ -305,7 +305,7 @@
 
   <div class="callout callout-blue">
     <div class="callout-title"><abbr title="Time To Live">TTL</abbr> — Time to Live</div>
-    <p>An 8-bit field in the IPv4 header (Hop Limit in IPv6). Each router decrements TTL by 1 before forwarding. When TTL reaches 0, the packet is discarded and the router sends an <strong>ICMP Time Exceeded</strong> message back to the source. <code>traceroute</code> exploits this: it sends packets with progressively increasing TTL (1, 2, 3…) to map each hop along the path.</p>
+    <p>An 8-bit field in the IPv4 header (Hop Limit in IPv6). Each router decrements TTL by 1 before forwarding. When TTL reaches 0, the packet is discarded and the router sends an <strong><abbr title="Internet Control Message Protocol">ICMP</abbr> Time Exceeded</strong> message back to the source. <code>traceroute</code> exploits this: it sends packets with progressively increasing TTL (1, 2, 3…) to map each hop along the path.</p>
   </div>
 
   <div class="callout callout-green quick-recall">

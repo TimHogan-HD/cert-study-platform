@@ -44,7 +44,7 @@
           <td><strong>Confidentiality</strong></td>
           <td>Only authorized parties can access data</td>
           <td>Eavesdropping, data theft, unencrypted transmission</td>
-          <td>Encryption (TLS, AES), access controls, VPN</td>
+          <td>Encryption (<abbr title="Transport Layer Security">TLS</abbr>, <abbr title="Advanced Encryption Standard">AES</abbr>), access controls, VPN</td>
         </tr>
         <tr>
           <td><strong>Integrity</strong></td>
@@ -75,9 +75,9 @@
       </thead>
       <tbody>
         <tr><td><strong>Something You Know</strong></td><td>Knowledge factor</td><td>Password, PIN, security question</td></tr>
-        <tr><td><strong>Something You Have</strong></td><td>Possession factor</td><td>Smart card, hardware token (RSA SecurID), phone (TOTP authenticator app), YubiKey</td></tr>
+        <tr><td><strong>Something You Have</strong></td><td>Possession factor</td><td>Smart card, hardware token (RSA SecurID), phone (<abbr title="Time-based One-Time Password">TOTP</abbr> authenticator app), YubiKey</td></tr>
         <tr><td><strong>Something You Are</strong></td><td>Biometric factor</td><td>Fingerprint, retina scan, facial recognition, voice recognition</td></tr>
-        <tr><td><strong>Somewhere You Are</strong></td><td>Location factor</td><td>GPS location, IP geolocation, network location (on corporate LAN)</td></tr>
+        <tr><td><strong>Somewhere You Are</strong></td><td>Location factor</td><td>GPS location, <abbr title="Internet Protocol v4/v6">IP</abbr> geolocation, network location (on corporate LAN)</td></tr>
       </tbody>
     </table>
   </div>
@@ -112,7 +112,7 @@
           <td><strong>Hybrid</strong></td>
           <td>Asymmetric to exchange key; symmetric for data</td>
           <td>Best of both</td>
-          <td>TLS (HTTPS), SSH — real-world encryption</td>
+          <td>TLS (<abbr title="HTTP Secure">HTTPS</abbr>), <abbr title="Secure Shell">SSH</abbr> — real-world encryption</td>
           <td>TLS 1.3 (ECDH + AES)</td>
         </tr>
       </tbody>
@@ -144,7 +144,7 @@
 
   <div class="callout callout-blue">
     <div class="callout-title">The Two Are Not Substitutes</div>
-    <p>Protecting one state says nothing about the other. A laptop with full-disk encryption still leaks credentials over an unencrypted HTTP session, and a TLS-protected web application still exposes its database if the drive is stolen. When a question describes stolen backup tapes or a lost laptop, the control is <strong>encryption at rest</strong>; when it describes packet capture or a hostile Wi-Fi network, it is <strong>encryption in transit</strong>.</p>
+    <p>Protecting one state says nothing about the other. A laptop with full-disk encryption still leaks credentials over an unencrypted <abbr title="HyperText Transfer Protocol">HTTP</abbr> session, and a TLS-protected web application still exposes its database if the drive is stolen. When a question describes stolen backup tapes or a lost laptop, the control is <strong>encryption at rest</strong>; when it describes packet capture or a hostile Wi-Fi network, it is <strong>encryption in transit</strong>.</p>
   </div>
 
   <h3>Hashing Algorithms</h3>
@@ -163,12 +163,12 @@
     </table>
   </div>
 
-  <h3>PKI — Public Key Infrastructure</h3>
+  <h3><abbr title="Public Key Infrastructure">PKI</abbr> — Public Key Infrastructure</h3>
   <ul>
     <li><strong>CA (Certificate Authority):</strong> Trusted entity that issues and signs digital certificates. (e.g., DigiCert, Let's Encrypt, internal enterprise CA).</li>
     <li><strong>Digital Certificate:</strong> Contains public key + identity information + CA signature. Proves "this public key belongs to this entity."</li>
-    <li><strong>CRL (Certificate Revocation List):</strong> Published list of revoked certificates. Browser checks before trusting a cert.</li>
-    <li><strong>OCSP (Online Certificate Status Protocol):</strong> Real-time cert validation — faster than downloading full CRL.</li>
+    <li><strong><abbr title="Certificate Revocation List">CRL</abbr> (Certificate Revocation List):</strong> Published list of revoked certificates. Browser checks before trusting a cert.</li>
+    <li><strong><abbr title="Online Certificate Status Protocol">OCSP</abbr> (Online Certificate Status Protocol):</strong> Real-time cert validation — faster than downloading full CRL.</li>
     <li><strong>Root CA:</strong> The top of the trust hierarchy. Self-signed. Root CAs are embedded in OS/browser trust stores.</li>
     <li><strong>Intermediate CA:</strong> Signed by root CA; issues end-entity certificates. Allows root CA to stay offline.</li>
   </ul>
@@ -199,7 +199,7 @@
     <li>Microsegmentation: divide network into small segments with strict access controls between them.</li>
   </ul>
 
-  <h3>AAA — Authentication, Authorization, Accounting</h3>
+  <h3><abbr title="Authentication, Authorization, and Accounting">AAA</abbr> — Authentication, Authorization, Accounting</h3>
   <p><abbr title="Authentication, Authorization, and Accounting">AAA</abbr> is the model that every access-control system implements. The three A's answer three different questions, in order:</p>
   <div class="table-wrap">
     <table class="table--comparison">
@@ -208,7 +208,7 @@
       </thead>
       <tbody>
         <tr><td><strong>Authentication</strong></td><td><em>Who are you?</em></td><td>Verify the claimed identity — password, certificate, biometric, token. Proves the claim and grants nothing.</td></tr>
-        <tr><td><strong>Authorization</strong></td><td><em>What may you do?</em></td><td>Apply permissions to the now-known identity — RBAC role, VLAN assignment, privilege level, ACL.</td></tr>
+        <tr><td><strong>Authorization</strong></td><td><em>What may you do?</em></td><td>Apply permissions to the now-known identity — <abbr title="Role-Based Access Control">RBAC</abbr> role, VLAN assignment, privilege level, <abbr title="Access Control List">ACL</abbr>.</td></tr>
         <tr><td><strong>Accounting</strong></td><td><em>What did you do?</em></td><td>Log the session — commands entered, bytes transferred, connect and disconnect times. Feeds audit and billing.</td></tr>
       </tbody>
     </table>
@@ -217,7 +217,7 @@
 
   <div class="callout callout-blue">
     <div class="callout-title">Cross-Reference — Objective 3.5</div>
-    <p>The two AAA protocols, <strong>RADIUS</strong> and <strong>TACACS+</strong>, are compared in full in <strong>3.5 Remote Access &amp; Security</strong> alongside 802.1X. The consequence of the model to carry into that table: <strong>TACACS+ separates all three functions</strong>, so it can authorize an individual command on a router and log that command by itself, while <strong>RADIUS combines authentication and authorization</strong> into a single accept/reject exchange and keeps only accounting separate. That separation is why TACACS+ is the answer for device administration and RADIUS is the answer for network access.</p>
+    <p>The two AAA protocols, <strong><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr></strong> and <strong>TACACS+</strong>, are compared in full in <strong>3.5 Remote Access &amp; Security</strong> alongside 802.1X. The consequence of the model to carry into that table: <strong>TACACS+ separates all three functions</strong>, so it can authorize an individual command on a router and log that command by itself, while <strong>RADIUS combines authentication and authorization</strong> into a single accept/reject exchange and keeps only accounting separate. That separation is why TACACS+ is the answer for device administration and RADIUS is the answer for network access.</p>
   </div>
 
   <h3>Identity and Access Management</h3>
@@ -227,11 +227,11 @@
         <tr><th>Technology</th><th>Description</th><th>Key Detail</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong><abbr title="Single Sign-On">SSO</abbr></strong></td><td>One authentication event grants access to multiple systems</td><td>SSO is an outcome/goal; SAML, OAuth, OIDC are protocols that implement SSO</td></tr>
+        <tr><td><strong><abbr title="Single Sign-On">SSO</abbr></strong></td><td>One authentication event grants access to multiple systems</td><td>SSO is an outcome/goal; <abbr title="Security Assertion Markup Language">SAML</abbr>, OAuth, OIDC are protocols that implement SSO</td></tr>
         <tr><td><strong><abbr title="Security Assertion Markup Language">SAML</abbr></strong></td><td>XML-based protocol for exchanging authentication/authorization data between IdP and SP</td><td>IdP (Identity Provider) authenticates; SP (Service Provider) grants access; common in enterprise SSO</td></tr>
         <tr><td><strong><abbr title="Lightweight Directory Access Protocol">LDAP</abbr></strong></td><td>Protocol for accessing directory services (user accounts, groups)</td><td>Port 389 (LDAP unencrypted) / 636 (LDAPS over TLS); Microsoft AD uses LDAP</td></tr>
         <tr><td><strong><abbr title="Role-Based Access Control">RBAC</abbr></strong></td><td>Access permissions assigned based on job role, not individual identity</td><td>Simplifies management; "least privilege" applied at role level; contrast with ABAC (attribute-based)</td></tr>
-        <tr><td><strong><abbr title="Time-based One-Time Password">TOTP</abbr></strong></td><td>Time-based OTP generated from shared secret + current timestamp (RFC 6238)</td><td>Changes every 30 seconds; used in authenticator apps (Google Authenticator, Duo); second factor</td></tr>
+        <tr><td><strong><abbr title="Time-based One-Time Password">TOTP</abbr></strong></td><td>Time-based OTP generated from shared secret + current timestamp (<abbr title="Request for Comments">RFC</abbr> 6238)</td><td>Changes every 30 seconds; used in authenticator apps (Google Authenticator, Duo); second factor</td></tr>
         <tr><td><strong>Geofencing</strong></td><td>Location-based access control — denies or restricts access based on geographic location</td><td>Uses GPS, IP geolocation, or cellular data; "accessing from unexpected country" triggers block or MFA challenge</td></tr>
       </tbody>
     </table>
@@ -338,9 +338,9 @@
         <tr><th>Context</th><th>Rationale</th><th>Implementation</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>IoT / IIoT Devices</strong></td><td>Limited patching capability, vulnerable firmware, diverse protocols</td><td>Separate VLAN + strict ACLs; deny internet access unless required; monitor with IDS</td></tr>
-        <tr><td><strong>OT / ICS / SCADA</strong></td><td>Uptime-critical; patches rarely applied; legacy protocols (Modbus, DNP3)</td><td>Air gap or data diode (one-way data transfer); if connected, strict DMZ; monitor passively only</td></tr>
-        <tr><td><strong>Guest Network</strong></td><td>Untrusted devices; internet access only</td><td>Isolated SSID; separate VLAN; no access to corporate resources; captive portal optional</td></tr>
+        <tr><td><strong>IoT / IIoT Devices</strong></td><td>Limited patching capability, vulnerable firmware, diverse protocols</td><td>Separate VLAN + strict ACLs; deny internet access unless required; monitor with <abbr title="Intrusion Detection System">IDS</abbr></td></tr>
+        <tr><td><strong><abbr title="Operational Technology">OT</abbr> / <abbr title="Industrial Control Systems">ICS</abbr> / <abbr title="Supervisory Control and Data Acquisition">SCADA</abbr></strong></td><td>Uptime-critical; patches rarely applied; legacy protocols (Modbus, DNP3)</td><td>Air gap or data diode (one-way data transfer); if connected, strict DMZ; monitor passively only</td></tr>
+        <tr><td><strong>Guest Network</strong></td><td>Untrusted devices; internet access only</td><td>Isolated <abbr title="Service Set Identifier">SSID</abbr>; separate VLAN; no access to corporate resources; captive portal optional</td></tr>
         <tr><td><strong>BYOD</strong></td><td>Personal devices, unknown patch level</td><td>MDM enrollment or quarantine VLAN with limited access; NAC posture check before granting access</td></tr>
       </tbody>
     </table>

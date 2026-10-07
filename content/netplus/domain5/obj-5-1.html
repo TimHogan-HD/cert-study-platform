@@ -61,7 +61,7 @@
     <table class="table--comparison">
       <thead><tr><th>Approach</th><th>Direction</th><th>When to Use</th><th>Example</th></tr></thead>
       <tbody>
-        <tr><td><strong>Top-down</strong></td><td>Layer 7 → Layer 1</td><td>User-reported application issues</td><td>Can't access web app → check DNS, then routing, then physical</td></tr>
+        <tr><td><strong>Top-down</strong></td><td>Layer 7 → Layer 1</td><td>User-reported application issues</td><td>Can't access web app → check <abbr title="Domain Name System">DNS</abbr>, then routing, then physical</td></tr>
         <tr><td><strong>Bottom-up</strong></td><td>Layer 1 → Layer 7</td><td>Physical infrastructure issues suspected</td><td>No link light → check cable → switch port → NIC</td></tr>
         <tr><td><strong>Divide and conquer</strong></td><td>Start at middle layer</td><td>Unclear where fault is; faster convergence</td><td>Ping test at Layer 3 to isolate above/below</td></tr>
         <tr><td><strong>Follow the path</strong></td><td>Trace traffic route</td><td>Connectivity between two specific hosts</td><td>traceroute from source to destination</td></tr>
@@ -79,8 +79,8 @@
     <ol>
       <li><strong>Identify:</strong> User reports "can't access \\server01\data". Error: "Network path not found." Only this user affected.</li>
       <li><strong>Theory:</strong> DNS resolution failure, VLAN misconfiguration, or incorrect credentials.</li>
-      <li><strong>Test theory:</strong> <code>ping server01</code> fails. <code>ping 10.1.1.50</code> (IP) succeeds. Conclusion: DNS issue, not routing.</li>
-      <li><strong>Plan:</strong> Flush DNS cache, check DHCP option 6 assignment. No impact to other users.</li>
+      <li><strong>Test theory:</strong> <code>ping server01</code> fails. <code>ping 10.1.1.50</code> (<abbr title="Internet Protocol v4/v6">IP</abbr>) succeeds. Conclusion: DNS issue, not routing.</li>
+      <li><strong>Plan:</strong> Flush DNS cache, check <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> option 6 assignment. No impact to other users.</li>
       <li><strong>Implement:</strong> <code>ipconfig /flushdns</code>. Assign correct DNS via DHCP. Test.</li>
       <li><strong>Verify:</strong> User can reach share by name. Ping server01 resolves correctly. Check two other machines — confirm no broader issue.</li>
       <li><strong>Document:</strong> Ticket updated: "DHCP option 6 was pointing to decommissioned DNS server 10.1.1.5. Corrected to 10.1.1.10."</li>
@@ -113,7 +113,7 @@ Windows IP Configuration
     <div class="callout-title">7-Step Applied</div>
     <ol>
       <li><strong>Identify:</strong> Multiple users on same floor report random drops, 2-5 seconds, several times/hour. Started after weekend maintenance.</li>
-      <li><strong>Theory:</strong> STP topology change, duplex mismatch on uplink, or failing switch port. Maintenance correlates strongly.</li>
+      <li><strong>Theory:</strong> <abbr title="Spanning Tree Protocol">STP</abbr> topology change, duplex mismatch on uplink, or failing switch port. Maintenance correlates strongly.</li>
       <li><strong>Test:</strong> Check <code>show interface</code> on uplink — CRC errors, runts detected. Check duplex settings: access switch = half-duplex, core switch = full-duplex.</li>
       <li><strong>Plan:</strong> Configure both ends to full-duplex / 1G. Brief outage expected during port reset.</li>
       <li><strong>Implement:</strong> Set <code>duplex full</code> on both interface sides. Port bounces.</li>
@@ -143,12 +143,12 @@ GigabitEthernet0/1 is up, line protocol is up
     <div class="callout-title">7-Step Applied</div>
     <ol>
       <li><strong>Identify:</strong> All users in building B can't reach internet. Internal resources work fine. Started ~1 hour ago.</li>
-      <li><strong>Theory:</strong> WAN link down, default route missing, firewall policy change, or NAT misconfiguration.</li>
+      <li><strong>Theory:</strong> WAN link down, default route missing, firewall policy change, or <abbr title="Network Address Translation">NAT</abbr> misconfiguration.</li>
       <li><strong>Test:</strong> <code>ping 8.8.8.8</code> from router fails. <code>show ip route</code> — no default route (0.0.0.0/0) present.</li>
-      <li><strong>Plan:</strong> Re-add static default route or restore BGP session. Check for change log entry.</li>
+      <li><strong>Plan:</strong> Re-add static default route or restore <abbr title="Border Gateway Protocol">BGP</abbr> session. Check for change log entry.</li>
       <li><strong>Implement:</strong> Restore static route <code>ip route 0.0.0.0 0.0.0.0 [ISP-GW]</code>. Verify BGP neighbor if applicable.</li>
-      <li><strong>Verify:</strong> <code>ping 8.8.8.8</code> succeeds. HTTP/HTTPS confirmed working from end stations.</li>
-      <li><strong>Document:</strong> Default route was removed during an ACL cleanup script that ran automatically. Added exception and updated automation script.</li>
+      <li><strong>Verify:</strong> <code>ping 8.8.8.8</code> succeeds. <abbr title="HyperText Transfer Protocol">HTTP</abbr>/<abbr title="HTTP Secure">HTTPS</abbr> confirmed working from end stations.</li>
+      <li><strong>Document:</strong> Default route was removed during an <abbr title="Access Control List">ACL</abbr> cleanup script that ran automatically. Added exception and updated automation script.</li>
     </ol>
   </div>
 
