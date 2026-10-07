@@ -11,6 +11,7 @@ import { initBinaryBits } from './components/binary-bits.js';
 import { initGuidedSubnetting } from './components/guided-subnetting.js';
 import { initPbq, initPbqProgress } from './components/pbq.js';
 import { initPbqTerminals } from './components/pbq-terminal.js';
+import { initPbqGenerators } from './components/pbq-generators.js';
 import { initSubnetTools } from './components/subnet-calc.js';
 import { ALIASES } from './catalog.js';
 import { renderSidebar, showCert, certFor } from './sidebar.js';
@@ -19,7 +20,7 @@ import { renderSidebar, showCert, certFor } from './sidebar.js';
    no-op when its markup is absent; the ones that persist per-page state take the path. */
 const COMPONENTS = [
   initAccordions, initToggleGroups, initFlashcards, initMatching, initAIExplain, initFlips,
-  initDayTabs, initChecklist, initBinaryBits, initGuidedSubnetting, initPbq, initPbqProgress, initPbqTerminals, initSubnetTools,
+  initDayTabs, initChecklist, initBinaryBits, initGuidedSubnetting, initPbq, initPbqProgress, initPbqGenerators, initPbqTerminals, initSubnetTools,
 ];
 
 renderSidebar(document.querySelector('.sidebar'));

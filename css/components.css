@@ -2452,6 +2452,7 @@ input.lab-input { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospac
 .pbq-actions button { width: auto; padding: 0.5rem 1.1rem; border-radius: var(--radius); font-size: 0.85rem; font-weight: 700; border: 1px solid var(--border2); background: var(--surface3); color: var(--text); }
 .pbq-actions button:hover { border-color: var(--blue); }
 .pbq-actions .pbq-check { background: var(--blue); border-color: var(--blue); color: #fff; }
+.pbq-actions .pbq-new { margin-left: auto; border-color: var(--purple-border); color: var(--purple); }
 .pbq-result { margin-top: 0.85rem; padding: 0.7rem 0.9rem; border-radius: var(--radius); border: 1px solid var(--border2); font-size: 0.86rem; font-weight: 600; color: var(--text); background: var(--surface3); }
 .pbq-result.pass { border-color: var(--green-border); background: var(--green-bg); color: var(--green); }
 .pbq-result.revealed { border-color: var(--amber-border); background: var(--amber-bg); color: var(--amber); }

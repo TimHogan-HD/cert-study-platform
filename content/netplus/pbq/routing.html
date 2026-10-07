@@ -198,7 +198,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
 </div>
 
 <!-- ── PBQ 2: longest prefix match ──────────────────────────── -->
-<div class="pbq" data-pbq="routing-2" data-minutes="5">
+<div class="pbq" data-pbq="routing-2" data-generator="lpm" data-minutes="5">
   <div class="pbq-head">
     <div><div class="pbq-kicker">PBQ 2 · Route selection</div><h2>Where does each packet go?</h2></div>
     <span class="pbq-timer"></span>
@@ -225,12 +225,12 @@ C     192.168.1.0/24 is directly connected, GigabitEthernet0/4</pre>
       <table>
         <thead><tr><th>Packet</th><th>Destination</th><th>Exit interface</th></tr></thead>
         <tbody>
-          <tr><td class="pbq-fixed">A</td><td><code>10.20.30.200</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/3"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
-          <tr><td class="pbq-fixed">B</td><td><code>10.20.30.17</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/2"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
-          <tr><td class="pbq-fixed">C</td><td><code>10.20.99.5</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/1"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
-          <tr><td class="pbq-fixed">D</td><td><code>10.21.0.1</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/0"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
-          <tr><td class="pbq-fixed">E</td><td><code>192.168.1.40</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/4"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
-          <tr><td class="pbq-fixed">F</td><td><code>10.20.30.127</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/2"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr data-gen="row"><td class="pbq-fixed">A</td><td><code data-gen="dst">10.20.30.200</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/3"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr data-gen="row"><td class="pbq-fixed">B</td><td><code data-gen="dst">10.20.30.17</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/2"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr data-gen="row"><td class="pbq-fixed">C</td><td><code data-gen="dst">10.20.99.5</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/1"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr data-gen="row"><td class="pbq-fixed">D</td><td><code data-gen="dst">10.21.0.1</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/0"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr data-gen="row"><td class="pbq-fixed">E</td><td><code data-gen="dst">192.168.1.40</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/4"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr data-gen="row"><td class="pbq-fixed">F</td><td><code data-gen="dst">10.20.30.127</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/2"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
         </tbody>
       </table>
     </div>
@@ -239,6 +239,7 @@ C     192.168.1.0/24 is directly connected, GigabitEthernet0/4</pre>
     <div class="pbq-result" hidden></div>
     <div class="pbq-explain" hidden>
       <div class="pbq-explain-title">Explanation</div>
+      <div data-gen="explain">
       <ul>
         <li><strong>A, 10.20.30.200:</strong> matches the /16, the /24, and the /25 (which covers .128 to .255). The /25 is longest, so Gi0/3. It wins even though EIGRP's distance (90) is higher than the static route's (1): distance only compares routes for the same prefix.</li>
         <li><strong>B, 10.20.30.17</strong> and <strong>F, 10.20.30.127:</strong> both fall in the lower half of the /24, outside the /25. The /24 static route is longest, so Gi0/2.</li>
@@ -246,6 +247,7 @@ C     192.168.1.0/24 is directly connected, GigabitEthernet0/4</pre>
         <li><strong>D, 10.21.0.1:</strong> the trap. 10.21 is not inside 10.20.0.0/16, so only the default route matches: Gi0/0.</li>
         <li><strong>E, 192.168.1.40:</strong> directly connected, Gi0/4.</li>
       </ul>
+      </div>
     </div>
   </div>
 </div>
