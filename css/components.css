@@ -2407,6 +2407,12 @@ td code { font-size: 0.8rem; }
 .pbq-timer { flex-shrink: 0; font-variant-numeric: tabular-nums; font-size: 0.82rem; font-weight: 700; color: var(--text); background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.2rem 0.55rem; }
 .pbq-timer.over { color: var(--amber); border-color: var(--amber-border); background: var(--amber-bg); }
 .pbq-body { padding: 1rem 1.1rem 1.1rem; }
+.pbq-status { margin-left: auto; flex-shrink: 0; font-size: 0.78rem; font-weight: 700; color: var(--green); }
+.pbq-progress { margin-top: 0.4rem; font-size: 0.75rem; font-weight: 700; color: var(--text); }
+.pbq-progress[data-complete="true"] { color: var(--green); }
+.pbq-total-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin: 0 0 0.75rem; font-size: 0.88rem; font-weight: 600; }
+.pbq-progress-reset { width: auto; padding: 0.25rem 0.6rem; border: 1px solid var(--border2); border-radius: 6px; font-size: 0.78rem; color: var(--text); }
+.pbq-progress-reset:hover { border-color: var(--red); color: var(--red); }
 .pbq-scenario { border-left: 3px solid var(--purple); background: var(--surface2); padding: 0.75rem 1rem; border-radius: 0 var(--radius) var(--radius) 0; margin-bottom: 1rem; font-size: 0.92rem; }
 .pbq-scenario p { margin: 0 0 0.4rem; }
 .pbq-scenario ol, .pbq-scenario ul { margin: 0 0 0.4rem 1.25rem; }
