@@ -220,6 +220,15 @@ const SCENARIOS = {
       assert(await q.locator('select').first().inputValue() === '' && await q.locator('.pbq-result').isHidden(), 'reset did not clear');
     }],
   ],
+  'netplus/pbq/routing': [
+    ['console handles piped show commands', async p => {
+      const term = p.locator('.pbq-term').first();
+      await term.locator('.pbq-term-tab', { hasText: 'R1' }).click();
+      await term.locator('.pbq-term-line input').fill('sh run | inc ip route');
+      await term.locator('.pbq-term-line input').press('Enter');
+      assert((await term.locator('.pbq-term-out:visible').textContent()).includes('ip route 172.20.4.0'), 'piped command not answered');
+    }],
+  ],
   'netplus/pbq/ip-addressing': [
     ['chips place by click and return when cleared', async p => {
       const q = p.locator('.pbq').first();

@@ -1,0 +1,319 @@
+<div class="section-eyebrow">PBQ Lab · Objective 2.1</div>
+<h1 class="section-title">Routing Tables</h1>
+<p class="section-sub">Find a broken static route from the console, pick the route a router really uses, and rank routing sources by trust.</p>
+
+<div class="callout callout-blue">
+  <div class="callout-title">How a router picks a route</div>
+  <ol>
+    <li><strong>Longest prefix wins.</strong> Of all routes that contain the destination, the most specific one (/25 beats /24 beats /16) is used, whatever learned it.</li>
+    <li><strong>Administrative distance breaks ties</strong> between sources offering the <em>same</em> prefix. Lower is more trusted.</li>
+    <li><strong>Metric breaks ties</strong> within one routing protocol.</li>
+    <li><strong>No match at all</strong> means the default route (0.0.0.0/0), or the packet is dropped if there is none.</li>
+  </ol>
+</div>
+
+<!-- ── PBQ 1: broken static route ───────────────────────────── -->
+<div class="pbq" data-minutes="7">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 1 · Simulation</div><h2>The branch server is unreachable</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>Users at head office cannot reach the branch file server at <strong>172.20.5.10</strong>. The internet works fine.</p>
+      <div class="pbq-brief-label">What you know</div>
+      <ul>
+        <li>Head office LAN: 10.1.10.0/24, behind router R1.</li>
+        <li>Branch LAN: 172.20.5.0/24, behind router R2.</li>
+        <li>R1 and R2 are joined by a private WAN link, 10.255.0.0/30. R1 is .1 and R2 is .2.</li>
+        <li>R1 reaches the internet through the <abbr title="Internet Service Provider">ISP</abbr> at 203.0.113.1.</li>
+      </ul>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Trace the path from a head office PC, then check both routers.</li>
+        <li>Answer the three questions below the console.</li>
+      </ol>
+    </div>
+
+    <div class="terminal pbq-term">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Console</span></div>
+      <div class="pbq-term-host" data-host="HQ-PC" data-os="windows" data-prompt="PS C:\&gt;">
+<template data-cmd="ipconfig">
+Windows IP Configuration
+
+
+Ethernet adapter Ethernet0:
+
+   Connection-specific DNS Suffix  . :
+   IPv4 Address. . . . . . . . . . . : 10.1.10.44
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.1.10.1
+</template>
+<template data-cmd="tracert 172.20.5.10">
+Tracing route to 172.20.5.10 over a maximum of 30 hops
+
+  1    &lt;1 ms    &lt;1 ms    &lt;1 ms  10.1.10.1
+  2     8 ms     7 ms     8 ms  203.0.113.1
+  3     *        *        *     Request timed out.
+  4     *        *        *     Request timed out.
+  5     *        *        *     Request timed out.
+</template>
+<template data-cmd="ping 172.20.5.10">
+Pinging 172.20.5.10 with 32 bytes of data:
+Request timed out.
+Request timed out.
+Request timed out.
+Request timed out.
+
+Ping statistics for 172.20.5.10:
+    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
+</template>
+<template data-cmd="ping *">
+Pinging {1} with 32 bytes of data:
+Reply from {1}: bytes=32 time=2ms TTL=254
+Reply from {1}: bytes=32 time=2ms TTL=254
+Reply from {1}: bytes=32 time=2ms TTL=254
+Reply from {1}: bytes=32 time=2ms TTL=254
+
+Ping statistics for {1}:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+</template>
+      </div>
+      <div class="pbq-term-host" data-host="R1" data-os="ios" data-prompt="R1#">
+<template data-cmd="show ip route">
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       * - candidate default
+
+Gateway of last resort is 203.0.113.1 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 203.0.113.1
+      10.0.0.0/8 is variably subnetted, 4 subnets, 3 masks
+C        10.1.10.0/24 is directly connected, GigabitEthernet0/0
+L        10.1.10.1/32 is directly connected, GigabitEthernet0/0
+C        10.255.0.0/30 is directly connected, Serial0/0/0
+L        10.255.0.1/32 is directly connected, Serial0/0/0
+      172.20.0.0/24 is subnetted, 1 subnets
+S        172.20.4.0 [1/0] via 10.255.0.2
+      203.0.113.0/24 is variably subnetted, 2 subnets, 2 masks
+C        203.0.113.0/30 is directly connected, GigabitEthernet0/1
+L        203.0.113.2/32 is directly connected, GigabitEthernet0/1
+</template>
+<template data-cmd="show ip route 172.20.5.10">
+Routing entry for 0.0.0.0 0.0.0.0, supernet
+  Known via "static", distance 1, metric 0, candidate default path
+  Routing Descriptor Blocks:
+  * 203.0.113.1
+      Route metric is 0, traffic share count is 1
+</template>
+<template data-cmd="show running-config | include ip route">
+ip route 0.0.0.0 0.0.0.0 203.0.113.1
+ip route 172.20.4.0 255.255.255.0 10.255.0.2
+</template>
+<template data-cmd="show ip interface brief">
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     10.1.10.1       YES manual up                    up
+GigabitEthernet0/1     203.0.113.2     YES manual up                    up
+Serial0/0/0            10.255.0.1      YES manual up                    up
+</template>
+<template data-cmd="ping 10.255.0.2">
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.255.0.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/5/8 ms
+</template>
+      </div>
+      <div class="pbq-term-host" data-host="R2" data-os="ios" data-prompt="R2#">
+<template data-cmd="show ip route">
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       * - candidate default
+
+Gateway of last resort is not set
+
+      10.0.0.0/8 is variably subnetted, 3 subnets, 3 masks
+S        10.1.10.0/24 [1/0] via 10.255.0.1
+C        10.255.0.0/30 is directly connected, Serial0/0/0
+L        10.255.0.2/32 is directly connected, Serial0/0/0
+      172.20.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C        172.20.5.0/24 is directly connected, GigabitEthernet0/0
+L        172.20.5.1/32 is directly connected, GigabitEthernet0/0
+</template>
+<template data-cmd="show running-config | include ip route">
+ip route 10.1.10.0 255.255.255.0 10.255.0.1
+</template>
+<template data-cmd="show ip interface brief">
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     172.20.5.1      YES manual up                    up
+Serial0/0/0            10.255.0.2      YES manual up                    up
+</template>
+<template data-cmd="ping 172.20.5.10">
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.20.5.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+</template>
+      </div>
+    </div>
+
+    <div class="pbq-qs">
+      <label class="pbq-label">1. Which route does R1 use for packets to 172.20.5.10?</label>
+      <select class="lab-input pbq-field" data-answer="default">
+        <option value="">Select…</option>
+        <option value="static4">172.20.4.0/24 via 10.255.0.2</option>
+        <option value="default">0.0.0.0/0 via 203.0.113.1</option>
+        <option value="serial">10.255.0.0/30, directly connected</option>
+        <option value="drop">None. R1 drops the packets</option>
+      </select>
+      <label class="pbq-label">2. Root cause</label>
+      <select class="lab-input pbq-field" data-answer="typo">
+        <option value="">Select…</option>
+        <option value="return">R2 has no route back to head office</option>
+        <option value="wan">The WAN link between R1 and R2 is down</option>
+        <option value="typo">R1's static route points at 172.20.4.0/24 instead of 172.20.5.0/24</option>
+        <option value="server">The branch server is powered off</option>
+      </select>
+      <label class="pbq-label">3. Command to add on R1</label>
+      <select class="lab-input pbq-field" data-answer="fix">
+        <option value="">Select…</option>
+        <option value="isp">ip route 172.20.5.0 255.255.255.0 203.0.113.1</option>
+        <option value="fix">ip route 172.20.5.0 255.255.255.0 10.255.0.2</option>
+        <option value="default">ip route 0.0.0.0 0.0.0.0 10.255.0.2</option>
+        <option value="host">ip route 172.20.5.10 255.255.255.255 10.255.0.1</option>
+      </select>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>The tracert gives it away:</strong> hop 2 is the ISP. Traffic for the branch is leaving through the internet connection instead of the WAN link.</li>
+        <li><strong>Why:</strong> R1 has no route that contains 172.20.5.10. The static route covers 172.20.4.0–172.20.4.255, the wrong /24. With no more specific match, R1 uses its default route to the ISP, and <code>show ip route 172.20.5.10</code> confirms it.</li>
+        <li><strong>Not the WAN or R2:</strong> R1 can ping 10.255.0.2, R2 has a correct route back to 10.1.10.0/24, and R2 can ping the server.</li>
+        <li><strong>The fix</strong> is a route for the right network pointing at R2's WAN address: <code>ip route 172.20.5.0 255.255.255.0 10.255.0.2</code>. Remove the wrong one with <code>no ip route 172.20.4.0 255.255.255.0 10.255.0.2</code>. Pointing a default route at R2 would send all internet traffic to the branch. 10.255.0.1 is R1's own address, so it cannot be a next hop.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── PBQ 2: longest prefix match ──────────────────────────── -->
+<div class="pbq" data-minutes="5">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 2 · Route selection</div><h2>Where does each packet go?</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <div class="pbq-brief-label">Your task</div>
+      <p>For each destination, pick the interface the router sends the packet out of, using its routing table below.</p>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">R1 — show ip route</span></div>
+      <pre class="terminal-body"><span class="tpc">R1#</span> show ip route
+Gateway of last resort is 203.0.113.1 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 203.0.113.1, GigabitEthernet0/0
+O     10.20.0.0/16 [110/20] via 10.0.0.2, GigabitEthernet0/1
+S     10.20.30.0/24 [1/0] via 10.0.0.6, GigabitEthernet0/2
+D     10.20.30.128/25 [90/3072] via 10.0.0.10, GigabitEthernet0/3
+C     192.168.1.0/24 is directly connected, GigabitEthernet0/4</pre>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Packet</th><th>Destination</th><th>Exit interface</th></tr></thead>
+        <tbody>
+          <tr><td class="pbq-fixed">A</td><td><code>10.20.30.200</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/3"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr><td class="pbq-fixed">B</td><td><code>10.20.30.17</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/2"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr><td class="pbq-fixed">C</td><td><code>10.20.99.5</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/1"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr><td class="pbq-fixed">D</td><td><code>10.21.0.1</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/0"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr><td class="pbq-fixed">E</td><td><code>192.168.1.40</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/4"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+          <tr><td class="pbq-fixed">F</td><td><code>10.20.30.127</code></td><td><select class="lab-input pbq-field" data-answer="Gi0/2"><option value="">Select…</option><option>Gi0/0</option><option>Gi0/1</option><option>Gi0/2</option><option>Gi0/3</option><option>Gi0/4</option><option>Dropped</option></select></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>A, 10.20.30.200:</strong> matches the /16, the /24, and the /25 (which covers .128 to .255). The /25 is longest, so Gi0/3. It wins even though EIGRP's distance (90) is higher than the static route's (1): distance only compares routes for the same prefix.</li>
+        <li><strong>B, 10.20.30.17</strong> and <strong>F, 10.20.30.127:</strong> both fall in the lower half of the /24, outside the /25. The /24 static route is longest, so Gi0/2.</li>
+        <li><strong>C, 10.20.99.5:</strong> only the /16 matches, so Gi0/1.</li>
+        <li><strong>D, 10.21.0.1:</strong> the trap. 10.21 is not inside 10.20.0.0/16, so only the default route matches: Gi0/0.</li>
+        <li><strong>E, 192.168.1.40:</strong> directly connected, Gi0/4.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── PBQ 3: administrative distance ───────────────────────── -->
+<div class="pbq" data-minutes="4">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 3 · Administrative distance</div><h2>Rank the route sources</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Order the route sources from most trusted (lowest administrative distance) to least trusted, using Cisco default values.</li>
+        <li>Answer the question about two overlapping routes.</li>
+      </ol>
+    </div>
+
+    <div class="pbq-step">Step 1. Most trusted first</div>
+    <div class="pbq-bank">
+      <div class="pbq-bank-label">Route sources</div>
+      <button type="button" class="pbq-chip" data-value="ospf">OSPF</button>
+      <button type="button" class="pbq-chip" data-value="static">Static route</button>
+      <button type="button" class="pbq-chip" data-value="rip">RIP</button>
+      <button type="button" class="pbq-chip" data-value="ebgp">eBGP</button>
+      <button type="button" class="pbq-chip" data-value="connected">Directly connected</button>
+      <button type="button" class="pbq-chip" data-value="eigrp">EIGRP (internal)</button>
+    </div>
+    <div class="pbq-rows">
+      <div class="pbq-row"><div class="pbq-row-text"><strong>1st</strong>, most trusted</div><button type="button" class="pbq-slot" data-answer="connected">Drop source</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>2nd</strong></div><button type="button" class="pbq-slot" data-answer="static">Drop source</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>3rd</strong></div><button type="button" class="pbq-slot" data-answer="ebgp">Drop source</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>4th</strong></div><button type="button" class="pbq-slot" data-answer="eigrp">Drop source</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>5th</strong></div><button type="button" class="pbq-slot" data-answer="ospf">Drop source</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>6th</strong>, least trusted</div><button type="button" class="pbq-slot" data-answer="rip">Drop source</button></div>
+    </div>
+
+    <div class="pbq-step">Step 2. Overlapping routes</div>
+    <div class="pbq-qs">
+      <label class="pbq-label">R1 learns 172.16.0.0/16 from <abbr title="Open Shortest Path First">OSPF</abbr> and 172.16.5.0/24 from <abbr title="Routing Information Protocol">RIP</abbr>. Which route does a packet to 172.16.5.9 use?</label>
+      <select class="lab-input pbq-field" data-answer="rip">
+        <option value="">Select…</option>
+        <option value="ospf">The OSPF /16, because OSPF has the lower administrative distance</option>
+        <option value="rip">The RIP /24, because it is the longer prefix</option>
+        <option value="both">Both, load-balanced</option>
+        <option value="default">Neither. The default route is used</option>
+      </select>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Source</th><th>Default distance</th></tr></thead>
+          <tbody>
+            <tr><td>Directly connected</td><td>0</td></tr>
+            <tr><td>Static route</td><td>1</td></tr>
+            <tr><td>eBGP</td><td>20</td></tr>
+            <tr><td>EIGRP (internal)</td><td>90</td></tr>
+            <tr><td>OSPF</td><td>110</td></tr>
+            <tr><td>RIP</td><td>120</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Step 2 is the classic trap. Administrative distance only decides between routes to the <em>same</em> prefix. A /16 and a /24 are different prefixes, and both go in the routing table. The packet then follows the longest match, the RIP /24.</p>
+    </div>
+  </div>
+</div>
