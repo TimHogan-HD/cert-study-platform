@@ -258,6 +258,10 @@
 
   <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 4.1 lists <em>role-based access control</em> under authorization. <strong>ABAC</strong> is not enumerated. CompTIA states its lists are non-exhaustive, and it is kept as the contrast that makes RBAC easy to recognize in a scenario.</p>
 
+  <h4>How Single Sign-On Works</h4>
+  <p>With <strong>SSO</strong>, the user authenticates once to an <strong>identity provider (IdP)</strong> such as Microsoft Entra ID or Okta. When the user then opens an application (the <strong>service provider</strong>), the application does not ask for a password. It redirects the browser to the IdP, which returns a signed <strong>assertion</strong> (SAML) or token (OpenID Connect) saying who the user is. The application trusts the IdP's signature and lets the user in.</p>
+  <p>The benefit is one strong login, usually with MFA, instead of a password per application, plus one place to disable an account when someone leaves. The trade-off is concentration: a stolen IdP session or credential opens every connected application, and an IdP outage locks users out of all of them. That is why SSO is almost always paired with MFA.</p>
+
   <h3>Security Terminology — Know the Distinctions</h3>
   <div class="table-wrap">
     <table class="table--comparison">

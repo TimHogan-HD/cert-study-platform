@@ -401,6 +401,7 @@
       <tbody>
         <tr><td><strong>Playbooks / Templates</strong></td><td>Declarative or imperative files (Ansible playbook, Terraform template) that define desired infrastructure state</td></tr>
         <tr><td><strong>Configuration drift</strong></td><td>When a device's actual config diverges from the defined baseline — IaC tools detect and remediate drift</td></tr>
+        <tr><td><strong>Upgrades</strong></td><td>Firmware and OS upgrades run as automated jobs: the playbook stages the image, checks free space and version, upgrades devices in batches, and verifies each one before moving to the next — so hundreds of switches are upgraded consistently, with a rollback path if a batch fails</td></tr>
         <tr><td><strong>Source / version control</strong></td><td>Network configs stored in Git; every change tracked, attributed, and reversible</td></tr>
         <tr><td><strong>Branching</strong></td><td>Separate development and production config branches; changes tested before merging</td></tr>
         <tr><td><strong>Conflict identification</strong></td><td>Version control surfaces merge conflicts when two engineers change the same config simultaneously</td></tr>

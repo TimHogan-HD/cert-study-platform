@@ -68,9 +68,14 @@
           <td>BCP38 (source IP validation), disable amplification services, rate limiting on DNS/NTP</td>
         </tr>
         <tr>
-          <td><strong>DNS Poisoning / Spoofing</strong></td>
-          <td>Injects false DNS records into resolver cache. Clients resolve legitimate names to attacker's IP — fake website, credential theft.</td>
-          <td><abbr title="DNS Security Extensions">DNSSEC</abbr> (signed DNS records), secure recursive resolvers, short <abbr title="Time To Live">TTL</abbr></td>
+          <td><strong>DNS Poisoning</strong></td>
+          <td>Corrupts a <em>stored</em> answer: false records are planted in a resolver's cache (or a hosts file), so every client that asks that resolver gets the attacker's IP until the entry expires — fake website, credential theft.</td>
+          <td><abbr title="DNS Security Extensions">DNSSEC</abbr> validation on the resolver, patched resolvers with randomized query IDs and source ports, short <abbr title="Time To Live">TTL</abbr> to limit how long a bad entry lasts</td>
+        </tr>
+        <tr>
+          <td><strong>DNS Spoofing</strong></td>
+          <td>Forges the <em>answer</em> itself: an on-path attacker or rogue DNS server replies to a victim's query with a fake response before (or instead of) the real server. Nothing has to be cached — one victim, one forged reply.</td>
+          <td>DNSSEC validation, encrypted DNS (<abbr title="DNS over HTTPS">DoH</abbr>/<abbr title="DNS over TLS">DoT</abbr>) to a trusted resolver, <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> snooping to stop a rogue DHCP server from handing out a rogue DNS server</td>
         </tr>
         <tr>
           <td><strong>On-Path (MITM)</strong></td>

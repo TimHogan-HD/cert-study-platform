@@ -81,6 +81,16 @@
     <strong>Default VLAN = VLAN 1</strong> (cannot be deleted on Cisco <abbr title="Internetwork Operating System">IOS</abbr>). <strong>Native VLAN</strong> on a trunk carries untagged frames — must match on both ends or you get VLAN hopping risk. <strong>Voice VLAN</strong> rides alongside data on access ports for <abbr title="Internet Protocol v4/v6">IP</abbr> phones (typically tagged with 802.1p priority).
   </div>
 
+  <h4>How a Voice VLAN Shares One Port</h4>
+  <p>An IP phone usually sits between the wall jack and the user's PC, so one access port carries two VLANs. The phone <strong>tags</strong> its own voice frames with the voice VLAN ID (and an 802.1p priority), while frames from the PC behind it pass through <strong>untagged</strong> and land in the port's ordinary access (data) VLAN. The switch tells the phone which VLAN to use through <abbr title="Cisco Discovery Protocol">CDP</abbr> or LLDP-MED (see objective 5.5). If voice quality is poor or the phone ends up in the data VLAN, check that the voice VLAN is configured on the port and that the phone is actually learning it.</p>
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — access port with a voice VLAN</span></div>
+    <pre class="terminal-body"><span class="tpc">Switch1(config)#</span> interface GigabitEthernet0/5
+<span class="tpc">Switch1(config-if)#</span> switchport mode access
+<span class="tpc">Switch1(config-if)#</span> switchport access vlan 10   <span class="tn">← data VLAN: the PC's untagged frames</span>
+<span class="tpc">Switch1(config-if)#</span> switchport voice vlan 100   <span class="tn">← voice VLAN: the phone tags its frames 100</span></pre>
+  </div>
+
   <h3>The VLAN Database</h3>
   <p>VLAN definitions do not live in the running configuration. A switch keeps them in a separate <strong>VLAN database</strong> — on Cisco IOS this is a file called <code>vlan.dat</code> stored in flash memory. The running-config records only <em>which VLAN a port belongs to</em>; the VLAN itself is defined elsewhere.</p>
 
@@ -152,11 +162,27 @@ Erasing the nvram filesystem... <span class="ts">[OK]</span>
         </tr>
         <tr>
           <td><strong>Layer 3 Switch (SVI)</strong></td>
-          <td>Switch does inter-VLAN routing via Switched Virtual Interfaces (SVIs). No separate router needed.</td>
+          <td>Switch does inter-VLAN routing via Switch Virtual Interfaces (SVIs). No separate router needed.</td>
           <td>Higher performance, less latency. Switch must support L3 routing.</td>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <h4>Configuring an SVI</h4>
+  <p>A <strong>switch virtual interface (SVI)</strong> is a logical Layer 3 interface for a VLAN: <code>interface vlan 10</code> gives VLAN 10 an IP address on the switch. On a Layer 3 switch, that address becomes the default gateway for hosts in VLAN 10, and the switch routes between its SVIs. On a Layer 2 switch, a single SVI is used as the <strong>management address</strong>, the IP an administrator connects to over <abbr title="Secure Shell">SSH</abbr>. An SVI stays <em>down</em> until the VLAN exists and at least one port in it is up, so "SVI is down" usually means an empty or missing VLAN.</p>
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — SVIs for inter-VLAN routing</span></div>
+    <pre class="terminal-body"><span class="tpc">Core1(config)#</span> ip routing                      <span class="tn">← enable Layer 3 forwarding</span>
+<span class="tpc">Core1(config)#</span> interface vlan 10
+<span class="tpc">Core1(config-if)#</span> ip address 10.10.10.1 255.255.255.0   <span class="tn">← gateway for VLAN 10</span>
+<span class="tpc">Core1(config-if)#</span> no shutdown
+<span class="tpc">Core1(config)#</span> interface vlan 20
+<span class="tpc">Core1(config-if)#</span> ip address 10.10.20.1 255.255.255.0   <span class="tn">← gateway for VLAN 20</span>
+<span class="tpc">Core1(config-if)#</span> no shutdown
+<span class="tpc">Core1#</span> show ip interface brief | include Vlan
+Vlan10    10.10.10.1   YES manual <span class="ts">up</span>    <span class="ts">up</span>
+Vlan20    10.10.20.1   YES manual <span class="ts">up</span>    <span class="ts">up</span></pre>
   </div>
 
   <h3>Spanning Tree Protocol (STP / 802.1D)</h3>

@@ -68,7 +68,7 @@
   </div>
 
   <h3>Syslog</h3>
-  <p>Syslog sends system log messages to a central syslog server (port 514 UDP). All devices can log to one central repository for correlation and compliance.</p>
+  <p>Syslog sends system log messages to a central server (UDP port 514). The exam calls that central server a <strong>syslog collector</strong>, and the practice of gathering every device's logs in one place <strong>log aggregation</strong>. Aggregation matters because a single incident leaves traces on many devices; only with the logs together, on synchronized clocks (<abbr title="Network Time Protocol">NTP</abbr>), can you put the events in order. A SIEM is a log aggregator with correlation and alerting added on top.</p>
 
   <h4>Syslog Severity Levels (0 = Most Severe)</h4>
   <div class="table-wrap">
@@ -117,7 +117,7 @@
       <tbody>
         <tr><td><strong>NMS</strong> (Network Management System)</td><td>Centralized platform for monitoring/managing network devices via SNMP, NetFlow, etc. (e.g., SolarWinds, PRTG, Zabbix).</td></tr>
         <tr><td><strong>SIEM</strong> (Security Information and Event Management)</td><td>Collects and correlates log data from many sources for security analysis, alerting, and compliance reporting. (e.g., Splunk, QRadar, Microsoft Sentinel).</td></tr>
-        <tr><td><strong>Packet Capture / Protocol Analyzer</strong></td><td>Captures raw network packets for deep inspection. Wireshark is the standard tool.</td></tr>
+        <tr><td><strong>Packet Capture / Protocol Analyzer</strong></td><td>Captures raw network packets for deep inspection. Wireshark is the standard tool; tcpdump is the command-line equivalent. Capture filters and reading a capture are covered in objective 5.5.</td></tr>
       </tbody>
     </table>
   </div>

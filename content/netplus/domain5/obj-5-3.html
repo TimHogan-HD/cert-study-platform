@@ -191,6 +191,46 @@ Active Connections
 <span class="tn"># netstat -r = routing table  |  netstat -s = per-protocol statistics</span></pre>
   </div>
 
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">dig — DNS query with full detail</span></div>
+    <pre class="terminal-body"><span class="tpw">admin@lnx:~$</span> dig example.com A
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, <span class="ts">status: NOERROR</span>, id: 41372   <span class="tn">← NXDOMAIN = name does not exist; SERVFAIL = server problem</span>
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1   <span class="tn">← no "aa" flag: not an authoritative answer</span>
+
+;; ANSWER SECTION:
+example.com.        <span class="th">3600</span>    IN    A    <span class="ts">93.184.216.34</span>   <span class="tn">← 3600 = TTL in seconds</span>
+
+;; Query time: 24 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1)   <span class="tn">← which resolver answered</span>
+<span class="tn"># dig @8.8.8.8 example.com = ask a specific server; dig +short = just the answer</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">tcpdump — is the DHCP server answering?</span></div>
+    <pre class="terminal-body"><span class="tpw">admin@lnx:~$</span> sudo tcpdump -i eth0 -n port 67 or port 68
+listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+10:42:01.118 IP 0.0.0.0.68 &gt; 255.255.255.255.67: BOOTP/DHCP, Request from 3c:52:82:aa:10:4f   <span class="tn">← Discover</span>
+10:42:05.120 IP 0.0.0.0.68 &gt; 255.255.255.255.67: BOOTP/DHCP, Request from 3c:52:82:aa:10:4f
+10:42:13.124 IP 0.0.0.0.68 &gt; 255.255.255.255.67: BOOTP/DHCP, Request from 3c:52:82:aa:10:4f
+<span class="te">^C 3 packets captured</span>   <span class="tn">← Discovers repeat, no Offer comes back</span>
+<span class="tn"># No reply from port 67: server down, pool exhausted, or no relay (ip helper-address) on this VLAN</span>
+<span class="tn"># -i = interface, -n = no name lookups, -w file.pcap = save for Wireshark</span></pre>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">nmap — what is listening on a host?</span></div>
+    <pre class="terminal-body"><span class="tpw">admin@lnx:~$</span> nmap -sV 192.168.1.20
+Nmap scan report for 192.168.1.20
+Host is up (0.0021s latency).
+Not shown: 996 closed tcp ports (reset)
+PORT     STATE    SERVICE  VERSION
+22/tcp   open     ssh      OpenSSH 8.9p1
+80/tcp   open     http     nginx 1.18.0
+443/tcp  <span class="te">filtered</span> https   <span class="tn">← no reply: a firewall or ACL is dropping 443</span>
+3389/tcp <span class="te">open</span>     ms-wbt-server   <span class="tn">← RDP open on a server that should not offer it</span>
+<span class="tn"># open = service answering | closed = host reachable, nothing listening | filtered = blocked in the path</span></pre>
+  </div>
+
   <h3><abbr title="Automatic Private IP Addressing">APIPA</abbr> — Diagnostic Indicator</h3>
   <div class="callout callout-blue">
     <div class="callout-title">169.254.x.x — What It Means</div>

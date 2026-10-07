@@ -22,6 +22,48 @@
     <p>CompTIA N10-009 objective 5.4 covers performance troubleshooting for <strong>both wired and wireless</strong> networks. Bandwidth saturation, bottlenecks, high latency, packet loss, and jitter are all 5.4 topics — as is the wireless content below. Expect exam questions on both.</p>
   </div>
 
+  <h4>Bandwidth vs. Throughput</h4>
+  <p><strong>Bandwidth</strong> is a link's capacity: the rate it is rated for, such as 1 Gbps. <strong>Throughput</strong> is the rate actually achieved end to end, which is always lower because of protocol overhead, retransmissions, and the slowest link on the path. When users say "the network is slow", measure throughput with <code>iperf3</code> or a speed tester and compare it with the bandwidth of every link on the path. The link where the two are closest is the <strong>bottleneck</strong>.</p>
+
+  <h4>How the Five Wired Symptoms Connect</h4>
+  <p><strong>Congestion</strong> (also called <strong>contention</strong>, when many hosts compete for one link) is the root of most wired performance problems. Once an interface's output queue fills, packets wait in the queue, which shows up as <strong>latency</strong>. The queue length keeps changing, so the waits vary, which shows up as <strong>jitter</strong>. When the queue overflows, the interface drops packets, which shows up as <strong>packet loss</strong>. One saturated link can therefore produce all five symptoms at once.</p>
+  <div class="table-wrap">
+    <table class="table--reference">
+      <thead><tr><th>Metric</th><th>Rule-of-thumb limit for voice and video</th><th>What exceeding it feels like</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Latency</strong> (one-way)</td><td>Under 150 ms (ITU-T G.114)</td><td>Callers talk over each other; noticeable delay in interactive sessions</td></tr>
+        <tr><td><strong>Jitter</strong></td><td>Under 30 ms</td><td>Choppy or robotic audio; video freezes and jumps</td></tr>
+        <tr><td><strong>Packet loss</strong></td><td>Under 1%</td><td>Words drop out of calls; file transfers stall while TCP retransmits</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Worked Scenario — "Calls Break Up Every Afternoon"</div>
+    <p>A branch office reports choppy VoIP calls between 1 p.m. and 4 p.m. Pinging the head-office call server from a branch PC shows the symptoms; the branch router's WAN interface shows the cause; <code>iperf3</code> confirms how little throughput is left.</p>
+  </div>
+  <div class="terminal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Symptoms, cause, and confirmation</span></div>
+    <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> ping -n 20 10.20.0.15
+...
+Ping statistics for 10.20.0.15:
+    Packets: Sent = 20, Received = 18, <span class="te">Lost = 2 (10% loss)</span>   <span class="tn">← packet loss, far above 1%</span>
+Approximate round trip times in milli-seconds:
+    Minimum = 18ms, <span class="te">Maximum = 212ms</span>, Average = 64ms   <span class="tn">← 18–212 ms spread = high jitter</span>
+
+<span class="tpc">Branch1#</span> show interface GigabitEthernet0/0
+GigabitEthernet0/0 is up, line protocol is up
+  Full-duplex, 100Mb/s                      <span class="tn">← duplex is fine: not a physical fault</span>
+  Input queue: 0/75/0/0 (size/max/drops/flushes); <span class="te">Total output drops: 48213</span>
+  5 minute output rate <span class="te">98700000 bits/sec</span>, 9100 packets/sec   <span class="tn">← 98.7 of 100 Mbps: saturated</span>
+
+<span class="tpw">PS C:\&gt;</span> iperf3 -c 10.20.0.15 -t 10
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-10.00  sec  21.4 MBytes  <span class="te">17.9 Mbits/sec</span>   sender   <span class="tn">← throughput left for this host</span>
+<span class="tn"># Cause: congestion on the 100 Mbps WAN link. Output queue overflows → drops (loss); queueing → latency and jitter</span>
+<span class="tn"># Fix now: QoS that marks voice DSCP EF and gives it a priority queue. Fix properly: more WAN bandwidth</span></pre>
+  </div>
+
   <h3>Wireless Signal Metrics</h3>
   <div class="table-wrap">
     <table class="table--reference">
