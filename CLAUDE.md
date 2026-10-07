@@ -123,6 +123,10 @@ Much of the existing CSS predates these rules: `components.css` still has ~120 h
 - **Depth is proportional to exam weight** — Domain 5 is 24% of the exam, Domain 4 is 14%.
 - **Implementing a handoff plan?** Load the `handoff-plans` skill first — the plans have been wrong repeatedly.
 
+## Subagents
+
+Use subagents whenever you judge they help (broad searches, parallel independent work, independent review, research). No need to ask first. Keep small, contained edits inline.
+
 ## Finishing Work
 
 **Every unit of work ends with the same sequence. Run it automatically — do not stop to ask whether to review, and do not stop to ask whether to merge.**
