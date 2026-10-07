@@ -19,7 +19,7 @@
           <td><strong>MAC Flooding</strong></td>
           <td>Attacker sends thousands of frames with random source MACs, overflowing the switch's MAC address table.</td>
           <td>Switch enters "fail-open" mode and floods all frames to all ports — effectively acts like a hub. Attacker can capture all traffic.</td>
-          <td>Port Security (MAC address limits per port), <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> snooping</td>
+          <td>Port Security (MAC address limits per port)</td>
         </tr>
         <tr>
           <td><strong>VLAN Hopping (Switch Spoofing)</strong></td>
@@ -117,7 +117,7 @@
   </div>
 
   <h3>Rogue Devices and Services</h3>
-  <p>A <strong>rogue</strong> device or service is one operating on the network without authorization. The category matters on its own because the cause is very often <em>not</em> an attacker — an employee plugging in a personal access point for better coverage, or a lab virtual machine left with a DHCP server enabled, produces the same exposure as a deliberate attack.</p>
+  <p>A <strong>rogue</strong> device or service is one operating on the network without authorization. The category matters on its own because the cause is very often <em>not</em> an attacker — an employee plugging in a personal access point for better coverage, or a lab virtual machine left with a <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> server enabled, produces the same exposure as a deliberate attack.</p>
   <div class="table-wrap">
     <table class="table--reference">
       <thead>

@@ -28,7 +28,7 @@
     </div>
     <div class="step-item">
       <div class="step-num">3</div>
-      <div class="step-body"><strong>Test the theory to determine the cause</strong><br>If confirmed → move to step 4. If not confirmed → establish new theory or escalate</div>
+      <div class="step-body"><strong>Test the theory to determine the cause</strong><br>If the theory is confirmed, determine the next steps to resolve the problem. If the theory is not confirmed, establish a new theory or escalate</div>
     </div>
     <div class="step-item">
       <div class="step-num">4</div>
@@ -40,7 +40,7 @@
     </div>
     <div class="step-item">
       <div class="step-num">6</div>
-      <div class="step-body"><strong>Verify full system functionality and, if applicable, implement preventive measures</strong><br>Confirm fix works end-to-end. Consider what prevents recurrence</div>
+      <div class="step-body"><strong>Verify full system functionality and implement preventive measures if applicable</strong><br>Confirm fix works end-to-end. Consider what prevents recurrence</div>
     </div>
     <div class="step-item">
       <div class="step-num">7</div>
@@ -93,18 +93,18 @@
 <span class="te">Ping request could not find host server01.</span>    <span class="tn">← DNS resolution failed</span>
 <span class="te">Please check the name and try again.</span>
 
-<span class="tpw">C:\&gt;</span> ping 10.1.1.50
+<span class="tpw">PS C:\&gt;</span> ping 10.1.1.50
 Pinging 10.1.1.50 with 32 bytes of data:
 <span class="ts">Reply from 10.1.1.50: bytes=32 time=2ms TTL=128</span>   <span class="tn">← IP works! Layer 3 is fine</span>
 <span class="ts">Reply from 10.1.1.50: bytes=32 time=1ms TTL=128</span>
 <span class="tn"># Name fails + IP works = DNS problem, not a routing or connectivity issue</span>
 
-<span class="tpw">C:\&gt;</span> ipconfig /flushdns
+<span class="tpw">PS C:\&gt;</span> ipconfig /flushdns
 Windows IP Configuration
 <span class="ts">Successfully flushed the DNS Resolver Cache.</span>
 
 <span class="tn"># After DHCP option 6 corrected to 10.1.1.10:</span>
-<span class="tpw">C:\&gt;</span> ping server01
+<span class="tpw">PS C:\&gt;</span> ping server01
 <span class="ts">Reply from 10.1.1.50: bytes=32 time=2ms TTL=128</span>   <span class="tn">← name resolves now ✓</span></pre>
   </div>
 
@@ -118,23 +118,23 @@ Windows IP Configuration
       <li><strong>Plan:</strong> Configure both ends to full-duplex / 1G. Brief outage expected during port reset.</li>
       <li><strong>Implement:</strong> Set <code>duplex full</code> on both interface sides. Port bounces.</li>
       <li><strong>Verify:</strong> CRC errors stop incrementing. Users report stable connectivity for 30 minutes. Monitor interface counters.</li>
-      <li><strong>Document:</strong> Root cause: duplex mismatch introduced when access switch was replaced during weekend maintenance. New switch defaulted to auto-negotiate; core switch was hardcoded to half-duplex.</li>
+      <li><strong>Document:</strong> Root cause: duplex mismatch introduced when access switch was replaced during weekend maintenance. New switch defaulted to auto-negotiate; core switch was hardcoded to full-duplex, so the auto side fell back to half-duplex.</li>
     </ol>
   </div>
 
   <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — Scenario 2: duplex mismatch</span></div>
-    <pre class="terminal-body"><span class="tpc">Switch#</span> show interface GigabitEthernet0/1
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — Scenario 2: duplex mismatch (core switch side)</span></div>
+    <pre class="terminal-body"><span class="tpc">CoreSwitch#</span> show interface GigabitEthernet0/1
 GigabitEthernet0/1 is up, line protocol is up
   Hardware is Gigabit Ethernet
   MTU 1500 bytes, BW 100000 Kbit/sec
-  <span class="te">Half-duplex</span>, 100Mb/s   <span class="tn">← mismatch: core switch is full-duplex</span>
+  <span class="te">Full-duplex</span>, 100Mb/s   <span class="tn">← hardcoded; the access switch fell back to half-duplex</span>
 
   5 minute input rate 1200000 bits/sec, 890 packets/sec
-  <span class="th">127 CRC</span>, <span class="th">45 runts</span>, 0 giants   <span class="tn">← CRC + runts together = duplex mismatch signature</span>
-  0 input errors, 0 output errors
-<span class="tn"># CRC errors = frame corruption from collisions caused by half/full mismatch</span>
-<span class="tn"># Runts = frames &lt;64 bytes, caused by collisions truncating packets</span>
+  <span class="th">45 runts</span>, 0 giants
+  <span class="th">172 input errors</span>, <span class="th">127 CRC</span>, 0 frame   <span class="tn">← input errors include the CRCs and runts</span>
+<span class="tn"># Full-duplex side: CRC errors and runts (the half-duplex peer aborts frames mid-send when it senses a collision)</span>
+<span class="tn"># Half-duplex side: late collisions (it sees traffic the full-duplex side never held back)</span>
 <span class="tn"># Fix: set both ends to "duplex full" or both to "duplex auto"</span></pre>
   </div>
 

@@ -56,7 +56,7 @@
         <tr>
           <td><code>nmap</code></td><td>All</td>
           <td>Network discovery and port scanning</td>
-          <td><code>nmap -sV 192.168.1.0/24</code>: scan subnet. Shows open ports, services, OS fingerprint. Use only on networks you own/have permission to test</td>
+          <td><code>nmap -sV 192.168.1.0/24</code>: scan subnet. Shows open ports plus the service and version behind each (<code>-O</code> adds OS fingerprinting; <code>-A</code> does both). Use only on networks you own/have permission to test</td>
         </tr>
         <tr>
           <td><code>pathping</code></td><td>Windows</td>
@@ -155,7 +155,7 @@ Address: 192.168.1.53
 Non-authoritative answer:
 Name:    <span class="th">example.com</span>
 Address: <span class="th">93.184.216.34</span>
-<span class="tn"># "Non-authoritative" = answer came from cache, not the zone's own DNS server</span>
+<span class="tn"># "Non-authoritative" = the answering server is not authoritative for the zone (usually a recursive resolver)</span>
 
 <span class="tpw">PS C:\&gt;</span> nslookup -type=mx example.com  <span class="tn"># query MX records</span>
 <span class="tpw">PS C:\&gt;</span> nslookup example.com 8.8.8.8   <span class="tn"># query a specific DNS server</span></pre>
@@ -169,7 +169,7 @@ Interface: 192.168.1.50 --- 0x3
   <span class="th">192.168.1.1</span>           <span class="th">00-1a-2b-3c-4d-5e</span>      dynamic
   192.168.1.53          00-1a-2b-3c-4d-60      dynamic
   192.168.1.255         ff-ff-ff-ff-ff-ff      static
-<span class="tn"># Maps IP → MAC (Layer 3 → Layer 2).  Use to spot IP conflicts: same IP, two MACs</span>
+<span class="tn"># Maps IP → MAC (Layer 3 → Layer 2).  Use to spot spoofing: two IPs sharing one MAC</span>
 <span class="tn"># arp -d 192.168.1.1 — delete a specific entry (requires elevation)</span></pre>
   </div>
 
@@ -300,12 +300,12 @@ TCP    0.0.0.0:3389    0.0.0.0:0    <span class="ts">LISTENING</span>   <span cl
     <div class="callout-title">Symptoms &amp; Response</div>
     <p><strong>Symptom:</strong> Some clients receive wrong default gateway or wrong DNS server; internet stops working for affected machines; <code>ipconfig /all</code> shows unexpected gateway IP.</p>
     <p><strong>Cause:</strong> A rogue DHCP server (unauthorized device, misconfigured VM, or attacker device) is responding to DHCP Discover before the legitimate server.</p>
-    <p><strong>Fix:</strong> Enable <strong>DHCP snooping</strong> on the switch — marks only specific trusted ports as allowed to send DHCP Offers/Acks. Untrusted ports that send DHCP Offers are shut down.</p>
-    <p><strong>Locate rogue server:</strong> Check DHCP lease logs; use <code>show ip dhcp snooping binding</code> on the switch; trace MAC of rogue server to physical port.</p>
+    <p><strong>Fix:</strong> Enable <strong>DHCP snooping</strong> on the switch — marks only specific trusted ports as allowed to send DHCP Offers/Acks. DHCP Offers arriving on untrusted ports are dropped; the port stays up (it is err-disabled only if a configured rate limit is exceeded).</p>
+    <p><strong>Locate rogue server:</strong> Capture a DHCP Offer to get the rogue server's source MAC, then <code>show mac address-table address</code> on the switch traces that MAC to a physical port.</p>
   </div>
 
   <div class="terminal">
-    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Rogue DHCP — victim ipconfig &amp; switch snooping</span></div>
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Rogue DHCP — victim ipconfig &amp; switch MAC lookup</span></div>
     <pre class="terminal-body"><span class="tpw">PS C:\&gt;</span> ipconfig /all
 Ethernet adapter Ethernet:
    IPv4 Address. . . : 192.168.1.105
@@ -315,13 +315,14 @@ Ethernet adapter Ethernet:
    <span class="te">DNS Servers . . . : 10.0.0.99</span>     <span class="tn">← attacker controlling DNS = hijack risk</span>
 <span class="tn"># All traffic and DNS queries may be routed through the attacker's device</span>
 
-<span class="tpc">Switch1#</span> show ip dhcp snooping binding
-MacAddress         IpAddress     Lease(sec)  Type  VLAN  Interface
------------------  ------------  ----------  ----  ----  ---------
-aa:bb:cc:11:22:33  192.168.1.105   86400     dhcp  10    Fa0/3
-cc:dd:ee:44:55:66  192.168.1.106   86400     dhcp  10    Fa0/4
-<span class="te">aa:bb:cc:99:00:11</span>  <span class="te">10.0.0.99</span>       86400     dhcp  10    <span class="te">Fa0/12</span>  <span class="tn">← rogue device</span>
-<span class="tn"># MAC aa:bb:cc:99:00:11 on Fa0/12 — physically locate and disconnect</span>
+<span class="tn"># Source MAC of the rogue Offer (from a packet capture): aabb.cc99.0011</span>
+<span class="tpc">Switch1#</span> show mac address-table address aabb.cc99.0011
+          Mac Address Table
+-------------------------------------------
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+  10    <span class="te">aabb.cc99.0011</span>    DYNAMIC     <span class="te">Fa0/12</span>  <span class="tn">← rogue device</span>
+<span class="tn"># Rogue server is on Fa0/12 — physically locate and disconnect</span>
 <span class="tn"># Enable DHCP snooping: only trusted ports (uplinks) can send DHCP Offers/Acks</span></pre>
   </div>
 
@@ -329,7 +330,7 @@ cc:dd:ee:44:55:66  192.168.1.106   86400     dhcp  10    Fa0/4
   <div class="callout callout-blue">
     <div class="callout-title">Symptoms &amp; Response</div>
     <p><strong>Symptom:</strong> Legitimate users experience intermittent connectivity or certificate errors; attacker is intercepting traffic between victim and gateway.</p>
-    <p><strong>Detect:</strong> <code>arp -a</code> on victim shows gateway IP mapped to an unexpected MAC address. Two hosts claim the same IP in ARP table.</p>
+    <p><strong>Detect:</strong> <code>arp -a</code> on victim shows gateway IP mapped to an unexpected MAC address. The tell is two IPs (often the gateway and the attacker) sharing one MAC.</p>
     <p><strong>Fix:</strong> Enable <strong>Dynamic ARP Inspection (DAI)</strong> — validates ARP packets against DHCP snooping binding table. Forged ARP replies are dropped.</p>
   </div>
 
@@ -415,7 +416,7 @@ Internet  <span class="th">10.10.10.50</span>   12   <span class="th">0050.7966.
       <li><code>iperf3</code> = active throughput test tool; <em>not</em> built into <abbr title="Internetwork Operating System">IOS</abbr> — run on end hosts to verify actual link capacity vs rated speed.</li>
       <li>DHCP snooping prevents rogue DHCP; DAI prevents ARP poisoning — these are different mitigations for different attacks</li>
       <li>Certificate errors can indicate MITM — don't just click "proceed anyway" in a troubleshooting context</li>
-      <li>An ARP table with two entries sharing the same IP is a strong indicator of ARP spoofing — not always a misconfiguration</li>
+      <li>An ARP table where two IPs map to the same MAC is a strong indicator of ARP spoofing — not always a misconfiguration</li>
       <li>APIPA has three distinct causes — server down (everyone, gradually), relay missing (one VLAN), pool exhausted (new devices only). The question tells you which by who is affected.</li>
       <li>Address pool exhaustion is fixed fastest by <em>shortening the lease</em>, not by enlarging the scope — enlarging may require re-subnetting</li>
       <li>Never resolve a broadcast storm by disabling STP — break the loop physically, then find why STP was not blocking</li>
@@ -445,7 +446,7 @@ Internet  <span class="th">10.10.10.50</span>   12   <span class="th">0050.7966.
       <li>Certificate error + traffic misdirection → suspect MITM</li>
       <li>Unknown open port → check with <code>netstat -an</code></li>
       <li>APIPA + DHCP failure → check DHCP snooping isn't blocking legitimate server</li>
-      <li>Duplicate IP in ARP table = ARP poisoning suspect, not just config error</li>
+      <li>Two IPs sharing one MAC in the ARP table = ARP poisoning suspect, not just config error</li>
       <li>Only new devices get APIPA → address pool exhausted. Everyone → server down. One VLAN → relay/helper missing.</li>
       <li>Pool exhaustion fix order: shorten lease → reclaim exclusions → enlarge scope</li>
       <li>Loop symptoms: broadcast storm + MAC flapping + switch CPU spike</li>

@@ -34,7 +34,7 @@
       <text x="255" y="53" text-anchor="middle" style="fill: var(--blue)" font-size="12">D — Discover (broadcast)</text>
       <!-- O: Offer -->
       <line x1="420" y1="105" x2="100" y2="105" style="stroke: var(--green)" stroke-width="2" marker-end="url(#dora-arr-green)"/>
-      <text x="255" y="98" text-anchor="middle" style="fill: var(--green)" font-size="12">O — Offer (unicast, IP proposal)</text>
+      <text x="255" y="98" text-anchor="middle" style="fill: var(--green)" font-size="12">O — Offer (broadcast or unicast, IP proposal)</text>
       <!-- R: Request -->
       <line x1="100" y1="150" x2="420" y2="150" style="stroke: var(--amber)" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#dora-arr-amber)"/>
       <text x="255" y="143" text-anchor="middle" style="fill: var(--amber)" font-size="12">R — Request (broadcast, accept offer)</text>
@@ -298,7 +298,7 @@
 Server:  corp-dns.corp.local
 Address: 192.168.1.53
 
-<span class="tn">Non-authoritative answer:</span>    <span class="tn">← from cache, not the zone's own server</span>
+<span class="tn">Non-authoritative answer:</span>    <span class="tn">← answered by a resolver, not the zone's authoritative server</span>
 Name:    <span class="th">example.com</span>
 Address: <span class="th">93.184.216.34</span>
 
@@ -341,7 +341,7 @@ example.com  MX    3600  Answer   mail2.example.com   <span class="th">20</span>
         <tr><th>Stratum</th><th>Source</th><th>Examples</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Stratum 0</strong></td><td>Reference clock (not on network)</td><td>Atomic clocks, GPS receivers, CDMA</td></tr>
+        <tr><td><strong>Stratum 0</strong></td><td>Reference clock (not on network)</td><td>Atomic clocks, GPS/GNSS receivers</td></tr>
         <tr><td><strong>Stratum 1</strong></td><td>Directly connected to Stratum 0</td><td>time.nist.gov — authoritative NTP servers</td></tr>
         <tr><td><strong>Stratum 2</strong></td><td>Synced from Stratum 1</td><td>pool.ntp.org servers, enterprise NTP servers</td></tr>
         <tr><td><strong>Stratum 3+</strong></td><td>Cascaded from higher stratum</td><td>Local network NTP servers, endpoint clients</td></tr>

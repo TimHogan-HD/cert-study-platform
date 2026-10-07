@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="std-card s-ax">
-      <div class="std-left"><div class="std-name">802.11ax</div><div class="std-wifi">Wi-Fi 6 / 6E</div><div class="std-year">2019</div></div>
+      <div class="std-left"><div class="std-name">802.11ax</div><div class="std-wifi">Wi-Fi 6 / 6E</div><div class="std-year">2021</div></div>
       <div class="std-right">
         <div class="std-field"><div class="std-field-label">Speed</div><div class="std-field-val">9.6 Gbps</div></div>
         <div class="std-field"><div class="std-field-label">Band</div><div class="std-field-val">2.4 / 5 / 6 GHz</div></div>
@@ -145,7 +145,7 @@
     <div class="wsec-card wsec-wpa3">
       <div class="wsec-header"><div class="wsec-name" data-tone="green">WPA3</div><div class="wsec-year">2018</div></div>
       <div class="wsec-body">
-        <div class="wsec-enc">CCMP-256 / SAE</div>
+        <div class="wsec-enc">SAE / CCMP-128 (GCMP-256 in Enterprise 192-bit)</div>
         <div class="wsec-vuln">SAE prevents offline dictionary attacks. Dragonfly handshake.</div>
         <div><span class="wsec-pill wsec-best">Best — use this</span></div>
       </div>
@@ -154,7 +154,7 @@
 
   <div class="callout callout-blue">
     <div class="callout-title">WPA3 Key Improvement</div>
-    WPA3 uses <strong>SAE (Simultaneous Authentication of Equals)</strong> instead of the WPA2 <abbr title="Pre-Shared Key">PSK</abbr> 4-way handshake. SAE prevents offline dictionary attacks — even if someone captures the handshake, they can't crack the password offline.
+    WPA3-Personal replaces WPA2's <abbr title="Pre-Shared Key">PSK</abbr> authentication with <strong>SAE (Simultaneous Authentication of Equals)</strong>. A 4-way handshake still runs afterward to derive session keys, but it starts from a key SAE produced rather than one derived directly from the passphrase. SAE prevents offline dictionary attacks — even if someone captures the handshake, they can't crack the password offline.
   </div>
 
   <h3>Authentication Methods — PSK vs Enterprise</h3>
@@ -198,7 +198,7 @@
         </tr>
         <tr>
           <td>6 GHz</td><td>59 (Wi-Fi 6E)</td><td>Many</td>
-          <td>Wi-Fi 6E only. Clean spectrum — no legacy devices. Shortest range.</td>
+          <td>Wi-Fi 6E and Wi-Fi 7 only. Clean spectrum — no legacy devices. Shortest range.</td>
         </tr>
       </tbody>
     </table>
@@ -341,7 +341,7 @@
       </thead>
       <tbody>
         <tr><td><strong>SSID</strong></td><td>Service Set Identifier — the name of the wireless network. Can be broadcast (visible) or hidden (not broadcast in beacon frames, but still discoverable).</td></tr>
-        <tr><td><strong>BSSID</strong></td><td>Basic SSID — MAC address of a single AP. Identifies a specific radio/AP.</td></tr>
+        <tr><td><strong>BSSID</strong></td><td>Basic Service Set Identifier — MAC address of a single AP radio. Identifies a specific radio/AP.</td></tr>
         <tr><td><strong>BSS</strong></td><td>Basic Service Set — single AP with associated clients.</td></tr>
         <tr><td><strong>ESS</strong></td><td>Extended Service Set — multiple APs sharing same SSID for seamless roaming.</td></tr>
         <tr><td><strong>ESSID</strong></td><td>Extended SSID — the network name shared by every AP in an <strong>ESS</strong>. In practice ESSID and SSID name the same string, and the terms are used interchangeably; ESSID simply makes explicit that the name spans multiple APs rather than one. Contrast with <strong>BSSID</strong>, which is the MAC address of one individual radio.</td></tr>
@@ -389,7 +389,7 @@
     <div class="flashcard" tabindex="0">
       <div class="flashcard-inner">
         <div class="flashcard-front">WPA3<div class="flashcard-hint">Click to flip</div></div>
-        <div class="flashcard-back"><strong>SAE (Simultaneous Authentication of Equals)</strong><br>Prevents offline dictionary attacks<br>CCMP-256 encryption | 2018</div>
+        <div class="flashcard-back"><strong>SAE (Simultaneous Authentication of Equals)</strong><br>Prevents offline dictionary attacks<br>CCMP-128 (GCMP-256 in Enterprise 192-bit) | 2018</div>
       </div>
     </div>
     <div class="flashcard" tabindex="0">
