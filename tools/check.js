@@ -146,7 +146,8 @@ for (const f of content) {
 // AZ-900 page (Active Directory) never leaks into Net+ routing (administrative
 // distance). Expansions that differ only by an " — explanation" suffix or case
 // are one meaning; an acronym with two meanings (STP) is left to the page.
-const SKIP_INSIDE = new Set(['abbr', 'code', 'pre', 'kbd', 'script', 'style', 'svg', 'title', 'button', 'a', 'h1']);
+// <option> renders text only, so an <abbr> there would be stripped by the parser.
+const SKIP_INSIDE = new Set(['abbr', 'code', 'pre', 'kbd', 'script', 'style', 'svg', 'title', 'button', 'a', 'h1', 'option']);
 const ABBR_RE = /<abbr title="([^"]+)">([^<]+)<\/abbr>/g;
 const isAcronym = k => /^[A-Z][A-Za-z0-9]*[A-Z0-9][A-Za-z0-9]*$/.test(k);
 const meaning = title => title.split(' — ')[0].trim().toLowerCase();

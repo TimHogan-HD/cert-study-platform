@@ -1,0 +1,211 @@
+<div class="section-eyebrow">PBQ Lab · Objectives 2.2, 5.3</div>
+<h1 class="section-title">Switch Ports &amp; VLANs</h1>
+<p class="section-sub">Configure every port on an access switch, then fix a trunk that stopped carrying one VLAN.</p>
+
+<!-- ── PBQ 1: port configuration ────────────────────────────── -->
+<div class="pbq" data-minutes="8">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 1 · Switch configuration</div><h2>Configure the ports on SW-FL2</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>SW-FL2 is a new access switch. Configure each port for the device connected to it, using these VLANs:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>VLAN</th><th>Name</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td>10</td><td>STAFF</td><td>Employee computers and the staff wireless network</td></tr>
+            <tr><td>20</td><td>VOICE</td><td><abbr title="Internet Protocol v4/v6">IP</abbr> phones</td></tr>
+            <tr><td>30</td><td>PRINTERS</td><td>Network printers</td></tr>
+            <tr><td>40</td><td>GUEST</td><td>Guest devices and the guest wireless network</td></tr>
+            <tr><td>99</td><td>MGMT</td><td>Switch and <abbr title="Access Point">AP</abbr> management. Untagged (native) on every trunk</td></tr>
+            <tr><td>999</td><td>PARKING</td><td>Unused ports. Nothing is routed to it</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>For a trunk, the VLAN column is its native VLAN. For an access port, it is the access VLAN.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Port</th><th>Connected device</th><th>Mode</th><th>Access / native VLAN</th><th>Voice VLAN</th></tr></thead>
+        <tbody>
+          <tr><td class="pbq-fixed">Gi0/1</td><td>Uplink to the core switch, carries every VLAN</td>
+            <td><select class="lab-input pbq-field" data-answer="Trunk"><option value="">Select…</option><option>Access</option><option>Trunk</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="99"><option value="">Select…</option><option>1</option><option>10</option><option>20</option><option>30</option><option>40</option><option>99</option><option>999</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="None"><option value="">Select…</option><option>None</option><option>10</option><option>20</option></select></td></tr>
+          <tr><td class="pbq-fixed">Fa0/1</td><td>IP phone, with a staff PC plugged into the phone's PC port</td>
+            <td><select class="lab-input pbq-field" data-answer="Access"><option value="">Select…</option><option>Access</option><option>Trunk</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="10"><option value="">Select…</option><option>1</option><option>10</option><option>20</option><option>30</option><option>40</option><option>99</option><option>999</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="20"><option value="">Select…</option><option>None</option><option>10</option><option>20</option></select></td></tr>
+          <tr><td class="pbq-fixed">Fa0/2</td><td>Staff PC</td>
+            <td><select class="lab-input pbq-field" data-answer="Access"><option value="">Select…</option><option>Access</option><option>Trunk</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="10"><option value="">Select…</option><option>1</option><option>10</option><option>20</option><option>30</option><option>40</option><option>99</option><option>999</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="None"><option value="">Select…</option><option>None</option><option>10</option><option>20</option></select></td></tr>
+          <tr><td class="pbq-fixed">Fa0/3</td><td>Network printer</td>
+            <td><select class="lab-input pbq-field" data-answer="Access"><option value="">Select…</option><option>Access</option><option>Trunk</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="30"><option value="">Select…</option><option>1</option><option>10</option><option>20</option><option>30</option><option>40</option><option>99</option><option>999</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="None"><option value="">Select…</option><option>None</option><option>10</option><option>20</option></select></td></tr>
+          <tr><td class="pbq-fixed">Fa0/4</td><td>Access point broadcasting the staff and guest SSIDs, each mapped to its own VLAN. The AP's management address is untagged</td>
+            <td><select class="lab-input pbq-field" data-answer="Trunk"><option value="">Select…</option><option>Access</option><option>Trunk</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="99"><option value="">Select…</option><option>1</option><option>10</option><option>20</option><option>30</option><option>40</option><option>99</option><option>999</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="None"><option value="">Select…</option><option>None</option><option>10</option><option>20</option></select></td></tr>
+          <tr><td class="pbq-fixed">Fa0/5</td><td>Guest kiosk PC in the lobby</td>
+            <td><select class="lab-input pbq-field" data-answer="Access"><option value="">Select…</option><option>Access</option><option>Trunk</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="40"><option value="">Select…</option><option>1</option><option>10</option><option>20</option><option>30</option><option>40</option><option>99</option><option>999</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="None"><option value="">Select…</option><option>None</option><option>10</option><option>20</option></select></td></tr>
+          <tr><td class="pbq-fixed">Fa0/6</td><td>Nothing connected</td>
+            <td><select class="lab-input pbq-field" data-answer="Access"><option value="">Select…</option><option>Access</option><option>Trunk</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="999"><option value="">Select…</option><option>1</option><option>10</option><option>20</option><option>30</option><option>40</option><option>99</option><option>999</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="None"><option value="">Select…</option><option>None</option><option>10</option><option>20</option></select></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>Trunks carry several VLANs to another VLAN-aware device:</strong> the core switch, and the AP, which puts each <abbr title="Service Set Identifier">SSID</abbr> on its own VLAN. The native VLAN is the one sent untagged, so it is 99 on both, where the requirement put management traffic.</li>
+        <li><strong>The phone port stays an access port.</strong> The phone tags its own traffic with the voice VLAN (20) and passes the PC's traffic through untagged on the access VLAN (10). On a Cisco switch that is <code>switchport access vlan 10</code> plus <code>switchport voice vlan 20</code>.</li>
+        <li><strong>Every single-purpose device</strong> gets an access port in its own VLAN: staff PC in 10, printer in 30, kiosk in 40.</li>
+        <li><strong>The unused port</strong> goes into the parking VLAN rather than VLAN 1, so anyone who plugs in lands on a VLAN with no services. In production you would also <code>shutdown</code> it.</li>
+        <li><strong>Why not VLAN 1 anywhere:</strong> it is the default for every port, so leaving devices or the native VLAN on it makes VLAN hopping and accidental access easier.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── PBQ 2: trunk troubleshooting ─────────────────────────── -->
+<div class="pbq" data-minutes="6">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 2 · Simulation</div><h2>Building 2 printers disappeared</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>After last night's change window, nobody can print to the printers in Building 2, which are on VLAN 30. Staff PCs in Building 2 (VLAN 10) still work, and printers in Building 1 work. SW-DIST in Building 1 connects to SW-BLDG2 over a trunk.</p>
+      <p>Find the problem and choose the command that fixes it without breaking anything else.</p>
+    </div>
+
+    <div class="terminal pbq-term">
+      <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Console</span></div>
+      <div class="pbq-term-host" data-host="SW-DIST" data-os="ios" data-prompt="SW-DIST#">
+<template data-cmd="show interfaces trunk">
+Port        Mode         Encapsulation  Status        Native vlan
+Gi0/2       on           802.1q         trunking      99
+
+Port        Vlans allowed on trunk
+Gi0/2       10,30,99
+
+Port        Vlans allowed and active in management domain
+Gi0/2       10,30,99
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi0/2       10,30,99
+</template>
+<template data-cmd="show vlan brief">
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active
+10   STAFF                            active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+30   PRINTERS                         active    Fa0/10, Fa0/11
+99   MGMT                             active
+</template>
+<template data-cmd="show cdp neighbors">
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+SW-BLDG2         Gig 0/2           141             S I    WS-C2960  Gig 0/1
+</template>
+      </div>
+      <div class="pbq-term-host" data-host="SW-BLDG2" data-os="ios" data-prompt="SW-BLDG2#">
+<template data-cmd="show interfaces trunk">
+Port        Mode         Encapsulation  Status        Native vlan
+Gi0/1       on           802.1q         trunking      99
+
+Port        Vlans allowed on trunk
+Gi0/1       10,99
+
+Port        Vlans allowed and active in management domain
+Gi0/1       10,99
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi0/1       10,99
+</template>
+<template data-cmd="show vlan brief">
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active
+10   STAFF                            active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                Fa0/5, Fa0/6
+30   PRINTERS                         active    Fa0/20, Fa0/21
+99   MGMT                             active
+</template>
+<template data-cmd="show running-config interface gi0/1|show running-config interface g0/1|show running-config interface gigabitethernet0/1">
+Building configuration...
+
+Current configuration : 141 bytes
+!
+interface GigabitEthernet0/1
+ description TRUNK-TO-SW-DIST
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,99
+ switchport mode trunk
+end
+</template>
+<template data-cmd="show mac address-table vlan 30">
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+  30    00a0.c931.5f02    DYNAMIC     Fa0/20
+  30    00a0.c931.6ab4    DYNAMIC     Fa0/21
+Total Mac Addresses for this criterion: 2
+</template>
+      </div>
+    </div>
+
+    <div class="pbq-qs">
+      <label class="pbq-label">1. Root cause</label>
+      <select class="lab-input pbq-field" data-answer="allowed">
+        <option value="">Select…</option>
+        <option value="novlan">VLAN 30 does not exist on SW-BLDG2</option>
+        <option value="allowed">SW-BLDG2's trunk does not allow VLAN 30</option>
+        <option value="native">The native VLANs do not match across the trunk</option>
+        <option value="access">The printer ports on SW-BLDG2 are in the wrong VLAN</option>
+      </select>
+      <label class="pbq-label">2. Command to enter under interface Gi0/1 on SW-BLDG2</label>
+      <select class="lab-input pbq-field" data-answer="add">
+        <option value="">Select…</option>
+        <option value="replace">switchport trunk allowed vlan 30</option>
+        <option value="add">switchport trunk allowed vlan add 30</option>
+        <option value="access">switchport access vlan 30</option>
+        <option value="native">switchport trunk native vlan 30</option>
+      </select>
+      <label class="pbq-label">3. Command that verifies the fix</label>
+      <select class="lab-input pbq-field" data-answer="trunk">
+        <option value="">Select…</option>
+        <option value="vlan">show vlan brief</option>
+        <option value="trunk">show interfaces trunk</option>
+        <option value="cdp">show cdp neighbors</option>
+        <option value="iib">show ip interface brief</option>
+      </select>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>Compare both ends:</strong> SW-DIST allows 10, 30, and 99 on its trunk. SW-BLDG2 allows only 10 and 99, so VLAN 30 frames are dropped at SW-BLDG2's end. VLAN 30 exists on SW-BLDG2, the printer ports are in it, and the printers' MACs are learned there, so the access side is fine. Both native VLANs are 99.</li>
+        <li><strong>The trap:</strong> <code>switchport trunk allowed vlan 30</code> <em>replaces</em> the allowed list with only VLAN 30. Printing comes back, and staff PCs and switch management in Building 2 go down. <code>add</code> appends to the existing list.</li>
+        <li><strong>Verify</strong> with <code>show interfaces trunk</code>, which lists the allowed VLANs per trunk. <code>show vlan brief</code> lists access ports only and does not show trunks at all, so it cannot confirm this fix.</li>
+      </ul>
+    </div>
+  </div>
+</div>

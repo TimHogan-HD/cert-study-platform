@@ -1,0 +1,189 @@
+<div class="section-eyebrow">PBQ Lab · Objectives 4.3, 1.4</div>
+<h1 class="section-title">Firewall Rules</h1>
+<p class="section-sub">Build a rule table from written requirements, put rules in the order that makes them work, and trace packets through a finished policy.</p>
+
+<div class="callout callout-blue">
+  <div class="callout-title">How a rule table is read</div>
+  The firewall compares each packet with the rules from the top down and acts on the <strong>first</strong> match. Nothing below that rule is checked. Anything that matches no rule hits the implicit deny at the end. So specific rules go above general ones, and a deny meant to override a permit has to sit above it.
+</div>
+
+<div class="pbq-flow">
+  <div class="pbq-node"><strong>Internet</strong>Any address</div>
+  <span class="pbq-arrow">⇄</span>
+  <div class="pbq-node"><strong>Firewall</strong>Rules below</div>
+  <span class="pbq-arrow">⇄</span>
+  <div class="pbq-node"><strong>DMZ 10.0.5.0/24</strong>Web .10 · Mail .25 · <abbr title="Domain Name System">DNS</abbr> .53</div>
+  <span class="pbq-arrow">⇄</span>
+  <div class="pbq-node"><strong>LAN 10.0.1.0/24</strong>Admin workstation .50</div>
+</div>
+
+<!-- ── PBQ 1: build the rule table ──────────────────────────── -->
+<div class="pbq" data-minutes="9">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 1 · Firewall configuration</div><h2>Build the DMZ rule table</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>Configure the firewall using the network above so that:</p>
+      <ol>
+        <li>Anyone on the internet can reach the public website on the web server, over an encrypted connection only.</li>
+        <li>Mail servers on the internet can deliver email to the mail server.</li>
+        <li>LAN hosts can resolve names using the DMZ DNS server.</li>
+        <li>Only the admin workstation can open encrypted remote command-line sessions to any DMZ server.</li>
+        <li>All other traffic is blocked.</li>
+      </ol>
+      <p>Rule 1 is evaluated first.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Action</th><th>Protocol</th><th>Source</th><th>Destination</th><th>Dest. port</th></tr></thead>
+        <tbody>
+<tr><td class="pbq-fixed">1</td>
+            <td><select class="lab-input pbq-field" data-answer="Permit"><option value="">Select…</option><option>Permit</option><option>Deny</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="TCP"><option value="">Select…</option><option>TCP</option><option>UDP</option><option>ICMP</option><option>Any</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="Any"><option value="">Select…</option><option>Any</option><option>10.0.1.0/24</option><option>10.0.1.50</option><option>10.0.5.0/24</option><option>10.0.5.10</option><option>10.0.5.25</option><option>10.0.5.53</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="10.0.5.10"><option value="">Select…</option><option>Any</option><option>10.0.1.0/24</option><option>10.0.1.50</option><option>10.0.5.0/24</option><option>10.0.5.10</option><option>10.0.5.25</option><option>10.0.5.53</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="443"><option value="">Select…</option><option>Any</option><option>22</option><option>23</option><option>25</option><option>53</option><option>80</option><option>443</option><option>3389</option></select></td></tr>
+          <tr><td class="pbq-fixed">2</td>
+            <td><select class="lab-input pbq-field" data-answer="Permit"><option value="">Select…</option><option>Permit</option><option>Deny</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="TCP"><option value="">Select…</option><option>TCP</option><option>UDP</option><option>ICMP</option><option>Any</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="Any"><option value="">Select…</option><option>Any</option><option>10.0.1.0/24</option><option>10.0.1.50</option><option>10.0.5.0/24</option><option>10.0.5.10</option><option>10.0.5.25</option><option>10.0.5.53</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="10.0.5.25"><option value="">Select…</option><option>Any</option><option>10.0.1.0/24</option><option>10.0.1.50</option><option>10.0.5.0/24</option><option>10.0.5.10</option><option>10.0.5.25</option><option>10.0.5.53</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="25"><option value="">Select…</option><option>Any</option><option>22</option><option>23</option><option>25</option><option>53</option><option>80</option><option>443</option><option>3389</option></select></td></tr>
+          <tr><td class="pbq-fixed">3</td>
+            <td><select class="lab-input pbq-field" data-answer="Permit"><option value="">Select…</option><option>Permit</option><option>Deny</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="UDP"><option value="">Select…</option><option>TCP</option><option>UDP</option><option>ICMP</option><option>Any</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="10.0.1.0/24"><option value="">Select…</option><option>Any</option><option>10.0.1.0/24</option><option>10.0.1.50</option><option>10.0.5.0/24</option><option>10.0.5.10</option><option>10.0.5.25</option><option>10.0.5.53</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="10.0.5.53"><option value="">Select…</option><option>Any</option><option>10.0.1.0/24</option><option>10.0.1.50</option><option>10.0.5.0/24</option><option>10.0.5.10</option><option>10.0.5.25</option><option>10.0.5.53</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="53"><option value="">Select…</option><option>Any</option><option>22</option><option>23</option><option>25</option><option>53</option><option>80</option><option>443</option><option>3389</option></select></td></tr>
+          <tr><td class="pbq-fixed">4</td>
+            <td><select class="lab-input pbq-field" data-answer="Permit"><option value="">Select…</option><option>Permit</option><option>Deny</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="TCP"><option value="">Select…</option><option>TCP</option><option>UDP</option><option>ICMP</option><option>Any</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="10.0.1.50"><option value="">Select…</option><option>Any</option><option>10.0.1.0/24</option><option>10.0.1.50</option><option>10.0.5.0/24</option><option>10.0.5.10</option><option>10.0.5.25</option><option>10.0.5.53</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="10.0.5.0/24"><option value="">Select…</option><option>Any</option><option>10.0.1.0/24</option><option>10.0.1.50</option><option>10.0.5.0/24</option><option>10.0.5.10</option><option>10.0.5.25</option><option>10.0.5.53</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="22"><option value="">Select…</option><option>Any</option><option>22</option><option>23</option><option>25</option><option>53</option><option>80</option><option>443</option><option>3389</option></select></td></tr>
+          <tr><td class="pbq-fixed">5</td>
+            <td><select class="lab-input pbq-field" data-answer="Deny"><option value="">Select…</option><option>Permit</option><option>Deny</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="Any"><option value="">Select…</option><option>TCP</option><option>UDP</option><option>ICMP</option><option>Any</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="Any"><option value="">Select…</option><option>Any</option><option>10.0.1.0/24</option><option>10.0.1.50</option><option>10.0.5.0/24</option><option>10.0.5.10</option><option>10.0.5.25</option><option>10.0.5.53</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="Any"><option value="">Select…</option><option>Any</option><option>10.0.1.0/24</option><option>10.0.1.50</option><option>10.0.5.0/24</option><option>10.0.5.10</option><option>10.0.5.25</option><option>10.0.5.53</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="Any"><option value="">Select…</option><option>Any</option><option>22</option><option>23</option><option>25</option><option>53</option><option>80</option><option>443</option><option>3389</option></select></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ol>
+        <li><strong><abbr title="HTTP Secure">HTTPS</abbr> to the web server:</strong> <abbr title="Transmission Control Protocol">TCP</abbr> 443 from Any to 10.0.5.10 only. "Encrypted only" rules out TCP 80, and the destination is the one server, not the whole DMZ.</li>
+        <li><strong>Inbound mail:</strong> server-to-server mail delivery is <abbr title="Simple Mail Transfer Protocol">SMTP</abbr> on TCP 25. Ports 587 and 465 are for mail clients submitting mail, not for delivery between servers.</li>
+        <li><strong>DNS lookups:</strong> <abbr title="User Datagram Protocol">UDP</abbr> 53 from the LAN subnet to 10.0.5.53. Large responses and zone transfers fall back to TCP 53. This requirement only asks for name resolution, which is UDP.</li>
+        <li><strong>Admin access:</strong> encrypted remote command line is <abbr title="Secure Shell">SSH</abbr> on TCP 22. The source is the single host 10.0.1.50, not the LAN subnet, and the destination is the DMZ subnet because the requirement says <em>any</em> DMZ server. Telnet (23) is unencrypted and <abbr title="Remote Desktop Protocol">RDP</abbr> (3389) is a graphical session.</li>
+        <li><strong>Explicit deny:</strong> most firewalls already end with an implicit deny. Writing it out makes the policy obvious to the next admin and lets you log what it drops.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ── PBQ 2: rule order ────────────────────────────────────── -->
+<div class="pbq" data-minutes="4">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 2 · Rule order</div><h2>Quarantine an infected host</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>Workstation <strong>10.0.1.66</strong> is beaconing to a command-and-control server and must lose all network access through the firewall immediately. Every other LAN host must keep web browsing and DNS lookups. Everything else stays blocked.</p>
+      <p>Drag the four rules into an order that meets every requirement.</p>
+    </div>
+
+    <div class="pbq-bank">
+      <div class="pbq-bank-label">Rules</div>
+      <button type="button" class="pbq-chip" data-value="web">Permit TCP 10.0.1.0/24 → Any, ports 80, 443</button>
+      <button type="button" class="pbq-chip" data-value="denyall">Deny Any → Any, all ports</button>
+      <button type="button" class="pbq-chip" data-value="dns">Permit UDP 10.0.1.0/24 → 10.0.5.53, port 53</button>
+      <button type="button" class="pbq-chip" data-value="deny66">Deny Any 10.0.1.66 → Any, all ports</button>
+    </div>
+
+    <div class="pbq-rows">
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Rule 1</strong>, evaluated first</div><button type="button" class="pbq-slot" data-answer="deny66">Drop rule</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Rule 2</strong></div><button type="button" class="pbq-slot" data-answer="web|dns" data-show="web">Drop rule</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Rule 3</strong></div><button type="button" class="pbq-slot" data-answer="web|dns" data-show="dns">Drop rule</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Rule 4</strong>, evaluated last</div><button type="button" class="pbq-slot" data-answer="denyall">Drop rule</button></div>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>The host deny goes first.</strong> 10.0.1.66 is inside 10.0.1.0/24, so if either permit came first, its web and DNS traffic would match the permit and never reach the deny.</li>
+        <li><strong>The two permits can go in either order</strong> because no packet matches both: one is TCP 80/443 to anywhere, the other is UDP 53 to one server.</li>
+        <li><strong>Deny any goes last.</strong> Placed any higher, it would block everything below it.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── PBQ 3: which rule fires ──────────────────────────────── -->
+<div class="pbq" data-minutes="5">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 3 · Packet trace</div><h2>Which rule matches?</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>The firewall below is in production. For each packet, select the number of the rule that decides what happens to it.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Action</th><th>Protocol</th><th>Source</th><th>Destination</th><th>Dest. port</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Permit</td><td>TCP</td><td><code>10.0.1.50</code></td><td><code>10.0.5.0/24</code></td><td>22</td></tr>
+          <tr><td>2</td><td>Deny</td><td>TCP</td><td><code>10.0.1.0/24</code></td><td><code>10.0.5.0/24</code></td><td>22</td></tr>
+          <tr><td>3</td><td>Permit</td><td>TCP</td><td>Any</td><td><code>10.0.5.10</code></td><td>443</td></tr>
+          <tr><td>4</td><td>Permit</td><td>UDP</td><td><code>10.0.1.0/24</code></td><td><code>10.0.5.53</code></td><td>53</td></tr>
+          <tr><td>5</td><td>Deny</td><td>Any</td><td>Any</td><td>Any</td><td>Any</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Packet</th><th>Source</th><th>Destination</th><th>Protocol</th><th>Dest. port</th><th>Matching rule</th></tr></thead>
+        <tbody>
+          <tr><td class="pbq-fixed">A</td><td><code>10.0.1.50</code></td><td><code>10.0.5.25</code></td><td>TCP</td><td>22</td>
+            <td><select class="lab-input pbq-field" data-answer="1"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td></tr>
+          <tr><td class="pbq-fixed">B</td><td><code>10.0.1.77</code></td><td><code>10.0.5.10</code></td><td>TCP</td><td>22</td>
+            <td><select class="lab-input pbq-field" data-answer="2"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td></tr>
+          <tr><td class="pbq-fixed">C</td><td><code>198.51.100.20</code></td><td><code>10.0.5.10</code></td><td>TCP</td><td>443</td>
+            <td><select class="lab-input pbq-field" data-answer="3"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td></tr>
+          <tr><td class="pbq-fixed">D</td><td><code>10.0.1.77</code></td><td><code>10.0.5.10</code></td><td>TCP</td><td>443</td>
+            <td><select class="lab-input pbq-field" data-answer="3"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td></tr>
+          <tr><td class="pbq-fixed">E</td><td><code>10.0.1.77</code></td><td><code>10.0.5.53</code></td><td>TCP</td><td>53</td>
+            <td><select class="lab-input pbq-field" data-answer="5"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td></tr>
+          <tr><td class="pbq-fixed">F</td><td><code>198.51.100.20</code></td><td><code>10.0.5.10</code></td><td>TCP</td><td>80</td>
+            <td><select class="lab-input pbq-field" data-answer="5"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>A:</strong> the admin workstation matches rule 1 and is permitted. Rule 2 would deny it, but it is never reached.</li>
+        <li><strong>B:</strong> any other LAN host trying SSH skips rule 1 (wrong source) and matches rule 2.</li>
+        <li><strong>C and D:</strong> rule 3's source is Any, which includes both internet and LAN hosts.</li>
+        <li><strong>E:</strong> rule 4 permits DNS over UDP only. A TCP 53 packet matches nothing until rule 5. This is how large DNS responses and zone transfers end up broken.</li>
+        <li><strong>F:</strong> only 443 is open to the web server, so plain <abbr title="HyperText Transfer Protocol">HTTP</abbr> falls through to rule 5.</li>
+      </ul>
+    </div>
+  </div>
+</div>

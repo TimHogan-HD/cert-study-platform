@@ -2396,3 +2396,139 @@ td code { font-size: 0.8rem; }
    <strong>/<em>, which flex would shatter into columns. */
 .ups-field-label { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text); margin-right: 5px; }
 @media (max-width: 720px) { .ups-grid { grid-template-columns: 1fr; } }
+
+/* ── PBQ Lab (netplus/pbq/*) ──────────────────────────────────── */
+/* One exam-style question window. Flex/grid below lays out block children
+   (chips, slots, cards, rows); prose inside them stays in normal flow. */
+.pbq { border: 1px solid var(--border2); border-radius: var(--radius-lg); background: var(--surface); margin: 1.5rem 0 2rem; overflow: hidden; }
+.pbq-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.85rem 1.1rem; background: var(--surface3); border-bottom: 1px solid var(--border2); }
+.pbq-head h2, .pbq-head h3 { margin: 0; font-size: 1.05rem; }
+.pbq-kicker { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--purple); }
+.pbq-timer { flex-shrink: 0; font-variant-numeric: tabular-nums; font-size: 0.82rem; font-weight: 700; color: var(--text); background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 0.2rem 0.55rem; }
+.pbq-timer.over { color: var(--amber); border-color: var(--amber-border); background: var(--amber-bg); }
+.pbq-body { padding: 1rem 1.1rem 1.1rem; }
+.pbq-scenario { border-left: 3px solid var(--purple); background: var(--purple-bg); padding: 0.75rem 0.9rem; border-radius: 0 var(--radius) var(--radius) 0; margin-bottom: 1rem; }
+.pbq-scenario p { margin: 0 0 0.5rem; }
+.pbq-scenario p:last-child, .pbq-scenario ul:last-child { margin-bottom: 0; }
+.pbq-step { font-weight: 700; font-size: 0.9rem; margin: 1.1rem 0 0.5rem; }
+
+.pbq-bank { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0.7rem; border: 1px solid var(--border2); border-radius: var(--radius); background: var(--surface2); margin: 0.5rem 0 1rem; }
+.pbq-bank-label { width: 100%; font-size: 0.75rem; font-weight: 700; color: var(--text); }
+.pbq-chip { width: auto; padding: 0.35rem 0.7rem; border: 1px solid var(--blue-border); border-radius: 6px; background: var(--blue-bg); color: var(--text); font-size: 0.82rem; font-weight: 600; cursor: grab; user-select: none; transition: border-color 0.15s, background 0.15s; }
+.pbq-chip:hover { border-color: var(--blue); }
+.pbq-chip.selected { background: var(--blue); border-color: var(--blue); color: #fff; }
+.pbq-chip[hidden] { display: none; }
+
+.pbq-slot { display: inline-block; width: auto; min-width: 9rem; min-height: 2.1rem; padding: 0.35rem 0.7rem; border: 1.5px dashed var(--border2); border-radius: 6px; background: var(--surface2); color: var(--muted); font-size: 0.82rem; text-align: center; vertical-align: middle; transition: border-color 0.15s, background 0.15s; }
+.pbq-slot:hover { border-color: var(--blue); }
+.pbq-slot.filled { border-style: solid; border-color: var(--blue-border); background: var(--blue-bg); color: var(--text); font-weight: 600; }
+
+.lab-input { font: inherit; font-size: 0.85rem; color: var(--text); background: var(--surface2); border: 1px solid var(--border2); border-radius: 6px; padding: 0.35rem 0.55rem; min-width: 0; max-width: 100%; }
+input.lab-input { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; }
+.lab-input:focus, .pbq-slot:focus-visible, .pbq-chip:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+
+.pbq-slot[data-state="right"], .pbq-field[data-state="right"] { border: 1.5px solid var(--green); background: var(--green-bg); }
+.pbq-slot[data-state="wrong"], .pbq-field[data-state="wrong"] { border: 1.5px solid var(--red); background: var(--red-bg); }
+.pbq-slot[data-state="revealed"], .pbq-field[data-state="revealed"] { border: 1.5px solid var(--amber); background: var(--amber-bg); }
+
+.pbq-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
+.pbq-actions button { width: auto; padding: 0.5rem 1.1rem; border-radius: var(--radius); font-size: 0.85rem; font-weight: 700; border: 1px solid var(--border2); background: var(--surface3); color: var(--text); }
+.pbq-actions button:hover { border-color: var(--blue); }
+.pbq-actions .pbq-check { background: var(--blue); border-color: var(--blue); color: #fff; }
+.pbq-result { margin-top: 0.85rem; padding: 0.7rem 0.9rem; border-radius: var(--radius); border: 1px solid var(--border2); font-size: 0.86rem; font-weight: 600; color: var(--text); background: var(--surface3); }
+.pbq-result.pass { border-color: var(--green-border); background: var(--green-bg); color: var(--green); }
+.pbq-result.revealed { border-color: var(--amber-border); background: var(--amber-bg); color: var(--amber); }
+.pbq-explain { margin-top: 0.85rem; padding: 0.85rem 1rem; border: 1px solid var(--teal-border); background: var(--teal-bg); border-radius: var(--radius); }
+.pbq-explain-title { font-weight: 700; color: var(--teal); margin-bottom: 0.35rem; }
+.pbq-explain ul, .pbq-explain ol { margin: 0.3rem 0 0 1.2rem; }
+.pbq-explain li { margin-bottom: 0.3rem; }
+
+/* Stacked questions under a console or diagram */
+.pbq-qs { display: grid; max-width: 46rem; margin-top: 1rem; }
+.pbq-qs .lab-input { width: 100%; }
+
+/* Requirement → answer rows (cabling, ports, methodology). */
+.pbq-rows { display: grid; gap: 0.5rem; }
+.pbq-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(10rem, 15rem); gap: 0.75rem; align-items: center; padding: 0.55rem 0.7rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface2); }
+.pbq-row-text { font-size: 0.88rem; }
+.pbq-row .pbq-slot, .pbq-row .lab-input { width: 100%; }
+
+/* Form tables (ACL, switch ports, addressing) */
+.pbq table .lab-input, .pbq table .pbq-slot { width: 100%; min-width: 7.5rem; }
+.pbq td.pbq-fixed { font-weight: 600; white-space: nowrap; }
+
+/* Topology / flow diagrams built from boxes */
+.pbq-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0.75rem 0 1rem; }
+.pbq-node { border: 1px solid var(--border2); border-radius: var(--radius); background: var(--surface2); padding: 0.5rem 0.75rem; font-size: 0.82rem; text-align: center; min-width: 6.5rem; }
+.pbq-node strong { display: block; font-size: 0.86rem; }
+.pbq-node .pbq-slot { display: block; width: 100%; margin-top: 0.45rem; }
+.pbq-flow .pbq-node:has(.pbq-slot) { flex: 1 1 12rem; max-width: 18rem; }
+.pbq-arrow { color: var(--muted); font-size: 1rem; }
+.pbq-zone { border: 1.5px dashed var(--border2); border-radius: var(--radius-lg); padding: 0.6rem 0.75rem 0.75rem; margin: 0.6rem 0; }
+.pbq-zone-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+.pbq-zone[data-zone="dmz"] { border-color: var(--amber-border); }
+.pbq-zone[data-zone="dmz"] .pbq-zone-label { color: var(--amber); }
+.pbq-zone[data-zone="lan"] { border-color: var(--green-border); }
+.pbq-zone[data-zone="lan"] .pbq-zone-label { color: var(--green); }
+.pbq-zone[data-zone="internet"] { border-color: var(--red-border); }
+.pbq-zone[data-zone="internet"] .pbq-zone-label { color: var(--red); }
+.pbq-zone .pbq-flow { margin: 0; }
+
+/* Device configuration cards (wireless APs, router interfaces) */
+.pbq-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+.pbq-card { border: 1px solid var(--border2); border-radius: var(--radius); background: var(--surface2); padding: 0.75rem 0.85rem; }
+.pbq-card-title { font-weight: 700; margin-bottom: 0.15rem; }
+.pbq-card-sub { font-size: 0.8rem; color: var(--text); margin-bottom: 0.6rem; }
+.pbq-label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text); margin: 0.5rem 0 0.2rem; }
+.pbq-card .lab-input, .pbq-card .pbq-slot { width: 100%; }
+
+/* Simulated console: the terminal is a fixed dark surface in both themes. */
+.terminal.pbq-term .pbq-term-tabs { display: flex; flex-wrap: wrap; gap: 2px; padding: 0.35rem 0.5rem 0; background: #161b22; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.terminal.pbq-term .pbq-term-tab { width: auto; padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 600; color: #adbac7; border-radius: 6px 6px 0 0; border: 1px solid transparent; border-bottom: none; }
+.terminal.pbq-term .pbq-term-tab:hover { color: #f0f6fc; }
+.terminal.pbq-term .pbq-term-tab.active { background: #0d1117; color: #f0f6fc; border-color: rgba(255,255,255,0.12); }
+.terminal.pbq-term .pbq-term-out { min-height: 12rem; max-height: 26rem; overflow: auto; cursor: text; }
+.terminal.pbq-term .pbq-term-line { display: flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1.1rem 0.7rem; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; font-size: 0.8rem; }
+.terminal.pbq-term .pbq-term-line input { flex: 1; min-width: 0; background: transparent; border: none; outline: none; color: #f0f6fc; font: inherit; caret-color: #7ee787; }
+.terminal.pbq-term .pbq-term-host { display: none; }
+
+/* Subnet calculator, VLSM planner, drill */
+.lab-panel { border: 1px solid var(--border2); border-radius: var(--radius-lg); background: var(--surface); padding: 1rem 1.1rem; margin: 1rem 0 1.75rem; }
+.lab-panel-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; margin-bottom: 0.85rem; }
+.lab-panel-row .pbq-label { margin-top: 0; }
+.sc-error { color: var(--red); font-weight: 600; font-size: 0.85rem; margin: 0.3rem 0; }
+.sc-results, .sc-binary { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.3rem 1rem; font-size: 0.88rem; }
+.sc-binary { margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--border); }
+.sc-key { font-weight: 600; color: var(--text); }
+.sc-val { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; color: var(--text); overflow-wrap: anywhere; }
+.sc-net { color: var(--blue); font-weight: 700; }
+.sc-host { color: var(--amber); font-weight: 700; }
+.sc-dot { color: var(--muted); }
+.vlsm-rows { display: grid; gap: 0.4rem; margin-bottom: 0.6rem; }
+.vlsm-name { font-family: inherit; }
+.vlsm-row { display: grid; grid-template-columns: minmax(0, 1fr) 6.5rem 2.2rem; gap: 0.4rem; }
+.vlsm-remove { width: auto; border: 1px solid var(--border2); border-radius: 6px; color: var(--text); background: var(--surface3); text-align: center; }
+.vlsm-remove:hover { border-color: var(--red); color: var(--red); }
+.vlsm-add { width: auto; padding: 0.4rem 0.9rem; border: 1px dashed var(--border2); border-radius: var(--radius); font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 0.85rem; }
+.vlsm-add:hover { border-color: var(--blue); color: var(--blue); }
+.vlsm-nofit td { color: var(--red); font-weight: 600; }
+.vlsm-left { font-size: 0.85rem; margin-top: 0.4rem; }
+.drill-q { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 0.25rem 0 0.85rem; }
+.drill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.6rem; }
+.drill-grid .lab-input { width: 100%; }
+.drill-field[data-state="right"] { border-color: var(--green); background: var(--green-bg); }
+.drill-field[data-state="wrong"] { border-color: var(--red); background: var(--red-bg); }
+.drill-status { margin-top: 0.75rem; font-size: 0.86rem; font-weight: 600; color: var(--text); }
+.drill-status.pass { color: var(--green); }
+
+@media (max-width: 640px) {
+  .pbq-head { flex-wrap: wrap; }
+  .pbq-body { padding: 0.85rem 0.8rem 1rem; }
+  .pbq-row { grid-template-columns: 1fr; gap: 0.4rem; }
+  .pbq-flow { flex-direction: column; align-items: stretch; }
+  .pbq-arrow { text-align: center; transform: rotate(90deg); }
+  .pbq-slot { width: 100%; }
+  .lab-input, .terminal.pbq-term .pbq-term-line { font-size: 16px; }
+  .sc-results, .sc-binary { grid-template-columns: 1fr; gap: 0; }
+  .sc-key { margin-top: 0.4rem; }
+}

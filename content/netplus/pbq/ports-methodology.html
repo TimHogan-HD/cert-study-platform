@@ -1,0 +1,170 @@
+<div class="section-eyebrow">PBQ Lab · Objectives 1.4, 5.1</div>
+<h1 class="section-title">Ports &amp; Methodology</h1>
+<p class="section-sub">Port numbers, secure replacements for legacy protocols, and the seven troubleshooting steps in order and in practice.</p>
+
+<!-- ── PBQ 1: ports ─────────────────────────────────────────── -->
+<div class="pbq" data-minutes="5">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 1 · Ports and protocols</div><h2>Match each protocol to its port</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>Drag the well-known port onto each protocol. Four ports are not used.</p>
+    </div>
+    <div class="pbq-bank">
+      <div class="pbq-bank-label">Ports</div>
+      <button type="button" class="pbq-chip" data-value="161">161</button>
+      <button type="button" class="pbq-chip" data-value="23">23</button>
+      <button type="button" class="pbq-chip" data-value="389">389</button>
+      <button type="button" class="pbq-chip" data-value="3389">3389</button>
+      <button type="button" class="pbq-chip" data-value="67">67</button>
+      <button type="button" class="pbq-chip" data-value="514">514</button>
+      <button type="button" class="pbq-chip" data-value="22">22</button>
+      <button type="button" class="pbq-chip" data-value="110">110</button>
+      <button type="button" class="pbq-chip" data-value="636">636</button>
+      <button type="button" class="pbq-chip" data-value="53">53</button>
+      <button type="button" class="pbq-chip" data-value="123">123</button>
+      <button type="button" class="pbq-chip" data-value="1433">1433</button>
+      <button type="button" class="pbq-chip" data-value="25">25</button>
+      <button type="button" class="pbq-chip" data-value="445">445</button>
+      <button type="button" class="pbq-chip" data-value="69">69</button>
+      <button type="button" class="pbq-chip" data-value="143">143</button>
+    </div>
+    <div class="pbq-rows">
+      <div class="pbq-row"><div class="pbq-row-text"><strong><abbr title="Secure Shell">SSH</abbr></strong>: encrypted remote command line</div><button type="button" class="pbq-slot" data-answer="22">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Telnet</strong>: unencrypted remote command line</div><button type="button" class="pbq-slot" data-answer="23">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong><abbr title="Simple Mail Transfer Protocol">SMTP</abbr></strong>: mail delivery between servers</div><button type="button" class="pbq-slot" data-answer="25">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong><abbr title="Domain Name System">DNS</abbr></strong>: name resolution</div><button type="button" class="pbq-slot" data-answer="53">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong><abbr title="Dynamic Host Configuration Protocol">DHCP</abbr></strong>: the server side of address assignment</div><button type="button" class="pbq-slot" data-answer="67">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong><abbr title="Trivial File Transfer Protocol — no authentication">TFTP</abbr></strong>: simple file transfer used to load device configs and images</div><button type="button" class="pbq-slot" data-answer="69">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong><abbr title="Network Time Protocol">NTP</abbr></strong>: clock synchronisation</div><button type="button" class="pbq-slot" data-answer="123">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong><abbr title="Simple Network Management Protocol">SNMP</abbr></strong>: polling devices for monitoring data</div><button type="button" class="pbq-slot" data-answer="161">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong><abbr title="Server Message Block — Windows file/print sharing">SMB</abbr></strong>: Windows file and printer sharing</div><button type="button" class="pbq-slot" data-answer="445">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Syslog</strong>: sending log messages to a central server</div><button type="button" class="pbq-slot" data-answer="514">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>LDAPS</strong>: directory queries over <abbr title="Transport Layer Security">TLS</abbr></div><button type="button" class="pbq-slot" data-answer="636">Drop port</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong><abbr title="Remote Desktop Protocol">RDP</abbr></strong>: graphical remote desktop</div><button type="button" class="pbq-slot" data-answer="3389">Drop port</button></div>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <p>The unused ports are 110 (<abbr title="Post Office Protocol v3 — downloads and deletes email">POP3</abbr>), 143 (<abbr title="Internet Message Access Protocol — syncs email across devices">IMAP</abbr>), 389 (plain <abbr title="Lightweight Directory Access Protocol">LDAP</abbr>), and 1433 (Microsoft SQL Server). The exam likes to pair a secure protocol with its insecure twin, so learn them together: 23 and 22, 389 and 636, 80 and 443. The full list with transports is on <a href="#" class="inline-nav" data-path="netplus/domain1/obj-1-4">objective 1.4</a>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── PBQ 2: secure replacements ───────────────────────────── -->
+<div class="pbq" data-minutes="5">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 2 · Hardening</div><h2>Replace the insecure protocols</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>An audit found five services sending credentials or data in cleartext. For each one, choose the secure replacement and the port the firewall must allow for it. File transfers must use the same protocol the administrators already use to manage the servers.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Current service</th><th>Replace with</th><th>Port to allow</th></tr></thead>
+        <tbody>
+          <tr><td>Telnet to the switches</td>
+            <td><select class="lab-input pbq-field" data-answer="SSH"><option value="">Select…</option><option>SSH</option><option>HTTPS</option><option>SFTP</option><option>FTPS</option><option>LDAPS</option><option>SNMPv3</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="22"><option value="">Select…</option><option>21</option><option>22</option><option>161</option><option>389</option><option>443</option><option>636</option><option>990</option></select></td></tr>
+          <tr><td><abbr title="HyperText Transfer Protocol">HTTP</abbr> for the intranet site</td>
+            <td><select class="lab-input pbq-field" data-answer="HTTPS"><option value="">Select…</option><option>SSH</option><option>HTTPS</option><option>SFTP</option><option>FTPS</option><option>LDAPS</option><option>SNMPv3</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="443"><option value="">Select…</option><option>21</option><option>22</option><option>161</option><option>389</option><option>443</option><option>636</option><option>990</option></select></td></tr>
+          <tr><td><abbr title="File Transfer Protocol">FTP</abbr> uploads to the web server</td>
+            <td><select class="lab-input pbq-field" data-answer="SFTP"><option value="">Select…</option><option>SSH</option><option>HTTPS</option><option>SFTP</option><option>FTPS</option><option>LDAPS</option><option>SNMPv3</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="22"><option value="">Select…</option><option>21</option><option>22</option><option>161</option><option>389</option><option>443</option><option>636</option><option>990</option></select></td></tr>
+          <tr><td>LDAP lookups against the directory</td>
+            <td><select class="lab-input pbq-field" data-answer="LDAPS"><option value="">Select…</option><option>SSH</option><option>HTTPS</option><option>SFTP</option><option>FTPS</option><option>LDAPS</option><option>SNMPv3</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="636"><option value="">Select…</option><option>21</option><option>22</option><option>161</option><option>389</option><option>443</option><option>636</option><option>990</option></select></td></tr>
+          <tr><td>SNMPv2c polling with community strings</td>
+            <td><select class="lab-input pbq-field" data-answer="SNMPv3"><option value="">Select…</option><option>SSH</option><option>HTTPS</option><option>SFTP</option><option>FTPS</option><option>LDAPS</option><option>SNMPv3</option></select></td>
+            <td><select class="lab-input pbq-field" data-answer="161"><option value="">Select…</option><option>21</option><option>22</option><option>161</option><option>389</option><option>443</option><option>636</option><option>990</option></select></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong><abbr title="SSH File Transfer Protocol — file transfer over an encrypted SSH session">SFTP</abbr>, not <abbr title="File Transfer Protocol Secure — FTP wrapped in TLS">FTPS</abbr>:</strong> SFTP runs inside SSH on port 22, which the requirement asks for. FTPS is FTP wrapped in TLS on 21 or 990. It is also secure, but it is a different protocol from the one used for management.</li>
+        <li><strong>SNMPv3 keeps port 161.</strong> It adds authentication and encryption in the protocol itself, so the port does not change.</li>
+        <li><strong>LDAPS moves from 389 to 636,</strong> and <abbr title="HTTP Secure">HTTPS</abbr> moves from 80 to 443.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── PBQ 3: methodology order and practice ────────────────── -->
+<div class="pbq" data-minutes="6">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 3 · Troubleshooting methodology</div><h2>Order the steps, then apply them</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>Part 1: put the CompTIA troubleshooting steps in order. Part 2: a technician fixed a print server outage. Match each of their actions to the step it belongs to.</p>
+    </div>
+
+    <div class="pbq-step">Part 1. Order the steps</div>
+    <div class="pbq-bank" data-bank="order">
+      <div class="pbq-bank-label">Steps</div>
+      <button type="button" class="pbq-chip" data-value="verify">Verify full system functionality and implement preventive measures</button>
+      <button type="button" class="pbq-chip" data-value="theory">Establish a theory of probable cause</button>
+      <button type="button" class="pbq-chip" data-value="document">Document findings, actions, outcomes, and lessons learned</button>
+      <button type="button" class="pbq-chip" data-value="identify">Identify the problem</button>
+      <button type="button" class="pbq-chip" data-value="implement">Implement the solution or escalate as necessary</button>
+      <button type="button" class="pbq-chip" data-value="test">Test the theory to determine the cause</button>
+      <button type="button" class="pbq-chip" data-value="plan">Establish a plan of action and identify potential effects</button>
+    </div>
+    <div class="pbq-rows">
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Step 1</strong></div><button type="button" class="pbq-slot" data-bank="order" data-answer="identify">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Step 2</strong></div><button type="button" class="pbq-slot" data-bank="order" data-answer="theory">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Step 3</strong></div><button type="button" class="pbq-slot" data-bank="order" data-answer="test">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Step 4</strong></div><button type="button" class="pbq-slot" data-bank="order" data-answer="plan">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Step 5</strong></div><button type="button" class="pbq-slot" data-bank="order" data-answer="implement">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Step 6</strong></div><button type="button" class="pbq-slot" data-bank="order" data-answer="verify">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><strong>Step 7</strong></div><button type="button" class="pbq-slot" data-bank="order" data-answer="document">Drop step</button></div>
+    </div>
+
+    <div class="pbq-step">Part 2. Match the actions</div>
+    <div class="pbq-bank" data-bank="apply">
+      <div class="pbq-bank-label">Steps</div>
+      <button type="button" class="pbq-chip" data-value="plan">Plan of action</button>
+      <button type="button" class="pbq-chip" data-value="identify">Identify the problem</button>
+      <button type="button" class="pbq-chip" data-value="document">Document</button>
+      <button type="button" class="pbq-chip" data-value="test">Test the theory</button>
+      <button type="button" class="pbq-chip" data-value="verify">Verify and prevent</button>
+      <button type="button" class="pbq-chip" data-value="theory">Establish a theory</button>
+      <button type="button" class="pbq-chip" data-value="implement">Implement</button>
+    </div>
+    <div class="pbq-rows">
+      <div class="pbq-row"><div class="pbq-row-text">Records the cause and the fix in the ticket and adds an article to the knowledge base.</div><button type="button" class="pbq-slot" data-bank="apply" data-answer="document">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Asks users what changed since printing last worked, and reproduces the error from their own PC.</div><button type="button" class="pbq-slot" data-bank="apply" data-answer="identify">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Restarts the print spooler service.</div><button type="button" class="pbq-slot" data-bank="apply" data-answer="implement">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Suspects, from the error message, that the print spooler service has crashed.</div><button type="button" class="pbq-slot" data-bank="apply" data-answer="theory">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Prints a test page from three departments and sets the spooler to restart automatically if it fails.</div><button type="button" class="pbq-slot" data-bank="apply" data-answer="verify">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Checks the service status on the print server and finds the spooler stopped.</div><button type="button" class="pbq-slot" data-bank="apply" data-answer="test">Drop step</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Schedules the restart for lunchtime and warns users that queued jobs will be lost.</div><button type="button" class="pbq-slot" data-bank="apply" data-answer="plan">Drop step</button></div>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>The two most-missed positions:</strong> planning (4) comes before implementing (5), and documenting is always last (7), even though good technicians take notes throughout.</li>
+        <li><strong>Theory vs test:</strong> "suspects" is a theory. "Checks and finds" is a test, because it confirms or rules out the theory.</li>
+        <li><strong>Plan vs implement:</strong> choosing a time and warning users about side effects is planning. "Identify potential effects" is part of step 4.</li>
+        <li><strong>Verify and prevent</strong> go together in step 6: confirm it works for everyone, then stop it happening again.</li>
+      </ul>
+      <p>The full methodology is on <a href="#" class="inline-nav" data-path="netplus/domain5/obj-5-1">objective 5.1</a>.</p>
+    </div>
+  </div>
+</div>

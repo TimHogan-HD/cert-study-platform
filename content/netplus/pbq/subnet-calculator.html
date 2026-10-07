@@ -1,0 +1,61 @@
+<div class="section-eyebrow">PBQ Lab · Objective 1.7</div>
+<h1 class="section-title">Subnet Calculator &amp; Drill</h1>
+<p class="section-sub">Check your manual work with the calculator, plan a <abbr title="Variable Length Subnet Masking">VLSM</abbr> scheme, then drill until you no longer need either.</p>
+
+<div class="callout callout-amber">
+  <div class="callout-title">Use the calculator to check, not to think</div>
+  Don't count on having a subnet calculator in the exam. Work each problem by hand first (the <a href="#" class="inline-nav" data-path="netplus/domain1/obj-1-7">magic number method on 1.7</a> is the fastest), then type it in here to confirm. The binary view shows exactly where the network bits stop and the host bits start.
+</div>
+
+<h2>Subnet calculator</h2>
+<div class="lab-panel subnet-calc">
+  <div class="lab-panel-row">
+    <label><span class="pbq-label"><abbr title="Internet Protocol v4/v6">IP</abbr> address</span><input class="lab-input sc-ip" value="192.168.10.77" spellcheck="false" autocomplete="off"></label>
+    <label><span class="pbq-label">Prefix or mask</span><input class="lab-input sc-prefix" value="/26" spellcheck="false" autocomplete="off"></label>
+  </div>
+  <p class="sc-error" hidden></p>
+  <div class="sc-results"></div>
+  <div class="sc-binary"></div>
+</div>
+
+<h2>VLSM planner</h2>
+<p><abbr title="Variable Length Subnet Masking">VLSM</abbr> gives each segment the smallest subnet that holds its hosts. Allocate the largest segment first so every subnet starts on a boundary of its own size and nothing overlaps. Edit the block or the segments and the plan updates as you type. The default plan is the one you build by hand in the <a href="#" class="inline-nav" data-path="netplus/pbq/ip-addressing">IP addressing PBQ</a>, so try that first if you want to work it out yourself.</p>
+<div class="lab-panel vlsm" data-segments="Sales:60,Engineering:28,Management:12,WAN link:2">
+  <div class="lab-panel-row">
+    <label><span class="pbq-label">Address block</span><input class="lab-input vlsm-base" value="192.168.50.0/24" spellcheck="false" autocomplete="off"></label>
+  </div>
+  <div class="pbq-label">Segments and the hosts each one needs</div>
+  <div class="vlsm-rows"></div>
+  <button type="button" class="vlsm-add">+ Add segment</button>
+  <div class="vlsm-out"></div>
+</div>
+
+<h2>Speed drill</h2>
+<p>Each question is a host address with a prefix. Find the subnet it belongs to. Aim for under 30 seconds per question with no mistakes before exam day. Press Enter to check, and Enter again for the next question.</p>
+<div class="lab-panel subnet-drill">
+  <div class="lab-panel-row">
+    <label><span class="pbq-label">Difficulty</span>
+      <select class="lab-input drill-level">
+        <option value="easy">/25 to /30 (fourth octet)</option>
+        <option value="medium">/17 to /23 (third octet)</option>
+        <option value="mixed">Mixed</option>
+      </select>
+    </label>
+  </div>
+  <div class="pbq-label">Host address</div>
+  <div class="drill-q"></div>
+  <form class="drill-form">
+    <div class="drill-grid">
+      <label><span class="pbq-label">Network address</span><input class="lab-input drill-field" data-key="network" spellcheck="false" autocomplete="off"></label>
+      <label><span class="pbq-label">Broadcast address</span><input class="lab-input drill-field" data-key="broadcast" spellcheck="false" autocomplete="off"></label>
+      <label><span class="pbq-label">First usable host</span><input class="lab-input drill-field" data-key="first" spellcheck="false" autocomplete="off"></label>
+      <label><span class="pbq-label">Last usable host</span><input class="lab-input drill-field" data-key="last" spellcheck="false" autocomplete="off"></label>
+      <label><span class="pbq-label">Usable hosts</span><input class="lab-input drill-field" data-key="hosts" inputmode="numeric" spellcheck="false" autocomplete="off"></label>
+    </div>
+    <div class="pbq-actions">
+      <button type="submit" class="pbq-check">Check</button>
+      <button type="button" class="drill-next">New question</button>
+    </div>
+  </form>
+  <div class="drill-status"></div>
+</div>

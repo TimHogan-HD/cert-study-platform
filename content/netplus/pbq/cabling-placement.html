@@ -1,0 +1,143 @@
+<div class="section-eyebrow">PBQ Lab · Objectives 1.2, 1.5, 1.6</div>
+<h1 class="section-title">Cabling &amp; Device Placement</h1>
+<p class="section-sub">Choose the media and connector for each link, then put each network device where it belongs.</p>
+
+<!-- ── PBQ 1: cabling and connectors ────────────────────────── -->
+<div class="pbq" data-minutes="7">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 1 · Cabling</div><h2>Cable the new campus</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>You are specifying the cabling for a new campus. Choose the most appropriate cable for each link, then the connector for each description. Use the cheapest option that meets the requirement. Not every item is used.</p>
+    </div>
+
+    <div class="pbq-step">Step 1. Cables</div>
+    <div class="pbq-bank" data-bank="cable">
+      <div class="pbq-bank-label">Cables</div>
+      <button type="button" class="pbq-chip" data-value="smf">Single-mode fiber</button>
+      <button type="button" class="pbq-chip" data-value="cat5e">Cat 5e PVC</button>
+      <button type="button" class="pbq-chip" data-value="mmf">Multimode fiber (OM4)</button>
+      <button type="button" class="pbq-chip" data-value="dac">Twinax DAC</button>
+      <button type="button" class="pbq-chip" data-value="plenum">Cat 6 plenum-rated</button>
+      <button type="button" class="pbq-chip" data-value="rg59">RG-59 coax</button>
+      <button type="button" class="pbq-chip" data-value="stp">Cat 6 shielded twisted pair</button>
+      <button type="button" class="pbq-chip" data-value="rg6">RG-6 coax</button>
+    </div>
+    <div class="pbq-rows">
+      <div class="pbq-row"><div class="pbq-row-text">10 Gbps backbone between two buildings 1.8 km apart</div><button type="button" class="pbq-slot" data-bank="cable" data-answer="smf">Drop cable</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">10 Gbps between core switches in two data center rows 250 m apart, using short-range (SR) optics</div><button type="button" class="pbq-slot" data-bank="cable" data-answer="mmf">Drop cable</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">25 Gbps from a server to the top-of-rack switch 2 m above it</div><button type="button" class="pbq-slot" data-bank="cable" data-answer="dac">Drop cable</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">1 Gbps office drops run through the air-handling space above the drop ceiling</div><button type="button" class="pbq-slot" data-bank="cable" data-answer="plenum">Drop cable</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">1 Gbps run across a factory floor beside large electric motors</div><button type="button" class="pbq-slot" data-bank="cable" data-answer="stp">Drop cable</button></div>
+      <div class="pbq-row"><div class="pbq-row-text"><abbr title="Internet Service Provider">ISP</abbr> cable modem connection from the demarc</div><button type="button" class="pbq-slot" data-bank="cable" data-answer="rg6">Drop cable</button></div>
+    </div>
+
+    <div class="pbq-step">Step 2. Connectors</div>
+    <div class="pbq-bank" data-bank="conn">
+      <div class="pbq-bank-label">Connectors</div>
+      <button type="button" class="pbq-chip" data-value="sc">SC</button>
+      <button type="button" class="pbq-chip" data-value="rj45">RJ45</button>
+      <button type="button" class="pbq-chip" data-value="mpo">MPO</button>
+      <button type="button" class="pbq-chip" data-value="lc">LC</button>
+      <button type="button" class="pbq-chip" data-value="rj11">RJ11</button>
+      <button type="button" class="pbq-chip" data-value="f">F-type</button>
+      <button type="button" class="pbq-chip" data-value="st">ST</button>
+    </div>
+    <div class="pbq-rows">
+      <div class="pbq-row"><div class="pbq-row-text">Small-form-factor duplex fiber connector used on most SFP and SFP+ transceivers</div><button type="button" class="pbq-slot" data-bank="conn" data-answer="lc">Drop connector</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Square push-pull fiber connector, larger than LC</div><button type="button" class="pbq-slot" data-bank="conn" data-answer="sc">Drop connector</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Round fiber connector with a bayonet twist-lock</div><button type="button" class="pbq-slot" data-bank="conn" data-answer="st">Drop connector</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Multi-fiber array connector for 40 and 100 Gbps parallel optics</div><button type="button" class="pbq-slot" data-bank="conn" data-answer="mpo">Drop connector</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Threaded coaxial connector on the cable modem</div><button type="button" class="pbq-slot" data-bank="conn" data-answer="f">Drop connector</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">8-pin modular connector on the office drops</div><button type="button" class="pbq-slot" data-bank="conn" data-answer="rj45">Drop connector</button></div>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>1.8 km:</strong> beyond copper and multimode at 10 Gbps. Single-mode fiber covers kilometres.</li>
+        <li><strong>250 m with SR optics:</strong> SR transceivers are multimode. OM4 carries 10 Gbps up to about 400 m and is cheaper to light than single-mode.</li>
+        <li><strong>2 m in the rack:</strong> a direct attach copper (twinax) cable is the cheapest high-speed link at that distance. It has transceivers built into each end.</li>
+        <li><strong>Air-handling space:</strong> that is a plenum, and fire code requires plenum-rated (CMP) jacket, which gives off less toxic smoke. PVC is not allowed there.</li>
+        <li><strong>Electric motors</strong> create <abbr title="Electromagnetic Interference">EMI</abbr>. Shielded twisted pair protects the signal. Cat 5e PVC is unshielded.</li>
+        <li><strong>Cable modem:</strong> RG-6 is the standard for broadband and satellite. RG-59 is an older, thinner cable used for short analog video runs.</li>
+        <li><strong>Connectors:</strong> LC is "little connector", SC is "square/stick and click", ST is "stick and twist". MPO holds many fibers, commonly 12 or 24, in one ferrule. RJ11 is the 6-position telephone connector and does not fit an Ethernet drop.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── PBQ 2: device placement ──────────────────────────────── -->
+<div class="pbq" data-minutes="6">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 2 · Network design</div><h2>Place the devices</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>Drag each device to the position in the diagram that matches its description. Each device is used once, and two are not used.</p>
+    </div>
+
+    <div class="pbq-bank">
+      <div class="pbq-bank-label">Devices</div>
+      <button type="button" class="pbq-chip" data-value="lb">Load balancer</button>
+      <button type="button" class="pbq-chip" data-value="hub">Hub</button>
+      <button type="button" class="pbq-chip" data-value="fw">Next-generation firewall</button>
+      <button type="button" class="pbq-chip" data-value="ids">IDS sensor</button>
+      <button type="button" class="pbq-chip" data-value="vpn">VPN headend</button>
+      <button type="button" class="pbq-chip" data-value="modem">Modem</button>
+      <button type="button" class="pbq-chip" data-value="wlc">Wireless LAN controller</button>
+      <button type="button" class="pbq-chip" data-value="proxy">Proxy server</button>
+    </div>
+
+    <div class="pbq-zone" data-zone="internet">
+      <div class="pbq-zone-label">Internet edge</div>
+      <div class="pbq-flow">
+        <div class="pbq-node"><strong>ISP router</strong>Internet</div>
+        <span class="pbq-arrow">→</span>
+        <div class="pbq-node">Filters traffic between the internet, DMZ, and LAN by application and user<button type="button" class="pbq-slot" data-answer="fw">Drop device</button></div>
+        <span class="pbq-arrow">·</span>
+        <div class="pbq-node">Terminates remote employees' encrypted tunnels<button type="button" class="pbq-slot" data-answer="vpn">Drop device</button></div>
+      </div>
+    </div>
+    <div class="pbq-zone" data-zone="dmz">
+      <div class="pbq-zone-label">DMZ</div>
+      <div class="pbq-flow">
+        <div class="pbq-node">Spreads <abbr title="HTTP Secure">HTTPS</abbr> sessions across three web servers and stops sending to one that fails a health check<button type="button" class="pbq-slot" data-answer="lb">Drop device</button></div>
+        <span class="pbq-arrow">→</span>
+        <div class="pbq-node"><strong>Web servers</strong>×3</div>
+      </div>
+    </div>
+    <div class="pbq-zone" data-zone="lan">
+      <div class="pbq-zone-label">Internal LAN</div>
+      <div class="pbq-flow">
+        <div class="pbq-node"><strong>Core switch</strong><abbr title="Switched Port Analyzer">SPAN</abbr> port configured</div>
+        <span class="pbq-arrow">→</span>
+        <div class="pbq-node">Receives a copy of traffic from the SPAN port and alerts on attack signatures without blocking<button type="button" class="pbq-slot" data-answer="ids">Drop device</button></div>
+        <span class="pbq-arrow">·</span>
+        <div class="pbq-node">Manages the configuration and roaming of 40 lightweight APs<button type="button" class="pbq-slot" data-answer="wlc">Drop device</button></div>
+        <span class="pbq-arrow">·</span>
+        <div class="pbq-node">Makes web requests on behalf of users, filtering content and caching pages<button type="button" class="pbq-slot" data-answer="proxy">Drop device</button></div>
+      </div>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>Next-generation firewall</strong> at the edge: it separates the three zones, and "by application and user" is what makes it next-generation rather than a plain port filter.</li>
+        <li><strong>VPN headend</strong> (concentrator) at the edge, where remote users' tunnels arrive from the internet.</li>
+        <li><strong>Load balancer</strong> in front of the server farm. Health checks are how it takes a failed server out of rotation.</li>
+        <li><strong><abbr title="Intrusion Detection System">IDS</abbr></strong>, not <abbr title="Intrusion Prevention System">IPS</abbr>: it gets a <em>copy</em> of traffic from a SPAN port, so it is out of band and can only alert. An IPS sits inline so it can block.</li>
+        <li><strong>Wireless LAN controller</strong> for lightweight APs, which depend on it for configuration.</li>
+        <li><strong>Proxy server</strong>: it makes requests on users' behalf, which is where content filtering and caching happen.</li>
+        <li><strong>Unused:</strong> a hub repeats every frame to every port and has no place in a modern design. The modem belongs on the ISP side of the router, not inside the network.</li>
+      </ul>
+    </div>
+  </div>
+</div>

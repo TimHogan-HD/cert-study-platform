@@ -9,6 +9,9 @@ import { initDayTabs } from './components/day-tabs.js';
 import { initChecklist } from './components/checklist.js';
 import { initBinaryBits } from './components/binary-bits.js';
 import { initGuidedSubnetting } from './components/guided-subnetting.js';
+import { initPbq } from './components/pbq.js';
+import { initPbqTerminals } from './components/pbq-terminal.js';
+import { initSubnetTools } from './components/subnet-calc.js';
 import { ALIASES } from './catalog.js';
 import { renderSidebar, showCert, certFor } from './sidebar.js';
 
@@ -16,7 +19,7 @@ import { renderSidebar, showCert, certFor } from './sidebar.js';
    no-op when its markup is absent; the ones that persist per-page state take the path. */
 const COMPONENTS = [
   initAccordions, initToggleGroups, initFlashcards, initMatching, initAIExplain, initFlips,
-  initDayTabs, initChecklist, initBinaryBits, initGuidedSubnetting,
+  initDayTabs, initChecklist, initBinaryBits, initGuidedSubnetting, initPbq, initPbqTerminals, initSubnetTools,
 ];
 
 renderSidebar(document.querySelector('.sidebar'));
@@ -242,9 +245,9 @@ function injectPrevNext(path) {
 
 /* ── Domain sticky sub-nav bar + scroll-spy ─────────────────── */
 function injectDomainSubNav(path) {
-  /* Only show for domain objective pages, e.g. netplus/domain1/obj-1-1 */
+  /* Only for pages grouped under a sidebar section, e.g. netplus/domain1/obj-1-1 or netplus/pbq/wireless */
   const parts = path ? path.split('/') : [];
-  if (parts.length < 3 || !parts[1].startsWith('domain') || !parts[2].startsWith('obj-')) return;
+  if (parts.length < 3) return;
 
   /* Collect sibling obj-links from the matching domain-subnav in the sidebar */
   const activeLink = document.querySelector(`.obj-link[data-path="${path}"]`);
