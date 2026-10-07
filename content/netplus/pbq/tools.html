@@ -1,0 +1,105 @@
+<div class="section-eyebrow">PBQ Lab · Objectives 5.2, 5.5</div>
+<h1 class="section-title">Tools &amp; Cable Faults</h1>
+<p class="section-sub">Pick the right tool for each job, then diagnose physical-layer faults from their symptoms.</p>
+
+<!-- ── PBQ 1: pick the tool ─────────────────────────────────── -->
+<div class="pbq" data-minutes="5">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 1 · Hardware tools</div><h2>Pick the right tool</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>A technician has seven jobs today.</p>
+      <div class="pbq-brief-label">Your task</div>
+      <p>Drag the best tool onto each job. Two tools are not used.</p>
+    </div>
+    <div class="pbq-bank">
+      <div class="pbq-bank-label">Tools</div>
+      <button type="button" class="pbq-chip" data-value="tap">Network tap</button>
+      <button type="button" class="pbq-chip" data-value="crimper">Crimper</button>
+      <button type="button" class="pbq-chip" data-value="tester">Cable tester</button>
+      <button type="button" class="pbq-chip" data-value="otdr">OTDR</button>
+      <button type="button" class="pbq-chip" data-value="toner">Toner probe</button>
+      <button type="button" class="pbq-chip" data-value="speed">Speed tester</button>
+      <button type="button" class="pbq-chip" data-value="vfl">Visual fault locator</button>
+      <button type="button" class="pbq-chip" data-value="loopback">Loopback plug</button>
+      <button type="button" class="pbq-chip" data-value="wifi">Wi-Fi analyzer</button>
+    </div>
+    <div class="pbq-rows">
+      <div class="pbq-row"><div class="pbq-row-text">Find which of 200 unlabelled cables in the wiring closet runs to desk 4B.</div><button type="button" class="pbq-slot" data-answer="toner">Drop tool</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Confirm a batch of new patch cables has all four pairs in the right order with no opens or shorts.</div><button type="button" class="pbq-slot" data-answer="tester">Drop tool</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Find a crack in a 3 m fiber patch lead by shining a red light down it and looking for the glow.</div><button type="button" class="pbq-slot" data-answer="vfl">Drop tool</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Locate a break 1.4 km along an outdoor single-mode fiber run.</div><button type="button" class="pbq-slot" data-answer="otdr">Drop tool</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Give an <abbr title="Intrusion Detection System">IDS</abbr> a complete copy of an uplink's traffic, including errored frames, without changing the switch configuration.</div><button type="button" class="pbq-slot" data-answer="tap">Drop tool</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">See which channels neighbouring networks use around a slow conference room.</div><button type="button" class="pbq-slot" data-answer="wifi">Drop tool</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">Check whether a switch port can transmit and receive with nothing else plugged into it.</div><button type="button" class="pbq-slot" data-answer="loopback">Drop tool</button></div>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>Toner probe:</strong> put the tone on the cable at the desk and listen for it in the closet.</li>
+        <li><strong>Cable tester:</strong> its wiremap shows opens, shorts, and swapped or split pairs.</li>
+        <li><strong>Visual fault locator:</strong> red laser light leaks out at a break or tight bend. It only reaches a few kilometres and only shows faults you can see, so it suits patch leads.</li>
+        <li><strong><abbr title="Optical Time-Domain Reflectometer">OTDR</abbr>:</strong> sends pulses down the fiber and times the reflections, giving the distance to a break on long runs.</li>
+        <li><strong>Network tap:</strong> a passive copy at the hardware level. A <abbr title="Switched Port Analyzer">SPAN</abbr> port needs switch configuration and can drop errored frames when busy.</li>
+        <li><strong>Wi-Fi analyzer:</strong> shows nearby networks, their channels, and their signal strength.</li>
+        <li><strong>Loopback plug:</strong> connects a port's transmit pins to its receive pins, so a working port brings its link up.</li>
+        <li><strong>Unused:</strong> a crimper attaches connectors and tests nothing, and a speed tester measures throughput, not cabling.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 5.5 lists the <em>toner, cable tester, taps, Wi-Fi analyzer,</em> and <em>visual fault locator</em> as hardware tools. The <strong>OTDR</strong>, <strong>loopback plug</strong>, and <strong>crimper</strong> are not enumerated. They are kept because a cabling question can name the right tool for a fault without naming the fault, and these are the tools that do that work in practice.</p>
+
+<!-- ── PBQ 2: cable and interface faults ────────────────────── -->
+<div class="pbq" data-minutes="5">
+  <div class="pbq-head">
+    <div><div class="pbq-kicker">PBQ 2 · Physical troubleshooting</div><h2>Diagnose the cable faults</h2></div>
+    <span class="pbq-timer"></span>
+  </div>
+  <div class="pbq-body">
+    <div class="pbq-scenario">
+      <p>Six physical-layer tickets are waiting.</p>
+      <div class="pbq-brief-label">Your task</div>
+      <p>Drag the most likely cause onto each ticket. Two causes are not used.</p>
+    </div>
+    <div class="pbq-bank">
+      <div class="pbq-bank-label">Causes</div>
+      <button type="button" class="pbq-chip" data-value="crosstalk">Crosstalk</button>
+      <button type="button" class="pbq-chip" data-value="poe">PoE power budget exceeded</button>
+      <button type="button" class="pbq-chip" data-value="txrx">TX/RX transposed</button>
+      <button type="button" class="pbq-chip" data-value="attenuation">Attenuation</button>
+      <button type="button" class="pbq-chip" data-value="transceiver">Transceiver mismatch</button>
+      <button type="button" class="pbq-chip" data-value="interference">Interference</button>
+      <button type="button" class="pbq-chip" data-value="cable">Incorrect cable category</button>
+      <button type="button" class="pbq-chip" data-value="termination">Improper termination</button>
+    </div>
+    <div class="pbq-rows">
+      <div class="pbq-row"><div class="pbq-row-text">A fiber link shows no light received at either end after re-patching. Swapping the two strands at one end brings it up.</div><button type="button" class="pbq-slot" data-answer="txrx">Drop cause</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">A 10GBASE-LR module in one switch is cabled to a 10GBASE-SR module in the other. The link never comes up.</div><button type="button" class="pbq-slot" data-answer="transceiver">Drop cause</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">A 95 m horizontal run plus a 10 m patch cord at each end gives constant errors.</div><button type="button" class="pbq-slot" data-answer="attenuation">Drop cause</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">A new jack was punched down with the pairs untwisted 5 cm back and one pair on the wrong pins. It fails the cable tester.</div><button type="button" class="pbq-slot" data-answer="termination">Drop cause</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">On a 24-port switch, <abbr title="Internet Protocol v4/v6">IP</abbr> phones start rebooting once the 20th phone is plugged in.</div><button type="button" class="pbq-slot" data-answer="poe">Drop cause</button></div>
+      <div class="pbq-row"><div class="pbq-row-text">An 80 m run of existing Cat 5e works at 1 Gbps but fails when the ports are upgraded to 10 Gbps.</div><button type="button" class="pbq-slot" data-answer="cable">Drop cause</button></div>
+    </div>
+
+    <div class="pbq-actions"><button type="button" class="pbq-check">Check answers</button><button type="button" class="pbq-reveal">Show answers</button><button type="button" class="pbq-reset">Reset</button></div>
+    <div class="pbq-result" hidden></div>
+    <div class="pbq-explain" hidden>
+      <div class="pbq-explain-title">Explanation</div>
+      <ul>
+        <li><strong>TX/RX transposed:</strong> each end is transmitting into the other end's transmitter. Swapping the strands puts transmit opposite receive.</li>
+        <li><strong>Transceiver mismatch:</strong> LR is single-mode at 1310 nm and SR is multimode at 850 nm. Both ends must use the same type.</li>
+        <li><strong>Attenuation:</strong> 95 + 10 + 10 = 115 m, beyond the 100 m limit for twisted pair, so the signal arrives too weak.</li>
+        <li><strong>Improper termination:</strong> the fault is in how the jack was punched down. Untwisting causes crosstalk as a side effect, but the cause, and the fix, is re-terminating the jack.</li>
+        <li><strong>PoE budget:</strong> the switch's total PoE power ran out, so it cuts power to ports.</li>
+        <li><strong>Incorrect cable category:</strong> Cat 5e is rated for 1 Gbps. 10 Gbps over 80 m needs Cat 6a.</li>
+        <li><strong>Unused:</strong> crosstalk and interference both cause errors, but nothing in these tickets points to them over the more specific causes.</li>
+      </ul>
+    </div>
+  </div>
+</div>

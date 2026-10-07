@@ -22,10 +22,13 @@ const OS = {
   },
 };
 
+/* "a|b" lists alternative spellings; " | " with spaces is the IOS output pipe and stays in the command. */
+const spellings = cmd => cmd.split(/(?<! )\|(?! )/);
+
 function commandsOf(host) {
   return [...host.querySelectorAll('template[data-cmd]')].map(t => ({
-    patterns: t.dataset.cmd.split('|').map(p => words(p.toLowerCase())),
-    usage: t.dataset.cmd.split('|')[0].replace(/\*/g, '<target>'),
+    patterns: spellings(t.dataset.cmd).map(p => words(p.toLowerCase())),
+    usage: spellings(t.dataset.cmd)[0].replace(/\*/g, '<target>'),
     html: t.innerHTML.replace(/^\n/, '').replace(/\s+$/, ''),
   }));
 }
