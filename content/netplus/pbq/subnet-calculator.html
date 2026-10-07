@@ -1,43 +1,40 @@
 <div class="section-eyebrow">PBQ Lab · Objective 1.7</div>
 <h1 class="section-title">Subnet Calculator &amp; Drill</h1>
-<p class="section-sub">Check your manual work with the calculator, plan a <abbr title="Variable Length Subnet Masking">VLSM</abbr> scheme, then drill until you no longer need either.</p>
+<p class="section-sub">Three tools: a calculator that shows its working, a timed drill, and a planner for splitting one network between several groups.</p>
 
-<div class="callout callout-amber">
-  <div class="callout-title">Use the calculator to check, not to think</div>
-  Don't count on having a subnet calculator in the exam. Work each problem by hand first (the <a href="#" class="inline-nav" data-path="netplus/domain1/obj-1-7">magic number method on 1.7</a> is the fastest), then type it in here to confirm. The binary view shows exactly where the network bits stop and the host bits start.
+<div class="pbq-jump">
+  <a href="#" class="inline-nav" data-path="netplus/pbq/subnet-calculator" data-anchor="sc-calc">1. Calculator</a>
+  <a href="#" class="inline-nav" data-path="netplus/pbq/subnet-calculator" data-anchor="sc-drill">2. Speed drill</a>
+  <a href="#" class="inline-nav" data-path="netplus/pbq/subnet-calculator" data-anchor="sc-vlsm">3. Subnet planner</a>
 </div>
 
-<h2>Subnet calculator</h2>
+<h2 id="sc-calc">1. Subnet calculator</h2>
+<ul class="pbq-howto">
+  <li><strong>Use it to check your work.</strong> The exam gives you no subnet calculator, so solve each problem by hand first.</li>
+  <li><strong>Type an address and a prefix.</strong> The answer updates as you type. You can give the mask as <code>/26</code>, <code>26</code>, or <code>255.255.255.192</code>.</li>
+  <li><strong>Read "How to work it out by hand".</strong> It uses the same magic number method taught on <a href="#" class="inline-nav" data-path="netplus/domain1/obj-1-7">objective 1.7</a>, step by step.</li>
+</ul>
 <div class="lab-panel subnet-calc">
   <div class="lab-panel-row">
     <label><span class="pbq-label"><abbr title="Internet Protocol v4/v6">IP</abbr> address</span><input class="lab-input sc-ip" value="192.168.10.77" spellcheck="false" autocomplete="off"></label>
     <label><span class="pbq-label">Prefix or mask</span><input class="lab-input sc-prefix" value="/26" spellcheck="false" autocomplete="off"></label>
   </div>
   <p class="sc-error" hidden></p>
-  <div class="sc-results"></div>
-  <div class="sc-binary"></div>
+  <div class="sc-out"></div>
 </div>
 
-<h2>VLSM planner</h2>
-<p><abbr title="Variable Length Subnet Masking">VLSM</abbr> gives each segment the smallest subnet that holds its hosts. Allocate the largest segment first so every subnet starts on a boundary of its own size and nothing overlaps. Edit the block or the segments and the plan updates as you type. The default plan is the one you build by hand in the <a href="#" class="inline-nav" data-path="netplus/pbq/ip-addressing">IP addressing PBQ</a>, so try that first if you want to work it out yourself.</p>
-<div class="lab-panel vlsm" data-segments="Sales:60,Engineering:28,Management:12,WAN link:2">
-  <div class="lab-panel-row">
-    <label><span class="pbq-label">Address block</span><input class="lab-input vlsm-base" value="192.168.50.0/24" spellcheck="false" autocomplete="off"></label>
-  </div>
-  <div class="pbq-label">Segments and the hosts each one needs</div>
-  <div class="vlsm-rows"></div>
-  <button type="button" class="vlsm-add">+ Add segment</button>
-  <div class="vlsm-out"></div>
-</div>
-
-<h2>Speed drill</h2>
-<p>Each question is a host address with a prefix. Find the subnet it belongs to. Aim for under 30 seconds per question with no mistakes before exam day. Press Enter to check, and Enter again for the next question.</p>
+<h2 id="sc-drill">2. Speed drill</h2>
+<ul class="pbq-howto">
+  <li><strong>You get a host address and a prefix.</strong> Fill in the five boxes for the subnet it belongs to.</li>
+  <li><strong>Press Enter to check,</strong> then Enter again for the next question.</li>
+  <li><strong>Target:</strong> under 30 seconds per question with no mistakes. Start on the easy level, which only changes the 4th octet.</li>
+</ul>
 <div class="lab-panel subnet-drill">
   <div class="lab-panel-row">
     <label><span class="pbq-label">Difficulty</span>
       <select class="lab-input drill-level">
-        <option value="easy">/25 to /30 (fourth octet)</option>
-        <option value="medium">/17 to /23 (third octet)</option>
+        <option value="easy">Easy: /25 to /30 (4th octet)</option>
+        <option value="medium">Harder: /17 to /23 (3rd octet)</option>
         <option value="mixed">Mixed</option>
       </select>
     </label>
@@ -58,4 +55,22 @@
     </div>
   </form>
   <div class="drill-status"></div>
+</div>
+
+<h2 id="sc-vlsm">3. Subnet planner</h2>
+<p>Often you get one network and have to split it between several groups that need different numbers of addresses. Giving each group a subnet sized to fit, instead of making every subnet the same size, is called <strong><abbr title="Variable Length Subnet Masking">VLSM</abbr></strong>. The <a href="#" class="inline-nav" data-path="netplus/pbq/ip-addressing">IP addressing PBQ</a> asks you to do exactly this. The method has three steps:</p>
+<ol class="pbq-howto">
+  <li><strong>Add 2 to the hosts each group needs.</strong> Every subnet loses two addresses: the network address and the broadcast address.</li>
+  <li><strong>Round up to the next power of 2</strong> (4, 8, 16, 32, 64, 128, 256). That is the subnet size, and it gives the prefix: 64 addresses is a /26, 32 is a /27, 16 is a /28.</li>
+  <li><strong>Hand out subnets biggest group first,</strong> each one starting where the last one ended. Going biggest first means every subnet starts on a boundary that fits it, so nothing overlaps.</li>
+</ol>
+<p>Change the groups or the network below and the plan updates. The second column shows steps 1 and 2 for each group.</p>
+<div class="lab-panel vlsm" data-segments="Sales:60,Engineering:28,Management:12,WAN link:2">
+  <div class="lab-panel-row">
+    <label><span class="pbq-label">Network to split</span><input class="lab-input vlsm-base" value="192.168.50.0/24" spellcheck="false" autocomplete="off"></label>
+  </div>
+  <div class="pbq-label">Groups and the hosts each one needs</div>
+  <div class="vlsm-rows"></div>
+  <button type="button" class="vlsm-add">+ Add group</button>
+  <div class="vlsm-out"></div>
 </div>

@@ -2,10 +2,12 @@
 <h1 class="section-title">CLI Troubleshooting Labs</h1>
 <p class="section-sub">Four console simulations. Investigate with the commands each device accepts, then answer the questions underneath.</p>
 
-<div class="callout callout-blue">
-  <div class="callout-title">How to work a console PBQ</div>
-  Run every command on every device before you answer. Type <code>help</code> on a device to list what it accepts. Cisco devices take abbreviations (<code>sh mac add</code>, <code>sh ip int br</code>), and the up arrow recalls your last command. Nothing in the output is highlighted for you, just as in the exam.
-</div>
+<ul class="pbq-howto">
+  <li><strong>Switch devices with the tabs</strong> above each console, then type a command and press Enter.</li>
+  <li><strong>Type <code>help</code></strong> to list the commands a device accepts. Cisco devices also take short forms such as <code>sh ip int br</code>.</li>
+  <li><strong>Run every command on every device before you answer.</strong> Nothing in the output is highlighted for you, just as in the exam.</li>
+  <li><strong>Press the up arrow</strong> to repeat an earlier command.</li>
+</ul>
 
 <!-- ── Lab 1: network discovery ─────────────────────────────── -->
 <div class="pbq" data-minutes="8">
@@ -15,8 +17,15 @@
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>A print job keeps failing to reach a network printer at <strong>10.10.20.57</strong>. Before you walk over to it, find out exactly where it is plugged in. You have console access to the router R1 and the two switches SW1 and SW2.</p>
-      <p>Identify the printer's MAC address, the switch and port it connects to, and its VLAN.</p>
+      <p>Print jobs keep failing to reach the printer at <strong>10.10.20.57</strong>. Find out exactly where it is plugged in before you walk over to it.</p>
+      <div class="pbq-brief-label">You can reach</div>
+      <p>Router R1 and switches SW1 and SW2.</p>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Find the printer's MAC address.</li>
+        <li>Find the switch and the port it is plugged into.</li>
+        <li>Find its VLAN.</li>
+      </ol>
     </div>
 
     <div class="terminal pbq-term">
@@ -189,8 +198,18 @@ SW1              Gig 0/1           129             S I    WS-C2960  Gig 0/2
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>Yesterday a technician moved workstation ACCT-07 to a different port on the access switch SW-ACC. Today the user cannot reach file shares, email, or the internet. Every other PC in Accounting works. Accounting is VLAN 30 (10.10.30.0/24), and R1 is the <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> server for that VLAN.</p>
-      <p>Investigate from the PC, the access switch, and the router, then identify the cause and the fix.</p>
+      <p>PC ACCT-07 cannot reach file shares, email, or the internet. Every other Accounting PC works.</p>
+      <div class="pbq-brief-label">What you know</div>
+      <ul>
+        <li>Yesterday a technician moved ACCT-07 to a different port on switch SW-ACC.</li>
+        <li>Accounting is VLAN 30, 10.10.30.0/24.</li>
+        <li>R1 is the <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr> server for VLAN 30.</li>
+      </ul>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Investigate from ACCT-07, SW-ACC, and R1.</li>
+        <li>Answer the three questions below the console.</li>
+      </ol>
     </div>
 
     <div class="terminal pbq-term">
@@ -397,8 +416,17 @@ IP address      Client-ID/              Lease expiration        Type
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>A user on HR-02 says no websites load, internal or external, and the intranet at <strong>intranet.acme.internal</strong> times out. The user at HR-03 on the next desk has no problems. Last month the old <abbr title="Domain Name System">DNS</abbr> server 10.20.9.53 was retired and replaced by 10.20.0.53.</p>
-      <p>Use both PCs to find out what is different about HR-02.</p>
+      <p>On PC HR-02, no websites load and the intranet at <strong>intranet.acme.internal</strong> times out. HR-03, on the next desk, works fine.</p>
+      <div class="pbq-brief-label">What you know</div>
+      <ul>
+        <li>Last month the old <abbr title="Domain Name System">DNS</abbr> server, 10.20.9.53, was retired.</li>
+        <li>The new DNS server is 10.20.0.53.</li>
+      </ul>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Run the same commands on HR-02 and HR-03 and compare the results.</li>
+        <li>Answer the three questions below the console.</li>
+      </ol>
     </div>
 
     <div class="terminal pbq-term">
@@ -614,8 +642,17 @@ Ping statistics for {1}:
   </div>
   <div class="pbq-body">
     <div class="pbq-scenario">
-      <p>Since a core switch was swapped over the weekend, every user on the third floor reports that file copies to the data center crawl and video calls stutter. The floor switch SW-FLOOR3 uplinks to SW-CORE. Nobody has touched SW-FLOOR3.</p>
-      <p>Compare the two ends of the uplink and decide what to change.</p>
+      <p>Everyone on the third floor says file copies crawl and video calls stutter.</p>
+      <div class="pbq-brief-label">What you know</div>
+      <ul>
+        <li>The third-floor switch SW-FLOOR3 connects to SW-CORE with one uplink cable.</li>
+        <li>SW-CORE was replaced over the weekend. Nobody has touched SW-FLOOR3.</li>
+      </ul>
+      <div class="pbq-brief-label">Your task</div>
+      <ol>
+        <li>Compare the two ends of the uplink.</li>
+        <li>Answer the three questions below the console.</li>
+      </ol>
     </div>
 
     <div class="terminal pbq-term">

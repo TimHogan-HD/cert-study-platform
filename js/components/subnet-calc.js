@@ -1,50 +1,91 @@
 /* subnet-calc.js — subnet calculator, VLSM planner and timed subnetting drill (PBQ section). */
-import { parseIp, parsePrefix, parseCidr, fmtIp, subnet, prefixFor, classify, toBinary } from '../ipv4.js';
+import { parseIp, parsePrefix, parseCidr, fmtIp, subnet, prefixFor, classify } from '../ipv4.js';
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const rows = pairs => pairs.map(([k, v]) => `<div class="sc-key">${k}</div><div class="sc-val">${v}</div>`).join('');
+const octets = n => [24, 16, 8, 0].map(s => (n >>> s) & 255);
+const ORDINAL = ['1st', '2nd', '3rd', '4th'];
+
+/* The magic number method from objective 1.7, written out for this address. */
+function steps(ip, prefix, s) {
+  const [net, bc, first, last] = [s.network, s.broadcast, s.first, s.last].map(fmtIp);
+  if (prefix === 32) return ['A /32 is a single host address (a host route). There is no network or broadcast address to find.'];
+  if (prefix === 31) return [`A /31 is a point-to-point link (RFC 3021). Both addresses, ${first} and ${last}, are usable and there is no broadcast.`];
+  const usable = `Usable hosts = 2<sup>${32 - prefix}</sup> − 2 = <strong>${s.usable.toLocaleString()}</strong>, from ${first} to ${last}.`;
+  const i = Math.floor(prefix / 8), bits = prefix % 8;
+  if (bits === 0) {
+    return [
+      `/${prefix} ends exactly at the end of the ${ORDINAL[i - 1]} octet, so the first ${i} octet${i > 1 ? 's are' : ' is'} network and the rest are host.`,
+      `Network address: set every host octet to 0. <strong>${net}</strong>`,
+      `Broadcast address: set every host octet to 255. <strong>${bc}</strong>`,
+      usable,
+    ];
+  }
+  const block = 2 ** (8 - bits), mask = 256 - block, v = octets(ip)[i];
+  const start = Math.floor(v / block) * block;
+  const starts = [0, block, block * 2, block * 3].filter(n => n < 256).join(', ');
+  const after = i < 3 ? ', and every octet after it becomes' : '';
+  return [
+    `/${prefix} is ${bits} bit${bits > 1 ? 's' : ''} into the ${ORDINAL[i]} octet, so that is the octet where network meets host. Its mask value is ${[128, 64, 32, 16, 8, 4, 2, 1].slice(0, bits).join(' + ')} = <strong>${mask}</strong>.`,
+    `Block size (the magic number) = 256 − ${mask} = <strong>${block}</strong>. Subnets in that octet start at ${starts}${block * 4 < 256 ? ', …' : ''}`,
+    `The address has <strong>${v}</strong> in the ${ORDINAL[i]} octet. The last block start at or below ${v} is ${start}${after}${i < 3 ? ' 0' : ''}. Network address: <strong>${net}</strong>`,
+    `The next block would start at ${start + block}, so this one ends at ${start + block - 1}${after}${i < 3 ? ' 255' : ''}. Broadcast address: <strong>${bc}</strong>`,
+    usable,
+  ];
+}
+
+/* One octet of the 1.7 anatomy bar. A split octet colours each bit and marks the boundary. */
+function cell(value, netBits) {
+  const part = netBits === 8 ? 'net' : netBits === 0 ? 'host' : 'split';
+  const bits = value.toString(2).padStart(8, '0');
+  const bin = part === 'split'
+    ? [...bits].map((b, k) => `${k === netBits ? '<span class="ip-v2-cut">|</span>' : ''}<span data-part="${k < netBits ? 'net' : 'host'}">${b}</span>`).join('')
+    : `${bits.slice(0, 4)} ${bits.slice(4)}`;
+  return `<div class="ip-v2-cell ip-v2-cell-${part}"><div class="ip-v2-dec ip-v2-dec-${part}">${value}</div><div class="ip-v2-bin">${bin}</div></div>`;
+}
+
+function anatomy(ip, prefix, s) {
+  const netBits = [0, 1, 2, 3].map(j => Math.max(0, Math.min(8, prefix - 8 * j)));
+  const row = (label, n) => `<div class="ip-v2-row-label">${label}</div><div class="ip-v2-row">${octets(n).map((o, j) => cell(o, netBits[j])).join('')}</div>`;
+  const role = b => (b === 8 ? ['net', 'Network'] : b === 0 ? ['host', 'Host'] : ['split', `${b} network + ${8 - b} host`]);
+  return '<div class="ip-v2-container">'
+    + `<div class="ip-v2-header-row">${ORDINAL.map(o => `<div class="ip-v2-header-cell">${o} octet</div>`).join('')}</div>`
+    + row(`IP address — ${fmtIp(ip)} <code class="addr-sub">/${prefix}</code>`, ip)
+    + row(`Subnet mask — ${fmtIp(s.mask)}`, s.mask)
+    + row(`Network address (IP AND mask) — ${fmtIp(s.network)}`, s.network)
+    + `<div class="ip-v2-footer">${netBits.map(b => { const [k, t] = role(b); return `<div class="ip-v2-footer-cell"><span class="ip-v2-footer-val" data-col="${k}">${t}</span></div>`; }).join('')}</div>`
+    + '</div>'
+    + `<div class="ip-v2-legend"><span><span class="ip-v2-legend-dot" data-color="net"></span>Network bits: ${prefix}</span><span><span class="ip-v2-legend-dot" data-color="host"></span>Host bits: ${32 - prefix}</span></div>`;
+}
 
 function initCalculator(root) {
   const ipIn = root.querySelector('.sc-ip');
   const prefixIn = root.querySelector('.sc-prefix');
-  const out = root.querySelector('.sc-results');
-  const bin = root.querySelector('.sc-binary');
+  const out = root.querySelector('.sc-out');
   const err = root.querySelector('.sc-error');
 
   function paint() {
     const ip = parseIp(ipIn.value), prefix = parsePrefix(prefixIn.value);
     const bad = ip === null ? 'Enter an IPv4 address such as 192.168.10.77.'
-      : prefix === null ? 'Enter a prefix (/26 or 26) or a contiguous mask (255.255.255.192).' : '';
+      : prefix === null ? 'Enter a prefix (/26 or 26) or a mask (255.255.255.192).' : '';
     err.hidden = !bad;
     err.textContent = bad;
+    out.hidden = !!bad;
     if (bad) return;
     const s = subnet(ip, prefix), c = classify(ip);
-    out.innerHTML = rows([
-      ['Network address', `${fmtIp(s.network)}/${prefix}`],
-      ['Subnet mask', fmtIp(s.mask)],
-      ['Wildcard mask', fmtIp(s.wildcard)],
-      ['First usable host', fmtIp(s.first)],
-      ['Last usable host', fmtIp(s.last)],
-      ['Broadcast address', prefix >= 31 ? 'none (point-to-point or host route)' : fmtIp(s.broadcast)],
-      ['Usable hosts', s.usable.toLocaleString()],
-      ['Block size', prefix >= 24 ? `${s.total} in the 4th octet` : prefix >= 16 ? `${s.total / 256} in the 3rd octet` : prefix >= 8 ? `${s.total / 65536} in the 2nd octet` : `${s.total / 16777216} in the 1st octet`],
-      ['Classful class', c.cls],
-      ['Address type', c.scope],
-    ]);
-    /* Network bits in blue, host bits in amber: the boundary is the whole lesson. */
-    const split = b => {
-      let seen = 0;
-      return [...b].map(ch => {
-        if (ch === '.') return '<span class="sc-dot">.</span>';
-        return `<span class="${seen++ < prefix ? 'sc-net' : 'sc-host'}">${ch}</span>`;
-      }).join('');
-    };
-    bin.innerHTML = rows([
-      ['IP address', split(toBinary(ip))],
-      ['Mask', split(toBinary(s.mask))],
-      ['Network', split(toBinary(s.network))],
-      ['Broadcast', split(toBinary(s.broadcast))],
-    ]);
+    const tile = (label, value) => `<div class="sc-tile"><div class="sc-tile-label">${label}</div><div class="sc-tile-val">${value}</div></div>`;
+    out.innerHTML = '<div class="sc-tiles">'
+      + tile('Network address', `${fmtIp(s.network)}/${prefix}`)
+      + tile('First usable host', fmtIp(s.first))
+      + tile('Last usable host', fmtIp(s.last))
+      + tile('Broadcast address', prefix >= 31 ? 'None' : fmtIp(s.broadcast))
+      + tile('Usable hosts', s.usable.toLocaleString())
+      + tile('Subnet mask', fmtIp(s.mask))
+      + '</div>'
+      + `<p class="sc-meta">Wildcard mask <code>${fmtIp(s.wildcard)}</code> · Class ${c.cls} · ${c.scope}</p>`
+      + '<h3 class="sc-h">How to work it out by hand</h3>'
+      + `<ol class="sc-steps">${steps(ip, prefix, s).map(t => `<li>${t}</li>`).join('')}</ol>`
+      + '<h3 class="sc-h">The same answer in binary</h3>'
+      + anatomy(ip, prefix, s);
   }
   ipIn.addEventListener('input', paint);
   prefixIn.addEventListener('input', paint);
@@ -59,9 +100,9 @@ function initVlsm(root) {
   function addRow(name = '', hosts = '') {
     const row = document.createElement('div');
     row.className = 'vlsm-row';
-    row.innerHTML = `<input class="lab-input vlsm-name" aria-label="Segment name" placeholder="Segment name" value="${esc(name)}">`
+    row.innerHTML = `<input class="lab-input vlsm-name" aria-label="Group name" placeholder="Group name" value="${esc(name)}">`
       + `<input class="lab-input vlsm-hosts" aria-label="Hosts needed" inputmode="numeric" placeholder="Hosts" value="${esc(hosts)}">`
-      + '<button type="button" class="vlsm-remove" aria-label="Remove segment">✕</button>';
+      + '<button type="button" class="vlsm-remove" aria-label="Remove group">✕</button>';
     row.querySelector('.vlsm-remove').addEventListener('click', () => { row.remove(); paint(); });
     row.addEventListener('input', paint);
     list.append(row);
@@ -81,17 +122,18 @@ function initVlsm(root) {
       const p = prefixFor(seg.hosts);
       const size = p === null ? Infinity : 2 ** (32 - p);
       const start = Math.ceil(cursor / size) * size;
+      const sizing = p === null ? '—' : `${seg.hosts} + 2 = ${seg.hosts + 2} → <strong>${size}</strong> (/${p})`;
       if (p === null || p < block.prefix || start + size - 1 > whole.broadcast) {
-        return `<tr class="vlsm-nofit"><td>${esc(seg.name)}</td><td>${seg.hosts}</td><td colspan="5">Does not fit in what is left of ${esc(base.value.trim())}</td></tr>`;
+        return `<tr class="vlsm-nofit"><td>${esc(seg.name)}</td><td>${sizing}</td><td colspan="3">Does not fit in what is left of the block</td></tr>`;
       }
       cursor = start + size;
       const s = subnet(start, p);
-      return `<tr><td>${esc(seg.name)}</td><td>${seg.hosts}</td><td><code>${fmtIp(s.network)}/${p}</code></td><td><code>${fmtIp(s.mask)}</code></td>`
-        + `<td><code>${fmtIp(s.first)} – ${fmtIp(s.last)}</code></td><td><code>${fmtIp(s.broadcast)}</code></td><td>${s.usable - seg.hosts}</td></tr>`;
+      return `<tr><td>${esc(seg.name)}</td><td>${sizing}</td><td><code>${fmtIp(s.network)}/${p}</code></td>`
+        + `<td><code>${fmtIp(s.first)} – ${fmtIp(s.last)}</code></td><td><code>${fmtIp(s.broadcast)}</code></td></tr>`;
     }).join('');
     const left = whole.broadcast + 1 - cursor;
-    out.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Segment</th><th>Needs</th><th>Subnet</th><th>Mask</th><th>Usable range</th><th>Broadcast</th><th>Spare</th></tr></thead><tbody>${body}</tbody></table></div>`
-      + `<p class="vlsm-left">${left.toLocaleString()} of ${whole.total.toLocaleString()} addresses left unallocated, starting at <code>${fmtIp(Math.min(cursor, whole.broadcast))}</code>.</p>`;
+    out.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Group</th><th>Hosts + 2, rounded up</th><th>Subnet</th><th>Usable range</th><th>Broadcast</th></tr></thead><tbody>${body}</tbody></table></div>`
+      + `<p class="vlsm-left">${left.toLocaleString()} of ${whole.total.toLocaleString()} addresses are still free${left ? `, starting at <code>${fmtIp(cursor)}</code>` : ''}.</p>`;
   }
 
   (root.dataset.segments || '').split(',').filter(Boolean).forEach(s => addRow(...s.split(':')));
@@ -99,6 +141,7 @@ function initVlsm(root) {
   base.addEventListener('input', paint);
   paint();
 }
+
 
 const LEVELS = {
   easy: { prefixes: [25, 26, 27, 28, 29, 30], firsts: [192] },

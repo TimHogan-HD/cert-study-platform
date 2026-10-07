@@ -61,5 +61,3 @@ export function classify(ip) {
   else if (o >= 240) scope = 'Reserved';
   return { cls, scope };
 }
-
-export const toBinary = n => [24, 16, 8, 0].map(s => ((n >>> s) & 255).toString(2).padStart(8, '0')).join('.');
