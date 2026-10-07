@@ -426,7 +426,7 @@ td code { font-size: 0.8rem; }
   cursor: pointer;
   transition: all 0.15s;
 }
-.ai-explain-btn:hover { background: rgba(168,85,247,0.18); }
+.ai-explain-btn:hover { background: color-mix(in srgb, var(--purple) 18%, transparent); }
 .ai-explain-btn:disabled { opacity: 0.6; cursor: wait; }
 .ai-explain-output { display: none; font-size: 0.9rem; line-height: 1.65; }
 
@@ -888,7 +888,7 @@ td code { font-size: 0.8rem; }
 }
 .cert-home-card:not(.disabled):hover {
   border-color: var(--blue-border);
-  box-shadow: 0 4px 16px rgba(59,130,246,0.12);
+  box-shadow: 0 4px 16px var(--blue-bg);
   transform: translateY(-2px);
 }
 .cert-home-card.disabled {
@@ -1122,8 +1122,8 @@ td code { font-size: 0.8rem; }
   text-transform: uppercase;
   color: var(--muted);
   padding: 0.3rem 0.6rem;
-  background: rgba(255,255,255,0.04);
-  border-left: 3px solid rgba(255,255,255,0.15);
+  background: color-mix(in srgb, var(--text) 4%, transparent);
+  border-left: 3px solid color-mix(in srgb, var(--text) 15%, transparent);
   border-radius: 0 4px 4px 0;
   margin-bottom: 0;
 }
@@ -1270,7 +1270,7 @@ td code { font-size: 0.8rem; }
 .sr-grid {
   display: grid;
   grid-template-columns: 9rem repeat(3, 1fr);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
   border-radius: 8px;
   overflow: hidden;
   min-width: 480px;
@@ -1278,8 +1278,8 @@ td code { font-size: 0.8rem; }
 .sr-cell {
   padding: 0.5rem 0.7rem;
   font-size: 0.8rem;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  border-right: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1374,13 +1374,13 @@ td code { font-size: 0.8rem; }
 .did-layer { padding: 0.5rem 1rem; border-radius: var(--radius); font-size: 0.82rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .did-layer .dl-name { font-weight: 600; }
 .did-layer .dl-note { font-size: 0.75rem; color: var(--muted); }
-.did-phys  { background: rgba(239, 68,  68,  0.12); border: 1px solid rgba(239, 68,  68,  0.25); }
-.did-id    { background: rgba(168, 85,  247, 0.10); border: 1px solid rgba(168, 85,  247, 0.25); }
-.did-perim { background: rgba(59,  130, 246, 0.10); border: 1px solid rgba(59,  130, 246, 0.25); }
-.did-net   { background: rgba(20,  184, 166, 0.10); border: 1px solid rgba(20,  184, 166, 0.25); }
-.did-comp  { background: rgba(34,  197, 94,  0.08); border: 1px solid rgba(34,  197, 94,  0.20); }
-.did-app   { background: rgba(245, 158, 11,  0.08); border: 1px solid rgba(245, 158, 11,  0.20); }
-.did-data  { background: rgba(136, 136, 136, 0.08); border: 1px solid rgba(136, 136, 136, 0.20); }
+.did-phys  { background: color-mix(in srgb, var(--red) 12%, transparent); border: 1px solid color-mix(in srgb, var(--red) 25%, transparent); }
+.did-id    { background: var(--purple-bg); border: 1px solid var(--purple-border); }
+.did-perim { background: color-mix(in srgb, var(--blue) 10%, transparent); border: 1px solid color-mix(in srgb, var(--blue) 25%, transparent); }
+.did-net   { background: var(--teal-bg); border: 1px solid var(--teal-border); }
+.did-comp  { background: color-mix(in srgb, var(--green) 8%, transparent); border: 1px solid color-mix(in srgb, var(--green) 20%, transparent); }
+.did-app   { background: color-mix(in srgb, var(--amber) 8%, transparent); border: 1px solid color-mix(in srgb, var(--amber) 20%, transparent); }
+.did-data  { background: color-mix(in srgb, var(--muted) 8%, transparent); border: 1px solid color-mix(in srgb, var(--muted) 20%, transparent); }
 
 /* ── Blob Tier Bar Chart ─────────────────────────────────────── */
 .tier-chart { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
@@ -1391,11 +1391,11 @@ td code { font-size: 0.8rem; }
 .tier-label-cold { color: var(--amber); }
 .tier-label-arch { color: var(--muted); }
 .tier-bar-wrap { flex: 1; background: var(--surface2); border-radius: 4px; height: 22px; overflow: hidden; }
-.tier-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 0.7rem; font-weight: 500; color: rgba(255,255,255,0.85); }
-.tier-bar-hot  { background: rgba(59,  130, 246, 0.50); }
-.tier-bar-cool { background: rgba(20,  184, 166, 0.50); }
-.tier-bar-cold { background: rgba(245, 158, 11,  0.45); }
-.tier-bar-arch { background: rgba(136, 136, 136, 0.35); }
+.tier-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 0.7rem; font-weight: 500; color: color-mix(in srgb, var(--text) 85%, transparent); }
+.tier-bar-hot  { background: color-mix(in srgb, var(--blue) 50%, transparent); }
+.tier-bar-cool { background: color-mix(in srgb, var(--teal) 50%, transparent); }
+.tier-bar-cold { background: color-mix(in srgb, var(--amber) 45%, transparent); }
+.tier-bar-arch { background: color-mix(in srgb, var(--muted) 35%, transparent); }
 .tier-note { font-size: 0.7rem; color: var(--muted); width: 130px; flex-shrink: 0; }
 
 /* ── Day panel utility text ──────────────────────────────────── */
@@ -1733,8 +1733,8 @@ td code { font-size: 0.8rem; }
 .tcpip-internet { background: var(--teal-bg); color: var(--teal); }
 .tcpip-netaccess { background: var(--amber-bg); color: var(--amber); }
 .osi-num-7, .osi-name-7 { background: var(--purple-bg); } .osi-num-7 { color: var(--purple); }
-.osi-num-6, .osi-name-6 { background: rgba(168,85,247,0.07); } .osi-num-6 { color: var(--purple); }
-.osi-num-5, .osi-name-5 { background: rgba(168,85,247,0.04); } .osi-num-5 { color: var(--purple); }
+.osi-num-6, .osi-name-6 { background: var(--purple-bg2); } .osi-num-6 { color: var(--purple); }
+.osi-num-5, .osi-name-5 { background: var(--purple-bg3); } .osi-num-5 { color: var(--purple); }
 .osi-num-4, .osi-name-4 { background: var(--blue-bg); } .osi-num-4 { color: var(--blue); }
 .osi-num-3, .osi-name-3 { background: var(--teal-bg); } .osi-num-3 { color: var(--teal); }
 .osi-num-2, .osi-name-2 { background: var(--amber-bg); } .osi-num-2 { color: var(--amber); }
@@ -2142,13 +2142,13 @@ td code { font-size: 0.8rem; }
 .nat-row { display: flex; align-items: center; gap: 0; border-radius: 6px; overflow: hidden; border: .5px solid var(--border); }
 .nat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text); padding: 4px 8px; background: var(--surface3); border-right: .5px solid var(--border); flex-shrink: 0; width: 64px; text-align: center; line-height: 1.3; }
 .nat-packet { display: flex; align-items: center; flex: 1; padding: 0 8px; gap: 0; font-family: var(--mono, monospace); font-size: 11px; }
-.nat-field { padding: 7px 8px; border-right: .5px solid rgba(255,255,255,.05); flex: 1; text-align: center; line-height: 1.2; }
+.nat-field { padding: 7px 8px; border-right: .5px solid color-mix(in srgb, var(--text) 5%, transparent); flex: 1; text-align: center; line-height: 1.2; }
 .nat-field:last-child { border-right: none; }
 .nat-field-label { font-size: 10px; color: var(--text); margin-bottom: 2px; text-transform: uppercase; letter-spacing: .04em; font-family: inherit; }
 .nat-field-val { font-size: 11px; font-weight: 600; }
-.nat-src { background: rgba(59,130,246,.08); color: var(--blue); }
-.nat-dst { background: rgba(20,184,166,.08); color: var(--teal); }
-.nat-src-translated { background: rgba(34,197,94,.08); color: var(--green); }
+.nat-src { background: color-mix(in srgb, var(--blue) 8%, transparent); color: var(--blue); }
+.nat-dst { background: color-mix(in srgb, var(--teal) 8%, transparent); color: var(--teal); }
+.nat-src-translated { background: color-mix(in srgb, var(--green) 8%, transparent); color: var(--green); }
 .nat-sep { flex: 0 0 auto; padding: 0 6px; color: var(--hint); font-size: 12px; }
 .nat-arrow-row { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 3px 0; font-size: 10px; color: var(--text); }
 .nat-term-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
@@ -2173,7 +2173,7 @@ td code { font-size: 0.8rem; }
 .fhrp-routers { display: flex; gap: 16px; justify-content: center; margin-top: 4px; flex-wrap: wrap; }
 .fhrp-router { border-radius: 8px; padding: 8px 12px; text-align: center; border: .5px solid; min-width: 100px; }
 .fhrp-router-active { background: var(--green-bg); border-color: var(--green-border); }
-.fhrp-router-standby { background: rgba(136,136,136,.07); border-color: var(--border2); }
+.fhrp-router-standby { background: color-mix(in srgb, var(--muted) 7%, transparent); border-color: var(--border2); }
 .fhrp-router-name { font-size: 11px; font-weight: 700; }
 .fhrp-router-role { font-size: 10px; margin-top: 2px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
 .fhrp-router-ip { font-size: 10px; font-family: var(--mono, monospace); margin-top: 3px; color: var(--text); }
@@ -2188,7 +2188,7 @@ td code { font-size: 0.8rem; }
 
 /* ── Router-on-a-Stick subinterface diagram ─────────────────── */
 .roas-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
-.roas-router { background: rgba(168,85,247,.10); border: .5px solid rgba(168,85,247,.3); border-radius: 8px; padding: 8px 16px; text-align: center; font-size: 12px; font-weight: 700; color: var(--purple); }
+.roas-router { background: var(--purple-bg); border: .5px solid color-mix(in srgb, var(--purple) 30%, transparent); border-radius: 8px; padding: 8px 16px; text-align: center; font-size: 12px; font-weight: 700; color: var(--purple); }
 .roas-trunk { width: .5px; height: 16px; background: var(--border2); margin: 0 auto; }
 .roas-trunk-label { font-size: 10px; color: var(--text); text-align: center; padding: 1px 0; }
 .roas-switch { background: var(--blue-bg); border: .5px solid var(--blue-border); border-radius: 8px; padding: 8px 20px; text-align: center; font-size: 12px; font-weight: 700; color: var(--blue); }
@@ -2208,12 +2208,12 @@ td code { font-size: 0.8rem; }
 .stp-state-dur { font-size: 10px; font-family: var(--mono, monospace); margin-bottom: 3px; }
 .stp-state-detail { font-size: 10px; color: var(--text); line-height: 1.3; }
 .stp-arrow { display: flex; align-items: center; padding: 0 2px; color: var(--hint); font-size: 12px; flex-shrink: 0; }
-.stp-block { background: rgba(239,68,68,.10); color: #ef4444; }
-.stp-listen { background: rgba(245,158,11,.09); color: var(--amber); }
-.stp-learn { background: rgba(59,130,246,.10); color: var(--blue); }
-.stp-fwd { background: rgba(34,197,94,.09); color: var(--green); }
-.stp-disabled-state { background: rgba(136,136,136,.08); color: var(--text); border: .5px solid var(--border); border-radius: 4px; padding: 4px 8px; font-size: 10px; font-weight: 700; }
-.stp-rstp-disc-block { background: rgba(239,68,68,.08); color: #ef4444; border: .5px solid rgba(239,68,68,.2); border-radius: 4px; padding: 4px 8px; font-size: 10px; font-weight: 700; }
+.stp-block { background: color-mix(in srgb, var(--red) 10%, transparent); color: var(--red); }
+.stp-listen { background: color-mix(in srgb, var(--amber) 9%, transparent); color: var(--amber); }
+.stp-learn { background: color-mix(in srgb, var(--blue) 10%, transparent); color: var(--blue); }
+.stp-fwd { background: color-mix(in srgb, var(--green) 9%, transparent); color: var(--green); }
+.stp-disabled-state { background: color-mix(in srgb, var(--muted) 8%, transparent); color: var(--text); border: .5px solid var(--border); border-radius: 4px; padding: 4px 8px; font-size: 10px; font-weight: 700; }
+.stp-rstp-disc-block { background: var(--red-bg); color: var(--red); border: .5px solid var(--red-border); border-radius: 4px; padding: 4px 8px; font-size: 10px; font-weight: 700; }
 .stp-convergence-note { text-align: right; font-size: 11px; color: var(--amber); font-weight: 600; margin-top: 4px; }
 .stp-rstp-map { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; }
 .stp-rstp-col { display: flex; flex-direction: column; gap: 2px; }
@@ -2276,11 +2276,11 @@ td code { font-size: 0.8rem; }
 .wsec-enc { font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 3px; font-family: var(--mono, monospace); }
 .wsec-vuln { font-size: 11px; color: var(--text); line-height: 1.4; }
 .wsec-pill { display: inline-block; font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-top: 4px; text-transform: uppercase; letter-spacing: .04em; }
-.wsec-broken { background: var(--red-bg); color: var(--red); border: .5px solid rgba(239,68,68,.2); }
+.wsec-broken { background: var(--red-bg); color: var(--red); border: .5px solid var(--red-border); }
 .wsec-weak { background: var(--amber-bg); color: var(--amber); border: .5px solid var(--amber-border); }
 .wsec-good { background: var(--blue-bg); color: var(--blue); border: .5px solid var(--blue-border); }
 .wsec-best { background: var(--green-bg); color: var(--green); border: .5px solid var(--green-border); }
-.wsec-wep  { border-color: rgba(239,68,68,.3); }  .wsec-wep  .wsec-header { background: rgba(239,68,68,.12); }
+.wsec-wep  { border-color: color-mix(in srgb, var(--red) 30%, transparent); }  .wsec-wep  .wsec-header { background: color-mix(in srgb, var(--red) 12%, transparent); }
 .wsec-wpa  { border-color: var(--amber-border); } .wsec-wpa  .wsec-header { background: var(--amber-bg); }
 .wsec-wpa2 { border-color: var(--blue-border); }  .wsec-wpa2 .wsec-header { background: var(--blue-bg); }
 .wsec-wpa3 { border-color: var(--green-border); } .wsec-wpa3 .wsec-header { background: var(--green-bg); }
@@ -2292,8 +2292,8 @@ td code { font-size: 0.8rem; }
 .ch-legend { display: flex; gap: 12px; margin-top: 6px; flex-wrap: wrap; }
 .ch-legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text); }
 .ch-legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-.ch-legend-dot[data-kind="clear"]   { background: rgba(34,197,94,.5); border: .5px solid rgba(34,197,94,.6); }
-.ch-legend-dot[data-kind="overlap"] { background: rgba(59,130,246,.3); border: .5px solid rgba(59,130,246,.4); }
+.ch-legend-dot[data-kind="clear"]   { background: color-mix(in srgb, var(--green) 50%, transparent); border: .5px solid color-mix(in srgb, var(--green) 60%, transparent); }
+.ch-legend-dot[data-kind="overlap"] { background: var(--blue-border); border: .5px solid color-mix(in srgb, var(--blue) 40%, transparent); }
 .ch-track { position: relative; height: 90px; background: var(--surface3); border-radius: 6px; border: .5px solid var(--border2); overflow: hidden; margin-bottom: 6px; }
 
 /* ── Antenna radiation pattern diagrams ─────────────────────── */
@@ -2318,13 +2318,13 @@ td code { font-size: 0.8rem; }
 .std-field-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
 .std-field-val { font-size: 14px; font-weight: 700; font-family: var(--mono, monospace); color: var(--text); }
 .std-notes { font-size: 12px; color: var(--text); grid-column: 1 / -1; padding-top: 6px; border-top: .5px solid var(--border); line-height: 1.55; margin-top: 4px; }
-.s-a  { border-left: 3px solid rgba(136,136,136,.4); } .s-a  .std-name { color: var(--text); }
-.s-b  { border-left: 3px solid rgba(136,136,136,.3); } .s-b  .std-name { color: var(--text); }
-.s-g  { border-left: 3px solid rgba(245,158,11,.5); }  .s-g  .std-name { color: var(--amber); }
-.s-n  { border-left: 3px solid rgba(59,130,246,.6); }  .s-n  .std-name { color: var(--blue); }
-.s-ac { border-left: 3px solid rgba(20,184,166,.6); }  .s-ac .std-name { color: var(--teal); }
-.s-ax { border-left: 3px solid rgba(34,197,94,.7); }   .s-ax .std-name { color: var(--green); }
-.s-be { border-left: 3px solid rgba(168,85,247,.6); }  .s-be .std-name { color: var(--purple); }
+.s-a  { border-left: 3px solid color-mix(in srgb, var(--muted) 40%, transparent); } .s-a  .std-name { color: var(--text); }
+.s-b  { border-left: 3px solid color-mix(in srgb, var(--muted) 30%, transparent); } .s-b  .std-name { color: var(--text); }
+.s-g  { border-left: 3px solid color-mix(in srgb, var(--amber) 50%, transparent); }  .s-g  .std-name { color: var(--amber); }
+.s-n  { border-left: 3px solid color-mix(in srgb, var(--blue) 60%, transparent); }  .s-n  .std-name { color: var(--blue); }
+.s-ac { border-left: 3px solid color-mix(in srgb, var(--teal) 60%, transparent); }  .s-ac .std-name { color: var(--teal); }
+.s-ax { border-left: 3px solid color-mix(in srgb, var(--green) 70%, transparent); }   .s-ax .std-name { color: var(--green); }
+.s-be { border-left: 3px solid var(--purple-border2); }  .s-be .std-name { color: var(--purple); }
 @media (max-width: 480px) {
   .std-card { grid-template-columns: 1fr; }
   .std-left { border-right: none; border-bottom: .5px solid var(--border2); }
@@ -2351,10 +2351,10 @@ td code { font-size: 0.8rem; }
 /* ── Hot / Cold aisle airflow diagram ───────────────────────── */
 .dc-wrap { display: flex; gap: 3px; align-items: stretch; border-radius: 8px; overflow: hidden; border: .5px solid var(--border2); }
 .dc-cold { background: var(--blue-bg); border-right: .5px solid var(--blue-border); flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 8px; gap: 4px; }
-.dc-hot  { background: rgba(239,68,68,.08); border-left: .5px solid rgba(239,68,68,.18); flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 8px; gap: 4px; }
+.dc-hot  { background: var(--red-bg); border-left: .5px solid color-mix(in srgb, var(--red) 18%, transparent); flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 8px; gap: 4px; }
 .dc-rack { background: var(--surface2); border: .5px solid var(--border2); border-radius: 5px; display: flex; flex-direction: column; gap: 2px; padding: 6px 5px; width: 100%; max-width: 70px; }
-.dc-rack-u { height: 8px; border-radius: 2px; background: rgba(255,255,255,.08); border: .5px solid rgba(255,255,255,.1); }
-.dc-rack-u.server { background: rgba(20,184,166,.25); border-color: rgba(20,184,166,.4); }
+.dc-rack-u { height: 8px; border-radius: 2px; background: color-mix(in srgb, var(--text) 8%, transparent); border: .5px solid color-mix(in srgb, var(--text) 10%, transparent); }
+.dc-rack-u.server { background: var(--teal-border); border-color: color-mix(in srgb, var(--teal) 40%, transparent); }
 .dc-label { font-size: 10px; font-weight: 700; text-align: center; }
 .dc-cold .dc-label { color: var(--blue); }
 .dc-hot  .dc-label { color: var(--red); }
