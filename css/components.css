@@ -967,9 +967,14 @@ td code { font-size: 0.8rem; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--muted);
+  color: var(--text);
   margin-bottom: 0.75rem;
 }
+.concept-visual-sub { font-size: 11px; font-weight: 600; color: var(--text); margin: 14px 0 8px; }
+.concept-visual-sub:first-child, .concept-visual-title + .concept-visual-sub { margin-top: 0; }
+.concept-visual-note { margin-top: 8px; font-size: 11px; color: var(--text); padding: 7px 10px; background: var(--surface3); border-radius: 6px; border: .5px solid var(--border); }
+.concept-visual-caption { margin-top: 8px; font-size: 11px; color: var(--text); }
+.cell-aside { font-size: 11px; }
 .concept-visual svg {
   display: block;
   max-width: 100%;
@@ -2128,6 +2133,9 @@ td code { font-size: 0.8rem; }
 .dec-winner { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
 .dec-line { width: .5px; height: 12px; background: var(--border2); margin: 0 auto; }
 .dec-note { font-size: 10px; color: var(--text); text-align: center; margin: -2px 0; }
+.decision-stage { min-width: 240px; }
+.decision-stage-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; color: var(--text); }
+.decision-stage-detail { font-size: 11px; margin-top: 3px; color: var(--text); font-family: var(--mono, monospace); }
 
 /* ── NAT packet flow ─────────────────────────────────────────── */
 .nat-flow { display: flex; flex-direction: column; gap: 6px; }
@@ -2143,10 +2151,16 @@ td code { font-size: 0.8rem; }
 .nat-src-translated { background: rgba(34,197,94,.08); color: var(--green); }
 .nat-sep { flex: 0 0 auto; padding: 0 6px; color: var(--hint); font-size: 12px; }
 .nat-arrow-row { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 3px 0; font-size: 10px; color: var(--text); }
-.nat-term-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.nat-term-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 .nat-term { background: var(--surface3); border: .5px solid var(--border2); border-radius: 5px; padding: 5px 10px; font-size: 10px; flex: 1; min-width: 120px; }
 .nat-term-name { font-weight: 700; color: var(--text); margin-bottom: 2px; }
 .nat-term-def { color: var(--text); line-height: 1.45; }
+.nat-term[data-tone="blue"]  { border-color: var(--blue-border); }
+.nat-term[data-tone="green"] { border-color: var(--green-border); }
+.nat-term[data-tone="teal"]  { border-color: var(--teal-border); }
+.nat-term[data-tone="blue"]  .nat-term-name { color: var(--blue); }
+.nat-term[data-tone="green"] .nat-term-name { color: var(--green); }
+.nat-term[data-tone="teal"]  .nat-term-name { color: var(--teal); }
 
 /* ── FHRP virtual IP topology ───────────────────────────────── */
 .fhrp-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
@@ -2166,6 +2180,11 @@ td code { font-size: 0.8rem; }
 .fhrp-heartbeat { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 0 8px; }
 .fhrp-heartbeat-line { width: 40px; height: .5px; background: var(--border2); }
 .fhrp-heartbeat-label { font-size: 10px; color: var(--text); }
+.fhrp-gw { font-family: var(--mono, monospace); font-size: 10px; color: var(--text); }
+.fhrp-drops { display: flex; gap: 36px; justify-content: center; }
+.fhrp-router-note { font-size: 10px; margin-top: 3px; }
+.fhrp-router-active { color: var(--green); }
+.fhrp-router-standby { color: var(--text); }
 
 /* ── Router-on-a-Stick subinterface diagram ─────────────────── */
 .roas-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
@@ -2179,6 +2198,8 @@ td code { font-size: 0.8rem; }
 .roas-v20 { background: var(--teal-bg); color: var(--teal); border: .5px solid var(--teal-border); }
 .roas-v30 { background: var(--green-bg); color: var(--green); border: .5px solid var(--green-border); }
 .roas-vlan-sub { font-size: 10px; font-family: var(--mono, monospace); margin-top: 2px; color: var(--text); font-weight: 400; }
+.roas-sub { font-size: 10px; font-weight: 400; margin-top: 2px; }
+.roas-router .roas-sub { font-family: var(--mono, monospace); }
 
 /* ── STP state timeline ─────────────────────────────────────── */
 .stp-timeline-strip { display: flex; align-items: stretch; gap: 2px; margin-bottom: 6px; }
@@ -2193,11 +2214,22 @@ td code { font-size: 0.8rem; }
 .stp-fwd { background: rgba(34,197,94,.09); color: var(--green); }
 .stp-disabled-state { background: rgba(136,136,136,.08); color: var(--text); border: .5px solid var(--border); border-radius: 4px; padding: 4px 8px; font-size: 10px; font-weight: 700; }
 .stp-rstp-disc-block { background: rgba(239,68,68,.08); color: #ef4444; border: .5px solid rgba(239,68,68,.2); border-radius: 4px; padding: 4px 8px; font-size: 10px; font-weight: 700; }
-.stp-convergence-note { text-align: right; font-size: 11px; color: var(--amber); font-weight: 600; }
+.stp-convergence-note { text-align: right; font-size: 11px; color: var(--amber); font-weight: 600; margin-top: 4px; }
 .stp-rstp-map { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; }
 .stp-rstp-col { display: flex; flex-direction: column; gap: 2px; }
 .stp-rstp-col-label { font-size: 10px; color: var(--text); margin-bottom: 4px; text-align: center; }
 .stp-rstp-arrow { font-size: 18px; color: var(--hint); text-align: center; }
+.stp-timeline-strip .stp-block, .stp-timeline-strip .stp-fwd { flex: 2; }
+.stp-timeline-strip .stp-listen, .stp-timeline-strip .stp-learn { flex: 1.5; }
+.stp-timeline-strip .stp-state:first-child { border-radius: 4px 0 0 4px; }
+.stp-timeline-strip .stp-state:last-child { border-radius: 0 4px 4px 0; }
+.stp-rstp-col .stp-state { border-radius: 4px; padding: 4px 8px; font-size: 10px; margin-bottom: 2px; justify-content: flex-start; flex-direction: row; gap: 6px; }
+.stp-rstp-col .stp-state:last-child { margin-bottom: 0; }
+.stp-rstp-col .stp-state-name { margin-bottom: 0; }
+.stp-rstp-col .stp-disabled-state { margin-bottom: 2px; }
+.stp-rstp-col .stp-rstp-disc-block { margin-bottom: 2px; padding: 16px 8px; text-align: center; }
+.stp-rstp-disc-sub { font-size: 11px; color: var(--text); font-weight: 400; }
+.stp-rstp-total { font-size: 10px; color: var(--text); }
 @media (max-width: 500px) {
   .stp-timeline-strip { flex-direction: column; align-items: stretch; }
   .stp-state { padding: 6px 10px; flex-direction: row; justify-content: flex-start; gap: 8px; }
@@ -2215,6 +2247,11 @@ td code { font-size: 0.8rem; }
 .stp-sec-back { padding: 10px 12px; background: var(--surface2); font-size: 11px; color: var(--text); line-height: 1.55; }
 .stp-sec-back strong { color: var(--text); }
 .stp-sec-tag { display: inline-block; font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: .04em; }
+.stp-sec-tag[data-tone="green"]  { background: var(--green-bg);  color: var(--green);  border: .5px solid var(--green-border); }
+.stp-sec-tag[data-tone="red"]    { background: var(--red-bg);    color: var(--red);    border: .5px solid var(--red-border); }
+.stp-sec-tag[data-tone="blue"]   { background: var(--blue-bg);   color: var(--blue);   border: .5px solid var(--blue-border); }
+.stp-sec-tag[data-tone="purple"] { background: var(--purple-bg); color: var(--purple); border: .5px solid var(--purple-border); }
+.stp-sec-intro { font-size: 12px; color: var(--text); margin-bottom: 8px; }
 /* generic flip-card: back hidden until .is-flipped */
 .flip-card { cursor: pointer; }
 .flip-card .flip-back { display: none; }
@@ -2230,6 +2267,10 @@ td code { font-size: 0.8rem; }
 .wsec-card { flex: 1; border-radius: 7px; overflow: hidden; border: .5px solid; min-width: 0; }
 .wsec-header { padding: 7px 8px; text-align: center; }
 .wsec-name { font-size: 12px; font-weight: 700; }
+.wsec-name[data-tone="red"]   { color: var(--red); }
+.wsec-name[data-tone="amber"] { color: var(--amber); }
+.wsec-name[data-tone="blue"]  { color: var(--blue); }
+.wsec-name[data-tone="green"] { color: var(--green); }
 .wsec-year { font-size: 10px; margin-top: 1px; color: var(--muted); }
 .wsec-body { padding: 7px 8px; background: var(--surface3); }
 .wsec-enc { font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 3px; font-family: var(--mono, monospace); }
@@ -2251,6 +2292,9 @@ td code { font-size: 0.8rem; }
 .ch-legend { display: flex; gap: 12px; margin-top: 6px; flex-wrap: wrap; }
 .ch-legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text); }
 .ch-legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.ch-legend-dot[data-kind="clear"]   { background: rgba(34,197,94,.5); border: .5px solid rgba(34,197,94,.6); }
+.ch-legend-dot[data-kind="overlap"] { background: rgba(59,130,246,.3); border: .5px solid rgba(59,130,246,.4); }
+.ch-track { position: relative; height: 90px; background: var(--surface3); border-radius: 6px; border: .5px solid var(--border2); overflow: hidden; margin-bottom: 6px; }
 
 /* ── Antenna radiation pattern diagrams ─────────────────────── */
 .antenna-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
@@ -2299,6 +2343,10 @@ td code { font-size: 0.8rem; }
 .mdf-row  { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 .mdf-sub  { font-size: 10px; font-weight: 400; margin-top: 2px; color: var(--text); }
 .mdf-branch { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.mdf-branch .mdf-idf { min-width: 130px; }
+.mdf-branch .mdf-idf, .mdf-branch .mdf-acc { font-size: 11px; }
+.mdf-endpoints { display: flex; gap: 4px; }
+.mdf-endpoints .mdf-end { font-size: 10px; padding: 4px 8px; }
 
 /* ── Hot / Cold aisle airflow diagram ───────────────────────── */
 .dc-wrap { display: flex; gap: 3px; align-items: stretch; border-radius: 8px; overflow: hidden; border: .5px solid var(--border2); }
@@ -2311,6 +2359,10 @@ td code { font-size: 0.8rem; }
 .dc-cold .dc-label { color: var(--blue); }
 .dc-hot  .dc-label { color: var(--red); }
 .dc-arrow { font-size: 20px; text-align: center; }
+.dc-cold .dc-arrow, .dc-cold .dc-flow { color: var(--blue); }
+.dc-hot  .dc-arrow, .dc-hot  .dc-flow { color: var(--red); }
+.dc-flow { font-size: 10px; text-align: center; }
+.dc-ports { font-size: 10px; color: var(--text); text-align: center; margin-top: 4px; }
 .dc-mid { flex: 0 0 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; background: var(--surface3); }
 .dc-mid-label { font-size: 10px; color: var(--text); writing-mode: vertical-rl; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
 
