@@ -3,7 +3,7 @@
   <h2>1.7 IPv4 Addressing &amp; Subnetting</h2>
   <p>Subnetting is guaranteed to appear on the exam — as a standard question AND as a PBQ. Master it.</p>
 
-  <h3>What Is an IP Address?</h3>
+  <h3>What Is an <abbr title="Internet Protocol v4/v6">IP</abbr> Address?</h3>
   <p>An <strong>IPv4 address</strong> is a 32-bit number that uniquely identifies a device on a network. It is written as four <strong>octets</strong> (8-bit groups) in dotted-decimal notation — for example, <code>192.168.1.50</code>. Each octet ranges from 0 to 255.</p>
 
   <!-- C9: Binary Conversion Explainer (collapsible accordion) -->
@@ -141,7 +141,7 @@
       <div class="addr-class-cell addr-class-mono">224–239</div>
       <div class="addr-class-cell">N/A</div>
       <div class="addr-class-cell">N/A</div>
-      <div class="addr-class-cell">Multicast only — the whole block is <code>224.0.0.0/4</code>. OSPF=224.0.0.5/6, RIP=224.0.0.9, PIM=224.0.0.13.</div>
+      <div class="addr-class-cell">Multicast only — the whole block is <code>224.0.0.0/4</code>. <abbr title="Open Shortest Path First">OSPF</abbr>=224.0.0.5/6, <abbr title="Routing Information Protocol">RIP</abbr>=224.0.0.9, PIM=224.0.0.13.</div>
     </div>
     <div class="addr-class-row" data-class="e">
       <div class="addr-class-cell"><span class="addr-class-badge addr-class-e">E</span></div>
@@ -163,7 +163,7 @@
     <div class="special-addr-card special-addr-card-loopback">
       <div class="special-addr-addr">127.0.0.1 / <strong>localhost</strong> <span class="addr-sub">(127.0.0.0/8)</span></div>
       <div class="special-addr-name">Loopback</div>
-      <div class="special-addr-desc">Tests the local IP stack without sending traffic on the network. Never routed. <code>ping 127.0.0.1</code> always succeeds if TCP/IP is functioning. <strong>localhost</strong> is the well-known hostname alias for 127.0.0.1 — defined in the OS hosts file on every platform (<code>ping localhost</code> = <code>ping 127.0.0.1</code>).</div>
+      <div class="special-addr-desc">Tests the local IP stack without sending traffic on the network. Never routed. <code>ping 127.0.0.1</code> always succeeds if <abbr title="Transmission Control Protocol">TCP</abbr>/IP is functioning. <strong>localhost</strong> is the well-known hostname alias for 127.0.0.1 — defined in the OS hosts file on every platform (<code>ping localhost</code> = <code>ping 127.0.0.1</code>).</div>
     </div>
     <div class="special-addr-card special-addr-card-apipa">
       <div class="special-addr-addr">169.254.0.0/16</div>
@@ -194,7 +194,7 @@
       <div class="cidr-grid-cell"><span class="cidr-mask">255.0.0.0</span></div>
       <div class="cidr-grid-cell"><span class="cidr-num">16,777,216</span></div>
       <div class="cidr-grid-cell"><span class="cidr-usable">16,777,214</span></div>
-      <div class="cidr-grid-cell"><span class="cidr-tag cidr-tag-blue">Class A</span>Large enterprise, ISP</div>
+      <div class="cidr-grid-cell"><span class="cidr-tag cidr-tag-blue">Class A</span>Large enterprise, <abbr title="Internet Service Provider">ISP</abbr></div>
     </div>
     <div class="cidr-grid-row">
       <div class="cidr-grid-cell"><span class="cidr-prefix">/16</span></div>
@@ -350,7 +350,7 @@
     <div class="mask-derive-tables">
       <div>
         <div class="mask-derive-sublabel">4th octet active — /25 to /30</div>
-        <table class="mask-derive-table">
+        <div class="table-wrap" data-variant="bare"><table class="mask-derive-table">
           <thead><tr><th>Prefix</th><th>Add these bit values</th><th>Mask</th></tr></thead>
           <tbody>
             <tr><td>/25</td><td>128</td><td>255.255.255.128</td></tr>
@@ -360,11 +360,11 @@
             <tr><td>/29</td><td>128 + 64 + 32 + 16 + 8</td><td>255.255.255.248</td></tr>
             <tr><td>/30</td><td>128 + 64 + 32 + 16 + 8 + 4</td><td>255.255.255.252</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
       <div>
         <div class="mask-derive-sublabel">3rd octet active — /17 to /23</div>
-        <table class="mask-derive-table">
+        <div class="table-wrap" data-variant="bare"><table class="mask-derive-table">
           <thead><tr><th>Prefix</th><th>Add these bit values</th><th>Mask</th></tr></thead>
           <tbody>
             <tr><td>/17</td><td>128</td><td>255.255.128.0</td></tr>
@@ -375,7 +375,7 @@
             <tr><td>/22</td><td>128 + 64 + 32 + 16 + 8 + 4</td><td>255.255.252.0</td></tr>
             <tr><td>/23</td><td>128 + 64 + 32 + 16 + 8 + 4 + 2</td><td>255.255.254.0</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
     </div>
   </div>
@@ -455,7 +455,7 @@
         </ol>
         <div class="method-spacer">
           <div class="method-col-label">Quick block size reference</div>
-          <table class="magic-table">
+          <div class="table-wrap" data-variant="bare"><table class="magic-table">
             <thead><tr><th>Last active octet</th><th>Block size</th><th>Prefix</th></tr></thead>
             <tbody>
               <tr><td>128</td><td class="magic-hl">128</td><td>/25</td></tr>
@@ -465,7 +465,7 @@
               <tr><td>248</td><td class="magic-hl">8</td><td>/29</td></tr>
               <tr><td>252</td><td class="magic-hl">4</td><td>/30</td></tr>
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
       <div>
@@ -676,7 +676,7 @@
       <tbody>
         <tr><td>Subnet sizes</td><td>All subnets use the same prefix</td><td>Each subnet gets its own prefix sized to fit</td></tr>
         <tr><td>Address efficiency</td><td>Wasteful — everything sized to the largest need</td><td>Efficient — small subnets for small segments</td></tr>
-        <tr><td>Routing protocol</td><td>Works with classful RIPv1 (no mask in updates)</td><td>Requires classless: RIPv2, OSPF, EIGRP, BGP</td></tr>
+        <tr><td>Routing protocol</td><td>Works with classful RIPv1 (no mask in updates)</td><td>Requires classless: RIPv2, OSPF, EIGRP, <abbr title="Border Gateway Protocol">BGP</abbr></td></tr>
         <tr><td>Example</td><td>All subnets /26 regardless of actual host count</td><td>/24 for 200 hosts, /27 for 25 hosts, /30 for P2P link</td></tr>
       </tbody>
     </table>

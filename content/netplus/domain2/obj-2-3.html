@@ -73,14 +73,14 @@
 
   <div class="callout callout-amber">
     <div class="callout-title">REMEMBER THIS</div>
-    <strong>2.4 GHz</strong> = longer range, better wall penetration, but only 3 non-overlapping channels (1, 6, 11) and more interference. <strong>5 GHz</strong> = higher throughput and far more non-overlapping channels — <strong>25 at 20 MHz in the US, of which only 9 avoid DFS</strong> — but shorter range. <strong>6 GHz</strong> (Wi-Fi 6E) = cleanest spectrum, shortest range. Channel counts fall as channel width rises and vary by regulatory domain.
+    <strong>2.4 GHz</strong> = longer range, better wall penetration, but only 3 non-overlapping channels (1, 6, 11) and more interference. <strong>5 GHz</strong> = higher throughput and far more non-overlapping channels — <strong>25 at 20 MHz in the US, of which only 9 avoid <abbr title="Dynamic Frequency Selection">DFS</abbr></strong> — but shorter range. <strong>6 GHz</strong> (Wi-Fi 6E) = cleanest spectrum, shortest range. Channel counts fall as channel width rises and vary by regulatory domain.
   </div>
   <h3>Wireless Network Types</h3>
   <p>Four topologies are officially enumerated. The discriminator on the exam is almost always <em>whether an access point is involved</em> and <em>how many endpoints the link serves</em>.</p>
   <div class="table-wrap">
     <table class="table--comparison">
       <thead>
-        <tr><th>Type</th><th>AP required?</th><th>How it works</th><th>Typical use</th></tr>
+        <tr><th>Type</th><th><abbr title="Access Point">AP</abbr> required?</th><th>How it works</th><th>Typical use</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -154,7 +154,7 @@
 
   <div class="callout callout-blue">
     <div class="callout-title">WPA3 Key Improvement</div>
-    WPA3 uses <strong>SAE (Simultaneous Authentication of Equals)</strong> instead of the WPA2 PSK 4-way handshake. SAE prevents offline dictionary attacks — even if someone captures the handshake, they can't crack the password offline.
+    WPA3 uses <strong>SAE (Simultaneous Authentication of Equals)</strong> instead of the WPA2 <abbr title="Pre-Shared Key">PSK</abbr> 4-way handshake. SAE prevents offline dictionary attacks — even if someone captures the handshake, they can't crack the password offline.
   </div>
 
   <h3>Authentication Methods — PSK vs Enterprise</h3>
@@ -168,7 +168,7 @@
         <tr><td><strong>Credential</strong></td><td>One passphrase shared by every user and device</td><td>Per-user credentials — username/password or a client certificate</td></tr>
         <tr><td><strong>Infrastructure</strong></td><td>None — the key is configured on the AP</td><td>Requires a <abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> server; the AP only relays the exchange</td></tr>
         <tr><td><strong>Revoking one user</strong></td><td>Impossible without changing the key on every device</td><td>Disable that one account; nobody else is affected</td></tr>
-        <tr><td><strong>Per-user policy</strong></td><td>No — everyone gets identical access</td><td>Yes — RADIUS can return a VLAN assignment or ACL per user</td></tr>
+        <tr><td><strong>Per-user policy</strong></td><td>No — everyone gets identical access</td><td>Yes — RADIUS can return a VLAN assignment or <abbr title="Access Control List">ACL</abbr> per user</td></tr>
         <tr><td><strong>Attribution</strong></td><td>Logs show a device, not a person</td><td>Every session ties to a named identity</td></tr>
         <tr><td><strong>Fits</strong></td><td>Home and small office</td><td>Business networks of any real size</td></tr>
       </tbody>
@@ -178,7 +178,7 @@
   <div class="callout callout-blue">
     <div class="callout-title">Why Enterprise solves what PSK cannot</div>
     <p>A pre-shared key is a <strong>shared secret</strong>, and shared secrets leak. Once one employee's laptop is compromised or one departing staff member remembers the passphrase, the key is effectively public — and rotating it means touching every device on the network at once.</p>
-    <p>Enterprise mode also blunts the <strong>evil twin</strong> attack. With PSK there is nothing tying the network name to a legitimate operator, so a rogue AP broadcasting the same SSID looks identical to the real one. Under 802.1X the authentication is mutual: the client validates the RADIUS server's certificate before releasing its credentials, so a rogue AP with no valid certificate fails the exchange. That protection depends on clients being configured to actually validate the server certificate rather than blindly trusting it.</p>
+    <p>Enterprise mode also blunts the <strong>evil twin</strong> attack. With PSK there is nothing tying the network name to a legitimate operator, so a rogue AP broadcasting the same <abbr title="Service Set Identifier">SSID</abbr> looks identical to the real one. Under 802.1X the authentication is mutual: the client validates the RADIUS server's certificate before releasing its credentials, so a rogue AP with no valid certificate fails the exchange. That protection depends on clients being configured to actually validate the server certificate rather than blindly trusting it.</p>
   </div>
 
   <h3>Wireless Channels</h3>
@@ -270,7 +270,7 @@
     <strong>Wide channels are impractical in 2.4 GHz.</strong> The entire band is about 72 MHz wide and already holds only three non-overlapping 20 MHz channels. A single 40 MHz channel consumes roughly two of the three, leaving no room for neighbouring APs and guaranteeing co-channel interference. Wide channels belong in 5 GHz and especially 6 GHz. The same logic applies in reverse in dense environments: when many APs must coexist, <em>narrowing</em> to 20 MHz gives more usable channels and often produces better real-world performance than a wider channel fighting its neighbours.
   </div>
 
-  <h3>Regulatory Impacts — 802.11h, DFS and TPC</h3>
+  <h3>Regulatory Impacts — 802.11h, DFS and <abbr title="Transmit Power Control">TPC</abbr></h3>
   <p>Wi-Fi shares the 5 GHz band with incumbent users — most importantly weather, military, and aviation <strong>radar</strong>. <strong>802.11h</strong> is the amendment that makes this coexistence legal, and it defines two mechanisms:</p>
   <div class="table-wrap">
     <table class="table--reference">
@@ -327,10 +327,10 @@
     <li><strong>Client isolation</strong> — sometimes called AP or peer-to-peer isolation. Prevents guest devices from reaching <em>each other</em> over the wireless link, so one compromised laptop cannot scan the phone next to it.</li>
     <li><strong>Bandwidth limits</strong> — per-client or per-SSID rate limiting keeps guest traffic from starving the business network.</li>
   </ul>
-  <p>A <strong>captive portal</strong> is the web page a guest is redirected to before being granted access — used to present terms of use, collect an email or room number, or accept a voucher code. Until the user completes it, the AP holds the client in a restricted state where DNS and HTTP are intercepted and everything else is blocked.</p>
+  <p>A <strong>captive portal</strong> is the web page a guest is redirected to before being granted access — used to present terms of use, collect an email or room number, or accept a voucher code. Until the user completes it, the AP holds the client in a restricted state where <abbr title="Domain Name System">DNS</abbr> and <abbr title="HyperText Transfer Protocol">HTTP</abbr> are intercepted and everything else is blocked.</p>
   <div class="callout callout-blue">
     <div class="callout-title">Cross-reference</div>
-    <p>This section covers the <em>configuration</em> side. Guest networks as a <strong>segmentation and zone</strong> decision — where the guest zone sits relative to trusted and screened subnets — belong to <strong>Objective 4.1</strong>. <strong>Troubleshooting</strong> a portal that fails to appear, most often because HTTPS enforcement or DNS-over-HTTPS defeats the redirect, is covered in <strong>Objective 5.4</strong>.</p>
+    <p>This section covers the <em>configuration</em> side. Guest networks as a <strong>segmentation and zone</strong> decision — where the guest zone sits relative to trusted and screened subnets — belong to <strong>Objective 4.1</strong>. <strong>Troubleshooting</strong> a portal that fails to appear, most often because <abbr title="HTTP Secure">HTTPS</abbr> enforcement or DNS-over-HTTPS defeats the redirect, is covered in <strong>Objective 5.4</strong>.</p>
   </div>
 
   <h3>Key Wireless Terms</h3>
@@ -406,7 +406,7 @@
       <li>802.11a AND 802.11ac are BOTH 5 GHz only. 802.11a is ancient (1999); 802.11ac is modern (2013).</li>
       <li>802.11n was the FIRST dual-band standard (2.4 + 5 GHz). Don't confuse with 802.11a (5G only, 1999).</li>
       <li>2.4 GHz has only 3 non-overlapping channels (1, 6, 11). This causes interference issues in dense areas.</li>
-      <li>WEP is completely broken. Even WPA (TKIP) is weak. WPA2 (AES/CCMP) minimum for modern networks.</li>
+      <li>WEP is completely broken. Even WPA (TKIP) is weak. WPA2 (<abbr title="Advanced Encryption Standard">AES</abbr>/CCMP) minimum for modern networks.</li>
       <li>SAE is a WPA3 feature that prevents offline dictionary attacks against captured handshakes.</li>
       <li><strong>PSK vs Enterprise is about authentication, not encryption.</strong> WPA2-Personal and WPA2-Enterprise both use AES/CCMP. The difference is a shared passphrase versus per-user 802.1X credentials validated by a RADIUS server. If a question asks how to revoke one user's access or assign a VLAN per user, the answer is Enterprise.</li>
       <li><strong>DFS channel availability varies by regulatory domain.</strong> There is no universal 5 GHz channel plan — the AP's regulatory setting must match its country. A DFS radar detection forces an immediate channel change and a 30-minute lockout, which users experience as a random dropout.</li>

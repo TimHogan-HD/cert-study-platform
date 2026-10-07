@@ -1128,6 +1128,7 @@ td code { font-size: 0.8rem; }
   margin-bottom: 0;
 }
 .port-group .table-wrap { margin-top: 0; }
+.table-wrap[data-variant="bare"] { border: 0; border-radius: 0; margin: 0; }
 .port-group table { margin-top: 0; border-top: none; }
 .port-group table thead th { padding-top: 0.4rem; padding-bottom: 0.4rem; font-size: 0.72rem; }
 .port-group table tbody td { padding-top: 0.45rem; padding-bottom: 0.45rem; font-size: 0.82rem; }
@@ -1317,6 +1318,10 @@ td code { font-size: 0.8rem; }
 
 /* ── Comparison Table (AZ-900 style) ─────────────────────────── */
 .cmp-wrap { overflow-x: auto; margin-bottom: 0.75rem; }
+.cmp-wrap + .cmp-wrap { margin-top: 0.8rem; }
+.cmp-table .cmp-merged { text-align: center; font-weight: 600; }
+.accordion-body h4:not(:first-child) { margin-top: 1.2rem; }
+.tree-diagram { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; font-size: 0.82rem; overflow-x: auto; line-height: 1.7; }
 .cmp-table {
   width: 100%;
   border-collapse: collapse;

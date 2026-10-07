@@ -23,12 +23,12 @@
       <tbody>
         <tr><td><code>ping</code></td><td>"Is the host reachable?" — Layer 3 reachability, packet loss, round-trip time</td><td>→ 5.3</td></tr>
         <tr><td><code>traceroute</code> / <code>tracert</code></td><td>"Where along the path does it break?" — hop-by-hop path discovery</td><td>→ 5.3</td></tr>
-        <tr><td><code>nslookup</code></td><td>"Does the name resolve?" — DNS query from any OS</td><td>→ 5.3</td></tr>
-        <tr><td><code>dig</code></td><td>"Show me the full DNS answer" — TTL, authority section, Linux/Mac</td><td>→ 5.3</td></tr>
+        <tr><td><code>nslookup</code></td><td>"Does the name resolve?" — <abbr title="Domain Name System">DNS</abbr> query from any OS</td><td>→ 5.3</td></tr>
+        <tr><td><code>dig</code></td><td>"Show me the full DNS answer" — <abbr title="Time To Live">TTL</abbr>, authority section, Linux/Mac</td><td>→ 5.3</td></tr>
         <tr><td><code>tcpdump</code></td><td>"Capture packets, no GUI available" — CLI capture on a Linux host or server</td><td>→ 5.3</td></tr>
         <tr><td><code>netstat</code></td><td>"What is listening / connected on this host?" — sockets, ports, routing table</td><td>→ 5.3</td></tr>
         <tr><td><code>ip</code> / <code>ifconfig</code> / <code>ipconfig</code></td><td>"What is this host's own configuration?" — address, mask, gateway, <abbr title="Domain Name System">DNS</abbr></td><td>→ 5.3</td></tr>
-        <tr><td><code>arp</code></td><td>"Which MAC is behind this IP?" — local ARP cache, duplicate-IP detection</td><td>→ 5.3</td></tr>
+        <tr><td><code>arp</code></td><td>"Which MAC is behind this <abbr title="Internet Protocol v4/v6">IP</abbr>?" — local <abbr title="Address Resolution Protocol">ARP</abbr> cache, duplicate-IP detection</td><td>→ 5.3</td></tr>
         <tr><td>Nmap</td><td>"What hosts and ports exist on this subnet?" — discovery and port scanning</td><td>→ 5.3</td></tr>
         <tr><td>Protocol analyzer</td><td>"Prove what is actually on the wire" — full packet decode</td><td>Below</td></tr>
         <tr><td>Speed tester</td><td>"Are we getting the throughput we pay for?" — measured bandwidth</td><td>Below</td></tr>
@@ -47,7 +47,7 @@
     <p><strong>Practical rule:</strong> capture filter on a busy link to keep the file manageable; display filter for everything else. If you are not sure what you are looking for yet, capture wide and filter on display.</p>
   </div>
 
-  <p><strong>Following a stream</strong> reassembles one conversation out of the capture. In Wireshark, right-click a packet → <em>Follow</em> → <em>TCP Stream</em> shows the entire session's payload in order, with each side colour-coded, and automatically sets a display filter for that stream. This is how you read a plaintext protocol exchange — an HTTP request and response, an FTP login, an SMTP conversation — without reading packet-by-packet.</p>
+  <p><strong>Following a stream</strong> reassembles one conversation out of the capture. In Wireshark, right-click a packet → <em>Follow</em> → <em><abbr title="Transmission Control Protocol">TCP</abbr> Stream</em> shows the entire session's payload in order, with each side colour-coded, and automatically sets a display filter for that stream. This is how you read a plaintext protocol exchange — an <abbr title="HyperText Transfer Protocol">HTTP</abbr> request and response, an <abbr title="File Transfer Protocol">FTP</abbr> login, an <abbr title="Simple Mail Transfer Protocol">SMTP</abbr> conversation — without reading packet-by-packet.</p>
 
   <h4>Speed Tester</h4>
 
@@ -83,7 +83,7 @@
 
   <h4><code>show route</code> — the routing table</h4>
 
-  <p>Answers "does this device know a path to the destination, and which one will it use?" Read it when traffic to one network fails while everything else works. The first letter on each line is the source of the route — <code>C</code> connected, <code>S</code> static, <code>O</code> OSPF, <code>D</code> EIGRP, <code>B</code> BGP — and <code>S*</code> marks the candidate default route.</p>
+  <p>Answers "does this device know a path to the destination, and which one will it use?" Read it when traffic to one network fails while everything else works. The first letter on each line is the source of the route — <code>C</code> connected, <code>S</code> static, <code>O</code> <abbr title="Open Shortest Path First">OSPF</abbr>, <code>D</code> EIGRP, <code>B</code> <abbr title="Border Gateway Protocol">BGP</abbr> — and <code>S*</code> marks the candidate default route.</p>
 
   <div class="terminal">
     <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-title">Cisco IOS — show ip route</span></div>
@@ -166,7 +166,7 @@ Gi0/9     auto   <span class="te">off</span>          0.0  <span class="te">n/a<
 
   <div class="table-wrap">
     <table class="table--comparison">
-      <thead><tr><th>Attribute</th><th>CDP</th><th>LLDP</th></tr></thead>
+      <thead><tr><th>Attribute</th><th><abbr title="Cisco Discovery Protocol">CDP</abbr></th><th><abbr title="Link Layer Discovery Protocol">LLDP</abbr></th></tr></thead>
       <tbody>
         <tr><td><strong>Full name</strong></td><td><abbr title="Cisco Discovery Protocol">CDP</abbr> — Cisco Discovery Protocol</td><td><abbr title="Link Layer Discovery Protocol">LLDP</abbr> — Link Layer Discovery Protocol</td></tr>
         <tr><td><strong>Standard</strong></td><td>Cisco proprietary</td><td>IEEE 802.1AB — vendor-neutral</td></tr>
@@ -246,7 +246,7 @@ Cisco IOS Software, C2960 Software, Version 15.0(2)SE11    <span class="tn">← 
         <tr><td>Cable tester</td><td>You suspect an open, a short, or a miswired pair in a copper run</td><td>→ 5.2</td></tr>
         <tr><td>Wi-Fi analyzer</td><td>You need channel usage, signal strength, or co-channel interference data</td><td>→ 5.2, 5.4</td></tr>
         <tr><td>Visual fault locator</td><td>You need to find a break or sharp bend in a fiber strand visually</td><td>→ 5.2</td></tr>
-        <tr><td>Taps</td><td>You need a full, reliable copy of traffic for capture or an IDS</td><td>Below</td></tr>
+        <tr><td>Taps</td><td>You need a full, reliable copy of traffic for capture or an <abbr title="Intrusion Detection System">IDS</abbr></td><td>Below</td></tr>
       </tbody>
     </table>
   </div>

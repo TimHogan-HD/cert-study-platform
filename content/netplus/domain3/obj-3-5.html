@@ -20,13 +20,13 @@
           <td>Remote workers, WFH employees.</td>
         </tr>
         <tr>
-          <td><strong>SSL/TLS VPN</strong></td>
-          <td>Uses HTTPS (port 443) — traverses firewalls easily. Browser-based or thin client. (Also called SSTP, OpenVPN).</td>
-          <td>Clientless access to web apps, easy deployment through NAT/firewalls.</td>
+          <td><strong>SSL/<abbr title="Transport Layer Security">TLS</abbr> VPN</strong></td>
+          <td>Uses <abbr title="HTTP Secure">HTTPS</abbr> (port 443) — traverses firewalls easily. Browser-based or thin client. (Also called SSTP, OpenVPN).</td>
+          <td>Clientless access to web apps, easy deployment through <abbr title="Network Address Translation">NAT</abbr>/firewalls.</td>
         </tr>
         <tr>
           <td><strong>IPsec VPN</strong></td>
-          <td>IP Security — encrypts/authenticates at Layer 3. Uses IKE for key exchange.</td>
+          <td><abbr title="Internet Protocol v4/v6">IP</abbr> Security — encrypts/authenticates at Layer 3. Uses <abbr title="Internet Key Exchange">IKE</abbr> for key exchange.</td>
           <td>Site-to-site and client-to-site. Most common enterprise VPN protocol.</td>
         </tr>
       </tbody>
@@ -50,7 +50,7 @@
         <tr>
           <td><strong>What the user reaches</strong></td>
           <td>The network. The device gets an IP on the corporate network and can reach any permitted resource and protocol</td>
-          <td>Only what the portal publishes — typically web applications, plus file shares or RDP proxied through the browser</td>
+          <td>Only what the portal publishes — typically web applications, plus file shares or <abbr title="Remote Desktop Protocol — Windows GUI remote access">RDP</abbr> proxied through the browser</td>
         </tr>
         <tr>
           <td><strong>Deployment</strong></td>
@@ -111,27 +111,27 @@
         <tr><th>Component</th><th>Function</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>AH</strong> (Authentication Header)</td><td>Provides authentication and integrity only. NO encryption. Protocol number 51. Not widely used alone.</td></tr>
-        <tr><td><strong>ESP</strong> (Encapsulating Security Payload)</td><td>Provides authentication, integrity, AND encryption. Protocol number 50. Most common IPsec component.</td></tr>
-        <tr><td><strong>IKE</strong> (Internet Key Exchange)</td><td>Negotiates security associations (SAs) and establishes shared keys. IKEv1 (older) and IKEv2 (current, more efficient). Uses UDP port 500 (phase 1) and UDP 4500 (NAT traversal).</td></tr>
+        <tr><td><strong><abbr title="Authentication Header">AH</abbr></strong> (Authentication Header)</td><td>Provides authentication and integrity only. NO encryption. Protocol number 51. Not widely used alone.</td></tr>
+        <tr><td><strong><abbr title="Encapsulating Security Payload">ESP</abbr></strong> (Encapsulating Security Payload)</td><td>Provides authentication, integrity, AND encryption. Protocol number 50. Most common IPsec component.</td></tr>
+        <tr><td><strong>IKE</strong> (Internet Key Exchange)</td><td>Negotiates security associations (SAs) and establishes shared keys. IKEv1 (older) and IKEv2 (current, more efficient). Uses <abbr title="User Datagram Protocol">UDP</abbr> port 500 (phase 1) and UDP 4500 (NAT traversal).</td></tr>
         <tr><td><strong>Tunnel Mode</strong></td><td>Entire IP packet is encrypted and encapsulated in new IP packet. Used for site-to-site VPNs.</td></tr>
-        <tr><td><strong>Transport Mode</strong></td><td>Only the payload is encrypted; original IP header preserved. Used for host-to-host encryption (e.g., L2TP over IPsec).</td></tr>
+        <tr><td><strong>Transport Mode</strong></td><td>Only the payload is encrypted; original IP header preserved. Used for host-to-host encryption (e.g., <abbr title="Layer 2 Tunneling Protocol">L2TP</abbr> over IPsec).</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h3>RADIUS vs TACACS+</h3>
+  <h3><abbr title="Remote Authentication Dial-In User Service">RADIUS</abbr> vs TACACS+</h3>
   <div class="table-wrap">
     <table class="table--comparison">
       <thead>
         <tr><th>Feature</th><th>RADIUS</th><th>TACACS+</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Transport</strong></td><td>UDP</td><td>TCP</td></tr>
+        <tr><td><strong>Transport</strong></td><td>UDP</td><td><abbr title="Transmission Control Protocol">TCP</abbr></td></tr>
         <tr><td><strong>Port</strong></td><td>1812 (auth), 1813 (accounting)</td><td>49</td></tr>
         <tr><td><strong>Encryption</strong></td><td>Encrypts only the password field</td><td>Encrypts the entire packet payload</td></tr>
-        <tr><td><strong>AAA Separation</strong></td><td>Combines Authentication + Authorization</td><td>Separates Authentication, Authorization, Accounting independently</td></tr>
-        <tr><td><strong>Origin</strong></td><td>Open standard (RFC 2865/2866)</td><td>Cisco proprietary (+ extensions)</td></tr>
+        <tr><td><strong><abbr title="Authentication, Authorization, and Accounting">AAA</abbr> Separation</strong></td><td>Combines Authentication + Authorization</td><td>Separates Authentication, Authorization, Accounting independently</td></tr>
+        <tr><td><strong>Origin</strong></td><td>Open standard (<abbr title="Request for Comments">RFC</abbr> 2865/2866)</td><td>Cisco proprietary (+ extensions)</td></tr>
         <tr><td><strong>Best For</strong></td><td>Network access (Wi-Fi, VPN, 802.1X)</td><td>Network device administration (router/switch management)</td></tr>
         <tr><td><strong>Accountability</strong></td><td>Limited — combined auth/authz</td><td>Granular per-command authorization and accounting</td></tr>
       </tbody>
@@ -146,14 +146,14 @@
       </thead>
       <tbody>
         <tr><td><strong>Supplicant</strong></td><td>The client device requesting access</td><td>Laptop, phone, workstation — runs 802.1X client software</td></tr>
-        <tr><td><strong>Authenticator</strong></td><td>The network device that enforces access control</td><td>Switch port or WAP — forwards EAP messages, enforces allow/deny</td></tr>
+        <tr><td><strong>Authenticator</strong></td><td>The network device that enforces access control</td><td>Switch port or WAP — forwards <abbr title="Extensible Authentication Protocol">EAP</abbr> messages, enforces allow/deny</td></tr>
         <tr><td><strong>Authentication Server</strong></td><td>Validates credentials and sends accept/reject</td><td>RADIUS server (FreeRADIUS, Cisco ISE, Microsoft NPS)</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h4>EAP and EAPoL — What 802.1X Actually Carries</h4>
-  <p><strong><abbr title="Extensible Authentication Protocol">EAP</abbr></strong> is not an authentication method. It is a <em>framework</em> — an envelope that carries whatever method the two ends agree on, which is why 802.1X can authenticate a certificate, a password, or a token without the switch understanding any of them. The methods themselves are the EAP <em>types</em>: <strong>EAP-TLS</strong> (certificates on both sides — strongest, and the reason it needs a PKI), <strong>PEAP</strong> (a TLS tunnel from the server's certificate alone, with a password authenticated inside it), and <strong>EAP-TTLS</strong> (similar tunnelling, broader legacy method support). "We use EAP" says nothing about how strong the authentication is; the type does.</p>
+  <h4>EAP and <abbr title="EAP over LAN">EAPoL</abbr> — What 802.1X Actually Carries</h4>
+  <p><strong><abbr title="Extensible Authentication Protocol">EAP</abbr></strong> is not an authentication method. It is a <em>framework</em> — an envelope that carries whatever method the two ends agree on, which is why 802.1X can authenticate a certificate, a password, or a token without the switch understanding any of them. The methods themselves are the EAP <em>types</em>: <strong>EAP-TLS</strong> (certificates on both sides — strongest, and the reason it needs a <abbr title="Public Key Infrastructure">PKI</abbr>), <strong>PEAP</strong> (a TLS tunnel from the server's certificate alone, with a password authenticated inside it), and <strong>EAP-TTLS</strong> (similar tunnelling, broader legacy method support). "We use EAP" says nothing about how strong the authentication is; the type does.</p>
   <p><strong><abbr title="EAP over LAN">EAPoL</abbr></strong> is how those EAP messages travel across the wired or wireless LAN between supplicant and authenticator, before the supplicant has an IP address at all. The authenticator then unwraps each EAP message and re-sends it to the RADIUS server inside a RADIUS packet — so <strong>EAPoL runs supplicant → authenticator, and RADIUS runs authenticator → authentication server</strong>. The EAP conversation is end-to-end between supplicant and server; only its transport changes in the middle.</p>
 
   <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 3.5 lists <em>VPN types, remote access protocols,</em> and <em>access management methods</em>. <strong>EAP</strong> and <strong>EAPoL</strong> are not enumerated in any bullet, but both appear in the official N10-009 acronym list, and 802.1X — which is enumerated under 4.1 — cannot be explained without them.</p>
@@ -170,7 +170,7 @@
         <tr><th>Protocol</th><th>Port</th><th>Use</th><th>Security</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>SSH</strong></td><td>22 TCP</td><td>Encrypted CLI remote access to routers, switches, Linux</td><td>Encrypted, key-based or password auth</td></tr>
+        <tr><td><strong><abbr title="Secure Shell">SSH</abbr></strong></td><td>22 TCP</td><td>Encrypted CLI remote access to routers, switches, Linux</td><td>Encrypted, key-based or password auth</td></tr>
         <tr><td><strong>Telnet</strong></td><td>23 TCP</td><td>Legacy CLI remote access</td><td>Cleartext — never use in production</td></tr>
         <tr><td><strong>RDP</strong></td><td>3389 TCP</td><td>Windows remote desktop GUI</td><td>Encrypted, but often targeted by attackers (BlueKeep)</td></tr>
         <tr><td><strong>VNC</strong></td><td>5900 TCP</td><td>Cross-platform remote desktop</td><td>Security varies — use with SSH tunnel</td></tr>
@@ -198,9 +198,9 @@
         <tr><th>Method</th><th>Protocol</th><th>Authentication</th><th>Use Case / Notes</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>GUI / Web-Based</strong></td><td>HTTPS (443)</td><td>Username/password; certificate</td><td>Browser-based management interface; use HTTPS only — HTTP exposes credentials</td></tr>
+        <tr><td><strong>GUI / Web-Based</strong></td><td>HTTPS (443)</td><td>Username/password; certificate</td><td>Browser-based management interface; use HTTPS only — <abbr title="HyperText Transfer Protocol">HTTP</abbr> exposes credentials</td></tr>
         <tr><td><strong>SSH</strong></td><td>TCP 22</td><td>Username/password or public key</td><td>Encrypted CLI; key-based authentication preferred over passwords; replaces Telnet</td></tr>
-        <tr><td><strong>API</strong></td><td>REST (HTTPS), NETCONF (830 TCP), RESTCONF (443)</td><td>Token, certificate, OAuth</td><td>Programmatic management; used by IaC tools (Ansible, Terraform); NETCONF = XML, RESTCONF = REST</td></tr>
+        <tr><td><strong><abbr title="Application Programming Interface">API</abbr></strong></td><td><abbr title="Representational State Transfer">REST</abbr> (HTTPS), <abbr title="Network Configuration Protocol">NETCONF</abbr> (830 TCP), <abbr title="RESTful Network Configuration Protocol">RESTCONF</abbr> (443)</td><td>Token, certificate, OAuth</td><td>Programmatic management; used by <abbr title="Infrastructure as Code">IaC</abbr> tools (Ansible, Terraform); NETCONF = XML, RESTCONF = REST</td></tr>
         <tr><td><strong>Console Port</strong></td><td>Serial / USB (direct)</td><td>Username/password (if configured)</td><td>Physical connection; always accessible regardless of network state; initial config and recovery mode</td></tr>
         <tr><td><strong>Jump Box / Bastion Host</strong></td><td>SSH to jump box; then SSH to device</td><td>MFA + SSH keys recommended</td><td>Admins SSH to jump box first; jump box SSH to target device; all sessions logged centrally</td></tr>
         <tr><td><strong>In-Band Management</strong></td><td>Shares production interfaces/VLAN</td><td>As above</td><td>Normal operations; unavailable if production network fails</td></tr>

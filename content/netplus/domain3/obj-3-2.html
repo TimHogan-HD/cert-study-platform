@@ -32,16 +32,16 @@
     </table>
   </div>
 
-  <h3>SNMP (Simple Network Management Protocol)</h3>
+  <h3><abbr title="Simple Network Management Protocol">SNMP</abbr> (Simple Network Management Protocol)</h3>
   <div class="table-wrap">
     <table class="table--reference">
       <thead>
         <tr><th>Component</th><th>Role</th><th>Port</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>NMS (Manager)</strong></td><td>Polls agents for information; receives traps</td><td>162 UDP (receives traps)</td></tr>
+        <tr><td><strong>NMS (Manager)</strong></td><td>Polls agents for information; receives traps</td><td>162 <abbr title="User Datagram Protocol">UDP</abbr> (receives traps)</td></tr>
         <tr><td><strong>Agent</strong></td><td>Runs on managed devices (routers, switches); reports data; sends traps</td><td>161 UDP (receives polls)</td></tr>
-        <tr><td><strong>MIB</strong> (Management Information Base)</td><td>Database of objects that can be monitored/managed. Each has an OID.</td><td>—</td></tr>
+        <tr><td><strong><abbr title="Management Information Base">MIB</abbr></strong> (Management Information Base)</td><td>Database of objects that can be monitored/managed. Each has an <abbr title="Object Identifier">OID</abbr>.</td><td>—</td></tr>
         <tr><td><strong>OID</strong> (Object Identifier)</td><td>Unique identifier for a specific data point (e.g., interface counters)</td><td>—</td></tr>
         <tr><td><strong>Community String</strong></td><td>Password-like authentication in SNMPv1/v2c. "public" = read-only, "private" = read-write.</td><td>—</td></tr>
       </tbody>
@@ -56,7 +56,7 @@
       <tbody>
         <tr><td><strong>SNMPv1</strong></td><td>Community strings (cleartext)</td><td>Original, no encryption or auth. Legacy.</td></tr>
         <tr><td><strong>SNMPv2c</strong></td><td>Community strings (cleartext)</td><td>Adds bulk retrieval, improved error handling. Still cleartext.</td></tr>
-        <tr><td><strong>SNMPv3</strong></td><td>Authentication + Encryption</td><td>Three security levels: noAuthNoPriv, authNoPriv, authPriv (SHA/AES). Enterprise recommended.</td></tr>
+        <tr><td><strong>SNMPv3</strong></td><td>Authentication + Encryption</td><td>Three security levels: noAuthNoPriv, authNoPriv, authPriv (SHA/<abbr title="Advanced Encryption Standard">AES</abbr>). Enterprise recommended.</td></tr>
       </tbody>
     </table>
   </div>
@@ -101,8 +101,8 @@
         <tr><th>Protocol</th><th>How It Works</th><th>Origin</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>NetFlow</strong></td><td>Router/switch exports flow records (src/dst IP, port, protocol, byte count) to collector. Active — device processes traffic.</td><td>Cisco proprietary (IETF standardized as IPFIX)</td></tr>
-        <tr><td><strong>IPFIX</strong></td><td>IETF standard version of NetFlow. More flexible template-based format.</td><td>Open standard (RFC 7011)</td></tr>
+        <tr><td><strong>NetFlow</strong></td><td>Router/switch exports flow records (src/dst <abbr title="Internet Protocol v4/v6">IP</abbr>, port, protocol, byte count) to collector. Active — device processes traffic.</td><td>Cisco proprietary (IETF standardized as IPFIX)</td></tr>
+        <tr><td><strong>IPFIX</strong></td><td>IETF standard version of NetFlow. More flexible template-based format.</td><td>Open standard (<abbr title="Request for Comments">RFC</abbr> 7011)</td></tr>
         <tr><td><strong>sFlow</strong></td><td>Passive sampling — randomly samples 1-in-N packets and sends to collector. Less CPU than NetFlow but less precise.</td><td>Open standard, common in data centers</td></tr>
       </tbody>
     </table>
@@ -128,8 +128,8 @@
     <table class="table--reference">
       <thead><tr><th>Interface</th><th>What it is</th><th>Why it is used</th></tr></thead>
       <tbody>
-        <tr><td><strong><abbr title="Representational State Transfer">REST</abbr> API</strong></td><td>HTTPS requests returning JSON; the standard interface for cloud-managed wireless, SD-WAN, and firewall platforms</td><td>Easy to consume from scripts and dashboards; authenticated with a token rather than a community string</td></tr>
-        <tr><td><strong><abbr title="Network Configuration Protocol">NETCONF</abbr></strong></td><td>XML-based protocol over SSH for retrieving and changing device configuration</td><td>Transaction-based — a config change either fully applies or rolls back, unlike a partial CLI paste</td></tr>
+        <tr><td><strong><abbr title="Representational State Transfer">REST</abbr> API</strong></td><td><abbr title="HTTP Secure">HTTPS</abbr> requests returning JSON; the standard interface for cloud-managed wireless, SD-WAN, and firewall platforms</td><td>Easy to consume from scripts and dashboards; authenticated with a token rather than a community string</td></tr>
+        <tr><td><strong><abbr title="Network Configuration Protocol">NETCONF</abbr></strong></td><td>XML-based protocol over <abbr title="Secure Shell">SSH</abbr> for retrieving and changing device configuration</td><td>Transaction-based — a config change either fully applies or rolls back, unlike a partial CLI paste</td></tr>
         <tr><td><strong><abbr title="RESTful Network Configuration Protocol">RESTCONF</abbr></strong></td><td>REST-style HTTPS interface to the same <abbr title="Yet Another Next Generation">YANG</abbr> data models NETCONF uses</td><td>Combines NETCONF's structured models with ordinary REST tooling</td></tr>
       </tbody>
     </table>
@@ -157,7 +157,7 @@
 
   <div class="callout callout-blue">
     <div class="callout-title">Port Mirroring / <abbr title="Switched Port Analyzer">SPAN</abbr></div>
-    <p>Copies traffic from one or more source ports (or VLANs) to a designated mirror port where a packet analyzer (Wireshark, IDS/IPS sensor) is connected. Traffic flows on the source port are unaffected — SPAN is non-intrusive. The mirror port is effectively read-only for analysis.</p>
+    <p>Copies traffic from one or more source ports (or VLANs) to a designated mirror port where a packet analyzer (Wireshark, <abbr title="Intrusion Detection System">IDS</abbr>/<abbr title="Intrusion Prevention System">IPS</abbr> sensor) is connected. Traffic flows on the source port are unaffected — SPAN is non-intrusive. The mirror port is effectively read-only for analysis.</p>
   </div>
 
   <div class="table-wrap">
@@ -168,7 +168,7 @@
       <tbody>
         <tr><td><strong>SPAN</strong> (local)</td><td>Same switch</td><td>Switched port</td><td>Capture traffic between ports on one switch; analyzer plugged in locally</td></tr>
         <tr><td><strong>RSPAN</strong> (Remote SPAN)</td><td>Across switches via VLAN</td><td>Dedicated RSPAN VLAN</td><td>Analyzer on a different switch; mirror traffic sent across trunk using a reserved VLAN</td></tr>
-        <tr><td><strong>ERSPAN</strong> (Encapsulated RSPAN)</td><td>Across Layer 3 boundaries</td><td>GRE tunnel</td><td>Analyzer in a different subnet or data center; mirror traffic encapsulated in GRE over IP</td></tr>
+        <tr><td><strong>ERSPAN</strong> (Encapsulated RSPAN)</td><td>Across Layer 3 boundaries</td><td><abbr title="Generic Routing Encapsulation">GRE</abbr> tunnel</td><td>Analyzer in a different subnet or data center; mirror traffic encapsulated in GRE over IP</td></tr>
         <tr><td><strong>Network TAP</strong></td><td>Inline on a cable</td><td>Passive optical/electrical</td><td>Hardware tap inserted into fiber or copper — passively copies all traffic; no switch involvement; cannot be disabled by software</td></tr>
       </tbody>
     </table>
@@ -183,7 +183,7 @@
         <tr><td><strong>Network Discovery</strong></td><td>"What is actually on the network?" — finds devices, addresses, and how they interconnect, building the topology and feeding the asset inventory</td><td>Nmap, SNMP sweeps, <abbr title="Link Layer Discovery Protocol">LLDP</abbr>/<abbr title="Cisco Discovery Protocol">CDP</abbr> neighbour data, NMS auto-discovery</td></tr>
         <tr><td><strong>Traffic Analysis</strong></td><td>"Who is talking to whom, and what is consuming the bandwidth?" — top talkers, application mix, unexpected flows</td><td>NetFlow/IPFIX/sFlow collectors, packet analyzers via SPAN or TAP</td></tr>
         <tr><td><strong>Performance Monitoring</strong></td><td>"Is it fast enough?" — latency, jitter, loss, throughput, and utilization measured against the baseline</td><td>NMS polling, synthetic probes, <abbr title="Internet Protocol Service Level Agreement">IP SLA</abbr></td></tr>
-        <tr><td><strong>Availability Monitoring</strong></td><td>"Is it up?" — reachability and uptime of devices, links, and services, and the source of most alerting</td><td>ICMP/port checks, SNMP traps, service health checks</td></tr>
+        <tr><td><strong>Availability Monitoring</strong></td><td>"Is it up?" — reachability and uptime of devices, links, and services, and the source of most alerting</td><td><abbr title="Internet Control Message Protocol">ICMP</abbr>/port checks, SNMP traps, service health checks</td></tr>
         <tr><td><strong>Configuration Monitoring</strong></td><td>"Has anything changed that should not have?" — detects <strong>configuration drift</strong> from the approved baseline and flags unauthorized changes</td><td>Config backup and comparison tools, IaC platforms auditing against the <strong>golden configuration</strong> (see <strong>3.1</strong>)</td></tr>
       </tbody>
     </table>
