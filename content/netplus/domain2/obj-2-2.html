@@ -128,6 +128,8 @@ Erasing the nvram filesystem... <span class="ts">[OK]</span>
     <strong>The classic VTP disaster:</strong> a switch removed from the network, used in a lab, then plugged back in arrives with a <em>higher</em> revision number than the production domain. Its stale database propagates and overwrites every switch in the domain — deleting production VLANs network-wide. This is why a switch should always be set to <strong>transparent mode</strong> (or have its revision reset) before being reintroduced. Note that revision number, not VTP mode, decides the winner: a <em>client</em> with a higher revision number will still overwrite a server.
   </div>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.2 lists the <em>VLAN database</em>. <strong>VTP</strong> is not enumerated. CompTIA states its lists are non-exhaustive, and VTP is kept because it is how a VLAN database changes without anyone editing it, which is the failure the callout above describes.</p>
+
   <h3>802.1Q Trunk Tagging</h3>
   <p>802.1Q adds a 4-byte tag inside the Ethernet frame after the source MAC address:</p>
   <ul>
@@ -283,6 +285,8 @@ Erasing the nvram filesystem... <span class="ts">[OK]</span>
     </div>
   </div>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.2 lists <em>spanning tree</em> without naming its protection features. <strong>PortFast</strong>, <strong>BPDU Guard</strong>, <strong>Root Guard</strong>, and <strong>Loop Guard</strong> are not enumerated. CompTIA states its lists are non-exhaustive, and they are kept because they are the standard hardening for any spanning-tree deployment and appear in configuration scenarios.</p>
+
   <h3>EtherChannel / LACP</h3>
   <p>EtherChannel bundles multiple physical links into one logical link — more bandwidth and redundancy without STP blocking the redundant links (STP treats the bundle as one link).</p>
   <ul>
@@ -290,6 +294,8 @@ Erasing the nvram filesystem... <span class="ts">[OK]</span>
     <li><strong>PAgP</strong> — Cisco proprietary EtherChannel negotiation.</li>
     <li><strong>Static (mode on)</strong> — Forces EtherChannel without negotiation.</li>
   </ul>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.2 lists <em>link aggregation</em>. <strong>PAgP</strong> is not enumerated. CompTIA states its lists are non-exhaustive, and it is kept so that LACP can be identified as the open-standard choice in a mixed-vendor scenario.</p>
 
   <h3>Interface Configuration — Speed and Duplex</h3>
   <p>Every switch port has a <strong>speed</strong> and a <strong>duplex</strong> setting. Both default to auto-negotiation, where the two ends exchange capabilities and agree on the highest common denominator.</p>

@@ -46,7 +46,7 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
 
   <p>That is <em>one</em> routing table, which is all a router normally holds. <strong><abbr title="Virtual Routing and Forwarding">VRF</abbr></strong> lets a single physical router hold several completely independent ones, with each interface assigned to exactly one of them. Traffic in one cannot reach another without an explicit route leak, and because the tables never see each other, two customers can both use 10.0.0.0/8 on the same box. VRF is to routing what a VLAN is to switching — one device, several separate networks — and it is what makes a provider's <abbr title="Multiprotocol Label Switching">MPLS</abbr> L3VPN possible.</p>
 
-  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.1 lists <em>static and dynamic routing, route selection, address translation,</em> and <em><abbr title="First Hop Redundancy Protocol">FHRP</abbr></em>. <strong>VRF</strong> is not enumerated, but it appears in the official N10-009 acronym list and is a one-line concept once routing tables are understood, so it sits here rather than in a section of its own.</p>
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.1 lists <em>static and dynamic routing, route selection, address translation,</em> and <em><abbr title="First Hop Redundancy Protocol">FHRP</abbr></em>. <strong>VRF</strong> is not enumerated and is not in the N10-009 acronym list. CompTIA states its lists are non-exhaustive, and VRF is kept because it is a one-line concept once routing tables are understood, so it sits here rather than in a section of its own.</p>
 
   <!-- C1: Route Selection Decision Flow -->
   <h3>Route Selection — Prefix Length, AD, Metric</h3>
@@ -177,6 +177,8 @@ Gateway of last resort is <span class="th">10.0.0.2</span> to network 0.0.0.0
       </tbody>
     </table>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.1 lists <em>BGP, EIGRP,</em> and <em>OSPF</em> under dynamic routing. <strong>RIP</strong> and <strong>IS-IS</strong> are not enumerated. CompTIA states its lists are non-exhaustive, and both are kept as the reference points for comparison: RIP is the plain distance-vector protocol that EIGRP improves on, and IS-IS is the other link-state protocol alongside OSPF.</p>
 
   <h3>Static vs Dynamic Routing</h3>
   <div class="table-wrap">

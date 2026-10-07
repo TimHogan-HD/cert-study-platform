@@ -57,6 +57,8 @@
     </table>
   </div>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.4 lists <em>IDF, MDF, patch panel, fiber distribution panel,</em> and <em>lockable</em> under installation implications. <strong>66 and 110 blocks</strong>, <strong>cable trays</strong>, and <strong>conduit</strong> are not enumerated. CompTIA states its lists are non-exhaustive, and they are kept because they are the rest of the physical cable path between the listed components.</p>
+
   <div class="callout callout-blue">
     <div class="callout-title">Lockable enclosures as a security control</div>
     <p>Locking racks and cabinets matter most where the equipment is not already behind a controlled door. An MDF in a badge-access room is protected by the room; an <abbr title="Intermediate Distribution Frame">IDF</abbr> in a shared floor closet, a switch in a retail back office, or a rack in a leased colocation cage is not — and those are exactly the places a locking enclosure earns its keep. In multi-tenant facilities the cabinet lock is often the <em>only</em> boundary between your hardware and another tenant's staff.</p>
@@ -102,6 +104,8 @@
     </table>
   </div>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.4 does not list testing tools. Objective 5.5 lists the <em>cable tester, toner,</em> and <em>visual fault locator</em> as hardware tools. <strong>TDR</strong>, <strong>OTDR</strong>, the <strong>light meter</strong>, the <strong>multimeter</strong>, the <strong>punchdown tool</strong>, and the <strong>crimper</strong> are not enumerated in N10-009. CompTIA states its lists are non-exhaustive, and they are kept because they install and verify the cabling this objective covers.</p>
+
   <h3>Common Interface Error Types</h3>
   <div class="table-wrap">
     <table class="table--reference">
@@ -127,6 +131,11 @@
       <li>802.3af = 15.4W (older PoE). 802.3at = 30W (PoE+). 802.3bt = 90W (PoE++). Know all three.</li>
       <li>PoE power budget must be calculated for the entire switch — not just per-port.</li>
     </ul>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-reference — Objective 5.2</div>
+    <p>The PoE standards, the power budget, and the interface error counters above are enumerated under objective 5.2 (cabling and physical interface issues). They appear here as installation facts; 5.2 covers how to troubleshoot them.</p>
   </div>
 
   <!-- C12: Hot/Cold Aisle Airflow Diagram -->
@@ -193,8 +202,10 @@
     </ul>
   </div>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.4 lists <em>rack size</em> and <em>port-side exhaust/intake</em>. <strong>Hot and cold aisles</strong> and <strong>aisle containment</strong> are not enumerated. CompTIA states its lists are non-exhaustive, and they are kept because port-side airflow only makes sense relative to them: a device's airflow direction is chosen to match the aisle its ports face.</p>
+
   <h3>Power</h3>
-  <p>Network equipment is only as available as the power feeding it. Objective 2.4 enumerates five power components, and the distinction the exam leans on hardest is <em>how the three UPS types route the load</em>.</p>
+  <p>Network equipment is only as available as the power feeding it. Objective 2.4 enumerates four power topics (UPS, <abbr title="Power Distribution Unit">PDU</abbr>, power load, and voltage), and the distinction the exam leans on hardest is <em>how the three UPS types route the load</em>.</p>
 
   <h4>UPS Types</h4>
   <p>All three deliver battery-backed power. What separates them is whether the load is normally fed from the mains or through the inverter — which determines how long the gap is when utility power fails.</p>
@@ -288,7 +299,7 @@
     </table>
   </div>
 
-  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.4 enumerates <em>UPS, PDU, power load, voltage,</em> and <em>generator</em> under power. <strong>PSU</strong> is not enumerated, but it appears in the official N10-009 acronym list and is the component every one of those five ultimately feeds, so it is covered here with the rest of the power path.</p>
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 2.4 enumerates <em>UPS, PDU, power load,</em> and <em>voltage</em> under power. <strong>Generator</strong> and <strong>PSU</strong> are not enumerated, and neither is in the N10-009 acronym list. CompTIA states its lists are non-exhaustive, and both are kept because they complete the power path: the generator is what the UPS bridges to in a long outage, and the PSU is the component everything upstream ultimately feeds.</p>
 
   <h3>Environmental Factors</h3>
   <p>Equipment rooms fail from their environment as often as from their wiring. Three factors are enumerated: humidity, temperature, and fire suppression.</p>

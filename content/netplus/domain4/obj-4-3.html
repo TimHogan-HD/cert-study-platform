@@ -8,6 +8,8 @@
     <li>Physical security → Network perimeter → Host-based → Application → Data → Monitoring</li>
   </ul>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 4.3 does not enumerate <strong>defense-in-depth</strong>. CompTIA states its lists are non-exhaustive, and it is kept because it is the principle that ties the listed controls together.</p>
+
   <h3>Firewall Types</h3>
   <div class="table-wrap">
     <table class="table--comparison">
@@ -25,6 +27,8 @@
     </table>
   </div>
 
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> The firewall is listed as an appliance under objective 1.2, and UTM appears in the acronym list. <strong>Firewall types</strong> (packet filter, stateful, NGFW, WAF, host-based, UTM) are not enumerated. CompTIA states its lists are non-exhaustive, and they are kept because 4.3 asks which control fits a scenario, and the answer often depends on the firewall's type.</p>
+
   <h3><abbr title="Intrusion Detection System">IDS</abbr> vs IPS Placement (Critical)</h3>
   <div class="table-wrap">
     <table class="table--comparison">
@@ -38,6 +42,11 @@
         <tr><td>Latency Impact</td><td>None — out of band</td><td>Adds latency — traffic must be inspected before forwarding</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-title">Cross-reference — Objective 1.2</div>
+    <p>IDS and IPS are enumerated under objective 1.2 (networking appliances). Their placement is taught here because 4.3 asks where to deploy a defensive control.</p>
   </div>
 
   <h3>Security Zones — Trusted vs. Untrusted</h3>
@@ -145,6 +154,8 @@
     <p>A MAC address is neither secret nor verified. It travels in cleartext in the header of every single frame, so an attacker need only observe the wire or the air briefly to harvest a permitted address, then set their own interface to it with one command. Filtering also scales badly — every new or replaced device means a manual list edit.</p>
     <p>MAC filtering raises the effort marginally and is <strong>not a substitute for 802.1X</strong>, which authenticates the device or user cryptographically before the port forwards any traffic at all. When a scenario asks for genuine network access control, the answer is 802.1X; MAC filtering is the distractor.</p>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 4.3 lists <em>port security, 802.1X,</em> and <em>MAC filtering</em> under network access control. <strong>DHCP snooping</strong>, <strong>Dynamic ARP Inspection</strong>, and <strong>IP Source Guard</strong> are not enumerated. CompTIA states its lists are non-exhaustive, and they are kept because they are the switch defenses against the rogue DHCP and ARP attacks listed in objective 4.2.</p>
 
   <h3>ACLs (Access Control Lists)</h3>
   <div class="table-wrap">

@@ -103,13 +103,15 @@
         <tr><td><strong>LC</strong> (Lucent Connector)</td><td>Small form-factor</td><td>Push-pull latch</td><td>Most common in data centers; SFP transceivers. Duplex LC = two fibers side-by-side.</td></tr>
         <tr><td><strong>SC</strong> (Subscriber Connector)</td><td>Square</td><td>Push-pull snap</td><td>"Snap and Click." Older installations, campus fiber.</td></tr>
         <tr><td><strong>ST</strong> (Straight Tip)</td><td>Round</td><td>Bayonet twist-lock</td><td>Older campus/enterprise. "Stick and Twist."</td></tr>
-        <tr><td><strong><abbr title="Fiber Channel">FC</abbr></strong> (Ferrule Connector)</td><td>Round, threaded</td><td>Screw-on</td><td>Telecom and test equipment. Vibration-resistant.</td></tr>
+        <tr><td><strong><abbr title="Ferrule Connector">FC</abbr></strong> (Ferrule Connector)</td><td>Round, threaded</td><td>Screw-on</td><td>Telecom and test equipment. Vibration-resistant.</td></tr>
         <tr><td><strong>MPO/MTP</strong></td><td>Multi-fiber</td><td>Push-pull</td><td>12 or 24 fibers in one connector. Data center high-density. Used with QSFP.</td></tr>
         <tr><td><strong>RJ45</strong></td><td>Copper (not fiber)</td><td>Tab-and-click</td><td>Standard Ethernet connector for UTP/STP cables. 8 pins.</td></tr>
         <tr><td><strong>RJ11</strong></td><td>Copper (telephone)</td><td>Tab-and-click</td><td>6-position, 2-4 conductors. Phone lines, DSL modems.</td></tr>
       </tbody>
     </table>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.5 lists <em>SC, LC, ST, MPO, RJ11, RJ45, F-type,</em> and <em>BNC</em> as connector types. The <strong>FC (Ferrule Connector)</strong> is not enumerated; the FC in objective 1.5 is Fibre Channel, a protocol. CompTIA states its lists are non-exhaustive, and the ferrule connector is kept because it is still common on test equipment, and the shared acronym is a trap worth knowing. CompTIA expands LC as "Local connector"; "Lucent Connector" is the industry name for the same plug.</p>
 
   <h3>802.3 Ethernet Standards</h3>
   <p>IEEE 802.3 defines wired Ethernet. The naming convention is <strong>speed-BASE-medium</strong>: e.g., 1000BASE-T = 1 Gbps, baseband, twisted pair.</p>
@@ -143,11 +145,13 @@
         <tr><td><strong>QSFP</strong> (Quad SFP)</td><td>40 Gbps (4×10G)</td><td>Data center switches; can be broken out to 4×SFP+</td></tr>
         <tr><td><strong>QSFP28</strong></td><td>100 Gbps (4×25G)</td><td>Spine-leaf data center fabric; high-density 100GbE</td></tr>
         <tr><td><strong>GBIC</strong> (older)</td><td>Up to 1 Gbps</td><td>Legacy — replaced by SFP. Larger form factor.</td></tr>
-        <tr><td><strong>FC Transceiver</strong> (<abbr title="Fiber Channel">FC</abbr> SFP/SFP+)</td><td>8G / 16G / 32G FC</td><td>Storage Area Networks (<abbr title="Storage Area Network">SAN</abbr>). Carries Fiber Channel protocol — not Ethernet. Requires FC switch infrastructure.</td></tr>
+        <tr><td><strong>FC Transceiver</strong> (<abbr title="Fibre Channel">FC</abbr> SFP/SFP+)</td><td>8G / 16G / 32G FC</td><td>Storage Area Networks (<abbr title="Storage Area Network">SAN</abbr>). Carries Fiber Channel protocol — not Ethernet. Requires FC switch infrastructure.</td></tr>
         <tr><td><strong><abbr title="Direct Attach Copper">DAC</abbr> Cable</strong> (<abbr title="Direct Attach Copper">DAC</abbr>)</td><td>10G / 25G / 40G / 100G</td><td>Twinaxial copper cable with SFP+/QSFP plugs pre-attached at both ends. ≤7m runs. No separate transceiver module — significantly cheaper than fiber for short data center links.</td></tr>
       </tbody>
     </table>
   </div>
+
+  <p class="note-nonexhaustive"><span class="note-nonexhaustive-tag">Not in official objectives</span> Objective 1.5 lists <em>SFP</em> and <em>QSFP</em> as form factors. <strong>SFP+</strong>, <strong>QSFP28</strong>, and <strong>GBIC</strong> are not enumerated. CompTIA states its lists are non-exhaustive, and they are kept because they are the speed variants and the predecessor of the two listed form factors, and the speed differences are what transceiver-mismatch questions turn on.</p>
 
   <h3>Cable Jacket Ratings</h3>
   <div class="table-wrap">
