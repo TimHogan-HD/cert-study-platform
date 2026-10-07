@@ -19,7 +19,7 @@ Open `http://localhost:8080`. Changes to HTML/CSS/JS are reflected on next page 
 npx vercel dev
 ```
 
-**`tools/shot.js`** is the one dev utility — a render check that serves the repo and screenshots a route in dark, light, and mobile (see Verification). It is not a build step: the site remains plain static files with no runtime dependencies, and nothing under `tools/` is served or shipped. It needs Playwright available to node (`npm i -g playwright`) and is skippable if you can just open the page yourself.
+**`tools/`** holds two dev utilities. `shot.js` screenshots one route in dark, light, and mobile; `snap.js` screenshots every route and compares two snapshot sets pixel by pixel (see Verification). Neither is a build step: the site remains plain static files with no runtime dependencies, and nothing under `tools/` is served or shipped. Both need Playwright available to node (`npm i -g playwright`).
 
 ## Architecture
 
@@ -60,11 +60,10 @@ Light mode is handled by `[data-theme="light"]` overrides on the same token name
 
 **`initFragmentComponents(path)` in `js/nav.js` is the single entry point.** It runs after every fragment swap and calls all of the following unconditionally. Adding a new interactive component means adding its `init*` call there — nothing self-registers.
 
-Only four components live in their own modules; **the other nine are defined inside `nav.js` itself**, which is easy to miss when looking for a component's implementation.
+Only three components live in their own modules; **the other nine are defined inside `nav.js` itself**, which is easy to miss when looking for a component's implementation.
 
 | Init function | Defined in | Triggered by |
 |---|---|---|
-| `initSubnetting()` | `js/subnetting.js` | `#subnet-form` |
 | `initFlashcards(path)` | `js/flashcards.js` | `.flashcard-deck` / `.flashcard` |
 | `initMatching()` | `js/flashcards.js` | `.matching-game` |
 | `initAIExplain()` | `js/ai-explain.js` | `.ai-explain-btn` |
@@ -153,6 +152,14 @@ There is no build, lint, or test step, so nothing catches a mistake automaticall
   ```
 
   Then **look at the PNGs** it writes to `tools/shots/` (gitignored) — running it is not the check, reading it is. With a selector it also prints the element's computed text and background colour, so the `--text` rule below is verifiable at a glance; it exits non-zero if the selector is missing. It needs Playwright available to node (`npm i -g playwright`). In the Claude Code web environment, Chromium is preinstalled at `/opt/pw-browsers` — don't run `playwright install` there.
+- **Prove a refactor or CSS cleanup changed nothing.** Take a baseline from `origin/main` in a worktree and compare it with the working tree — `compare` exits non-zero on any pixel difference and writes red-highlighted diff images:
+
+  ```bash
+  git worktree add ../csp-main origin/main
+  node tools/snap.js take /tmp/snap-main --root ../csp-main
+  node tools/snap.js take /tmp/snap-head
+  node tools/snap.js compare /tmp/snap-main /tmp/snap-head
+  ```
 - **Check both themes and mobile.** `shot.js` covers all three. Confirm readable text resolves to `--text` in both themes, not `--muted` or `--hint`.
 - **Re-test interactive components after editing their file.** The DNS matching game (`obj-3-4`), the attack-mitigation matching game (`obj-4-2`), and every flashcard deck are wired up after each fragment swap. A broken game is easy to miss in a diff.
 - **Balance-check the fragment.** `<div>`/`</div>` and `<p>`/`</p>` counts must match — an unbalanced fragment corrupts the whole page once injected.

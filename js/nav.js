@@ -1,6 +1,5 @@
 /* nav.js — Hash router, sidebar nav, home screen, domain sub-nav, fragment init */
 import { initFlashcards, initMatching } from './flashcards.js';
-import { initSubnetting } from './subnetting.js';
 import { initAIExplain } from './ai-explain.js';
 
 const CONTENT_ROOT = './content';
@@ -345,7 +344,6 @@ function initFragmentComponents(path) {
     });
   });
 
-  initSubnetting();
   initFlashcards(path);
   initMatching();
   initAIExplain();
